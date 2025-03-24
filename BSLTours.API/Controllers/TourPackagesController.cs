@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using BSLTours.API.Models;
 using BSLTours.API.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSLTours.API.Controllers
 {
@@ -9,39 +11,49 @@ namespace BSLTours.API.Controllers
     public class TourPackagesController : ControllerBase
     {
         private readonly IDataService _dataService;
-        
+
         public TourPackagesController(IDataService dataService)
         {
             _dataService = dataService;
         }
-        
+
         [HttpGet]
-        public ActionResult<IEnumerable<TourPackage>> GetAll()
+        public async Task<ActionResult<IEnumerable<TourPackage>>> GetAllTourPackages()
         {
-            return Ok(_dataService.GetTourPackages());
+            var tourPackages = await _dataService.GetTourPackagesAsync();
+            return Ok(tourPackages);
         }
-        
+
         [HttpGet("featured")]
-        public ActionResult<IEnumerable<TourPackage>> GetFeatured()
+        public async Task<ActionResult<IEnumerable<TourPackage>>> GetFeaturedTourPackages()
         {
-            return Ok(_dataService.GetFeaturedTourPackages());
+            var featuredPackages = await _dataService.GetFeaturedTourPackagesAsync();
+            return Ok(featuredPackages);
         }
-        
+
         [HttpGet("{id}")]
-        public ActionResult<TourPackage> GetById(int id)
+        public async Task<ActionResult<TourPackage>> GetTourPackageById(int id)
         {
-            var tourPackage = _dataService.GetTourPackageById(id);
+            var tourPackage = await _dataService.GetTourPackageByIdAsync(id);
+            
             if (tourPackage == null)
+            {
                 return NotFound();
-                
+            }
+            
             return Ok(tourPackage);
         }
-        
+
         [HttpPost]
-        public ActionResult<TourPackage> Create(TourPackage tourPackage)
+        public async Task<ActionResult<TourPackage>> CreateTourPackage(CreateTourPackageDto tourPackageDto)
         {
-            var created = _dataService.CreateTourPackage(tourPackage);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var tourPackage = await _dataService.CreateTourPackageAsync(tourPackageDto);
+            return CreatedAtAction(nameof(GetTourPackageById), new { id = tourPackage.Id }, tourPackage);
         }
     }
 }

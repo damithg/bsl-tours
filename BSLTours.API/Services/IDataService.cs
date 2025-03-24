@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using BSLTours.API.Models;
 
 namespace BSLTours.API.Services
@@ -5,26 +7,26 @@ namespace BSLTours.API.Services
     public interface IDataService
     {
         // Tour Packages
-        IEnumerable<TourPackage> GetTourPackages();
-        IEnumerable<TourPackage> GetFeaturedTourPackages();
-        TourPackage? GetTourPackageById(int id);
-        TourPackage CreateTourPackage(TourPackage tourPackage);
-        
+        Task<IEnumerable<TourPackage>> GetTourPackagesAsync();
+        Task<IEnumerable<TourPackage>> GetFeaturedTourPackagesAsync();
+        Task<TourPackage> GetTourPackageByIdAsync(int id);
+        Task<TourPackage> CreateTourPackageAsync(CreateTourPackageDto tourPackage);
+
         // Destinations
-        IEnumerable<Destination> GetDestinations();
-        Destination? GetDestinationById(int id);
-        Destination CreateDestination(Destination destination);
-        
+        Task<IEnumerable<Destination>> GetDestinationsAsync();
+        Task<Destination> GetDestinationByIdAsync(int id);
+        Task<Destination> CreateDestinationAsync(CreateDestinationDto destination);
+
         // Testimonials
-        IEnumerable<Testimonial> GetTestimonials();
-        Testimonial CreateTestimonial(Testimonial testimonial);
-        
+        Task<IEnumerable<Testimonial>> GetTestimonialsAsync();
+        Task<Testimonial> CreateTestimonialAsync(CreateTestimonialDto testimonial);
+
         // Inquiries
-        Inquiry CreateInquiry(Inquiry inquiry);
-        IEnumerable<Inquiry> GetInquiries();
-        
-        // Newsletter Subscribers
-        Subscriber CreateSubscriber(Subscriber subscriber);
-        Subscriber? GetSubscriberByEmail(string email);
+        Task<IEnumerable<Inquiry>> GetInquiriesAsync();
+        Task<Inquiry> CreateInquiryAsync(CreateInquiryDto inquiry);
+
+        // Subscribers
+        Task<Subscriber> GetSubscriberByEmailAsync(string email);
+        Task<Subscriber> AddSubscriberAsync(CreateSubscriberDto subscriber);
     }
 }
