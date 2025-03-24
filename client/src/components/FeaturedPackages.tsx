@@ -2,11 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { TourPackage } from "@shared/schema";
 import { useState, useRef } from "react";
-import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
+import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-react";
+import { queryClient } from "@/lib/queryClient";
 
 const FeaturedPackages = () => {
-  const { data: packages, isLoading, error } = useQuery<TourPackage[]>({
-    queryKey: ['/api/tour-packages/featured'],
+  const queryKey = ['/api/tour-packages/featured'];
+  const { data: packages, isLoading, error, refetch } = useQuery<TourPackage[]>({
+    queryKey,
   });
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -111,7 +113,20 @@ const FeaturedPackages = () => {
     <section id="packages" className="py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Tour Packages</h2>
+          <div className="flex items-center justify-center">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Tour Packages</h2>
+            <button 
+              onClick={() => {
+                // This will force a fresh fetch from the server
+                queryClient.invalidateQueries({ queryKey });
+              }}
+              className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
+              aria-label="Refresh packages"
+              title="Refresh packages"
+            >
+              <LucideRefreshCw size={20} />
+            </button>
+          </div>
           <p className="text-lg text-[#333333]/80">Each journey is tailor-made to reflect your preferences, with private guides, luxury accommodations, and unforgettable experiences.</p>
         </div>
         
