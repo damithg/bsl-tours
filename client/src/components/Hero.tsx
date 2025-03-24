@@ -5,8 +5,8 @@ const Hero = () => {
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1586861642026-fc21a5ae85b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-          alt="Luxury Sri Lankan beach" 
+          src="https://bestsrilankatours.com/wp-content/uploads/2020/03/sigiriya-header.jpg" 
+          alt="Sigiriya Rock Fortress" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -14,7 +14,7 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center hero-animation">
         <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-          Experience Luxury in the<br/>Pearl of the Indian Ocean
+          Best Sri Lanka Tours
         </h1>
         <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-10 font-light">
           Tailor-made private journeys through Sri Lanka's most breathtaking landscapes and cultural treasures
