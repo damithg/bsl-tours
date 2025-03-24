@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --primary: #0f766e;
+    --primary-foreground: #ffffff;
+  }
+
   * {
     @apply border-border;
   }

@@ -11,6 +11,7 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 function Router() {
   return (
@@ -34,6 +35,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router />
+      <ThemeSwitcher />
       <Toaster />
     </QueryClientProvider>
   );
