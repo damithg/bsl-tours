@@ -1,11 +1,11 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
 // API base URL - can be updated to switch between local and production
-// Local development URL (uncomment this for local development)
-export const API_BASE_URL = ""; // Empty string means use the same host/origin as the frontend
+// For local Express API (uncomment when using local Express server)
+// export const API_BASE_URL = "";  // Empty string means use the same host/origin as the frontend
 
-// Production .NET API base URL for the deployed backend (uncomment this for production)
-// export const API_BASE_URL = "https://api.travelnip.com";
+// Production .NET API base URL (uncomment when connecting to production API)
+export const API_BASE_URL = "https://api.travelnip.com";
 
 // Helper function to handle response errors
 async function throwIfResNotOk(res: Response) {
