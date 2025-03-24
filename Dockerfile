@@ -1,27 +1,46 @@
-FROM node:18-alpine
+FROM node:20-alpine AS builder
 
+# Set working directory
 WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --production
+RUN npm ci
 
-# Copy built application
-COPY dist/ ./dist/
-COPY public/ ./public/
+# Copy source code
+COPY . .
 
-# Create server/public directory structure and copy dist content there
-RUN mkdir -p server/public && \
-    cp -r dist/* server/public/
+# Build the application
+RUN npm run build
+
+# Production stage
+FROM node:20-alpine AS production
+
+# Set working directory
+WORKDIR /app
 
 # Set environment variables
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=5000
 
-# Expose the port
-EXPOSE 3000
+# Copy built artifacts from the builder stage
+COPY --from=builder /app/dist/index.js ./
+COPY --from=builder /app/dist/public ./public
+
+# Copy package.json for production dependencies
+COPY package*.json ./
+
+# Install only production dependencies
+RUN npm ci --only=production
+
+# Add user to run the app (not as root)
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+# Expose port
+EXPOSE 5000
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["node", "index.js"]

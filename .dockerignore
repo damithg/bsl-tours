@@ -1,9 +1,42 @@
-node_modules
-npm-debug.log
-*.log
+# Git
 .git
-.github
 .gitignore
-.env
-.env.local
+
+# Build and runtime files
+node_modules
+dist
+*.tar.gz
+*.zip
+
+# Development environment files
+.vscode
+.idea
+*.sublime-*
 .DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.*
+
+# Replit specific
+.replit
+.nix
+
+# Deployment files
+deployment.tar.gz
+backend-deployment.tar.gz
+backend-deploy
+
+# Documentation
+*.md
+!README.md
+
+# Scripts
+prepare-deployment.sh
+prepare-deployment.bat
