@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using BSLTours.API.Models;
 using BSLTours.API.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSLTours.API.Controllers
 {
@@ -9,23 +11,29 @@ namespace BSLTours.API.Controllers
     public class TestimonialsController : ControllerBase
     {
         private readonly IDataService _dataService;
-        
+
         public TestimonialsController(IDataService dataService)
         {
             _dataService = dataService;
         }
-        
+
         [HttpGet]
-        public ActionResult<IEnumerable<Testimonial>> GetAll()
+        public async Task<ActionResult<IEnumerable<Testimonial>>> GetAllTestimonials()
         {
-            return Ok(_dataService.GetTestimonials());
+            var testimonials = await _dataService.GetTestimonialsAsync();
+            return Ok(testimonials);
         }
-        
+
         [HttpPost]
-        public ActionResult<Testimonial> Create(Testimonial testimonial)
+        public async Task<ActionResult<Testimonial>> CreateTestimonial(CreateTestimonialDto testimonialDto)
         {
-            var created = _dataService.CreateTestimonial(testimonial);
-            return CreatedAtAction(nameof(GetAll), null, created);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var testimonial = await _dataService.CreateTestimonialAsync(testimonialDto);
+            return CreatedAtAction(nameof(GetAllTestimonials), null, testimonial);
         }
     }
 }

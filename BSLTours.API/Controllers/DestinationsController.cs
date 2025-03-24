@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using BSLTours.API.Models;
 using BSLTours.API.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSLTours.API.Controllers
 {
@@ -9,33 +11,42 @@ namespace BSLTours.API.Controllers
     public class DestinationsController : ControllerBase
     {
         private readonly IDataService _dataService;
-        
+
         public DestinationsController(IDataService dataService)
         {
             _dataService = dataService;
         }
-        
+
         [HttpGet]
-        public ActionResult<IEnumerable<Destination>> GetAll()
+        public async Task<ActionResult<IEnumerable<Destination>>> GetAllDestinations()
         {
-            return Ok(_dataService.GetDestinations());
+            var destinations = await _dataService.GetDestinationsAsync();
+            return Ok(destinations);
         }
-        
+
         [HttpGet("{id}")]
-        public ActionResult<Destination> GetById(int id)
+        public async Task<ActionResult<Destination>> GetDestinationById(int id)
         {
-            var destination = _dataService.GetDestinationById(id);
+            var destination = await _dataService.GetDestinationByIdAsync(id);
+            
             if (destination == null)
+            {
                 return NotFound();
-                
+            }
+            
             return Ok(destination);
         }
-        
+
         [HttpPost]
-        public ActionResult<Destination> Create(Destination destination)
+        public async Task<ActionResult<Destination>> CreateDestination(CreateDestinationDto destinationDto)
         {
-            var created = _dataService.CreateDestination(destination);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var destination = await _dataService.CreateDestinationAsync(destinationDto);
+            return CreatedAtAction(nameof(GetDestinationById), new { id = destination.Id }, destination);
         }
     }
 }

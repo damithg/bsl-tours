@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using BSLTours.API.Models;
 using BSLTours.API.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BSLTours.API.Controllers
 {
@@ -9,23 +11,29 @@ namespace BSLTours.API.Controllers
     public class InquiriesController : ControllerBase
     {
         private readonly IDataService _dataService;
-        
+
         public InquiriesController(IDataService dataService)
         {
             _dataService = dataService;
         }
-        
+
         [HttpGet]
-        public ActionResult<IEnumerable<Inquiry>> GetAll()
+        public async Task<ActionResult<IEnumerable<Inquiry>>> GetAllInquiries()
         {
-            return Ok(_dataService.GetInquiries());
+            var inquiries = await _dataService.GetInquiriesAsync();
+            return Ok(inquiries);
         }
-        
+
         [HttpPost]
-        public ActionResult<Inquiry> Create(Inquiry inquiry)
+        public async Task<ActionResult<Inquiry>> CreateInquiry(CreateInquiryDto inquiryDto)
         {
-            var created = _dataService.CreateInquiry(inquiry);
-            return CreatedAtAction(nameof(GetAll), null, created);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var inquiry = await _dataService.CreateInquiryAsync(inquiryDto);
+            return CreatedAtAction(nameof(GetAllInquiries), null, inquiry);
         }
     }
 }
