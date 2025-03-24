@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
 import { useState, useRef } from "react";
-import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
+import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-react";
+import { queryClient } from "@/lib/queryClient";
 
 const DestinationShowcase = () => {
-  const { data: destinations, isLoading, error } = useQuery<Destination[]>({
-    queryKey: ['/api/destinations'],
+  const queryKey = ['/api/destinations'];
+  const { data: destinations, isLoading, error, refetch } = useQuery<Destination[]>({
+    queryKey,
   });
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -77,7 +79,20 @@ const DestinationShowcase = () => {
     <section id="destinations" className="py-20 bg-gradient-to-b from-[#0F4C81]/5 to-[#0F4C81]/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Stunning Destinations</h2>
+          <div className="flex items-center justify-center">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Stunning Destinations</h2>
+            <button 
+              onClick={() => {
+                // This will force a fresh fetch from the server
+                queryClient.invalidateQueries({ queryKey });
+              }}
+              className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
+              aria-label="Refresh destinations"
+              title="Refresh destinations"
+            >
+              <LucideRefreshCw size={20} />
+            </button>
+          </div>
           <p className="text-lg text-[#333333]/80">Discover Sri Lanka's most breathtaking locations, where luxury and natural beauty combine for unforgettable experiences.</p>
         </div>
         

@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { Testimonial } from "@shared/schema";
 import { useState, useRef, useEffect } from "react";
+import { LucideRefreshCw } from "lucide-react";
+import { queryClient } from "@/lib/queryClient";
 
 const TestimonialSection = () => {
+  const queryKey = ['/api/testimonials'];
   const { data: testimonials, isLoading, error } = useQuery<Testimonial[]>({
-    queryKey: ['/api/testimonials'],
+    queryKey,
   });
   
   const [activeIndex, setActiveIndex] = useState(0);
@@ -64,8 +67,21 @@ const TestimonialSection = () => {
       <section id="testimonials" className="py-20 bg-[#0F4C81]/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">What Our Guests Say</h2>
-            <p className="text-red-500">Failed to load testimonials. Please try again later.</p>
+            <div className="flex items-center justify-center">
+              <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">What Our Guests Say</h2>
+              <button 
+                onClick={() => {
+                  // This will force a fresh fetch from the server
+                  queryClient.invalidateQueries({ queryKey });
+                }}
+                className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
+                aria-label="Retry loading testimonials"
+                title="Retry loading testimonials"
+              >
+                <LucideRefreshCw size={20} />
+              </button>
+            </div>
+            <p className="text-red-500">Failed to load testimonials. Please try again by clicking the refresh button.</p>
           </div>
         </div>
       </section>
@@ -76,7 +92,20 @@ const TestimonialSection = () => {
     <section id="testimonials" className="py-20 bg-[#0F4C81]/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">What Our Guests Say</h2>
+          <div className="flex items-center justify-center">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">What Our Guests Say</h2>
+            <button 
+              onClick={() => {
+                // This will force a fresh fetch from the server
+                queryClient.invalidateQueries({ queryKey });
+              }}
+              className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
+              aria-label="Refresh testimonials"
+              title="Refresh testimonials"
+            >
+              <LucideRefreshCw size={20} />
+            </button>
+          </div>
           <p className="text-lg text-[#333333]/80">Discover why our guests keep coming back and recommending us to their friends and family.</p>
         </div>
         
