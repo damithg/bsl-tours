@@ -66,9 +66,9 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Get port from environment variable or use 5003 as default
-  const port = process.env.PORT || 5003;
-  server.listen(port, () => {
+  // Get port from environment variable or use 5000 as default
+  const port = process.env.PORT || 5000;
+  server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
   });
 })();
