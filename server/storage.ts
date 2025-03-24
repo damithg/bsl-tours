@@ -81,7 +81,7 @@ export class MemStorage implements IStorage {
         description: "Explore ancient cities, sacred temples, and the cultural heart of Sri Lanka with luxury accommodations.",
         duration: 10,
         price: 3899,
-        image: "https://bestsrilankatours.com/wp-content/uploads/2020/03/cultural-triangle-sri-lanka.jpg",
+        image: "https://images.unsplash.com/photo-1594818379496-da1e345318f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 50,
         reviewCount: 24,
         featured: true
@@ -91,7 +91,7 @@ export class MemStorage implements IStorage {
         description: "Indulge in beachfront luxury with private villa stays, spa treatments, and pristine beaches.",
         duration: 7,
         price: 2499,
-        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/south-coast-best-beaches.jpg",
+        image: "https://images.unsplash.com/photo-1571435584758-13df417a2154?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 48,
         reviewCount: 19,
         featured: true
@@ -101,7 +101,7 @@ export class MemStorage implements IStorage {
         description: "Journey through misty mountains, tea plantations, and colonial-era luxury bungalows.",
         duration: 8,
         price: 2799,
-        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/tea-country-tours.jpg",
+        image: "https://images.unsplash.com/photo-1583230690438-a157757de87a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 50,
         reviewCount: 28,
         featured: true
@@ -111,7 +111,7 @@ export class MemStorage implements IStorage {
         description: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges.",
         duration: 6,
         price: 2199,
-        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/wildlife-tour-sri-lanka.jpg",
+        image: "https://images.unsplash.com/photo-1616352116213-503cb49c8c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 47,
         reviewCount: 15,
         featured: false

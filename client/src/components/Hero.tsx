@@ -5,7 +5,7 @@ const Hero = () => {
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://bestsrilankatours.com/wp-content/uploads/2020/03/sigiriya-header.jpg" 
+          src="https://images.unsplash.com/photo-1588511706388-d433dabf3b37?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" 
           alt="Sigiriya Rock Fortress" 
           className="w-full h-full object-cover"
         />
