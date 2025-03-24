@@ -6,7 +6,7 @@ DOTNET_PID=$!
 echo "API PID: $DOTNET_PID"
 
 echo "Waiting for API to start up..."
-sleep 10
+sleep 5
 
 echo "Testing API endpoints..."
 echo "GET /api/tour-packages"
