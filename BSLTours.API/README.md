@@ -1,105 +1,77 @@
-# BSLTours.API - .NET Core Backend
+# BSLTours.API
 
-This is the .NET Core API backend for the Best Sri Lanka Tours website.
+This is the .NET Core API backend for the Best Sri Lanka Tours website. It provides REST API endpoints for tour packages, destinations, testimonials, inquiries, and newsletter subscriptions.
 
-## Prerequisites
+## Technologies Used
 
-- .NET 6.0 SDK or later
-- Visual Studio 2022 or Visual Studio Code
+- ASP.NET Core 6.0
+- C# 10
+- Swagger for API documentation
+- In-memory data storage (can be replaced with a database in production)
 
-## Getting Started
+## Project Structure
 
-### Building and Running the API
+```
+BSLTours.API/
+├── Controllers/           # API Controllers
+├── Models/                # Domain models and DTOs
+├── Services/              # Business logic and data access
+├── Properties/            # Launch settings
+├── appsettings.json       # Application settings
+├── Program.cs             # Application entry point
+└── BSLTours.API.csproj    # Project file
+```
 
-1. **Clone the repository**
+## Features
 
-2. **Open the solution in Visual Studio**
-   - Double-click on `BSLTours.sln`
-   - Or open it from Visual Studio using "Open a project or solution"
-
-3. **Build the solution**
-   - Press F6 or select Build > Build Solution
-
-4. **Run the API**
-   - Press F5 or select Debug > Start Debugging
-   - The API will start and a browser window will open to the Swagger UI
-
-### Using the Command Line
-
-1. **Navigate to the project directory**
-   ```bash
-   cd BSLTours.API
-   ```
-
-2. **Restore packages**
-   ```bash
-   dotnet restore
-   ```
-
-3. **Build the project**
-   ```bash
-   dotnet build
-   ```
-
-4. **Run the project**
-   ```bash
-   dotnet run
-   ```
-
-5. **Access the API**
-   - API: https://localhost:7048/api
-   - Swagger UI: https://localhost:7048/swagger
+- **Tour Packages**: Browse all tour packages, view featured packages, and get package details
+- **Destinations**: Browse all destinations and destination details
+- **Testimonials**: View customer testimonials
+- **Inquiries**: Submit and manage customer inquiries
+- **Newsletter**: Subscribe to the newsletter
 
 ## API Endpoints
 
-- **GET /api/tour-packages** - Get all tour packages
-- **GET /api/tour-packages/featured** - Get featured tour packages
-- **GET /api/tour-packages/{id}** - Get a specific tour package by ID
-- **POST /api/tour-packages** - Create a new tour package
+### Tour Packages
+- `GET /api/tour-packages` - Get all tour packages
+- `GET /api/tour-packages/featured` - Get featured tour packages
+- `GET /api/tour-packages/{id}` - Get a specific tour package by ID
+- `POST /api/tour-packages` - Create a new tour package
 
-- **GET /api/destinations** - Get all destinations
-- **GET /api/destinations/{id}** - Get a specific destination by ID
-- **POST /api/destinations** - Create a new destination
+### Destinations
+- `GET /api/destinations` - Get all destinations
+- `GET /api/destinations/{id}` - Get a specific destination by ID
+- `POST /api/destinations` - Create a new destination
 
-- **GET /api/testimonials** - Get all testimonials
-- **POST /api/testimonials** - Create a new testimonial
+### Testimonials
+- `GET /api/testimonials` - Get all testimonials
+- `POST /api/testimonials` - Create a new testimonial
 
-- **GET /api/inquiries** - Get all inquiries
-- **POST /api/inquiries** - Create a new inquiry
+### Inquiries
+- `GET /api/inquiries` - Get all inquiries (admin only)
+- `POST /api/inquiries` - Submit a new inquiry
 
-- **POST /api/subscribers** - Add a new subscriber
+### Newsletter
+- `POST /api/subscribers` - Subscribe to the newsletter
+
+## Getting Started
+
+1. Make sure you have .NET 6.0 SDK installed
+2. Clone this repository
+3. Navigate to the BSLTours.API directory
+4. Run `dotnet restore` to restore dependencies
+5. Run `dotnet build` to build the project
+6. Run `dotnet run` to start the API
+
+The API will be available at:
+- HTTP: http://localhost:5000
+- HTTPS: https://localhost:7048
+
+## Swagger Documentation
+
+When running in development mode, Swagger documentation is available at:
+- https://localhost:7048/swagger
 
 ## Deployment
 
-### Publishing the API
-
-```bash
-dotnet publish -c Release
-```
-
-The published files will be in the `bin/Release/net6.0/publish` directory.
-
-### Deploying to IIS
-
-1. Install the .NET 6.0 Hosting Bundle on the server
-2. Create a new website in IIS
-3. Set the physical path to the publish directory
-4. Set up the application pool to use No Managed Code
-5. Configure necessary permissions
-
-### Deploying to Azure App Service
-
-1. Right-click on the project in Visual Studio
-2. Select "Publish..."
-3. Follow the wizard to configure your Azure App Service deployment
-
-## Frontend Integration
-
-To connect the React frontend to this API:
-
-1. Update the `API_BASE_URL` in the frontend's `queryClient.ts`:
-   ```typescript
-   export const API_BASE_URL = "https://your-api-url.com";
-   ```
-
-2. Make sure CORS is properly configured if the frontend and API are hosted on different domains.
+See the [Deployment Guide](./README-DEPLOYMENT.md) for instructions on deploying to production.

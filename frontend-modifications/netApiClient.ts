@@ -12,10 +12,10 @@ async function throwIfResNotOk(res: Response) {
 }
 
 // Generic API request function
-export async function apiRequest<T>(
+export async function apiRequest<TResponse>(
   endpoint: string,
   options: RequestInit = {},
-): Promise<T> {
+): Promise<TResponse> {
   const url = `${API_BASE_URL}${endpoint}`;
   
   const response = await fetch(url, {
@@ -30,7 +30,7 @@ export async function apiRequest<T>(
 
   // For some endpoints, we might not expect a JSON response
   if (response.status === 204) {
-    return null as unknown as T;
+    return null as unknown as TResponse;
   }
 
   return await response.json();
@@ -40,25 +40,24 @@ export async function apiRequest<T>(
 type UnauthorizedBehavior = "returnNull" | "throw";
 
 // Query function factory that handles 401s differently based on `on401`
-export const getQueryFn: <T>(options: {
-  on401: UnauthorizedBehavior;
-}) => (endpoint: string) => () => Promise<T> =
-  ({ on401 }) =>
-  (endpoint) =>
-  async () => {
-    try {
-      return await apiRequest<T>(endpoint);
-    } catch (e) {
-      if (
-        e instanceof Error &&
-        e.message.includes("401") &&
-        on401 === "returnNull"
-      ) {
-        return null as unknown as T;
+export function getQueryFn<T>(options: { on401: UnauthorizedBehavior }) {
+  return function(endpoint: string) {
+    return async function(): Promise<T> {
+      try {
+        return await apiRequest<T>(endpoint);
+      } catch (e) {
+        if (
+          e instanceof Error &&
+          e.message.includes("401") &&
+          options.on401 === "returnNull"
+        ) {
+          return null as unknown as T;
+        }
+        throw e;
       }
-      throw e;
-    }
+    };
   };
+}
 
 // Create a query client instance with default options
 export const queryClient = new QueryClient({
