@@ -3,5 +3,8 @@
 # Change to the API directory
 cd BSLTours.API
 
-# Run the .NET Core API (port is set in Program.cs)
+# Set environment variable to force port 5001
+export ASPNETCORE_URLS="http://0.0.0.0:5001"
+
+# Run the .NET Core API
 dotnet run

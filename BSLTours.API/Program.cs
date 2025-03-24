@@ -71,5 +71,5 @@ app.UseAuthorization();
 // Map controllers
 app.MapControllers();
 
-// Run the app on port 5001 to avoid conflict with Express server
-app.Run("http://0.0.0.0:5001");
+// Run the app
+app.Run();
