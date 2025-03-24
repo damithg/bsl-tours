@@ -27,8 +27,8 @@ namespace BSLTours.API.Controllers
         [HttpGet("featured")]
         public async Task<ActionResult<IEnumerable<TourPackage>>> GetFeaturedTourPackages()
         {
-            var featuredPackages = await _dataService.GetFeaturedTourPackagesAsync();
-            return Ok(featuredPackages);
+            var tourPackages = await _dataService.GetFeaturedTourPackagesAsync();
+            return Ok(tourPackages);
         }
 
         [HttpGet("{id}")]

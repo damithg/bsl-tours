@@ -10,23 +10,23 @@ namespace BSLTours.API.Services
         Task<IEnumerable<TourPackage>> GetTourPackagesAsync();
         Task<IEnumerable<TourPackage>> GetFeaturedTourPackagesAsync();
         Task<TourPackage> GetTourPackageByIdAsync(int id);
-        Task<TourPackage> CreateTourPackageAsync(CreateTourPackageDto tourPackage);
-
+        Task<TourPackage> CreateTourPackageAsync(CreateTourPackageDto tourPackageDto);
+        
         // Destinations
         Task<IEnumerable<Destination>> GetDestinationsAsync();
         Task<Destination> GetDestinationByIdAsync(int id);
-        Task<Destination> CreateDestinationAsync(CreateDestinationDto destination);
-
+        Task<Destination> CreateDestinationAsync(CreateDestinationDto destinationDto);
+        
         // Testimonials
         Task<IEnumerable<Testimonial>> GetTestimonialsAsync();
-        Task<Testimonial> CreateTestimonialAsync(CreateTestimonialDto testimonial);
-
+        Task<Testimonial> CreateTestimonialAsync(CreateTestimonialDto testimonialDto);
+        
         // Inquiries
         Task<IEnumerable<Inquiry>> GetInquiriesAsync();
-        Task<Inquiry> CreateInquiryAsync(CreateInquiryDto inquiry);
-
+        Task<Inquiry> CreateInquiryAsync(CreateInquiryDto inquiryDto);
+        
         // Subscribers
         Task<Subscriber> GetSubscriberByEmailAsync(string email);
-        Task<Subscriber> AddSubscriberAsync(CreateSubscriberDto subscriber);
+        Task<Subscriber> AddSubscriberAsync(CreateSubscriberDto subscriberDto);
     }
 }
