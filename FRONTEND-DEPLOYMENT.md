@@ -22,22 +22,23 @@ chmod +x ./prepare-frontend.sh
 
 This script will:
 - Build the React frontend for production
-- Create a zip file (`frontend-deployment.zip`) containing all necessary files
+- Copy the web.config file for IIS configuration
+- Create a tarball archive (`frontend-deployment.tar.gz`) containing all necessary files
 
 ### 2. Upload to IONOS Hosting
 
 #### Option 1: Using FTP Client (FileZilla, WinSCP, etc.)
 
 1. Connect to your hosting using FTP credentials
-2. Extract the contents of `frontend-deployment.zip` locally
+2. Extract the contents of `frontend-deployment.tar.gz` locally
 3. Upload all files to the root directory of your website (or the subdirectory where you want to host the frontend)
 
 #### Option 2: Using IONOS File Manager
 
 1. Log in to your IONOS control panel
 2. Navigate to the file manager
-3. Upload `frontend-deployment.zip`
-4. Extract the zip file on the server to the desired directory
+3. Upload `frontend-deployment.tar.gz`
+4. Extract the tarball file on the server to the desired directory
 
 ### 3. Configure Web Server (if needed)
 
