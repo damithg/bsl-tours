@@ -81,7 +81,7 @@ export class MemStorage implements IStorage {
         description: "Explore ancient cities, sacred temples, and the cultural heart of Sri Lanka with luxury accommodations.",
         duration: 10,
         price: 3899,
-        image: "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/03/cultural-triangle-sri-lanka.jpg",
         rating: 50,
         reviewCount: 24,
         featured: true
@@ -91,7 +91,7 @@ export class MemStorage implements IStorage {
         description: "Indulge in beachfront luxury with private villa stays, spa treatments, and pristine beaches.",
         duration: 7,
         price: 2499,
-        image: "https://images.unsplash.com/photo-1542359649-31e03cd4d909?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/south-coast-best-beaches.jpg",
         rating: 48,
         reviewCount: 19,
         featured: true
@@ -101,7 +101,7 @@ export class MemStorage implements IStorage {
         description: "Journey through misty mountains, tea plantations, and colonial-era luxury bungalows.",
         duration: 8,
         price: 2799,
-        image: "https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/tea-country-tours.jpg",
         rating: 50,
         reviewCount: 28,
         featured: true
@@ -111,7 +111,7 @@ export class MemStorage implements IStorage {
         description: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges.",
         duration: 6,
         price: 2199,
-        image: "https://images.unsplash.com/photo-1544535830-2a087b7641c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/wildlife-tour-sri-lanka.jpg",
         rating: 47,
         reviewCount: 15,
         featured: false
@@ -125,32 +125,32 @@ export class MemStorage implements IStorage {
       {
         name: "Sigiriya Rock Fortress",
         description: "Ancient rock fortress with panoramic views and stunning frescoes",
-        image: "https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/03/sigiriya-header.jpg"
       },
       {
         name: "Galle Fort",
         description: "Colonial charm with boutique hotels, cafes and ocean views",
-        image: "https://images.unsplash.com/photo-1605029116723-6b65b76ad776?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/galle-fort-unesco-site.jpg"
       },
       {
         name: "Yala National Park",
         description: "Luxury safari experiences with the highest leopard density in the world",
-        image: "https://images.unsplash.com/photo-1590677197435-1407b3b6943a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/wildlife-tour-sri-lanka.jpg"
       },
       {
         name: "Ella",
         description: "Mountain vistas, tea plantations, and iconic Nine Arch Bridge",
-        image: "https://images.unsplash.com/photo-1602150167377-519b50995e16?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+        image: "https://bestsrilankatours.com/wp-content/uploads/2022/03/nine-arch-bridge-ella.jpg"
       },
       {
         name: "Bentota Beach",
         description: "Pristine golden sands with luxury beach resorts and water sports",
-        image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/south-coast-best-beaches.jpg"
       },
       {
         name: "Kandy",
         description: "Sacred Temple of the Tooth and serene lake surrounded by hills",
-        image: "https://images.unsplash.com/photo-1581689686498-3d126f7a425f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+        image: "https://bestsrilankatours.com/wp-content/uploads/2020/02/kandy-temple-of-tooth.jpg"
       }
     ];
     
@@ -166,13 +166,13 @@ export class MemStorage implements IStorage {
       },
       {
         name: "James & Emily Wilson",
-        content: "We've traveled extensively, but our journey through Sri Lanka with Ceylon Luxe was one of the most memorable. The personalized service and insider access to hidden gems made all the difference.",
+        content: "We've traveled extensively, but our journey through Sri Lanka with Best Sri Lanka Tours was one of the most memorable. The personalized service and insider access to hidden gems made all the difference.",
         packageName: "Complete Sri Lanka Experience",
         rating: 5
       },
       {
         name: "Michelle Thompson",
-        content: "The private beach villa arranged by Ceylon Luxe was absolutely breathtaking. Our personal chef prepared the most amazing Sri Lankan cuisine, and the sunset views were unmatched.",
+        content: "The private beach villa arranged by Best Sri Lanka Tours was absolutely breathtaking. Our personal chef prepared the most amazing Sri Lankan cuisine, and the sunset views were unmatched.",
         packageName: "Coastal Serenity Escape",
         rating: 5
       }

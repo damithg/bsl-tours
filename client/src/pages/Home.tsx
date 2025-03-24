@@ -36,7 +36,7 @@ const Home = () => {
                   </div>
                   <div>
                     <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-1">Email Us</h3>
-                    <p className="text-[#333333]/70">info@ceylonluxe.com</p>
+                    <p className="text-[#333333]/70">info@bestsrilankatours.com</p>
                   </div>
                 </div>
                 
