@@ -4,8 +4,8 @@ This is the .NET Core API backend for the Best Sri Lanka Tours website. It provi
 
 ## Technologies Used
 
-- ASP.NET Core 6.0
-- C# 10
+- ASP.NET Core 8.0
+- C# 12
 - Swagger for API documentation
 - In-memory data storage (can be replaced with a database in production)
 
@@ -56,7 +56,7 @@ BSLTours.API/
 
 ## Getting Started
 
-1. Make sure you have .NET 6.0 SDK installed
+1. Make sure you have .NET 8.0 SDK installed
 2. Clone this repository
 3. Navigate to the BSLTours.API directory
 4. Run `dotnet restore` to restore dependencies

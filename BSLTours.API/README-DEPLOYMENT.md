@@ -5,7 +5,7 @@ This guide explains how to deploy the BSLTours .NET Core API on Windows hosting 
 ## Prerequisites
 
 - Windows hosting with IIS
-- .NET 6.0 hosting bundle installed on the server
+- .NET 8.0 hosting bundle installed on the server
 - Access to IONOS hosting control panel
 - Visual Studio 2022 (for development and publishing)
 
@@ -74,7 +74,7 @@ If you encounter issues with the API after deployment:
 
 1. Check the IIS logs in the `logs` directory on your server
 2. Ensure the Application Pool identity has sufficient permissions to access the files
-3. Verify that the .NET 6.0 Hosting Bundle is installed properly
+3. Verify that the .NET 8.0 Hosting Bundle is installed properly
 4. Make sure CORS is properly configured if the frontend and API are on different domains
 
 ### 7. SSL Configuration

@@ -27,7 +27,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Add API versioning - new in .NET 8
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -39,6 +39,17 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Add observability - new in .NET 8
+// Uncomment when adding OpenTelemetry NuGet packages
+// builder.Services.AddOpenTelemetry()
+//     .WithTracing(tracing => tracing
+//         .AddAspNetCoreInstrumentation()
+//         .AddHttpClientInstrumentation())
+//     .WithMetrics(metrics => metrics
+//         .AddAspNetCoreInstrumentation()
+//         .AddHttpClientInstrumentation());
+
+// Build the app
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,12 +59,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Configure the app to use HTTPS redirection
 app.UseHttpsRedirection();
 
+// Use CORS middleware
 app.UseCors();
 
+// Add authorization middleware
 app.UseAuthorization();
 
+// Map controllers
 app.MapControllers();
 
+// Run the app
 app.Run();
