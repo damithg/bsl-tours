@@ -41,19 +41,29 @@ const FeaturedPackages = () => {
   };
 
   const formatRating = (rating: number | null) => {
-    if (rating === null) return null;
+    if (rating === null || rating === undefined) return null;
     
-    const fullStars = Math.floor(rating / 10);
-    const hasHalfStar = rating % 10 >= 5;
+    // Ensure rating is a valid number
+    const validRating = Number.isFinite(rating) ? rating : 0;
+    
+    // Ensure we don't exceed 5 stars or go below 0
+    const clampedRating = Math.max(0, Math.min(50, validRating));
+    
+    const fullStars = Math.floor(clampedRating / 10);
+    const hasHalfStar = clampedRating % 10 >= 5;
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    // Create arrays safely
+    const fullStarsArray = fullStars > 0 ? Array(fullStars).fill(null) : [];
+    const emptyStarsArray = emptyStars > 0 ? Array(emptyStars).fill(null) : [];
     
     return (
       <div className="text-[#D4AF37] flex">
-        {[...Array(fullStars)].map((_, i) => (
+        {fullStarsArray.map((_, i) => (
           <i key={`full-${i}`} className="fas fa-star"></i>
         ))}
         {hasHalfStar && <i className="fas fa-star-half-alt"></i>}
-        {[...Array(emptyStars)].map((_, i) => (
+        {emptyStarsArray.map((_, i) => (
           <i key={`empty-${i}`} className="far fa-star"></i>
         ))}
       </div>
@@ -103,6 +113,29 @@ const FeaturedPackages = () => {
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Tour Packages</h2>
             <p className="text-red-500">Failed to load packages. Please try again later.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Handle empty packages array
+  if (!packages || packages.length === 0) {
+    return (
+      <section id="packages" className="py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Tour Packages</h2>
+            <p className="text-lg text-[#333333]/80 mb-4">Currently configuring our tour packages. Please check back soon!</p>
+            <button 
+              onClick={() => {
+                // Force a refresh
+                queryClient.invalidateQueries({ queryKey });
+              }}
+              className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition flex items-center mx-auto"
+            >
+              <LucideRefreshCw size={18} className="mr-2" /> Refresh Packages
+            </button>
           </div>
         </div>
       </section>
@@ -160,13 +193,17 @@ const FeaturedPackages = () => {
             className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory hide-scrollbar"
             onScroll={checkScrollable}
           >
-            {packages?.map((pkg) => (
+            {packages.map((pkg) => (
               <div 
                 key={pkg.id} 
                 className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl"
               >
                 <div className="relative h-64">
-                  <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover" />
+                  {pkg.image ? (
+                    <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No Image Available</div>
+                  )}
                   <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
                     {pkg.duration} Days
                   </div>
@@ -181,7 +218,7 @@ const FeaturedPackages = () => {
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-gray-500">From</span>
-                      <span className="text-[#0F4C81] text-xl font-semibold">${pkg.price.toLocaleString()}</span>
+                      <span className="text-[#0F4C81] text-xl font-semibold">${pkg.price?.toLocaleString() || 0}</span>
                       <span className="text-gray-500 text-sm">per person</span>
                     </div>
                     <Link href={`/packages/${pkg.id}`} className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition">View Details</Link>

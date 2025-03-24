@@ -1,7 +1,7 @@
 import { QueryClient } from '@tanstack/react-query';
 
-// Replace this value with your deployed .NET API base URL
-export const API_BASE_URL = "https://localhost:7048";
+// Production .NET API base URL
+export const API_BASE_URL = "https://api.travelnip.com";
 
 // Helper function to check if a response is okay
 async function throwIfResNotOk(res: Response) {

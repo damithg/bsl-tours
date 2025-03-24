@@ -75,6 +75,29 @@ const DestinationShowcase = () => {
     );
   }
 
+  // Handle empty destinations array
+  if (!destinations || destinations.length === 0) {
+    return (
+      <section id="destinations" className="py-20 bg-gradient-to-b from-[#0F4C81]/5 to-[#0F4C81]/10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Stunning Destinations</h2>
+            <p className="text-lg text-[#333333]/80 mb-4">Currently configuring our destinations. Please check back soon!</p>
+            <button 
+              onClick={() => {
+                // Force a refresh
+                queryClient.invalidateQueries({ queryKey });
+              }}
+              className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition flex items-center mx-auto"
+            >
+              <LucideRefreshCw size={18} className="mr-2" /> Refresh Destinations
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="destinations" className="py-20 bg-gradient-to-b from-[#0F4C81]/5 to-[#0F4C81]/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,20 +149,26 @@ const DestinationShowcase = () => {
             className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory hide-scrollbar"
             onScroll={checkScrollable}
           >
-            {destinations?.map((destination) => (
+            {destinations.map((destination) => (
               <div 
                 key={destination.id} 
                 className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start group relative overflow-hidden rounded-lg shadow-lg h-80"
               >
-                <img 
-                  src={destination.image} 
-                  alt={destination.name} 
-                  className="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
-                />
+                {destination.image ? (
+                  <img 
+                    src={destination.image} 
+                    alt={destination.name} 
+                    className="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 transition duration-700 group-hover:scale-110">
+                    No Image Available
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2">{destination.name}</h3>
-                  <p className="text-white/80 mb-4 max-w-xs">{destination.description}</p>
+                  <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2">{destination.name || 'Destination'}</h3>
+                  <p className="text-white/80 mb-4 max-w-xs">{destination.description || 'Description not available'}</p>
                   <a href="#" className="inline-flex items-center text-white hover:text-[#D4AF37] transition">
                     Explore <i className="fas fa-arrow-right ml-2"></i>
                   </a>
