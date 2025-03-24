@@ -71,5 +71,5 @@ app.UseAuthorization();
 // Map controllers
 app.MapControllers();
 
-// Run the app
-app.Run();
+// Run the app on port 5001
+app.Run("http://0.0.0.0:5001");
