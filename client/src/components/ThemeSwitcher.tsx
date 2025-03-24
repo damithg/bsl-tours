@@ -4,12 +4,12 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Check, Palette } from 'lucide-react';
 
 const themes = [
-  { name: 'Default', file: 'theme.json' },
-  { name: 'Burgundy', file: 'theme-burgundy.json' },
-  { name: 'Emerald', file: 'theme-emerald.json' },
-  { name: 'Purple', file: 'theme-purple.json' },
-  { name: 'Royal Blue', file: 'theme-royal-blue.json' },
-  { name: 'Teal', file: 'theme-teal.json' },
+  { name: 'Default (Teal)', file: 'theme.json', color: 'hsl(174, 77%, 29%)' },
+  { name: 'Burgundy', file: 'theme-burgundy.json', color: 'hsl(345, 77%, 29%)' },
+  { name: 'Emerald', file: 'theme-emerald.json', color: 'hsl(152, 77%, 29%)' },
+  { name: 'Purple', file: 'theme-purple.json', color: 'hsl(270, 77%, 29%)' },
+  { name: 'Royal Blue', file: 'theme-royal-blue.json', color: 'hsl(214, 77%, 29%)' },
+  { name: 'Teal', file: 'theme-teal.json', color: 'hsl(174, 77%, 29%)' },
 ];
 
 export function ThemeSwitcher() {
@@ -34,6 +34,7 @@ export function ThemeSwitcher() {
       if (themeData.primary) {
         rootElement.style.setProperty('--primary', themeData.primary);
         rootElement.style.setProperty('--primary-foreground', '#ffffff');
+        console.log(`Applied theme: ${themeFile} with primary color ${themeData.primary}`);
       }
       
       // Store the selected theme
@@ -55,17 +56,26 @@ export function ThemeSwitcher() {
     }
   }, []);
 
+  // Get the current theme object
+  const activeTheme = themes.find(t => t.file === currentTheme) || themes[0];
+
   return (
     <div className="fixed bottom-4 right-4 z-50">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-background border-primary">
-            <Palette className="h-5 w-5" />
-            <span className="sr-only">Toggle themes</span>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="rounded-full h-12 w-12 bg-white shadow-md border-2"
+            style={{ borderColor: activeTheme.color }}
+          >
+            <Palette className="h-6 w-6" style={{ color: activeTheme.color }} />
+            <span className="sr-only">Change theme</span>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-48 p-2" align="end">
+        <PopoverContent className="w-56 p-2" align="end">
           <div className="space-y-1">
+            <p className="text-sm font-medium text-center mb-2">Select Color Theme</p>
             {themes.map((theme) => (
               <Button
                 key={theme.file}
@@ -73,6 +83,10 @@ export function ThemeSwitcher() {
                 className="w-full justify-start font-normal"
                 onClick={() => changeTheme(theme.file)}
               >
+                <div 
+                  className="w-4 h-4 rounded-full mr-2" 
+                  style={{ backgroundColor: theme.color }}
+                ></div>
                 {theme.name}
                 {currentTheme === theme.file && (
                   <Check className="h-4 w-4 ml-auto" />
