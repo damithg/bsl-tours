@@ -5,7 +5,54 @@ import { insertInquirySchema, insertSubscriberSchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Debug route to list files in public directory
+  app.get('/api/debug/public-files', (req, res) => {
+    const publicPath = path.join(__dirname, '..', 'public');
+    
+    const listFilesRecursively = (dir: string, baseDir: string = '') => {
+      const files: string[] = [];
+      const items = fs.readdirSync(dir);
+      
+      items.forEach(item => {
+        const fullPath = path.join(dir, item);
+        const relativePath = path.join(baseDir, item);
+        const stats = fs.statSync(fullPath);
+        
+        if (stats.isDirectory()) {
+          files.push(`📁 ${relativePath}`);
+          files.push(...listFilesRecursively(fullPath, relativePath));
+        } else {
+          files.push(`📄 ${relativePath}`);
+        }
+      });
+      
+      return files;
+    };
+    
+    try {
+      const fileList = fs.existsSync(publicPath) 
+        ? listFilesRecursively(publicPath)
+        : ['Public directory does not exist'];
+      
+      res.json({ 
+        publicPath,
+        files: fileList
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: 'Error listing files',
+        message: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
   // API routes prefix
   const apiRouter = express.Router();
   app.use("/api", apiRouter);

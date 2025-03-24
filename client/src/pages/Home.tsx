@@ -7,6 +7,7 @@ import TestimonialSection from '@/components/TestimonialSection';
 import AboutSection from '@/components/AboutSection';
 import CTASection from '@/components/CTASection';
 import ContactForm from '@/components/ContactForm';
+import ImageTest from '@/components/ImageTest';
 
 const Home = () => {
   return (
@@ -19,6 +20,9 @@ const Home = () => {
       <TestimonialSection />
       <AboutSection />
       <CTASection />
+      <div className="container mx-auto px-4 py-8">
+        <ImageTest />
+      </div>
       
       <section id="contact" className="py-20 bg-[#F8F5F0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
