@@ -34,7 +34,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <span className="font-['Playfair_Display'] text-[#0F4C81] text-2xl font-bold">Ceylon<span className="text-[#D4AF37]">Luxe</span></span>
+              <span className="font-['Playfair_Display'] text-[#0F4C81] text-2xl font-bold">BSL<span className="text-[#D4AF37]">Tours</span></span>
             </Link>
           </div>
           

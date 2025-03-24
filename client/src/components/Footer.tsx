@@ -48,7 +48,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <div className="mb-6">
-              <span className="font-['Playfair_Display'] text-2xl font-bold text-white">Ceylon<span className="text-[#D4AF37]">Luxe</span></span>
+              <span className="font-['Playfair_Display'] text-2xl font-bold text-white">BSL<span className="text-[#D4AF37]">Tours</span></span>
             </div>
             <p className="text-white/70 mb-6">Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean.</p>
             <div className="flex space-x-4">
@@ -121,7 +121,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-white/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white/50 text-sm mb-4 md:mb-0">© {new Date().getFullYear()} Ceylon Luxe. All rights reserved.</p>
+          <p className="text-white/50 text-sm mb-4 md:mb-0">© {new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.</p>
           <div className="flex space-x-6">
             <a href="#" className="text-white/50 hover:text-white text-sm transition">Privacy Policy</a>
             <a href="#" className="text-white/50 hover:text-white text-sm transition">Terms & Conditions</a>
