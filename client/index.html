@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ceylon Luxe | Luxury Sri Lanka Tours</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <style>
+    :root {
+      /* Custom colors */
+      --ocean-blue: #0F4C81;
+      --tropical-green: #2E8B57;
+      --golden-sand: #D4AF37;
+      --soft-ivory: #F8F5F0;
+      --rich-brown: #3D2C1F;
+      --text-dark: #333333;
+      --cream: #FFFAF0;
+      
+      /* Custom fonts */
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Raleway', sans-serif;
+    }
+    
+    /* Custom animations */
+    .hero-animation {
+      animation: fadeIn 1.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .scroll-animation {
+      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    }
+    
+    .testimonial-slider {
+      scroll-snap-type: x mandatory;
+    }
+    
+    .testimonial-slide {
+      scroll-snap-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
