@@ -7,6 +7,12 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel to only use HTTP
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5001); // Only listen on HTTP port 5001
+});
+
 // Add services to the container.
 builder.Services.AddSingleton<IDataService, InMemoryDataService>();
 
