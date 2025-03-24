@@ -115,6 +115,66 @@ export class MemStorage implements IStorage {
         rating: 47,
         reviewCount: 15,
         featured: false
+      },
+      {
+        title: "Luxury Family Adventure",
+        description: "Create unforgettable memories with your loved ones on this family-friendly luxury tour through Sri Lanka's highlights.",
+        duration: 12,
+        price: 3599,
+        image: "https://images.unsplash.com/photo-1583309219338-a582f1f9ca6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 49,
+        reviewCount: 22,
+        featured: false
+      },
+      {
+        title: "Romantic Honeymoon Escape",
+        description: "Begin your journey together with exclusive experiences, romantic dinners, and luxurious accommodations.",
+        duration: 9,
+        price: 3299,
+        image: "https://images.unsplash.com/photo-1578922132951-13b3c524c104?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 50,
+        reviewCount: 31,
+        featured: true
+      },
+      {
+        title: "Ayurveda & Wellness Retreat",
+        description: "Rejuvenate your mind, body, and soul with traditional Ayurvedic treatments and mindful experiences.",
+        duration: 8,
+        price: 2999,
+        image: "https://images.unsplash.com/photo-1583416750470-965b2707b355?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 48,
+        reviewCount: 17,
+        featured: false
+      },
+      {
+        title: "Exclusive Golf Tour",
+        description: "Experience Sri Lanka's stunning golf courses combined with sightseeing and luxury accommodations.",
+        duration: 10,
+        price: 3799,
+        image: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 46,
+        reviewCount: 14,
+        featured: false
+      },
+      {
+        title: "Culinary Journey",
+        description: "Discover the flavors of Sri Lanka with cooking classes, market visits, and gourmet dining experiences.",
+        duration: 8,
+        price: 2899,
+        image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 49,
+        reviewCount: 23,
+        featured: false
+      },
+      {
+        title: "Historical Heritage Tour",
+        description: "Immerse yourself in Sri Lanka's rich history from ancient kingdoms to colonial influences with expert guides.",
+        duration: 11,
+        price: 3499,
+        image: "https://images.unsplash.com/photo-1602351447937-745cb720612f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 47,
+        reviewCount: 18,
+        featured: false
       }
     ];
     
@@ -151,6 +211,36 @@ export class MemStorage implements IStorage {
         name: "Kandy",
         description: "Sacred Temple of the Tooth and serene lake surrounded by hills",
         image: "https://images.unsplash.com/photo-1619111942607-1bb91e5c6d65?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        name: "Polonnaruwa",
+        description: "Ancient city with well-preserved ruins and impressive stone carvings",
+        image: "https://images.unsplash.com/photo-1602601320430-0b94c1926dce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        name: "Dambulla Cave Temple",
+        description: "UNESCO World Heritage site with ancient Buddha statues and painted murals",
+        image: "https://images.unsplash.com/photo-1624029769122-a836aba27077?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        name: "Anuradhapura",
+        description: "Sri Lanka's ancient capital with sacred Bo Tree and majestic stupas",
+        image: "https://images.unsplash.com/photo-1602602516181-a913082de858?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        name: "Nuwara Eliya",
+        description: "Little England with Tudor-style cottages and world-class tea estates",
+        image: "https://images.unsplash.com/photo-1546708936-2af4a8ca0b7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        name: "Adam's Peak",
+        description: "Sacred mountain pilgrimage with breathtaking sunrise views",
+        image: "https://images.unsplash.com/photo-1579176647030-bd86f6fd4e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        name: "Mirissa",
+        description: "Idyllic beach with luxury villas and world-class whale watching",
+        image: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       }
     ];
     
@@ -161,19 +251,43 @@ export class MemStorage implements IStorage {
       {
         name: "Sarah Johnson",
         content: "Our trip to Sri Lanka exceeded all expectations. The attention to detail, private guides, and luxurious accommodations made it truly special. We'll cherish these memories forever.",
-        packageName: "Cultural Triangle Tour",
+        packageName: "Cultural Triangle Luxury Tour",
         rating: 5
       },
       {
         name: "James & Emily Wilson",
         content: "We've traveled extensively, but our journey through Sri Lanka with Best Sri Lanka Tours was one of the most memorable. The personalized service and insider access to hidden gems made all the difference.",
-        packageName: "Complete Sri Lanka Experience",
+        packageName: "Wildlife Safari Experience",
         rating: 5
       },
       {
         name: "Michelle Thompson",
         content: "The private beach villa arranged by Best Sri Lanka Tours was absolutely breathtaking. Our personal chef prepared the most amazing Sri Lankan cuisine, and the sunset views were unmatched.",
         packageName: "Coastal Serenity Escape",
+        rating: 5
+      },
+      {
+        name: "David Chen",
+        content: "As avid tea lovers, the Hill Country Tea Trails tour was a dream come true. Staying in colonial-era tea planter bungalows and learning about the tea-making process directly from experts was incredible.",
+        packageName: "Hill Country Tea Trails",
+        rating: 5
+      },
+      {
+        name: "Alexandra & Robert Patel",
+        content: "Our honeymoon in Sri Lanka was pure magic. From candlelit dinners on the beach to private waterfall swims, every moment was curated to perfection. Truly an unforgettable start to our marriage.",
+        packageName: "Romantic Honeymoon Escape",
+        rating: 5
+      },
+      {
+        name: "Thomas Williams",
+        content: "The Ayurveda retreat exceeded all my expectations. Two weeks of traditional treatments, yoga, and meditation in a serene environment completely rejuvenated me. I'm already planning my return visit.",
+        packageName: "Ayurveda & Wellness Retreat",
+        rating: 5
+      },
+      {
+        name: "Maria & Carlos Rodriguez",
+        content: "Traveling with three generations of our family, we were amazed at how seamlessly BSL accommodated everyone's interests and needs. The grandparents, parents, and children all had the time of their lives!",
+        packageName: "Luxury Family Adventure",
         rating: 5
       }
     ];
