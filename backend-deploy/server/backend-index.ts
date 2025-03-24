@@ -1,68 +1,72 @@
-import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
+import express, { Express, Request, Response, NextFunction } from "express";
+import session from "express-session";
+import MemoryStore from "memorystore";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
+import { registerRoutes } from "./routes";
+import { log, serveStatic } from "./vite";
+import { Server } from "http";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export async function createServer(): Promise<Server> {
+  const app: Express = express();
+  
+  // Use CORS middleware with configuration
+  app.use(cors({
+    // Allow requests from any origin when deployed
+    // Replace with your actual frontend domain in production
+    origin: "*", 
+    // Allow credentials if needed (cookies, auth headers)
+    credentials: false,
+    // Allowed HTTP methods
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    // Allowed request headers
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }));
 
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+  // Always parse JSON bodies
+  app.use(express.json());
+  
+  // Configure session middleware if needed
+  const sessionStore = MemoryStore(session);
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || "your-secret-key",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+      },
+      store: new sessionStore({
+        checkPeriod: 86400000, // prune expired entries every 24h
+      }),
+    })
+  );
 
-// Enable CORS for frontend requests
-app.use(cors({
-  origin: process.env.FRONTEND_URL || "*", // Allow your frontend domain or all domains in development
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
-// Simple logging middleware
-app.use((req, res, next) => {
-  const start = Date.now();
-  const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
-
-  const originalResJson = res.json;
-  res.json = function (bodyJson, ...args) {
-    capturedJsonResponse = bodyJson;
-    return originalResJson.apply(res, [bodyJson, ...args]);
-  };
-
-  res.on("finish", () => {
-    const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
-      console.log(logLine);
-    }
-  });
-
-  next();
-});
-
-(async () => {
+  // Register API routes
   const server = await registerRoutes(app);
 
+  // Serve static files in production
+  serveStatic(app);
+
+  // Global error handler
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    console.error(err);
+    log(`Error: ${err.message}`);
+    console.error(err.stack);
+    res.status(err.statusCode || 500).json({
+      message: err.message || "An unexpected error occurred",
+    });
   });
 
-  // Get port from environment variable or use 5000 as default
-  const port = process.env.PORT || 5000;
-  server.listen(port, "0.0.0.0", () => {
-    console.log(`Backend API serving on port ${port}`);
+  return server;
+}
+
+// Start the server if this file is run directly
+if (require.main === module) {
+  const port = parseInt(process.env.PORT || "5000");
+  createServer().then((server) => {
+    server.listen(port, () => {
+      log(`Backend server listening on port ${port}`);
+    });
   });
-})();
+}

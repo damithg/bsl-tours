@@ -1,146 +1,144 @@
-# Deployment Guide for BSL Tours Website
+# Deployment Guide for Best Sri Lanka Tours Website
 
-This guide provides instructions for deploying the BSL Tours website to various hosting platforms.
+This guide provides detailed instructions for deploying the Best Sri Lanka Tours website using various methods.
 
-## Prerequisites
+## Table of Contents
+1. [Full-Stack Deployment Options](#full-stack-deployment-options)
+   - [Replit Deployment](#replit-deployment)
+   - [Vercel Deployment](#vercel-deployment)
+   - [Docker Deployment](#docker-deployment)
+   - [Traditional Hosting (SiteGround)](#traditional-hosting-siteground)
+2. [Separate Frontend/Backend Deployment](#separate-frontendbackend-deployment)
+   - [Frontend-Only Deployment](#frontend-only-deployment)
+   - [Backend-Only Deployment](#backend-only-deployment)
+   - [Connecting Frontend to Backend](#connecting-frontend-to-backend)
+3. [Environment Variables](#environment-variables)
+4. [Post-Deployment Tasks](#post-deployment-tasks)
 
-- Node.js (v18+ recommended)
-- npm or yarn
-- Git (optional, for version control)
+## Full-Stack Deployment Options
 
-## Important Note
+### Replit Deployment
 
-This application expects the build output to be in the correct locations. After building, ensure:
-1. The frontend assets are in the `dist` directory
-2. Create a symbolic link or copy the `dist` directory to `server/public` for the production server to find the static assets:
+The easiest way to deploy the application is directly from Replit:
 
-```bash
-# After building, create a directory structure the server expects
-mkdir -p server/public
-cp -r dist/* server/public/
-```
+1. Click the "Deploy" button at the top right of this Replit.
+2. Configure your deployment settings.
+3. Click "Deploy" and follow the prompts.
 
-## Preparing for Deployment
+### Vercel Deployment
 
-### 1. Build the Application
+To deploy to Vercel:
 
-```bash
-# Install dependencies
-npm install
+1. Create a new Vercel project.
+2. Link your GitHub repository.
+3. Configure the following settings:
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+   - **Install Command**: `npm install`
+   - **Development Command**: `npm run dev`
+4. Add any required environment variables.
+5. Click "Deploy".
 
-# Build the application
-npm run build
-```
+### Docker Deployment
 
-This will create a `dist` directory with the compiled application.
-
-## Deployment Options
-
-### Option 1: Traditional Web Hosting with Node.js Support
-
-#### Suitable for: DigitalOcean, Heroku, Render, Railway, Linode, etc.
-
-1. Create an account with your preferred hosting provider
-2. Set up a new server/app instance with Node.js support
-3. Upload the entire project directory to your hosting provider
-4. Set the startup command to `npm start`
-5. Configure environment variables if needed
-6. Start the application
-
-### Option 2: Docker Deployment
-
-#### Suitable for: Any platform that supports Docker (AWS, GCP, Azure, DigitalOcean, etc.)
+The application includes a Dockerfile for containerized deployment:
 
 1. Build the Docker image:
    ```bash
-   docker build -t bsl-tours-website .
+   docker build -t bsl-tours:latest .
    ```
 
-2. Run the Docker container:
+2. Run the container:
    ```bash
-   docker run -p 3000:3000 bsl-tours-website
+   docker run -p 5000:5000 -e NODE_ENV=production bsl-tours:latest
    ```
 
-3. For cloud deployment:
-   - Push your Docker image to a container registry (Docker Hub, GitHub Container Registry, etc.)
-   - Deploy using your cloud provider's container service
+3. For cloud deployment (AWS, GCP, Azure):
+   - Push your image to a container registry.
+   - Configure your cloud service to deploy the container.
+   - Set up appropriate environment variables.
 
-### Option 3: Static Hosting for Frontend + Separate Backend
+### Traditional Hosting (SiteGround)
 
-If your hosting provider doesn't support Node.js or you want to separate the frontend and backend:
+#### Full Application Deployment
 
-#### For the Frontend:
-1. The frontend assets are in the `dist` directory after running `npm run build`
-2. Upload these files to any static hosting service (Netlify, Vercel, GitHub Pages, shared hosting)
+1. Download the `deployment.tar.gz` file from this Replit.
+2. Extract the file to get the production build.
+3. In SiteGround cPanel:
+   - Create a Node.js application.
+   - Upload the extracted files.
+   - Set the "Application Root" to the directory containing `index.js`.
+   - Set the "Application URL" to your domain.
+   - Configure "Application Startup File" as `index.js`.
+   - Set "Node.js Version" to 20.x or higher.
+   - Click "Create".
 
-#### For the Backend:
-1. Deploy the server code to a service that supports Node.js
-2. Update the frontend API calls to point to your backend URL
+## Separate Frontend/Backend Deployment
 
-## Common Deployment Platforms
+### Frontend-Only Deployment
 
-### Netlify (Frontend Only)
+If you want to deploy just the frontend (useful for hosting providers without Node.js support):
 
-1. Create a `netlify.toml` file:
-   ```toml
-   [build]
-     publish = "dist"
-     command = "npm run build"
-   ```
-
-2. Connect your repository to Netlify and deploy
-
-### Vercel (Frontend Only)
-
-1. Create a `vercel.json` file:
-   ```json
-   {
-     "version": 2,
-     "builds": [
-       { "src": "dist/**/*", "use": "@vercel/static" }
-     ],
-     "routes": [
-       { "src": "/(.*)", "dest": "/dist/$1" }
-     ]
-   }
-   ```
-
-2. Connect your repository to Vercel and deploy
-
-### Heroku (Full Stack)
-
-1. Create a `Procfile`:
-   ```
-   web: npm start
-   ```
-
-2. Deploy to Heroku:
+1. From the Replit, run the build script:
    ```bash
-   heroku create
-   git push heroku main
+   npm run build
    ```
 
-### DigitalOcean App Platform (Full Stack)
+2. Download the `dist` directory contents.
+3. Upload these files to your hosting provider's web root directory.
+4. Make sure to update the queryClient.ts file to point to your backend URL.
 
-1. Create a new app in DigitalOcean App Platform
-2. Connect your repository or upload your code
-3. Set the build command to `npm run build`
-4. Set the run command to `npm start`
-5. Deploy the app
+### Backend-Only Deployment
+
+For deploying the backend separately:
+
+1. Download the `backend-deployment.tar.gz` file.
+2. Extract and deploy to a hosting provider that supports Node.js:
+   - Render
+   - Railway
+   - Fly.io
+   - Heroku
+   - Vercel (as a serverless function)
+
+3. Example for Render:
+   - Create a new Web Service.
+   - Connect your GitHub repo.
+   - Set "Build Command" to `npm install`.
+   - Set "Start Command" to `node backend-index.js`.
+   - Add any required environment variables.
+   - Click "Create Web Service".
+
+### Connecting Frontend to Backend
+
+When deploying frontend and backend separately:
+
+1. Replace the API_BASE_URL in `frontend-modifications/queryClient.ts` with your actual backend URL:
+   ```typescript
+   const API_BASE_URL = "https://your-backend-url.com";
+   ```
+
+2. Copy this file to replace the original queryClient.ts before building the frontend.
+
+3. Build the frontend with this updated file.
 
 ## Environment Variables
 
-If your application uses environment variables, make sure to configure them in your hosting platform's settings.
+The application uses the following environment variables:
 
-## Domain Configuration
+- `NODE_ENV`: Set to `production` for production deployments.
+- `PORT`: The port number the server will listen on (default: 5000).
+- `SESSION_SECRET`: Secret for session management (required for production).
 
-After deploying your application, you can configure a custom domain through your hosting provider's domain settings.
+## Post-Deployment Tasks
 
-## Troubleshooting
+After deploying:
 
-If you encounter issues during deployment:
+1. **Test All Features**: Ensure all features work as expected in the production environment.
+2. **Configure DNS**: If using a custom domain, set up DNS records to point to your deployment.
+3. **Setup SSL**: Enable HTTPS for your website.
+4. **Monitoring**: Set up monitoring to be alerted of any issues.
+5. **Backup**: Configure regular backups of your database (if applicable).
 
-1. Check the server logs provided by your hosting platform
-2. Ensure all environment variables are correctly set
-3. Verify that the build process completed successfully
-4. Check that the server is running on the correct port (the application listens on the port specified by the `PORT` environment variable, defaulting to 3000)
+---
+
+For any deployment issues, please contact support at [your-email@example.com].
