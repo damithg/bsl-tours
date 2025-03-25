@@ -38,24 +38,28 @@ const Header = () => {
             </Link>
           </div>
           
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link href="/" className={`font-['Raleway'] font-medium ${location === '/' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57] transition`} onClick={handleNavClick}>
-              Home
+          <div className="hidden md:flex items-center gap-6">
+            {/* Desktop Navigation */}
+            <nav className="flex space-x-6">
+              <Link href="/packages" className={`font-['Raleway'] font-medium ${location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
+                Tour Packages
+              </Link>
+              <Link href="/destinations" className={`font-['Raleway'] font-medium ${location === '/destinations' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
+                Destinations
+              </Link>
+              <Link href="/about" className={`font-['Raleway'] font-medium ${location === '/about' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
+                About
+              </Link>
+              <Link href="/contact" className={`font-['Raleway'] font-medium ${location === '/contact' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
+                Contact
+              </Link>
+            </nav>
+            
+            {/* Book Now Button */}
+            <Link href="/contact" className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-md transition">
+              Book Now
             </Link>
-            <Link href="/packages" className={`font-['Raleway'] font-medium ${location === '/packages' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57] transition`} onClick={handleNavClick}>
-              Tour Packages
-            </Link>
-            <Link href="/destinations" className={`font-['Raleway'] font-medium ${location === '/destinations' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57] transition`} onClick={handleNavClick}>
-              Destinations
-            </Link>
-            <Link href="/about" className={`font-['Raleway'] font-medium ${location === '/about' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57] transition`} onClick={handleNavClick}>
-              About
-            </Link>
-            <Link href="/contact" className={`font-['Raleway'] font-medium ${location === '/contact' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57] transition`} onClick={handleNavClick}>
-              Contact
-            </Link>
-          </nav>
+          </div>
           
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -69,31 +73,23 @@ const Header = () => {
               </svg>
             </button>
           </div>
-          
-          {/* Book Now Button */}
-          <Link href="/contact" className="hidden md:block bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-6 rounded-md transition">
-            Book Now
-          </Link>
         </div>
         
         {/* Mobile Navigation Menu */}
         <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white pt-2 pb-4 px-4`}>
-          <Link href="/" className={`block py-2 font-medium ${location === '/' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57]`} onClick={handleNavClick}>
-            Home
-          </Link>
-          <Link href="/packages" className={`block py-2 font-medium ${location === '/packages' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57]`} onClick={handleNavClick}>
+          <Link href="/packages" className={`block py-2 font-medium ${location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             Tour Packages
           </Link>
-          <Link href="/destinations" className={`block py-2 font-medium ${location === '/destinations' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57]`} onClick={handleNavClick}>
+          <Link href="/destinations" className={`block py-2 font-medium ${location === '/destinations' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             Destinations
           </Link>
-          <Link href="/about" className={`block py-2 font-medium ${location === '/about' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57]`} onClick={handleNavClick}>
+          <Link href="/about" className={`block py-2 font-medium ${location === '/about' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             About
           </Link>
-          <Link href="/contact" className={`block py-2 font-medium ${location === '/contact' ? 'text-[#2E8B57]' : 'text-[#0F4C81]'} hover:text-[#2E8B57]`} onClick={handleNavClick}>
+          <Link href="/contact" className={`block py-2 font-medium ${location === '/contact' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             Contact
           </Link>
-          <Link href="/contact" className="block mt-4 bg-[#0F4C81] hover:bg-opacity-90 text-white text-center font-medium py-2 px-4 rounded-md transition" onClick={handleNavClick}>
+          <Link href="/contact" className="block mt-4 bg-primary hover:bg-primary/90 text-white text-center font-medium py-2 px-4 rounded-md transition" onClick={handleNavClick}>
             Book Now
           </Link>
         </div>

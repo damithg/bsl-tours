@@ -8,18 +8,26 @@ const TourPackages = () => {
   });
 
   // Format rating to display as stars (50 = 5 stars)
-  const formatRating = (rating: number) => {
+  const formatRating = (rating: number | null) => {
+    if (rating === null) {
+      return (
+        <div className="text-gray-400 flex">
+          <span>No ratings yet</span>
+        </div>
+      );
+    }
+    
     const fullStars = Math.floor(rating / 10);
     const hasHalfStar = rating % 10 >= 5;
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
     
     return (
       <div className="text-[#D4AF37] flex">
-        {[...Array(fullStars)].map((_, i) => (
+        {Array.from({ length: fullStars }).map((_, i) => (
           <i key={`full-${i}`} className="fas fa-star"></i>
         ))}
         {hasHalfStar && <i className="fas fa-star-half-alt"></i>}
-        {[...Array(emptyStars)].map((_, i) => (
+        {Array.from({ length: emptyStars }).map((_, i) => (
           <i key={`empty-${i}`} className="far fa-star"></i>
         ))}
       </div>
@@ -96,7 +104,9 @@ const TourPackages = () => {
                     <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{pkg.title}</h3>
                     <div className="flex items-center mb-4">
                       {formatRating(pkg.rating)}
-                      <span className="text-sm text-gray-500 ml-2">{pkg.rating / 10} ({pkg.reviewCount} reviews)</span>
+                      <span className="text-sm text-gray-500 ml-2">
+                        {pkg.rating !== null && pkg.rating !== undefined ? `${pkg.rating / 10} (${pkg.reviewCount || 0} reviews)` : 'No ratings yet'}
+                      </span>
                     </div>
                     <p className="text-[#333333]/70 mb-4">{pkg.description}</p>
                     <div className="flex justify-between items-center">
@@ -105,7 +115,7 @@ const TourPackages = () => {
                         <span className="text-[#0F4C81] text-xl font-semibold">${pkg.price.toLocaleString()}</span>
                         <span className="text-gray-500 text-sm">per person</span>
                       </div>
-                      <Link href={`/packages/${pkg.id}`} className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition">View Details</Link>
+                      <Link href={`/packages/${pkg.id}`} className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-md transition">View Details</Link>
                     </div>
                   </div>
                 </div>
@@ -120,7 +130,7 @@ const TourPackages = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-6">Customize Your Journey</h2>
             <p className="text-lg text-[#333333]/80 mb-8">Don't see exactly what you're looking for? Our travel experts can create a completely customized itinerary tailored to your preferences.</p>
-            <Link href="/contact" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition">
+            <Link href="/contact" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-md transition">
               Contact Us to Customize
             </Link>
           </div>
