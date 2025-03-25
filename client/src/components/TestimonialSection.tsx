@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Testimonial } from "@shared/schema";
 import { useState, useRef, useEffect } from "react";
-import { LucideRefreshCw } from "lucide-react";
+import { LucideRefreshCw, LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 
 const TestimonialSection = () => {
@@ -141,7 +141,34 @@ const TestimonialSection = () => {
         </div>
         
         <div className="relative">
-          <div ref={sliderRef} className="testimonial-slider overflow-x-auto pb-8 flex snap-x space-x-6 hide-scrollbar">
+          {/* Navigation buttons */}
+          <button
+            onClick={scrollLeft}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F4C81] rounded-full p-2 shadow-md -ml-4 transition ${
+              !canScrollLeft ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
+            }`}
+            disabled={!canScrollLeft}
+            aria-label="Scroll left"
+          >
+            <LucideChevronLeft size={24} />
+          </button>
+          
+          <button
+            onClick={scrollRight}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F4C81] rounded-full p-2 shadow-md -mr-4 transition ${
+              !canScrollRight ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
+            }`}
+            disabled={!canScrollRight}
+            aria-label="Scroll right"
+          >
+            <LucideChevronRight size={24} />
+          </button>
+          
+          <div 
+            ref={sliderRef} 
+            className="testimonial-slider overflow-x-auto pb-8 flex snap-x space-x-6 hide-scrollbar"
+            onScroll={checkScrollable}
+          >
             {testimonials?.map((testimonial, index) => (
               <div key={testimonial.id} className="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3">
                 <div className="bg-white p-8 rounded-lg shadow-lg h-full">
