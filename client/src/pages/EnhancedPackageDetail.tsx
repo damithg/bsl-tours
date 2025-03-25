@@ -95,17 +95,17 @@ const EnhancedPackageDetail = () => {
   const formatRating = (rating: number | null) => {
     if (rating === null) rating = 50; // Default to 5 stars if no rating
     
-    const fullStars = Math.floor(rating / 10);
-    const hasHalfStar = rating % 10 >= 5;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    const fullStars = Math.min(Math.floor(rating / 10), 5);
+    const hasHalfStar = rating % 10 >= 5 && fullStars < 5;
+    const emptyStars = Math.max(0, 5 - fullStars - (hasHalfStar ? 1 : 0));
     
     return (
       <div className="text-amber-400 flex text-lg">
-        {[...Array(fullStars)].map((_, i) => (
+        {Array.from({length: fullStars}, (_, i) => (
           <i key={`full-${i}`} className="fas fa-star"></i>
         ))}
         {hasHalfStar && <i className="fas fa-star-half-alt"></i>}
-        {[...Array(emptyStars)].map((_, i) => (
+        {Array.from({length: emptyStars}, (_, i) => (
           <i key={`empty-${i}`} className="far fa-star"></i>
         ))}
       </div>
