@@ -96,7 +96,7 @@ const About = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6">
-              About Ceylon Luxe
+              About Best Sri Lanka Tours
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean since 2010.
@@ -111,7 +111,7 @@ const About = () => {
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0">
               <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">Our Story</h2>
-              <p className="text-lg text-[#333333]/80 mb-6">Founded by travel enthusiasts with deep knowledge of Sri Lanka, Ceylon Luxe was born from a passion to share the extraordinary beauty and culture of this island nation with discerning travelers.</p>
+              <p className="text-lg text-[#333333]/80 mb-6">Founded by travel enthusiasts with deep knowledge of Sri Lanka, Best Sri Lanka Tours was born from a passion to share the extraordinary beauty and culture of this island nation with discerning travelers.</p>
               <p className="text-lg text-[#333333]/80 mb-6">What began as a boutique operation has grown into a renowned luxury travel company, yet we've maintained our founding principles: authentic experiences, personalized service, and attention to every detail.</p>
               <p className="text-lg text-[#333333]/80 mb-8">Our team combines international luxury travel expertise with local knowledge, creating journeys that go beyond typical tourist routes to reveal the true essence of Sri Lanka.</p>
               
@@ -142,7 +142,7 @@ const About = () => {
               <div className="relative">
                 <img 
                   src="https://images.unsplash.com/photo-1619546952812-520e98064a52?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Ceylon Luxe Team" 
+                  alt="Best Sri Lanka Tours Team" 
                   className="rounded-lg shadow-xl" 
                 />
                 <div className="absolute -bottom-10 -left-10 p-6 bg-white rounded-lg shadow-lg max-w-xs hidden md:block">
@@ -163,7 +163,7 @@ const About = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Our Values</h2>
-            <p className="text-lg text-[#333333]/80">These core principles guide everything we do at Ceylon Luxe, from how we design our journeys to how we interact with our guests, partners, and communities.</p>
+            <p className="text-lg text-[#333333]/80">These core principles guide everything we do at Best Sri Lanka Tours, from how we design our journeys to how we interact with our guests, partners, and communities.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -257,7 +257,7 @@ const About = () => {
                 <i className="fas fa-star"></i>
                 <i className="fas fa-star"></i>
               </div>
-              <p className="text-[#333333]/80 mb-6 italic">"Our trip to Sri Lanka with Ceylon Luxe was nothing short of magical. From the moment we landed until our departure, every detail was meticulously planned yet felt effortless. The cultural insights, exclusive experiences, and personal touches made this journey truly unforgettable."</p>
+              <p className="text-[#333333]/80 mb-6 italic">"Our trip to Sri Lanka with Best Sri Lanka Tours was nothing short of magical. From the moment we landed until our departure, every detail was meticulously planned yet felt effortless. The cultural insights, exclusive experiences, and personal touches made this journey truly unforgettable."</p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 mr-4">
                   <div className="w-full h-full bg-[#0F4C81]/30 flex items-center justify-center text-white">J</div>
@@ -277,7 +277,7 @@ const About = () => {
                 <i className="fas fa-star"></i>
                 <i className="fas fa-star"></i>
               </div>
-              <p className="text-[#333333]/80 mb-6 italic">"As frequent luxury travelers, we have high expectations. Ceylon Luxe not only met but exceeded them at every turn. Their insider knowledge led us to experiences we would never have discovered on our own, while their attention to detail ensured seamless logistics throughout our journey."</p>
+              <p className="text-[#333333]/80 mb-6 italic">"As frequent luxury travelers, we have high expectations. Best Sri Lanka Tours not only met but exceeded them at every turn. Their insider knowledge led us to experiences we would never have discovered on our own, while their attention to detail ensured seamless logistics throughout our journey."</p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 mr-4">
                   <div className="w-full h-full bg-[#0F4C81]/30 flex items-center justify-center text-white">R</div>
