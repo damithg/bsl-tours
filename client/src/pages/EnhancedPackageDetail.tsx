@@ -330,194 +330,207 @@ const EnhancedPackageDetail = () => {
               )}
             </div>
             
-            {/* Tabbed Content */}
-            <Tabs defaultValue="overview" className="mb-12">
-              <TabsList className="w-full grid grid-cols-4">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="itinerary">Itinerary</TabsTrigger>
-                <TabsTrigger value="includes">Includes/Excludes</TabsTrigger>
-                <TabsTrigger value="map">Destinations</TabsTrigger>
-              </TabsList>
+            {/* Tour Overview Section */}
+            <div className="mb-16">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
+                  Tour Overview
+                </h2>
+                <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+              </div>
               
-              {/* Overview Tab */}
-              <TabsContent value="overview" className="mt-6">
-                <div className="prose prose-lg max-w-none">
-                  <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-primary mb-4">
-                    Tour Overview
-                  </h2>
-                  
-                  <p className="text-muted-foreground mb-6">
-                    {packageData.description}
-                  </p>
-                  
-                  {packageData.highlightsSummary && (
-                    <>
-                      <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">
-                        Tour Highlights
-                      </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
-                        {packageData.highlightsSummary.split(',').map((highlight, index) => (
-                          <div key={index} className="flex items-start gap-2">
-                            <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                            <span>{highlight.trim()}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </>
+              <div className="prose prose-lg max-w-none">
+                <p className="text-gray-600 leading-relaxed mb-8">
+                  {packageData.description}
+                </p>
+                
+                {packageData.highlightsSummary && (
+                  <div className="mb-8">
+                    <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-4">
+                      Tour Highlights
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {packageData.highlightsSummary.split(',').map((highlight, index) => (
+                        <div key={index} className="flex items-start gap-3 bg-[#f8f7f2] p-4 rounded-lg">
+                          <Check className="h-5 w-5 text-[#D4AF37] mt-1 flex-shrink-0" />
+                          <span className="text-gray-700">{highlight.trim()}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Additional Information */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {packageData.bestTimeToVisit && (
+                    <div className="bg-[#f8f7f2] p-5 rounded-lg border-l-4 border-[#D4AF37]">
+                      <h4 className="font-semibold text-[#103556] mb-2">Best Time to Visit</h4>
+                      <p className="text-gray-600">{packageData.bestTimeToVisit}</p>
+                    </div>
                   )}
                   
-                  {/* Additional Information */}
-                  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {packageData.bestTimeToVisit && (
-                      <div className="bg-secondary/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-primary mb-2">Best Time to Visit</h4>
-                        <p className="text-muted-foreground">{packageData.bestTimeToVisit}</p>
-                      </div>
-                    )}
-                    
-                    {destinations.length > 0 && (
-                      <div className="bg-secondary/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-primary mb-2">Destinations Covered</h4>
-                        <p className="text-muted-foreground">{destinations.join(', ')}</p>
-                      </div>
-                    )}
-                    
-                    {packageData.startingLocations && (
-                      <div className="bg-secondary/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-primary mb-2">Tour Starts From</h4>
-                        <p className="text-muted-foreground">
-                          {JSON.parse(packageData.startingLocations).join(' or ')}
-                        </p>
-                      </div>
-                    )}
-                    
-                    {packageData.groupSize && (
-                      <div className="bg-secondary/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-primary mb-2">Group Size</h4>
-                        <p className="text-muted-foreground">{packageData.groupSize}</p>
-                      </div>
-                    )}
-                  </div>
+                  {destinations.length > 0 && (
+                    <div className="bg-[#f8f7f2] p-5 rounded-lg border-l-4 border-[#D4AF37]">
+                      <h4 className="font-semibold text-[#103556] mb-2">Destinations Covered</h4>
+                      <p className="text-gray-600">{destinations.join(', ')}</p>
+                    </div>
+                  )}
+                  
+                  {packageData.startingLocations && (
+                    <div className="bg-[#f8f7f2] p-5 rounded-lg border-l-4 border-[#D4AF37]">
+                      <h4 className="font-semibold text-[#103556] mb-2">Tour Starts From</h4>
+                      <p className="text-gray-600">
+                        {JSON.parse(packageData.startingLocations).join(' or ')}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {packageData.groupSize && (
+                    <div className="bg-[#f8f7f2] p-5 rounded-lg border-l-4 border-[#D4AF37]">
+                      <h4 className="font-semibold text-[#103556] mb-2">Group Size</h4>
+                      <p className="text-gray-600">{packageData.groupSize}</p>
+                    </div>
+                  )}
                 </div>
-              </TabsContent>
-              
-              {/* Itinerary Tab */}
-              <TabsContent value="itinerary" className="mt-6">
-                <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-primary mb-6">
+              </div>
+            </div>
+            
+            {/* Day-by-Day Itinerary Section */}
+            <div className="mb-16">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
                   Day-by-Day Itinerary
                 </h2>
-                
-                <div className="space-y-6">
-                  {itinerary.length > 0 ? (
-                    itinerary.map((day) => (
-                      <div key={day.day} className="bg-secondary/10 p-6 rounded-lg relative overflow-hidden">
-                        <div className="absolute -left-4 h-full w-1 bg-primary"></div>
-                        <div className="flex flex-col md:flex-row gap-4">
-                          <div className="md:w-24 flex-shrink-0">
-                            <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center">
-                              <span className="text-xl font-bold">Day {day.day}</span>
+                <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+              </div>
+              
+              <div className="space-y-6">
+                {itinerary.length > 0 ? (
+                  itinerary.map((day) => (
+                    <div key={day.day} className="bg-white p-6 rounded-lg shadow-md relative overflow-hidden border border-gray-100">
+                      <div className="absolute -left-0 h-full w-1 bg-[#D4AF37]"></div>
+                      <div className="flex flex-col md:flex-row gap-6">
+                        <div className="md:w-24 flex-shrink-0">
+                          <div className="w-20 h-20 bg-[#103556] text-white rounded-full flex items-center justify-center shadow-lg">
+                            <span className="text-xl font-bold">Day {day.day}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-3">
+                            {day.title}
+                          </h3>
+                          <p className="text-gray-600 mb-4 leading-relaxed">{day.description}</p>
+                          {day.accommodation && day.accommodation !== "N/A" && (
+                            <div className="inline-block bg-[#f8f7f2] px-4 py-2 rounded-lg">
+                              <span className="font-semibold text-[#103556]">Accommodation:</span> {day.accommodation}
                             </div>
-                          </div>
-                          <div>
-                            <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-2">
-                              {day.title}
-                            </h3>
-                            <p className="text-muted-foreground mb-3">{day.description}</p>
-                            {day.accommodation && day.accommodation !== "N/A" && (
-                              <div className="text-sm">
-                                <span className="font-semibold">Accommodation:</span> {day.accommodation}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-center p-8 bg-secondary/10 rounded-lg">
-                      <p className="text-lg text-muted-foreground mb-2">
-                        Full {packageData.duration}-day itinerary available upon request.
-                      </p>
-                      <p className="text-sm">
-                        Contact our travel consultants for a detailed day-by-day plan.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </TabsContent>
-              
-              {/* Includes/Excludes Tab */}
-              <TabsContent value="includes" className="mt-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-4">
-                      Your Tour Includes
-                    </h3>
-                    <ul className="space-y-2">
-                      {(includes.length > 0 ? includes : defaultIncludes).map((item, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <Check className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-4">
-                      Your Tour Excludes
-                    </h3>
-                    <ul className="space-y-2">
-                      {(excludes.length > 0 ? excludes : defaultExcludes).map((item, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <X className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </TabsContent>
-              
-              {/* Map Tab */}
-              <TabsContent value="map" className="mt-6">
-                <h2 className="font-['Playfair_Display'] text-2xl font-bold text-primary mb-4">
-                  Destinations on This Tour
-                </h2>
-                
-                {destinations.length > 0 ? (
-                  <div className="mb-6">
-                    <div className="aspect-video relative rounded-lg overflow-hidden mb-6">
-                      <img 
-                        src="/images/sri-lanka-map-watercolor.jpg" 
-                        alt="Sri Lanka Map" 
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center px-6 py-4 bg-white/80 rounded-lg">
-                          <p className="text-primary font-semibold">
-                            This tour covers {destinations.length} destinations across Sri Lanka
-                          </p>
+                          )}
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {destinations.map((destination, index) => (
-                        <div key={index} className="bg-secondary/10 p-4 rounded-lg">
-                          <h4 className="font-medium">{destination}</h4>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  ))
                 ) : (
-                  <div className="text-center p-8 bg-secondary/10 rounded-lg">
-                    <p className="text-muted-foreground">
-                      Detailed destination information available upon request.
+                  <div className="text-center p-8 bg-[#f8f7f2] rounded-lg border border-[#D4AF37]/20">
+                    <p className="text-lg text-gray-600 mb-3">
+                      Full {packageData.duration}-day itinerary available upon request.
+                    </p>
+                    <p className="text-gray-500">
+                      Contact our travel consultants for a detailed day-by-day plan.
                     </p>
                   </div>
                 )}
-              </TabsContent>
-            </Tabs>
+              </div>
+            </div>
+            
+            {/* Includes/Excludes Section */}
+            <div className="mb-16">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
+                  What's Included
+                </h2>
+                <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                  <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-6 flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                      <Check className="h-5 w-5 text-green-600" />
+                    </div>
+                    Your Tour Includes
+                  </h3>
+                  <ul className="space-y-3">
+                    {(includes.length > 0 ? includes : defaultIncludes).map((item, index) => (
+                      <li key={index} className="flex items-start gap-3 pb-3 border-b border-gray-100 last:border-0">
+                        <Check className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                        <span className="text-gray-700">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                  <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-6 flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                      <X className="h-5 w-5 text-red-500" />
+                    </div>
+                    Your Tour Excludes
+                  </h3>
+                  <ul className="space-y-3">
+                    {(excludes.length > 0 ? excludes : defaultExcludes).map((item, index) => (
+                      <li key={index} className="flex items-start gap-3 pb-3 border-b border-gray-100 last:border-0">
+                        <X className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />
+                        <span className="text-gray-700">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            {/* Destinations Map Section */}
+            <div className="mb-16">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
+                  Destinations on This Tour
+                </h2>
+                <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+              </div>
+              
+              {destinations.length > 0 ? (
+                <div>
+                  <div className="aspect-video relative rounded-lg overflow-hidden mb-8 shadow-xl">
+                    <img 
+                      src="/images/sri-lanka-map-watercolor.jpg" 
+                      alt="Sri Lanka Map" 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center px-8 py-6 bg-white/90 rounded-lg shadow-lg">
+                        <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-2">Tour Route</h3>
+                        <p className="text-gray-600">
+                          This luxury tour covers {destinations.length} stunning destinations across Sri Lanka
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {destinations.map((destination, index) => (
+                      <div key={index} className="bg-white p-4 rounded-lg shadow-md text-center border border-gray-100 hover:border-[#D4AF37] transition-colors">
+                        <h4 className="font-medium text-[#103556]">{destination}</h4>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center p-8 bg-[#f8f7f2] rounded-lg">
+                  <p className="text-gray-600">
+                    Detailed destination information available upon request.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
           
           {/* Right Sidebar: Booking and Information */}
