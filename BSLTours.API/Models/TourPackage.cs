@@ -18,6 +18,8 @@ namespace BSLTours.API.Models
         public bool IsFeatured { get; set; }
         public int? DestinationId { get; set; }
         public List<string> GalleryImages { get; set; } = new List<string>();
+        public int Rating { get; set; }
+        public int ReviewCount { get; set; }
     }
 
     public class CreateTourPackageDto
@@ -53,5 +55,7 @@ namespace BSLTours.API.Models
         public int? DestinationId { get; set; }
         
         public List<string> GalleryImages { get; set; } = new List<string>();
+        public int Rating { get; set; }
+        public int ReviewCount { get; set; }
     }
 }

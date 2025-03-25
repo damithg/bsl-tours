@@ -187,7 +187,7 @@ namespace BSLTours.API.Services
                     Duration = 6,
                     Inclusions = "Luxury tented accommodation, Expert naturalist guides, All meals, Safari jeep tours, Park entrance fees", 
                     Itinerary = "Day 1: Arrive in Colombo\nDay 2: Transfer to Yala National Park\nDay 3: Yala safaris\nDay 4: Transfer to Udawalawe\nDay 5: Udawalawe safari and elephant transit home\nDay 6: Return to Colombo",
-                    IsFeatured = false,
+                    IsFeatured = true,
                     DestinationId = 3,
                     Rating = 47,
                     ReviewCount = 15,
@@ -359,7 +359,8 @@ namespace BSLTours.API.Services
                 Name = destinationDto.Name,
                 Description = destinationDto.Description,
                 ImageUrl = destinationDto.ImageUrl,
-                Featured = destinationDto.Featured
+                Featured = destinationDto.Featured,
+                
             };
             
             _destinations.Add(destination);

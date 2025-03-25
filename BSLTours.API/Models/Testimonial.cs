@@ -11,6 +11,8 @@ namespace BSLTours.API.Models
         public string Location { get; set; }
         public string ImageUrl { get; set; }
         public DateTime CreatedAt { get; set; }
+        public int Rating { get; set; }
+        public string PackageName { get; set; }
     }
 
     public class CreateTestimonialDto
@@ -26,5 +28,7 @@ namespace BSLTours.API.Models
         public string Location { get; set; }
         
         public string ImageUrl { get; set; }
+        public int Rating { get; set; }
+        public string PackageName { get; set; }
     }
 }
