@@ -211,30 +211,32 @@ const EnhancedPackageDetail = () => {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative pt-28 pb-20 bg-primary">
-        <div className="absolute inset-0 z-0 opacity-20">
+      <section className="relative pt-28 pb-16 bg-gradient-to-b from-[#103556] to-[#0d2942]">
+        <div className="absolute inset-0 z-0 opacity-15 mix-blend-overlay">
           <img 
             src={packageData.imageUrl}
             alt={packageData.title} 
             className="w-full h-full object-cover" 
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2942] via-transparent to-transparent z-0"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="mb-3 flex justify-center">
-              <Badge variant="secondary" className="px-3 py-1 text-base">
-                {packageData.duration} Days Tour
-              </Badge>
+            <div className="mb-4 flex justify-center">
+              <div className="inline-block bg-[#D4AF37] text-white px-5 py-1.5 rounded-full text-sm font-medium tracking-wide">
+                {packageData.duration} DAYS LUXURY TOUR
+              </div>
             </div>
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               {packageData.title}
             </h1>
+            <div className="w-24 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Experience the finest of Sri Lanka with our carefully crafted luxury tour
             </p>
             <div className="flex justify-center mt-6">
               {formatRating(packageData.rating)}
-              <span className="text-white/70 ml-2">
+              <span className="text-white/80 ml-2">
                 {(packageData.rating || 50) / 10} ({packageData.reviewCount || 0} reviews)
               </span>
             </div>
@@ -243,28 +245,28 @@ const EnhancedPackageDetail = () => {
       </section>
 
       {/* Quick Info Bar */}
-      <div className="bg-secondary/30">
+      <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-center">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-primary" />
-              <span><strong>{packageData.duration}</strong> Days</span>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16 text-center">
+            <div className="flex flex-col items-center">
+              <Calendar className="h-6 w-6 text-[#D4AF37] mb-2" />
+              <span className="text-[#103556] font-medium"><strong>{packageData.duration}</strong> Days</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Map className="h-5 w-5 text-primary" />
-              <span><strong>{destinations.length || 'Multiple'}</strong> Destinations</span>
+            <div className="flex flex-col items-center">
+              <Map className="h-6 w-6 text-[#D4AF37] mb-2" />
+              <span className="text-[#103556] font-medium"><strong>{destinations.length || 'Multiple'}</strong> Destinations</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-primary" />
-              <span>{packageData.groupSize || "Small Groups"}</span>
+            <div className="flex flex-col items-center">
+              <Users className="h-6 w-6 text-[#D4AF37] mb-2" />
+              <span className="text-[#103556] font-medium">{packageData.groupSize || "Private Tour"}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <DollarSign className="h-5 w-5 text-primary" />
-              <span>From <strong>${packageData.price.toLocaleString()}</strong> per person</span>
+            <div className="flex flex-col items-center">
+              <DollarSign className="h-6 w-6 text-[#D4AF37] mb-2" />
+              <span className="text-[#103556] font-medium">From <strong>${packageData.price.toLocaleString()}</strong></span>
             </div>
-            <div className="flex items-center gap-2">
-              <Award className="h-5 w-5 text-primary" />
-              <span>Luxury Level: <strong>{packageData.luxuryLevel || 5}/5</strong></span>
+            <div className="flex flex-col items-center">
+              <Award className="h-6 w-6 text-[#D4AF37] mb-2" />
+              <span className="text-[#103556] font-medium">5-Star Experience</span>
             </div>
           </div>
         </div>
@@ -272,12 +274,12 @@ const EnhancedPackageDetail = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-12">
           {/* Left Content: Images and Details */}
           <div className="lg:w-2/3">
             {/* Image Gallery */}
             <div className="mb-10">
-              <div className="relative rounded-lg overflow-hidden h-[400px] md:h-[500px] mb-4">
+              <div className="relative h-[400px] md:h-[600px] mb-6 shadow-2xl overflow-hidden">
                 <img 
                   src={galleryImages[activeImageIndex] || packageData.imageUrl} 
                   alt={`${packageData.title} - View ${activeImageIndex + 1}`} 
@@ -288,20 +290,20 @@ const EnhancedPackageDetail = () => {
                 {galleryImages.length > 1 && (
                   <>
                     <button 
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-md"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-[#D4AF37] hover:text-white p-3 rounded-full shadow-lg transition-colors"
                       onClick={goToPrevImage}
                     >
-                      <ChevronLeft className="h-6 w-6 text-primary" />
+                      <ChevronLeft className="h-6 w-6" />
                     </button>
                     <button 
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-md"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-[#D4AF37] hover:text-white p-3 rounded-full shadow-lg transition-colors"
                       onClick={goToNextImage}
                     >
-                      <ChevronRight className="h-6 w-6 text-primary" />
+                      <ChevronRight className="h-6 w-6" />
                     </button>
                     
                     {/* Image Counter */}
-                    <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                    <div className="absolute bottom-4 right-4 bg-[#103556]/70 text-white px-4 py-1.5 rounded-full text-sm font-medium">
                       {activeImageIndex + 1} / {galleryImages.length}
                     </div>
                   </>
@@ -310,14 +312,14 @@ const EnhancedPackageDetail = () => {
               
               {/* Thumbnails */}
               {galleryImages.length > 1 && (
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-5 gap-3">
                   {galleryImages.map((img, index) => (
                     <div 
                       key={index}
-                      className={`h-24 rounded-md overflow-hidden cursor-pointer transition-all ${
+                      className={`h-24 overflow-hidden cursor-pointer transition-all ${
                         index === activeImageIndex 
-                          ? 'ring-2 ring-primary ring-offset-2' 
-                          : 'opacity-70 hover:opacity-100'
+                          ? 'ring-3 ring-[#D4AF37] ring-offset-2 shadow-lg' 
+                          : 'opacity-70 hover:opacity-100 shadow-md'
                       }`}
                       onClick={() => setActiveImageIndex(index)}
                     >
@@ -521,10 +523,37 @@ const EnhancedPackageDetail = () => {
           {/* Right Sidebar: Booking and Information */}
           <div className="lg:w-1/3">
             {/* Booking Card */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 sticky top-28">
-              <div className="p-6 bg-primary text-white">
-                <div className="text-2xl font-bold mb-1">${packageData.price.toLocaleString()}</div>
-                <div className="text-sm opacity-80">per person | {packageData.duration} days</div>
+            <div className="bg-white rounded-sm shadow-xl overflow-hidden mb-8 sticky top-28 border border-[#D4AF37]/30">
+              <div className="bg-gradient-to-r from-[#103556] to-[#0d2942] text-white p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <DollarSign className="h-5 w-5 text-[#D4AF37]" />
+                  <h3 className="text-lg font-semibold">Pricing Details</h3>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <div className="text-3xl font-bold mb-1 text-white">${packageData.price.toLocaleString()}</div>
+                    <div className="text-sm text-white/80">per person</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xl font-semibold">{packageData.duration}</div>
+                    <div className="text-sm text-white/80">days</div>
+                  </div>
+                </div>
+                
+                <div className="mt-4 border-t border-white/20 pt-4">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Check className="h-4 w-4 text-[#D4AF37]" />
+                    <span>Private Transportation</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm mt-1">
+                    <Check className="h-4 w-4 text-[#D4AF37]" />
+                    <span>Luxury Accommodations</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm mt-1">
+                    <Check className="h-4 w-4 text-[#D4AF37]" />
+                    <span>English-speaking Guide</span>
+                  </div>
+                </div>
               </div>
               
               <div className="p-6">
