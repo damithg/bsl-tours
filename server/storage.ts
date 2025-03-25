@@ -81,7 +81,7 @@ export class MemStorage implements IStorage {
         description: "Explore ancient cities, sacred temples, and the cultural heart of Sri Lanka with luxury accommodations.",
         duration: 10,
         price: 3899,
-        image: "https://images.unsplash.com/photo-1594818379496-da1e345318f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1594818379496-da1e345318f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 50,
         reviewCount: 24,
         featured: true
@@ -91,7 +91,7 @@ export class MemStorage implements IStorage {
         description: "Indulge in beachfront luxury with private villa stays, spa treatments, and pristine beaches.",
         duration: 7,
         price: 2499,
-        image: "https://images.unsplash.com/photo-1571435584758-13df417a2154?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1571435584758-13df417a2154?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 48,
         reviewCount: 19,
         featured: true
@@ -101,7 +101,7 @@ export class MemStorage implements IStorage {
         description: "Journey through misty mountains, tea plantations, and colonial-era luxury bungalows.",
         duration: 8,
         price: 2799,
-        image: "https://images.unsplash.com/photo-1583230690438-a157757de87a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1583230690438-a157757de87a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 50,
         reviewCount: 28,
         featured: true
@@ -111,7 +111,7 @@ export class MemStorage implements IStorage {
         description: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges.",
         duration: 6,
         price: 2199,
-        image: "https://images.unsplash.com/photo-1616352116213-503cb49c8c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1616352116213-503cb49c8c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 47,
         reviewCount: 15,
         featured: false
@@ -121,7 +121,7 @@ export class MemStorage implements IStorage {
         description: "Create unforgettable memories with your loved ones on this family-friendly luxury tour through Sri Lanka's highlights.",
         duration: 12,
         price: 3599,
-        image: "https://images.unsplash.com/photo-1583309219338-a582f1f9ca6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1583309219338-a582f1f9ca6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 49,
         reviewCount: 22,
         featured: false
@@ -131,7 +131,7 @@ export class MemStorage implements IStorage {
         description: "Begin your journey together with exclusive experiences, romantic dinners, and luxurious accommodations.",
         duration: 9,
         price: 3299,
-        image: "https://images.unsplash.com/photo-1578922132951-13b3c524c104?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1578922132951-13b3c524c104?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 50,
         reviewCount: 31,
         featured: true
@@ -141,7 +141,7 @@ export class MemStorage implements IStorage {
         description: "Rejuvenate your mind, body, and soul with traditional Ayurvedic treatments and mindful experiences.",
         duration: 8,
         price: 2999,
-        image: "https://images.unsplash.com/photo-1583416750470-965b2707b355?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1583416750470-965b2707b355?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 48,
         reviewCount: 17,
         featured: false
@@ -151,7 +151,7 @@ export class MemStorage implements IStorage {
         description: "Experience Sri Lanka's stunning golf courses combined with sightseeing and luxury accommodations.",
         duration: 10,
         price: 3799,
-        image: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 46,
         reviewCount: 14,
         featured: false
@@ -161,7 +161,7 @@ export class MemStorage implements IStorage {
         description: "Discover the flavors of Sri Lanka with cooking classes, market visits, and gourmet dining experiences.",
         duration: 8,
         price: 2899,
-        image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 49,
         reviewCount: 23,
         featured: false
