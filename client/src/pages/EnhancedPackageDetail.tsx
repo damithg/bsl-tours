@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import { TourPackage } from "@shared/schema";
 import ContactForm from "@/components/ContactForm";
+import TourRouteMap from "@/components/TourRouteMap";
 import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -401,6 +402,30 @@ const EnhancedPackageDetail = () => {
                 </div>
               </div>
             </div>
+            
+            {/* Animated Tour Route Map */}
+            {(itinerary.length > 0 || destinations.length > 0) && (
+              <div className="mb-16">
+                <div className="flex justify-between items-center mb-8">
+                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
+                    Tour Route Visualization
+                  </h2>
+                  <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+                </div>
+                
+                <div className="bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20 mb-6">
+                  <p className="text-gray-600 mb-6">
+                    Follow your journey through Sri Lanka with our interactive map. Click on locations or itinerary days to see the animated route between destinations.
+                  </p>
+                  
+                  <TourRouteMap 
+                    itinerary={itinerary} 
+                    destinations={destinations} 
+                    className="mt-4" 
+                  />
+                </div>
+              </div>
+            )}
             
             {/* Day-by-Day Itinerary Section */}
             <div className="mb-16">
