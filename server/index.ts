@@ -3,6 +3,7 @@ import { setupVite, serveStatic, log } from "./vite";
 import path from "path";
 import { fileURLToPath } from "url";
 import { createServer } from "http";
+import { storage } from "./storage";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +34,60 @@ app.use((req, res, next) => {
   });
 
   next();
+});
+
+// API Routes
+
+// Get all tour packages
+app.get('/api/tour-packages', async (req, res) => {
+  try {
+    const packages = await storage.getTourPackages();
+    res.json(packages);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch tour packages' });
+  }
+});
+
+// Get featured tour packages
+app.get('/api/tour-packages/featured', async (req, res) => {
+  try {
+    const packages = await storage.getFeaturedTourPackages();
+    res.json(packages);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch featured tour packages' });
+  }
+});
+
+// Get tour package by slug - this needs to come BEFORE the ID route!
+app.get('/api/tour-packages/by-slug/:slug', async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const tourPackage = await storage.getTourPackageBySlug(slug);
+    
+    if (!tourPackage) {
+      return res.status(404).json({ error: 'Tour package not found' });
+    }
+    
+    res.json(tourPackage);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch tour package' });
+  }
+});
+
+// Get tour package by ID
+app.get('/api/tour-packages/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const tourPackage = await storage.getTourPackageById(id);
+    
+    if (!tourPackage) {
+      return res.status(404).json({ error: 'Tour package not found' });
+    }
+    
+    res.json(tourPackage);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch tour package' });
+  }
 });
 
 (async () => {

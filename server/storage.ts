@@ -337,7 +337,7 @@ export class MemStorage implements IStorage {
     const id = this.currentTourPackageId++;
     
     // Generate a slug if one isn't provided
-    let slug = insertTourPackage.slug;
+    let slug = insertTourPackage.slug || null;
     if (!slug) {
       slug = insertTourPackage.title
         .toLowerCase()
@@ -346,14 +346,32 @@ export class MemStorage implements IStorage {
         .replace(/-+/g, '-'); // Replace multiple dashes with a single dash
     }
     
-    const tourPackage: TourPackage = { 
-      ...insertTourPackage, 
+    // Create a clean object with all required fields
+    const tourPackage: TourPackage = {
       id,
+      title: insertTourPackage.title,
+      description: insertTourPackage.description,
+      duration: insertTourPackage.duration,
+      price: insertTourPackage.price,
+      imageUrl: insertTourPackage.imageUrl,
       slug,
+      
+      // Handle fields that might be null
+      highlightsSummary: insertTourPackage.highlightsSummary || null,
+      gallery: insertTourPackage.gallery || null,
       rating: insertTourPackage.rating || null,
       reviewCount: insertTourPackage.reviewCount || null,
-      featured: insertTourPackage.featured || null
+      featured: insertTourPackage.featured || null,
+      destinations: insertTourPackage.destinations || null,
+      includes: insertTourPackage.includes || null,
+      excludes: insertTourPackage.excludes || null,
+      itinerary: insertTourPackage.itinerary || null,
+      startingLocations: insertTourPackage.startingLocations || null,
+      luxuryLevel: insertTourPackage.luxuryLevel || null,
+      bestTimeToVisit: insertTourPackage.bestTimeToVisit || null,
+      groupSize: insertTourPackage.groupSize || null
     };
+    
     this.tourPackages.set(id, tourPackage);
     return tourPackage;
   }

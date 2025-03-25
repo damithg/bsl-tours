@@ -115,7 +115,12 @@ const TourPackages = () => {
                         <span className="text-[#0F4C81] text-xl font-semibold">${pkg.price.toLocaleString()}</span>
                         <span className="text-gray-500 text-sm">per person</span>
                       </div>
-                      <Link href={`/tour-packages/${pkg.id}`} className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-md transition">View Details</Link>
+                      <Link 
+                        href={pkg.slug ? `/tour/${pkg.slug}` : `/tour-packages/${pkg.id}`} 
+                        className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-md transition"
+                      >
+                        View Details
+                      </Link>
                     </div>
                   </div>
                 </div>
