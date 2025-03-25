@@ -20,9 +20,10 @@ interface InteractiveMapProps {
 }
 
 const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
-  const [activeDestination, setActiveDestination] = useState<number | null>(null);
+  // Set Sigiriya (ID 1) as the default selected destination
+  const [activeDestination, setActiveDestination] = useState<number | null>(1);
 
-  // Hard-coded destinations with coordinates for the PNG map image
+  // Hard-coded destinations with coordinates for the watercolor Sri Lanka map image
   const mapData = [
     {
       id: 1,
@@ -30,8 +31,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Ancient rock fortress with frescoes and stunning views.",
       imageUrl: "https://images.unsplash.com/photo-1588428895011-8a3fb77e433a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 175, // Adjusted for the PNG map
-      y: 160
+      x: 180, // Adjusted for the watercolor map
+      y: 145
     },
     {
       id: 2,
@@ -39,8 +40,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Cultural capital and home to the Temple of the Sacred Tooth Relic.",
       imageUrl: "https://images.unsplash.com/photo-1586613835017-4748b1722780?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 160,
-      y: 195
+      x: 165,
+      y: 180
     },
     {
       id: 3,
@@ -48,8 +49,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Sri Lanka's vibrant capital city with colonial architecture and modern amenities.",
       imageUrl: "https://images.unsplash.com/photo-1575994532957-15b093930c7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 130,
-      y: 210
+      x: 125,
+      y: 195
     },
     {
       id: 4,
@@ -57,8 +58,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Historic fort city with Dutch colonial architecture on the southern coast.",
       imageUrl: "https://images.unsplash.com/photo-1586450463118-8d0cddab713f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: false,
-      x: 130,
-      y: 260
+      x: 125,
+      y: 240
     },
     {
       id: 5,
@@ -66,8 +67,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Port city with beautiful beaches and natural harbors.",
       imageUrl: "https://images.unsplash.com/photo-1586686460175-794e0662cc3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: false,
-      x: 195,
-      y: 130
+      x: 205,
+      y: 120
     }
   ];
 
@@ -90,7 +91,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
                   {/* Sri Lanka map image */}
                   <div className="absolute inset-0 rounded overflow-hidden flex items-center justify-center p-4">
                     <img 
-                      src="https://banner2.cleanpng.com/20180622/vks/aazdqa1o4.webp" 
+                      src="https://i.pinimg.com/736x/e6/c5/30/e6c5307dc64c80debc4c6f617fa4d26c.jpg" 
                       alt="Sri Lanka Map" 
                       className="max-w-full max-h-full object-contain"
                     />

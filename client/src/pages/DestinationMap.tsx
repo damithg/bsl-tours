@@ -88,7 +88,7 @@ const DestinationMap = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 pt-20 pb-8">
       <h1 className="text-4xl font-bold text-center mb-2">Discover Sri Lanka</h1>
       <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
         Explore the interactive map of Sri Lanka to discover the island's most stunning destinations. 
