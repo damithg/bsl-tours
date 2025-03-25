@@ -262,7 +262,7 @@ const EnhancedPackageDetail = () => {
             </div>
             <div className="flex flex-col items-center">
               <DollarSign className="h-6 w-6 text-[#D4AF37] mb-2" />
-              <span className="text-[#103556] font-medium">From <strong>${packageData.price.toLocaleString()}</strong></span>
+              <span className="text-[#103556] font-medium">From <strong>${packageData.price?.toLocaleString() || "0"}</strong></span>
             </div>
             <div className="flex flex-col items-center">
               <Award className="h-6 w-6 text-[#D4AF37] mb-2" />
@@ -531,7 +531,7 @@ const EnhancedPackageDetail = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <div>
-                    <div className="text-3xl font-bold mb-1 text-white">${packageData.price.toLocaleString()}</div>
+                    <div className="text-3xl font-bold mb-1 text-white">${packageData.price?.toLocaleString() || "0"}</div>
                     <div className="text-sm text-white/80">per person</div>
                   </div>
                   <div className="text-right">
@@ -654,7 +654,7 @@ const EnhancedPackageDetail = () => {
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-gray-500">From</span>
-                      <span className="text-[#103556] text-2xl font-bold ml-2">${tour.price.toLocaleString()}</span>
+                      <span className="text-[#103556] text-2xl font-bold ml-2">${tour.price?.toLocaleString() || "0"}</span>
                     </div>
                     <Link href={`/tour-packages/${tour.id}`}>
                       <button className="bg-[#103556] hover:bg-[#1a4971] text-white font-medium px-6 py-2.5 rounded-sm transition-colors">
