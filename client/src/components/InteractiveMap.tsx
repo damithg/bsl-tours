@@ -22,7 +22,7 @@ interface InteractiveMapProps {
 const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
   const [activeDestination, setActiveDestination] = useState<number | null>(null);
 
-  // Hard-coded destinations with coordinates for the real map image
+  // Hard-coded destinations with coordinates for the PNG map image
   const mapData = [
     {
       id: 1,
@@ -30,8 +30,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Ancient rock fortress with frescoes and stunning views.",
       imageUrl: "https://images.unsplash.com/photo-1588428895011-8a3fb77e433a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 180, // Adjusted for the real map
-      y: 165
+      x: 175, // Adjusted for the PNG map
+      y: 160
     },
     {
       id: 2,
@@ -39,8 +39,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Cultural capital and home to the Temple of the Sacred Tooth Relic.",
       imageUrl: "https://images.unsplash.com/photo-1586613835017-4748b1722780?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 165,
-      y: 215
+      x: 160,
+      y: 195
     },
     {
       id: 3,
@@ -48,8 +48,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Sri Lanka's vibrant capital city with colonial architecture and modern amenities.",
       imageUrl: "https://images.unsplash.com/photo-1575994532957-15b093930c7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 105,
-      y: 235
+      x: 130,
+      y: 210
     },
     {
       id: 4,
@@ -57,8 +57,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Historic fort city with Dutch colonial architecture on the southern coast.",
       imageUrl: "https://images.unsplash.com/photo-1586450463118-8d0cddab713f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: false,
-      x: 125,
-      y: 320
+      x: 130,
+      y: 260
     },
     {
       id: 5,
@@ -66,8 +66,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Port city with beautiful beaches and natural harbors.",
       imageUrl: "https://images.unsplash.com/photo-1586686460175-794e0662cc3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: false,
-      x: 235,
-      y: 140
+      x: 195,
+      y: 130
     }
   ];
 
@@ -86,18 +86,18 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
                     Interactive Map
                   </span>
                 </div>
-                <div className="relative aspect-[3/5] border border-gray-100 rounded-lg shadow-lg overflow-hidden">
+                <div className="relative aspect-[3/4] border border-gray-100 rounded-lg shadow-lg overflow-hidden bg-blue-50/30">
                   {/* Sri Lanka map image */}
-                  <div className="absolute inset-0 rounded overflow-hidden">
+                  <div className="absolute inset-0 rounded overflow-hidden flex items-center justify-center p-4">
                     <img 
-                      src="https://upload.wikimedia.org/wikipedia/commons/3/36/Map_of_Sri_Lanka.svg" 
+                      src="https://banner2.cleanpng.com/20180622/vks/aazdqa1o4.webp" 
                       alt="Sri Lanka Map" 
-                      className="w-full h-full object-cover"
+                      className="max-w-full max-h-full object-contain"
                     />
                   </div>
                   
                   {/* Map overlay with a subtle gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/10 to-blue-50/5 pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/5 to-blue-50/5 pointer-events-none"></div>
                   
                   {/* Destination markers */}
                   {mapData.map((dest) => (
@@ -105,7 +105,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
                       key={dest.id}
                       className={`absolute w-5 h-5 rounded-full transition-all duration-300 transform ${activeDestination === dest.id ? 'bg-amber-500 scale-125 ring-2 ring-amber-300' : 'bg-primary shadow-md'}`}
                       style={{ 
-                        left: `${dest.x / 1.2}px`, 
+                        left: `${dest.x}px`, 
                         top: `${dest.y}px`,
                         transform: 'translate(-50%, -50%)',
                         zIndex: activeDestination === dest.id ? 10 : 5
