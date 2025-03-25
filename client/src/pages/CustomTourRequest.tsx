@@ -8,13 +8,15 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { DateRange } from 'react-day-picker';
 
 interface TourRequestFormData {
   fullName: string;
   email: string;
   phone: string;
-  travelDates: string;
   numberOfTravelers: string;
   additionalNotes: string;
 }
@@ -24,11 +26,19 @@ interface CustomTourRequestProps {
 }
 
 const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
+  // Date range state
+  const [dateRange, setDateRange] = useState<{
+    from: Date | undefined;
+    to: Date | undefined;
+  }>({
+    from: undefined,
+    to: undefined,
+  });
+  
   const [formData, setFormData] = useState<TourRequestFormData>({
     fullName: '',
     email: '',
     phone: '',
-    travelDates: '',
     numberOfTravelers: '2',
     additionalNotes: '',
   });
@@ -71,7 +81,23 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
     
     try {
       // In a real application, we would send this data to the server
-      // For now, let's simulate a successful API call
+      // Prepare the complete form data including the date range
+      const completeFormData = {
+        ...formData,
+        dateRange: {
+          from: dateRange.from ? format(dateRange.from, 'yyyy-MM-dd') : undefined,
+          to: dateRange.to ? format(dateRange.to, 'yyyy-MM-dd') : undefined
+        },
+        selectedRoute: routeDestinations.map(dest => ({
+          destination: dest.name,
+          days: dest.days
+        })),
+        totalDays
+      };
+      
+      console.log('Submitting form data:', completeFormData);
+      
+      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       setIsSubmitted(true);
@@ -268,14 +294,48 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
                 
                 <div className="space-y-2">
                   <Label htmlFor="travelDates">Preferred Travel Dates</Label>
-                  <Input 
-                    id="travelDates"
-                    name="travelDates"
-                    value={formData.travelDates}
-                    onChange={handleInputChange}
-                    placeholder="e.g., Apr 15-30, 2025 or Flexible"
-                  />
-                  <p className="text-xs text-gray-500">If your dates are flexible, please indicate your preferred month or season.</p>
+                  <div className="grid gap-2">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          id="date"
+                          variant={"outline"}
+                          className={`w-full justify-start text-left font-normal ${!dateRange.from && "text-muted-foreground"}`}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                            <line x1="16" x2="16" y1="2" y2="6"></line>
+                            <line x1="8" x2="8" y1="2" y2="6"></line>
+                            <line x1="3" x2="21" y1="10" y2="10"></line>
+                          </svg>
+                          {dateRange.from ? (
+                            dateRange.to ? (
+                              <>
+                                {format(dateRange.from, "LLL dd, yyyy")} - {format(dateRange.to, "LLL dd, yyyy")}
+                              </>
+                            ) : (
+                              format(dateRange.from, "LLL dd, yyyy")
+                            )
+                          ) : (
+                            <span>Select your travel dates</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          initialFocus
+                          mode="range"
+                          defaultMonth={dateRange.from}
+                          selected={dateRange}
+                          onSelect={setDateRange}
+                          numberOfMonths={2}
+                          minDate={new Date()}
+                          maxDate={addDays(new Date(), 900)} // About 2.5 years into the future
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <p className="text-xs text-gray-500">If your dates are flexible, you can mention this in the notes section below.</p>
                 </div>
                 
                 <div className="space-y-2">

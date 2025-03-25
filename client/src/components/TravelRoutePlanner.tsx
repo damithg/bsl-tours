@@ -18,9 +18,37 @@ interface TravelRoutePlannerProps {
 }
 
 const TravelRoutePlanner: React.FC<TravelRoutePlannerProps> = ({ availableDestinations }) => {
-  const [selectedDestinations, setSelectedDestinations] = useState<RouteDestination[]>([]);
-  const [totalDays, setTotalDays] = useState(0);
+  // Load saved route from localStorage if exists
+  const getSavedRoute = (): RouteDestination[] => {
+    try {
+      const savedRoute = localStorage.getItem('travelRoute');
+      return savedRoute ? JSON.parse(savedRoute) : [];
+    } catch (error) {
+      console.error('Error loading saved route:', error);
+      return [];
+    }
+  };
+
+  const [selectedDestinations, setSelectedDestinations] = useState<RouteDestination[]>(getSavedRoute());
+  const [totalDays, setTotalDays] = useState(() => {
+    const saved = getSavedRoute();
+    return saved.reduce((sum, dest) => sum + (dest.days || 0), 0);
+  });
   const [, setLocation] = useLocation();
+  
+  // Save route to localStorage
+  const saveRoute = (route: RouteDestination[]) => {
+    try {
+      localStorage.setItem('travelRoute', JSON.stringify(route));
+    } catch (error) {
+      console.error('Error saving route:', error);
+    }
+  };
+  
+  // Effect to save route whenever it changes
+  React.useEffect(() => {
+    saveRoute(selectedDestinations);
+  }, [selectedDestinations]);
   
   // Handle drag end event
   const handleDragEnd = (result: DropResult) => {
@@ -98,6 +126,7 @@ const TravelRoutePlanner: React.FC<TravelRoutePlannerProps> = ({ availableDestin
   const resetPlanner = () => {
     setSelectedDestinations([]);
     setTotalDays(0);
+    localStorage.removeItem('travelRoute'); // Clear saved route
   };
   
   return (
