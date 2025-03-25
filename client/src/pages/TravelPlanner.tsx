@@ -12,7 +12,7 @@ interface Destination {
   featured: boolean;
 }
 
-const TravelPlanner = () => {
+const TravelPlanner: React.FC = () => {
   // For testing/development, we'll use hardcoded destinations
   const mockDestinations: Destination[] = [
     {
@@ -127,61 +127,84 @@ const TravelPlanner = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 pt-20 pb-8">
-      <h1 className="text-4xl font-bold text-center mb-2">Custom Travel Planner</h1>
-      <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
-        Create your own custom travel itinerary by dragging and dropping destinations to build your perfect 
-        Sri Lanka experience. Adjust the number of days at each location and request a personalized tour.
-      </p>
-      
-      <div className="mb-8 bg-primary/5 rounded-lg p-6 shadow-sm">
-        <div className="flex flex-col md:flex-row items-center gap-4">
-          <div className="bg-primary/10 p-3 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 7v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"></path>
-              <rect x="3" y="3" width="18" height="4" rx="2"></rect>
-              <path d="M5 15v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"></path>
-            </svg>
-          </div>
-          <div className="flex-grow">
-            <h3 className="text-lg font-semibold">How It Works</h3>
-            <p className="text-gray-600">
-              Drag destinations from the available list to your route panel. Reorder them to create your 
-              perfect journey sequence, and adjust how many days you'd like at each location. When you're 
-              satisfied, submit your custom plan to our travel consultants.
+    <>
+      {/* Hero Section */}
+      <section className="relative pt-28 pb-20 bg-primary">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <img 
+            src="https://images.unsplash.com/photo-1603210185316-b45a62b259aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
+            alt="Sri Lanka Travel Planner" 
+            className="w-full h-full object-cover" 
+          />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6">
+              Travel Planner
+            </h1>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              Design your dream journey with our interactive planning tool
             </p>
           </div>
         </div>
-      </div>
+      </section>
       
-      {routeDestinations.length > 0 ? (
-        <TravelRoutePlanner availableDestinations={routeDestinations} />
-      ) : (
-        <div className="text-center py-12">
-          <p>No destinations available for planning.</p>
-        </div>
-      )}
+      <div className="container mx-auto px-4 py-12">
+        <h2 className="text-3xl font-bold text-center mb-2">Custom Travel Planner</h2>
+        <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
+          Create your own custom travel itinerary by dragging and dropping destinations to build your perfect 
+          Sri Lanka experience. Adjust the number of days at each location and request a personalized tour.
+        </p>
       
-      <div className="mt-16 bg-primary/5 rounded-lg p-8">
-        <h2 className="text-2xl font-bold mb-4">Need Help Planning?</h2>
-        <p className="mb-4">
-          Our luxury tours cover all of Sri Lanka's most fascinating destinations. If you prefer,
-          our travel experts can help you design the perfect itinerary based on your preferences.
-        </p>
-        <p className="mb-6">
-          Whether you're interested in cultural heritage, wildlife safaris, or beachside relaxation, 
-          our experienced travel consultants are ready to assist.
-        </p>
-        <div className="flex justify-center">
-          <a 
-            href="/contact" 
-            className="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition-colors"
-          >
-            Contact Our Experts
-          </a>
+        <div className="mb-8 bg-primary/5 rounded-lg p-6 shadow-sm">
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <div className="bg-primary/10 p-3 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 7v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"></path>
+                <rect x="3" y="3" width="18" height="4" rx="2"></rect>
+                <path d="M5 15v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"></path>
+              </svg>
+            </div>
+            <div className="flex-grow">
+              <h3 className="text-lg font-semibold">How It Works</h3>
+              <p className="text-gray-600">
+                Drag destinations from the available list to your route panel. Reorder them to create your 
+                perfect journey sequence, and adjust how many days you'd like at each location. When you're 
+                satisfied, submit your custom plan to our travel consultants.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {routeDestinations.length > 0 ? (
+          <TravelRoutePlanner availableDestinations={routeDestinations} />
+        ) : (
+          <div className="text-center py-12">
+            <p>No destinations available for planning.</p>
+          </div>
+        )}
+        
+        <div className="mt-16 bg-primary/5 rounded-lg p-8">
+          <h2 className="text-2xl font-bold mb-4">Need Help Planning?</h2>
+          <p className="mb-4">
+            Our luxury tours cover all of Sri Lanka's most fascinating destinations. If you prefer,
+            our travel experts can help you design the perfect itinerary based on your preferences.
+          </p>
+          <p className="mb-6">
+            Whether you're interested in cultural heritage, wildlife safaris, or beachside relaxation, 
+            our experienced travel consultants are ready to assist.
+          </p>
+          <div className="flex justify-center">
+            <a 
+              href="/contact" 
+              className="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition-colors"
+            >
+              Contact Our Experts
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
