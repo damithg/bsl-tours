@@ -23,11 +23,17 @@ function Router() {
       <Header />
       <Switch>
         <Route path="/" component={Home} />
+        
+        {/* Tour packages routes */}
         <Route path="/packages" component={TourPackages} />
         <Route path="/packages/:id" component={PackageDetail} />
         <Route path="/tour-packages" component={TourPackages} />
         <Route path="/tour-packages/:id" component={EnhancedPackageDetail} />
-        <Route path="/tour/:id" component={EnhancedPackageDetail} />
+        
+        {/* New slug-based route for tours */}
+        <Route path="/tour/:slug" component={EnhancedPackageDetail} />
+        
+        {/* Other routes */}
         <Route path="/destinations" component={Destinations} />
         <Route path="/destination-map" component={DestinationMap} />
         <Route path="/travel-planner" component={TravelPlanner} />

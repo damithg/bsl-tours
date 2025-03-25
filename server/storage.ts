@@ -18,6 +18,7 @@ export interface IStorage {
   getTourPackages(): Promise<TourPackage[]>;
   getFeaturedTourPackages(): Promise<TourPackage[]>;
   getTourPackageById(id: number): Promise<TourPackage | undefined>;
+  getTourPackageBySlug(slug: string): Promise<TourPackage | undefined>;
   createTourPackage(tourPackage: InsertTourPackage): Promise<TourPackage>;
   
   // Destinations
@@ -326,11 +327,29 @@ export class MemStorage implements IStorage {
     return this.tourPackages.get(id);
   }
   
+  async getTourPackageBySlug(slug: string): Promise<TourPackage | undefined> {
+    return Array.from(this.tourPackages.values()).find(
+      (pkg) => pkg.slug === slug
+    );
+  }
+  
   async createTourPackage(insertTourPackage: InsertTourPackage): Promise<TourPackage> {
     const id = this.currentTourPackageId++;
+    
+    // Generate a slug if one isn't provided
+    let slug = insertTourPackage.slug;
+    if (!slug) {
+      slug = insertTourPackage.title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-') // Replace spaces with dashes
+        .replace(/-+/g, '-'); // Replace multiple dashes with a single dash
+    }
+    
     const tourPackage: TourPackage = { 
       ...insertTourPackage, 
       id,
+      slug,
       rating: insertTourPackage.rating || null,
       reviewCount: insertTourPackage.reviewCount || null,
       featured: insertTourPackage.featured || null

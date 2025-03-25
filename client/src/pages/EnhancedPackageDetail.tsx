@@ -26,8 +26,10 @@ interface RelatedTour {
 }
 
 const EnhancedPackageDetail = () => {
-  const { id } = useParams();
-  const packageId = parseInt(id || "0");
+  const params = useParams();
+  const slug = params.slug;  // Get the slug parameter
+  const id = params.id;      // Also support ID parameter for backward compatibility
+  
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [includes, setIncludes] = useState<string[]>([]);
@@ -35,9 +37,14 @@ const EnhancedPackageDetail = () => {
   const [destinations, setDestinations] = useState<string[]>([]);
   const [itinerary, setItinerary] = useState<ItineraryDay[]>([]);
 
+  // Determine query based on available parameters
+  const queryKey = slug 
+    ? ['/api/tour-packages/by-slug', slug] 
+    : ['/api/tour-packages', parseInt(id || "0")];
+
   // Fetch tour package data
   const { data: packageData, isLoading, error } = useQuery<TourPackage>({
-    queryKey: ['/api/tour-packages', packageId],
+    queryKey,
   });
 
   // Process JSON fields when data is loaded
