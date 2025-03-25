@@ -128,11 +128,12 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
     );
   }
   
-  // If the form was successfully submitted, show a success message
+  // If the form was successfully submitted, show a success message with upsell opportunities
   if (isSubmitted) {
     return (
-      <div className="container mx-auto px-4 pt-20 pb-8">
-        <div className="max-w-2xl mx-auto">
+      <div className="container mx-auto px-4 pt-20 pb-12">
+        <div className="max-w-5xl mx-auto">
+          {/* Success message */}
           <div className="text-center py-12 bg-primary/5 rounded-lg border border-primary/10 mb-8">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -145,6 +146,10 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
               Thank you for your interest in our custom tour. Our travel experts will review your itinerary 
               and contact you within 24 hours to discuss the details.
             </p>
+            <div className="text-center text-sm text-gray-500 mb-4">
+              <p>Reference Number: {Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+              <p>Submitted on: {format(new Date(), 'PPP')}</p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="outline" onClick={() => setLocation('/')}>
                 Return to Home
@@ -155,9 +160,255 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
             </div>
           </div>
           
-          <div className="text-center text-sm text-gray-500">
-            <p>Reference Number: {Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
-            <p>Submitted on: {format(new Date(), 'PPP')}</p>
+          {/* Upsell section title */}
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-2">Enhance Your Sri Lanka Experience</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              While we prepare your custom itinerary, consider these additional options to make your journey even more memorable.
+            </p>
+          </div>
+          
+          {/* Upsell cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {/* Premium Experiences */}
+            <Card className="overflow-hidden">
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1470043201067-764120126eb4?q=80&w=1000" 
+                  alt="Luxury Experiences" 
+                  className="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <CardContent className="p-5">
+                <h3 className="text-lg font-semibold mb-2">Premium Experiences</h3>
+                <ul className="space-y-2 text-sm text-gray-600 mb-4">
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Private helicopter tours over scenic landscapes
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Exclusive cultural performances
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Fine dining experiences with local chefs
+                  </li>
+                </ul>
+                <Button variant="outline" className="w-full" onClick={() => setLocation('/contact')}>
+                  Learn More
+                </Button>
+              </CardContent>
+            </Card>
+            
+            {/* Luxury Transfers */}
+            <Card className="overflow-hidden">
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1571366343168-631c5bcca7a4?q=80&w=1000" 
+                  alt="Luxury Transfers" 
+                  className="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <CardContent className="p-5">
+                <h3 className="text-lg font-semibold mb-2">Luxury Transportation</h3>
+                <ul className="space-y-2 text-sm text-gray-600 mb-4">
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    VIP airport transfers & meet and greet service
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Luxury vehicle with dedicated chauffeur
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Scenic train journeys in first-class cabins
+                  </li>
+                </ul>
+                <Button variant="outline" className="w-full" onClick={() => setLocation('/contact')}>
+                  Add to Your Trip
+                </Button>
+              </CardContent>
+            </Card>
+            
+            {/* Travel Insurance */}
+            <Card className="overflow-hidden">
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1579621970590-9d624316904b?q=80&w=1000" 
+                  alt="Travel Insurance" 
+                  className="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <CardContent className="p-5">
+                <h3 className="text-lg font-semibold mb-2">Premium Travel Insurance</h3>
+                <ul className="space-y-2 text-sm text-gray-600 mb-4">
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Comprehensive medical coverage abroad
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Trip cancellation protection
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    24/7 global assistance services
+                  </li>
+                </ul>
+                <Button variant="outline" className="w-full" onClick={() => setLocation('/contact')}>
+                  Get Protected
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Related tour packages */}
+          <div className="mb-12">
+            <h3 className="text-xl font-semibold mb-6">Popular Tour Packages You Might Like</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Package 1 */}
+              <Card className="overflow-hidden">
+                <div className="h-48 overflow-hidden relative">
+                  <div className="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full z-10">
+                    Bestseller
+                  </div>
+                  <img 
+                    src="/images/tour-packages/cultural-tour.jpg" 
+                    alt="Cultural Tour" 
+                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                  />
+                </div>
+                <CardContent className="p-5">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-lg font-semibold">Cultural Heritage Tour</h3>
+                    <span className="text-primary font-medium">$1,299</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-500 mb-3">
+                    <svg className="w-4 h-4 mr-1 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    7 Days
+                    <span className="mx-2">•</span>
+                    <svg className="w-4 h-4 mr-1 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Cultural Triangle
+                  </div>
+                  <Button variant="default" className="w-full" onClick={() => setLocation('/packages/cultural-heritage')}>
+                    View Package
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              {/* Package 2 */}
+              <Card className="overflow-hidden">
+                <div className="h-48 overflow-hidden relative">
+                  <div className="absolute top-2 right-2 bg-primary/80 text-white text-xs px-2 py-1 rounded-full z-10">
+                    Popular
+                  </div>
+                  <img 
+                    src="/images/tour-packages/wildlife-tour.jpg" 
+                    alt="Wildlife Safari" 
+                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                  />
+                </div>
+                <CardContent className="p-5">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-lg font-semibold">Wildlife Safari Adventure</h3>
+                    <span className="text-primary font-medium">$1,499</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-500 mb-3">
+                    <svg className="w-4 h-4 mr-1 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    8 Days
+                    <span className="mx-2">•</span>
+                    <svg className="w-4 h-4 mr-1 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    National Parks
+                  </div>
+                  <Button variant="default" className="w-full" onClick={() => setLocation('/packages/wildlife-safari')}>
+                    View Package
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              {/* Package 3 */}
+              <Card className="overflow-hidden">
+                <div className="h-48 overflow-hidden relative">
+                  <div className="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded-full z-10">
+                    New
+                  </div>
+                  <img 
+                    src="/images/tour-packages/beach-tour.jpg" 
+                    alt="Beach Retreat" 
+                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                  />
+                </div>
+                <CardContent className="p-5">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-lg font-semibold">Tropical Beach Retreat</h3>
+                    <span className="text-primary font-medium">$1,199</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-500 mb-3">
+                    <svg className="w-4 h-4 mr-1 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    6 Days
+                    <span className="mx-2">•</span>
+                    <svg className="w-4 h-4 mr-1 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    South Coast
+                  </div>
+                  <Button variant="default" className="w-full" onClick={() => setLocation('/packages/beach-retreat')}>
+                    View Package
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+          
+          {/* Newsletter signup */}
+          <div className="bg-primary/5 rounded-lg p-8 text-center">
+            <h3 className="text-xl font-semibold mb-3">Stay Updated on Special Offers</h3>
+            <p className="text-gray-600 mb-6 max-w-xl mx-auto">
+              Subscribe to our newsletter for exclusive travel deals, seasonal promotions, and insider tips for your Sri Lanka journey.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <Input 
+                type="email" 
+                placeholder="Your email address" 
+                className="flex-grow"
+              />
+              <Button>
+                Subscribe
+              </Button>
+            </div>
           </div>
         </div>
       </div>
