@@ -132,6 +132,8 @@ namespace BSLTours.API.Services
                     Itinerary = "Day 1: Arrive in Colombo\nDay 2: Colombo to Anuradhapura\nDay 3: Explore Anuradhapura\nDay 4: Polonnaruwa\nDay 5: Sigiriya and Dambulla\nDay 6-7: Kandy\nDay 8: Nuwara Eliya\nDay 9: Colombo\nDay 10: Departure",
                     IsFeatured = true,
                     DestinationId = 1,
+                    Rating = 50,
+                    ReviewCount = 24,
                     GalleryImages = new List<string> { 
                         "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
                         "https://images.unsplash.com/photo-1629385697093-57be2cc97fa6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
@@ -149,6 +151,8 @@ namespace BSLTours.API.Services
                     Itinerary = "Day 1: Arrive in Colombo, transfer to beach villa\nDay 2-3: Beach relaxation and spa\nDay 4: Galle Fort excursion\nDay 5: Whale watching (seasonal)\nDay 6: Beach activities\nDay 7: Departure",
                     IsFeatured = true,
                     DestinationId = 2,
+                    Rating = 48,
+                    ReviewCount = 19,
                     GalleryImages = new List<string> { 
                         "https://images.unsplash.com/photo-1540202404-d0c7fe46a087?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
                         "https://images.unsplash.com/photo-1540202403-b7abd6747a18?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
@@ -166,6 +170,8 @@ namespace BSLTours.API.Services
                     Itinerary = "Day 1: Colombo to Hatton\nDay 2-3: Tea plantation immersion\nDay 4: Nuwara Eliya\nDay 5: Horton Plains excursion\nDay 6: Ella\nDay 7: Nine Arch Bridge and Little Adam's Peak\nDay 8: Return to Colombo",
                     IsFeatured = true,
                     DestinationId = 4,
+                    Rating = 50,
+                    ReviewCount = 28,
                     GalleryImages = new List<string> { 
                         "https://images.unsplash.com/photo-1575373547484-97224dad87e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
                         "https://images.unsplash.com/photo-1590239926314-75626cd9958c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
@@ -183,6 +189,8 @@ namespace BSLTours.API.Services
                     Itinerary = "Day 1: Arrive in Colombo\nDay 2: Transfer to Yala National Park\nDay 3: Yala safaris\nDay 4: Transfer to Udawalawe\nDay 5: Udawalawe safari and elephant transit home\nDay 6: Return to Colombo",
                     IsFeatured = false,
                     DestinationId = 3,
+                    Rating = 47,
+                    ReviewCount = 15,
                     GalleryImages = new List<string> { 
                         "https://images.unsplash.com/photo-1624991982486-7e1b8c6ed47d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
                         "https://images.unsplash.com/photo-1627663899322-ebb023b9ae13?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
@@ -200,6 +208,8 @@ namespace BSLTours.API.Services
                     Itinerary = "Day 1-2: Colombo\nDay 3-4: Cultural Triangle\nDay 5-6: Kandy\nDay 7-8: Hill Country\nDay 9-11: Beach Stay\nDay 12: Departure",
                     IsFeatured = false,
                     DestinationId = 1,
+                    Rating = 49,
+                    ReviewCount = 22,
                     GalleryImages = new List<string> { 
                         "https://images.unsplash.com/photo-1581343109297-b0711eb85d7a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
                         "https://images.unsplash.com/photo-1573126617899-41f1dffb196c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
@@ -217,6 +227,8 @@ namespace BSLTours.API.Services
                     Itinerary = "Day 1: Arrival and luxury transfer\nDay 2-3: Cultural exploration\nDay 4-5: Tea country retreat\nDay 6-8: Private beach villa\nDay 9: Departure",
                     IsFeatured = true,
                     DestinationId = 2,
+                    Rating = 50,
+                    ReviewCount = 18,
                     GalleryImages = new List<string> { 
                         "https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
                         "https://images.unsplash.com/photo-1592395630771-2c1f9fe29676?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
@@ -319,6 +331,8 @@ namespace BSLTours.API.Services
                 Itinerary = tourPackageDto.Itinerary,
                 IsFeatured = tourPackageDto.IsFeatured,
                 DestinationId = tourPackageDto.DestinationId,
+                Rating = tourPackageDto.Rating,
+                ReviewCount = tourPackageDto.ReviewCount,
                 GalleryImages = tourPackageDto.GalleryImages
             };
             
