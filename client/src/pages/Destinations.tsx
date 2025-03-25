@@ -114,7 +114,7 @@ const Destinations = () => {
                 <div key={destination.id} className="bg-white rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
                   <div className="relative h-64">
                     <img 
-                      src={destination.image} 
+                      src={destination.imageUrl} 
                       alt={destination.name} 
                       className="w-full h-full object-cover" 
                     />
