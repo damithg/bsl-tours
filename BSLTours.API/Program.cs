@@ -4,14 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Configure Kestrel to only use HTTP
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(5001); // Only listen on HTTP port 5001
-});
 
 // Add services to the container.
 builder.Services.AddSingleton<IDataService, InMemoryDataService>();
@@ -66,7 +61,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Disable HTTPS redirection for local development
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 // Use CORS middleware
 app.UseCors();
@@ -78,4 +73,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Run the app on port 5001
-app.Run("http://0.0.0.0:5001");
+app.Run();

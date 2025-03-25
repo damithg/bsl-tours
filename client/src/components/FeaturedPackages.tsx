@@ -199,8 +199,8 @@ const FeaturedPackages = () => {
                 className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl"
               >
                 <div className="relative h-64">
-                  {pkg.image ? (
-                    <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover" />
+                  {pkg.imageUrl ? (
+                    <img src={pkg.imageUrl} alt={pkg.title} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No Image Available</div>
                   )}

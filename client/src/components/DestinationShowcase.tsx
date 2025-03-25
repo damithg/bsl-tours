@@ -2,12 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
 import { useState, useRef } from "react";
 import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-react";
-import { queryClient } from "@/lib/queryClient";
+import { queryClient, getQueryFn  } from "@/lib/queryClient";
 
 const DestinationShowcase = () => {
   const queryKey = ['/api/destinations'];
+  console.log("DestinationShowcase mounted");
+
   const { data: destinations, isLoading, error, refetch } = useQuery<Destination[]>({
     queryKey,
+    queryFn: getQueryFn({ on401: "throw" }),
   });
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -149,32 +152,37 @@ const DestinationShowcase = () => {
             className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory hide-scrollbar"
             onScroll={checkScrollable}
           >
-            {destinations.map((destination) => (
-              <div 
-                key={destination.id} 
-                className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start group relative overflow-hidden rounded-lg shadow-lg h-80"
-              >
-                {destination.image ? (
-                  <img 
-                    src={destination.image} 
-                    alt={destination.name} 
-                    className="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 transition duration-700 group-hover:scale-110">
-                    No Image Available
+            {destinations.map((destination) => {
+              console.log("full destination:", destination); // ✅ This line
+
+              return (
+                <div
+                  key={destination.id}
+                  className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start group relative overflow-hidden rounded-lg shadow-lg h-80"
+                >
+                  {destination.imageUrl ? (
+                    <img
+                      src={destination.imageUrl}
+                      alt={destination.name}
+                      className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 transition duration-700 group-hover:scale-110">
+                      No Image Available
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 p-6">
+                    <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2">{destination.name || 'Destination'}</h3>
+                    <p className="text-white/80 mb-4 max-w-xs">{destination.description || 'Description not available'}</p>
+                    <a href="#" className="inline-flex items-center text-white hover:text-[#D4AF37] transition">
+                      Explore <i className="fas fa-arrow-right ml-2"></i>
+                    </a>
                   </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2">{destination.name || 'Destination'}</h3>
-                  <p className="text-white/80 mb-4 max-w-xs">{destination.description || 'Description not available'}</p>
-                  <a href="#" className="inline-flex items-center text-white hover:text-[#D4AF37] transition">
-                    Explore <i className="fas fa-arrow-right ml-2"></i>
-                  </a>
                 </div>
-              </div>
-            ))}
+              );
+            })}
+
           </div>
         </div>
       </div>

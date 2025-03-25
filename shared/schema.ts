@@ -21,7 +21,7 @@ export const tourPackages = pgTable("tour_packages", {
   description: text("description").notNull(),
   duration: integer("duration").notNull(),
   price: integer("price").notNull(),
-  image: text("image").notNull(),
+  imageUrl: text("image_url").notNull(),
   rating: integer("rating").default(50),
   reviewCount: integer("review_count").default(0),
   featured: boolean("featured").default(false),
@@ -36,7 +36,7 @@ export const destinations = pgTable("destinations", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   description: text("description").notNull(),
-  image: text("image").notNull(),
+  imageUrl: text("image_url").notNull(),
 });
 
 export const insertDestinationSchema = createInsertSchema(destinations).omit({
