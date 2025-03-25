@@ -618,40 +618,48 @@ const EnhancedPackageDetail = () => {
       </div>
       
       {/* Related Tours */}
-      <section className="py-16 bg-secondary/10">
+      <section className="py-20 bg-gradient-to-b from-white to-[#f8f7f2]">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-3">
+              <div className="h-0.5 w-10 bg-[#D4AF37] inline-block mr-3"></div>
+              <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Luxury Experiences</span>
+              <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
+            </div>
+            <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#103556] mb-6">
               You May Also Like
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Explore our other luxury experiences across Sri Lanka's most captivating destinations
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {relatedTours.map((tour) => (
-              <div key={tour.id} className="bg-white rounded-lg overflow-hidden shadow-lg transition-all hover:shadow-xl">
-                <div className="relative h-64">
+              <div key={tour.id} className="bg-white overflow-hidden shadow-lg transition-all hover:shadow-2xl group">
+                <div className="relative h-72 overflow-hidden">
                   <img 
                     src={tour.imageUrl} 
                     alt={tour.title} 
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                   />
-                  <div className="absolute top-4 right-4 bg-amber-500 text-white text-sm font-semibold py-1 px-3 rounded-full">
+                  <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-4 rounded-full">
                     {tour.duration} Days
                   </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 </div>
-                <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{tour.title}</h3>
-                  <p className="text-muted-foreground mb-4">{tour.description}</p>
+                <div className="p-8 border-b border-l border-r border-gray-100">
+                  <h3 className="font-['Playfair_Display'] text-2xl font-semibold mb-3 text-[#103556]">{tour.title}</h3>
+                  <p className="text-gray-600 mb-6">{tour.description}</p>
                   <div className="flex justify-between items-center">
                     <div>
-                      <span className="text-sm text-muted-foreground">From</span>
-                      <span className="text-primary text-xl font-semibold ml-1">${tour.price.toLocaleString()}</span>
+                      <span className="text-sm text-gray-500">From</span>
+                      <span className="text-[#103556] text-2xl font-bold ml-2">${tour.price.toLocaleString()}</span>
                     </div>
                     <Link href={`/tour-packages/${tour.id}`}>
-                      <Button>View Details</Button>
+                      <button className="bg-[#103556] hover:bg-[#1a4971] text-white font-medium px-6 py-2.5 rounded-sm transition-colors">
+                        View Details
+                      </button>
                     </Link>
                   </div>
                 </div>
@@ -662,72 +670,141 @@ const EnhancedPackageDetail = () => {
       </section>
       
       {/* Inquiry Form */}
-      <section id="inquiry" className="py-16 bg-white">
+      <section id="inquiry" className="py-24 bg-[#103556] bg-[url('/images/pattern-bg.png')] bg-opacity-10 bg-blend-overlay">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">
+          <div className="max-w-4xl mx-auto bg-white p-10 shadow-2xl">
+            <div className="text-center mb-10">
+              <div className="inline-block mb-3">
+                <div className="h-0.5 w-10 bg-[#D4AF37] inline-block mr-3"></div>
+                <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Book Your Journey</span>
+                <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
+              </div>
+              <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#103556] mb-6">
                 Interested in This Tour?
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                 Complete the form below and one of our luxury travel consultants will contact you 
                 within 24 hours to discuss your booking and answer any questions.
               </p>
             </div>
             
             <ContactForm />
+            
+            <div className="mt-8 text-center text-gray-600 text-sm">
+              <p>By submitting this form, you agree to our <span className="text-[#103556] font-medium">Privacy Policy</span> and <span className="text-[#103556] font-medium">Terms of Service</span>.</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials section */}
-      <section className="py-16 bg-primary/5">
+      <section className="py-20 bg-[#f8f7f2]">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-3">
+              <div className="h-0.5 w-10 bg-[#D4AF37] inline-block mr-3"></div>
+              <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Traveler Experiences</span>
+              <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
+            </div>
+            <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#103556] mb-6">
               What Our Guests Say
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Read about the experiences of travelers who have enjoyed this tour
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-xl">
-                  JD
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+            <div className="bg-white p-10 shadow-xl relative">
+              <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-5 mb-6 border-b border-gray-100 pb-6">
+                  <div className="w-20 h-20 rounded-full bg-[#103556]/10 flex items-center justify-center text-[#103556] font-semibold text-xl">
+                    JD
+                  </div>
+                  <div>
+                    <h4 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556]">James Davies</h4>
+                    <p className="text-gray-500">United Kingdom</p>
+                    <div className="text-[#D4AF37] mt-1">
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-lg">James Davies</h4>
-                  <p className="text-sm text-muted-foreground">United Kingdom</p>
+                <p className="italic text-gray-600 leading-relaxed">
+                  "Our trip with BSL Tours exceeded all expectations. The attention to detail was superb, and our guide's knowledge made every destination come alive. The accommodations were stunning and the private transportation was extremely comfortable."
+                </p>
+                <div className="mt-6 text-sm text-[#103556]">
+                  <span className="font-medium">Tour:</span> Luxury Sri Lanka
                 </div>
               </div>
-              <div className="text-amber-400 mb-4">
-                ★★★★★
-              </div>
-              <p className="italic text-muted-foreground">
-                "Our trip with BSL Tours exceeded all expectations. The attention to detail was superb, and our guide's knowledge made every destination come alive. The accommodations were stunning and the private transportation was extremely comfortable."
-              </p>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-xl">
-                  SM
+            <div className="bg-white p-10 shadow-xl relative">
+              <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-5 mb-6 border-b border-gray-100 pb-6">
+                  <div className="w-20 h-20 rounded-full bg-[#103556]/10 flex items-center justify-center text-[#103556] font-semibold text-xl">
+                    SM
+                  </div>
+                  <div>
+                    <h4 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556]">Sarah Mitchell</h4>
+                    <p className="text-gray-500">Australia</p>
+                    <div className="text-[#D4AF37] mt-1">
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                      <i className="fas fa-star"></i>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-lg">Sarah Mitchell</h4>
-                  <p className="text-sm text-muted-foreground">Australia</p>
+                <p className="italic text-gray-600 leading-relaxed">
+                  "From the moment we landed until our departure, everything was perfectly organized. We especially loved the cultural experiences and the wonderful food. Our tour consultant was responsive and made sure every aspect of our journey was flawless."
+                </p>
+                <div className="mt-6 text-sm text-[#103556]">
+                  <span className="font-medium">Tour:</span> Sri Lankan Heritage
                 </div>
               </div>
-              <div className="text-amber-400 mb-4">
-                ★★★★★
-              </div>
-              <p className="italic text-muted-foreground">
-                "From the moment we landed until our departure, everything was perfectly organized. We especially loved the cultural experiences and the wonderful food. Our tour consultant was responsive and made sure every aspect of our journey was flawless."
-              </p>
             </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <a href="#" className="inline-flex items-center text-[#103556] hover:text-[#D4AF37] font-medium transition-colors">
+              Read More Reviews <i className="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+      
+      {/* Call To Action */}
+      <section className="relative py-20 bg-[#103556] text-white overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-10">
+          <img 
+            src="/images/cta-background.jpg"
+            alt="Sri Lanka Beach" 
+            className="w-full h-full object-cover" 
+          />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="font-['Playfair_Display'] text-4xl font-bold mb-6">Ready to Experience Luxury in Sri Lanka?</h2>
+            <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
+            <p className="text-xl text-white/80 mb-10">
+              Our team of luxury travel specialists is waiting to craft your perfect Sri Lankan journey. 
+              Don't miss this opportunity to create memories that will last a lifetime.
+            </p>
+            <a 
+              href="#inquiry" 
+              className="inline-block bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium px-8 py-3 rounded-sm transition-colors"
+            >
+              Book Your Tour Now
+            </a>
           </div>
         </div>
       </section>
