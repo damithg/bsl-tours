@@ -22,7 +22,7 @@ interface AnimatedRouteMapProps {
 
 const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
   title = "Tour Route",
-  mapImage = "https://i.pinimg.com/736x/e6/c5/30/e6c5307dc64c80debc4c6f617fa4d26c.jpg",
+  mapImage = "/images/sri-lanka-map-watercolor.jpg",
   points,
   activeDay,
   className = "",
