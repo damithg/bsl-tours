@@ -11,6 +11,10 @@ import { useToast } from '@/hooks/use-toast';
 import { format, addDays } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { DateRange } from 'react-day-picker';
 
 interface TourRequestFormData {
@@ -31,6 +35,9 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
     from: undefined,
     to: undefined,
   });
+  
+  // State for transportation modal
+  const [transportDialog, setTransportDialog] = useState(false);
   
   const [formData, setFormData] = useState<TourRequestFormData>({
     fullName: '',
@@ -238,9 +245,129 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
                     Scenic train journeys in first-class cabins
                   </li>
                 </ul>
-                <Button variant="outline" className="w-full" onClick={() => setLocation('/contact')}>
-                  Add to Your Trip
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="w-full">
+                      Add to Your Trip
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[620px]">
+                    <DialogHeader>
+                      <DialogTitle>Customize Your Transportation</DialogTitle>
+                      <DialogDescription>
+                        Select from our premium transportation options to enhance your Sri Lankan journey.
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <div className="py-4 space-y-6">
+                      {/* Transportation type selection */}
+                      <div className="space-y-2">
+                        <Label htmlFor="vehicle-type">Select Vehicle Type</Label>
+                        <RadioGroup defaultValue="luxury-sedan" className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                          <div className="flex flex-col items-center space-y-2 border rounded-lg p-3 cursor-pointer hover:border-primary relative">
+                            <RadioGroupItem value="luxury-sedan" id="luxury-sedan" className="absolute top-2 right-2" />
+                            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=400&h=300&q=80" className="w-full h-24 object-cover rounded-md" alt="Luxury Sedan" />
+                            <Label htmlFor="luxury-sedan" className="text-sm font-medium">Luxury Sedan</Label>
+                            <p className="text-xs text-gray-500 text-center">Perfect for couples or solo travelers</p>
+                            <p className="text-primary font-medium text-sm">$75 per day</p>
+                          </div>
+                          
+                          <div className="flex flex-col items-center space-y-2 border rounded-lg p-3 cursor-pointer hover:border-primary relative">
+                            <RadioGroupItem value="premium-suv" id="premium-suv" className="absolute top-2 right-2" />
+                            <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=300&q=80" className="w-full h-24 object-cover rounded-md" alt="Premium SUV" />
+                            <Label htmlFor="premium-suv" className="text-sm font-medium">Premium SUV</Label>
+                            <p className="text-xs text-gray-500 text-center">Ideal for small families (up to 4)</p>
+                            <p className="text-primary font-medium text-sm">$95 per day</p>
+                          </div>
+                          
+                          <div className="flex flex-col items-center space-y-2 border rounded-lg p-3 cursor-pointer hover:border-primary relative">
+                            <RadioGroupItem value="luxury-van" id="luxury-van" className="absolute top-2 right-2" />
+                            <img src="https://images.unsplash.com/photo-1626057993460-a5b3c0094903?w=400&h=300&q=80" className="w-full h-24 object-cover rounded-md" alt="Luxury Van" />
+                            <Label htmlFor="luxury-van" className="text-sm font-medium">Luxury Van</Label>
+                            <p className="text-xs text-gray-500 text-center">Spacious comfort for groups (up to 7)</p>
+                            <p className="text-primary font-medium text-sm">$120 per day</p>
+                          </div>
+                        </RadioGroup>
+                      </div>
+                      
+                      {/* Service type options */}
+                      <div className="space-y-3">
+                        <Label>Service Options</Label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="flex items-start space-x-3 border rounded-lg p-3 cursor-pointer hover:border-primary">
+                            <Checkbox id="airport-transfer" />
+                            <div>
+                              <Label htmlFor="airport-transfer" className="text-sm font-medium">Airport VIP Transfer</Label>
+                              <p className="text-xs text-gray-500">Meet & greet service with welcome amenities</p>
+                              <p className="text-primary font-medium text-sm">$60 one-way</p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start space-x-3 border rounded-lg p-3 cursor-pointer hover:border-primary">
+                            <Checkbox id="full-day-driver" />
+                            <div>
+                              <Label htmlFor="full-day-driver" className="text-sm font-medium">Dedicated Chauffeur</Label>
+                              <p className="text-xs text-gray-500">Full-day service with experienced local driver</p>
+                              <p className="text-primary font-medium text-sm">$45 per day</p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start space-x-3 border rounded-lg p-3 cursor-pointer hover:border-primary">
+                            <Checkbox id="train-journey" />
+                            <div>
+                              <Label htmlFor="train-journey" className="text-sm font-medium">Scenic Train Journey</Label>
+                              <p className="text-xs text-gray-500">First-class cabin on famous mountain route</p>
+                              <p className="text-primary font-medium text-sm">$120 per person</p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start space-x-3 border rounded-lg p-3 cursor-pointer hover:border-primary">
+                            <Checkbox id="city-driver" />
+                            <div>
+                              <Label htmlFor="city-driver" className="text-sm font-medium">City Tour Driver</Label>
+                              <p className="text-xs text-gray-500">Half-day city exploration with knowledgeable driver</p>
+                              <p className="text-primary font-medium text-sm">$30 per city</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Special requests */}
+                      <div className="space-y-2">
+                        <Label htmlFor="special-requests">Special Requests</Label>
+                        <Textarea 
+                          id="special-requests" 
+                          placeholder="Child seats, specific pickup times, preferred vehicle brands, etc."
+                          className="min-h-[80px]"
+                        />
+                      </div>
+                      
+                      {/* Total estimate */}
+                      <div className="bg-primary/5 p-4 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <h4 className="text-sm font-semibold">Estimated Total</h4>
+                          <span className="text-lg font-bold text-primary">$375</span>
+                        </div>
+                        <p className="text-xs text-gray-500">Final price will be confirmed by your travel consultant</p>
+                      </div>
+                    </div>
+                    
+                    <DialogFooter>
+                      <Button 
+                        variant="outline"
+                        onClick={() => {
+                          toast({
+                            title: "Transportation preferences saved",
+                            description: "We've added your selections to your custom tour request.",
+                          });
+                        }}
+                        className="w-full sm:w-auto"
+                      >
+                        Add to My Trip
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </CardContent>
             </Card>
             
