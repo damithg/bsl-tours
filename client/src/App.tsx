@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import TourPackages from "@/pages/TourPackages";
 import PackageDetail from "@/pages/PackageDetail";
+import EnhancedPackageDetail from "@/pages/EnhancedPackageDetail";
 import Destinations from "@/pages/Destinations";
 import DestinationMap from "@/pages/DestinationMap";
 import TravelPlanner from "@/pages/TravelPlanner";
@@ -24,6 +25,9 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/packages" component={TourPackages} />
         <Route path="/packages/:id" component={PackageDetail} />
+        <Route path="/tour-packages" component={TourPackages} />
+        <Route path="/tour-packages/:id" component={EnhancedPackageDetail} />
+        <Route path="/tour/:id" component={EnhancedPackageDetail} />
         <Route path="/destinations" component={Destinations} />
         <Route path="/destination-map" component={DestinationMap} />
         <Route path="/travel-planner" component={TravelPlanner} />
