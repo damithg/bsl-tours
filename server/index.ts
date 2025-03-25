@@ -103,6 +103,28 @@ app.get('/api/tour-packages/:id', async (req, res) => {
     throw err;
   });
 
+  // Add a catch-all route for SPA navigation
+  // This will serve index.html for any non-API routes that don't match static files
+  app.get('*', (req, res, next) => {
+    // Skip API routes
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    
+    // Skip static file requests
+    if (req.path.includes('.')) {
+      return next();
+    }
+    
+    if (app.get('env') === 'development') {
+      // In development, let Vite handle the request
+      return next();
+    } else {
+      // In production, serve the index.html file
+      res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+    }
+  });
+
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
