@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'wouter';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
@@ -19,6 +20,7 @@ interface TravelRoutePlannerProps {
 const TravelRoutePlanner: React.FC<TravelRoutePlannerProps> = ({ availableDestinations }) => {
   const [selectedDestinations, setSelectedDestinations] = useState<RouteDestination[]>([]);
   const [totalDays, setTotalDays] = useState(0);
+  const [, setLocation] = useLocation();
   
   // Handle drag end event
   const handleDragEnd = (result: DropResult) => {
@@ -126,42 +128,65 @@ const TravelRoutePlanner: React.FC<TravelRoutePlannerProps> = ({ availableDestin
                       ref={provided.innerRef}
                       className="min-h-[300px]"
                     >
-                      {availableDestinations.map((destination, index) => (
-                        <Draggable
-                          key={destination.id}
-                          draggableId={`available-${destination.id}`}
-                          index={index}
-                        >
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              className={`p-3 mb-3 bg-white rounded-lg border flex items-center shadow-sm transition-all ${
-                                snapshot.isDragging ? 'shadow-md border-primary/50' : 'border-gray-100'
-                              }`}
-                            >
-                              <div className="w-12 h-12 rounded-md overflow-hidden mr-4 flex-shrink-0">
-                                <img 
-                                  src={destination.imageUrl} 
-                                  alt={destination.name}
-                                  className="w-full h-full object-cover"
-                                />
+                      {availableDestinations.map((destination, index) => {
+                        // Check if this destination is already in the selected list
+                        const isAlreadySelected = selectedDestinations.some(item => item.id === destination.id);
+                        
+                        return (
+                          <Draggable
+                            key={destination.id}
+                            draggableId={`available-${destination.id}`}
+                            index={index}
+                            isDragDisabled={isAlreadySelected}
+                          >
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className={`p-3 mb-3 rounded-lg border flex items-center shadow-sm transition-all ${
+                                  isAlreadySelected 
+                                    ? 'bg-gray-50 border-gray-200 opacity-60' 
+                                    : 'bg-white border-gray-100'
+                                } ${
+                                  snapshot.isDragging ? 'shadow-md border-primary/50' : ''
+                                }`}
+                              >
+                                <div className="w-12 h-12 rounded-md overflow-hidden mr-4 flex-shrink-0">
+                                  <img 
+                                    src={destination.imageUrl} 
+                                    alt={destination.name}
+                                    className={`w-full h-full object-cover ${isAlreadySelected ? 'opacity-70' : ''}`}
+                                  />
+                                </div>
+                                <div className="flex-grow">
+                                  <div className="flex items-center">
+                                    <h4 className="font-medium">{destination.name}</h4>
+                                    {isAlreadySelected && (
+                                      <span className="ml-2 text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
+                                        Added to route
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-sm text-gray-500 line-clamp-1">{destination.description}</p>
+                                </div>
+                                <div className="ml-2 flex-shrink-0">
+                                  {isAlreadySelected ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                      <path d="M20 6 9 17l-5-5"></path>
+                                    </svg>
+                                  ) : (
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                      <path d="M5 3a2 2 0 0 0-2 2m0 0v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Z"></path>
+                                      <path d="M12 8v8m-4-4h8"></path>
+                                    </svg>
+                                  )}
+                                </div>
                               </div>
-                              <div className="flex-grow">
-                                <h4 className="font-medium">{destination.name}</h4>
-                                <p className="text-sm text-gray-500 line-clamp-1">{destination.description}</p>
-                              </div>
-                              <div className="ml-2 flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <path d="M5 3a2 2 0 0 0-2 2m0 0v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Z"></path>
-                                  <path d="M12 8v8m-4-4h8"></path>
-                                </svg>
-                              </div>
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
+                            )}
+                          </Draggable>
+                        );
+                      })}
                       {provided.placeholder}
                       {availableDestinations.length === 0 && (
                         <div className="flex items-center justify-center h-[250px] text-gray-500">
@@ -300,7 +325,14 @@ const TravelRoutePlanner: React.FC<TravelRoutePlannerProps> = ({ availableDestin
             
             {selectedDestinations.length > 0 && (
               <div className="mt-4">
-                <Button className="w-full">
+                <Button 
+                  className="w-full"
+                  onClick={() => {
+                    // Serialize the route data and navigate to the request page
+                    const routeData = encodeURIComponent(JSON.stringify(selectedDestinations));
+                    setLocation(`/custom-tour-request?route=${routeData}`);
+                  }}
+                >
                   Request This Customized Route
                 </Button>
                 <p className="text-xs text-center mt-2 text-gray-500">
