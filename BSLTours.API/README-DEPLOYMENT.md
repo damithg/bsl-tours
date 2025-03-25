@@ -23,7 +23,7 @@ This guide explains how to deploy the BSLTours .NET Core API on Windows hosting 
 
 1. Log in to your IONOS control panel
 2. Go to your hosting package management
-3. Create a new subdomain for your API (e.g., `api.apitravelnip.com`)
+3. Create a new subdomain for your API (e.g., `api.travelnip.com`)
 4. Configure IIS:
    - Create a new Application Pool:
      - Set the .NET CLR version to "No Managed Code"
