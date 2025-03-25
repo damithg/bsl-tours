@@ -15,17 +15,17 @@ const PackageDetail = () => {
 
   // Format rating to display as stars (50 = 5 stars)
   const formatRating = (rating: number) => {
-    const fullStars = Math.floor(rating / 10);
-    const hasHalfStar = rating % 10 >= 5;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    const fullStars = Math.min(Math.floor(rating / 10), 5);
+    const hasHalfStar = rating % 10 >= 5 && fullStars < 5;
+    const emptyStars = Math.max(0, 5 - fullStars - (hasHalfStar ? 1 : 0));
     
     return (
       <div className="text-[#D4AF37] flex">
-        {[...Array(fullStars)].map((_, i) => (
+        {Array.from({length: fullStars}, (_, i) => (
           <i key={`full-${i}`} className="fas fa-star"></i>
         ))}
         {hasHalfStar && <i className="fas fa-star-half-alt"></i>}
-        {[...Array(emptyStars)].map((_, i) => (
+        {Array.from({length: emptyStars}, (_, i) => (
           <i key={`empty-${i}`} className="far fa-star"></i>
         ))}
       </div>
@@ -34,7 +34,7 @@ const PackageDetail = () => {
 
   // Additional images for the package (using the main image plus variations)
   const packageImages = packageData ? [
-    packageData.image,
+    packageData.imageUrl,
     "https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
     "https://images.unsplash.com/photo-1578005343021-46ec921ee656?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
     "https://images.unsplash.com/photo-1588598158189-3d6e4dade28b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
@@ -139,15 +139,15 @@ const PackageDetail = () => {
               <h1 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-3">{packageData.title}</h1>
               
               <div className="flex items-center mb-4">
-                {formatRating(packageData.rating)}
-                <span className="text-sm text-gray-500 ml-2">{packageData.rating / 10} ({packageData.reviewCount} reviews)</span>
+                {formatRating(packageData.rating || 50)}
+                <span className="text-sm text-gray-500 ml-2">{(packageData.rating || 50) / 10} ({packageData.reviewCount || 0} reviews)</span>
               </div>
               
               <div className="bg-[#F8F5F0] p-6 rounded-lg mb-6">
                 <div className="flex justify-between items-center mb-4">
                   <div>
                     <span className="text-lg text-gray-500">Price</span>
-                    <div className="text-[#0F4C81] text-3xl font-semibold">${packageData.price.toLocaleString()}</div>
+                    <div className="text-[#0F4C81] text-3xl font-semibold">${packageData.price?.toLocaleString() || "0"}</div>
                     <span className="text-gray-500">per person</span>
                   </div>
                   <div className="text-right">

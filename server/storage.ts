@@ -18,6 +18,7 @@ export interface IStorage {
   getTourPackages(): Promise<TourPackage[]>;
   getFeaturedTourPackages(): Promise<TourPackage[]>;
   getTourPackageById(id: number): Promise<TourPackage | undefined>;
+  getTourPackageBySlug(slug: string): Promise<TourPackage | undefined>;
   createTourPackage(tourPackage: InsertTourPackage): Promise<TourPackage>;
   
   // Destinations
@@ -326,9 +327,51 @@ export class MemStorage implements IStorage {
     return this.tourPackages.get(id);
   }
   
+  async getTourPackageBySlug(slug: string): Promise<TourPackage | undefined> {
+    return Array.from(this.tourPackages.values()).find(
+      (pkg) => pkg.slug === slug
+    );
+  }
+  
   async createTourPackage(insertTourPackage: InsertTourPackage): Promise<TourPackage> {
     const id = this.currentTourPackageId++;
-    const tourPackage: TourPackage = { ...insertTourPackage, id };
+    
+    // Generate a slug if one isn't provided
+    let slug = insertTourPackage.slug || null;
+    if (!slug) {
+      slug = insertTourPackage.title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-') // Replace spaces with dashes
+        .replace(/-+/g, '-'); // Replace multiple dashes with a single dash
+    }
+    
+    // Create a clean object with all required fields
+    const tourPackage: TourPackage = {
+      id,
+      title: insertTourPackage.title,
+      description: insertTourPackage.description,
+      duration: insertTourPackage.duration,
+      price: insertTourPackage.price,
+      imageUrl: insertTourPackage.imageUrl,
+      slug,
+      
+      // Handle fields that might be null
+      highlightsSummary: insertTourPackage.highlightsSummary || null,
+      gallery: insertTourPackage.gallery || null,
+      rating: insertTourPackage.rating || null,
+      reviewCount: insertTourPackage.reviewCount || null,
+      featured: insertTourPackage.featured || null,
+      destinations: insertTourPackage.destinations || null,
+      includes: insertTourPackage.includes || null,
+      excludes: insertTourPackage.excludes || null,
+      itinerary: insertTourPackage.itinerary || null,
+      startingLocations: insertTourPackage.startingLocations || null,
+      luxuryLevel: insertTourPackage.luxuryLevel || null,
+      bestTimeToVisit: insertTourPackage.bestTimeToVisit || null,
+      groupSize: insertTourPackage.groupSize || null
+    };
+    
     this.tourPackages.set(id, tourPackage);
     return tourPackage;
   }
@@ -356,7 +399,11 @@ export class MemStorage implements IStorage {
   
   async createTestimonial(insertTestimonial: InsertTestimonial): Promise<Testimonial> {
     const id = this.currentTestimonialId++;
-    const testimonial: Testimonial = { ...insertTestimonial, id };
+    const testimonial: Testimonial = { 
+      ...insertTestimonial, 
+      id,
+      rating: insertTestimonial.rating || null
+    };
     this.testimonials.set(id, testimonial);
     return testimonial;
   }
@@ -365,7 +412,15 @@ export class MemStorage implements IStorage {
   async createInquiry(insertInquiry: InsertInquiry): Promise<Inquiry> {
     const id = this.currentInquiryId++;
     const createdAt = new Date();
-    const inquiry: Inquiry = { ...insertInquiry, id, createdAt };
+    const inquiry: Inquiry = { 
+      ...insertInquiry, 
+      id, 
+      createdAt,
+      phone: insertInquiry.phone || null,
+      travelDates: insertInquiry.travelDates || null,
+      packageInterest: insertInquiry.packageInterest || null,
+      subscribed: insertInquiry.subscribed || null
+    };
     this.inquiries.set(id, inquiry);
     return inquiry;
   }

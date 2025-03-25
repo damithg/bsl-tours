@@ -19,12 +19,23 @@ export const tourPackages = pgTable("tour_packages", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description").notNull(),
+  highlightsSummary: text("highlights_summary"), // Brief bullet points about the tour highlights
   duration: integer("duration").notNull(),
   price: integer("price").notNull(),
   imageUrl: text("image_url").notNull(),
+  gallery: text("gallery"), // JSON array of image URLs for the tour gallery
   rating: integer("rating").default(50),
   reviewCount: integer("review_count").default(0),
   featured: boolean("featured").default(false),
+  destinations: text("destinations"), // JSON array of destinations included in this tour
+  includes: text("includes"), // JSON array of what's included in the package
+  excludes: text("excludes"), // JSON array of what's excluded from the package
+  itinerary: text("itinerary"), // JSON array of day-by-day itinerary
+  startingLocations: text("starting_locations"), // JSON array of possible starting locations
+  luxuryLevel: integer("luxury_level").default(5), // 1-5 scale of luxury level
+  bestTimeToVisit: text("best_time_to_visit"), // Best months to take this tour
+  groupSize: text("group_size"), // Information about maximum group size
+  slug: text("slug"), // URL-friendly version of title
 });
 
 export const insertTourPackageSchema = createInsertSchema(tourPackages).omit({
