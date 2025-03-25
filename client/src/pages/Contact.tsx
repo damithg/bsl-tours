@@ -4,7 +4,7 @@ const Contact = () => {
   const contactInfo = [
     {
       title: "Email Us",
-      details: "info@ceylonluxe.com",
+      details: "info@bestsrilankatours.com",
       description: "For general inquiries and booking information",
       icon: "fa-envelope"
     },
@@ -173,7 +173,7 @@ const Contact = () => {
             
             <div className="text-center mt-10">
               <p className="text-lg text-[#333333]/80 mb-6">Still have questions? Our travel experts are here to help.</p>
-              <a href="mailto:info@ceylonluxe.com" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
+              <a href="mailto:info@bestsrilankatours.com" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
                 Email Us Directly
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>

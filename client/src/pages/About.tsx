@@ -6,7 +6,7 @@ const About = () => {
     {
       name: "Sarah Williams",
       position: "Founder & CEO",
-      description: "With over 15 years in luxury travel and a deep love for Sri Lanka, Sarah founded Ceylon Luxe to share the island's beauty with discerning travelers.",
+      description: "With over 15 years in luxury travel and a deep love for Sri Lanka, Sarah founded Best Sri Lanka Tours to share the island's beauty with discerning travelers.",
       image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
     },
     {
@@ -58,7 +58,7 @@ const About = () => {
     {
       year: "2010",
       title: "The Beginning",
-      description: "Ceylon Luxe was founded with a vision to showcase Sri Lanka's hidden treasures to luxury travelers seeking authentic experiences."
+      description: "Best Sri Lanka Tours was founded with a vision to showcase Sri Lanka's hidden treasures to luxury travelers seeking authentic experiences."
     },
     {
       year: "2013",
@@ -68,7 +68,7 @@ const About = () => {
     {
       year: "2016",
       title: "Award Recognition",
-      description: "Ceylon Luxe received its first international recognition as 'Best Luxury Tour Operator - Sri Lanka' by Travel & Hospitality Awards."
+      description: "Best Sri Lanka Tours received its first international recognition as 'Best Luxury Tour Operator - Sri Lanka' by Travel & Hospitality Awards."
     },
     {
       year: "2019",
@@ -89,7 +89,7 @@ const About = () => {
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
             src="https://images.unsplash.com/photo-1619546952812-520e98064a52?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-            alt="Ceylon Luxe Team" 
+            alt="Best Sri Lanka Tours Team" 
             className="w-full h-full object-cover" 
           />
         </div>
