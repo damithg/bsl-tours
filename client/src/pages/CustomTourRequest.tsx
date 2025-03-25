@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { format, addDays } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { DateRange } from 'react-day-picker';
+import type { DateRange } from 'react-day-picker';
 
 interface TourRequestFormData {
   fullName: string;
@@ -27,10 +27,7 @@ interface CustomTourRequestProps {
 
 const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
   // Date range state
-  const [dateRange, setDateRange] = useState<{
-    from: Date | undefined;
-    to: Date | undefined;
-  }>({
+  const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
   });
@@ -85,8 +82,8 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
       const completeFormData = {
         ...formData,
         dateRange: {
-          from: dateRange.from ? format(dateRange.from, 'yyyy-MM-dd') : undefined,
-          to: dateRange.to ? format(dateRange.to, 'yyyy-MM-dd') : undefined
+          from: date?.from ? format(date.from, 'yyyy-MM-dd') : undefined,
+          to: date?.to ? format(date.to, 'yyyy-MM-dd') : undefined
         },
         selectedRoute: routeDestinations.map(dest => ({
           destination: dest.name,
@@ -300,7 +297,7 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
                         <Button
                           id="date"
                           variant={"outline"}
-                          className={`w-full justify-start text-left font-normal ${!dateRange.from && "text-muted-foreground"}`}
+                          className={`w-full justify-start text-left font-normal ${!date?.from && "text-muted-foreground"}`}
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
@@ -308,13 +305,13 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
                             <line x1="8" x2="8" y1="2" y2="6"></line>
                             <line x1="3" x2="21" y1="10" y2="10"></line>
                           </svg>
-                          {dateRange.from ? (
-                            dateRange.to ? (
+                          {date?.from ? (
+                            date.to ? (
                               <>
-                                {format(dateRange.from, "LLL dd, yyyy")} - {format(dateRange.to, "LLL dd, yyyy")}
+                                {format(date.from, "LLL dd, yyyy")} - {format(date.to, "LLL dd, yyyy")}
                               </>
                             ) : (
-                              format(dateRange.from, "LLL dd, yyyy")
+                              format(date.from, "LLL dd, yyyy")
                             )
                           ) : (
                             <span>Select your travel dates</span>
@@ -325,12 +322,12 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
                         <Calendar
                           initialFocus
                           mode="range"
-                          defaultMonth={dateRange.from}
-                          selected={dateRange}
-                          onSelect={setDateRange}
+                          defaultMonth={date?.from}
+                          selected={date}
+                          onSelect={setDate}
                           numberOfMonths={2}
-                          minDate={new Date()}
-                          maxDate={addDays(new Date(), 900)} // About 2.5 years into the future
+                          fromDate={new Date()}
+                          toDate={addDays(new Date(), 900)} // About 2.5 years into the future
                         />
                       </PopoverContent>
                     </Popover>
