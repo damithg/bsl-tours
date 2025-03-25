@@ -2,7 +2,15 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { API_BASE_URL } from '../lib/queryClient';
 import InteractiveMap from '../components/InteractiveMap';
-import { Destination } from '../../shared/schema';
+
+// Define Destination type locally to avoid import errors
+interface Destination {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+  featured: boolean;
+}
 
 const DestinationMap = () => {
   const { data: destinations, isLoading, error } = useQuery<Destination[]>({
