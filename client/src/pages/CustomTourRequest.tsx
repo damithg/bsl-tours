@@ -20,7 +20,7 @@ interface TourRequestFormData {
 }
 
 interface CustomTourRequestProps {
-  route?: string;
+  params?: { [param: string]: string | undefined };
 }
 
 const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {

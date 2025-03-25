@@ -27,7 +27,9 @@ function Router() {
         <Route path="/destinations" component={Destinations} />
         <Route path="/destination-map" component={DestinationMap} />
         <Route path="/travel-planner" component={TravelPlanner} />
-        <Route path="/custom-tour-request" component={CustomTourRequest} />
+        <Route path="/custom-tour-request">
+          {(params) => <CustomTourRequest {...params} />}
+        </Route>
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route component={NotFound} />
