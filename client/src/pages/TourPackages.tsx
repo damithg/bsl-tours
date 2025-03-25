@@ -94,8 +94,8 @@ const TourPackages = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {packages?.map((pkg) => (
                 <div key={pkg.id} className="bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
-                  <div className="relative h-64">
-                    <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover" />
+                  <div className="relative h-64 flex items-center justify-center overflow-hidden">
+                    <img src={pkg.imageUrl} alt={pkg.title} className="w-full h-full object-cover object-center" />
                     <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
                       {pkg.duration} Days
                     </div>

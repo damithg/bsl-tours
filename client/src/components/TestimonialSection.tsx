@@ -12,6 +12,8 @@ const TestimonialSection = () => {
   
   const [activeIndex, setActiveIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   useEffect(() => {
     if (sliderRef.current && testimonials) {
@@ -24,8 +26,37 @@ const TestimonialSection = () => {
       };
       
       scrollToActiveSlide();
+      checkScrollable();
     }
   }, [activeIndex, testimonials]);
+
+  const checkScrollable = () => {
+    const container = sliderRef.current;
+    if (container) {
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(
+        container.scrollLeft < container.scrollWidth - container.clientWidth - 1
+      );
+    }
+  };
+
+  const scrollLeft = () => {
+    const container = sliderRef.current;
+    if (container) {
+      container.scrollBy({ left: -container.clientWidth, behavior: "smooth" });
+      const newIndex = Math.max(0, activeIndex - 1);
+      setActiveIndex(newIndex);
+    }
+  };
+
+  const scrollRight = () => {
+    const container = sliderRef.current;
+    if (container && testimonials) {
+      container.scrollBy({ left: container.clientWidth, behavior: "smooth" });
+      const newIndex = Math.min(testimonials.length - 1, activeIndex + 1);
+      setActiveIndex(newIndex);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -110,7 +141,7 @@ const TestimonialSection = () => {
         </div>
         
         <div className="relative">
-          <div ref={sliderRef} className="testimonial-slider overflow-x-auto pb-8 flex snap-x space-x-6 scrollbar-hide">
+          <div ref={sliderRef} className="testimonial-slider overflow-x-auto pb-8 flex snap-x space-x-6 hide-scrollbar">
             {testimonials?.map((testimonial, index) => (
               <div key={testimonial.id} className="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3">
                 <div className="bg-white p-8 rounded-lg shadow-lg h-full">

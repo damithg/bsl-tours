@@ -164,7 +164,7 @@ const DestinationShowcase = () => {
                     <img
                       src={destination.imageUrl}
                       alt={destination.name}
-                      className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover object-center transition duration-700 group-hover:scale-110"
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 transition duration-700 group-hover:scale-110">
