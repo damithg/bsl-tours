@@ -245,9 +245,9 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
                     Scenic train journeys in first-class cabins
                   </li>
                 </ul>
-                <Dialog>
+                <Dialog open={transportDialog} onOpenChange={setTransportDialog}>
                   <DialogTrigger asChild>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full" onClick={() => setTransportDialog(true)}>
                       Add to Your Trip
                     </Button>
                   </DialogTrigger>
@@ -356,6 +356,10 @@ const CustomTourRequest: React.FC<CustomTourRequestProps> = () => {
                       <Button 
                         variant="outline"
                         onClick={() => {
+                          // Close the dialog
+                          setTransportDialog(false);
+                          
+                          // Show success toast
                           toast({
                             title: "Transportation preferences saved",
                             description: "We've added your selections to your custom tour request.",
