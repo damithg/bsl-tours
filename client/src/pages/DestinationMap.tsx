@@ -13,15 +13,55 @@ interface Destination {
 }
 
 const DestinationMap = () => {
+  // For testing/development, we'll use hardcoded destinations since the API might not be available
+  const mockDestinations: Destination[] = [
+    {
+      id: 1,
+      name: "Sigiriya Rock Fortress",
+      description: "Ancient rock fortress with frescoes and stunning views.",
+      imageUrl: "https://images.unsplash.com/photo-1588428895011-8a3fb77e433a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      featured: true
+    },
+    {
+      id: 2,
+      name: "Kandy",
+      description: "Cultural capital and home to the Temple of the Sacred Tooth Relic.",
+      imageUrl: "https://images.unsplash.com/photo-1586613835017-4748b1722780?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      featured: true
+    },
+    {
+      id: 3,
+      name: "Galle Fort",
+      description: "UNESCO World Heritage site with colonial architecture.",
+      imageUrl: "https://images.unsplash.com/photo-1553858117-30fb7b89b809?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      featured: true
+    },
+    {
+      id: 4,
+      name: "Yala National Park",
+      description: "Famous for leopards and diverse wildlife.",
+      imageUrl: "https://images.unsplash.com/photo-1607427215467-46804f9b8a8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      featured: false
+    },
+    {
+      id: 5,
+      name: "Ella",
+      description: "Mountain village with hiking trails and tea plantations.",
+      imageUrl: "https://images.unsplash.com/photo-1586686556021-6eb7cb3ce1f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      featured: false
+    }
+  ];
+
+  // Disable API query for now and use mock data
   const { data: destinations, isLoading, error } = useQuery<Destination[]>({
     queryKey: ['destinations'],
     queryFn: async () => {
-      const res = await fetch(`${API_BASE_URL}/api/destinations`);
-      if (!res.ok) {
-        throw new Error('Failed to fetch destinations');
-      }
-      return res.json();
-    }
+      // Simulate API call for testing
+      return new Promise<Destination[]>((resolve) => {
+        setTimeout(() => resolve(mockDestinations), 500);
+      });
+    },
+    staleTime: Infinity // Never refetch this data
   });
 
   if (isLoading) {

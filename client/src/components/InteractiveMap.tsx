@@ -24,53 +24,106 @@ interface InteractiveMapProps {
 const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
   const [hoveredDestination, setHoveredDestination] = useState<string | null>(null);
 
-  // Map destinations to positions on the Sri Lanka map
+  // Map our mock destinations to positions on the Sri Lanka map
   const mapDestinations: MapDestination[] = [
     {
-      ...destinations.find(d => d.name === "Sigiriya Rock Fortress") || destinations[0],
-      x: 49,
-      y: 39
+      ...destinations.find(d => d.name === "Sigiriya Rock Fortress") || {
+        id: 1,
+        name: "Sigiriya Rock Fortress", 
+        description: "Ancient rock fortress with frescoes and stunning views.",
+        imageUrl: "https://images.unsplash.com/photo-1588428895011-8a3fb77e433a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        featured: true
+      },
+      x: 150,
+      y: 190
     },
     {
-      ...destinations.find(d => d.name === "Kandy") || destinations[1],
-      x: 44,
-      y: 48
+      ...destinations.find(d => d.name === "Kandy") || {
+        id: 2,
+        name: "Kandy", 
+        description: "Cultural capital and home to the Temple of the Sacred Tooth Relic.",
+        imageUrl: "https://images.unsplash.com/photo-1586613835017-4748b1722780?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        featured: true
+      },
+      x: 140,
+      y: 240
     },
     {
-      ...destinations.find(d => d.name === "Galle Fort") || destinations[2],
-      x: 28,
-      y: 76
+      ...destinations.find(d => d.name === "Galle Fort") || {
+        id: 3,
+        name: "Galle Fort", 
+        description: "UNESCO World Heritage site with colonial architecture.",
+        imageUrl: "https://images.unsplash.com/photo-1553858117-30fb7b89b809?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        featured: true
+      },
+      x: 85,
+      y: 380
     },
     {
-      ...destinations.find(d => d.name === "Yala National Park") || destinations[3],
-      x: 52,
-      y: 78
+      ...destinations.find(d => d.name === "Yala National Park") || {
+        id: 4,
+        name: "Yala National Park", 
+        description: "Famous for leopards and diverse wildlife.",
+        imageUrl: "https://images.unsplash.com/photo-1607427215467-46804f9b8a8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        featured: false
+      },
+      x: 155,
+      y: 390
     },
     {
-      ...destinations.find(d => d.name === "Ella") || destinations[4],
-      x: 57,
-      y: 65
-    },
-    // Add more destinations with their coordinates as needed
-    {
-      ...destinations.find(d => d.name === "Colombo") || { id: 6, name: "Colombo", description: "Sri Lanka's vibrant capital city with a blend of colonial architecture and modern amenities.", imageUrl: "/images/destinations/colombo.jpg", featured: false },
-      x: 25,
-      y: 67
-    },
-    {
-      ...destinations.find(d => d.name === "Anuradhapura") || { id: 7, name: "Anuradhapura", description: "Ancient city with sacred Buddhist sites and well-preserved ruins.", imageUrl: "/images/destinations/anuradhapura.jpg", featured: false },
-      x: 42,
-      y: 27
+      ...destinations.find(d => d.name === "Ella") || {
+        id: 5,
+        name: "Ella", 
+        description: "Mountain village with hiking trails and tea plantations.",
+        imageUrl: "https://images.unsplash.com/photo-1586686556021-6eb7cb3ce1f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        featured: false
+      },
+      x: 170,
+      y: 325
     },
     {
-      ...destinations.find(d => d.name === "Trincomalee") || { id: 8, name: "Trincomalee", description: "Port city with pristine beaches and natural harbor.", imageUrl: "/images/destinations/trincomalee.jpg", featured: false },
-      x: 67,
-      y: 30
+      ...destinations.find(d => d.name === "Colombo") || {
+        id: 6, 
+        name: "Colombo", 
+        description: "Sri Lanka's vibrant capital city with a blend of colonial architecture and modern amenities.", 
+        imageUrl: "https://images.unsplash.com/photo-1575994532957-15b093930c7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", 
+        featured: false
+      },
+      x: 75,
+      y: 335
     },
     {
-      ...destinations.find(d => d.name === "Nuwara Eliya") || { id: 9, name: "Nuwara Eliya", description: "Hill station with cool climate and tea plantations.", imageUrl: "/images/destinations/nuwaraeliya.jpg", featured: false },
-      x: 50,
-      y: 57
+      ...destinations.find(d => d.name === "Anuradhapura") || {
+        id: 7, 
+        name: "Anuradhapura", 
+        description: "Ancient city with sacred Buddhist sites and well-preserved ruins.", 
+        imageUrl: "https://images.unsplash.com/photo-1579516335492-a9ac51b324d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", 
+        featured: false
+      },
+      x: 125,
+      y: 135
+    },
+    {
+      ...destinations.find(d => d.name === "Trincomalee") || {
+        id: 8, 
+        name: "Trincomalee", 
+        description: "Port city with pristine beaches and natural harbor.", 
+        imageUrl: "https://images.unsplash.com/photo-1571983898200-a1b89e61d311?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", 
+        featured: false
+      },
+      x: 200,
+      y: 150
+    },
+    {
+      ...destinations.find(d => d.name === "Nuwara Eliya") || {
+        id: 9, 
+        name: "Nuwara Eliya", 
+        description: "Hill station with cool climate and tea plantations.", 
+        imageUrl: "https://images.unsplash.com/photo-1589989354181-466659533bf2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80", 
+        featured: false
+      },
+      x: 150,
+      y: 285
     }
   ];
 
@@ -78,14 +131,19 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
     <div className="w-full mt-12 mb-16">
       <h2 className="text-3xl font-bold text-center mb-8">Explore Sri Lanka</h2>
       <div className="max-w-4xl mx-auto relative">
-        <Card className="bg-white/95 shadow-lg border-0">
-          <CardContent className="p-0 relative">
+        <Card className="bg-gradient-to-br from-white to-blue-50/30 shadow-lg border-0 rounded-xl overflow-hidden">
+          <CardContent className="p-4 md:p-6 relative">
+            {/* Map title */}
+            <div className="absolute top-4 left-6 z-10 bg-white/80 px-4 py-1 rounded-full shadow-sm">
+              <h3 className="text-primary font-bold text-sm">Sri Lanka</h3>
+            </div>
+            
             {/* Sri Lanka Map SVG */}
             <div className="relative">
               <svg
                 viewBox="0 0 300 500"
                 className="w-full h-auto"
-                style={{ maxHeight: "700px" }}
+                style={{ maxHeight: "700px", filter: "drop-shadow(0px 4px 6px rgba(0,0,0,0.1))" }}
               >
                 <path
                   d="M138.5,60.5c-2.9,0.6-5.8,1.3-8.8,1.7c-4.5,0.6-9.1,1.1-13.5,2c-2.1,0.4-4.5,1.5-5.7,3.1c-2.3,3-3.7,6.7-5.6,10.1
@@ -109,17 +167,26 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
 
                 {/* Map pins for destinations */}
                 {mapDestinations.map((dest) => (
-                  <TooltipProvider key={dest.id}>
+                  <TooltipProvider key={dest.id} delayDuration={100}>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <g
-                          className="cursor-pointer transform transition-transform hover:scale-125"
+                          className="cursor-pointer transform transition-transform duration-300 hover:scale-150"
                           onMouseEnter={() => setHoveredDestination(dest.name)}
                           onMouseLeave={() => setHoveredDestination(null)}
                           style={{
                             transform: `translate(${dest.x}%, ${dest.y}%)`,
                           }}
                         >
+                          {/* Animated pulse effect for the marker */}
+                          <circle
+                            cx="0"
+                            cy="0"
+                            r="8"
+                            fill={hoveredDestination === dest.name ? "rgba(245, 158, 11, 0.3)" : "rgba(59, 130, 246, 0.3)"}
+                            className={hoveredDestination === dest.name ? "animate-ping" : ""}
+                          />
+                          {/* Main marker circle */}
                           <circle
                             cx="0"
                             cy="0"
@@ -128,27 +195,49 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
                             stroke="#FFFFFF"
                             strokeWidth="1.5"
                           />
+                          {/* Inner circle */}
                           <circle
                             cx="0"
                             cy="0"
                             r="3"
                             fill="#FFFFFF"
                           />
+                          {/* Location name that appears when hovering */}
+                          {hoveredDestination === dest.name && (
+                            <text
+                              x="10"
+                              y="0"
+                              fontSize="12"
+                              fill="#FFFFFF"
+                              stroke="#000000"
+                              strokeWidth="0.5"
+                              fontWeight="bold"
+                              dominantBaseline="middle"
+                            >
+                              {dest.name}
+                            </text>
+                          )}
                         </g>
                       </TooltipTrigger>
-                      <TooltipContent className="p-0 overflow-hidden max-w-xs">
+                      <TooltipContent side="right" className="p-0 overflow-hidden max-w-xs shadow-xl border-0 rounded-lg">
                         <div className="flex flex-col">
-                          <div className="relative h-28 overflow-hidden">
+                          <div className="relative h-32 overflow-hidden">
                             <img 
                               src={dest.imageUrl} 
                               alt={dest.name}
                               className="object-cover w-full h-full"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                            <h3 className="absolute bottom-2 left-2 text-white font-bold">{dest.name}</h3>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                            <h3 className="absolute bottom-2 left-2 text-white font-bold text-lg">{dest.name}</h3>
                           </div>
                           <div className="p-3 bg-white">
                             <p className="text-sm text-gray-700">{dest.description}</p>
+                            <a 
+                              href={`/destinations`} 
+                              className="mt-2 inline-block text-xs text-primary font-medium hover:underline"
+                            >
+                              Learn more →
+                            </a>
                           </div>
                         </div>
                       </TooltipContent>
