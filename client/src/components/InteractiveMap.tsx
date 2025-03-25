@@ -22,7 +22,7 @@ interface InteractiveMapProps {
 const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
   const [activeDestination, setActiveDestination] = useState<number | null>(null);
 
-  // Hard-coded destinations for demo
+  // Hard-coded destinations with coordinates for the real map image
   const mapData = [
     {
       id: 1,
@@ -30,8 +30,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Ancient rock fortress with frescoes and stunning views.",
       imageUrl: "https://images.unsplash.com/photo-1588428895011-8a3fb77e433a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 150,
-      y: 190
+      x: 180, // Adjusted for the real map
+      y: 165
     },
     {
       id: 2,
@@ -39,8 +39,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Cultural capital and home to the Temple of the Sacred Tooth Relic.",
       imageUrl: "https://images.unsplash.com/photo-1586613835017-4748b1722780?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 140,
-      y: 240
+      x: 165,
+      y: 215
     },
     {
       id: 3,
@@ -48,8 +48,26 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
       description: "Sri Lanka's vibrant capital city with colonial architecture and modern amenities.",
       imageUrl: "https://images.unsplash.com/photo-1575994532957-15b093930c7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       featured: true,
-      x: 75,
-      y: 335
+      x: 105,
+      y: 235
+    },
+    {
+      id: 4,
+      name: "Galle", 
+      description: "Historic fort city with Dutch colonial architecture on the southern coast.",
+      imageUrl: "https://images.unsplash.com/photo-1586450463118-8d0cddab713f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      featured: false,
+      x: 125,
+      y: 320
+    },
+    {
+      id: 5,
+      name: "Trincomalee", 
+      description: "Port city with beautiful beaches and natural harbors.",
+      imageUrl: "https://images.unsplash.com/photo-1586686460175-794e0662cc3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      featured: false,
+      x: 235,
+      y: 140
     }
   ];
 
@@ -62,46 +80,35 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
             <div className="flex flex-col md:flex-row gap-6">
               {/* Left column: Map with markers */}
               <div className="w-full md:w-1/2 relative bg-blue-50/30 rounded-xl p-4">
-                <h3 className="text-lg font-bold mb-4">Explore Sri Lanka</h3>
-                <div className="relative aspect-[3/5]">
-                  {/* Sri Lanka outline */}
-                  <div className="absolute inset-0 bg-white rounded shadow-sm">
-                    <svg 
-                      viewBox="0 0 300 500" 
-                      className="w-full h-full" 
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M138.5,60.5c-2.9,0.6-5.8,1.3-8.8,1.7c-4.5,0.6-9.1,1.1-13.5,2c-2.1,0.4-4.5,1.5-5.7,3.1c-2.3,3-3.7,6.7-5.6,10.1
-                        c-2.1,3.7-3.1,7.8-3.8,12c-1,6.1-1.5,12.2-1.6,18.3c-0.1,6.3,0.5,12.6,0.9,18.9c0.5,7.1,1,14.3,1.5,21.4c0.6,8.1,1.3,16.1,1.9,24.2
-                        c0.9,11.3,2.3,22.6,2.5,33.9c0.1,8.7-0.7,17.5-2.3,26c-1.1,5.7-2.2,11.5-4.2,16.9c-0.9,2.4-2.8,4.5-4,6.8
-                        c-3.2,6.1-6.5,12.2-9.3,18.5c-6.1,13.9-12.4,27.6-17.7,41.9c-3.1,8.4-6.3,16.8-7.9,25.8c-1.4,8-2.1,16.3-1.8,24.4
-                        c0.5,15,3.8,29.7,7.7,44.1c3.2,11.8,7.1,23.4,11.8,34.7c1.2,2.8,2.5,5.6,4.5,7.8c1.3,1.5,3.1,2.7,5,3.4c2.1,0.7,4.4,0.7,6.6,0.9
-                        c4.7,0.3,9.3,0.5,14,0.8c3.7,0.2,7.5,0.4,11.2,0.6c3.3,0.2,6,2.2,9.2,2.3c4.5,0.2,9-0.1,13.5-0.2c6.3-0.1,12.6-0.3,19-0.4
-                        c4.2-0.1,8.5-0.1,12.8-0.1c2.7,0,5.5,0.1,8.2,0.1c2.7,0,5.4-0.3,8-0.4c5.2-0.2,10.5-0.3,15.7-0.5c3.4-0.1,6.8-0.2,10.2-0.3
-                        c4.7-0.2,9.1-1.6,13.7-2.4c2.3-0.4,4.7-0.3,6.9-1.1c2.3-0.8,4.1-2.4,5.9-4c1.5-1.3,3-2.7,4.5-4.1c2.4-2.3,4-5.3,5.5-8.3
-                        c2.3-4.8,4.3-9.7,6.1-14.7c2.2-6.2,4.5-12.4,6.7-18.6c3.6-10.4,6.7-20.9,9.2-31.7c2.4-10.8,4.8-21.8,5.3-32.9
-                        c0.2-5.1-0.2-10.2-1.1-15.2c-0.9-5.3-1.7-10.7-3.6-15.7c-2.2-5.8-4.5-11.6-7.4-17.1c-1.6-3-4.3-5.4-6.1-8.3
-                        c-2.7-4.5-5.1-9.1-7.5-13.8c-4.8-9.4-9.2-18.9-13.8-28.4c-0.9-2-1.9-4-2.7-6c-1.4-3.5-2.7-7.1-4-10.6c-2.8-7.3-5.6-14.5-8.3-21.9
-                        c-4.3-11.6-8.8-23.1-12.7-34.9c-2.1-6.5-3.6-13.2-5.5-19.8c-1.6-5.5-3.7-10.8-5.5-16.3c-2.8-8.3-5.5-16.7-8.2-25
-                        c-1.5-4.5-3.1-9-4.3-13.6c-1.4-5.4-2.6-10.9-3.6-16.4c-1-5.5-1.8-11-3.4-16.3c-1-3.4-2.9-6.6-4.5-9.8c-2.6-5.2-5.2-10.4-7.7-15.6
-                        c-2.7-5.7-6.8-10.6-12.4-13.4C144.5,60.3,141.5,59.9,138.5,60.5z"
-                        fill="#FFF8EA"
-                        stroke="#987654"
-                        strokeWidth="1"
-                      />
-                    </svg>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-bold">Explore Sri Lanka</h3>
+                  <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                    Interactive Map
+                  </span>
+                </div>
+                <div className="relative aspect-[3/5] border border-gray-100 rounded-lg shadow-lg overflow-hidden">
+                  {/* Sri Lanka map image */}
+                  <div className="absolute inset-0 rounded overflow-hidden">
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/3/36/Map_of_Sri_Lanka.svg" 
+                      alt="Sri Lanka Map" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
+                  
+                  {/* Map overlay with a subtle gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/10 to-blue-50/5 pointer-events-none"></div>
                   
                   {/* Destination markers */}
                   {mapData.map((dest) => (
                     <button
                       key={dest.id}
-                      className={`absolute w-6 h-6 rounded-full transition-all duration-300 transform ${activeDestination === dest.id ? 'bg-amber-500 scale-125' : 'bg-primary'}`}
+                      className={`absolute w-5 h-5 rounded-full transition-all duration-300 transform ${activeDestination === dest.id ? 'bg-amber-500 scale-125 ring-2 ring-amber-300' : 'bg-primary shadow-md'}`}
                       style={{ 
-                        left: `${dest.x / 2.5}px`, 
-                        top: `${dest.y / 1.5}px`,
-                        transform: 'translate(-50%, -50%)'
+                        left: `${dest.x / 1.2}px`, 
+                        top: `${dest.y}px`,
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: activeDestination === dest.id ? 10 : 5
                       }}
                       onClick={() => setActiveDestination(dest.id === activeDestination ? null : dest.id)}
                     >
@@ -124,35 +131,80 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ destinations }) => {
               {/* Right column: Destination details */}
               <div className="w-full md:w-1/2">
                 {activeDestination ? (
-                  <div className="h-full flex flex-col">
+                  <div className="h-full flex flex-col shadow-lg rounded-lg overflow-hidden border border-gray-100">
                     {mapData.filter(d => d.id === activeDestination).map(dest => (
                       <div key={dest.id} className="h-full flex flex-col">
-                        <div className="h-52 relative overflow-hidden rounded-t-lg">
+                        <div className="h-60 relative overflow-hidden">
                           <img 
                             src={dest.imageUrl} 
                             alt={dest.name}
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                          <h3 className="absolute bottom-3 left-4 text-white text-xl font-bold">{dest.name}</h3>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                          
+                          {/* Destination name and featured badge */}
+                          <div className="absolute bottom-0 left-0 w-full p-4">
+                            <div className="flex items-center justify-between">
+                              <h3 className="text-white text-2xl font-bold">{dest.name}</h3>
+                              {dest.featured && (
+                                <span className="bg-amber-500 text-white text-xs px-2 py-1 rounded-full">
+                                  Featured
+                                </span>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex-grow bg-white p-4 rounded-b-lg">
-                          <p className="text-gray-700 mb-4">{dest.description}</p>
-                          <a 
-                            href="/destinations" 
-                            className="inline-block bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm transition-colors"
-                          >
-                            View more destinations
-                          </a>
+                        
+                        <div className="flex-grow bg-white p-5">
+                          {/* Destination details */}
+                          <div className="space-y-4">
+                            <p className="text-gray-700">{dest.description}</p>
+                            
+                            {/* Attractions section */}
+                            <div className="pt-2">
+                              <h4 className="text-sm font-semibold text-gray-600 mb-2">POPULAR ATTRACTIONS</h4>
+                              <ul className="grid grid-cols-2 gap-2">
+                                <li className="flex items-center text-sm">
+                                  <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                                  Historical Sites
+                                </li>
+                                <li className="flex items-center text-sm">
+                                  <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                                  Cultural Experiences
+                                </li>
+                                <li className="flex items-center text-sm">
+                                  <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                                  Local Cuisine
+                                </li>
+                                <li className="flex items-center text-sm">
+                                  <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                                  Scenic Views
+                                </li>
+                              </ul>
+                            </div>
+                            
+                            <div className="pt-3">
+                              <a 
+                                href="/destinations" 
+                                className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm transition-colors"
+                              >
+                                Explore {dest.name} Tours
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                              </a>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="h-full flex items-center justify-center bg-gray-50 rounded-lg border border-gray-100 p-8">
-                    <div className="text-center">
-                      <h3 className="text-lg font-medium mb-2">Select a Destination</h3>
-                      <p className="text-gray-500">Click on a marker on the map to view destination details</p>
+                  <div className="h-full flex items-center justify-center bg-gray-50 rounded-lg border border-gray-100 p-8 shadow-md">
+                    <div className="text-center max-w-xs">
+                      <div className="mb-4 text-primary/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                      </div>
+                      <h3 className="text-lg font-medium mb-2">Destination Details</h3>
+                      <p className="text-gray-500 text-sm">Select a location on the map to view detailed information about that destination</p>
                     </div>
                   </div>
                 )}

@@ -328,7 +328,13 @@ export class MemStorage implements IStorage {
   
   async createTourPackage(insertTourPackage: InsertTourPackage): Promise<TourPackage> {
     const id = this.currentTourPackageId++;
-    const tourPackage: TourPackage = { ...insertTourPackage, id };
+    const tourPackage: TourPackage = { 
+      ...insertTourPackage, 
+      id,
+      rating: insertTourPackage.rating || null,
+      reviewCount: insertTourPackage.reviewCount || null,
+      featured: insertTourPackage.featured || null
+    };
     this.tourPackages.set(id, tourPackage);
     return tourPackage;
   }
@@ -356,7 +362,11 @@ export class MemStorage implements IStorage {
   
   async createTestimonial(insertTestimonial: InsertTestimonial): Promise<Testimonial> {
     const id = this.currentTestimonialId++;
-    const testimonial: Testimonial = { ...insertTestimonial, id };
+    const testimonial: Testimonial = { 
+      ...insertTestimonial, 
+      id,
+      rating: insertTestimonial.rating || null
+    };
     this.testimonials.set(id, testimonial);
     return testimonial;
   }
@@ -365,7 +375,15 @@ export class MemStorage implements IStorage {
   async createInquiry(insertInquiry: InsertInquiry): Promise<Inquiry> {
     const id = this.currentInquiryId++;
     const createdAt = new Date();
-    const inquiry: Inquiry = { ...insertInquiry, id, createdAt };
+    const inquiry: Inquiry = { 
+      ...insertInquiry, 
+      id, 
+      createdAt,
+      phone: insertInquiry.phone || null,
+      travelDates: insertInquiry.travelDates || null,
+      packageInterest: insertInquiry.packageInterest || null,
+      subscribed: insertInquiry.subscribed || null
+    };
     this.inquiries.set(id, inquiry);
     return inquiry;
   }
