@@ -41,73 +41,73 @@ namespace BSLTours.API.Services
                 new Destination { 
                     Name = "Sigiriya Rock Fortress", 
                     Description = "Ancient rock fortress with panoramic views and stunning frescoes", 
-                    ImageUrl = "https://images.unsplash.com/photo-1586613835341-6003c0e2fb11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/sigiriya-rock-fortress-sri-lanka.jpg", 
                     Featured = true
                 },
                 new Destination { 
                     Name = "Galle Fort", 
                     Description = "Colonial charm with boutique hotels, cafes and ocean views", 
-                    ImageUrl = "https://images.unsplash.com/photo-1575136042347-ebaaa37049e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/galle-fort-sri-lanka.jpg", 
                     Featured = true
                 },
                 new Destination { 
                     Name = "Yala National Park", 
                     Description = "Luxury safari experiences with the highest leopard density in the world", 
-                    ImageUrl = "https://images.unsplash.com/photo-1607793279016-c6865c283483?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/yala-national-park-sri-lanka.jpg", 
                     Featured = true
                 },
                 new Destination { 
                     Name = "Ella", 
                     Description = "Mountain vistas, tea plantations, and iconic Nine Arch Bridge", 
-                    ImageUrl = "https://images.unsplash.com/photo-1577094695438-efe3fb02c242?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/ella-sri-lanka.jpg", 
                     Featured = false
                 },
                 new Destination { 
                     Name = "Bentota Beach", 
                     Description = "Pristine golden sands with luxury beach resorts and water sports", 
-                    ImageUrl = "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/bentota-beach-sri-lanka.jpg", 
                     Featured = false
                 },
                 new Destination { 
                     Name = "Kandy", 
                     Description = "Sacred Temple of the Tooth and serene lake surrounded by hills", 
-                    ImageUrl = "https://images.unsplash.com/photo-1619111942607-1bb91e5c6d65?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/kandy-sri-lanka.jpg", 
                     Featured = false
                 },
                 new Destination { 
                     Name = "Polonnaruwa", 
                     Description = "Ancient city with well-preserved ruins and impressive stone carvings", 
-                    ImageUrl = "https://images.unsplash.com/photo-1602601320430-0b94c1926dce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/polonnaruwa-sri-lanka.jpg", 
                     Featured = false
                 },
                 new Destination { 
                     Name = "Dambulla Cave Temple", 
                     Description = "UNESCO World Heritage site with ancient Buddha statues and painted murals", 
-                    ImageUrl = "https://images.unsplash.com/photo-1624029769122-a836aba27077?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/dambulla-cave-temple-sri-lanka.jpg", 
                     Featured = false
                 },
                 new Destination { 
                     Name = "Anuradhapura", 
                     Description = "Sri Lanka's ancient capital with sacred Bo Tree and majestic stupas", 
-                    ImageUrl = "https://images.unsplash.com/photo-1602602516181-a913082de858?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/anuradhapura-sri-lanka.jpg", 
                     Featured = false
                 },
                 new Destination { 
                     Name = "Nuwara Eliya", 
                     Description = "Little England with Tudor-style cottages and world-class tea estates", 
-                    ImageUrl = "https://images.unsplash.com/photo-1546708936-2af4a8ca0b7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/nuwara-eliya-sri-lanka.jpg", 
                     Featured = false
                 },
                 new Destination { 
                     Name = "Adam's Peak", 
                     Description = "Sacred mountain pilgrimage with breathtaking sunrise views", 
-                    ImageUrl = "https://images.unsplash.com/photo-1579176647030-bd86f6fd4e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/adams-peak-sri-lanka.jpg", 
                     Featured = false
                 },
                 new Destination { 
                     Name = "Mirissa", 
                     Description = "Idyllic beach with luxury villas and world-class whale watching", 
-                    ImageUrl = "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80", 
+                    ImageUrl = "/images/destinations/mirissa-sri-lanka.jpg", 
                     Featured = false
                 }
             };
@@ -125,7 +125,7 @@ namespace BSLTours.API.Services
                     Title = "Cultural Triangle Luxury Tour", 
                     Description = "Explore ancient cities, sacred temples, and the cultural heart of Sri Lanka with luxury accommodations.", 
                     ShortDescription = "10-day luxury tour of Sri Lanka's UNESCO World Heritage sites.",
-                    ImageUrl = "https://images.unsplash.com/photo-1594818379496-da1e345318f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                    ImageUrl = "/images/packages/cultural-triangle-luxury-tour.jpg",
                     Price = 3899,
                     Duration = 10,
                     Inclusions = "Luxury accommodation, Private guide, All meals, Entrance fees, Airport transfers", 
@@ -144,7 +144,7 @@ namespace BSLTours.API.Services
                     Title = "Coastal Serenity Escape", 
                     Description = "Indulge in beachfront luxury with private villa stays, spa treatments, and pristine beaches.", 
                     ShortDescription = "7-day luxury beach vacation in southern Sri Lanka.",
-                    ImageUrl = "https://images.unsplash.com/photo-1571435584758-13df417a2154?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                    ImageUrl = "/images/packages/coastal-serenity-escape-sri-lanka.jpg",
                     Price = 2499,
                     Duration = 7,
                     Inclusions = "Luxury beachfront villa, All meals, Private beach access, Spa treatments, Airport transfers", 
@@ -163,7 +163,7 @@ namespace BSLTours.API.Services
                     Title = "Hill Country Tea Trails", 
                     Description = "Journey through misty mountains, tea plantations, and colonial-era luxury bungalows.", 
                     ShortDescription = "8-day luxury tea country experience in Sri Lanka's highlands.",
-                    ImageUrl = "https://images.unsplash.com/photo-1583230690438-a157757de87a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                    ImageUrl = "/images/packages/hill-country-tea-trails-sri-lanka.jpg",
                     Price = 2799,
                     Duration = 8,
                     Inclusions = "Luxury plantation bungalows, All gourmet meals, Private tea tours, Train journeys, Transportation", 
@@ -182,7 +182,7 @@ namespace BSLTours.API.Services
                     Title = "Wildlife Safari Experience", 
                     Description = "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges.", 
                     ShortDescription = "6-day wildlife safari through Sri Lanka's top national parks.",
-                    ImageUrl = "https://images.unsplash.com/photo-1616352116213-503cb49c8c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                    ImageUrl = "/images/packages/wildlife-safari-experience-sri-lanka.jpg",
                     Price = 2199,
                     Duration = 6,
                     Inclusions = "Luxury tented accommodation, Expert naturalist guides, All meals, Safari jeep tours, Park entrance fees", 
@@ -201,7 +201,7 @@ namespace BSLTours.API.Services
                     Title = "Luxury Family Adventure", 
                     Description = "Create unforgettable memories with your loved ones on this family-friendly luxury tour through Sri Lanka's highlights.", 
                     ShortDescription = "12-day family adventure across Sri Lanka.",
-                    ImageUrl = "https://images.unsplash.com/photo-1583309219338-a582f1f9ca6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                    ImageUrl = "/images/packages/luxury-family-adventure-sri-lanka.jpg",
                     Price = 3599,
                     Duration = 12,
                     Inclusions = "Family-friendly luxury accommodations, All meals, Kid-friendly activities, Private transport, Experienced guides", 
@@ -220,7 +220,7 @@ namespace BSLTours.API.Services
                     Title = "Romantic Honeymoon Escape", 
                     Description = "Begin your journey together with exclusive experiences, romantic dinners, and luxurious accommodations.", 
                     ShortDescription = "9-day romantic luxury honeymoon in Sri Lanka.",
-                    ImageUrl = "https://images.unsplash.com/photo-1578922132951-13b3c524c104?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                    ImageUrl = "/images/packages/romantic-honeymoon-escape-sri-lanka.jpg",
                     Price = 3299,
                     Duration = 9,
                     Inclusions = "Luxury suites and villas, Romantic candlelit dinners, Couple's spa treatments, Private excursions, Champagne", 
@@ -250,7 +250,7 @@ namespace BSLTours.API.Services
                     Name = "Sarah Johnson", 
                     Content = "Our trip to Sri Lanka exceeded all expectations. The attention to detail, private guides, and luxurious accommodations made it truly special. We'll cherish these memories forever.", 
                     Location = "London, UK",
-                    ImageUrl = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                    ImageUrl = "/images/testimonials/",
                     Rating = 5,
                     PackageName = "Cultural Triangle Luxury Tour",
                     CreatedAt = DateTime.Now.AddMonths(-2)
@@ -259,7 +259,7 @@ namespace BSLTours.API.Services
                     Name = "James & Emily Wilson", 
                     Content = "We've traveled extensively, but our journey through Sri Lanka with Best Sri Lanka Tours was one of the most memorable. The personalized service and insider access to hidden gems made all the difference.", 
                     Location = "Sydney, Australia",
-                    ImageUrl = "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                    ImageUrl = "/images/testimonials/",
                     Rating = 5,
                     PackageName = "Wildlife Safari Experience",
                     CreatedAt = DateTime.Now.AddMonths(-1)
@@ -268,7 +268,7 @@ namespace BSLTours.API.Services
                     Name = "Michelle Thompson", 
                     Content = "The private beach villa arranged by Best Sri Lanka Tours was absolutely breathtaking. Our personal chef prepared the most amazing Sri Lankan cuisine, and the sunset views were unmatched.", 
                     Location = "Toronto, Canada",
-                    ImageUrl = "https://images.unsplash.com/photo-1545912452-8aea7e25a3d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                    ImageUrl = "/images/testimonials/",
                     Rating = 5,
                     PackageName = "Coastal Serenity Escape",
                     CreatedAt = DateTime.Now.AddDays(-20)
@@ -277,7 +277,7 @@ namespace BSLTours.API.Services
                     Name = "David Chen", 
                     Content = "As avid tea lovers, the Hill Country Tea Trails tour was a dream come true. Staying in colonial-era tea planter bungalows and learning about the tea-making process directly from experts was incredible.", 
                     Location = "Hong Kong",
-                    ImageUrl = "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                    ImageUrl = "/images/testimonials/",
                     Rating = 5,
                     PackageName = "Hill Country Tea Trails",
                     CreatedAt = DateTime.Now.AddDays(-15)
@@ -286,7 +286,7 @@ namespace BSLTours.API.Services
                     Name = "Alexandra & Robert Patel", 
                     Content = "Our honeymoon in Sri Lanka was pure magic. From candlelit dinners on the beach to private waterfall swims, every moment was curated to perfection. Truly an unforgettable start to our marriage.", 
                     Location = "New York, USA",
-                    ImageUrl = "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                    ImageUrl = "/images/testimonials/",
                     Rating = 5,
                     PackageName = "Romantic Honeymoon Escape",
                     CreatedAt = DateTime.Now.AddDays(-10)
