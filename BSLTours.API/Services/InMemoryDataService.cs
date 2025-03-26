@@ -316,6 +316,37 @@ namespace BSLTours.API.Services
             return Task.FromResult(_tourPackages.FirstOrDefault(p => p.Id == id));
         }
         
+        public Task<TourPackage> GetTourPackageBySlugAsync(string slug)
+        {
+            if (string.IsNullOrEmpty(slug))
+            {
+                return Task.FromResult<TourPackage>(null);
+            }
+            
+            // Normalize the slug (lower case, trimmed)
+            var normalizedSlug = slug.Trim().ToLowerInvariant();
+            
+            // If we don't have any slugs defined yet, generate them on the fly from titles
+            foreach (var package in _tourPackages.Where(p => string.IsNullOrEmpty(p.Slug)))
+            {
+                var title = package.Title;
+                if (!string.IsNullOrEmpty(title))
+                {
+                    // Convert to lowercase, replace spaces with hyphens, and remove special characters
+                    var generatedSlug = System.Text.RegularExpressions.Regex.Replace(title.ToLower(), @"[^a-z0-9\s-]", "");
+                    generatedSlug = System.Text.RegularExpressions.Regex.Replace(generatedSlug, @"\s+", "-");
+                    // Remove multiple consecutive hyphens
+                    generatedSlug = System.Text.RegularExpressions.Regex.Replace(generatedSlug, @"-+", "-");
+                    // Trim hyphens from start and end
+                    generatedSlug = generatedSlug.Trim('-');
+                    
+                    package.Slug = generatedSlug;
+                }
+            }
+            
+            return Task.FromResult(_tourPackages.FirstOrDefault(p => p.Slug != null && p.Slug.Equals(normalizedSlug, StringComparison.OrdinalIgnoreCase)));
+        }
+        
         public Task<TourPackage> CreateTourPackageAsync(CreateTourPackageDto tourPackageDto)
         {
             var tourPackage = new TourPackage

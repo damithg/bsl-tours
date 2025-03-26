@@ -10,6 +10,7 @@ namespace BSLTours.API.Services
         Task<IEnumerable<TourPackage>> GetTourPackagesAsync();
         Task<IEnumerable<TourPackage>> GetFeaturedTourPackagesAsync();
         Task<TourPackage> GetTourPackageByIdAsync(int id);
+        Task<TourPackage> GetTourPackageBySlugAsync(string slug);
         Task<TourPackage> CreateTourPackageAsync(CreateTourPackageDto tourPackageDto);
         
         // Destinations

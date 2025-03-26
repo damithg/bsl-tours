@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BSLTours.API.Models;
 using BSLTours.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BSLTours.API.Controllers
 {
@@ -11,10 +12,12 @@ namespace BSLTours.API.Controllers
     public class TourPackagesController : ControllerBase
     {
         private readonly IDataService _dataService;
+        private readonly ILogger<TourPackagesController> _logger;
 
-        public TourPackagesController(IDataService dataService)
+        public TourPackagesController(IDataService dataService, ILogger<TourPackagesController> logger)
         {
             _dataService = dataService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -31,13 +34,29 @@ namespace BSLTours.API.Controllers
             return Ok(tourPackages);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<TourPackage>> GetTourPackageById(int id)
         {
             var tourPackage = await _dataService.GetTourPackageByIdAsync(id);
             
             if (tourPackage == null)
             {
+                return NotFound();
+            }
+            
+            return Ok(tourPackage);
+        }
+
+        [HttpGet("by-slug/{slug}")]
+        public async Task<ActionResult<TourPackage>> GetTourPackageBySlug(string slug)
+        {
+            _logger.LogInformation($"Looking for tour package with slug: {slug}");
+            
+            var tourPackage = await _dataService.GetTourPackageBySlugAsync(slug);
+            
+            if (tourPackage == null)
+            {
+                _logger.LogWarning($"Tour package with slug '{slug}' not found");
                 return NotFound();
             }
             
