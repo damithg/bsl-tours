@@ -4,10 +4,16 @@ import { Link, useParams } from "wouter";
 import { TourPackage } from "@shared/schema";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
-import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart } from "lucide-react";
+import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // Helper Types
 interface ItineraryDay {
@@ -436,38 +442,40 @@ const EnhancedPackageDetail = () => {
                 <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
               </div>
               
-              <div className="space-y-6">
-                {itinerary.length > 0 ? (
-                  itinerary.map((day) => (
-                    <div key={day.day} className="bg-white p-6 rounded-lg shadow-md relative overflow-hidden border border-gray-100">
-                      <div className="absolute -left-0 h-full w-1 bg-[#D4AF37]"></div>
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <div className="md:w-24 flex-shrink-0">
-                          <div className="w-20 h-20 bg-[#103556] text-white rounded-full flex items-center justify-center shadow-lg">
-                            <span className="text-xl font-bold">Day {day.day}</span>
+              {itinerary.length > 0 ? (
+                <Accordion type="single" collapsible className="w-full border rounded-xl overflow-hidden">
+                  {itinerary.map((day) => (
+                    <AccordionItem key={day.day} value={`day-${day.day}`} className="border-b last:border-0">
+                      <AccordionTrigger className="py-6 px-6 hover:no-underline bg-[#f9f8f5] hover:bg-[#f5f3eb]">
+                        <div className="flex items-center text-left">
+                          <div className="w-12 h-12 bg-[#103556] text-white rounded-full flex items-center justify-center shadow-md mr-4 flex-shrink-0">
+                            <span className="text-sm font-bold">Day {day.day}</span>
                           </div>
-                        </div>
-                        <div>
-                          <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-3">
+                          <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556]">
                             {day.title}
                           </h3>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-6 pt-2 pb-6">
+                        <div className="ml-16">
                           <p className="text-gray-600 mb-4 leading-relaxed">{day.description}</p>
                           {day.accommodation && day.accommodation !== "N/A" && (
-                            <div className="inline-block bg-[#f8f7f2] px-4 py-2 rounded-lg">
+                            <div className="bg-[#f8f7f2] px-4 py-3 rounded-lg inline-block">
                               <span className="font-semibold text-[#103556]">Accommodation:</span> {day.accommodation}
                             </div>
                           )}
                         </div>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="text-center p-8 bg-[#f8f7f2] rounded-lg border border-[#D4AF37]/20">
-                    <p className="text-lg text-gray-600 mb-3">
-                      Full {packageData.duration}-day itinerary available upon request.
-                    </p>
-                    <p className="text-gray-500">
-                      Contact our travel consultants for a detailed day-by-day plan.
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              ) : (
+                <div className="text-center p-8 bg-[#f8f7f2] rounded-lg border border-[#D4AF37]/20">
+                  <p className="text-lg text-gray-600 mb-3">
+                    Full {packageData.duration}-day itinerary available upon request.
+                  </p>
+                  <p className="text-gray-500">
+                    Contact our travel consultants for a detailed day-by-day plan.
                     </p>
                   </div>
                 )}

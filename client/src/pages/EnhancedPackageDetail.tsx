@@ -4,10 +4,16 @@ import { Link, useParams } from "wouter";
 import { TourPackage } from "@shared/schema";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
-import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart } from "lucide-react";
+import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // Helper Types
 interface ItineraryDay {
@@ -37,6 +43,7 @@ const EnhancedPackageDetail = () => {
   const [excludes, setExcludes] = useState<string[]>([]);
   const [destinations, setDestinations] = useState<string[]>([]);
   const [itinerary, setItinerary] = useState<ItineraryDay[]>([]);
+  const [isInWishlist, setIsInWishlist] = useState(false);
 
   // Determine query based on available parameters
   const queryKey = slug 
@@ -121,16 +128,22 @@ const EnhancedPackageDetail = () => {
   };
 
   // Handle image navigation
-  const goToNextImage = () => {
-    setActiveImageIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+  const handleImageNav = (direction: 'prev' | 'next') => {
+    if (direction === 'prev') {
+      setActiveImageIndex((prev) => (prev === 0 ? (packageData.images?.length || 1) - 1 : prev - 1));
+    } else {
+      setActiveImageIndex((prev) => (prev === (packageData.images?.length || 1) - 1 ? 0 : prev + 1));
+    }
   };
 
-  const goToPrevImage = () => {
-    setActiveImageIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+  // Handle wishlist toggle
+  const handleAddToWishlist = () => {
+    setIsInWishlist(!isInWishlist);
+    // In a real app, this would save to user's profile
   };
 
   // Default package includes if not available in data
-  const defaultIncludes = [
+  const includesItems = includes.length > 0 ? includes : [
     "Luxury accommodations throughout the journey",
     "Private transportation in an air-conditioned vehicle",
     "English-speaking chauffeur guide",
@@ -142,7 +155,7 @@ const EnhancedPackageDetail = () => {
   ];
 
   // Default package excludes if not available in data
-  const defaultExcludes = [
+  const excludesItems = excludes.length > 0 ? excludes : [
     "International airfare",
     "Personal expenses",
     "Meals not mentioned in the itinerary",
@@ -238,229 +251,171 @@ const EnhancedPackageDetail = () => {
             <h1 className="font-['Playfair_Display'] text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               {packageData.title}
             </h1>
-            <div className="w-24 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Experience the finest of Sri Lanka with our carefully crafted luxury tour
-            </p>
-            <div className="flex justify-center mt-6">
-              {formatRating(packageData.rating)}
-              <span className="text-white/80 ml-2">
-                {(packageData.rating || 50) / 10} ({packageData.reviewCount || 0} reviews)
-              </span>
+            
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <div className="flex items-center text-white/90">
+                <Calendar className="h-5 w-5 mr-2" />
+                <span>{packageData.duration} Days</span>
+              </div>
+              <div className="flex items-center text-white/90">
+                <Users className="h-5 w-5 mr-2" />
+                <span>Private Tour</span>
+              </div>
+              <div className="flex items-center text-white/90">
+                <Map className="h-5 w-5 mr-2" />
+                <span>{packageData.destinations}</span>
+              </div>
+              <div className="flex items-center text-white/90">
+                <Clock className="h-5 w-5 mr-2" />
+                <span>All Year Round</span>
+              </div>
+            </div>
+            
+            <div className="flex justify-center gap-4">
+              <a 
+                href="#inquiry" 
+                className="bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium px-8 py-3 rounded-sm transition-colors"
+              >
+                Book This Tour
+              </a>
+              <a 
+                href="#customizeForm" 
+                className="bg-transparent hover:bg-white/10 text-white border border-white/30 font-medium px-8 py-3 rounded-sm transition-colors"
+              >
+                Customize Tour
+              </a>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Quick Info Bar */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16 text-center">
-            <div className="flex flex-col items-center">
-              <Calendar className="h-6 w-6 text-[#D4AF37] mb-2" />
-              <span className="text-[#103556] font-medium"><strong>{packageData.duration}</strong> Days</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Map className="h-6 w-6 text-[#D4AF37] mb-2" />
-              <span className="text-[#103556] font-medium"><strong>{destinations.length || 'Multiple'}</strong> Destinations</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Users className="h-6 w-6 text-[#D4AF37] mb-2" />
-              <span className="text-[#103556] font-medium">{packageData.groupSize || "Private Tour"}</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <DollarSign className="h-6 w-6 text-[#D4AF37] mb-2" />
-              <span className="text-[#103556] font-medium">From <strong>${packageData.price?.toLocaleString() || "0"}</strong></span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Award className="h-6 w-6 text-[#D4AF37] mb-2" />
-              <span className="text-[#103556] font-medium">5-Star Experience</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Left Content: Images and Details */}
-          <div className="lg:w-2/3">
-            {/* Image Gallery */}
-            <div className="mb-10">
-              <div className="relative h-[400px] md:h-[600px] mb-6 shadow-2xl overflow-hidden">
-                <img 
-                  src={galleryImages[activeImageIndex] || packageData.imageUrl} 
-                  alt={`${packageData.title} - View ${activeImageIndex + 1}`} 
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Navigation Buttons */}
-                {galleryImages.length > 1 && (
-                  <>
-                    <button 
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-[#D4AF37] hover:text-white p-3 rounded-full shadow-lg transition-colors"
-                      onClick={goToPrevImage}
-                    >
-                      <ChevronLeft className="h-6 w-6" />
-                    </button>
-                    <button 
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-[#D4AF37] hover:text-white p-3 rounded-full shadow-lg transition-colors"
-                      onClick={goToNextImage}
-                    >
-                      <ChevronRight className="h-6 w-6" />
-                    </button>
-                    
-                    {/* Image Counter */}
-                    <div className="absolute bottom-4 right-4 bg-[#103556]/70 text-white px-4 py-1.5 rounded-full text-sm font-medium">
-                      {activeImageIndex + 1} / {galleryImages.length}
-                    </div>
-                  </>
-                )}
-              </div>
-              
-              {/* Thumbnails */}
-              {galleryImages.length > 1 && (
-                <div className="grid grid-cols-5 gap-3">
-                  {galleryImages.map((img, index) => (
-                    <div 
-                      key={index}
-                      className={`h-24 overflow-hidden cursor-pointer transition-all ${
-                        index === activeImageIndex 
-                          ? 'ring-3 ring-[#D4AF37] ring-offset-2 shadow-lg' 
-                          : 'opacity-70 hover:opacity-100 shadow-md'
-                      }`}
-                      onClick={() => setActiveImageIndex(index)}
-                    >
-                      <img src={img} alt={`Thumbnail ${index + 1}`} className="w-full h-full object-cover" />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+      <div className="bg-white">
+        <div className="container mx-auto px-4 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             
-            {/* Tour Overview Section */}
-            <div className="mb-16">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                  Tour Overview
-                </h2>
-                <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
-              </div>
+            {/* Left Column - Tour Info */}
+            <div className="lg:col-span-2">
               
-              <div className="prose prose-lg max-w-none">
-                <p className="text-gray-600 leading-relaxed mb-8">
-                  {packageData.description}
-                </p>
+              {/* Gallery */}
+              <div className="mb-16">
+                <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg mb-4">
+                  <img 
+                    src={packageData.images?.[activeImageIndex] || packageData.imageUrl} 
+                    alt={`${packageData.title} - Image ${activeImageIndex + 1}`}
+                    className="w-full h-full object-cover" 
+                  />
+                  
+                  {/* Image Navigation */}
+                  {packageData.images && packageData.images.length > 1 && (
+                    <>
+                      <button 
+                        onClick={() => handleImageNav('prev')}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-colors"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="h-6 w-6 text-[#103556]" />
+                      </button>
+                      <button 
+                        onClick={() => handleImageNav('next')}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-colors"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="h-6 w-6 text-[#103556]" />
+                      </button>
+                    </>
+                  )}
+                </div>
                 
-                {packageData.highlightsSummary && (
-                  <div className="mb-8">
-                    <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-4">
-                      Tour Highlights
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {packageData.highlightsSummary.split(',').map((highlight, index) => (
-                        <div key={index} className="flex items-start gap-3 bg-[#f8f7f2] p-4 rounded-lg">
-                          <Check className="h-5 w-5 text-[#D4AF37] mt-1 flex-shrink-0" />
-                          <span className="text-gray-700">{highlight.trim()}</span>
-                        </div>
-                      ))}
-                    </div>
+                {/* Thumbnails */}
+                {packageData.images && packageData.images.length > 1 && (
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {packageData.images.map((img, index) => (
+                      <button 
+                        key={index}
+                        onClick={() => setActiveImageIndex(index)}
+                        className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${activeImageIndex === index ? 'border-[#D4AF37]' : 'border-transparent'}`}
+                      >
+                        <img 
+                          src={img} 
+                          alt={`${packageData.title} - Thumbnail ${index + 1}`} 
+                          className="w-full h-full object-cover" 
+                        />
+                      </button>
+                    ))}
                   </div>
                 )}
-                
-                {/* Additional Information */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  {packageData.bestTimeToVisit && (
-                    <div className="bg-[#f8f7f2] p-5 rounded-lg border-l-4 border-[#D4AF37]">
-                      <h4 className="font-semibold text-[#103556] mb-2">Best Time to Visit</h4>
-                      <p className="text-gray-600">{packageData.bestTimeToVisit}</p>
-                    </div>
-                  )}
-                  
-                  {destinations.length > 0 && (
-                    <div className="bg-[#f8f7f2] p-5 rounded-lg border-l-4 border-[#D4AF37]">
-                      <h4 className="font-semibold text-[#103556] mb-2">Destinations Covered</h4>
-                      <p className="text-gray-600">{destinations.join(', ')}</p>
-                    </div>
-                  )}
-                  
-                  {packageData.startingLocations && (
-                    <div className="bg-[#f8f7f2] p-5 rounded-lg border-l-4 border-[#D4AF37]">
-                      <h4 className="font-semibold text-[#103556] mb-2">Tour Starts From</h4>
-                      <p className="text-gray-600">
-                        {JSON.parse(packageData.startingLocations).join(' or ')}
-                      </p>
-                    </div>
-                  )}
-                  
-                  {packageData.groupSize && (
-                    <div className="bg-[#f8f7f2] p-5 rounded-lg border-l-4 border-[#D4AF37]">
-                      <h4 className="font-semibold text-[#103556] mb-2">Group Size</h4>
-                      <p className="text-gray-600">{packageData.groupSize}</p>
-                    </div>
-                  )}
-                </div>
               </div>
-            </div>
-            
-            {/* Animated Tour Route Map */}
-            {(itinerary.length > 0 || destinations.length > 0) && (
+              
+              {/* Overview */}
               <div className="mb-16">
                 <div className="flex justify-between items-center mb-8">
                   <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                    Tour Route Visualization
+                    Overview
+                  </h2>
+                  <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+                </div>
+                <div 
+                  className="prose prose-lg max-w-none text-gray-600"
+                  dangerouslySetInnerHTML={{ __html: packageData.description || '' }}
+                />
+              </div>
+              
+              {/* Tour Map */}
+              {itinerary.length > 0 && (
+                <div className="mb-16">
+                  <div className="flex justify-between items-center mb-8">
+                    <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
+                      Tour Map
+                    </h2>
+                    <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+                  </div>
+                  <div className="bg-[#f8f7f2] p-6 rounded-lg">
+                    <TourRouteMap 
+                      itinerary={itinerary}
+                      destinations={packageData.destinations?.split(',').map(d => d.trim()) || []}
+                      className="h-[500px] w-full"
+                    />
+                  </div>
+                </div>
+              )}
+            
+              {/* Day-by-Day Itinerary Section */}
+              <div className="mb-16">
+                <div className="flex justify-between items-center mb-8">
+                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
+                    Day-by-Day Itinerary
                   </h2>
                   <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
                 </div>
                 
-                <div className="bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20 mb-6">
-                  <p className="text-gray-600 mb-6">
-                    Follow your journey through Sri Lanka with our interactive map. Click on locations or itinerary days to see the animated route between destinations.
-                  </p>
-                  
-                  <TourRouteMap 
-                    itinerary={itinerary} 
-                    destinations={destinations} 
-                    className="mt-4" 
-                  />
-                </div>
-              </div>
-            )}
-            
-            {/* Day-by-Day Itinerary Section */}
-            <div className="mb-16">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                  Day-by-Day Itinerary
-                </h2>
-                <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
-              </div>
-              
-              <div className="space-y-6">
                 {itinerary.length > 0 ? (
-                  itinerary.map((day) => (
-                    <div key={day.day} className="bg-white p-6 rounded-lg shadow-md relative overflow-hidden border border-gray-100">
-                      <div className="absolute -left-0 h-full w-1 bg-[#D4AF37]"></div>
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <div className="md:w-24 flex-shrink-0">
-                          <div className="w-20 h-20 bg-[#103556] text-white rounded-full flex items-center justify-center shadow-lg">
-                            <span className="text-xl font-bold">Day {day.day}</span>
-                          </div>
-                        </div>
-                        <div>
-                          <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-3">
-                            {day.title}
-                          </h3>
-                          <p className="text-gray-600 mb-4 leading-relaxed">{day.description}</p>
-                          {day.accommodation && day.accommodation !== "N/A" && (
-                            <div className="inline-block bg-[#f8f7f2] px-4 py-2 rounded-lg">
-                              <span className="font-semibold text-[#103556]">Accommodation:</span> {day.accommodation}
+                  <Accordion type="single" collapsible className="w-full border rounded-xl overflow-hidden">
+                    {itinerary.map((day) => (
+                      <AccordionItem key={day.day} value={`day-${day.day}`} className="border-b last:border-0">
+                        <AccordionTrigger className="py-6 px-6 hover:no-underline bg-[#f9f8f5] hover:bg-[#f5f3eb]">
+                          <div className="flex items-center text-left">
+                            <div className="w-12 h-12 bg-[#103556] text-white rounded-full flex items-center justify-center shadow-md mr-4 flex-shrink-0">
+                              <span className="text-sm font-bold">Day {day.day}</span>
                             </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))
+                            <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556]">
+                              {day.title}
+                            </h3>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-6 pt-2 pb-6">
+                          <div className="ml-16">
+                            <p className="text-gray-600 mb-4 leading-relaxed">{day.description}</p>
+                            {day.accommodation && day.accommodation !== "N/A" && (
+                              <div className="bg-[#f8f7f2] px-4 py-3 rounded-lg inline-block">
+                                <span className="font-semibold text-[#103556]">Accommodation:</span> {day.accommodation}
+                              </div>
+                            )}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
                 ) : (
                   <div className="text-center p-8 bg-[#f8f7f2] rounded-lg border border-[#D4AF37]/20">
                     <p className="text-lg text-gray-600 mb-3">
@@ -472,191 +427,160 @@ const EnhancedPackageDetail = () => {
                   </div>
                 )}
               </div>
-            </div>
-            
-            {/* Includes/Excludes Section */}
-            <div className="mb-16">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                  What's Included
-                </h2>
-                <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
-              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
-                  <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-6 flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                      <Check className="h-5 w-5 text-green-600" />
-                    </div>
-                    Your Tour Includes
-                  </h3>
-                  <ul className="space-y-3">
-                    {(includes.length > 0 ? includes : defaultIncludes).map((item, index) => (
-                      <li key={index} className="flex items-start gap-3 pb-3 border-b border-gray-100 last:border-0">
-                        <Check className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span className="text-gray-700">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+              {/* Includes/Excludes Section */}
+              <div className="mb-16">
+                <div className="flex justify-between items-center mb-8">
+                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
+                    What's Included
+                  </h2>
+                  <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
                 </div>
                 
-                <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
-                  <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#103556] mb-6 flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-3">
-                      <X className="h-5 w-5 text-red-500" />
-                    </div>
-                    Your Tour Excludes
-                  </h3>
-                  <ul className="space-y-3">
-                    {(excludes.length > 0 ? excludes : defaultExcludes).map((item, index) => (
-                      <li key={index} className="flex items-start gap-3 pb-3 border-b border-gray-100 last:border-0">
-                        <X className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />
-                        <span className="text-gray-700">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="bg-[#f8f7f2] p-6 rounded-lg">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-4 flex items-center">
+                      <div className="w-8 h-8 bg-[#103556] rounded-full flex items-center justify-center mr-3">
+                        <Check className="h-5 w-5 text-white" />
+                      </div>
+                      Included
+                    </h3>
+                    <ul className="space-y-3">
+                      {includesItems.map((item, idx) => (
+                        <li key={idx} className="flex">
+                          <Check className="h-5 w-5 text-[#D4AF37] mr-3 flex-shrink-0 mt-1" />
+                          <span className="text-gray-600">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-[#f8f7f2] p-6 rounded-lg">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-4 flex items-center">
+                      <div className="w-8 h-8 bg-[#103556] rounded-full flex items-center justify-center mr-3">
+                        <X className="h-5 w-5 text-white" />
+                      </div>
+                      Not Included
+                    </h3>
+                    <ul className="space-y-3">
+                      {excludesItems.map((item, idx) => (
+                        <li key={idx} className="flex">
+                          <X className="h-5 w-5 text-red-500 mr-3 flex-shrink-0 mt-1" />
+                          <span className="text-gray-600">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
             
-            {/* Destinations Map Section */}
-            <div className="mb-16">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                  Destinations on This Tour
-                </h2>
-                <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
-              </div>
-              
-              {destinations.length > 0 ? (
-                <div>
-                  <div className="aspect-video relative rounded-lg overflow-hidden mb-8 shadow-xl">
-                    <img 
-                      src="/images/sri-lanka-map-watercolor.jpg" 
-                      alt="Sri Lanka Map" 
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center px-8 py-6 bg-white/90 rounded-lg shadow-lg">
-                        <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-2">Tour Route</h3>
-                        <p className="text-gray-600">
-                          This luxury tour covers {destinations.length} stunning destinations across Sri Lanka
-                        </p>
+            {/* Right Column - Sidebar */}
+            <div className="lg:col-span-1">
+              {/* Price Card */}
+              <div className="sticky top-24 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+                <div className="bg-[#103556] p-6 text-white">
+                  <div className="flex items-baseline">
+                    <span className="text-xl font-medium">From</span>
+                    <span className="text-4xl font-bold ml-2">${packageData.price?.toLocaleString() || "0"}</span>
+                    <span className="ml-1 text-white/80">per person</span>
+                  </div>
+                  <p className="text-white/80 text-sm mt-1">Based on double occupancy</p>
+                </div>
+                
+                <div className="p-6">
+                  <div className="space-y-4 mb-6">
+                    <div className="flex justify-between pb-3 border-b border-gray-100">
+                      <div className="flex items-center">
+                        <Calendar className="h-5 w-5 text-[#D4AF37] mr-3" />
+                        <span className="text-gray-600">Duration</span>
                       </div>
+                      <span className="font-semibold">{packageData.duration} Days</span>
+                    </div>
+                    
+                    <div className="flex justify-between pb-3 border-b border-gray-100">
+                      <div className="flex items-center">
+                        <Users className="h-5 w-5 text-[#D4AF37] mr-3" />
+                        <span className="text-gray-600">Tour Type</span>
+                      </div>
+                      <span className="font-semibold">Private Tour</span>
+                    </div>
+                    
+                    <div className="flex justify-between pb-3 border-b border-gray-100">
+                      <div className="flex items-center">
+                        <DollarSign className="h-5 w-5 text-[#D4AF37] mr-3" />
+                        <span className="text-gray-600">Price Includes</span>
+                      </div>
+                      <span className="font-semibold">All Inclusive</span>
+                    </div>
+                    
+                    <div className="flex justify-between">
+                      <div className="flex items-center">
+                        <Award className="h-5 w-5 text-[#D4AF37] mr-3" />
+                        <span className="text-gray-600">Quality</span>
+                      </div>
+                      <span className="font-semibold">5-Star Luxury</span>
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {destinations.map((destination, index) => (
-                      <div key={index} className="bg-white p-4 rounded-lg shadow-md text-center border border-gray-100 hover:border-[#D4AF37] transition-colors">
-                        <h4 className="font-medium text-[#103556]">{destination}</h4>
-                      </div>
-                    ))}
+                  <div className="space-y-3">
+                    <a 
+                      href="#inquiry" 
+                      className="block bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium text-center px-6 py-3 rounded-sm transition-colors w-full"
+                    >
+                      Book This Tour
+                    </a>
+                    <button 
+                      onClick={handleAddToWishlist}
+                      className="flex items-center justify-center border border-[#103556] text-[#103556] hover:bg-[#103556] hover:text-white font-medium px-6 py-3 rounded-sm transition-colors w-full"
+                    >
+                      <Heart className={`h-5 w-5 mr-2 ${isInWishlist ? 'fill-current' : ''}`} />
+                      {isInWishlist ? 'Saved to Wishlist' : 'Add to Wishlist'}
+                    </button>
                   </div>
                 </div>
-              ) : (
-                <div className="text-center p-8 bg-[#f8f7f2] rounded-lg">
-                  <p className="text-gray-600">
-                    Detailed destination information available upon request.
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-          
-          {/* Right Sidebar: Booking and Information */}
-          <div className="lg:w-1/3">
-            {/* Booking Card */}
-            <div className="bg-white rounded-sm shadow-xl overflow-hidden mb-8 sticky top-28 border border-[#D4AF37]/30">
-              <div className="bg-gradient-to-r from-[#103556] to-[#0d2942] text-white p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <DollarSign className="h-5 w-5 text-[#D4AF37]" />
-                  <h3 className="text-lg font-semibold">Pricing Details</h3>
-                </div>
-                <div className="flex justify-between items-center">
+              </div>
+              
+              {/* Need Help Box */}
+              <div className="mt-8 bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
+                <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-4">
+                  Need Help?
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Our luxury travel consultants are ready to assist you with any questions about this tour.
+                </p>
+                <div className="flex items-center mt-4 pb-4 border-b border-gray-200">
+                  <div className="w-10 h-10 bg-[#103556] rounded-full flex items-center justify-center mr-3">
+                    <i className="fas fa-phone-alt text-white"></i>
+                  </div>
                   <div>
-                    <div className="text-3xl font-bold mb-1 text-white">${packageData.price?.toLocaleString() || "0"}</div>
-                    <div className="text-sm text-white/80">per person</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xl font-semibold">{packageData.duration}</div>
-                    <div className="text-sm text-white/80">days</div>
+                    <p className="text-sm text-gray-500">Call us</p>
+                    <p className="font-semibold text-[#103556]">+94 77 123 4567</p>
                   </div>
                 </div>
-                
-                <div className="mt-4 border-t border-white/20 pt-4">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Check className="h-4 w-4 text-[#D4AF37]" />
-                    <span>Private Transportation</span>
+                <div className="flex items-center mt-4">
+                  <div className="w-10 h-10 bg-[#103556] rounded-full flex items-center justify-center mr-3">
+                    <i className="fas fa-envelope text-white"></i>
                   </div>
-                  <div className="flex items-center gap-2 text-sm mt-1">
-                    <Check className="h-4 w-4 text-[#D4AF37]" />
-                    <span>Luxury Accommodations</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm mt-1">
-                    <Check className="h-4 w-4 text-[#D4AF37]" />
-                    <span>English-speaking Guide</span>
+                  <div>
+                    <p className="text-sm text-gray-500">Email us</p>
+                    <p className="font-semibold text-[#103556]">info@bestsrilankatours.com</p>
                   </div>
                 </div>
               </div>
               
-              <div className="p-6">
-                <div className="mb-6">
-                  <div className="flex justify-between text-sm mb-2">
-                    <span>Tour Rating</span>
-                    <span className="font-medium">{(packageData.rating || 50) / 10} / 5</span>
-                  </div>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span>Tour Duration</span>
-                    <span className="font-medium">{packageData.duration} days</span>
-                  </div>
-                  {packageData.luxuryLevel && (
-                    <div className="flex justify-between text-sm mb-2">
-                      <span>Luxury Level</span>
-                      <span className="font-medium">
-                        {[...Array(packageData.luxuryLevel)].map((_, i) => (
-                          <i key={i} className="fas fa-star text-amber-400"></i>
-                        ))}
-                      </span>
-                    </div>
-                  )}
-                  {packageData.groupSize && (
-                    <div className="flex justify-between text-sm mb-2">
-                      <span>Group Size</span>
-                      <span className="font-medium">{packageData.groupSize}</span>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="space-y-3">
-                  <Button className="w-full" size="lg">
-                    Book This Tour
-                  </Button>
-                  
-                  <Button variant="outline" className="w-full" size="lg">
-                    <Heart className="mr-2 h-4 w-4" /> Add to Wishlist
-                  </Button>
-                </div>
-                
-                <div className="mt-4 text-center text-sm text-muted-foreground">
-                  <p>Have questions? Call us at</p>
-                  <p className="font-semibold text-primary text-lg">+94 112 123 4567</p>
-                </div>
+              {/* Customize Box */}
+              <div className="mt-8 bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
+                <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-4">
+                  Need Customizations?
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Want to add extra activities, change accommodation options, or adjust the itinerary? Our experts can customize this tour to your preferences.
+                </p>
+                <Button variant="outline" className="w-full">
+                  Request Custom Tour
+                </Button>
               </div>
-            </div>
-            
-            {/* Need Help Box */}
-            <div className="bg-secondary/20 rounded-lg p-6 mb-8">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">
-                Need Customizations?
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Want to add extra activities, change accommodation options, or adjust the itinerary? Our experts can customize this tour to your preferences.
-              </p>
-              <Button variant="outline" className="w-full">
-                Request Custom Tour
-              </Button>
             </div>
           </div>
         </div>
