@@ -240,6 +240,21 @@ namespace BSLTours.API.Services
             foreach (var package in tourPackages)
             {
                 package.Id = _nextTourPackageId++;
+                
+                // Generate a slug from the title if one doesn't exist
+                if (string.IsNullOrEmpty(package.Slug) && !string.IsNullOrEmpty(package.Title))
+                {
+                    // Convert to lowercase, replace spaces with hyphens, and remove special characters
+                    var generatedSlug = System.Text.RegularExpressions.Regex.Replace(package.Title.ToLower(), @"[^a-z0-9\s-]", "");
+                    generatedSlug = System.Text.RegularExpressions.Regex.Replace(generatedSlug, @"\s+", "-");
+                    // Remove multiple consecutive hyphens
+                    generatedSlug = System.Text.RegularExpressions.Regex.Replace(generatedSlug, @"-+", "-");
+                    // Trim hyphens from start and end
+                    generatedSlug = generatedSlug.Trim('-');
+                    
+                    package.Slug = generatedSlug;
+                }
+                
                 _tourPackages.Add(package);
             }
             
@@ -349,10 +364,25 @@ namespace BSLTours.API.Services
         
         public Task<TourPackage> CreateTourPackageAsync(CreateTourPackageDto tourPackageDto)
         {
+            // Generate slug if not provided but title exists
+            if (string.IsNullOrEmpty(tourPackageDto.Slug) && !string.IsNullOrEmpty(tourPackageDto.Title))
+            {
+                // Convert to lowercase, replace spaces with hyphens, and remove special characters
+                var generatedSlug = System.Text.RegularExpressions.Regex.Replace(tourPackageDto.Title.ToLower(), @"[^a-z0-9\s-]", "");
+                generatedSlug = System.Text.RegularExpressions.Regex.Replace(generatedSlug, @"\s+", "-");
+                // Remove multiple consecutive hyphens
+                generatedSlug = System.Text.RegularExpressions.Regex.Replace(generatedSlug, @"-+", "-");
+                // Trim hyphens from start and end
+                generatedSlug = generatedSlug.Trim('-');
+                
+                tourPackageDto.Slug = generatedSlug;
+            }
+            
             var tourPackage = new TourPackage
             {
                 Id = _nextTourPackageId++,
                 Title = tourPackageDto.Title,
+                Slug = tourPackageDto.Slug,
                 Description = tourPackageDto.Description,
                 ShortDescription = tourPackageDto.ShortDescription,
                 ImageUrl = tourPackageDto.ImageUrl,
