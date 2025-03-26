@@ -149,12 +149,12 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
               </Badge>
             </div>
             
-            <div className="space-y-4 overflow-y-auto flex-grow">
+            <div className="space-y-3 flex-grow">
               {itinerary.map((day, index) => (
                 <div 
                   key={`day-${day.day}`} 
                   className={`
-                    relative p-4 rounded-lg transition-all duration-300
+                    relative py-2 px-3 rounded-lg transition-all duration-300
                     ${activeDay === day.day 
                       ? 'bg-primary/5 border-primary/20 border shadow-sm' 
                       : 'bg-gray-50 border border-gray-100 hover:bg-gray-100/50'
@@ -163,45 +163,42 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
                   `}
                   onClick={() => handleDayClick(day.day)}
                 >
-                  {/* Day indicator */}
-                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/3">
+                  <div className="flex items-center">
+                    {/* Day indicator */}
                     <div 
                       className={`
-                        w-10 h-10 rounded-full flex items-center justify-center 
+                        w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0
                         ${activeDay === day.day 
                           ? 'bg-primary text-white' 
                           : 'bg-white border border-gray-200 text-gray-600'
                         }
-                        shadow-sm font-bold text-sm
+                        shadow-sm font-bold text-sm mr-3
                       `}
                     >
                       {day.day}
                     </div>
-                  </div>
                   
-                  <div className="ml-4">
-                    {/* Day title and next arrow */}
-                    <div className="flex justify-between items-center">
-                      <h4 className="font-bold">{day.title}</h4>
-                      {index < itinerary.length - 1 && (
-                        <ArrowRight 
-                          className={`h-4 w-4 ${activeDay === day.day ? 'text-primary' : 'text-gray-400'}`} 
-                        />
+                    <div className="flex-grow">
+                      {/* Day title */}
+                      <div className="flex justify-between items-center">
+                        <h4 className="font-bold text-sm">{day.title}</h4>
+                        {index < itinerary.length - 1 && (
+                          <ArrowRight 
+                            className={`h-3 w-3 ${activeDay === day.day ? 'text-primary' : 'text-gray-400'}`} 
+                          />
+                        )}
+                      </div>
+                      
+                      {/* Accommodation if available */}
+                      {day.accommodation && (
+                        <div className="flex items-center text-xs font-medium text-gray-500 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M3 7v11m0-7h18m0 0v7m-5-7v-3a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v3"></path>
+                          </svg>
+                          {day.accommodation}
+                        </div>
                       )}
                     </div>
-                    
-                    {/* Description */}
-                    <div className="mt-2 text-sm text-gray-600">{day.description}</div>
-                    
-                    {/* Accommodation if available */}
-                    {day.accommodation && (
-                      <div className="mt-2 flex items-center text-xs font-medium text-gray-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M3 7v11m0-7h18m0 0v7m-5-7v-3a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v3"></path>
-                        </svg>
-                        Stay: {day.accommodation}
-                      </div>
-                    )}
                   </div>
                 </div>
               ))}
