@@ -45,11 +45,46 @@ export const getQueryFn = <TData>(options: {
   on401: UnauthorizedBehavior;
 }): QueryFunction<TData> => {
   return async ({ queryKey }) => {
-    const path = queryKey[0] as string;
+    const [basePath, ...params] = queryKey as string[];
+    let path = basePath;
+    
+    // Handle arrays of query parameters by appending them to the path
+    if (params.length > 0) {
+      // Check if the path already has path parameters or query string
+      if (basePath.includes('/:')) {
+        // Replace path parameters with actual values
+        const pathSegments = basePath.split('/');
+        const updatedPathSegments = pathSegments.map(segment => {
+          if (segment.startsWith(':')) {
+            const paramName = segment.slice(1);
+            const paramIndex = parseInt(paramName);
+            if (!isNaN(paramIndex) && params[paramIndex-1] !== undefined) {
+              return params[paramIndex-1];
+            }
+          }
+          return segment;
+        });
+        path = updatedPathSegments.join('/');
+      } else if (basePath.includes('/by-slug/')) {
+        // Special handling for /by-slug/ endpoint
+        path = `${basePath}${params[0]}`;
+      } else if (basePath.includes('/{')) {
+        // Handle .NET style path parameters
+        let updatedPath = basePath;
+        params.forEach((param, index) => {
+          updatedPath = updatedPath.replace(`{${index}}`, param);
+        });
+        path = updatedPath;
+      } else {
+        // For numeric IDs, append them to the path
+        path = `${basePath}/${params[0]}`;
+      }
+    }
     
     // If the URL is not absolute, prepend the API base URL
     const url = path.startsWith('http') ? path : `${API_BASE_URL}${path}`;
     
+    console.log(`Making API request to: ${url}`);
     const res = await fetch(url);
 
     // Handle 401 Unauthorized based on the provided behavior option

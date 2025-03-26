@@ -40,7 +40,7 @@ const EnhancedPackageDetail = () => {
 
   // Determine query based on available parameters
   const queryKey = slug 
-    ? ['/api/tour-packages/by-slug', slug] 
+    ? ['/api/tour-packages/by-slug/', slug] 
     : ['/api/tour-packages', parseInt(id || "0")];
 
   // Fetch tour package data
