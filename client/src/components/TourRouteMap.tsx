@@ -135,91 +135,93 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
   return (
     <div className={`${className}`}>
       {/* Integrated Tour Map with Itinerary */}
-      <div className="relative rounded-lg overflow-hidden border border-gray-100 shadow-lg">
-        {/* Map fills the entire container */}
-        <div className="h-[700px]">
+      <div className="flex h-[700px] rounded-lg overflow-hidden shadow-lg">
+        {/* Left: Tour Itinerary */}
+        <div className="w-1/2 bg-white">
+          <div className="p-4 h-full flex flex-col">
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="text-lg font-bold flex items-center gap-2">
+                <Calendar className="h-5 w-5" />
+                Tour Itinerary
+              </h3>
+              <Badge variant="outline" className="px-2 py-0 text-xs">
+                {itinerary.length} Days
+              </Badge>
+            </div>
+            
+            <div className="space-y-4 overflow-y-auto flex-grow">
+              {itinerary.map((day, index) => (
+                <div 
+                  key={`day-${day.day}`} 
+                  className={`
+                    relative p-4 rounded-lg transition-all duration-300
+                    ${activeDay === day.day 
+                      ? 'bg-primary/5 border-primary/20 border shadow-sm' 
+                      : 'bg-gray-50 border border-gray-100 hover:bg-gray-100/50'
+                    }
+                    cursor-pointer
+                  `}
+                  onClick={() => handleDayClick(day.day)}
+                >
+                  {/* Day indicator */}
+                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/3">
+                    <div 
+                      className={`
+                        w-10 h-10 rounded-full flex items-center justify-center 
+                        ${activeDay === day.day 
+                          ? 'bg-primary text-white' 
+                          : 'bg-white border border-gray-200 text-gray-600'
+                        }
+                        shadow-sm font-bold text-sm
+                      `}
+                    >
+                      {day.day}
+                    </div>
+                  </div>
+                  
+                  <div className="ml-4">
+                    {/* Day title and next arrow */}
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-bold">{day.title}</h4>
+                      {index < itinerary.length - 1 && (
+                        <ArrowRight 
+                          className={`h-4 w-4 ${activeDay === day.day ? 'text-primary' : 'text-gray-400'}`} 
+                        />
+                      )}
+                    </div>
+                    
+                    {/* Description */}
+                    <div className="mt-2 text-sm text-gray-600">{day.description}</div>
+                    
+                    {/* Accommodation if available */}
+                    {day.accommodation && (
+                      <div className="mt-2 flex items-center text-xs font-medium text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M3 7v11m0-7h18m0 0v7m-5-7v-3a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v3"></path>
+                        </svg>
+                        Stay: {day.accommodation}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-3 pt-3 border-t border-gray-100 text-center text-xs text-gray-500">
+              Click on a day or map marker to see the route animation
+            </div>
+          </div>
+        </div>
+        
+        {/* Right: Animated Route Map */}
+        <div className="w-1/2">
           <AnimatedRouteMap
-            title="Sri Lanka Tour Route"
+            title="Tour Route"
             points={mapPoints}
             activeDay={activeDay}
             onPointClick={handlePointClick}
-            className="h-full w-full"
+            className="h-full"
           />
-        </div>
-        
-        {/* Horizontal scrolling itinerary at the bottom */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200 p-4">
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="text-lg font-bold flex items-center gap-2">
-              <Calendar className="h-5 w-5" />
-              Tour Itinerary
-            </h3>
-            <Badge variant="outline" className="px-2 py-0 text-xs">
-              {itinerary.length} Days
-            </Badge>
-          </div>
-          
-          <div className="flex gap-4 overflow-x-auto pb-2 snap-x">
-            {itinerary.map((day, index) => (
-              <div 
-                key={`day-${day.day}`} 
-                className={`
-                  relative p-4 rounded-lg transition-all duration-300 flex-shrink-0 w-[280px] snap-start
-                  ${activeDay === day.day 
-                    ? 'bg-primary/5 border-primary/20 border shadow-sm' 
-                    : 'bg-gray-50 border border-gray-100 hover:bg-gray-100/50'
-                  }
-                  cursor-pointer
-                `}
-                onClick={() => handleDayClick(day.day)}
-              >
-                {/* Day indicator */}
-                <div className="absolute left-0 top-0 transform -translate-x-1/3 -translate-y-1/3">
-                  <div 
-                    className={`
-                      w-8 h-8 rounded-full flex items-center justify-center 
-                      ${activeDay === day.day 
-                        ? 'bg-primary text-white' 
-                        : 'bg-white border border-gray-200 text-gray-600'
-                      }
-                      shadow-sm font-bold text-sm
-                    `}
-                  >
-                    {day.day}
-                  </div>
-                </div>
-                
-                <div className="ml-2">
-                  {/* Day title and next arrow */}
-                  <div className="flex justify-between items-center">
-                    <h4 className="font-bold text-sm">{day.title}</h4>
-                    {index < itinerary.length - 1 && (
-                      <ArrowRight 
-                        className={`h-4 w-4 ${activeDay === day.day ? 'text-primary' : 'text-gray-400'}`} 
-                      />
-                    )}
-                  </div>
-                  
-                  {/* Description */}
-                  <div className="mt-1 text-xs text-gray-600">{day.description}</div>
-                  
-                  {/* Accommodation if available */}
-                  {day.accommodation && (
-                    <div className="mt-1 flex items-center text-xs font-medium text-gray-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 7v11m0-7h18m0 0v7m-5-7v-3a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v3"></path>
-                      </svg>
-                      {day.accommodation}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="mt-2 text-center text-xs text-gray-500">
-            Scroll to see all days or click on a map marker to navigate
-          </div>
         </div>
       </div>
     </div>
