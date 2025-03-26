@@ -22,7 +22,7 @@ interface AnimatedRouteMapProps {
 
 const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
   title = "Tour Route",
-  mapImage = "/images/sri-lanka-map-watercolor.jpg",
+  mapImage = "https://i.pinimg.com/736x/e6/c5/30/e6c5307dc64c80debc4c6f617fa4d26c.jpg",
   points,
   activeDay,
   className = "",
@@ -103,8 +103,8 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
   }, [activePoints]);
 
   return (
-    <Card className={`shadow-lg border-0 overflow-hidden ${className}`}>
-      <CardContent className="p-4">
+    <Card className={`shadow-lg border-0 overflow-hidden h-full ${className}`}>
+      <CardContent className="p-4 flex flex-col h-full">
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-lg font-bold flex items-center gap-2">
             <svg
@@ -127,7 +127,7 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
           </Badge>
         </div>
 
-        <div className="relative border border-gray-100 rounded-lg shadow-sm overflow-hidden bg-blue-50/30">
+        <div className="relative border border-gray-100 rounded-lg shadow-sm overflow-hidden bg-blue-50/30 flex-grow">
           {/* SVG Definitions */}
           <svg height="0" width="0">
             <defs>
@@ -167,7 +167,7 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
           </svg>
 
           {/* Sri Lanka map image */}
-          <div className="relative aspect-[3/4] w-full rounded overflow-hidden flex items-center justify-center">
+          <div className="relative w-full h-full rounded overflow-hidden flex items-center justify-center">
             <img
               src={mapImage}
               alt="Sri Lanka Map"

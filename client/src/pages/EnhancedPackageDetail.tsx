@@ -434,7 +434,7 @@ const EnhancedPackageDetail = () => {
                     <TourRouteMap 
                       itinerary={itinerary}
                       destinations={packageData.destinations?.split(',').map(d => d.trim()) || []}
-                      className="h-[500px] w-full"
+                      className="h-[700px] w-full"
                     />
                   </div>
                 </div>

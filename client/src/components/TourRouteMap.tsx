@@ -134,17 +134,9 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
 
   return (
     <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${className}`}>
-      {/* Left: Animated Route Map */}
-      <AnimatedRouteMap
-        title="Tour Route"
-        points={mapPoints}
-        activeDay={activeDay}
-        onPointClick={handlePointClick}
-      />
-      
-      {/* Right: Itinerary Details */}
-      <Card className="shadow-lg border-0 overflow-hidden">
-        <CardContent className="p-4">
+      {/* Left: Itinerary Details */}
+      <Card className="shadow-lg border-0 overflow-hidden h-full">
+        <CardContent className="p-4 flex flex-col h-full">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-lg font-bold flex items-center gap-2">
               <Calendar className="h-5 w-5" />
@@ -155,7 +147,7 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
             </Badge>
           </div>
           
-          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+          <div className="space-y-4 overflow-y-auto pr-2 flex-grow">
             {itinerary.map((day, index) => (
               <div 
                 key={`day-${day.day}`} 
@@ -218,6 +210,15 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
           </div>
         </CardContent>
       </Card>
+      
+      {/* Right: Animated Route Map */}
+      <AnimatedRouteMap
+        title="Tour Route"
+        points={mapPoints}
+        activeDay={activeDay}
+        onPointClick={handlePointClick}
+        className="h-full"
+      />
     </div>
   );
 };
