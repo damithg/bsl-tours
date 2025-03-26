@@ -140,7 +140,7 @@ const EnhancedPackageDetail = () => {
                 parsedItinerary.push({
                   day,
                   title,
-                  description: `Explore ${title} with your private guide. Visit key attractions and immerse yourself in the local culture. Enjoy luxury accommodation and fine dining experiences.`,
+                  description: `Visit key attractions in ${title} with your private guide. Experience authentic Sri Lankan culture and cuisine.`,
                   accommodation: "Luxury Hotel"
                 });
               }

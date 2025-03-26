@@ -147,7 +147,7 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
             </Badge>
           </div>
           
-          <div className="space-y-4 overflow-y-auto pr-2 flex-grow">
+          <div className="space-y-4 flex-grow">
             {itinerary.map((day, index) => (
               <div 
                 key={`day-${day.day}`} 
