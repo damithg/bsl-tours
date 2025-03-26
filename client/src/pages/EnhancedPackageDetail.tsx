@@ -58,6 +58,9 @@ const EnhancedPackageDetail = () => {
   // Process JSON fields when data is loaded
   useEffect(() => {
     if (packageData) {
+      console.log("Package data received:", packageData);
+      console.log("Itinerary field:", packageData.itinerary);
+      
       // Parse gallery images if available
       if (packageData.gallery) {
         try {
@@ -98,10 +101,15 @@ const EnhancedPackageDetail = () => {
       // Parse itinerary if available
       if (packageData.itinerary) {
         try {
-          setItinerary(JSON.parse(packageData.itinerary));
+          const parsedItinerary = JSON.parse(packageData.itinerary);
+          console.log("Parsed itinerary:", parsedItinerary);
+          setItinerary(parsedItinerary);
         } catch (e) {
+          console.error("Error parsing itinerary:", e);
           setItinerary([]);
         }
+      } else {
+        console.log("No itinerary field found in package data");
       }
     }
   }, [packageData]);
