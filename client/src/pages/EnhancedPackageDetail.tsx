@@ -61,14 +61,24 @@ const EnhancedPackageDetail = () => {
       console.log("Package data received:", packageData);
       console.log("Itinerary field:", packageData.itinerary);
       
-      // Parse gallery images if available
-      if (packageData.gallery) {
+      // Handle gallery images
+      // First check for galleryImages array in the API response
+      if (packageData.galleryImages && Array.isArray(packageData.galleryImages)) {
+        console.log("Using galleryImages from API response:", packageData.galleryImages);
+        setGalleryImages(packageData.galleryImages);
+      } 
+      // Then try to parse gallery field if it exists
+      else if (packageData.gallery) {
         try {
-          setGalleryImages(JSON.parse(packageData.gallery));
+          const parsedGallery = JSON.parse(packageData.gallery);
+          console.log("Parsed gallery from JSON string:", parsedGallery);
+          setGalleryImages(parsedGallery);
         } catch (e) {
+          console.log("Error parsing gallery, using imageUrl as fallback");
           setGalleryImages([packageData.imageUrl]);
         }
       } else {
+        console.log("No gallery found, using imageUrl as fallback");
         setGalleryImages([packageData.imageUrl]);
       }
 
@@ -100,69 +110,54 @@ const EnhancedPackageDetail = () => {
 
       // Parse itinerary if available
       if (packageData.itinerary) {
+        console.log("Itinerary field:", packageData.itinerary);
+        // First check if it's already a JSON string
         try {
           const parsedItinerary = JSON.parse(packageData.itinerary);
-          console.log("Parsed itinerary:", parsedItinerary);
+          console.log("Parsed itinerary as JSON:", parsedItinerary);
           
           // Check if we got a valid array
           if (Array.isArray(parsedItinerary) && parsedItinerary.length > 0) {
             setItinerary(parsedItinerary);
           } else {
-            console.log("Itinerary is not a valid array or is empty");
-            // For demonstration purposes only, using example data based on the tour
-            if (packageData.title.toLowerCase().includes("cultural triangle")) {
-              // Example itinerary data for Cultural Triangle tour
-              setItinerary([
-                {
-                  day: 1,
-                  title: "Arrival & Negombo",
-                  description: "Welcome to Sri Lanka! Upon arrival at Bandaranaike International Airport, you'll be greeted by your private chauffeur guide. Transfer to your luxury hotel in Negombo to relax after your journey. Enjoy a welcome dinner featuring fresh seafood while watching the sunset over the ocean.",
-                  accommodation: "Heritance Negombo or similar"
-                },
-                {
-                  day: 2,
-                  title: "Negombo to Sigiriya",
-                  description: "After breakfast, depart for Sigiriya. En route, visit the Dambulla Cave Temple, a UNESCO World Heritage site with five caves housing 153 Buddha statues and stunning murals. Continue to your luxury hotel in Sigiriya. Evening at leisure to enjoy the hotel facilities.",
-                  accommodation: "Water Garden Sigiriya or similar"
-                },
-                {
-                  day: 3,
-                  title: "Sigiriya Rock Fortress",
-                  description: "Early morning climb to the magnificent Sigiriya Rock Fortress, another UNESCO site. Explore the ancient frescoes, the mirror wall, and the ruins of this 5th-century fortress. In the afternoon, enjoy a private village experience to discover rural Sri Lankan life, including a traditional cooking demonstration and lunch with a local family.",
-                  accommodation: "Water Garden Sigiriya or similar"
-                },
-                {
-                  day: 4,
-                  title: "Ancient City of Polonnaruwa",
-                  description: "Full-day excursion to the ancient city of Polonnaruwa, Sri Lanka's second capital. Explore the well-preserved ruins, including the Royal Palace, Gal Viharaya (Buddha statues), and the Vatadage. Return to Sigiriya for an exclusive sunset cocktail experience overlooking the countryside.",
-                  accommodation: "Water Garden Sigiriya or similar"
-                },
-                {
-                  day: 5,
-                  title: "Sigiriya to Kandy",
-                  description: "Depart for Kandy, stopping at a spice garden in Matale to learn about Sri Lanka's famous spices. Upon arrival in Kandy, visit the Temple of the Sacred Tooth Relic, Sri Lanka's most important Buddhist shrine. Evening cultural show featuring traditional Kandyan dance performances.",
-                  accommodation: "Kings Pavilion Kandy or similar"
-                },
-                {
-                  day: 6,
-                  title: "Kandy Exploration",
-                  description: "Morning visit to the Royal Botanical Gardens at Peradeniya, home to over 4,000 plant species. Afternoon city tour of Kandy, including the lakeside, local markets, and the Gem Museum. Evening at leisure to relax or explore on your own.",
-                  accommodation: "Kings Pavilion Kandy or similar"
-                },
-                {
-                  day: 7,
-                  title: "Departure",
-                  description: "After breakfast, transfer to Bandaranaike International Airport for your departure flight, taking with you memories of your luxury Cultural Triangle adventure.",
-                  accommodation: "N/A"
-                }
-              ]);
-            } else {
-              setItinerary([]);
-            }
+            // Not a valid array, fall through to next parsing option
+            throw new Error("Not a valid itinerary array");
           }
         } catch (e) {
-          console.error("Error parsing itinerary:", e);
-          setItinerary([]);
+          console.log("Itinerary is not a JSON string, trying to parse from text format");
+          
+          // Try to parse as plain text format with "Day X: Description" format
+          if (typeof packageData.itinerary === 'string' && packageData.itinerary.includes('Day')) {
+            const lines = packageData.itinerary.split('\n');
+            const parsedItinerary: ItineraryDay[] = [];
+            
+            lines.forEach(line => {
+              const match = line.match(/Day (\d+)(?:-\d+)?: (.+)/);
+              if (match) {
+                const day = parseInt(match[1]);
+                const title = match[2].trim();
+                
+                parsedItinerary.push({
+                  day,
+                  title,
+                  description: `Explore ${title} with your private guide. Visit key attractions and immerse yourself in the local culture. Enjoy luxury accommodation and fine dining experiences.`,
+                  accommodation: "Luxury Hotel"
+                });
+              }
+            });
+            
+            console.log("Parsed itinerary from text:", parsedItinerary);
+            
+            if (parsedItinerary.length > 0) {
+              setItinerary(parsedItinerary);
+            } else {
+              console.log("Could not parse itinerary from text format");
+              setItinerary([]);
+            }
+          } else {
+            console.log("Itinerary is not in expected format");
+            setItinerary([]);
+          }
         }
       } else {
         console.log("No itinerary field found in package data");
@@ -195,9 +190,9 @@ const EnhancedPackageDetail = () => {
   // Handle image navigation
   const handleImageNav = (direction: 'prev' | 'next') => {
     if (direction === 'prev') {
-      setActiveImageIndex((prev) => (prev === 0 ? (packageData.images?.length || 1) - 1 : prev - 1));
+      setActiveImageIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
     } else {
-      setActiveImageIndex((prev) => (prev === (packageData.images?.length || 1) - 1 ? 0 : prev + 1));
+      setActiveImageIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
     }
   };
 
@@ -366,13 +361,13 @@ const EnhancedPackageDetail = () => {
               <div className="mb-16">
                 <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg mb-4">
                   <img 
-                    src={packageData.images?.[activeImageIndex] || packageData.imageUrl} 
+                    src={galleryImages[activeImageIndex] || packageData.imageUrl} 
                     alt={`${packageData.title} - Image ${activeImageIndex + 1}`}
                     className="w-full h-full object-cover" 
                   />
                   
                   {/* Image Navigation */}
-                  {packageData.images && packageData.images.length > 1 && (
+                  {galleryImages.length > 1 && (
                     <>
                       <button 
                         onClick={() => handleImageNav('prev')}
@@ -393,9 +388,9 @@ const EnhancedPackageDetail = () => {
                 </div>
                 
                 {/* Thumbnails */}
-                {packageData.images && packageData.images.length > 1 && (
+                {galleryImages.length > 1 && (
                   <div className="flex gap-2 overflow-x-auto pb-2">
-                    {packageData.images.map((img, index) => (
+                    {galleryImages.map((img, index) => (
                       <button 
                         key={index}
                         onClick={() => setActiveImageIndex(index)}
