@@ -421,30 +421,28 @@ const EnhancedPackageDetail = () => {
                 />
               </div>
               
-              {/* Tour Map */}
+              {/* Tour Map & Itinerary - Integrated Experience */}
               {itinerary.length > 0 && (
                 <div className="mb-16">
                   <div className="flex justify-between items-center mb-8">
                     <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                      Tour Map
+                      Explore Your Journey
                     </h2>
                     <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
                   </div>
-                  <div className="bg-[#f8f7f2] p-6 rounded-lg">
-                    <TourRouteMap 
-                      itinerary={itinerary}
-                      destinations={packageData.destinations?.split(',').map(d => d.trim()) || []}
-                      className="h-[700px] w-full"
-                    />
-                  </div>
+                  <TourRouteMap 
+                    itinerary={itinerary}
+                    destinations={packageData.destinations?.split(',').map(d => d.trim()) || []}
+                    className="w-full"
+                  />
                 </div>
               )}
-            
-              {/* Day-by-Day Itinerary Section */}
+              
+              {/* Detailed Itinerary Section - For Additional Details */}
               <div className="mb-16">
                 <div className="flex justify-between items-center mb-8">
                   <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                    Day-by-Day Itinerary
+                    Day-by-Day Details
                   </h2>
                   <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
                 </div>
