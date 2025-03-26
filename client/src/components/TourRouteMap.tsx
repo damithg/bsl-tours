@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import AnimatedRouteMap, { MapPoint } from "./AnimatedRouteMap";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -75,11 +75,10 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
   className = ""
 }) => {
   const [activeDay, setActiveDay] = useState<number>(1);
-  const [mapPoints, setMapPoints] = useState<MapPoint[]>([]);
   
-  // Prepare map points from destinations and itinerary
-  useEffect(() => {
-    if (destinations.length === 0 && itinerary.length === 0) return;
+  // Memoize map points to prevent recalculation on every render
+  const mapPoints = useMemo(() => {
+    if (destinations.length === 0 && itinerary.length === 0) return [];
     
     const points: MapPoint[] = [];
     
@@ -113,7 +112,7 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
       });
     }
     
-    setMapPoints(points);
+    return points;
   }, [destinations, itinerary]);
   
   // Handle clicking on a day in the itinerary

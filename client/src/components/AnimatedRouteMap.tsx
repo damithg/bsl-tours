@@ -33,10 +33,12 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
   const [animatedPaths, setAnimatedPaths] = useState<JSX.Element[]>([]);
   const [selectedPoint, setSelectedPoint] = useState<number | string | null>(null);
   
-  // Filter active points and sort them by day
-  const activePoints = points
-    .filter(p => p.day !== undefined)
-    .sort((a, b) => (a.day || 0) - (b.day || 0));
+  // Memoize active points to prevent recalculation on every render
+  const activePoints = React.useMemo(() => {
+    return points
+      .filter(p => p.day !== undefined)
+      .sort((a, b) => (a.day || 0) - (b.day || 0));
+  }, [points]);
 
   // Effect to handle day change and trigger animation
   useEffect(() => {

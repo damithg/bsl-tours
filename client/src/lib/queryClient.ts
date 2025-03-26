@@ -10,6 +10,67 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 // Production .NET API base URL
 export const API_BASE_URL = "https://api.travelnip.com";
 
+// Type definitions for API responses
+export interface TourPackage {
+  id: number;
+  title: string;
+  slug: string | null;
+  description: string;
+  shortDescription: string | null;
+  imageUrl: string;
+  price: number;
+  duration: number;
+  inclusions: string | null;
+  exclusions: string | null;
+  itinerary: string | null;
+  isFeatured: boolean;
+  destinationId: number | null;
+  activities: string | null;
+  includes: string | null;
+  excludes: string | null;
+  destinations: string | null;
+  galleryImages?: string[];
+  gallery?: string | null;
+  highlights?: string | null;
+  highlightsSummary?: string | null;
+  groupSize?: string | null;
+}
+
+export interface Destination {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+  featured: boolean;
+}
+
+export interface Testimonial {
+  id: number;
+  clientName: string;
+  clientLocation: string;
+  comment: string;
+  rating: number;
+  tourName: string | null;
+  imageUrl: string | null;
+}
+
+export interface Inquiry {
+  id: number;
+  fullName: string;
+  email: string;
+  phone: string | null;
+  message: string;
+  tourPackageId: number | null;
+  status: string;
+  createdAt: string;
+}
+
+export interface Subscriber {
+  id: number;
+  email: string;
+  createdAt: string;
+}
+
 // Helper function to handle response errors
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {

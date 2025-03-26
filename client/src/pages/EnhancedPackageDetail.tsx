@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
-import { TourPackage } from "@shared/schema";
+import { TourPackage } from "@/lib/queryClient";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
 import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown } from "lucide-react";
