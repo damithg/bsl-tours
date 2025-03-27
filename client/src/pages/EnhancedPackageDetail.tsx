@@ -172,61 +172,15 @@ const EnhancedPackageDetail = () => {
   // Transform itinerary data into visual timeline format when itinerary changes
   useEffect(() => {
     if (itinerary.length > 0) {
-      // Sample timeline data creation with mock times and images
+      // Simple transformation from itinerary to visual timeline data
       const transformedData: TimelineDayData[] = itinerary.map(day => {
-        // Create a date string (this is just a placeholder, in a real app you'd use actual dates)
-        const dateString = `Day ${day.day} of your journey`;
-        
-        // Create some sample events for each day
-        const morningEvent = {
-          id: `${day.day}-1`,
-          time: '9 AM',
-          title: `Morning: ${day.title.split(' - ')[0] || 'Explore local attractions'}`,
-          description: 'Start your day with a delicious breakfast before heading out for morning activities.',
-          imageUrl: `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`,
-          category: 'morning' as const
-        };
-        
-        const midDayEvent = {
-          id: `${day.day}-2`,
-          time: '11 AM',
-          title: 'Cultural Experience',
-          description: 'Immerse yourself in local culture with guided activities.',
-          imageUrl: `https://source.unsplash.com/featured/?culture,${day.title.replace(/ /g, '')}`,
-          category: 'morning' as const
-        };
-        
-        const lunchEvent = {
-          id: `${day.day}-3`,
-          time: '1 PM',
-          title: 'Lunch at Local Restaurant',
-          description: 'Enjoy authentic Sri Lankan cuisine prepared with fresh local ingredients.',
-          imageUrl: 'https://source.unsplash.com/featured/?srilanka,food',
-          category: 'afternoon' as const
-        };
-        
-        const afternoonEvent = {
-          id: `${day.day}-4`,
-          time: '3 PM',
-          title: `Afternoon: ${day.title.split(' - ')[1] || 'Leisure time'}`,
-          description: day.description,
-          imageUrl: `https://source.unsplash.com/featured/?travel,${day.title.replace(/ /g, '')}`,
-          category: 'afternoon' as const
-        };
-        
-        const eveningEvent = {
-          id: `${day.day}-5`,
-          time: '7 PM',
-          title: 'Dinner & Relaxation',
-          description: day.accommodation ? `Dinner and overnight stay at ${day.accommodation}` : 'Dinner at a premium restaurant followed by relaxation at your accommodation.',
-          imageUrl: 'https://source.unsplash.com/featured/?luxury,hotel',
-          category: 'evening' as const
-        };
-        
         return {
           day: day.day,
-          date: dateString,
-          events: [morningEvent, midDayEvent, lunchEvent, afternoonEvent, eveningEvent]
+          title: day.title,
+          description: day.description,
+          accommodation: day.accommodation,
+          // We'll use dynamic Unsplash images based on the location name
+          imageUrl: `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`
         };
       });
       
