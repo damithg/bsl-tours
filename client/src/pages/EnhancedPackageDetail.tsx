@@ -102,6 +102,11 @@ const EnhancedPackageDetail = () => {
   useEffect(() => {
     if (packageData) {
       console.log("Package data received:", packageData);
+      console.log("Gallery Image URL Check:", {
+        galleryImages: packageData.galleryImages,
+        isArray: packageData.galleryImages && Array.isArray(packageData.galleryImages),
+        galleryField: packageData.gallery
+      });
       
       // Handle gallery images
       // First check for galleryImages array in the API response
@@ -268,6 +273,13 @@ const EnhancedPackageDetail = () => {
 
   // Handle image navigation
   const handleImageNav = (direction: 'prev' | 'next') => {
+    console.log("Navigating gallery images:", { 
+      direction, 
+      currentIndex: activeImageIndex, 
+      totalImages: galleryImages.length,
+      galleryImages
+    });
+    
     if (direction === 'prev') {
       setActiveImageIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
     } else {
