@@ -59,45 +59,63 @@ const Highlights = () => {
           
           {/* Right side - Stacked Images */}
           <div className="lg:w-1/2 relative">
-            <div className="relative h-[450px] w-full">
-              {/* Main large image */}
+            <div className="relative h-[500px] w-full">
+              {/* Main large image - Romantic beach with reflection */}
               <div className="absolute right-0 top-0 w-[85%] h-[320px] rounded-xl overflow-hidden shadow-xl z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1589308078059-be1415eab4c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" 
-                  alt="Sri Lanka beach"
+                  src="/images/experiences/romantic-honeymoon.jpg" 
+                  alt="Romantic honeymoon beach in Sri Lanka"
                   className="w-full h-full object-cover" 
                 />
               </div>
               
-              {/* Small polaroid-like image 1 */}
-              <div className="absolute top-[50px] left-0 w-[180px] h-[160px] bg-white p-2 rounded-lg shadow-lg transform rotate-[-5deg] z-20">
-                <img 
-                  src="https://images.unsplash.com/photo-1515867447977-5646fb3de616?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  alt="Sri Lanka wildlife"
-                  className="w-full h-full object-cover rounded" 
-                />
+              {/* Polaroid-style image 1 - Surfer girl */}
+              <div className="absolute top-[50px] left-0 w-[180px] h-[210px] bg-white p-3 rounded-md shadow-lg transform rotate-[-5deg] z-20">
+                <div className="w-full h-[170px] overflow-hidden mb-2">
+                  <img 
+                    src="/images/experiences/mirissa-surf.jpg" 
+                    alt="Surfing in Mirissa, Sri Lanka"
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
+                <p className="text-xs text-center text-gray-600 font-medium">Mirissa Beach</p>
               </div>
               
-              {/* Small polaroid-like image 2 */}
-              <div className="absolute bottom-0 right-[30%] w-[200px] h-[180px] bg-white p-2 rounded-lg shadow-lg transform rotate-[3deg] z-30">
-                <img 
-                  src="https://images.unsplash.com/photo-1546975490-e8b92a360b24?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  alt="Sri Lanka coastline"
-                  className="w-full h-full object-cover rounded" 
-                />
+              {/* Polaroid-style image 2 - Nine Arch Bridge */}
+              <div className="absolute bottom-[20px] right-[35%] w-[200px] h-[230px] bg-white p-3 rounded-md shadow-lg transform rotate-[3deg] z-30">
+                <div className="w-full h-[190px] overflow-hidden mb-2">
+                  <img 
+                    src="/images/experiences/nine-arch-bridge.jpg" 
+                    alt="Nine Arch Bridge in Ella, Sri Lanka"
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
+                <p className="text-xs text-center text-gray-600 font-medium">Nine Arch Bridge, Ella</p>
+              </div>
+              
+              {/* Polaroid-style image 3 - Aerial beach */}
+              <div className="absolute top-[240px] left-[80px] w-[170px] h-[200px] bg-white p-3 rounded-md shadow-lg transform rotate-[8deg] z-25">
+                <div className="w-full h-[160px] overflow-hidden mb-2">
+                  <img 
+                    src="/images/experiences/mirissa-aerial.jpg" 
+                    alt="Aerial view of Mirissa beach, Sri Lanka"
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
+                <p className="text-xs text-center text-gray-600 font-medium">Mirissa Coast</p>
               </div>
               
               {/* Product/tour card */}
-              <div className="absolute bottom-[40px] right-[5%] w-[220px] bg-white rounded-lg shadow-lg p-4 z-40">
+              <div className="absolute bottom-[30px] right-0 w-[220px] bg-white rounded-lg shadow-lg p-4 z-40">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-500">Tour</span>
-                  <span className="font-bold text-[#0F4C81]">$1200</span>
+                  <span className="text-sm text-[#D4AF37] font-semibold">Featured Tour</span>
+                  <span className="font-bold text-[#0F4C81]">$1,450</span>
                 </div>
-                <h4 className="font-medium mb-1">Luxury Sri Lanka Tour</h4>
-                <p className="text-xs text-gray-600 mb-3">7 days of beautiful coastal experiences</p>
+                <h4 className="font-medium mb-1">Sri Lanka Paradise</h4>
+                <p className="text-xs text-gray-600 mb-3">10 days of luxury experiences</p>
                 <a 
-                  href="/tour-packages/luxury-coastal" 
-                  className="block w-full py-2 bg-[#F0F0F0] text-center text-[#0F4C81] text-sm rounded-md"
+                  href="/tour-packages/sri-lanka-paradise" 
+                  className="block w-full py-2 bg-[#F0F0F0] text-center text-[#0F4C81] text-sm rounded-md hover:bg-[#0F4C81]/10 transition-colors"
                 >
                   View Details →
                 </a>
