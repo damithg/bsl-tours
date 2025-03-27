@@ -122,6 +122,11 @@ const DestinationShowcase = () => {
             </button>
           </div>
           <p className="text-lg text-[#333333]/80">Discover Sri Lanka's most breathtaking locations, where luxury and natural beauty combine for unforgettable experiences.</p>
+          <div className="mt-6">
+            <a href="/destinations" className="inline-block bg-[#0F4C81] hover:bg-[#0a325a] text-white font-medium py-2 px-6 rounded-full transition">
+              View All Destinations
+            </a>
+          </div>
         </div>
         
         <div className="relative">
@@ -181,7 +186,7 @@ const DestinationShowcase = () => {
                   <div className="absolute bottom-0 left-0 p-6">
                     <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2">{destination.name || 'Destination'}</h3>
                     <p className="text-white/80 mb-4 max-w-xs">{destination.description || 'Description not available'}</p>
-                    <a href="#" className="inline-flex items-center text-white hover:text-[#D4AF37] transition">
+                    <a href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-white hover:text-[#D4AF37] transition">
                       Explore <i className="fas fa-arrow-right ml-2"></i>
                     </a>
                   </div>
