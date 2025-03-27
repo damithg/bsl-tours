@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace BSLTours.API.Models
 {
@@ -10,26 +9,21 @@ namespace BSLTours.API.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Message { get; set; }
-        public int? TourPackageId { get; set; }
+        public string TourInterest { get; set; }
+        public DateTime TravelDate { get; set; }
+        public int TravelPartySize { get; set; }
+        public bool IsProcessed { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 
     public class CreateInquiryDto
     {
-        [Required]
-        [StringLength(100)]
         public string Name { get; set; }
-        
-        [Required]
-        [EmailAddress]
         public string Email { get; set; }
-        
-        [Phone]
         public string Phone { get; set; }
-        
-        [Required]
         public string Message { get; set; }
-        
-        public int? TourPackageId { get; set; }
+        public string TourInterest { get; set; }
+        public DateTime TravelDate { get; set; }
+        public int TravelPartySize { get; set; }
     }
 }

@@ -38,15 +38,19 @@ namespace BSLTours.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Destination>> CreateDestination(CreateDestinationDto destinationDto)
+        public async Task<ActionResult<Destination>> CreateDestination(CreateDestinationDto createDestinationDto)
         {
-            if (!ModelState.IsValid)
+            if (createDestinationDto == null)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
-
-            var destination = await _dataService.CreateDestinationAsync(destinationDto);
-            return CreatedAtAction(nameof(GetDestinationById), new { id = destination.Id }, destination);
+            
+            var destination = await _dataService.CreateDestinationAsync(createDestinationDto);
+            
+            return CreatedAtAction(
+                nameof(GetDestinationById), 
+                new { id = destination.Id }, 
+                destination);
         }
     }
 }
