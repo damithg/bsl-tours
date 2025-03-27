@@ -484,29 +484,33 @@ const EnhancedPackageDetail = () => {
                 )}
               </div>
               
-              {/* Overview */}
+              {/* Tour Description */}
               <div className="mb-16">
-                <div className="flex justify-between items-center mb-8">
-                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                    Overview
+                <div className="mb-8">
+                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556] mb-4">
+                    {packageData.title}
                   </h2>
-                  <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
                 </div>
                 <div className="text-xl text-gray-700 font-medium mb-6">
-                  {packageData.shortDescription}
+                  {packageData.shortDescription || "Experience the best of Sri Lanka with our luxury tour package."}
                 </div>
                 <div 
                   className="prose prose-lg max-w-none text-gray-600"
                   dangerouslySetInnerHTML={{ __html: packageData.description || '' }}
                 />
+                {packageData.tourHighlights && (
+                  <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-3">Tour Highlights</h3>
+                    <div className="text-gray-700">{packageData.tourHighlights}</div>
+                  </div>
+                )}
               </div>
               
               {/* Tour Map & Itinerary - Integrated Experience */}
               {itinerary.length > 0 && (
                 <div className="mb-16">
-                  <div className="luxury-section-title mb-8">
-                    <h2>Explore Your Journey</h2>
-                    <div className="gold-divider"></div>
+                  <div className="mb-8">
+                    <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">Explore Your Journey</h2>
                   </div>
                   {/* Temporarily hidden for theme fixes
                   <TourRouteMap 
@@ -525,9 +529,8 @@ const EnhancedPackageDetail = () => {
               {/* Detailed Itinerary Section - For Additional Details */}
               <div className="mb-16">
                 <div className="flex justify-between items-center mb-8">
-                  <div className="luxury-section-title">
-                    <h2>Day-by-Day Details</h2>
-                    <div className="gold-divider"></div>
+                  <div>
+                    <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">Day-by-Day Details</h2>
                   </div>
                   
                   {/* View Toggle */}
@@ -608,9 +611,8 @@ const EnhancedPackageDetail = () => {
               
               {/* Includes/Excludes Section */}
               <div className="mb-16">
-                <div className="luxury-section-title mb-8">
-                  <h2>What's Included</h2>
-                  <div className="gold-divider"></div>
+                <div className="mb-8">
+                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">What's Included</h2>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -32,6 +32,7 @@ export interface TourPackage {
   galleryImages?: string[];
   gallery?: string | null;
   highlights?: string | null;
+  tourHighlights?: string | null;
   highlightsSummary?: string | null;
   groupSize?: string | null;
 }
