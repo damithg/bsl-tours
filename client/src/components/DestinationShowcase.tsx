@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-react";
-import { queryClient, getQueryFn  } from "@/lib/queryClient";
+import { queryClient, getQueryFn } from "@/lib/queryClient";
+import { AdaptiveImage } from "./ui/adaptive-image";
+import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 
 const DestinationShowcase = () => {
   const queryKey = ['/api/destinations'];
@@ -161,11 +163,15 @@ const DestinationShowcase = () => {
                   className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start group relative overflow-hidden rounded-lg shadow-lg h-80"
                 >
                   {destination.imageUrl ? (
-                    <img
-                      src={destination.imageUrl}
-                      alt={destination.name}
-                      className="w-full h-full object-cover object-center transition duration-700 group-hover:scale-110"
-                    />
+                    <div className="w-full h-full transition duration-700 group-hover:scale-110">
+                      <AdaptiveImage
+                        src={destination.imageUrl}
+                        alt={destination.name}
+                        focalPoint={DESTINATION_FOCAL_POINTS[destination.name] || determineFocalPoint(destination.imageUrl, destination.name)}
+                        imageClassName="transition duration-700 group-hover:scale-110"
+                        containerClassName="w-full h-full"
+                      />
+                    </div>
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 transition duration-700 group-hover:scale-110">
                       No Image Available

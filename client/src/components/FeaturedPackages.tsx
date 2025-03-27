@@ -4,6 +4,8 @@ import { TourPackage } from "@shared/schema";
 import { useState, useRef } from "react";
 import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
+import { AdaptiveImage } from "./ui/adaptive-image";
+import { determineFocalPoint } from "@/lib/image-utils";
 
 const FeaturedPackages = () => {
   const queryKey = ['/api/tour-packages/featured'];
@@ -200,7 +202,16 @@ const FeaturedPackages = () => {
               >
                 <div className="relative h-64 flex items-center justify-center overflow-hidden">
                   {pkg.imageUrl ? (
-                    <img src={pkg.imageUrl} alt={pkg.title} className="w-full h-full object-cover object-center" />
+                    <AdaptiveImage 
+                      src={pkg.imageUrl} 
+                      alt={pkg.title}
+                      focalPoint={determineFocalPoint(pkg.imageUrl, pkg.title)}
+                      aspectRatio="16/9"
+                      containerClassName="w-full h-full"
+                      imageClassName="transition duration-700 group-hover:scale-110"
+                      fallbackSrc="/images/fallback-tour-package.jpg"
+                      loadingPlaceholder={true}
+                    />
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No Image Available</div>
                   )}
