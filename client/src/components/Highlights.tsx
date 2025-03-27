@@ -94,7 +94,7 @@ const Highlights = () => {
               </div>
               
               {/* Polaroid-style image 3 - Aerial beach */}
-              <div className="absolute top-[240px] left-[80px] w-[170px] h-[200px] bg-white p-3 rounded-md shadow-lg transform rotate-[8deg] z-25">
+              <div className="absolute top-[100px] right-[70px] w-[170px] h-[200px] bg-white p-3 rounded-md shadow-lg transform rotate-[8deg] z-50">
                 <div className="w-full h-[160px] overflow-hidden mb-2">
                   <img 
                     src="/images/experiences/mirissa-aerial.jpg" 
