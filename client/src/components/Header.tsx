@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
+import { CurrencySelector } from "./CurrencySelector";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -71,6 +72,11 @@ const Header = () => {
               </Link>
             </nav>
             
+            {/* Currency Selector */}
+            <div className="border-l border-gray-200 pl-4">
+              <CurrencySelector />
+            </div>
+            
             {/* Book Now Button */}
             <Link href="/contact" className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-md transition">
               Book Now
@@ -113,6 +119,12 @@ const Header = () => {
           <Link href="/contact" className={`block py-2 font-medium ${location === '/contact' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             Contact
           </Link>
+          
+          <div className="py-3 border-t border-gray-100 mt-2">
+            <span className="text-sm text-gray-500 mb-2 block">Select Currency</span>
+            <CurrencySelector />
+          </div>
+          
           <Link href="/contact" className="block mt-4 bg-primary hover:bg-primary/90 text-white text-center font-medium py-2 px-4 rounded-md transition" onClick={handleNavClick}>
             Book Now
           </Link>

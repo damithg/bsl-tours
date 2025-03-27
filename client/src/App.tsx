@@ -16,6 +16,7 @@ import Contact from "@/pages/Contact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { CurrencyProvider } from "./contexts/CurrencyContext";
 
 function Router() {
   return (
@@ -52,9 +53,11 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
-      <ThemeSwitcher />
-      <Toaster />
+      <CurrencyProvider>
+        <Router />
+        <ThemeSwitcher />
+        <Toaster />
+      </CurrencyProvider>
     </QueryClientProvider>
   );
 }
