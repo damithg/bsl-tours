@@ -68,7 +68,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6">Quick Links</h3>
+            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#D4AF37]">Quick Links</h3>
             <ul className="space-y-3">
               <li><Link href="/" className="text-white/70 hover:text-[#D4AF37] transition">Home</Link></li>
               <li><Link href="/packages" className="text-white/70 hover:text-[#D4AF37] transition">Tour Packages</Link></li>
@@ -79,7 +79,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6">Popular Destinations</h3>
+            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#D4AF37]">Popular Destinations</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-white/70 hover:text-[#D4AF37] transition">Sigiriya Rock Fortress</a></li>
               <li><a href="#" className="text-white/70 hover:text-[#D4AF37] transition">Galle Fort</a></li>
@@ -91,7 +91,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6">Newsletter</h3>
+            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#D4AF37]">Newsletter</h3>
             <p className="text-white/70 mb-4">Subscribe to receive exclusive offers and travel inspiration.</p>
             <form className="mb-4" onSubmit={handleSubscribe}>
               <div className="flex">
