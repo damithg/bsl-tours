@@ -24,6 +24,7 @@ export interface IStorage {
   // Destinations
   getDestinations(): Promise<Destination[]>;
   getDestinationById(id: number): Promise<Destination | undefined>;
+  getDestinationBySlug(slug: string): Promise<Destination | undefined>;
   createDestination(destination: InsertDestination): Promise<Destination>;
   
   // Testimonials
@@ -583,6 +584,12 @@ export class MemStorage implements IStorage {
   
   async getDestinationById(id: number): Promise<Destination | undefined> {
     return this.destinations.get(id);
+  }
+  
+  async getDestinationBySlug(slug: string): Promise<Destination | undefined> {
+    // Convert the values iterator to an array to avoid the MapIterator error
+    const destinationsArray = Array.from(this.destinations.values());
+    return destinationsArray.find(destination => destination.slug === slug);
   }
   
   async createDestination(insertDestination: InsertDestination): Promise<Destination> {

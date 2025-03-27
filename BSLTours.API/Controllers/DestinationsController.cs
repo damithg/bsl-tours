@@ -24,10 +24,23 @@ namespace BSLTours.API.Controllers
             return Ok(destinations);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<Destination>> GetDestinationById(int id)
         {
             var destination = await _dataService.GetDestinationByIdAsync(id);
+            
+            if (destination == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(destination);
+        }
+        
+        [HttpGet("{slug}")]
+        public async Task<ActionResult<Destination>> GetDestinationBySlug(string slug)
+        {
+            var destination = await _dataService.GetDestinationBySlugAsync(slug);
             
             if (destination == null)
             {

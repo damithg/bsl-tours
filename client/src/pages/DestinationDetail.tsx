@@ -26,14 +26,23 @@ interface RelatedTour {
 }
 
 const DestinationDetail = () => {
-  const [, params] = useRoute<{ id: string }>('/destination/:id');
-  const destinationId = params?.id ? parseInt(params.id, 10) : 0;
+  const [isIdRoute, idParams] = useRoute<{ id: string }>('/destination/:id');
+  const [isSlugRoute, slugParams] = useRoute<{ slug: string }>('/destination/:slug+');
   const { formatPrice } = useCurrency();
+  
+  // Determine if we're using an ID or slug for the API request
+  const destinationId = isIdRoute && idParams?.id ? parseInt(idParams.id, 10) : 0;
+  const destinationSlug = isSlugRoute && slugParams?.slug ? slugParams.slug : '';
+  
+  // Decide which API endpoint to use based on whether we have an ID or a slug
+  const queryEndpoint = destinationId ? ['/api/destinations', destinationId] : 
+                        destinationSlug ? ['/api/destinations/by-slug', destinationSlug] : 
+                        ['/api/destinations', 0];
   
   // Fetch destination data
   const { data: destination, isLoading, error } = useQuery<Destination>({
-    queryKey: ['/api/destinations', destinationId],
-    enabled: !!destinationId,
+    queryKey: queryEndpoint,
+    enabled: !!(destinationId || destinationSlug),
   });
 
   // Mock related tours based on the destination (in a real app, would be fetched from API)

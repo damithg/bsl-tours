@@ -145,7 +145,7 @@ const Destinations = () => {
                   <div className="p-6">
                     <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{destination.name}</h3>
                     <p className="text-[#333333]/70 mb-4">{destination.description}</p>
-                    <Link href={`/destination/${destination.id}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
+                    <Link href={`/destination/${destination.slug}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
                       Explore Experiences
                       <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -164,7 +164,7 @@ const Destinations = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0">
-              <Link href="/destination/1" className="block hover:text-[#2E8B57] transition">
+              <Link href="/destination/sigiriya-rock-fortress" className="block hover:text-[#2E8B57] transition">
                 <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">Sigiriya: The Ancient Wonder</h2>
               </Link>
               <p className="text-lg text-[#333333]/80 mb-6">Rising dramatically from the central plains, the iconic rocky outcrop of Sigiriya is perhaps Sri Lanka's most dramatic sight. Near-vertical walls soar to a flat-topped summit that contains the ruins of an ancient civilization, thought to be once the epicenter of the short-lived kingdom of Kassapa.</p>
@@ -201,7 +201,7 @@ const Destinations = () => {
             
             <div className="lg:w-1/2">
               <div className="relative">
-                <Link href="/destination/1">
+                <Link href="/destination/sigiriya-rock-fortress">
                   <img 
                     src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
                     alt="Sigiriya Rock Fortress" 

@@ -48,6 +48,32 @@ app.get('/api/tour-packages', async (req, res) => {
   }
 });
 
+// Get all destinations
+app.get('/api/destinations', async (req, res) => {
+  try {
+    const destinations = await storage.getDestinations();
+    res.json(destinations);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch destinations' });
+  }
+});
+
+// Get destination by slug - this needs to come BEFORE the ID route!
+app.get('/api/destinations/by-slug/:slug', async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const destination = await storage.getDestinationBySlug(slug);
+    
+    if (!destination) {
+      return res.status(404).json({ error: 'Destination not found' });
+    }
+    
+    res.json(destination);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch destination by slug' });
+  }
+});
+
 // Get destination by ID
 app.get('/api/destinations/:id', async (req, res) => {
   try {

@@ -172,6 +172,11 @@ namespace BSLTours.API.Services
         {
             return await Task.FromResult(destinations.FirstOrDefault(d => d.Id == id));
         }
+        
+        public async Task<Destination> GetDestinationBySlugAsync(string slug)
+        {
+            return await Task.FromResult(destinations.FirstOrDefault(d => d.Slug.ToLower() == slug.ToLower()));
+        }
 
         public async Task<Destination> CreateDestinationAsync(CreateDestinationDto destinationDto)
         {

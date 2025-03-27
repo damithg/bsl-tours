@@ -16,6 +16,7 @@ namespace BSLTours.API.Services
         // Destinations
         Task<IEnumerable<Destination>> GetDestinationsAsync();
         Task<Destination> GetDestinationByIdAsync(int id);
+        Task<Destination> GetDestinationBySlugAsync(string slug);
         Task<Destination> CreateDestinationAsync(CreateDestinationDto destinationDto);
         
         // Testimonials

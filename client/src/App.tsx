@@ -39,6 +39,9 @@ function Router() {
         <Route path="/destinations" component={Destinations} />
         <Route path="/destination/:id" component={DestinationDetail} />
         <Route path="/destination-map" component={DestinationMap} />
+        
+        {/* New slug-based route for destinations */}
+        <Route path="/destination/:slug+" component={DestinationDetail} />
         <Route path="/travel-planner" component={TravelPlanner} />
         <Route path="/custom-tour-request">
           {(params) => <CustomTourRequest {...params} />}
