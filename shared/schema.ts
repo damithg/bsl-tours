@@ -19,6 +19,8 @@ export const tourPackages = pgTable("tour_packages", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description").notNull(),
+  shortDescription: text("short_description"), // Brief overview of the tour
+  tourHighlights: text("tour_highlights"), // Brief description to display below shortDescription
   highlightsSummary: text("highlights_summary"), // Brief bullet points about the tour highlights
   duration: integer("duration").notNull(),
   price: integer("price").notNull(),

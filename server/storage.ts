@@ -457,6 +457,8 @@ export class MemStorage implements IStorage {
       slug,
       
       // Handle fields that might be null
+      shortDescription: insertTourPackage.shortDescription || null,
+      tourHighlights: insertTourPackage.tourHighlights || null,
       highlightsSummary: insertTourPackage.highlightsSummary || null,
       gallery: insertTourPackage.gallery || null,
       rating: insertTourPackage.rating || null,

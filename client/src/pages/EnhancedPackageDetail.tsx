@@ -492,6 +492,9 @@ const EnhancedPackageDetail = () => {
                   </h2>
                   <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
                 </div>
+                <div className="text-xl text-gray-700 font-medium mb-6">
+                  {packageData.shortDescription}
+                </div>
                 <div 
                   className="prose prose-lg max-w-none text-gray-600"
                   dangerouslySetInnerHTML={{ __html: packageData.description || '' }}
