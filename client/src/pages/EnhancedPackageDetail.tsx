@@ -383,7 +383,7 @@ const EnhancedPackageDetail = () => {
   return (
     <main>
       {/* Hero Section with larger image and prominent text overlay */}
-      <section className="relative h-[550px]">
+      <section className="relative h-[380px]">
         {/* Background Image with Overlay */}
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center"
