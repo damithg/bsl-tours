@@ -20,7 +20,7 @@ export function CurrencySelector() {
         aria-haspopup="listbox"
       >
         <span className="flex items-center">
-          {currency.flag && <span className="mr-1.5 text-base">{currency.flag}</span>}
+          {currency.flag && <img src={currency.flag} alt={currency.code} className="w-5 h-3 mr-1.5" />}
           <span>{currency.code}</span>
         </span>
         <ChevronDown className="h-4 w-4" />
@@ -43,7 +43,7 @@ export function CurrencySelector() {
                 aria-selected={currency.code === option.code}
                 onClick={() => handleSelect(option)}
               >
-                {option.flag && <span className="text-base">{option.flag}</span>}
+                {option.flag && <img src={option.flag} alt={option.code} className="w-5 h-3" />}
                 <span className="font-medium">{option.code}</span>
               </li>
             ))}
