@@ -58,8 +58,9 @@ const Highlights = () => {
           </div>
           
           {/* Right side - Stacked Images */}
-          <div className="lg:w-1/2 relative">
-            <div className="relative h-[500px] w-full">
+          <div className="lg:w-1/2 relative mt-12 lg:mt-0">
+            {/* Desktop version (hidden on mobile) */}
+            <div className="relative h-[500px] w-full hidden sm:block">
               {/* Main large image - Romantic beach with reflection */}
               <div className="absolute right-0 top-0 w-[85%] h-[320px] rounded-xl overflow-hidden shadow-xl z-10">
                 <img 
@@ -115,6 +116,71 @@ const Highlights = () => {
                   />
                 </div>
                 <p className="text-xs text-center text-gray-600 font-medium">Tea Plantations, Nuwara Eliya</p>
+              </div>
+            </div>
+
+            {/* Mobile version (carousel style, shown only on small screens) */}
+            <div className="block sm:hidden">
+              {/* Main image for mobile */}
+              <div className="mb-6">
+                <div className="w-full h-[230px] rounded-xl overflow-hidden shadow-lg">
+                  <img 
+                    src="/images/experiences/romantic-honeymoon.jpg" 
+                    alt="Romantic honeymoon beach in Sri Lanka"
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
+              </div>
+
+              {/* Mobile image grid - 2x2 */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Polaroid 1 - Mirissa Beach */}
+                <div className="bg-white p-2 rounded-md shadow-md">
+                  <div className="w-full aspect-square overflow-hidden mb-2">
+                    <img 
+                      src="/images/experiences/mirissa-surf.jpg" 
+                      alt="Surfing in Mirissa, Sri Lanka"
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                  <p className="text-xs text-center text-gray-600 font-medium">Mirissa Beach</p>
+                </div>
+                
+                {/* Polaroid 2 - Aerial View */}
+                <div className="bg-white p-2 rounded-md shadow-md">
+                  <div className="w-full aspect-square overflow-hidden mb-2">
+                    <img 
+                      src="/images/experiences/mirissa-aerial.jpg" 
+                      alt="Aerial view of Mirissa beach, Sri Lanka"
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                  <p className="text-xs text-center text-gray-600 font-medium">Mirissa Coast</p>
+                </div>
+                
+                {/* Polaroid 3 - Nine Arch Bridge */}
+                <div className="bg-white p-2 rounded-md shadow-md">
+                  <div className="w-full aspect-square overflow-hidden mb-2">
+                    <img 
+                      src="/images/experiences/nine-arch-bridge.jpg" 
+                      alt="Nine Arch Bridge in Ella, Sri Lanka"
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                  <p className="text-xs text-center text-gray-600 font-medium">Nine Arch Bridge</p>
+                </div>
+                
+                {/* Polaroid 4 - Tea Plantation */}
+                <div className="bg-white p-2 rounded-md shadow-md">
+                  <div className="w-full aspect-square overflow-hidden mb-2">
+                    <img 
+                      src="/images/experiences/tea-plantation.jpg" 
+                      alt="Tea plantation in Sri Lanka highlands"
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                  <p className="text-xs text-center text-gray-600 font-medium">Tea Plantations</p>
+                </div>
               </div>
             </div>
           </div>
