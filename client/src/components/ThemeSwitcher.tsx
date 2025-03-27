@@ -3,13 +3,43 @@ import { Button } from './ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Check, Palette } from 'lucide-react';
 
+// Define standard theme color palettes
 const themes = [
-  { name: 'Default (Teal)', file: 'theme.json', color: 'hsl(174, 77%, 29%)' },
-  { name: 'Burgundy', file: 'theme-burgundy.json', color: 'hsl(345, 77%, 29%)' },
-  { name: 'Emerald', file: 'theme-emerald.json', color: 'hsl(152, 77%, 29%)' },
-  { name: 'Purple', file: 'theme-purple.json', color: 'hsl(270, 77%, 29%)' },
-  { name: 'Royal Blue', file: 'theme-royal-blue.json', color: 'hsl(214, 77%, 29%)' },
-  { name: 'Teal', file: 'theme-teal.json', color: 'hsl(174, 77%, 29%)' },
+  { 
+    name: 'Teal Gold', 
+    file: 'theme.json', 
+    primary: 'hsl(174, 77%, 29%)',
+    secondary: '#D4AF37', // Gold
+    accent: '#103556',    // Dark blue
+  },
+  { 
+    name: 'Burgundy Gold', 
+    file: 'theme-burgundy.json', 
+    primary: 'hsl(345, 77%, 29%)',
+    secondary: '#D4AF37', // Gold
+    accent: '#2A1215',    // Dark burgundy
+  },
+  { 
+    name: 'Emerald Gold', 
+    file: 'theme-emerald.json', 
+    primary: 'hsl(152, 77%, 29%)',
+    secondary: '#D4AF37', // Gold
+    accent: '#0F3D30',    // Dark green
+  },
+  { 
+    name: 'Purple Gold', 
+    file: 'theme-purple.json', 
+    primary: 'hsl(270, 77%, 29%)',
+    secondary: '#D4AF37', // Gold
+    accent: '#2A1042',    // Dark purple
+  },
+  { 
+    name: 'Royal Blue Gold', 
+    file: 'theme-royal-blue.json', 
+    primary: 'hsl(214, 77%, 29%)',
+    secondary: '#D4AF37', // Gold
+    accent: '#0A2A4D',    // Dark blue
+  }
 ];
 
 export function ThemeSwitcher() {
@@ -30,12 +60,20 @@ export function ThemeSwitcher() {
       // Apply theme to document root
       const rootElement = document.documentElement;
       
-      // Set CSS variables based on theme data
-      if (themeData.primary) {
-        rootElement.style.setProperty('--primary', themeData.primary);
-        rootElement.style.setProperty('--primary-foreground', '#ffffff');
-        console.log(`Applied theme: ${themeFile} with primary color ${themeData.primary}`);
-      }
+      // Get the theme object with complete color data
+      const theme = themes.find(t => t.file === themeFile) || themes[0];
+      
+      // Set CSS variables based on theme data and selected palette
+      rootElement.style.setProperty('--primary', themeData.primary);
+      rootElement.style.setProperty('--primary-foreground', '#ffffff');
+      
+      // Set additional luxury theme variables
+      rootElement.style.setProperty('--secondary', theme.secondary);
+      rootElement.style.setProperty('--secondary-foreground', '#000000');
+      rootElement.style.setProperty('--accent', theme.accent);
+      rootElement.style.setProperty('--accent-foreground', '#ffffff');
+      
+      console.log(`Applied theme: ${themeFile} with primary: ${themeData.primary}, secondary: ${theme.secondary}, accent: ${theme.accent}`);
       
       // Store the selected theme
       setCurrentTheme(themeFile);
@@ -53,6 +91,9 @@ export function ThemeSwitcher() {
     const savedTheme = localStorage.getItem('selected-theme');
     if (savedTheme) {
       changeTheme(savedTheme);
+    } else {
+      // Set default theme if none found
+      changeTheme('theme.json');
     }
   }, []);
 
@@ -67,15 +108,15 @@ export function ThemeSwitcher() {
             variant="outline" 
             size="icon" 
             className="rounded-full h-12 w-12 bg-white shadow-md border-2"
-            style={{ borderColor: activeTheme.color }}
+            style={{ borderColor: activeTheme.primary }}
           >
-            <Palette className="h-6 w-6" style={{ color: activeTheme.color }} />
+            <Palette className="h-6 w-6" style={{ color: activeTheme.primary }} />
             <span className="sr-only">Change theme</span>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-56 p-2" align="end">
-          <div className="space-y-1">
-            <p className="text-sm font-medium text-center mb-2">Select Color Theme</p>
+        <PopoverContent className="w-64 p-3" align="end">
+          <div className="space-y-2">
+            <p className="text-sm font-medium text-center mb-2">Select Luxury Color Theme</p>
             {themes.map((theme) => (
               <Button
                 key={theme.file}
@@ -83,10 +124,11 @@ export function ThemeSwitcher() {
                 className="w-full justify-start font-normal"
                 onClick={() => changeTheme(theme.file)}
               >
-                <div 
-                  className="w-4 h-4 rounded-full mr-2" 
-                  style={{ backgroundColor: theme.color }}
-                ></div>
+                <div className="flex space-x-2 mr-2">
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: theme.primary }}></div>
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: theme.secondary }}></div>
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: theme.accent }}></div>
+                </div>
                 {theme.name}
                 {currentTheme === theme.file && (
                   <Check className="h-4 w-4 ml-auto" />

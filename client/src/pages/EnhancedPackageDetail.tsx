@@ -424,27 +424,29 @@ const EnhancedPackageDetail = () => {
               {/* Tour Map & Itinerary - Integrated Experience */}
               {itinerary.length > 0 && (
                 <div className="mb-16">
-                  <div className="flex justify-between items-center mb-8">
-                    <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                      Explore Your Journey
-                    </h2>
-                    <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+                  <div className="luxury-section-title mb-8">
+                    <h2>Explore Your Journey</h2>
+                    <div className="gold-divider"></div>
                   </div>
+                  {/* Temporarily hidden for theme fixes
                   <TourRouteMap 
                     itinerary={itinerary}
                     destinations={packageData.destinations?.split(',').map(d => d.trim()) || []}
                     className="w-full"
                   />
+                  */}
+                  <div className="p-5 bg-gray-50 rounded-lg border border-gray-100 text-center">
+                    <div className="text-gray-500">Tour route visualization is currently being improved.</div>
+                    <div className="text-sm text-gray-400 mt-2">Check back later for an enhanced interactive experience.</div>
+                  </div>
                 </div>
               )}
               
               {/* Detailed Itinerary Section - For Additional Details */}
               <div className="mb-16">
-                <div className="flex justify-between items-center mb-8">
-                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                    Day-by-Day Details
-                  </h2>
-                  <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+                <div className="luxury-section-title mb-8">
+                  <h2>Day-by-Day Details</h2>
+                  <div className="gold-divider"></div>
                 </div>
                 
                 {itinerary.length > 0 ? (
@@ -453,10 +455,10 @@ const EnhancedPackageDetail = () => {
                       <AccordionItem key={day.day} value={`day-${day.day}`} className="border-b last:border-0">
                         <AccordionTrigger className="py-6 px-6 hover:no-underline bg-[#f9f8f5] hover:bg-[#f5f3eb]">
                           <div className="flex items-center text-left">
-                            <div className="w-12 h-12 bg-[#103556] text-white rounded-full flex items-center justify-center shadow-md mr-4 flex-shrink-0">
+                            <div className="w-12 h-12 bg-[var(--accent)] text-white rounded-full flex items-center justify-center shadow-md mr-4 flex-shrink-0">
                               <span className="text-sm font-bold">Day {day.day}</span>
                             </div>
-                            <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556]">
+                            <h3 className="text-xl font-semibold">
                               {day.title}
                             </h3>
                           </div>
@@ -488,17 +490,15 @@ const EnhancedPackageDetail = () => {
               
               {/* Includes/Excludes Section */}
               <div className="mb-16">
-                <div className="flex justify-between items-center mb-8">
-                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">
-                    What's Included
-                  </h2>
-                  <div className="h-0.5 w-32 bg-[#D4AF37]"></div>
+                <div className="luxury-section-title mb-8">
+                  <h2>What's Included</h2>
+                  <div className="gold-divider"></div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="bg-[#f8f7f2] p-6 rounded-lg">
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-4 flex items-center">
-                      <div className="w-8 h-8 bg-[#103556] rounded-full flex items-center justify-center mr-3">
+                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                      <div className="w-8 h-8 bg-[var(--accent)] rounded-full flex items-center justify-center mr-3">
                         <Check className="h-5 w-5 text-white" />
                       </div>
                       Included
@@ -506,7 +506,7 @@ const EnhancedPackageDetail = () => {
                     <ul className="space-y-3">
                       {includesItems.map((item, idx) => (
                         <li key={idx} className="flex">
-                          <Check className="h-5 w-5 text-[#D4AF37] mr-3 flex-shrink-0 mt-1" />
+                          <Check className="h-5 w-5 text-[var(--secondary)] mr-3 flex-shrink-0 mt-1" />
                           <span className="text-gray-600">{item}</span>
                         </li>
                       ))}
@@ -514,8 +514,8 @@ const EnhancedPackageDetail = () => {
                   </div>
                   
                   <div className="bg-[#f8f7f2] p-6 rounded-lg">
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-4 flex items-center">
-                      <div className="w-8 h-8 bg-[#103556] rounded-full flex items-center justify-center mr-3">
+                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                      <div className="w-8 h-8 bg-[var(--accent)] rounded-full flex items-center justify-center mr-3">
                         <X className="h-5 w-5 text-white" />
                       </div>
                       Not Included
