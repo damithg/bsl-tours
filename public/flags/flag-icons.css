@@ -1,0 +1,9 @@
+/* SVG flag icons */
+.flag-icon {
+  display: inline-block;
+  width: 1.33em;
+  height: 1em;
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}

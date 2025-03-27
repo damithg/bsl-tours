@@ -6,16 +6,17 @@ export interface Currency {
   symbol: string;
   name: string;
   rate: number; // Exchange rate relative to USD
+  flag?: string; // Flag emoji or image URL
 }
 
 // Default supported currencies
 export const SUPPORTED_CURRENCIES: Currency[] = [
-  { code: 'USD', symbol: '$', name: 'US Dollar', rate: 1 },
-  { code: 'EUR', symbol: '€', name: 'Euro', rate: 0.93 },
-  { code: 'GBP', symbol: '£', name: 'British Pound', rate: 0.79 },
-  { code: 'LKR', symbol: 'Rs', name: 'Sri Lankan Rupee', rate: 307.5 },
-  { code: 'AUD', symbol: 'A$', name: 'Australian Dollar', rate: 1.53 },
-  { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar', rate: 1.38 },
+  { code: 'USD', symbol: '$', name: 'US Dollar', rate: 1, flag: '🇺🇸' },
+  { code: 'EUR', symbol: '€', name: 'Euro', rate: 0.93, flag: '🇪🇺' },
+  { code: 'GBP', symbol: '£', name: 'British Pound', rate: 0.79, flag: '🇬🇧' },
+  { code: 'LKR', symbol: 'Rs', name: 'Sri Lankan Rupee', rate: 307.5, flag: '🇱🇰' },
+  { code: 'AUD', symbol: 'A$', name: 'Australian Dollar', rate: 1.53, flag: '🇦🇺' },
+  { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar', rate: 1.38, flag: '🇨🇦' },
 ];
 
 interface CurrencyContextType {
