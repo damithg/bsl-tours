@@ -20,14 +20,18 @@ export function CurrencySelector() {
         aria-haspopup="listbox"
       >
         <span className="flex items-center">
-          {currency.flag && <img src={currency.flag} alt={currency.code} className="w-5 h-3 mr-1.5" />}
+          {currency.flag && (
+            <div className="mr-1.5 h-4 w-6 overflow-hidden rounded shadow">
+              <img src={currency.flag} alt={currency.code} className="h-full w-full object-cover" />
+            </div>
+          )}
           <span>{currency.code}</span>
         </span>
         <ChevronDown className="h-4 w-4" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-1 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute right-0 z-10 mt-1 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <ul
             className="py-1 max-h-60 overflow-auto"
             role="listbox"
@@ -43,7 +47,11 @@ export function CurrencySelector() {
                 aria-selected={currency.code === option.code}
                 onClick={() => handleSelect(option)}
               >
-                {option.flag && <img src={option.flag} alt={option.code} className="w-5 h-3" />}
+                {option.flag && (
+                  <div className="h-4 w-6 overflow-hidden rounded shadow">
+                    <img src={option.flag} alt={option.code} className="h-full w-full object-cover" />
+                  </div>
+                )}
                 <span className="font-medium">{option.code}</span>
               </li>
             ))}
