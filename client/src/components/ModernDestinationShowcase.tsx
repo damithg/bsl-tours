@@ -198,14 +198,9 @@ export function ModernDestinationShowcase() {
         
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/contact" className="inline-block bg-white text-black hover:bg-white/90 font-medium py-4 px-10 rounded-full transition">
-              Book Your Journey
-            </Link>
-            <Link href="/destinations" className="inline-block bg-transparent border border-white text-white hover:bg-white/10 font-medium py-4 px-10 rounded-full transition">
-              View All Destinations
-            </Link>
-          </div>
+          <Link href="/contact" className="inline-block bg-white text-black hover:bg-white/90 font-medium py-4 px-10 rounded-full transition">
+            Book Your Journey
+          </Link>
         </div>
       </div>
     </section>
