@@ -30,7 +30,7 @@ export function CurrencySelector() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 rounded-md py-1.5 px-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        className="flex items-center gap-1.5 rounded-md py-2 px-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
@@ -48,17 +48,16 @@ export function CurrencySelector() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-1 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-1">
-          <div className="text-xs text-gray-500 uppercase px-3 py-1 border-b">Select currency</div>
+        <div className="absolute right-0 z-10 mt-1 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <ul
-            className="py-1 max-h-60 overflow-auto"
+            className="py-2 max-h-60 overflow-auto"
             role="listbox"
             aria-labelledby="currency-selector"
           >
             {currencies.map((option) => (
               <li
                 key={option.code}
-                className={`flex items-center px-3 py-2 text-sm cursor-pointer transition-colors
+                className={`flex items-center px-4 py-2.5 text-sm cursor-pointer transition-colors
                   ${currency.code === option.code 
                     ? 'bg-gray-50 text-primary font-medium' 
                     : 'text-gray-700 hover:bg-gray-50'

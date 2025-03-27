@@ -39,18 +39,43 @@ interface CurrencyProviderProps {
 }
 
 export const CurrencyProvider = ({ children }: CurrencyProviderProps) => {
-  // Try to get saved currency from localStorage, default to USD
+  // Try to get saved currency from localStorage or detect from browser locale
   const getSavedCurrency = (): Currency => {
+    // First check localStorage
     if (typeof window !== 'undefined') {
       const savedCurrency = localStorage.getItem('currency');
       if (savedCurrency) {
         try {
           return JSON.parse(savedCurrency);
         } catch (e) {
-          return SUPPORTED_CURRENCIES[0];
+          // Fall through to locale detection
         }
       }
+      
+      // Try to detect from browser locale
+      try {
+        const userLocale = navigator.language || 'en-US';
+        
+        // Get currency code from locale
+        let localeCurrency: string | undefined;
+        
+        if (userLocale.startsWith('en-GB')) localeCurrency = 'GBP';
+        else if (userLocale.includes('US')) localeCurrency = 'USD';
+        else if (userLocale.includes('AU')) localeCurrency = 'AUD';
+        else if (userLocale.includes('CA')) localeCurrency = 'CAD';
+        else if (/^(fr|de|it|es|nl|pt|fi)/i.test(userLocale)) localeCurrency = 'EUR';
+        
+        // Find matching currency in supported currencies
+        if (localeCurrency) {
+          const matchedCurrency = SUPPORTED_CURRENCIES.find(c => c.code === localeCurrency);
+          if (matchedCurrency) return matchedCurrency;
+        }
+      } catch (e) {
+        console.error('Error detecting locale currency:', e);
+      }
     }
+    
+    // Default to USD if nothing else works
     return SUPPORTED_CURRENCIES[0];
   };
 
