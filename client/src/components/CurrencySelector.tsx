@@ -35,11 +35,29 @@ export function CurrencySelector() {
         aria-haspopup="listbox"
       >
         <div className="flex items-center gap-2">
-          <img 
-            src={currency.flag} 
-            alt={currency.code} 
-            className="h-4 w-5 object-contain rounded-sm" 
-          />
+          {currency.flag ? (
+            <img 
+              src={currency.flag} 
+              alt={currency.code}
+              className="h-4 w-5 object-contain rounded-sm"
+              onError={(e) => {
+                // If the image fails to load, set a default content
+                const target = e.target as HTMLImageElement;
+                target.style.width = '20px';
+                target.style.height = '16px';
+                target.style.display = 'flex';
+                target.style.alignItems = 'center';
+                target.style.justifyContent = 'center';
+                target.style.background = '#f1f5f9';
+                target.style.borderRadius = '2px';
+                target.alt = currency.code.substring(0, 2);
+              }}
+            />
+          ) : (
+            <span className="h-4 w-5 flex items-center justify-center bg-gray-100 rounded-sm text-[10px] font-bold">
+              {currency.code.substring(0, 2)}
+            </span>
+          )}
           <span className="font-medium">{currency.code}</span>
         </div>
         <ChevronDown className="h-3.5 w-3.5 text-gray-500 ml-0.5" />
@@ -65,11 +83,29 @@ export function CurrencySelector() {
                 onClick={() => handleSelect(option)}
               >
                 <div className="flex items-center gap-2 w-full justify-start">
-                  <img 
-                    src={option.flag} 
-                    alt={option.code} 
-                    className="h-4 w-5 object-contain rounded-sm" 
-                  />
+                  {option.flag ? (
+                    <img 
+                      src={option.flag} 
+                      alt={option.code}
+                      className="h-4 w-5 object-contain rounded-sm"
+                      onError={(e) => {
+                        // If the image fails to load, set a default content
+                        const target = e.target as HTMLImageElement;
+                        target.style.width = '20px';
+                        target.style.height = '16px';
+                        target.style.display = 'flex';
+                        target.style.alignItems = 'center';
+                        target.style.justifyContent = 'center';
+                        target.style.background = '#f1f5f9';
+                        target.style.borderRadius = '2px';
+                        target.alt = option.code.substring(0, 2);
+                      }}
+                    />
+                  ) : (
+                    <span className="h-4 w-5 flex items-center justify-center bg-gray-100 rounded-sm text-[10px] font-bold">
+                      {option.code.substring(0, 2)}
+                    </span>
+                  )}
                   <span className="font-medium">{option.code}</span>
                 </div>
               </li>
