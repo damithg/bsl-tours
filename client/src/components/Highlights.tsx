@@ -163,63 +163,67 @@ const Highlights = () => {
               {/* Main image for mobile */}
               <div className="mb-6">
                 <div className="w-full h-[230px] rounded-xl overflow-hidden shadow-lg">
-                  <AdaptiveImage 
+                  <img 
                     src={images[0].src}
                     alt={images[0].alt}
-                    aspectRatio="landscape"
-                    focusPoint={images[0].focusPoint}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: images[0].focusPoint }}
                   />
                 </div>
               </div>
 
-              {/* Mobile image grid - 2x2 with adaptive images */}
+              {/* Mobile image grid - 2x2 with polaroid images */}
               <div className="grid grid-cols-2 gap-4">
                 {/* Polaroid 1 - Mirissa Beach */}
-                <div className="bg-white p-2 rounded-md shadow-md">
-                  <AdaptiveImage 
-                    src={images[1].src}
-                    alt={images[1].alt}
-                    aspectRatio="square"
-                    focusPoint={images[1].focusPoint}
-                    className="mb-2"
-                  />
+                <div className="bg-white p-2 rounded-md shadow-md overflow-hidden h-36">
+                  <div className="w-full h-[110px] overflow-hidden mb-2">
+                    <img 
+                      src={images[1].src}
+                      alt={images[1].alt}
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: images[1].focusPoint }}
+                    />
+                  </div>
                   <p className="text-xs text-center text-gray-600 font-medium">{images[1].caption}</p>
                 </div>
                 
                 {/* Polaroid 2 - Aerial View */}
-                <div className="bg-white p-2 rounded-md shadow-md">
-                  <AdaptiveImage 
-                    src={images[2].src}
-                    alt={images[2].alt}
-                    aspectRatio="square"
-                    focusPoint={images[2].focusPoint}
-                    className="mb-2"
-                  />
+                <div className="bg-white p-2 rounded-md shadow-md overflow-hidden h-36">
+                  <div className="w-full h-[110px] overflow-hidden mb-2">
+                    <img 
+                      src={images[2].src}
+                      alt={images[2].alt} 
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: images[2].focusPoint }}
+                    />
+                  </div>
                   <p className="text-xs text-center text-gray-600 font-medium">{images[2].caption}</p>
                 </div>
                 
                 {/* Polaroid 3 - Nine Arch Bridge */}
-                <div className="bg-white p-2 rounded-md shadow-md">
-                  <AdaptiveImage 
-                    src={images[3].src}
-                    alt={images[3].alt}
-                    aspectRatio="square"
-                    focusPoint={images[3].focusPoint}
-                    className="mb-2"
-                  />
-                  <p className="text-xs text-center text-gray-600 font-medium">Nine Arch Bridge</p>
+                <div className="bg-white p-2 rounded-md shadow-md overflow-hidden h-36">
+                  <div className="w-full h-[110px] overflow-hidden mb-2">
+                    <img 
+                      src={images[3].src}
+                      alt={images[3].alt}
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: images[3].focusPoint }}
+                    />
+                  </div>
+                  <p className="text-xs text-center text-gray-600 font-medium">{images[3].caption}</p>
                 </div>
                 
                 {/* Polaroid 4 - Tea Plantation */}
-                <div className="bg-white p-2 rounded-md shadow-md">
-                  <AdaptiveImage 
-                    src={images[4].src}
-                    alt={images[4].alt}
-                    aspectRatio="square"
-                    focusPoint={images[4].focusPoint}
-                    className="mb-2"
-                  />
-                  <p className="text-xs text-center text-gray-600 font-medium">Tea Plantations</p>
+                <div className="bg-white p-2 rounded-md shadow-md overflow-hidden h-36">
+                  <div className="w-full h-[110px] overflow-hidden mb-2">
+                    <img 
+                      src={images[4].src}
+                      alt={images[4].alt}
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: images[4].focusPoint }}
+                    />
+                  </div>
+                  <p className="text-xs text-center text-gray-600 font-medium">{images[4].caption}</p>
                 </div>
               </div>
             </div>

@@ -40,19 +40,25 @@ const PolaroidImage: React.FC<PolaroidImageProps> = ({
       className={`bg-white p-3 rounded-md shadow-lg ${className}`}
       style={{ 
         transform: `rotate(${rotation}deg)`,
-        zIndex
+        zIndex,
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        width: '100%',
+        overflow: 'hidden'
       }}
     >
-      <AdaptiveImage
-        src={src}
-        alt={alt}
-        aspectRatio={aspectRatio}
-        className="mb-2"
-        focusPoint={focusPoint}
-      />
+      <div className="flex-1 overflow-hidden mb-2">
+        <img 
+          src={src}
+          alt={alt}
+          className="w-full h-full object-cover"
+          style={{ objectPosition: focusPoint || 'center' }}
+        />
+      </div>
       
       {caption && (
-        <p className="text-xs text-center text-gray-600 font-medium">
+        <p className="text-xs text-center text-gray-600 font-medium mt-auto">
           {caption}
         </p>
       )}
