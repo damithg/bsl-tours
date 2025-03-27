@@ -285,8 +285,106 @@ export class MemStorage implements IStorage {
     const sampleDestinations: InsertDestination[] = [
       {
         name: "Sigiriya Rock Fortress",
+        slug: "sigiriya-rock-fortress",
         description: "Ancient rock fortress with panoramic views and stunning frescoes",
-        imageUrl: "https://images.unsplash.com/photo-1586613835341-6003c0e2fb11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+        imageUrl: "https://images.unsplash.com/photo-1586613835341-6003c0e2fb11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80",
+        featured: true,
+        
+        // Location information
+        region: "Cultural Triangle",
+        latitude: "7.9572",
+        longitude: "80.7603",
+        address: "Sigiriya, Sri Lanka",
+        
+        // Extended information
+        shortDescription: "An ancient rock fortress and palace with spectacular views",
+        fullDescription: "Rising dramatically from the central plains, the iconic rocky outcrop of Sigiriya is perhaps Sri Lanka's most dramatic sight. Near-vertical walls soar to a flat-topped summit that contains the ruins of an ancient civilization, thought to be once the epicenter of the short-lived kingdom of Kassapa. A series of galleries and staircases emerging from the mouth of a gigantic lion constructed of bricks and plaster provide access to the site.",
+        highlights: JSON.stringify(["Lion's Paw Entrance", "Ancient Frescoes", "Mirror Wall", "Water Gardens", "Panoramic Summit Views"]),
+        
+        // Planning information
+        bestTimeToVisit: "January to April",
+        recommendedDuration: "1-2 Days",
+        weatherInfo: "The dry season from January to April offers the most pleasant weather for climbing, with temperatures around 25-30°C",
+        travelTips: JSON.stringify([
+          "Visit early morning to avoid crowds and heat",
+          "Bring plenty of water for the climb",
+          "Wear comfortable shoes for steep staircases",
+          "Allow 3-4 hours for the complete experience"
+        ]),
+        
+        // Additional media
+        galleryImages: JSON.stringify([
+          {
+            url: "https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+            alt: "Sigiriya Rock Fortress - Main View"
+          },
+          {
+            url: "https://images.unsplash.com/photo-1627894966831-0c839fa78bfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            alt: "Sigiriya Rock Fortress - Ancient Frescoes"
+          },
+          {
+            url: "https://images.unsplash.com/photo-1531259922615-206732e4349b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            alt: "Sigiriya Rock Fortress - Water Gardens"
+          },
+          {
+            url: "https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            alt: "Sigiriya Rock Fortress - Summit View"
+          }
+        ]),
+        
+        // Activities
+        activities: JSON.stringify([
+          {
+            title: "Guided Historical Tour",
+            description: "Explore the ancient fortress with expert archaeologists who bring the history to life",
+            imageUrl: "/images/activities/sigiriya-guided-tour.jpg"
+          },
+          {
+            title: "Sunrise Photography",
+            description: "Capture the amazing sunrise views with special early access before regular opening hours",
+            imageUrl: "/images/activities/sigiriya-sunrise.jpg"
+          },
+          {
+            title: "Helicopter Tour",
+            description: "Experience Sigiriya from above with an exclusive aerial tour",
+            imageUrl: "/images/activities/sigiriya-helicopter.jpg"
+          }
+        ]),
+        
+        // Experiences
+        experiences: JSON.stringify([
+          {
+            title: "Private Guided Tour",
+            description: "Explore with expert local guides who bring history and culture to life",
+            icon: "guide"
+          },
+          {
+            title: "Exclusive Access",
+            description: "Special early morning or evening access when the site is closed to regular visitors",
+            icon: "key"
+          },
+          {
+            title: "Luxury Picnic",
+            description: "Gourmet dining experience with panoramic views of the surrounding landscape",
+            icon: "dining"
+          }
+        ]),
+        
+        // FAQs
+        faqs: JSON.stringify([
+          {
+            question: "How difficult is the climb to the top of Sigiriya?",
+            answer: "The climb involves approximately 1,200 steps and takes about 1.5 hours for the average person. While steep in places, there are plenty of rest points along the way."
+          },
+          {
+            question: "Can I visit Sigiriya and Dambulla in one day?",
+            answer: "Yes, many visitors combine these two UNESCO sites in a single day trip, although having more time allows for a more relaxed experience."
+          },
+          {
+            question: "Is photography allowed throughout the site?",
+            answer: "Photography is allowed in most areas of Sigiriya, but flash photography is prohibited in the frescoes gallery to preserve the ancient paintings."
+          }
+        ])
       },
       {
         name: "Galle Fort",
@@ -489,7 +587,46 @@ export class MemStorage implements IStorage {
   
   async createDestination(insertDestination: InsertDestination): Promise<Destination> {
     const id = this.currentDestinationId++;
-    const destination: Destination = { ...insertDestination, id };
+    
+    // Generate a slug if one isn't provided
+    let slug = insertDestination.slug || null;
+    if (!slug && insertDestination.name) {
+      slug = insertDestination.name
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-')     // Replace spaces with dashes
+        .replace(/-+/g, '-');     // Replace multiple dashes with a single dash
+    }
+    
+    // Create a clean object with all fields properly handled
+    const destination: Destination = {
+      id,
+      name: insertDestination.name,
+      slug: slug,
+      description: insertDestination.description,
+      imageUrl: insertDestination.imageUrl,
+      
+      // Handle optional fields
+      featured: insertDestination.featured || false,
+      region: insertDestination.region || null,
+      latitude: insertDestination.latitude || null,
+      longitude: insertDestination.longitude || null,
+      address: insertDestination.address || null,
+      shortDescription: insertDestination.shortDescription || null,
+      fullDescription: insertDestination.fullDescription || null,
+      highlights: insertDestination.highlights || null,
+      bestTimeToVisit: insertDestination.bestTimeToVisit || null,
+      recommendedDuration: insertDestination.recommendedDuration || null,
+      weatherInfo: insertDestination.weatherInfo || null,
+      travelTips: insertDestination.travelTips || null,
+      galleryImages: insertDestination.galleryImages || null,
+      activities: insertDestination.activities || null,
+      experiences: insertDestination.experiences || null,
+      faqs: insertDestination.faqs || null,
+      createdAt: new Date(),
+      updatedAt: null
+    };
+    
     this.destinations.set(id, destination);
     return destination;
   }

@@ -48,8 +48,39 @@ export const insertTourPackageSchema = createInsertSchema(tourPackages).omit({
 export const destinations = pgTable("destinations", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
+  slug: text("slug"),
   description: text("description").notNull(),
   imageUrl: text("image_url").notNull(),
+  featured: boolean("featured").default(false),
+  
+  // Location information
+  region: text("region"),
+  latitude: text("latitude"),
+  longitude: text("longitude"),
+  address: text("address"),
+  
+  // Extended information
+  shortDescription: text("short_description"),
+  fullDescription: text("full_description"),
+  highlights: text("highlights"), // Stored as JSON string
+  
+  // Planning information
+  bestTimeToVisit: text("best_time_to_visit"),
+  recommendedDuration: text("recommended_duration"),
+  weatherInfo: text("weather_info"),
+  travelTips: text("travel_tips"), // Stored as JSON string
+  
+  // Additional media
+  galleryImages: text("gallery_images"), // Stored as JSON string
+  
+  // Related content (stored as JSON strings)
+  activities: text("activities"),
+  experiences: text("experiences"),
+  faqs: text("faqs"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at"),
 });
 
 export const insertDestinationSchema = createInsertSchema(destinations).omit({

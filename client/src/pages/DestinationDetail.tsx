@@ -5,6 +5,17 @@ import { Link } from 'wouter';
 import { Destination } from '@shared/schema';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
+// Helper function to safely parse JSON strings
+const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
+  if (!jsonString) return fallback;
+  try {
+    return JSON.parse(jsonString);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return fallback;
+  }
+};
+
 interface RelatedTour {
   id: number;
   slug: string;
@@ -126,19 +137,33 @@ const DestinationDetail = () => {
             <div className="md:w-2/3">
               <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-6">Destination Overview</h2>
               <p className="text-lg text-[#333333]/80 mb-6">
-                {destination.description}
+                {destination.shortDescription || destination.description}
               </p>
               <p className="text-lg text-[#333333]/80 mb-6">
-                Our luxury tours to {destination.name} offer an unparalleled travel experience with exclusive access to key sites, private guides, and exquisite accommodation options. Whether you're seeking cultural immersion, adventure, or simply relaxation, our tailored packages ensure you experience the very best this destination has to offer.
+                {destination.fullDescription || 
+                  `Our luxury tours to ${destination.name} offer an unparalleled travel experience with exclusive access to key sites, private guides, and exquisite accommodation options. Whether you're seeking cultural immersion, adventure, or simply relaxation, our tailored packages ensure you experience the very best this destination has to offer.`
+                }
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-                {experiences.map((experience, index) => (
-                  <div key={index} className="bg-[#F8F5F0] p-6 rounded-lg">
-                    <div className="text-3xl mb-3">{experience.icon}</div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{experience.title}</h3>
-                    <p className="text-[#333333]/70">{experience.description}</p>
-                  </div>
-                ))}
+                {destination.experiences ? 
+                  safeJsonParse(destination.experiences, []).map((experience: any, index: number) => (
+                    <div key={index} className="bg-[#F8F5F0] p-6 rounded-lg">
+                      <div className="text-3xl mb-3">
+                        {experience.icon === 'guide' ? '🧑‍🦱' : 
+                         experience.icon === 'key' ? '🔑' : 
+                         experience.icon === 'dining' ? '🍽️' : '✨'}
+                      </div>
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{experience.title}</h3>
+                      <p className="text-[#333333]/70">{experience.description}</p>
+                    </div>
+                  )) 
+                : experiences.map((experience, index) => (
+                    <div key={index} className="bg-[#F8F5F0] p-6 rounded-lg">
+                      <div className="text-3xl mb-3">{experience.icon}</div>
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{experience.title}</h3>
+                      <p className="text-[#333333]/70">{experience.description}</p>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="md:w-1/3">
@@ -147,21 +172,45 @@ const DestinationDetail = () => {
                 <div className="space-y-4">
                   <div>
                     <p className="font-medium">Best Time to Visit</p>
-                    <p className="text-[#333333]/70">January to April</p>
+                    <p className="text-[#333333]/70">{destination.bestTimeToVisit || "January to April"}</p>
                   </div>
                   <div>
                     <p className="font-medium">Recommended Duration</p>
-                    <p className="text-[#333333]/70">1-2 Days</p>
+                    <p className="text-[#333333]/70">{destination.recommendedDuration || "1-2 Days"}</p>
                   </div>
+                  {destination.weatherInfo && (
+                    <div>
+                      <p className="font-medium">Weather</p>
+                      <p className="text-[#333333]/70">{destination.weatherInfo}</p>
+                    </div>
+                  )}
                   <div>
                     <p className="font-medium">Highlights</p>
                     <ul className="list-disc list-inside text-[#333333]/70">
-                      <li>Panoramic Views</li>
-                      <li>Ancient Frescoes</li>
-                      <li>Royal Gardens</li>
-                      <li>Mirror Wall</li>
+                      {destination.highlights ? 
+                        safeJsonParse(destination.highlights, []).map((highlight: string, index: number) => (
+                          <li key={index}>{highlight}</li>
+                        ))
+                        : 
+                        <>
+                          <li>Panoramic Views</li>
+                          <li>Ancient Frescoes</li>
+                          <li>Royal Gardens</li>
+                          <li>Mirror Wall</li>
+                        </>
+                      }
                     </ul>
                   </div>
+                  {destination.travelTips && (
+                    <div>
+                      <p className="font-medium">Travel Tips</p>
+                      <ul className="list-disc list-inside text-[#333333]/70">
+                        {safeJsonParse(destination.travelTips, []).map((tip: string, index: number) => (
+                          <li key={index}>{tip}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <Link href="/contact" className="block w-full bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-6 rounded-md text-center transition">
@@ -174,49 +223,109 @@ const DestinationDetail = () => {
         </div>
       </section>
 
+      {/* Activities Section */}
+      {destination.activities && (
+        <section className="py-12 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">Featured Activities</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {safeJsonParse(destination.activities, []).map((activity: any, index: number) => (
+                <div key={index} className="bg-[#F8F5F0] rounded-lg overflow-hidden shadow-sm">
+                  <div className="relative h-48">
+                    <img 
+                      src={activity.imageUrl || "/images/activities/placeholder.jpg"} 
+                      alt={activity.title} 
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{activity.title}</h3>
+                    <p className="text-[#333333]/80 mb-4">{activity.description}</p>
+                    <Link href="/contact" className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
+                      Inquire About This Activity
+                      <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Image Gallery Section */}
       <section className="py-12 bg-[#F8F5F0]">
         <div className="container mx-auto px-4">
           <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">Visual Journey</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="col-span-2 md:col-span-2 row-span-2">
-              <img 
-                src={`https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80`} 
-                alt={`${destination.name} - Main View`} 
-                className="w-full h-full object-cover rounded-lg" 
-              />
-            </div>
-            <div>
-              <img 
-                src={`https://images.unsplash.com/photo-1627894966831-0c839fa78bfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
-                alt={`${destination.name} - Detail 1`}
-                className="w-full h-full object-cover rounded-lg" 
-              />
-            </div>
-            <div>
-              <img 
-                src={`https://images.unsplash.com/photo-1531259922615-206732e4349b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
-                alt={`${destination.name} - Detail 2`}
-                className="w-full h-full object-cover rounded-lg" 
-              />
-            </div>
-            <div>
-              <img 
-                src={`https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
-                alt={`${destination.name} - Detail 3`}
-                className="w-full h-full object-cover rounded-lg" 
-              />
-            </div>
-            <div>
-              <img 
-                src={`https://images.unsplash.com/photo-1613990721978-6da9d8b062fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
-                alt={`${destination.name} - Detail 4`}
-                className="w-full h-full object-cover rounded-lg" 
-              />
-            </div>
+            {destination.galleryImages ? (
+              <>
+                {/* Render dynamic gallery images if available */}
+                {safeJsonParse(destination.galleryImages, []).map((image: any, index: number) => (
+                  <div key={index} className={index === 0 ? "col-span-2 md:col-span-2 row-span-2" : ""}>
+                    <img 
+                      src={image.url} 
+                      alt={image.alt || `${destination.name} - Image ${index + 1}`}
+                      className="w-full h-full object-cover rounded-lg" 
+                    />
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>
+                {/* Fallback static gallery */}
+                <div className="col-span-2 md:col-span-2 row-span-2">
+                  <img 
+                    src={`https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80`} 
+                    alt={`${destination.name} - Main View`} 
+                    className="w-full h-full object-cover rounded-lg" 
+                  />
+                </div>
+                <div>
+                  <img 
+                    src={`https://images.unsplash.com/photo-1627894966831-0c839fa78bfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
+                    alt={`${destination.name} - Detail 1`}
+                    className="w-full h-full object-cover rounded-lg" 
+                  />
+                </div>
+                <div>
+                  <img 
+                    src={`https://images.unsplash.com/photo-1531259922615-206732e4349b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
+                    alt={`${destination.name} - Detail 2`}
+                    className="w-full h-full object-cover rounded-lg" 
+                  />
+                </div>
+                <div>
+                  <img 
+                    src={`https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
+                    alt={`${destination.name} - Detail 3`}
+                    className="w-full h-full object-cover rounded-lg" 
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      {destination.faqs && (
+        <section className="py-12 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="max-w-3xl mx-auto space-y-6">
+              {safeJsonParse(destination.faqs, []).map((faq: any, index: number) => (
+                <div key={index} className="bg-[#F8F5F0] p-6 rounded-lg">
+                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{faq.question}</h3>
+                  <p className="text-[#333333]/80">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related Tours Section */}
       <section className="py-12 bg-white">
