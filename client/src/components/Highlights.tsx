@@ -133,7 +133,7 @@ const Highlights = () => {
               </div>
               
               {/* Polaroid-style image 3 - Aerial beach */}
-              <div className="absolute top-[100px] right-[70px] w-[170px] h-[200px] bg-white p-3 rounded-md shadow-lg transform rotate-[8deg] z-50">
+              <div className="absolute top-[100px] right-[70px] w-[170px] h-[200px] bg-white p-3 rounded-md shadow-lg transform rotate-[8deg] z-30">
                 <div className="w-full h-[160px] overflow-hidden mb-2">
                   <img 
                     src={imageData.polaroid3.src} 
@@ -146,7 +146,7 @@ const Highlights = () => {
               </div>
               
               {/* Polaroid-style image 4 - Tea plantation */}
-              <div className="absolute bottom-[30px] right-0 w-[190px] h-[220px] bg-white p-3 rounded-md shadow-lg transform rotate-[-4deg] z-40">
+              <div className="absolute bottom-[30px] right-0 w-[190px] h-[220px] bg-white p-3 rounded-md shadow-lg transform rotate-[-4deg] z-20">
                 <div className="w-full h-[180px] overflow-hidden mb-2">
                   <img 
                     src={imageData.polaroid4.src} 
