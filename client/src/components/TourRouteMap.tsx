@@ -154,12 +154,13 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
                 <div 
                   key={`day-${day.day}`} 
                   className={`
-                    relative py-2 px-3 rounded-lg transition-all duration-300
+                    relative py-2 px-3 rounded-lg 
+                    transition-all duration-300 ease-in-out
                     ${activeDay === day.day 
-                      ? 'bg-primary/5 border-primary/20 border shadow-sm' 
-                      : 'bg-gray-50 border border-gray-100 hover:bg-gray-100/50'
+                      ? 'bg-primary/5 border-primary/20 border shadow-sm scale-102 transform' 
+                      : 'bg-gray-50 border border-gray-100 hover:bg-gray-100/70 hover:shadow-md hover:translate-y-[-2px] hover:scale-[1.01]'
                     }
-                    cursor-pointer
+                    cursor-pointer group
                   `}
                   onClick={() => handleDayClick(day.day)}
                 >
@@ -168,9 +169,10 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
                     <div 
                       className={`
                         w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0
+                        transition-all duration-300 ease-in-out
                         ${activeDay === day.day 
-                          ? 'bg-primary text-white' 
-                          : 'bg-white border border-gray-200 text-gray-600'
+                          ? 'bg-primary text-white ring-2 ring-primary/20 ring-offset-1' 
+                          : 'bg-white border border-gray-200 text-gray-600 group-hover:bg-primary/10 group-hover:border-primary/30'
                         }
                         shadow-sm font-bold text-sm mr-3
                       `}
@@ -181,18 +183,44 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
                     <div className="flex-grow">
                       {/* Day title */}
                       <div className="flex justify-between items-center">
-                        <h4 className="font-bold text-sm">{day.title}</h4>
+                        <h4 className={`font-bold text-sm transition-all duration-300 ease-in-out ${activeDay === day.day ? 'text-primary' : 'group-hover:text-primary/80'}`}>
+                          {day.title}
+                        </h4>
                         {index < itinerary.length - 1 && (
                           <ArrowRight 
-                            className={`h-3 w-3 ${activeDay === day.day ? 'text-primary' : 'text-gray-400'}`} 
+                            className={`
+                              h-3 w-3 transition-all duration-300 ease-in-out
+                              ${activeDay === day.day 
+                                ? 'text-primary transform translate-x-0.5' 
+                                : 'text-gray-400 group-hover:text-primary/60 group-hover:translate-x-0.5 transform'
+                              }
+                            `} 
                           />
                         )}
                       </div>
                       
                       {/* Accommodation if available */}
                       {day.accommodation && (
-                        <div className="flex items-center text-xs font-medium text-gray-500 mt-0.5">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <div className={`
+                          flex items-center text-xs font-medium mt-0.5
+                          transition-all duration-300 ease-in-out
+                          ${activeDay === day.day 
+                            ? 'text-primary/70' 
+                            : 'text-gray-500 group-hover:text-primary/50'
+                          }
+                        `}>
+                          <svg xmlns="http://www.w3.org/2000/svg" 
+                            className={`
+                              h-3 w-3 mr-1 transition-all duration-300 ease-in-out
+                              ${activeDay === day.day ? 'stroke-primary' : 'group-hover:stroke-primary/60'}
+                            `}
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
+                          >
                             <path d="M3 7v11m0-7h18m0 0v7m-5-7v-3a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v3"></path>
                           </svg>
                           {day.accommodation}
@@ -204,8 +232,20 @@ const TourRouteMap: React.FC<TourRouteMapProps> = ({
               ))}
             </div>
             
-            <div className="mt-3 pt-3 border-t border-gray-100 text-center text-xs text-gray-500">
-              Click on a day or map marker to see the route animation
+            <div className="mt-3 pt-3 border-t border-gray-100 text-center text-xs">
+              <div className="flex items-center justify-center gap-1.5 text-gray-500 group cursor-help">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                  className="h-3.5 w-3.5 transition-all duration-300 group-hover:text-primary/70" 
+                  viewBox="0 0 24 24" fill="none" 
+                  stroke="currentColor" strokeWidth="2" 
+                  strokeLinecap="round" strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span className="transition-all duration-300 group-hover:text-primary/70">Click on a day or map marker to see the route animation</span>
+              </div>
             </div>
           </div>
         </div>
