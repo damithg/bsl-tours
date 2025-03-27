@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
 import { Link } from "wouter";
+import { Home, ChevronRight } from "lucide-react";
 
 const Destinations = () => {
   const { data: destinations, isLoading, error } = useQuery<Destination[]>({
@@ -40,18 +41,40 @@ const Destinations = () => {
 
   return (
     <main>
-      {/* Hero Section */}
-      <section className="relative pt-28 pb-20 bg-[#0F4C81]">
-        <div className="absolute inset-0 z-0 opacity-20">
+      {/* Hero Section with Breadcrumbs */}
+      <section className="relative h-[500px] bg-[#0F4C81]">
+        <div className="absolute inset-0 z-0 opacity-30">
           <img 
             src={featuredDestinationContent.image} 
             alt="Sri Lanka destinations" 
             className="w-full h-full object-cover" 
           />
         </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent"></div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28">
+          {/* Breadcrumb Navigation */}
+          <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
+                  <Home className="w-4 h-4 mr-2" />
+                  Home
+                </Link>
+              </li>
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <ChevronRight className="w-5 h-5 text-white/60" />
+                  <span className="ml-1 text-sm font-medium text-white/80">
+                    Destinations
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+          
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6">
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               {featuredDestinationContent.title}
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">

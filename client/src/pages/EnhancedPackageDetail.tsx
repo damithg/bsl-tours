@@ -5,7 +5,7 @@ import { TourPackage } from "@/lib/queryClient";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
 import VisualTimeline, { TimelineDayData } from "@/components/VisualTimeline";
-import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown, LayoutList, List } from "lucide-react";
+import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown, LayoutList, List, Home, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -368,28 +368,58 @@ const EnhancedPackageDetail = () => {
 
   return (
     <main>
-      {/* Hero Section */}
-      <section className="relative pt-28 pb-16 bg-gradient-to-b from-[#103556] to-[#0d2942]">
-        <div className="absolute inset-0 z-0 opacity-15 mix-blend-overlay">
-          <img 
-            src={packageData.imageUrl}
-            alt={packageData.title} 
-            className="w-full h-full object-cover" 
-          />
+      {/* Hero Section with larger image and prominent text overlay */}
+      <section className="relative h-[550px]">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${packageData.imageUrl})` }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2942] via-transparent to-transparent z-0"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="mb-4 flex justify-center">
+        
+        {/* Breadcrumb Navigation */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28">
+          <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
+                  <Home className="w-4 h-4 mr-2" />
+                  Home
+                </Link>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <ChevronRight className="w-5 h-5 text-white/60" />
+                  <Link href="/packages" className="ml-1 text-sm font-medium hover:text-white">
+                    Tour Packages
+                  </Link>
+                </div>
+              </li>
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <ChevronRight className="w-5 h-5 text-white/60" />
+                  <span className="ml-1 text-sm font-medium text-white/80">
+                    {packageData.title}
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+          
+          {/* Tour Title and Info */}
+          <div className="text-white relative z-10">
+            <div className="mb-4 flex justify-center md:justify-start">
               <div className="inline-block bg-[#D4AF37] text-white px-5 py-1.5 rounded-full text-sm font-medium tracking-wide">
                 {packageData.duration} DAYS LUXURY TOUR
               </div>
             </div>
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight md:text-left text-center">
               {packageData.title}
             </h1>
             
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <div className="flex flex-wrap md:justify-start justify-center gap-4 mb-8">
               <div className="flex items-center text-white/90">
                 <Calendar className="h-5 w-5 mr-2" />
                 <span>{packageData.duration} Days</span>
@@ -399,16 +429,16 @@ const EnhancedPackageDetail = () => {
                 <span>Private Tour</span>
               </div>
               <div className="flex items-center text-white/90">
-                <Map className="h-5 w-5 mr-2" />
-                <span>{packageData.destinations}</span>
+                <MapPin className="h-5 w-5 mr-2" />
+                <span>{packageData.destinations?.replace(/,/g, ', ') || "Multiple Destinations"}</span>
               </div>
               <div className="flex items-center text-white/90">
-                <Clock className="h-5 w-5 mr-2" />
-                <span>All Year Round</span>
+                <DollarSign className="h-5 w-5 mr-2" />
+                <span>From ${packageData.price?.toLocaleString()}</span>
               </div>
             </div>
             
-            <div className="flex justify-center gap-4">
+            <div className="flex md:justify-start justify-center gap-4">
               <a 
                 href="#inquiry" 
                 className="bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium px-8 py-3 rounded-sm transition-colors"
