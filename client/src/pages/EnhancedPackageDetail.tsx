@@ -408,14 +408,9 @@ const EnhancedPackageDetail = () => {
             </ol>
           </nav>
           
-          {/* Tour Title and Info */}
+          {/* Tour Title and Info - Simplified */}
           <div className="text-white relative z-10">
-            <div className="mb-4 flex justify-center md:justify-start">
-              <div className="inline-block bg-[#D4AF37] text-white px-5 py-1.5 rounded-full text-sm font-medium tracking-wide">
-                {packageData.duration} DAYS LUXURY TOUR
-              </div>
-            </div>
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight md:text-left text-center">
+            <h1 className="font-['Playfair_Display'] text-2xl md:text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight md:text-left text-center">
               {packageData.title}
             </h1>
             
@@ -425,16 +420,8 @@ const EnhancedPackageDetail = () => {
                 <span>{packageData.duration} Days</span>
               </div>
               <div className="flex items-center text-white/90">
-                <Users className="h-5 w-5 mr-2" />
-                <span>Private Tour</span>
-              </div>
-              <div className="flex items-center text-white/90">
                 <MapPin className="h-5 w-5 mr-2" />
                 <span>{packageData.destinations?.replace(/,/g, ', ') || "Multiple Destinations"}</span>
-              </div>
-              <div className="flex items-center text-white/90">
-                <DollarSign className="h-5 w-5 mr-2" />
-                <span>From ${packageData.price?.toLocaleString()}</span>
               </div>
             </div>
             
