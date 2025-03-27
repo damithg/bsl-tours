@@ -105,20 +105,16 @@ const Highlights = () => {
                 <p className="text-xs text-center text-gray-600 font-medium">Mirissa Coast</p>
               </div>
               
-              {/* Product/tour card */}
-              <div className="absolute bottom-[30px] right-0 w-[220px] bg-white rounded-lg shadow-lg p-4 z-40">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-[#D4AF37] font-semibold">Featured Tour</span>
-                  <span className="font-bold text-[#0F4C81]">$1,450</span>
+              {/* Polaroid-style image 4 - Tea plantation */}
+              <div className="absolute bottom-[30px] right-0 w-[190px] h-[220px] bg-white p-3 rounded-md shadow-lg transform rotate-[-4deg] z-40">
+                <div className="w-full h-[180px] overflow-hidden mb-2">
+                  <img 
+                    src="/images/experiences/tea-plantation.jpg" 
+                    alt="Tea plantation in Sri Lanka highlands"
+                    className="w-full h-full object-cover" 
+                  />
                 </div>
-                <h4 className="font-medium mb-1">Sri Lanka Paradise</h4>
-                <p className="text-xs text-gray-600 mb-3">10 days of luxury experiences</p>
-                <a 
-                  href="/tour-packages/sri-lanka-paradise" 
-                  className="block w-full py-2 bg-[#F0F0F0] text-center text-[#0F4C81] text-sm rounded-md hover:bg-[#0F4C81]/10 transition-colors"
-                >
-                  View Details →
-                </a>
+                <p className="text-xs text-center text-gray-600 font-medium">Tea Plantations, Nuwara Eliya</p>
               </div>
             </div>
           </div>
