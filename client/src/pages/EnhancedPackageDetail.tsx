@@ -67,7 +67,7 @@ const EnhancedPackageDetail = () => {
   const [itinerary, setItinerary] = useState<ItineraryDay[]>([]);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [timelineData, setTimelineData] = useState<TimelineDayData[]>([]);
-  const [itineraryView, setItineraryView] = useState<'standard' | 'visual'>('standard');
+  const [itineraryView, setItineraryView] = useState<'standard' | 'visual'>('visual');
 
   // Determine queries based on available parameters
   const packageQueryKey = slug 
@@ -528,30 +528,8 @@ const EnhancedPackageDetail = () => {
               
               {/* Detailed Itinerary Section - For Additional Details */}
               <div className="mb-16">
-                <div className="flex justify-between items-center mb-8">
-                  <div>
-                    <h2 className="text-3xl font-bold">Day-by-Day Details</h2>
-                  </div>
-                  
-                  {/* View Toggle */}
-                  {itinerary.length > 0 && (
-                    <div className="flex items-center gap-3 bg-gray-100 p-1.5 rounded-md">
-                      <button 
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded ${itineraryView === 'standard' ? 'bg-white shadow-sm text-[var(--accent)]' : 'text-gray-500 hover:text-gray-700'}`}
-                        onClick={() => setItineraryView('standard')}
-                      >
-                        <List className="h-4 w-4" />
-                        <span className="text-sm font-medium">Standard</span>
-                      </button>
-                      <button 
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded ${itineraryView === 'visual' ? 'bg-white shadow-sm text-[var(--accent)]' : 'text-gray-500 hover:text-gray-700'}`}
-                        onClick={() => setItineraryView('visual')}
-                      >
-                        <LayoutList className="h-4 w-4" />
-                        <span className="text-sm font-medium">Visual</span>
-                      </button>
-                    </div>
-                  )}
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold">Day-by-Day Details</h2>
                 </div>
                 
                 {itinerary.length > 0 ? (
