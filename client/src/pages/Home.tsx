@@ -1,8 +1,8 @@
 import Hero from '@/components/Hero';
 import Highlights from '@/components/Highlights';
 import FeaturedPackages from '@/components/FeaturedPackages';
-// import DestinationShowcase from '@/components/DestinationShowcase';
-import ModernDestinationShowcase from '@/components/ModernDestinationShowcase';
+import DestinationShowcase from '@/components/DestinationShowcase';
+// import ModernDestinationShowcase from '@/components/ModernDestinationShowcase';
 import ExperienceShowcase from '@/components/ExperienceShowcase';
 import TestimonialSection from '@/components/TestimonialSection';
 import AboutSection from '@/components/AboutSection';
@@ -15,7 +15,7 @@ const Home = () => {
       <Hero />
       <Highlights />
       <FeaturedPackages />
-      <ModernDestinationShowcase />
+      <DestinationShowcase />
       <ExperienceShowcase />
       <TestimonialSection />
       <AboutSection />
