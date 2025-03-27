@@ -43,6 +43,7 @@ interface ItineraryDay {
   activities?: Activity[];
   accommodation?: Accommodation | string;
   meals?: Meals;
+  imageUrl?: string;
 }
 
 interface RelatedTour {
@@ -191,7 +192,8 @@ const EnhancedPackageDetail = () => {
                 day,
                 title,
                 description: `Visit key attractions in ${title} with your private guide. Experience authentic Sri Lankan culture and cuisine.`,
-                accommodation: "Luxury Hotel"
+                accommodation: "Luxury Hotel",
+                imageUrl: `https://source.unsplash.com/featured/?srilanka,${title.replace(/ /g, '')}`
               });
             }
           });
@@ -234,8 +236,8 @@ const EnhancedPackageDetail = () => {
           title: day.title,
           description: day.description,
           accommodation: accommodationString,
-          // We'll use dynamic Unsplash images based on the location name
-          imageUrl: `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`
+          // Use the imageUrl from the itinerary data if it exists, otherwise generate one dynamically
+          imageUrl: day.imageUrl || `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`
         };
       });
       

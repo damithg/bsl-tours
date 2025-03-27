@@ -27,12 +27,11 @@ const VisualTimeline: React.FC<VisualTimelineProps> = ({ data, className }) => {
               {/* Day Number Circle */}
               <div className="absolute left-[18px] top-0 w-[24px] h-[24px] rounded-full bg-[var(--secondary)] border-4 border-[var(--primary)] z-10"></div>
               
-              {/* Day Header */}
+              {/* Day Header - Title only */}
               <div className="mb-6">
                 <h3 className="text-2xl font-semibold text-[var(--accent)]">
-                  Day {day.day}
+                  {day.title}
                 </h3>
-                <h4 className="text-xl font-medium mt-2 text-gray-700">{day.title}</h4>
               </div>
               
               {/* Day Content */}
