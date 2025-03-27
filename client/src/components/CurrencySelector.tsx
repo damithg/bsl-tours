@@ -30,7 +30,7 @@ export function CurrencySelector() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 rounded-md py-2 px-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        className="flex items-center gap-1.5 rounded-md py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors h-10"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
@@ -38,7 +38,7 @@ export function CurrencySelector() {
           <img 
             src={currency.flag} 
             alt={currency.code} 
-            className="h-4 w-5 object-cover rounded-[1px]" 
+            className="h-4 w-5 object-contain rounded-sm" 
           />
           <span className="font-medium">{currency.code}</span>
         </div>
@@ -46,16 +46,16 @@ export function CurrencySelector() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-1 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute right-0 z-10 mt-1 w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <ul
-            className="py-2 max-h-60 overflow-auto"
+            className="py-1 max-h-60 overflow-auto"
             role="listbox"
             aria-labelledby="currency-selector"
           >
             {currencies.map((option) => (
               <li
                 key={option.code}
-                className={`flex items-center px-4 py-2.5 text-sm cursor-pointer transition-colors
+                className={`flex items-center px-3 py-3 text-sm cursor-pointer transition-colors
                   ${currency.code === option.code 
                     ? 'bg-gray-50 text-primary font-medium' 
                     : 'text-gray-700 hover:bg-gray-50'
@@ -64,11 +64,11 @@ export function CurrencySelector() {
                 aria-selected={currency.code === option.code}
                 onClick={() => handleSelect(option)}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 w-full justify-start">
                   <img 
                     src={option.flag} 
                     alt={option.code} 
-                    className="h-4 w-5 object-cover rounded-[1px]" 
+                    className="h-4 w-5 object-contain rounded-sm" 
                   />
                   <span className="font-medium">{option.code}</span>
                 </div>
