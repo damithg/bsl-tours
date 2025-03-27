@@ -9,7 +9,7 @@ export interface Currency {
   flag?: string; // Flag emoji or image URL
 }
 
-// Default supported currencies
+// Default supported currencies - USD must be the first item for default fallback
 export const SUPPORTED_CURRENCIES: Currency[] = [
   { code: 'USD', symbol: '$', name: 'US Dollar', rate: 1, flag: '/images/flags/us.svg' },
   { code: 'EUR', symbol: '€', name: 'Euro', rate: 0.93, flag: '/images/flags/eu.svg' },

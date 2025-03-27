@@ -35,13 +35,11 @@ export function CurrencySelector() {
         aria-haspopup="listbox"
       >
         <div className="flex items-center gap-2">
-          {currency.flag && (
-            <img 
-              src={currency.flag} 
-              alt={currency.code} 
-              className="h-4 w-5 object-cover rounded-[1px]" 
-            />
-          )}
+          <img 
+            src={currency.flag} 
+            alt={currency.code} 
+            className="h-4 w-5 object-cover rounded-[1px]" 
+          />
           <span className="font-medium">{currency.code}</span>
         </div>
         <ChevronDown className="h-3.5 w-3.5 text-gray-500 ml-0.5" />
@@ -67,13 +65,11 @@ export function CurrencySelector() {
                 onClick={() => handleSelect(option)}
               >
                 <div className="flex items-center gap-2">
-                  {option.flag && (
-                    <img 
-                      src={option.flag} 
-                      alt={option.code} 
-                      className="h-4 w-5 object-cover rounded-[1px]" 
-                    />
-                  )}
+                  <img 
+                    src={option.flag} 
+                    alt={option.code} 
+                    className="h-4 w-5 object-cover rounded-[1px]" 
+                  />
                   <span className="font-medium">{option.code}</span>
                 </div>
               </li>
