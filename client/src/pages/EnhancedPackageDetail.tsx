@@ -487,7 +487,7 @@ const EnhancedPackageDetail = () => {
               {/* Tour Description */}
               <div className="mb-16">
                 <div className="mb-8">
-                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556] mb-4">
+                  <h2 className="text-3xl font-bold mb-4">
                     {packageData.title}
                   </h2>
                 </div>
@@ -500,7 +500,7 @@ const EnhancedPackageDetail = () => {
                 />
                 {packageData.tourHighlights && (
                   <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-3">Tour Highlights</h3>
+                    <h3 className="text-xl font-semibold mb-3">Tour Highlights</h3>
                     <div className="text-gray-700">{packageData.tourHighlights}</div>
                   </div>
                 )}
@@ -510,7 +510,7 @@ const EnhancedPackageDetail = () => {
               {itinerary.length > 0 && (
                 <div className="mb-16">
                   <div className="mb-8">
-                    <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">Explore Your Journey</h2>
+                    <h2 className="text-3xl font-bold">Explore Your Journey</h2>
                   </div>
                   {/* Temporarily hidden for theme fixes
                   <TourRouteMap 
@@ -530,7 +530,7 @@ const EnhancedPackageDetail = () => {
               <div className="mb-16">
                 <div className="flex justify-between items-center mb-8">
                   <div>
-                    <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">Day-by-Day Details</h2>
+                    <h2 className="text-3xl font-bold">Day-by-Day Details</h2>
                   </div>
                   
                   {/* View Toggle */}
@@ -612,7 +612,7 @@ const EnhancedPackageDetail = () => {
               {/* Includes/Excludes Section */}
               <div className="mb-16">
                 <div className="mb-8">
-                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#103556]">What's Included</h2>
+                  <h2 className="text-3xl font-bold">What's Included</h2>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -721,7 +721,7 @@ const EnhancedPackageDetail = () => {
               
               {/* Need Help Box */}
               <div className="mt-8 bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
-                <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-4">
+                <h3 className="text-xl font-semibold mb-4">
                   Need Help?
                 </h3>
                 <p className="text-gray-600 mb-4">
@@ -749,7 +749,7 @@ const EnhancedPackageDetail = () => {
               
               {/* Customize Box */}
               <div className="mt-8 bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
-                <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556] mb-4">
+                <h3 className="text-xl font-semibold mb-4">
                   Need Customizations?
                 </h3>
                 <p className="text-muted-foreground mb-4">
@@ -773,7 +773,7 @@ const EnhancedPackageDetail = () => {
               <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Luxury Experiences</span>
               <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
             </div>
-            <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#103556] mb-6">
+            <h2 className="text-4xl font-bold mb-6">
               You May Also Like
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -796,7 +796,7 @@ const EnhancedPackageDetail = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 </div>
                 <div className="p-8 border-b border-l border-r border-gray-100">
-                  <h3 className="font-['Playfair_Display'] text-2xl font-semibold mb-3 text-[#103556]">{tour.title}</h3>
+                  <h3 className="text-2xl font-semibold mb-3">{tour.title}</h3>
                   <p className="text-gray-600 mb-6">{tour.description}</p>
                   <div className="flex justify-between items-center">
                     <div>
@@ -826,7 +826,7 @@ const EnhancedPackageDetail = () => {
                 <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Book Your Journey</span>
                 <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
               </div>
-              <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#103556] mb-6">
+              <h2 className="text-4xl font-bold mb-6">
                 Interested in This Tour?
               </h2>
               <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
@@ -854,7 +854,7 @@ const EnhancedPackageDetail = () => {
               <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Traveler Experiences</span>
               <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
             </div>
-            <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#103556] mb-6">
+            <h2 className="text-4xl font-bold mb-6">
               What Our Guests Say
             </h2>
             <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
@@ -872,7 +872,7 @@ const EnhancedPackageDetail = () => {
                     JD
                   </div>
                   <div>
-                    <h4 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556]">James Davies</h4>
+                    <h4 className="text-xl font-semibold">James Davies</h4>
                     <p className="text-gray-500">United Kingdom</p>
                     <div className="text-[#D4AF37] mt-1">
                       <i className="fas fa-star"></i>
@@ -900,7 +900,7 @@ const EnhancedPackageDetail = () => {
                     SM
                   </div>
                   <div>
-                    <h4 className="font-['Playfair_Display'] text-xl font-semibold text-[#103556]">Sarah Mitchell</h4>
+                    <h4 className="text-xl font-semibold">Sarah Mitchell</h4>
                     <p className="text-gray-500">Australia</p>
                     <div className="text-[#D4AF37] mt-1">
                       <i className="fas fa-star"></i>
@@ -940,7 +940,7 @@ const EnhancedPackageDetail = () => {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-['Playfair_Display'] text-4xl font-bold mb-6">Ready to Experience Luxury in Sri Lanka?</h2>
+            <h2 className="text-4xl font-bold mb-6">Ready to Experience Luxury in Sri Lanka?</h2>
             <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
             <p className="text-xl text-white/80 mb-10">
               Our team of luxury travel specialists is waiting to craft your perfect Sri Lankan journey. 
