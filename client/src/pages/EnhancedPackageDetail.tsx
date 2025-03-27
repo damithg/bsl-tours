@@ -17,11 +17,32 @@ import {
 } from "@/components/ui/accordion";
 
 // Helper Types
+interface Activity {
+  title: string;
+  description: string;
+  imageUrl?: string;
+  time?: string;
+}
+
+interface Accommodation {
+  name: string;
+  description?: string;
+  imageUrl?: string;
+}
+
+interface Meals {
+  breakfast: boolean;
+  lunch: boolean;
+  dinner: boolean;
+}
+
 interface ItineraryDay {
   day: number;
   title: string;
   description: string;
-  accommodation?: string;
+  activities?: Activity[];
+  accommodation?: Accommodation | string;
+  meals?: Meals;
 }
 
 interface RelatedTour {
@@ -48,21 +69,38 @@ const EnhancedPackageDetail = () => {
   const [timelineData, setTimelineData] = useState<TimelineDayData[]>([]);
   const [itineraryView, setItineraryView] = useState<'standard' | 'visual'>('standard');
 
-  // Determine query based on available parameters
-  const queryKey = slug 
+  // Determine queries based on available parameters
+  const packageQueryKey = slug 
     ? ['/api/tour-packages/by-slug/', slug] 
     : ['/api/tour-packages', parseInt(id || "0")];
+    
+  const itineraryQueryKey = slug 
+    ? ['/api/tour-packages/by-slug/', slug, '/itinerary'] 
+    : ['/api/tour-packages', parseInt(id || "0"), '/itinerary'];
 
   // Fetch tour package data
-  const { data: packageData, isLoading, error } = useQuery<TourPackage>({
-    queryKey,
+  const { 
+    data: packageData, 
+    isLoading: isPackageLoading, 
+    error: packageError 
+  } = useQuery<TourPackage>({
+    queryKey: packageQueryKey,
+  });
+  
+  // Fetch itinerary data directly from the new endpoint
+  const { 
+    data: itineraryData, 
+    isLoading: isItineraryLoading,
+    error: itineraryError
+  } = useQuery<ItineraryDay[]>({
+    queryKey: itineraryQueryKey,
+    enabled: !!packageData, // Only fetch itinerary once we have package data
   });
 
   // Process JSON fields when data is loaded
   useEffect(() => {
     if (packageData) {
       console.log("Package data received:", packageData);
-      console.log("Itinerary field:", packageData.itinerary);
       
       // Handle gallery images
       // First check for galleryImages array in the API response
@@ -111,74 +149,91 @@ const EnhancedPackageDetail = () => {
         }
       }
 
-      // Parse itinerary if available
-      if (packageData.itinerary) {
-        console.log("Itinerary field:", packageData.itinerary);
-        // First check if it's already a JSON string
-        try {
-          const parsedItinerary = JSON.parse(packageData.itinerary);
-          console.log("Parsed itinerary as JSON:", parsedItinerary);
-          
-          // Check if we got a valid array
-          if (Array.isArray(parsedItinerary) && parsedItinerary.length > 0) {
-            setItinerary(parsedItinerary);
-          } else {
-            // Not a valid array, fall through to next parsing option
-            throw new Error("Not a valid itinerary array");
-          }
-        } catch (e) {
-          console.log("Itinerary is not a JSON string, trying to parse from text format");
-          
-          // Try to parse as plain text format with "Day X: Description" format
-          if (typeof packageData.itinerary === 'string' && packageData.itinerary.includes('Day')) {
-            const lines = packageData.itinerary.split('\n');
-            const parsedItinerary: ItineraryDay[] = [];
-            
-            lines.forEach(line => {
-              const match = line.match(/Day (\d+)(?:-\d+)?: (.+)/);
-              if (match) {
-                const day = parseInt(match[1]);
-                const title = match[2].trim();
-                
-                parsedItinerary.push({
-                  day,
-                  title,
-                  description: `Visit key attractions in ${title} with your private guide. Experience authentic Sri Lankan culture and cuisine.`,
-                  accommodation: "Luxury Hotel"
-                });
-              }
-            });
-            
-            console.log("Parsed itinerary from text:", parsedItinerary);
-            
-            if (parsedItinerary.length > 0) {
-              setItinerary(parsedItinerary);
-            } else {
-              console.log("Could not parse itinerary from text format");
-              setItinerary([]);
-            }
-          } else {
-            console.log("Itinerary is not in expected format");
-            setItinerary([]);
-          }
-        }
-      } else {
-        console.log("No itinerary field found in package data");
-        setItinerary([]);
-      }
+      // We'll handle itinerary in a separate useEffect that watches itineraryData
     }
   }, [packageData]);
+  
+  // Process itinerary data from API or parse from package data if needed
+  useEffect(() => {
+    if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0) {
+      // If we have structured itinerary data from the API endpoint
+      console.log("Using structured itinerary data from API:", itineraryData);
+      setItinerary(itineraryData);
+    } else if (packageData?.itinerary) {
+      console.log("Itinerary field from package data:", packageData.itinerary);
+      // First check if it's already a JSON string
+      try {
+        const parsedItinerary = JSON.parse(packageData.itinerary);
+        console.log("Parsed itinerary as JSON:", parsedItinerary);
+        
+        // Check if we got a valid array
+        if (Array.isArray(parsedItinerary) && parsedItinerary.length > 0) {
+          setItinerary(parsedItinerary);
+        } else {
+          // Not a valid array, fall through to next parsing option
+          throw new Error("Not a valid itinerary array");
+        }
+      } catch (e) {
+        console.log("Itinerary is not a JSON string, trying to parse from text format");
+        
+        // Try to parse as plain text format with "Day X: Description" format
+        if (typeof packageData.itinerary === 'string' && packageData.itinerary.includes('Day')) {
+          const lines = packageData.itinerary.split('\n');
+          const parsedItinerary: ItineraryDay[] = [];
+          
+          lines.forEach(line => {
+            const match = line.match(/Day (\d+)(?:-\d+)?: (.+)/);
+            if (match) {
+              const day = parseInt(match[1]);
+              const title = match[2].trim();
+              
+              parsedItinerary.push({
+                day,
+                title,
+                description: `Visit key attractions in ${title} with your private guide. Experience authentic Sri Lankan culture and cuisine.`,
+                accommodation: "Luxury Hotel"
+              });
+            }
+          });
+          
+          console.log("Parsed itinerary from text:", parsedItinerary);
+          
+          if (parsedItinerary.length > 0) {
+            setItinerary(parsedItinerary);
+          } else {
+            console.log("Could not parse itinerary from text format");
+            setItinerary([]);
+          }
+        } else {
+          console.log("Itinerary is not in expected format");
+          setItinerary([]);
+        }
+      }
+    } else {
+      console.log("No itinerary data available");
+      setItinerary([]);
+    }
+  }, [packageData, itineraryData]);
 
   // Transform itinerary data into visual timeline format when itinerary changes
   useEffect(() => {
     if (itinerary.length > 0) {
       // Simple transformation from itinerary to visual timeline data
       const transformedData: TimelineDayData[] = itinerary.map(day => {
+        // Convert accommodation to string if it's an object
+        let accommodationString: string | undefined;
+        
+        if (typeof day.accommodation === 'object' && day.accommodation !== null) {
+          accommodationString = day.accommodation.name;
+        } else if (typeof day.accommodation === 'string') {
+          accommodationString = day.accommodation;
+        }
+        
         return {
           day: day.day,
           title: day.title,
           description: day.description,
-          accommodation: day.accommodation,
+          accommodation: accommodationString,
           // We'll use dynamic Unsplash images based on the location name
           imageUrl: `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`
         };
@@ -275,7 +330,7 @@ const EnhancedPackageDetail = () => {
   ];
 
   // Loading state
-  if (isLoading) {
+  if (isPackageLoading || isItineraryLoading) {
     return (
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -295,7 +350,7 @@ const EnhancedPackageDetail = () => {
   }
 
   // Error state
-  if (error || !packageData) {
+  if (packageError || itineraryError || !packageData) {
     return (
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -515,7 +570,11 @@ const EnhancedPackageDetail = () => {
                                 <p className="text-gray-600 mb-4 leading-relaxed">{day.description}</p>
                                 {day.accommodation && day.accommodation !== "N/A" && (
                                   <div className="bg-[#f8f7f2] px-4 py-3 rounded-lg inline-block">
-                                    <span className="font-semibold text-[#103556]">Accommodation:</span> {day.accommodation}
+                                    <span className="font-semibold text-[#103556]">Accommodation:</span> {
+                                      typeof day.accommodation === 'object' 
+                                        ? day.accommodation.name 
+                                        : day.accommodation
+                                    }
                                   </div>
                                 )}
                               </div>

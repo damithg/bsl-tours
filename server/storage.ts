@@ -85,7 +85,107 @@ export class MemStorage implements IStorage {
         imageUrl: "https://images.unsplash.com/photo-1594818379496-da1e345318f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 50,
         reviewCount: 24,
-        featured: true
+        featured: true,
+        slug: "cultural-triangle-luxury-tour",
+        itinerary: JSON.stringify([
+          {
+            day: 1,
+            title: "Arrive in Colombo",
+            description: "Begin your Sri Lankan adventure as you arrive at Bandaranaike International Airport. Your private chauffeur will greet you and transfer you to your luxury hotel in Colombo. Rest and recover from your journey before an evening welcome dinner.",
+            activities: [
+              {
+                title: "Airport Welcome",
+                description: "Meet and greet with your dedicated tour guide",
+                time: "Upon arrival"
+              },
+              {
+                title: "Hotel Check-in",
+                description: "Settle into your luxury accommodation",
+                imageUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                time: "Afternoon"
+              },
+              {
+                title: "Welcome Dinner",
+                description: "Enjoy an authentic Sri Lankan dinner at a premier restaurant",
+                imageUrl: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                time: "7:00 PM"
+              }
+            ],
+            accommodation: {
+              name: "Shangri-La Colombo",
+              description: "5-star luxury overlooking the Indian Ocean",
+              imageUrl: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80"
+            },
+            meals: {
+              breakfast: false,
+              lunch: false,
+              dinner: true
+            }
+          },
+          {
+            day: 2,
+            title: "Colombo to Anuradhapura",
+            description: "After breakfast, depart for Anuradhapura, the ancient capital of Sri Lanka. Enjoy a scenic drive through rural landscapes before arriving at your hotel. In the afternoon, begin exploring the UNESCO World Heritage site.",
+            activities: [
+              {
+                title: "Scenic Drive",
+                description: "Journey through picturesque countryside with stops for refreshments",
+                imageUrl: "https://images.unsplash.com/photo-1516466788553-69e7d654afa2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                time: "9:00 AM"
+              },
+              {
+                title: "Anuradhapura Introduction",
+                description: "Brief orientation tour of the ancient city with your expert guide",
+                imageUrl: "https://images.unsplash.com/photo-1588997427895-f5564729948e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                time: "3:00 PM"
+              }
+            ],
+            accommodation: {
+              name: "Ulagalla Resort",
+              description: "Luxury eco-resort set in 58 acres of tropical gardens",
+              imageUrl: "https://images.unsplash.com/photo-1548704806-0c20f7ea6474?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80"
+            },
+            meals: {
+              breakfast: true,
+              lunch: true,
+              dinner: true
+            }
+          },
+          {
+            day: 3,
+            title: "Explore Anuradhapura",
+            description: "Spend a full day exploring the ancient ruins, stupas, and archaeological wonders of Anuradhapura. Visit the sacred Sri Maha Bodhi tree, the oldest documented tree in the world.",
+            activities: [
+              {
+                title: "Sacred City Tour",
+                description: "Visit key sites including Ruwanwelisaya Stupa and Isurumuniya Temple",
+                imageUrl: "https://images.unsplash.com/photo-1588997427895-f5564729948e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                time: "8:30 AM"
+              },
+              {
+                title: "Sri Maha Bodhi",
+                description: "Visit the sacred Bo Tree, a sapling from the tree under which Buddha attained enlightenment",
+                imageUrl: "https://images.unsplash.com/photo-1587123368812-59eca8bf5a15?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                time: "2:00 PM"
+              },
+              {
+                title: "Evening Relaxation",
+                description: "Enjoy spa treatments or relaxation at the resort",
+                time: "6:00 PM"
+              }
+            ],
+            accommodation: {
+              name: "Ulagalla Resort",
+              description: "Luxury eco-resort set in 58 acres of tropical gardens",
+              imageUrl: "https://images.unsplash.com/photo-1548704806-0c20f7ea6474?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80"
+            },
+            meals: {
+              breakfast: true,
+              lunch: true,
+              dinner: true
+            }
+          }
+        ])
       },
       {
         title: "Coastal Serenity Escape",

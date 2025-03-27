@@ -129,7 +129,126 @@ namespace BSLTours.API.Services
                     Price = 3899,
                     Duration = 10,
                     Inclusions = "Luxury accommodation, Private guide, All meals, Entrance fees, Airport transfers", 
-                    Itinerary = "Day 1: Arrive in Colombo\nDay 2: Colombo to Anuradhapura\nDay 3: Explore Anuradhapura\nDay 4: Polonnaruwa\nDay 5: Sigiriya and Dambulla\nDay 6-7: Kandy\nDay 8: Nuwara Eliya\nDay 9: Colombo\nDay 10: Departure",
+                    Itinerary = System.Text.Json.JsonSerializer.Serialize(new List<ItineraryDay>
+                    {
+                        new ItineraryDay
+                        {
+                            Day = 1,
+                            Title = "Arrive in Colombo",
+                            Description = "Begin your Sri Lankan adventure as you arrive at Bandaranaike International Airport. Your private chauffeur will greet you and transfer you to your luxury hotel in Colombo. Rest and recover from your journey before an evening welcome dinner.",
+                            Activities = new List<Activity>
+                            {
+                                new Activity
+                                {
+                                    Title = "Airport Welcome",
+                                    Description = "Meet and greet with your dedicated tour guide",
+                                    Time = "Upon arrival"
+                                },
+                                new Activity
+                                {
+                                    Title = "Hotel Check-in",
+                                    Description = "Settle into your luxury accommodation",
+                                    ImageUrl = "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                                    Time = "Afternoon"
+                                },
+                                new Activity
+                                {
+                                    Title = "Welcome Dinner",
+                                    Description = "Enjoy an authentic Sri Lankan dinner at a premier restaurant",
+                                    ImageUrl = "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                                    Time = "7:00 PM"
+                                }
+                            },
+                            Accommodation = new Accommodation
+                            {
+                                Name = "Shangri-La Colombo",
+                                Description = "5-star luxury overlooking the Indian Ocean",
+                                ImageUrl = "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80"
+                            },
+                            Meals = new Meals
+                            {
+                                Breakfast = false,
+                                Lunch = false,
+                                Dinner = true
+                            }
+                        },
+                        new ItineraryDay
+                        {
+                            Day = 2,
+                            Title = "Colombo to Anuradhapura",
+                            Description = "After breakfast, depart for Anuradhapura, the ancient capital of Sri Lanka. Enjoy a scenic drive through rural landscapes before arriving at your hotel. In the afternoon, begin exploring the UNESCO World Heritage site.",
+                            Activities = new List<Activity>
+                            {
+                                new Activity
+                                {
+                                    Title = "Scenic Drive",
+                                    Description = "Journey through picturesque countryside with stops for refreshments",
+                                    ImageUrl = "https://images.unsplash.com/photo-1516466788553-69e7d654afa2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                                    Time = "9:00 AM"
+                                },
+                                new Activity
+                                {
+                                    Title = "Anuradhapura Introduction",
+                                    Description = "Brief orientation tour of the ancient city with your expert guide",
+                                    ImageUrl = "https://images.unsplash.com/photo-1588997427895-f5564729948e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                                    Time = "3:00 PM"
+                                }
+                            },
+                            Accommodation = new Accommodation
+                            {
+                                Name = "Ulagalla Resort",
+                                Description = "Luxury eco-resort set in 58 acres of tropical gardens",
+                                ImageUrl = "https://images.unsplash.com/photo-1548704806-0c20f7ea6474?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80"
+                            },
+                            Meals = new Meals
+                            {
+                                Breakfast = true,
+                                Lunch = true,
+                                Dinner = true
+                            }
+                        },
+                        new ItineraryDay
+                        {
+                            Day = 3,
+                            Title = "Explore Anuradhapura",
+                            Description = "Spend a full day exploring the ancient ruins, stupas, and archaeological wonders of Anuradhapura. Visit the sacred Sri Maha Bodhi tree, the oldest documented tree in the world.",
+                            Activities = new List<Activity>
+                            {
+                                new Activity
+                                {
+                                    Title = "Sacred City Tour",
+                                    Description = "Visit key sites including Ruwanwelisaya Stupa and Isurumuniya Temple",
+                                    ImageUrl = "https://images.unsplash.com/photo-1588997427895-f5564729948e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                                    Time = "8:30 AM"
+                                },
+                                new Activity
+                                {
+                                    Title = "Sri Maha Bodhi",
+                                    Description = "Visit the sacred Bo Tree, a sapling from the tree under which Buddha attained enlightenment",
+                                    ImageUrl = "https://images.unsplash.com/photo-1587123368812-59eca8bf5a15?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+                                    Time = "2:00 PM"
+                                },
+                                new Activity
+                                {
+                                    Title = "Evening Relaxation",
+                                    Description = "Enjoy spa treatments or relaxation at the resort",
+                                    Time = "6:00 PM"
+                                }
+                            },
+                            Accommodation = new Accommodation
+                            {
+                                Name = "Ulagalla Resort",
+                                Description = "Luxury eco-resort set in 58 acres of tropical gardens",
+                                ImageUrl = "https://images.unsplash.com/photo-1548704806-0c20f7ea6474?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80"
+                            },
+                            Meals = new Meals
+                            {
+                                Breakfast = true,
+                                Lunch = true,
+                                Dinner = true
+                            }
+                        }
+                    }),
                     IsFeatured = true,
                     DestinationId = 1,
                     Rating = 50,

@@ -62,6 +62,35 @@ namespace BSLTours.API.Controllers
             
             return Ok(tourPackage);
         }
+        
+        [HttpGet("{id:int}/itinerary")]
+        public async Task<ActionResult<List<ItineraryDay>>> GetTourPackageItinerary(int id)
+        {
+            var tourPackage = await _dataService.GetTourPackageByIdAsync(id);
+            
+            if (tourPackage == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(tourPackage.ItineraryDays);
+        }
+        
+        [HttpGet("by-slug/{slug}/itinerary")]
+        public async Task<ActionResult<List<ItineraryDay>>> GetTourPackageItineraryBySlug(string slug)
+        {
+            _logger.LogInformation($"Looking for itinerary for tour package with slug: {slug}");
+            
+            var tourPackage = await _dataService.GetTourPackageBySlugAsync(slug);
+            
+            if (tourPackage == null)
+            {
+                _logger.LogWarning($"Tour package with slug '{slug}' not found");
+                return NotFound();
+            }
+            
+            return Ok(tourPackage.ItineraryDays);
+        }
 
         [HttpPost]
         public async Task<ActionResult<TourPackage>> CreateTourPackage(CreateTourPackageDto tourPackageDto)
