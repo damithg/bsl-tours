@@ -4,7 +4,8 @@ import { Link, useParams } from "wouter";
 import { TourPackage } from "@/lib/queryClient";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
-import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown } from "lucide-react";
+import VisualTimeline, { TimelineDayData } from "@/components/VisualTimeline";
+import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown, LayoutList, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -44,6 +45,8 @@ const EnhancedPackageDetail = () => {
   const [destinations, setDestinations] = useState<string[]>([]);
   const [itinerary, setItinerary] = useState<ItineraryDay[]>([]);
   const [isInWishlist, setIsInWishlist] = useState(false);
+  const [timelineData, setTimelineData] = useState<TimelineDayData[]>([]);
+  const [itineraryView, setItineraryView] = useState<'standard' | 'visual'>('standard');
 
   // Determine query based on available parameters
   const queryKey = slug 
@@ -165,6 +168,71 @@ const EnhancedPackageDetail = () => {
       }
     }
   }, [packageData]);
+
+  // Transform itinerary data into visual timeline format when itinerary changes
+  useEffect(() => {
+    if (itinerary.length > 0) {
+      // Sample timeline data creation with mock times and images
+      const transformedData: TimelineDayData[] = itinerary.map(day => {
+        // Create a date string (this is just a placeholder, in a real app you'd use actual dates)
+        const dateString = `Day ${day.day} of your journey`;
+        
+        // Create some sample events for each day
+        const morningEvent = {
+          id: `${day.day}-1`,
+          time: '9 AM',
+          title: `Morning: ${day.title.split(' - ')[0] || 'Explore local attractions'}`,
+          description: 'Start your day with a delicious breakfast before heading out for morning activities.',
+          imageUrl: `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`,
+          category: 'morning' as const
+        };
+        
+        const midDayEvent = {
+          id: `${day.day}-2`,
+          time: '11 AM',
+          title: 'Cultural Experience',
+          description: 'Immerse yourself in local culture with guided activities.',
+          imageUrl: `https://source.unsplash.com/featured/?culture,${day.title.replace(/ /g, '')}`,
+          category: 'morning' as const
+        };
+        
+        const lunchEvent = {
+          id: `${day.day}-3`,
+          time: '1 PM',
+          title: 'Lunch at Local Restaurant',
+          description: 'Enjoy authentic Sri Lankan cuisine prepared with fresh local ingredients.',
+          imageUrl: 'https://source.unsplash.com/featured/?srilanka,food',
+          category: 'afternoon' as const
+        };
+        
+        const afternoonEvent = {
+          id: `${day.day}-4`,
+          time: '3 PM',
+          title: `Afternoon: ${day.title.split(' - ')[1] || 'Leisure time'}`,
+          description: day.description,
+          imageUrl: `https://source.unsplash.com/featured/?travel,${day.title.replace(/ /g, '')}`,
+          category: 'afternoon' as const
+        };
+        
+        const eveningEvent = {
+          id: `${day.day}-5`,
+          time: '7 PM',
+          title: 'Dinner & Relaxation',
+          description: day.accommodation ? `Dinner and overnight stay at ${day.accommodation}` : 'Dinner at a premium restaurant followed by relaxation at your accommodation.',
+          imageUrl: 'https://source.unsplash.com/featured/?luxury,hotel',
+          category: 'evening' as const
+        };
+        
+        return {
+          day: day.day,
+          date: dateString,
+          events: [morningEvent, midDayEvent, lunchEvent, afternoonEvent, eveningEvent]
+        };
+      });
+      
+      setTimelineData(transformedData);
+    }
+  }, [itinerary]);
 
   // Format rating to display as stars (50 = 5 stars)
   const formatRating = (rating: number | null) => {
@@ -444,38 +512,72 @@ const EnhancedPackageDetail = () => {
               
               {/* Detailed Itinerary Section - For Additional Details */}
               <div className="mb-16">
-                <div className="luxury-section-title mb-8">
-                  <h2>Day-by-Day Details</h2>
-                  <div className="gold-divider"></div>
+                <div className="flex justify-between items-center mb-8">
+                  <div className="luxury-section-title">
+                    <h2>Day-by-Day Details</h2>
+                    <div className="gold-divider"></div>
+                  </div>
+                  
+                  {/* View Toggle */}
+                  {itinerary.length > 0 && (
+                    <div className="flex items-center gap-3 bg-gray-100 p-1.5 rounded-md">
+                      <button 
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded ${itineraryView === 'standard' ? 'bg-white shadow-sm text-[var(--accent)]' : 'text-gray-500 hover:text-gray-700'}`}
+                        onClick={() => setItineraryView('standard')}
+                      >
+                        <List className="h-4 w-4" />
+                        <span className="text-sm font-medium">Standard</span>
+                      </button>
+                      <button 
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded ${itineraryView === 'visual' ? 'bg-white shadow-sm text-[var(--accent)]' : 'text-gray-500 hover:text-gray-700'}`}
+                        onClick={() => setItineraryView('visual')}
+                      >
+                        <LayoutList className="h-4 w-4" />
+                        <span className="text-sm font-medium">Visual</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
                 
                 {itinerary.length > 0 ? (
-                  <Accordion type="single" collapsible className="w-full border rounded-xl overflow-hidden">
-                    {itinerary.map((day) => (
-                      <AccordionItem key={day.day} value={`day-${day.day}`} className="border-b last:border-0">
-                        <AccordionTrigger className="py-6 px-6 hover:no-underline bg-[#f9f8f5] hover:bg-[#f5f3eb]">
-                          <div className="flex items-center text-left">
-                            <div className="w-12 h-12 bg-[var(--accent)] text-white rounded-full flex items-center justify-center shadow-md mr-4 flex-shrink-0">
-                              <span className="text-sm font-bold">Day {day.day}</span>
-                            </div>
-                            <h3 className="text-xl font-semibold">
-                              {day.title}
-                            </h3>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-6 pt-2 pb-6">
-                          <div className="ml-16">
-                            <p className="text-gray-600 mb-4 leading-relaxed">{day.description}</p>
-                            {day.accommodation && day.accommodation !== "N/A" && (
-                              <div className="bg-[#f8f7f2] px-4 py-3 rounded-lg inline-block">
-                                <span className="font-semibold text-[#103556]">Accommodation:</span> {day.accommodation}
+                  <>
+                    {/* Standard View - Accordion Style */}
+                    {itineraryView === 'standard' && (
+                      <Accordion type="single" collapsible className="w-full border rounded-xl overflow-hidden">
+                        {itinerary.map((day) => (
+                          <AccordionItem key={day.day} value={`day-${day.day}`} className="border-b last:border-0">
+                            <AccordionTrigger className="py-6 px-6 hover:no-underline bg-[#f9f8f5] hover:bg-[#f5f3eb]">
+                              <div className="flex items-center text-left">
+                                <div className="w-12 h-12 bg-[var(--accent)] text-white rounded-full flex items-center justify-center shadow-md mr-4 flex-shrink-0">
+                                  <span className="text-sm font-bold">Day {day.day}</span>
+                                </div>
+                                <h3 className="text-xl font-semibold">
+                                  {day.title}
+                                </h3>
                               </div>
-                            )}
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-6 pt-2 pb-6">
+                              <div className="ml-16">
+                                <p className="text-gray-600 mb-4 leading-relaxed">{day.description}</p>
+                                {day.accommodation && day.accommodation !== "N/A" && (
+                                  <div className="bg-[#f8f7f2] px-4 py-3 rounded-lg inline-block">
+                                    <span className="font-semibold text-[#103556]">Accommodation:</span> {day.accommodation}
+                                  </div>
+                                )}
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
+                    )}
+                    
+                    {/* Visual Timeline View */}
+                    {itineraryView === 'visual' && (
+                      <div className="bg-white rounded-xl border p-8">
+                        <VisualTimeline data={timelineData} />
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className="text-center p-8 bg-[#f8f7f2] rounded-lg border border-[#D4AF37]/20">
                     <p className="text-lg text-gray-600 mb-3">
