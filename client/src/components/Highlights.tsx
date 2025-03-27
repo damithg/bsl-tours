@@ -1,6 +1,4 @@
 import React from 'react';
-import AdaptiveImage from './AdaptiveImage';
-import PolaroidImage from './PolaroidImage';
 
 const Highlights = () => {
   const features = [
@@ -11,45 +9,6 @@ const Highlights = () => {
     {
       title: "Customizable Packages",
       description: "Tailor your trip to Sri Lanka according to your preferences and interests."
-    }
-  ];
-
-  // Image data with smart cropping focus points
-  const images = [
-    {
-      id: 'main',
-      src: '/images/experiences/romantic-honeymoon.jpg',
-      alt: 'Romantic honeymoon beach in Sri Lanka',
-      caption: 'Infinity Beach Resort',
-      focusPoint: '50% 50%',
-    },
-    {
-      id: 'surf',
-      src: '/images/experiences/mirissa-surf.jpg',
-      alt: 'Surfing in Mirissa, Sri Lanka',
-      caption: 'Mirissa Beach',
-      focusPoint: '40% 40%',
-    },
-    {
-      id: 'aerial',
-      src: '/images/experiences/mirissa-aerial.jpg',
-      alt: 'Aerial view of Mirissa beach, Sri Lanka',
-      caption: 'Mirissa Coast',
-      focusPoint: '50% 50%',
-    },
-    {
-      id: 'bridge',
-      src: '/images/experiences/nine-arch-bridge.jpg',
-      alt: 'Nine Arch Bridge in Ella, Sri Lanka',
-      caption: 'Nine Arch Bridge, Ella',
-      focusPoint: '50% 40%',
-    },
-    {
-      id: 'tea',
-      src: '/images/experiences/tea-plantation.jpg',
-      alt: 'Tea plantation in Sri Lanka highlands',
-      caption: 'Tea Plantations, Nuwara Eliya',
-      focusPoint: '50% 60%',
     }
   ];
 
@@ -104,58 +63,65 @@ const Highlights = () => {
             <div className="relative h-[500px] w-full hidden sm:block">
               {/* Main large image - Romantic beach with reflection */}
               <div className="absolute right-0 top-0 w-[85%] h-[320px] rounded-xl overflow-hidden shadow-xl z-10">
-                <AdaptiveImage 
-                  src={images[0].src}
-                  alt={images[0].alt}
-                  aspectRatio="landscape"
-                  focusPoint={images[0].focusPoint}
-                  className="h-full"
+                <img 
+                  src="/images/experiences/romantic-honeymoon.jpg" 
+                  alt="Romantic honeymoon beach in Sri Lanka"
+                  className="w-full h-full object-cover" 
+                  style={{ objectPosition: '50% 50%' }}
                 />
               </div>
               
               {/* Polaroid-style image 1 - Surfer girl */}
-              <PolaroidImage
-                src={images[1].src}
-                alt={images[1].alt}
-                caption={images[1].caption}
-                focusPoint={images[1].focusPoint}
-                className="absolute top-[50px] left-0 w-[180px] h-[210px]"
-                rotation={-5}
-                zIndex={20}
-              />
+              <div className="absolute top-[50px] left-0 w-[180px] h-[210px] bg-white p-3 rounded-md shadow-lg transform rotate-[-5deg] z-20">
+                <div className="w-full h-[170px] overflow-hidden mb-2">
+                  <img 
+                    src="/images/experiences/mirissa-surf.jpg" 
+                    alt="Surfing in Mirissa, Sri Lanka"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '40% 40%' }}
+                  />
+                </div>
+                <p className="text-xs text-center text-gray-600 font-medium">Mirissa Beach</p>
+              </div>
               
               {/* Polaroid-style image 2 - Nine Arch Bridge */}
-              <PolaroidImage
-                src={images[3].src}
-                alt={images[3].alt}
-                caption={images[3].caption}
-                focusPoint={images[3].focusPoint}
-                className="absolute bottom-[20px] right-[35%] w-[200px] h-[230px]"
-                rotation={3}
-                zIndex={30}
-              />
+              <div className="absolute bottom-[20px] right-[35%] w-[200px] h-[230px] bg-white p-3 rounded-md shadow-lg transform rotate-[3deg] z-30">
+                <div className="w-full h-[190px] overflow-hidden mb-2">
+                  <img 
+                    src="/images/experiences/nine-arch-bridge.jpg" 
+                    alt="Nine Arch Bridge in Ella, Sri Lanka"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '50% 40%' }}
+                  />
+                </div>
+                <p className="text-xs text-center text-gray-600 font-medium">Nine Arch Bridge, Ella</p>
+              </div>
               
               {/* Polaroid-style image 3 - Aerial beach */}
-              <PolaroidImage
-                src={images[2].src}
-                alt={images[2].alt}
-                caption={images[2].caption}
-                focusPoint={images[2].focusPoint}
-                className="absolute top-[100px] right-[70px] w-[170px] h-[200px]"
-                rotation={8}
-                zIndex={50}
-              />
+              <div className="absolute top-[100px] right-[70px] w-[170px] h-[200px] bg-white p-3 rounded-md shadow-lg transform rotate-[8deg] z-50">
+                <div className="w-full h-[160px] overflow-hidden mb-2">
+                  <img 
+                    src="/images/experiences/mirissa-aerial.jpg" 
+                    alt="Aerial view of Mirissa beach, Sri Lanka"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '50% 50%' }}
+                  />
+                </div>
+                <p className="text-xs text-center text-gray-600 font-medium">Mirissa Coast</p>
+              </div>
               
               {/* Polaroid-style image 4 - Tea plantation */}
-              <PolaroidImage
-                src={images[4].src}
-                alt={images[4].alt}
-                caption={images[4].caption}
-                focusPoint={images[4].focusPoint}
-                className="absolute bottom-[30px] right-0 w-[190px] h-[220px]"
-                rotation={-4}
-                zIndex={40}
-              />
+              <div className="absolute bottom-[30px] right-0 w-[190px] h-[220px] bg-white p-3 rounded-md shadow-lg transform rotate-[-4deg] z-40">
+                <div className="w-full h-[180px] overflow-hidden mb-2">
+                  <img 
+                    src="/images/experiences/tea-plantation.jpg" 
+                    alt="Tea plantation in Sri Lanka highlands"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '50% 60%' }}
+                  />
+                </div>
+                <p className="text-xs text-center text-gray-600 font-medium">Tea Plantations, Nuwara Eliya</p>
+              </div>
             </div>
 
             {/* Mobile version (optimized grid, shown only on small screens) */}
@@ -164,10 +130,10 @@ const Highlights = () => {
               <div className="mb-6">
                 <div className="w-full h-[230px] rounded-xl overflow-hidden shadow-lg">
                   <img 
-                    src={images[0].src}
-                    alt={images[0].alt}
-                    className="w-full h-full object-cover"
-                    style={{ objectPosition: images[0].focusPoint }}
+                    src="/images/experiences/romantic-honeymoon.jpg" 
+                    alt="Romantic honeymoon beach in Sri Lanka"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '50% 50%' }}
                   />
                 </div>
               </div>
@@ -175,55 +141,55 @@ const Highlights = () => {
               {/* Mobile image grid - 2x2 with polaroid images */}
               <div className="grid grid-cols-2 gap-4">
                 {/* Polaroid 1 - Mirissa Beach */}
-                <div className="bg-white p-2 rounded-md shadow-md overflow-hidden h-36">
-                  <div className="w-full h-[110px] overflow-hidden mb-2">
+                <div className="bg-white p-2 rounded-md shadow-md">
+                  <div className="w-full aspect-square overflow-hidden mb-2">
                     <img 
-                      src={images[1].src}
-                      alt={images[1].alt}
-                      className="w-full h-full object-cover"
-                      style={{ objectPosition: images[1].focusPoint }}
+                      src="/images/experiences/mirissa-surf.jpg" 
+                      alt="Surfing in Mirissa, Sri Lanka"
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: '40% 40%' }}
                     />
                   </div>
-                  <p className="text-xs text-center text-gray-600 font-medium">{images[1].caption}</p>
+                  <p className="text-xs text-center text-gray-600 font-medium">Mirissa Beach</p>
                 </div>
                 
                 {/* Polaroid 2 - Aerial View */}
-                <div className="bg-white p-2 rounded-md shadow-md overflow-hidden h-36">
-                  <div className="w-full h-[110px] overflow-hidden mb-2">
+                <div className="bg-white p-2 rounded-md shadow-md">
+                  <div className="w-full aspect-square overflow-hidden mb-2">
                     <img 
-                      src={images[2].src}
-                      alt={images[2].alt} 
-                      className="w-full h-full object-cover"
-                      style={{ objectPosition: images[2].focusPoint }}
+                      src="/images/experiences/mirissa-aerial.jpg" 
+                      alt="Aerial view of Mirissa beach, Sri Lanka"
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: '50% 50%' }}
                     />
                   </div>
-                  <p className="text-xs text-center text-gray-600 font-medium">{images[2].caption}</p>
+                  <p className="text-xs text-center text-gray-600 font-medium">Mirissa Coast</p>
                 </div>
                 
                 {/* Polaroid 3 - Nine Arch Bridge */}
-                <div className="bg-white p-2 rounded-md shadow-md overflow-hidden h-36">
-                  <div className="w-full h-[110px] overflow-hidden mb-2">
+                <div className="bg-white p-2 rounded-md shadow-md">
+                  <div className="w-full aspect-square overflow-hidden mb-2">
                     <img 
-                      src={images[3].src}
-                      alt={images[3].alt}
-                      className="w-full h-full object-cover"
-                      style={{ objectPosition: images[3].focusPoint }}
+                      src="/images/experiences/nine-arch-bridge.jpg" 
+                      alt="Nine Arch Bridge in Ella, Sri Lanka"
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: '50% 40%' }}
                     />
                   </div>
-                  <p className="text-xs text-center text-gray-600 font-medium">{images[3].caption}</p>
+                  <p className="text-xs text-center text-gray-600 font-medium">Nine Arch Bridge</p>
                 </div>
                 
                 {/* Polaroid 4 - Tea Plantation */}
-                <div className="bg-white p-2 rounded-md shadow-md overflow-hidden h-36">
-                  <div className="w-full h-[110px] overflow-hidden mb-2">
+                <div className="bg-white p-2 rounded-md shadow-md">
+                  <div className="w-full aspect-square overflow-hidden mb-2">
                     <img 
-                      src={images[4].src}
-                      alt={images[4].alt}
-                      className="w-full h-full object-cover"
-                      style={{ objectPosition: images[4].focusPoint }}
+                      src="/images/experiences/tea-plantation.jpg" 
+                      alt="Tea plantation in Sri Lanka highlands"
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: '50% 60%' }}
                     />
                   </div>
-                  <p className="text-xs text-center text-gray-600 font-medium">{images[4].caption}</p>
+                  <p className="text-xs text-center text-gray-600 font-medium">Tea Plantations</p>
                 </div>
               </div>
             </div>
