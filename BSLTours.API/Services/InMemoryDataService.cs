@@ -123,7 +123,7 @@ namespace BSLTours.API.Services
             {
                 new TourPackage { 
                     Title = "Cultural Triangle Luxury Tour", 
-                    Description = "Explore ancient cities, sacred temples, and the cultural heart of Sri Lanka with luxury accommodations.", 
+                    Description = "The Cultural Triangle Luxury Tour showcases Sri Lanka’s cultural heritage with visits to several World Heritage Sites, including Anuradhapura, Polonnaruwa, Kandy, Dambulla and Sigiriya. \r\n\r\nExplore the mysteries of ancient ruins, observe the daily rites at temples and monasteries and admire the engineering ingenuity of ancient kingdoms, all whilst indulging in Sri Lankan hospitality at luxury hotels that prioritise your comfort, enjoyment and preferences..", 
                     ShortDescription = "10-day luxury tour of Sri Lanka's UNESCO World Heritage sites.",
                     ImageUrl = "/images/packages/cultural-triangle-luxury-tour.jpg",
                     Price = 3899,
@@ -134,7 +134,7 @@ namespace BSLTours.API.Services
                         new ItineraryDay
                         {
                             Day = 1,
-                            Title = "Arrive in Colombo",
+                            Title = "Hello from Sri Lanka",
                             Description = "Begin your Sri Lankan adventure as you arrive at Bandaranaike International Airport. Your private chauffeur will greet you and transfer you to your luxury hotel in Colombo. Rest and recover from your journey before an evening welcome dinner.",
                             Activities = new List<Activity>
                             {
@@ -175,8 +175,8 @@ namespace BSLTours.API.Services
                         new ItineraryDay
                         {
                             Day = 2,
-                            Title = "Colombo to Anuradhapura",
-                            Description = "After breakfast, depart for Anuradhapura, the ancient capital of Sri Lanka. Enjoy a scenic drive through rural landscapes before arriving at your hotel. In the afternoon, begin exploring the UNESCO World Heritage site.",
+                            Title = "Dambulla and Sigiriya",
+                            Description = "Wake up to a sumptuous breakfast with the prospect of a whirlwind shopping extravaganza and an engaging Colombo city tour ahead of you. Take in the vibrant chaos of the island’s commercial capital and its youthful energy before you depart for Dambulla.\r\n\r\nThe town is renowned for the largest and best-preserved cave temple system in Sri Lanka - the Dambulla Cave Temple. Centuries-old and immensely respected, the temple is not just a major Buddhist destination. It is also a monument to the artistry and ingenuity of Sri Lanka’s forefathers, who often built temples as a means to pay their respects to the Buddha and in gratitude for major milestone achievements in their lives.\r\n\r\nIn the evening, visit the Sigiriya Rock Fortress, an iconic landmark within easy reach of Dambulla. The ancient rock fortress was once the capital of the island. The ruins of a fifth-century palace complex still exist at its flat summit. While climbing the metal staircase that winds through the steep rock sides, you will come across many wonders. Marvel at the Sigiriya frescoes - a series of wall paintings - or linger at the Mirror Wall - a smooth section of the rock that bears much ancient graffiti.",
                             Activities = new List<Activity>
                             {
                                 new Activity
