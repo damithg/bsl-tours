@@ -30,25 +30,25 @@ export function CurrencySelector() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-md py-1 px-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        className="flex items-center gap-1.5 rounded-md py-1.5 px-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           {currency.flag && (
             <img 
               src={currency.flag} 
               alt={currency.code} 
-              className="h-3 w-4 object-cover rounded-[1px]" 
+              className="h-4 w-5 object-cover rounded-[1px]" 
             />
           )}
-          <span>{currency.code}</span>
+          <span className="font-medium">{currency.code}</span>
         </div>
-        <ChevronDown className="h-3 w-3 text-gray-500" />
+        <ChevronDown className="h-3.5 w-3.5 text-gray-500 ml-0.5" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-1 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-1">
+        <div className="absolute right-0 z-10 mt-1 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-1">
           <div className="text-xs text-gray-500 uppercase px-3 py-1 border-b">Select currency</div>
           <ul
             className="py-1 max-h-60 overflow-auto"
@@ -67,18 +67,15 @@ export function CurrencySelector() {
                 aria-selected={currency.code === option.code}
                 onClick={() => handleSelect(option)}
               >
-                <div className="flex items-center gap-3 w-full">
+                <div className="flex items-center gap-2">
                   {option.flag && (
                     <img 
                       src={option.flag} 
                       alt={option.code} 
-                      className="h-3 w-4 object-cover rounded-[1px]" 
+                      className="h-4 w-5 object-cover rounded-[1px]" 
                     />
                   )}
-                  <div className="flex justify-between w-full">
-                    <span>{option.code}</span>
-                    <span className="text-gray-500 text-xs">{option.name}</span>
-                  </div>
+                  <span className="font-medium">{option.code}</span>
                 </div>
               </li>
             ))}
