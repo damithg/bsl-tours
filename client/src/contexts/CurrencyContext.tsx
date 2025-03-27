@@ -14,7 +14,6 @@ export const SUPPORTED_CURRENCIES: Currency[] = [
   { code: 'USD', symbol: '$', name: 'US Dollar', rate: 1, flag: '/images/flags/us.svg' },
   { code: 'EUR', symbol: '€', name: 'Euro', rate: 0.93, flag: '/images/flags/eu.svg' },
   { code: 'GBP', symbol: '£', name: 'British Pound', rate: 0.79, flag: '/images/flags/gb.svg' },
-  { code: 'LKR', symbol: 'Rs', name: 'Sri Lankan Rupee', rate: 307.5, flag: '/images/flags/lk.svg' },
   { code: 'AUD', symbol: 'A$', name: 'Australian Dollar', rate: 1.53, flag: '/images/flags/au.svg' },
   { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar', rate: 1.38, flag: '/images/flags/ca.svg' },
 ];
