@@ -15,7 +15,6 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ScrollIndicator from "@/components/ScrollIndicator";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
 
@@ -23,7 +22,6 @@ function Router() {
   return (
     <>
       <Header />
-      <ScrollIndicator />
       <Switch>
         <Route path="/" component={Home} />
         
