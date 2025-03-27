@@ -1,281 +1,203 @@
-import { useQuery } from "@tanstack/react-query";
-import { Destination } from "@shared/schema";
-import { Link } from "wouter";
-import { Home, ChevronRight } from "lucide-react";
+import { useState } from 'react';
+import { Link } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
+import { ChevronRight, MapPin, Calendar, Users } from 'lucide-react';
+import { useCurrency } from '@/contexts/CurrencyContext';
+import { Destination } from '@shared/schema';
 
-const Destinations = () => {
-  const { data: destinations, isLoading, error } = useQuery<Destination[]>({
-    queryKey: ['/api/destinations'],
-  });
+// Helper function to safely parse JSON strings
+const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
+  if (!jsonString) return fallback;
+  try {
+    return JSON.parse(jsonString);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return fallback;
+  }
+};
 
-  // Additional content for featured destination
-  const featuredDestinationContent = {
-    title: "Explore the Wonder of Sri Lanka",
-    description: "From ancient cities to pristine beaches, misty mountains to wildlife sanctuaries, discover the diverse landscapes and cultural treasures of this island paradise.",
-    image: "https://images.unsplash.com/photo-1586861642026-fc21a5ae85b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
-  };
+interface DestinationCardProps {
+  destination: Destination;
+}
 
-  // Other key experiences we offer
-  const keyExperiences = [
-    {
-      title: "Cultural Heritage",
-      description: "Explore UNESCO World Heritage sites, ancient temples, and colonial architecture with expert guides.",
-      icon: "fa-landmark"
-    },
-    {
-      title: "Wildlife Encounters",
-      description: "See leopards, elephants, and exotic birds in their natural habitats with luxury safari experiences.",
-      icon: "fa-paw"
-    },
-    {
-      title: "Beach Luxury",
-      description: "Unwind at exclusive beach resorts with private villas, infinity pools, and personalized service.",
-      icon: "fa-umbrella-beach"
-    },
-    {
-      title: "Tea Plantation Tours",
-      description: "Journey through emerald tea fields and learn about Ceylon tea production with private tastings.",
-      icon: "fa-mug-hot"
-    }
-  ];
-
+const DestinationCard = ({ destination }: DestinationCardProps) => {
+  // Parse highlights if they exist
+  const highlightItems = destination.highlights 
+    ? safeJsonParse(destination.highlights, ['Wildlife', 'Culture', 'Adventure'])
+    : ['Wildlife', 'Culture', 'Adventure'];
+  
   return (
-    <main>
-      {/* Hero Section with Breadcrumbs */}
-      <section className="relative h-[500px] bg-[#0F4C81]">
-        <div className="absolute inset-0 z-0 opacity-30">
-          <img 
-            src={featuredDestinationContent.image} 
-            alt="Sri Lanka destinations" 
-            className="w-full h-full object-cover" 
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent"></div>
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <img 
+          src={destination.imageUrl} 
+          alt={destination.name} 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        {destination.featured && (
+          <div className="absolute top-4 right-4 bg-primary/90 text-white px-3 py-1 rounded-full text-sm font-medium">
+            Featured
+          </div>
+        )}
+      </div>
+      
+      <div className="p-6">
+        <h3 className="font-['Playfair_Display'] text-2xl font-bold mb-2 text-gray-900">
+          {destination.name}
+        </h3>
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28">
-          {/* Breadcrumb Navigation */}
-          <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
-                  <Home className="w-4 h-4 mr-2" />
-                  Home
-                </Link>
-              </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <ChevronRight className="w-5 h-5 text-white/60" />
-                  <span className="ml-1 text-sm font-medium text-white/80">
-                    Destinations
-                  </span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-          
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              {featuredDestinationContent.title}
-            </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              {featuredDestinationContent.description}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Key Experiences */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Experiences</h2>
-            <p className="text-lg text-[#333333]/80">Discover Sri Lanka through our carefully curated experiences that combine luxury, authenticity, and exclusivity.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {keyExperiences.map((experience, index) => (
-              <div key={index} className="bg-[#F8F5F0] p-8 rounded-lg text-center">
-                <div className="w-16 h-16 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mx-auto mb-6">
-                  <i className={`fas ${experience.icon} text-2xl text-[#0F4C81]`}></i>
-                </div>
-                <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{experience.title}</h3>
-                <p className="text-[#333333]/70">{experience.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Destinations Grid */}
-      <section className="py-16 bg-[#F8F5F0]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Stunning Destinations</h2>
-            <p className="text-lg text-[#333333]/80">Explore Sri Lanka's most captivating locations, each offering unique experiences and luxury accommodations.</p>
-          </div>
-          
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[...Array(6)].map((_, index) => (
-                <div key={index} className="bg-white rounded-lg overflow-hidden shadow-lg h-96 animate-pulse">
-                  <div className="h-64 bg-gray-300"></div>
-                  <div className="p-6">
-                    <div className="h-6 bg-gray-300 rounded w-1/2 mb-3"></div>
-                    <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-                    <div className="h-4 bg-gray-300 rounded w-2/3"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : error ? (
-            <div className="text-center py-8">
-              <p className="text-red-500">Failed to load destinations. Please try again later.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {destinations?.map((destination) => (
-                <div key={destination.id} className="bg-white rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
-                  <div className="relative h-64">
-                    <img 
-                      src={destination.imageUrl} 
-                      alt={destination.name} 
-                      className="w-full h-full object-cover" 
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{destination.name}</h3>
-                    <p className="text-[#333333]/70 mb-4">{destination.description}</p>
-                    <Link href={`/destination/${destination.slug}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
-                      Explore Experiences
-                      <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Featured Destination - Detailed */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center">
-            <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0">
-              <Link href="/destination/sigiriya-rock-fortress" className="block hover:text-[#2E8B57] transition">
-                <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">Sigiriya: The Ancient Wonder</h2>
-              </Link>
-              <p className="text-lg text-[#333333]/80 mb-6">Rising dramatically from the central plains, the iconic rocky outcrop of Sigiriya is perhaps Sri Lanka's most dramatic sight. Near-vertical walls soar to a flat-topped summit that contains the ruins of an ancient civilization, thought to be once the epicenter of the short-lived kingdom of Kassapa.</p>
-              <p className="text-lg text-[#333333]/80 mb-8">Our luxury experience includes exclusive early morning access before other tourists arrive, a gourmet breakfast with panoramic views, and insights from an archaeology expert who will reveal the secrets of this UNESCO World Heritage Site.</p>
-              
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
-                    <i className="fas fa-check text-[#0F4C81]"></i>
-                  </div>
-                  <p className="text-[#333333]/80">Private guided tour with archaeology specialist</p>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
-                    <i className="fas fa-check text-[#0F4C81]"></i>
-                  </div>
-                  <p className="text-[#333333]/80">Luxury helicopter transfers available</p>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
-                    <i className="fas fa-check text-[#0F4C81]"></i>
-                  </div>
-                  <p className="text-[#333333]/80">Stay at the exclusive Water Garden Sigiriya luxury resort</p>
-                </div>
-              </div>
-              
-              <Link href="/contact" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
-                Inquire About This Experience
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </Link>
-            </div>
-            
-            <div className="lg:w-1/2">
-              <div className="relative">
-                <Link href="/destination/sigiriya-rock-fortress">
-                  <img 
-                    src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                    alt="Sigiriya Rock Fortress" 
-                    className="rounded-lg shadow-xl hover:opacity-95 transition-opacity" 
-                  />
-                </Link>
-                <div className="absolute -bottom-10 -right-10 p-6 bg-white rounded-lg shadow-lg max-w-xs hidden md:block">
-                  <div className="flex items-center mb-4">
-                    <i className="fas fa-star text-[#D4AF37] text-2xl mr-4"></i>
-                    <h3 className="font-['Playfair_Display'] text-lg font-semibold">Exclusive Experience</h3>
-                  </div>
-                  <p className="text-[#333333]/70">Our guests enjoy private access to areas closed to regular visitors.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="py-16 bg-[#F8F5F0]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-4">Explore Sri Lanka</h2>
-            <p className="text-lg text-[#333333]/80">Discover the diverse regions of Sri Lanka and start planning your luxury journey.</p>
-          </div>
-          
-          <div className="bg-white p-8 rounded-lg shadow-lg relative">
-            <img 
-              src="https://images.unsplash.com/photo-1604998103924-89e012e5265a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
-              alt="Map of Sri Lanka" 
-              className="w-full h-auto rounded-lg"
-            />
-            {/* Map would normally have interactive elements - simplified for this demo */}
-            <div className="mt-8 text-center">
-              <Link href="/contact" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition">
-                Plan Your Journey
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-            alt="Sri Lanka landscape" 
-            className="w-full h-full object-cover" 
-          />
+        <div className="flex items-center text-gray-500 mb-3">
+          <MapPin className="w-4 h-4 mr-1" />
+          <span className="text-sm">{destination.region || 'Sri Lanka'}</span>
         </div>
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to Discover Sri Lanka's Treasures?
-            </h2>
-            <p className="text-xl text-white/80 mb-10">
-              Let our experts craft a personalized journey through these stunning destinations, tailored to your preferences and travel style.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/packages" className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
-                View Luxury Packages
-              </Link>
-              <Link href="/contact" className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-md transition">
-                Contact Our Experts
-              </Link>
-            </div>
-          </div>
+        <p className="text-gray-600 mb-4 line-clamp-2">
+          {destination.shortDescription || destination.description}
+        </p>
+        
+        <div className="flex flex-wrap gap-2 mb-5">
+          {highlightItems.slice(0, 3).map((highlight, idx) => (
+            <span key={idx} className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-700">
+              {highlight}
+            </span>
+          ))}
         </div>
-      </section>
-    </main>
+        
+        <Link 
+          href={`/destination/${destination.slug}`} 
+          className="inline-flex items-center text-primary font-medium hover:underline group"
+        >
+          Explore Destination
+          <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+        </Link>
+      </div>
+    </div>
   );
 };
 
-export default Destinations;
+export default function Destinations() {
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const { formatPrice } = useCurrency();
+  
+  // Fetch destinations from API
+  const { data: destinations, isLoading, error } = useQuery<Destination[]>({
+    queryKey: ['/api/destinations'],
+  });
+  
+  // Available regions
+  const regions = destinations 
+    ? [...new Set(destinations.map(d => d.region).filter(Boolean))]
+    : [];
+  
+  // Filter destinations based on selected region
+  const filteredDestinations = destinations?.filter(d => 
+    selectedRegion ? d.region === selectedRegion : true
+  ) || [];
+  
+  // Loading state
+  if (isLoading) {
+    return (
+      <main className="pt-24 pb-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto mb-10">
+            <div className="bg-gray-200 h-12 w-1/2 rounded animate-pulse mb-4"></div>
+            <div className="bg-gray-200 h-24 rounded animate-pulse"></div>
+          </div>
+          
+          <div className="flex flex-wrap mb-8 gap-2 justify-center">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="bg-gray-200 h-10 w-28 rounded-full animate-pulse"></div>
+            ))}
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="bg-gray-200 h-96 rounded-2xl animate-pulse"></div>
+            ))}
+          </div>
+        </div>
+      </main>
+    );
+  }
+  
+  // Error state
+  if (error || !destinations) {
+    return (
+      <main className="pt-24 pb-16">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="font-['Playfair_Display'] text-4xl font-bold mb-6">
+            Destinations
+          </h1>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            We're currently updating our destination information. Please check back soon to explore our featured destinations.
+          </p>
+          <Link href="/contact" className="inline-block bg-primary text-white hover:bg-primary/90 font-medium py-3 px-8 rounded-full transition">
+            Contact Us
+          </Link>
+        </div>
+      </main>
+    );
+  }
+  
+  return (
+    <main className="pt-24 pb-16 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold mb-4">
+            Discover Sri Lanka
+          </h1>
+          <p className="text-gray-600 text-lg">
+            Explore our curated selection of destinations across Sri Lanka - from ancient cultural
+            sites to pristine beaches and wildlife sanctuaries. Each destination offers unique
+            experiences that showcase the island's incredible diversity.
+          </p>
+        </div>
+        
+        {/* Region filter */}
+        {regions.length > 0 && (
+          <div className="flex flex-wrap mb-10 gap-2 justify-center">
+            <button
+              onClick={() => setSelectedRegion(null)}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition
+                        ${!selectedRegion 
+                          ? 'bg-primary text-white' 
+                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+            >
+              All Regions
+            </button>
+            {regions.map((region) => (
+              <button
+                key={region}
+                onClick={() => setSelectedRegion(region)}
+                className={`px-5 py-2 rounded-full text-sm font-medium transition
+                          ${selectedRegion === region 
+                            ? 'bg-primary text-white' 
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+              >
+                {region}
+              </button>
+            ))}
+          </div>
+        )}
+        
+        {/* Destinations grid */}
+        {filteredDestinations.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredDestinations.map((destination) => (
+              <DestinationCard key={destination.id} destination={destination} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-10">
+            <h3 className="text-xl font-medium mb-2">No destinations found</h3>
+            <p className="text-gray-600">
+              {selectedRegion 
+                ? `We don't have any destinations in ${selectedRegion} yet. Please check other regions.`
+                : 'We are currently adding new destinations. Please check back soon!'}
+            </p>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}

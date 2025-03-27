@@ -1,9 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'wouter';
 import { ChevronRight } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import { useQuery } from '@tanstack/react-query';
-import { Destination } from '@shared/schema';
+
+// Define the type for destination data
+interface Destination {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  shortDescription?: string;
+  imageUrl: string;
+  highlights: string[];
+}
 
 interface DestinationCardProps {
   destination: Destination;
@@ -12,22 +21,8 @@ interface DestinationCardProps {
   onClick: () => void;
 }
 
-// Helper function to safely parse JSON strings
-const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
-  if (!jsonString) return fallback;
-  try {
-    return JSON.parse(jsonString);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-    return fallback;
-  }
-};
-
 const DestinationCard = ({ destination, index, isActive, onClick }: DestinationCardProps) => {
-  // Parse highlights if they exist
-  const highlightItems = destination.highlights 
-    ? safeJsonParse(destination.highlights, ['Wildlife Encounters', 'Luxury Accommodations', 'Guided Tours'])
-    : ['Wildlife Encounters', 'Luxury Accommodations', 'Guided Tours'];
+  const highlightItems = destination.highlights || ['Wildlife Encounters', 'Luxury Accommodations', 'Guided Tours'];
 
   return (
     <div 
@@ -93,58 +88,63 @@ export function ModernDestinationShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { formatPrice } = useCurrency();
   
-  // Fetch destinations from API
-  const { data: destinations, isLoading, error } = useQuery<Destination[]>({
-    queryKey: ['/api/destinations'],
-  });
-
-  // Filter featured destinations or use all if none are featured
-  const featuredDestinations = destinations?.filter(d => d.featured) || [];
-  const displayDestinations = featuredDestinations.length > 0 ? featuredDestinations : destinations || [];
-  
-  // Loading state
-  if (isLoading) {
-    return (
-      <section className="py-16 bg-black text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row mb-12">
-            <div className="lg:w-1/2">
-              <div className="bg-white/10 h-16 rounded animate-pulse mb-4"></div>
-              <div className="bg-white/10 h-16 rounded animate-pulse"></div>
-            </div>
-            <div className="lg:w-1/2 lg:pl-12">
-              <div className="bg-white/10 h-28 rounded animate-pulse mt-4 lg:mt-8"></div>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            {[1, 2, 3, 4, 5, 6].map((_, index) => (
-              <div key={index} className="bg-white/10 h-80 rounded animate-pulse"></div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // Error state
-  if (error || !displayDestinations.length) {
-    return (
-      <section className="py-16 bg-black text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-['Playfair_Display'] text-3xl font-bold mb-6">
-            Discover Sri Lanka's Beauty
-          </h2>
-          <p className="text-white/80 mb-8">
-            We're currently updating our destination information. Please check back soon to explore our featured destinations.
-          </p>
-          <Link href="/contact" className="inline-block bg-white text-black hover:bg-white/90 font-medium py-4 px-10 rounded-full transition">
-            Contact Us
-          </Link>
-        </div>
-      </section>
-    );
-  }
+  // Hardcoded destination data for homepage showcase
+  const destinations: Destination[] = [
+    {
+      id: 1,
+      name: "Sigiriya Rock Fortress",
+      slug: "sigiriya-rock-fortress",
+      description: "Ancient rock fortress with panoramic views and stunning frescoes",
+      shortDescription: "Experience the ancient marvel of Sigiriya Rock Fortress, a UNESCO World Heritage site with breathtaking views and fascinating history.",
+      imageUrl: "https://images.unsplash.com/photo-1586613835341-6003c0e2fb11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80",
+      highlights: ["UNESCO Heritage", "Panoramic Views", "Ancient Frescoes"]
+    },
+    {
+      id: 2,
+      name: "Yala National Park",
+      slug: "yala-national-park",
+      description: "Sri Lanka's most famous wildlife sanctuary renowned for its leopard population",
+      shortDescription: "Encounter majestic leopards, elephants, and diverse birdlife in Sri Lanka's premier wildlife reserve.",
+      imageUrl: "https://images.unsplash.com/photo-1590179068383-b9c69aacebd3?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+      highlights: ["Wildlife Safari", "Leopard Spotting", "Bird Watching"]
+    },
+    {
+      id: 3,
+      name: "Mirissa Beach",
+      slug: "mirissa-beach",
+      description: "Idyllic beach known for whale watching, surfing, and relaxed atmosphere",
+      shortDescription: "Relax on golden sands, surf perfect waves, and embark on unforgettable whale watching expeditions.",
+      imageUrl: "/attached_assets/mirissa (7).jpg",
+      highlights: ["Whale Watching", "Surfing", "Beachfront Dining"]
+    },
+    {
+      id: 4,
+      name: "Kandy Sacred City",
+      slug: "kandy-sacred-city",
+      description: "Cultural capital and home to the Temple of the Sacred Tooth Relic",
+      shortDescription: "Immerse yourself in Sri Lanka's cultural heritage in this sacred city nestled among misty hills.",
+      imageUrl: "https://images.unsplash.com/photo-1588258147375-2a853c2eca41?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+      highlights: ["Sacred Temple", "Cultural Shows", "Royal Botanic Gardens"]
+    },
+    {
+      id: 5,
+      name: "Ella",
+      slug: "ella",
+      description: "Picturesque mountain village with hiking trails and stunning views",
+      shortDescription: "Adventure through tea plantations, hike to spectacular viewpoints, and ride the iconic blue train.",
+      imageUrl: "https://images.unsplash.com/photo-1586269615957-3808b1c4936b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+      highlights: ["Nine Arch Bridge", "Little Adam's Peak", "Scenic Train Ride"]
+    },
+    {
+      id: 6,
+      name: "Galle Fort",
+      slug: "galle-fort",
+      description: "Colonial-era fortress with Dutch architecture, boutiques and cafes",
+      shortDescription: "Wander through centuries-old streets, discover artisan boutiques, and watch breathtaking sunsets from the ramparts.",
+      imageUrl: "https://images.unsplash.com/photo-1577351045094-8dccaf5b7273?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+      highlights: ["Colonial Architecture", "Artisan Shops", "Sunset Views"]
+    }
+  ];
   
   return (
     <section className="py-16 bg-black text-white">
@@ -164,7 +164,7 @@ export function ModernDestinationShowcase() {
         
         {/* Grid of destinations */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          {displayDestinations.slice(0, 6).map((destination, index) => (
+          {destinations.slice(0, 6).map((destination, index) => (
             <DestinationCard 
               key={destination.id}
               destination={destination}
@@ -198,9 +198,14 @@ export function ModernDestinationShowcase() {
         
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <Link href="/contact" className="inline-block bg-white text-black hover:bg-white/90 font-medium py-4 px-10 rounded-full transition">
-            Book Your Journey
-          </Link>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/contact" className="inline-block bg-white text-black hover:bg-white/90 font-medium py-4 px-10 rounded-full transition">
+              Book Your Journey
+            </Link>
+            <Link href="/destinations" className="inline-block bg-transparent border border-white text-white hover:bg-white/10 font-medium py-4 px-10 rounded-full transition">
+              View All Destinations
+            </Link>
+          </div>
         </div>
       </div>
     </section>
