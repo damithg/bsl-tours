@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { TourPackage } from "@shared/schema";
 import { Link } from "wouter";
+import { useCurrency } from "../contexts/CurrencyContext";
 
 const TourPackages = () => {
   const { data: packages, isLoading, error } = useQuery<TourPackage[]>({
     queryKey: ['/api/tour-packages'],
   });
+  
+  const { formatPrice } = useCurrency();
 
   // Format rating to display as stars (50 = 5 stars)
   const formatRating = (rating: number | null) => {
@@ -112,7 +115,7 @@ const TourPackages = () => {
                     <div className="flex justify-between items-center">
                       <div>
                         <span className="text-sm text-gray-500">From</span>
-                        <span className="text-[#0F4C81] text-xl font-semibold">${pkg.price.toLocaleString()}</span>
+                        <span className="text-[#0F4C81] text-xl font-semibold">{formatPrice(pkg.price)}</span>
                         <span className="text-gray-500 text-sm">per person</span>
                       </div>
                       <Link 
