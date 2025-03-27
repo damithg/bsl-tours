@@ -145,12 +145,12 @@ const Destinations = () => {
                   <div className="p-6">
                     <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{destination.name}</h3>
                     <p className="text-[#333333]/70 mb-4">{destination.description}</p>
-                    <a href="#" className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
+                    <Link href={`/destination/${destination.id}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
                       Explore Experiences
                       <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                       </svg>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -164,7 +164,9 @@ const Destinations = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0">
-              <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">Sigiriya: The Ancient Wonder</h2>
+              <Link href="/destination/1" className="block hover:text-[#2E8B57] transition">
+                <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">Sigiriya: The Ancient Wonder</h2>
+              </Link>
               <p className="text-lg text-[#333333]/80 mb-6">Rising dramatically from the central plains, the iconic rocky outcrop of Sigiriya is perhaps Sri Lanka's most dramatic sight. Near-vertical walls soar to a flat-topped summit that contains the ruins of an ancient civilization, thought to be once the epicenter of the short-lived kingdom of Kassapa.</p>
               <p className="text-lg text-[#333333]/80 mb-8">Our luxury experience includes exclusive early morning access before other tourists arrive, a gourmet breakfast with panoramic views, and insights from an archaeology expert who will reveal the secrets of this UNESCO World Heritage Site.</p>
               
@@ -199,11 +201,13 @@ const Destinations = () => {
             
             <div className="lg:w-1/2">
               <div className="relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Sigiriya Rock Fortress" 
-                  className="rounded-lg shadow-xl" 
-                />
+                <Link href="/destination/1">
+                  <img 
+                    src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                    alt="Sigiriya Rock Fortress" 
+                    className="rounded-lg shadow-xl hover:opacity-95 transition-opacity" 
+                  />
+                </Link>
                 <div className="absolute -bottom-10 -right-10 p-6 bg-white rounded-lg shadow-lg max-w-xs hidden md:block">
                   <div className="flex items-center mb-4">
                     <i className="fas fa-star text-[#D4AF37] text-2xl mr-4"></i>

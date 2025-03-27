@@ -48,6 +48,22 @@ app.get('/api/tour-packages', async (req, res) => {
   }
 });
 
+// Get destination by ID
+app.get('/api/destinations/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const destination = await storage.getDestinationById(id);
+    
+    if (!destination) {
+      return res.status(404).json({ error: 'Destination not found' });
+    }
+    
+    res.json(destination);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch destination' });
+  }
+});
+
 // Get featured tour packages
 app.get('/api/tour-packages/featured', async (req, res) => {
   try {

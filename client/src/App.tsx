@@ -8,6 +8,7 @@ import TourPackages from "@/pages/TourPackages";
 import PackageDetail from "@/pages/PackageDetail";
 import EnhancedPackageDetail from "@/pages/EnhancedPackageDetail";
 import Destinations from "@/pages/Destinations";
+import DestinationDetail from "@/pages/DestinationDetail";
 import DestinationMap from "@/pages/DestinationMap";
 import TravelPlanner from "@/pages/TravelPlanner";
 import CustomTourRequest from "@/pages/CustomTourRequest";
@@ -34,8 +35,9 @@ function Router() {
         {/* New slug-based route for tours */}
         <Route path="/tour/:slug" component={EnhancedPackageDetail} />
         
-        {/* Other routes */}
+        {/* Destination routes */}
         <Route path="/destinations" component={Destinations} />
+        <Route path="/destination/:id" component={DestinationDetail} />
         <Route path="/destination-map" component={DestinationMap} />
         <Route path="/travel-planner" component={TravelPlanner} />
         <Route path="/custom-tour-request">
