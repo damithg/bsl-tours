@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdaptiveImage } from './ui/adaptive-image';
-import { ASPECT_RATIOS, DESTINATION_FOCAL_POINTS } from '@/lib/image-utils';
+import { ASPECT_RATIOS } from '@/lib/image-utils';
 
 // Define highlights image data with optimized focal points
 const imageData = {
@@ -8,7 +8,6 @@ const imageData = {
     src: "/images/experiences/romantic-honeymoon.jpg",
     alt: "Romantic honeymoon beach in Sri Lanka",
     focalPoint: { x: 0.5, y: 0.6 }, // Slightly below center to focus on beach/water
-    destinationName: "Romantic Beach"
   },
   polaroid1: {
     src: "/images/experiences/mirissa-surf.jpg",
@@ -93,7 +92,7 @@ const Highlights = () => {
             </div>
           </div>
           
-          {/* Right side - Stacked Images with Adaptive Image component */}
+          {/* Right side - Stacked Images */}
           <div className="lg:w-1/2 relative mt-12 lg:mt-0">
             {/* Desktop version (hidden on mobile) */}
             <div className="relative h-[500px] w-full hidden sm:block">
@@ -103,8 +102,6 @@ const Highlights = () => {
                   src={imageData.main.src}
                   alt={imageData.main.alt}
                   focalPoint={imageData.main.focalPoint}
-                  aspectRatio="21/9"
-                  imageClassName="w-full h-full"
                   containerClassName="w-full h-full"
                 />
               </div>
@@ -112,12 +109,11 @@ const Highlights = () => {
               {/* Polaroid-style image 1 - Surfer girl */}
               <div className="absolute top-[50px] left-0 w-[180px] h-[210px] bg-white p-3 rounded-md shadow-lg transform rotate-[-5deg] z-20">
                 <div className="w-full h-[170px] overflow-hidden mb-2">
-                  <AdaptiveImage 
-                    src={imageData.polaroid1.src}
+                  <img 
+                    src={imageData.polaroid1.src} 
                     alt={imageData.polaroid1.alt}
-                    focalPoint={imageData.polaroid1.focalPoint}
-                    aspectRatio={ASPECT_RATIOS.POLAROID}
-                    imageClassName="w-full h-full"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '40% 40%' }}
                   />
                 </div>
                 <p className="text-xs text-center text-gray-600 font-medium">{imageData.polaroid1.caption}</p>
@@ -126,12 +122,11 @@ const Highlights = () => {
               {/* Polaroid-style image 2 - Nine Arch Bridge */}
               <div className="absolute bottom-[20px] right-[35%] w-[200px] h-[230px] bg-white p-3 rounded-md shadow-lg transform rotate-[3deg] z-30">
                 <div className="w-full h-[190px] overflow-hidden mb-2">
-                  <AdaptiveImage 
-                    src={imageData.polaroid2.src}
+                  <img 
+                    src={imageData.polaroid2.src} 
                     alt={imageData.polaroid2.alt}
-                    focalPoint={imageData.polaroid2.focalPoint}
-                    aspectRatio={ASPECT_RATIOS.POLAROID}
-                    imageClassName="w-full h-full"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '50% 40%' }}
                   />
                 </div>
                 <p className="text-xs text-center text-gray-600 font-medium">{imageData.polaroid2.caption}</p>
@@ -140,12 +135,11 @@ const Highlights = () => {
               {/* Polaroid-style image 3 - Aerial beach */}
               <div className="absolute top-[100px] right-[70px] w-[170px] h-[200px] bg-white p-3 rounded-md shadow-lg transform rotate-[8deg] z-50">
                 <div className="w-full h-[160px] overflow-hidden mb-2">
-                  <AdaptiveImage 
-                    src={imageData.polaroid3.src}
+                  <img 
+                    src={imageData.polaroid3.src} 
                     alt={imageData.polaroid3.alt}
-                    focalPoint={imageData.polaroid3.focalPoint}
-                    aspectRatio={ASPECT_RATIOS.POLAROID}
-                    imageClassName="w-full h-full"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '50% 50%' }}
                   />
                 </div>
                 <p className="text-xs text-center text-gray-600 font-medium">{imageData.polaroid3.caption}</p>
@@ -154,12 +148,11 @@ const Highlights = () => {
               {/* Polaroid-style image 4 - Tea plantation */}
               <div className="absolute bottom-[30px] right-0 w-[190px] h-[220px] bg-white p-3 rounded-md shadow-lg transform rotate-[-4deg] z-40">
                 <div className="w-full h-[180px] overflow-hidden mb-2">
-                  <AdaptiveImage 
-                    src={imageData.polaroid4.src}
+                  <img 
+                    src={imageData.polaroid4.src} 
                     alt={imageData.polaroid4.alt}
-                    focalPoint={imageData.polaroid4.focalPoint}
-                    aspectRatio={ASPECT_RATIOS.POLAROID}
-                    imageClassName="w-full h-full"
+                    className="w-full h-full object-cover" 
+                    style={{ objectPosition: '50% 60%' }}
                   />
                 </div>
                 <p className="text-xs text-center text-gray-600 font-medium">{imageData.polaroid4.caption}</p>
@@ -186,11 +179,11 @@ const Highlights = () => {
                 {/* Polaroid 1 - Mirissa Beach */}
                 <div className="bg-white p-2 rounded-md shadow-md">
                   <div className="w-full aspect-square overflow-hidden mb-2">
-                    <AdaptiveImage 
-                      src={imageData.polaroid1.src}
+                    <img 
+                      src={imageData.polaroid1.src} 
                       alt={imageData.polaroid1.alt}
-                      focalPoint={imageData.polaroid1.focalPoint}
-                      aspectRatio={ASPECT_RATIOS.SQUARE}
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: '40% 40%' }}
                     />
                   </div>
                   <p className="text-xs text-center text-gray-600 font-medium">{imageData.polaroid1.caption}</p>
@@ -199,11 +192,11 @@ const Highlights = () => {
                 {/* Polaroid 2 - Aerial View */}
                 <div className="bg-white p-2 rounded-md shadow-md">
                   <div className="w-full aspect-square overflow-hidden mb-2">
-                    <AdaptiveImage 
-                      src={imageData.polaroid3.src}
+                    <img 
+                      src={imageData.polaroid3.src} 
                       alt={imageData.polaroid3.alt}
-                      focalPoint={imageData.polaroid3.focalPoint}
-                      aspectRatio={ASPECT_RATIOS.SQUARE}
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: '50% 50%' }}
                     />
                   </div>
                   <p className="text-xs text-center text-gray-600 font-medium">{imageData.polaroid3.caption}</p>
@@ -212,11 +205,11 @@ const Highlights = () => {
                 {/* Polaroid 3 - Nine Arch Bridge */}
                 <div className="bg-white p-2 rounded-md shadow-md">
                   <div className="w-full aspect-square overflow-hidden mb-2">
-                    <AdaptiveImage 
-                      src={imageData.polaroid2.src}
+                    <img 
+                      src={imageData.polaroid2.src} 
                       alt={imageData.polaroid2.alt}
-                      focalPoint={imageData.polaroid2.focalPoint}
-                      aspectRatio={ASPECT_RATIOS.SQUARE}
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: '50% 40%' }}
                     />
                   </div>
                   <p className="text-xs text-center text-gray-600 font-medium">{imageData.polaroid2.caption}</p>
@@ -225,11 +218,11 @@ const Highlights = () => {
                 {/* Polaroid 4 - Tea Plantation */}
                 <div className="bg-white p-2 rounded-md shadow-md">
                   <div className="w-full aspect-square overflow-hidden mb-2">
-                    <AdaptiveImage 
-                      src={imageData.polaroid4.src}
+                    <img 
+                      src={imageData.polaroid4.src} 
                       alt={imageData.polaroid4.alt}
-                      focalPoint={imageData.polaroid4.focalPoint}
-                      aspectRatio={ASPECT_RATIOS.SQUARE}
+                      className="w-full h-full object-cover" 
+                      style={{ objectPosition: '50% 60%' }}
                     />
                   </div>
                   <p className="text-xs text-center text-gray-600 font-medium">{imageData.polaroid4.caption}</p>
