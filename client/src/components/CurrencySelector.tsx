@@ -30,33 +30,37 @@ export function CurrencySelector() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 rounded-md py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors h-10"
+        className="flex items-center gap-1.5 rounded-md py-2 px-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors h-10 border border-gray-100 shadow-sm"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
         <div className="flex items-center gap-2">
           {currency.flag ? (
-            <img 
-              src={currency.flag} 
-              alt={currency.code}
-              className="h-4 w-5 object-contain rounded-sm"
-              onError={(e) => {
-                // If the image fails to load, set a default content
-                const target = e.target as HTMLImageElement;
-                target.style.width = '20px';
-                target.style.height = '16px';
-                target.style.display = 'flex';
-                target.style.alignItems = 'center';
-                target.style.justifyContent = 'center';
-                target.style.background = '#f1f5f9';
-                target.style.borderRadius = '2px';
-                target.alt = currency.code.substring(0, 2);
-              }}
-            />
+            <div className="h-4 w-6 overflow-hidden flex items-center justify-center rounded-sm shadow-sm">
+              <img 
+                src={currency.flag} 
+                alt={currency.code}
+                className="h-full w-full object-cover"
+                onError={(e) => {
+                  // If the image fails to load, set a default content
+                  const target = e.target as HTMLImageElement;
+                  const parent = target.parentElement;
+                  if (parent) {
+                    parent.classList.add('bg-gray-100');
+                    parent.textContent = currency.code.substring(0, 2);
+                    parent.style.fontSize = '10px';
+                    parent.style.fontWeight = 'bold';
+                    parent.style.display = 'flex';
+                    parent.style.alignItems = 'center';
+                    parent.style.justifyContent = 'center';
+                  }
+                }}
+              />
+            </div>
           ) : (
-            <span className="h-4 w-5 flex items-center justify-center bg-gray-100 rounded-sm text-[10px] font-bold">
+            <div className="h-4 w-6 flex items-center justify-center bg-gray-100 rounded-sm text-[10px] font-bold shadow-sm">
               {currency.code.substring(0, 2)}
-            </span>
+            </div>
           )}
           <span className="font-medium">{currency.code}</span>
         </div>
@@ -66,14 +70,14 @@ export function CurrencySelector() {
       {isOpen && (
         <div className="absolute right-0 z-10 mt-1 w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <ul
-            className="py-1 max-h-60 overflow-auto"
+            className="py-0.5 max-h-60 overflow-auto"
             role="listbox"
             aria-labelledby="currency-selector"
           >
             {currencies.map((option) => (
               <li
                 key={option.code}
-                className={`flex items-center px-3 py-3 text-sm cursor-pointer transition-colors
+                className={`flex items-center px-3 py-2.5 text-sm cursor-pointer transition-colors
                   ${currency.code === option.code 
                     ? 'bg-gray-50 text-primary font-medium' 
                     : 'text-gray-700 hover:bg-gray-50'
@@ -82,29 +86,33 @@ export function CurrencySelector() {
                 aria-selected={currency.code === option.code}
                 onClick={() => handleSelect(option)}
               >
-                <div className="flex items-center gap-2 w-full justify-start">
+                <div className="flex items-center gap-2.5 w-full justify-start">
                   {option.flag ? (
-                    <img 
-                      src={option.flag} 
-                      alt={option.code}
-                      className="h-4 w-5 object-contain rounded-sm"
-                      onError={(e) => {
-                        // If the image fails to load, set a default content
-                        const target = e.target as HTMLImageElement;
-                        target.style.width = '20px';
-                        target.style.height = '16px';
-                        target.style.display = 'flex';
-                        target.style.alignItems = 'center';
-                        target.style.justifyContent = 'center';
-                        target.style.background = '#f1f5f9';
-                        target.style.borderRadius = '2px';
-                        target.alt = option.code.substring(0, 2);
-                      }}
-                    />
+                    <div className="h-4 w-6 overflow-hidden flex items-center justify-center rounded-sm shadow-sm">
+                      <img 
+                        src={option.flag} 
+                        alt={option.code}
+                        className="h-full w-full object-cover"
+                        onError={(e) => {
+                          // If the image fails to load, set a default content
+                          const target = e.target as HTMLImageElement;
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.classList.add('bg-gray-100');
+                            parent.textContent = option.code.substring(0, 2);
+                            parent.style.fontSize = '10px';
+                            parent.style.fontWeight = 'bold';
+                            parent.style.display = 'flex';
+                            parent.style.alignItems = 'center';
+                            parent.style.justifyContent = 'center';
+                          }
+                        }}
+                      />
+                    </div>
                   ) : (
-                    <span className="h-4 w-5 flex items-center justify-center bg-gray-100 rounded-sm text-[10px] font-bold">
+                    <div className="h-4 w-6 flex items-center justify-center bg-gray-100 rounded-sm text-[10px] font-bold shadow-sm">
                       {option.code.substring(0, 2)}
-                    </span>
+                    </div>
                   )}
                   <span className="font-medium">{option.code}</span>
                 </div>
