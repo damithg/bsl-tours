@@ -506,30 +506,12 @@ const EnhancedPackageDetail = () => {
                 )}
               </div>
               
-              {/* Tour Map & Itinerary - Integrated Experience */}
-              {itinerary.length > 0 && (
-                <div className="mb-16">
-                  <div className="mb-8">
-                    <h2 className="text-3xl font-bold">Explore Your Journey</h2>
-                  </div>
-                  {/* Temporarily hidden for theme fixes
-                  <TourRouteMap 
-                    itinerary={itinerary}
-                    destinations={packageData.destinations?.split(',').map(d => d.trim()) || []}
-                    className="w-full"
-                  />
-                  */}
-                  <div className="p-5 bg-gray-50 rounded-lg border border-gray-100 text-center">
-                    <div className="text-gray-500">Tour route visualization is currently being improved.</div>
-                    <div className="text-sm text-gray-400 mt-2">Check back later for an enhanced interactive experience.</div>
-                  </div>
-                </div>
-              )}
+              {/* Tour Map & Itinerary - Integrated Experience - Hidden per request */}
               
               {/* Detailed Itinerary Section - For Additional Details */}
               <div className="mb-16">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold">Day-by-Day Details</h2>
+                  <h2 className="text-3xl font-bold">Journey Highlights</h2>
                 </div>
                 
                 {itinerary.length > 0 ? (
@@ -570,7 +552,7 @@ const EnhancedPackageDetail = () => {
                     
                     {/* Visual Timeline View */}
                     {itineraryView === 'visual' && (
-                      <div className="bg-white rounded-xl border p-8">
+                      <div className="bg-white px-0">
                         <VisualTimeline data={timelineData} />
                       </div>
                     )}
