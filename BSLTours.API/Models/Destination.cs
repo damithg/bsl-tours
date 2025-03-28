@@ -7,6 +7,8 @@ namespace BSLTours.API.Models
     public class Destination
     {
         public int Id { get; set; }
+
+        public string Excerpt { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
         public string Description { get; set; }

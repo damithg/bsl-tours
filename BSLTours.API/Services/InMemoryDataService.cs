@@ -223,10 +223,11 @@ namespace BSLTours.API.Services
         
         private void InitializeTourPackages()
         {
-            // Sample Tour Package 1: Cultural Triangle Luxury Tour
+            // cultural-triangle-luxury-tour
             var culturalTour = new TourPackage
             {
                 Id = tourPackageIdCounter++,
+                Excerpt = "Explore ancient cities, sacred temples, and the cultural heart of Sri Lanka with luxury accommodations.",
                 Title = "Cultural Triangle Luxury Tour",
                 Slug = "cultural-triangle-luxury-tour",
                 Description = "Explore ancient cities, sacred temples, and the cultural heart of Sri Lanka with luxury accommodations.",
@@ -362,11 +363,12 @@ namespace BSLTours.API.Services
             };
             
             tourPackages.Add(culturalTour);
-            
-            // Sample Tour Package 2: Sri Lankan Beach Escape
+
+            // sri-lankan-beach-escape
             var beachEscape = new TourPackage
             {
                 Id = tourPackageIdCounter++,
+                Excerpt = "Relax and unwind at the finest beaches of Sri Lanka's southern coast with luxury accommodations.",
                 Title = "Sri Lankan Beach Escape",
                 Slug = "sri-lankan-beach-escape",
                 Description = "Relax and unwind at the finest beaches of Sri Lanka's southern coast with luxury accommodations.",
