@@ -222,10 +222,10 @@ const FeaturedPackages = () => {
                 <div className="p-6">
                   <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{pkg.title}</h3>
                   <div className="flex items-center mb-4">
-                    {formatRating(50)}
-                    <span className="text-sm text-gray-500 ml-2">5.0 (25 reviews)</span>
+                    {formatRating(pkg.rating || 50)}
+                    <span className="text-sm text-gray-500 ml-2">{((pkg.rating || 50) / 10).toFixed(1)} ({pkg.reviewCount || 25} reviews)</span>
                   </div>
-                  <p className="text-[#333333]/70 mb-4">{pkg.excerpt || pkg.description}</p>
+                  <p className="text-[#333333]/70 mb-4">{pkg.shortDescription || pkg.description}</p>
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-gray-500">From</span>

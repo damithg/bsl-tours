@@ -54,7 +54,7 @@ interface RelatedTour {
   price: number;
   imageUrl: string;
   description: string;
-  excerpt?: string;
+  shortDescription?: string;
 }
 
 const EnhancedPackageDetail = () => {
@@ -328,7 +328,8 @@ const EnhancedPackageDetail = () => {
       duration: 6,
       price: 2199,
       imageUrl: "https://images.unsplash.com/photo-1544535830-2a087b7641c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      description: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges."
+      description: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges.",
+      shortDescription: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges."
     },
     {
       id: 2,
@@ -336,7 +337,8 @@ const EnhancedPackageDetail = () => {
       duration: 8,
       price: 2999,
       imageUrl: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      description: "Rejuvenate with ancient healing traditions in luxury wellness sanctuaries."
+      description: "Rejuvenate with ancient healing traditions in luxury wellness sanctuaries.",
+      shortDescription: "Rejuvenate with ancient healing traditions in luxury wellness sanctuaries."
     },
     {
       id: 3,
@@ -344,7 +346,8 @@ const EnhancedPackageDetail = () => {
       duration: 7,
       price: 2499,
       imageUrl: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      description: "Experience the finest beach resorts and water activities along Sri Lanka's pristine coast."
+      description: "Experience the finest beach resorts and water activities along Sri Lanka's pristine coast.",
+      shortDescription: "Experience the finest beach resorts and water activities along Sri Lanka's pristine coast."
     }
   ];
 
@@ -528,11 +531,11 @@ const EnhancedPackageDetail = () => {
                   </h2>
                 </div>
                 <div className="text-xl text-gray-700 font-medium mb-6">
-                  {packageData.shortDescription || packageData.excerpt || "Experience the best of Sri Lanka with our luxury tour package."}
+                  {packageData.shortDescription || "Experience the best of Sri Lanka with our luxury tour package."}
                 </div>
                 <div 
                   className="prose prose-lg max-w-none text-gray-600"
-                  dangerouslySetInnerHTML={{ __html: packageData.description || packageData.excerpt || '' }}
+                  dangerouslySetInnerHTML={{ __html: packageData.description || '' }}
                 />
                 {packageData.tourHighlights && (
                   <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
@@ -793,7 +796,7 @@ const EnhancedPackageDetail = () => {
                 </div>
                 <div className="p-8 border-b border-l border-r border-gray-100">
                   <h3 className="text-2xl font-semibold mb-3">{tour.title}</h3>
-                  <p className="text-gray-600 mb-6">{tour.excerpt || tour.description}</p>
+                  <p className="text-gray-600 mb-6">{tour.shortDescription || tour.description}</p>
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-gray-500">From</span>
