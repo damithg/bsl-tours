@@ -687,7 +687,7 @@ const EnhancedPackageDetail = () => {
                   <div className="bg-[#103556] p-6 text-white">
                     <div className="flex items-baseline">
                       <span className="text-xl font-medium">From</span>
-                      <span className="text-4xl font-bold ml-2">{formatPrice(packageData.price || 0)}</span>
+                      <span className="text-2xl font-normal ml-2">{formatPrice(packageData.price || 0)}</span>
                       <span className="ml-1 text-white/80">per person</span>
                     </div>
                     <p className="text-white/80 text-sm mt-1">Based on double occupancy</p>
@@ -827,7 +827,7 @@ const EnhancedPackageDetail = () => {
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-gray-500">From</span>
-                      <span className="text-[#103556] text-2xl font-bold ml-2">{formatPrice(tour.price || 0)}</span>
+                      <span className="text-[#103556] text-2xl font-normal ml-2">{formatPrice(tour.price || 0)}</span>
                     </div>
                     <Link href={`/tour/${tour.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')}`}>
                       <button className="bg-[#103556] hover:bg-[#1a4971] text-white font-medium px-6 py-2.5 rounded-sm transition-colors">
