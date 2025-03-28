@@ -178,48 +178,139 @@ namespace BSLTours.API.Services
                 Description = "Colonial charm with boutique hotels, cafes and ocean views",
                 ImageUrl = "/images/destinations/galle-fort-sri-lanka.jpg",
                 Featured = true,
-                
-                // Location information
+
+                // Location
                 Region = "Southern Coast",
                 Latitude = "6.0269",
                 Longitude = "80.2167",
                 Address = "Galle, Sri Lanka",
-                
-                // Extended information
+
+                // Extended Info
                 ShortDescription = "A preserved colonial-era fortress with charming streets and sweeping ocean views",
                 FullDescription = "The historic Galle Fort, built by the Portuguese and later fortified by the Dutch in the 17th century, stands as one of Sri Lanka's most atmospheric colonial treasures. This UNESCO World Heritage site encompasses an entire peninsula, featuring charming cobblestone streets lined with Dutch colonial buildings, trendy cafes, luxury boutiques, and stylish hotels.",
-                Highlights = new List<string> { "Rampart Walls", "Dutch Reformed Church", "Lighthouse", "Maritime Museum", "Boutique Shopping" },
-                
+
+                Highlights = new List<string>
+    {
+        "Rampart Walls",
+        "Dutch Reformed Church",
+        "Lighthouse",
+        "Maritime Museum",
+        "Boutique Shopping"
+    },
+
                 GalleryImages = new List<GalleryImage>
-                {
-                    new GalleryImage { Url = "/images/activities/photo-1592454869436-cfee29fafa29.jpg", Alt = "Galle Fort - Ramparts View" },
-                    new GalleryImage { Url = "/images/activities/photo-1583087253076-5d1315860eb8.jpg", Alt = "Galle Fort - Lighthouse" },
-                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0813.jpg", Alt = "Galle Fort - Colonial Architecture" },
-                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0814.jpg", Alt = "Galle Fort - Colonial Architecture" },
-                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0815.jpg", Alt = "Galle Fort - Colonial Architecture" },
-                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0816.jpg", Alt = "Galle Fort - Colonial Architecture" },
-                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0817.jpg", Alt = "Galle Fort - Colonial Architecture" },
-                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0819.jpg", Alt = "Galle Fort - Colonial Architecture" }
-                },
-                
-                // FAQs for Galle
+    {
+        new() { Url = "/images/activities/photo-1592454869436-cfee29fafa29.jpg", Alt = "Galle Fort - Ramparts View" },
+        new() { Url = "/images/activities/photo-1583087253076-5d1315860eb8.jpg", Alt = "Galle Fort - Lighthouse" },
+        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0813.jpg", Alt = "Galle Fort - Colonial Architecture" },
+        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0814.jpg", Alt = "Galle Fort - Colonial Architecture" },
+        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0815.jpg", Alt = "Galle Fort - Colonial Architecture" },
+        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0816.jpg", Alt = "Galle Fort - Colonial Architecture" },
+        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0817.jpg", Alt = "Galle Fort - Colonial Architecture" },
+        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0819.jpg", Alt = "Galle Fort - Colonial Architecture" }
+    },
+
                 FAQs = new List<FAQ>
-                {
-                    new FAQ
-                    {
-                        Question = "How long does it take to walk around the Galle Fort ramparts?",
-                        Answer = "A leisurely walk along the entire circumference of the fort walls takes approximately 1-1.5 hours, though many visitors spend longer to enjoy the views and take photographs."
-                    },
-                    new FAQ
-                    {
-                        Question = "Are there entrance fees to visit Galle Fort?",
-                        Answer = "The fort itself is free to enter and explore. Some individual attractions within the fort, such as museums, may charge modest entrance fees."
-                    }
-                },
-                
+    {
+        new() {
+            Question = "How long does it take to walk around the Galle Fort ramparts?",
+            Answer = "A leisurely walk along the entire circumference of the fort walls takes approximately 1-1.5 hours, though many visitors spend longer to enjoy the views and take photographs."
+        },
+        new() {
+            Question = "Are there entrance fees to visit Galle Fort?",
+            Answer = "The fort itself is free to enter and explore. Some individual attractions within the fort, such as museums, may charge modest entrance fees."
+        }
+    },
+
+                Features = new List<Feature>
+    {
+        new() {
+            Title = "Colonial Heritage Walk",
+            Description = "Uncover stories of Portuguese and Dutch rule with a private expert guide through the cobblestone alleys.",
+            Icon = "heritage-walk",
+            ImageUrl = "/images/icons/heritage-walk.svg"
+        },
+        new() {
+            Title = "Boutique Stays Inside the Fort",
+            Description = "Stay in restored colonial mansions turned luxury hotels for a truly immersive experience.",
+            Icon = "boutique-hotel",
+            ImageUrl = "/images/icons/boutique-hotel.svg"
+        },
+        new() {
+            Title = "Sunset Rampart Views",
+            Description = "Enjoy sunset walks along the fort's walls with sweeping ocean views and salty breezes.",
+            Icon = "sunset",
+            ImageUrl = "/images/icons/sunset.svg"
+        },
+        new() {
+            Title = "Café & Art Scene",
+            Description = "Sip espresso, explore galleries, and shop at artisan boutiques in this vibrant cultural enclave.",
+            Icon = "coffee-art",
+            ImageUrl = "/images/icons/coffee.svg"
+        }
+    },
+
+                Sections = new List<Section>
+    {
+        new() {
+            Type = "text",
+            Title = "Why Visit Galle Fort?",
+            Content = "Galle Fort offers an irresistible mix of colonial charm, coastal breezes, and cultural depth. Walk its cobbled lanes, sip iced coffee with a sea view, and uncover centuries of layered history."
+        },
+        new() {
+            Type = "quote",
+            Author = "Lonely Planet",
+            Content = "\"One of the best-preserved sea forts in Asia, and easily the most atmospheric place in Sri Lanka.\""
+        },
+        new() {
+            Type = "video",
+            Title = "Aerial Tour of Galle Fort",
+            Content = "https://www.youtube.com/embed/your-video-id"
+        }
+    },
+
+                LocalExperiences = new List<LocalExperience>
+    {
+        new() {
+            Title = "Galle Fort Heritage Walk",
+            Description = "A curated tour led by a local historian exploring key landmarks inside the fort.",
+            ImageUrl = "/images/experiences/heritage-walk.jpg"
+        },
+        new() {
+            Title = "Sunset at the Lighthouse",
+            Description = "Stroll to the iconic Galle lighthouse and enjoy panoramic views at dusk.",
+            ImageUrl = "/images/experiences/sunset-lighthouse.jpg"
+        },
+        new() {
+            Title = "Artisan Shopping Trail",
+            Description = "Browse handmade jewelry, batik fabrics, and crafts from local artists.",
+            ImageUrl = "/images/experiences/shopping-trail.jpg"
+        }
+    },
+
+                // Practical info
+                BestTimeToVisit = "November to April",
+                NearestAirport = "Mattala Rajapaksa International Airport (HRI)",
+                TransportOptions = new List<string> { "Private driver", "Scenic train ride to Galle", "Tuk-tuk from nearby areas" },
+                TravelTips = new List<string>
+    {
+        "Wear comfortable shoes for walking the ramparts and cobblestone streets.",
+        "Bring a hat and sunscreen, especially for midday sun.",
+        "Most shops close early — plan visits before 7 PM."
+    },
+
+                // SEO
+                MetaTitle = "Explore Galle Fort | Southern Coast Sri Lanka",
+                MetaDescription = "Discover Galle Fort, a UNESCO World Heritage site full of colonial charm, ocean views, boutique hotels, and artful streets in southern Sri Lanka.",
+                MetaKeywords = new List<string> { "Galle Fort", "Sri Lanka", "UNESCO", "Colonial", "Luxury Travel", "Southern Coast" },
+
+                // Tags and category
+                Tags = new List<string> { "UNESCO", "Colonial", "Coastal", "Luxury", "Cultural" },
+                Category = "Historic Site",
+
                 CreatedAt = DateTime.Now
             });
-            
+
             // Mirissa
             destinations.Add(new Destination
             {
@@ -910,8 +1001,10 @@ namespace BSLTours.API.Services
                 Itinerary = "Day 1: Arrival in Colombo\nDay 2-3: Sigiriya and Dambulla\nDay 4: Polonnaruwa\nDay 5: Anuradhapura\nDay 6: Kandy\nDay 7: Departure",
                 IncludedDestinations = new List<string> { "Sigiriya", "Dambulla", "Polonnaruwa", "Anuradhapura", "Kandy" },
                 CreatedAt = DateTime.Now,
+                Rating = 66,
+                ReviewCount = 33,
                 ItineraryDays = new List<ItineraryDay>
-        {
+                {
             new ItineraryDay
             {
                 Day = 1,
@@ -1031,7 +1124,8 @@ namespace BSLTours.API.Services
                 ImageUrl = "/images/packages/departure.jpg",
                 Meals = new Meals { Breakfast = true }
             }
-        }
+
+                }
             };
 
             tourPackages.Add(culturalTour);
@@ -1341,28 +1435,48 @@ namespace BSLTours.API.Services
             {
                 Id = destinationIdCounter++,
                 Name = destinationDto.Name,
-                Slug = destinationDto.Name.ToLower().Replace(" ", "-"),
+                Slug = destinationDto.Slug ?? destinationDto.Name.ToLower().Replace(" ", "-"),
                 Description = destinationDto.Description,
                 ImageUrl = destinationDto.ImageUrl,
                 Featured = destinationDto.Featured,
-                
-                // Enhanced properties
+
+                // Location Info
                 Region = destinationDto.Region,
+                Address = destinationDto.Address,
+                Latitude = destinationDto.Latitude,
+                Longitude = destinationDto.Longitude,
+
+                // Extended Info
                 ShortDescription = destinationDto.ShortDescription,
                 FullDescription = destinationDto.FullDescription,
                 Highlights = destinationDto.Highlights,
                 BestTimeToVisit = destinationDto.BestTimeToVisit,
+                NearestAirport = destinationDto.NearestAirport,
+                TransportOptions = destinationDto.TransportOptions,
+                TravelTips = destinationDto.TravelTips,
                 RecommendedDuration = destinationDto.RecommendedDuration,
+
+                // SEO Metadata
+                MetaTitle = destinationDto.MetaTitle,
+                MetaDescription = destinationDto.MetaDescription,
+                MetaKeywords = destinationDto.MetaKeywords,
+                Tags = destinationDto.Tags,
+                Category = destinationDto.Category,
+
+                // Content Sections
+                Features = destinationDto.Features,
                 GalleryImages = destinationDto.GalleryImages,
-                Activities = destinationDto.Activities,
                 FAQs = destinationDto.FAQs,
-                
+                Sections = destinationDto.Sections,
+                LocalExperiences = destinationDto.LocalExperiences,
+
                 CreatedAt = DateTime.Now
             };
-            
+
             destinations.Add(destination);
             return await Task.FromResult(destination);
         }
+
 
         // Tour Packages
         public async Task<IEnumerable<TourPackage>> GetTourPackagesAsync()
