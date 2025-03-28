@@ -743,8 +743,16 @@ namespace BSLTours.API.Services
 
         public async Task<Testimonial> CreateTestimonialAsync(CreateTestimonialDto testimonialDto)
         {
-            // Simple placeholder implementation
-            var testimonial = new Testimonial { Id = testimonialIdCounter++ };
+            var testimonial = new Testimonial 
+            { 
+                Id = testimonialIdCounter++,
+                CustomerName = !string.IsNullOrEmpty(testimonialDto.CustomerName) ? testimonialDto.CustomerName : "Guest",
+                CustomerAvatar = !string.IsNullOrEmpty(testimonialDto.CustomerAvatar) ? testimonialDto.CustomerAvatar : null,
+                Content = !string.IsNullOrEmpty(testimonialDto.Content) ? testimonialDto.Content : "Wonderful experience with Best Sri Lanka Tours!",
+                Rating = testimonialDto.Rating > 0 ? testimonialDto.Rating : 5,
+                TourPackage = !string.IsNullOrEmpty(testimonialDto.TourPackage) ? testimonialDto.TourPackage : "Tour Package",
+                CreatedAt = DateTime.Now
+            };
             testimonials.Add(testimonial);
             return await Task.FromResult(testimonial);
         }

@@ -47,12 +47,29 @@ export interface Destination {
 
 export interface Testimonial {
   id: number;
-  clientName: string;
-  clientLocation: string;
-  comment: string;
-  rating: number;
-  tourName: string | null;
-  imageUrl: string | null;
+  
+  // .NET Core API fields
+  CustomerName?: string;
+  Content?: string;
+  TourPackage?: string;
+  Rating?: number;
+  CustomerAvatar?: string;
+  
+  // JavaScript API fields
+  name?: string;
+  content?: string;
+  packageName?: string;
+  rating?: number;
+  
+  // Original interface fields - may be used in some implementations
+  clientName?: string;
+  clientLocation?: string;
+  comment?: string;
+  tourName?: string | null;
+  imageUrl?: string | null;
+  
+  // Allow additional fields
+  [key: string]: any;
 }
 
 export interface Inquiry {

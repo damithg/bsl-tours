@@ -1,8 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import { Testimonial } from "@shared/schema";
 import { useState, useRef, useEffect } from "react";
 import { LucideRefreshCw, LucideChevronLeft, LucideChevronRight } from "lucide-react";
-import { queryClient } from "@/lib/queryClient";
+import { Testimonial, queryClient } from "@/lib/queryClient";
+
+// Helper functions to handle different field names between JS and .NET APIs
+const getName = (testimonial: Testimonial): string => {
+  return testimonial.name || 
+         testimonial.CustomerName || 
+         testimonial.clientName || 
+         'Guest';
+};
+
+const getPackageName = (testimonial: Testimonial): string => {
+  return testimonial.packageName || 
+         testimonial.TourPackage || 
+         testimonial.tourName || 
+         'Tour Package';
+};
+
+const getNameInitial = (testimonial: Testimonial): string => {
+  const name = getName(testimonial);
+  return name !== 'Guest' ? name.charAt(0) : 'G';
+};
 
 const TestimonialSection = () => {
   const queryKey = ['/api/testimonials'];
@@ -173,21 +192,21 @@ const TestimonialSection = () => {
               <div key={testimonial.id} className="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3">
                 <div className="bg-white p-8 rounded-lg shadow-lg h-full">
                   <div className="text-[#D4AF37] mb-4">
-                    {[...Array(testimonial.rating || 5)].map((_, i) => (
+                    {[...Array(testimonial.rating || testimonial.Rating || 5)].map((_, i) => (
                       <i key={i} className="fas fa-star"></i>
                     ))}
                   </div>
-                  <p className="text-[#333333]/80 mb-6 italic">"{testimonial.content || 'Wonderful experience with Best Sri Lanka Tours!'}"</p>
+                  <p className="text-[#333333]/80 mb-6 italic">"{testimonial.content || testimonial.Content || testimonial.comment || 'Wonderful experience with Best Sri Lanka Tours!'}"</p>
                   <div className="flex items-center">
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300 mr-4">
                       {/* Avatar placeholder - no actual image used */}
                       <div className="w-full h-full bg-[#0F4C81]/30 flex items-center justify-center text-white">
-                        {testimonial.name ? testimonial.name.charAt(0) : 'G'}
+                        {getNameInitial(testimonial)}
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-semibold">{testimonial.name || 'Guest'}</h4>
-                      <p className="text-sm text-gray-500">{testimonial.packageName || 'Tour Package'}</p>
+                      <h4 className="font-semibold">{getName(testimonial)}</h4>
+                      <p className="text-sm text-gray-500">{getPackageName(testimonial)}</p>
                     </div>
                   </div>
                 </div>
@@ -196,7 +215,7 @@ const TestimonialSection = () => {
           </div>
           
           <div className="absolute -bottom-4 left-0 right-0 flex justify-center gap-2 mt-6">
-            {testimonials?.map((_, index) => (
+            {testimonials && testimonials.map((_, index) => (
               <button 
                 key={index}
                 className={`w-3 h-3 rounded-full ${activeIndex === index ? 'bg-[#0F4C81]' : 'bg-gray-300'}`}
