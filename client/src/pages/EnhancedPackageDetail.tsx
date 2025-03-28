@@ -569,7 +569,7 @@ const EnhancedPackageDetail = () => {
                 </div>
                 
                 {itinerary.length > 0 ? (
-                  <div className="bg-white px-0 border-l-4 border-[var(--primary)]/10 pl-4">
+                  <div className="bg-white px-0">
                     <VisualTimeline data={timelineData} className="timeline-luxury" />
                   </div>
                 ) : (

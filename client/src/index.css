@@ -53,10 +53,16 @@
     @apply shadow-xl transform scale-[1.02];
   }
   
-  /* Space between timeline items */
-  .timeline-luxury > div:not(:last-child) {
-    position: relative;
-    padding-bottom: 2rem;
+  /* Add stylized connector lines between timeline points */
+  .timeline-luxury > div:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 30px;
+    bottom: 0;
+    height: 2rem;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), transparent);
+    transform: translateY(100%);
   }
   
   /* Enhanced day circles with pulsing effect on hover */

@@ -24,13 +24,16 @@ const VisualTimeline: React.FC<VisualTimelineProps> = ({ data, className }) => {
         return (
           <div key={`day-${day.day}`} className="mb-16 last:mb-0">
             <div className="relative">
-              <div className="relative">
-                {/* Day Number Badge - now moved inline */}
+              {/* Timeline Line */}
+              <div className="absolute top-0 bottom-0 left-[30px] w-0.5 bg-[var(--primary)]"></div>
+              
+              <div className="relative pl-[70px]">
+                {/* Day Number Circle */}
+                <div className="absolute left-[18px] top-0 w-[24px] h-[24px] rounded-full bg-[var(--secondary)] border-4 border-[var(--primary)] z-10 day-circle"></div>
+                
+                {/* Day Header - Title only */}
                 <div className="mb-6">
-                  <h3 className="text-2xl font-semibold text-[var(--accent)] flex items-center">
-                    <span className="bg-[var(--primary)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3 day-circle">
-                      {day.day}
-                    </span>
+                  <h3 className="text-2xl font-semibold text-[var(--accent)]">
                     {day.title}
                   </h3>
                 </div>
