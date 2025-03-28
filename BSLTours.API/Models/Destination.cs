@@ -49,13 +49,6 @@ namespace BSLTours.API.Models
         public string Alt { get; set; }
     }
 
-    public class Activity
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string ImageUrl { get; set; }
-    }
-
     public class Experience
     {
         public string Title { get; set; }

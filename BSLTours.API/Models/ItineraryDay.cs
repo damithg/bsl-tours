@@ -13,14 +13,6 @@ namespace BSLTours.API.Models
         public Meals Meals { get; set; } = new Meals();
     }
 
-    public class Activity
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string ImageUrl { get; set; }
-        public string Time { get; set; }
-    }
-
     public class Meals
     {
         public bool Breakfast { get; set; }
