@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
-import { TourPackage } from "@/lib/queryClient";
+import { TourPackage, ItineraryDay as APIItineraryDay } from "@/lib/queryClient";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
@@ -17,35 +17,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Helper Types
-interface Activity {
-  title: string;
-  description: string;
-  imageUrl?: string;
-  time?: string;
-}
-
-interface Accommodation {
-  name: string;
-  description?: string;
-  imageUrl?: string;
-}
-
-interface Meals {
-  breakfast: boolean;
-  lunch: boolean;
-  dinner: boolean;
-}
-
-interface ItineraryDay {
-  day: number;
-  title: string;
-  description: string;
-  activities?: Activity[];
-  accommodation?: Accommodation | string;
-  meals?: Meals;
-  imageUrl?: string;
-}
+// Helper Types - only for RelatedTour now
+// We're using the ItineraryDay interface from queryClient.ts
 
 interface RelatedTour {
   id: number;
@@ -67,7 +40,7 @@ const EnhancedPackageDetail = () => {
   const [includes, setIncludes] = useState<string[]>([]);
   const [excludes, setExcludes] = useState<string[]>([]);
   const [destinations, setDestinations] = useState<string[]>([]);
-  const [itinerary, setItinerary] = useState<ItineraryDay[]>([]);
+  const [itinerary, setItinerary] = useState<APIItineraryDay[]>([]);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [timelineData, setTimelineData] = useState<TimelineDayData[]>([]);
   // Using only the visual timeline format
@@ -98,7 +71,7 @@ const EnhancedPackageDetail = () => {
     data: itineraryData, 
     isLoading: isItineraryLoading,
     error: itineraryError
-  } = useQuery<ItineraryDay[]>({
+  } = useQuery<APIItineraryDay[]>({
     queryKey: itineraryQueryKey,
     enabled: !!packageData, // Only fetch itinerary once we have package data
   });
@@ -194,7 +167,7 @@ const EnhancedPackageDetail = () => {
         // Try to parse as plain text format with "Day X: Description" format
         if (typeof packageData.itinerary === 'string' && packageData.itinerary.includes('Day')) {
           const lines = packageData.itinerary.split('\n');
-          const parsedItinerary: ItineraryDay[] = [];
+          const parsedItinerary: APIItineraryDay[] = [];
           
           lines.forEach(line => {
             const match = line.match(/Day (\d+)(?:-\d+)?: (.+)/);
@@ -250,7 +223,12 @@ const EnhancedPackageDetail = () => {
         
         if (day.activities && Array.isArray(day.activities) && day.activities.length > 0) {
           enhancedDescription += '<br/><br/><strong>Today\'s Activities:</strong><ul>';
-          day.activities.forEach(activity => {
+          day.activities.forEach((activity: { 
+            title: string; 
+            description?: string;
+            time?: string;
+            imageUrl?: string;
+          }) => {
             if (typeof activity === 'object' && activity !== null) {
               enhancedDescription += `<li><strong>${activity.title}</strong>`;
               if (activity.description) {

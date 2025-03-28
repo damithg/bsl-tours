@@ -36,13 +36,18 @@ const VisualTimeline: React.FC<VisualTimelineProps> = ({ data, className }) => {
               
               {/* Day Content */}
               <div className="mb-8">
-                {/* Image */}
-                <div className="w-full max-w-2xl overflow-hidden rounded-lg mb-6 border border-gray-100 shadow-md">
-                  <img 
-                    src={day.imageUrl || `https://source.unsplash.com/featured/?srilanka,travel`}
-                    alt={day.title || `Day ${day.day}`} 
-                    className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
-                  />
+                {/* Image - Optimized size (400x300, 4:3 aspect ratio) */}
+                <div className="w-full max-w-md overflow-hidden rounded-lg mb-6 border border-gray-100 shadow-md">
+                  <div className="aspect-w-4 aspect-h-3">
+                    <img 
+                      src={day.imageUrl || `https://source.unsplash.com/featured/?srilanka,travel`}
+                      alt={day.title || `Day ${day.day}`} 
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      width="400"
+                      height="300"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
                 
                 {/* Description */}

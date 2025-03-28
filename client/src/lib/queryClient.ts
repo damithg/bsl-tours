@@ -24,6 +24,7 @@ export interface TourPackage {
   inclusions: string | null;
   exclusions: string | null;
   itinerary: string | null;
+  itineraryDays?: ItineraryDay[]; // Structured itinerary data from API
   isFeatured: boolean;
   destinationId: number | null;
   activities: string | null;
@@ -36,6 +37,33 @@ export interface TourPackage {
   tourHighlights?: string | null;
   highlightsSummary?: string | null;
   groupSize?: string | null;
+  featured?: boolean; // Added field for compatibility with API response
+  rating?: number;    // Added field for compatibility with API response
+  reviewCount?: number; // Added field for compatibility with API response
+}
+
+// Itinerary day structure as returned from the API
+export interface ItineraryDay {
+  day: number;
+  title: string;
+  description: string;
+  activities?: Array<{
+    title: string;
+    description?: string;
+    time?: string;
+    imageUrl?: string;
+  }>;
+  accommodation?: string | {
+    name: string;
+    description?: string;
+    imageUrl?: string;
+  };
+  meals?: {
+    breakfast: boolean;
+    lunch: boolean;
+    dinner: boolean;
+  };
+  imageUrl?: string;
 }
 
 export interface Destination {
