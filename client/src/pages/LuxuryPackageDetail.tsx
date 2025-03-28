@@ -205,7 +205,7 @@ const LuxuryPackageDetail = () => {
                   Tour Overview
                 </h2>
                 <div className="prose prose-lg max-w-none text-[#333333]/90">
-                  <p className="mb-6 leading-relaxed">{packageData.description}</p>
+                  <p className="mb-6 leading-relaxed">{packageData.excerpt || packageData.description}</p>
                   <p className="mb-6 leading-relaxed">
                     This exclusive luxury tour offers an immersive experience of Sri Lanka's most iconic destinations. With private transportation, expert guides, and carefully selected accommodations, you'll discover the natural beauty and cultural heritage of this enchanting island in unparalleled comfort and style.
                   </p>
