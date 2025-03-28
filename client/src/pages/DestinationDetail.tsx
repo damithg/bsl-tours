@@ -1,9 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useRoute } from 'wouter';
+import { useState, useEffect, useRef } from 'react';
+import { useRoute, Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'wouter';
+import { 
+  ChevronRight, MapPin, Calendar, Clock, Bookmark, Users, Compass, 
+  Sun, Droplets, Star, Menu, ArrowRight, ChevronDown, MessageCircle, 
+  Heart, Share2, Camera, MapIcon
+} from 'lucide-react';
 import { Destination } from '@shared/schema';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
+import { AdaptiveImage } from '@/components/ui/adaptive-image';
 
 // Helper function to safely parse JSON strings
 const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
@@ -29,6 +35,12 @@ const DestinationDetail = () => {
   const [isIdRoute, idParams] = useRoute<{ id: string }>('/destination/:id');
   const [isSlugRoute, slugParams] = useRoute<{ slug: string }>('/destination/:slug+');
   const { formatPrice } = useCurrency();
+  const [activeTab, setActiveTab] = useState<'overview' | 'activities' | 'gallery' | 'map'>('overview');
+  const [activeSection, setActiveSection] = useState<string>('hero');
+  const overviewRef = useRef<HTMLDivElement>(null);
+  const activitiesRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
   
   // Determine if we're using an ID or slug for the API request
   const destinationId = isIdRoute && idParams?.id ? parseInt(idParams.id, 10) : 0;
@@ -45,7 +57,40 @@ const DestinationDetail = () => {
     enabled: !!(destinationId || destinationSlug),
   });
 
-  // Mock related tours based on the destination (in a real app, would be fetched from API)
+  // Setup scroll spy
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 100;
+      
+      // Check which section is visible
+      if (overviewRef.current && scrollPosition >= overviewRef.current.offsetTop) {
+        setActiveSection('overview');
+        setActiveTab('overview');
+      }
+      
+      if (activitiesRef.current && scrollPosition >= activitiesRef.current.offsetTop) {
+        setActiveSection('activities');
+        setActiveTab('activities');
+      }
+      
+      if (galleryRef.current && scrollPosition >= galleryRef.current.offsetTop) {
+        setActiveSection('gallery');
+        setActiveTab('gallery');
+      }
+      
+      if (mapRef.current && scrollPosition >= mapRef.current.offsetTop) {
+        setActiveSection('map');
+        setActiveTab('map');
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Related tours based on the destination
   const relatedTours: RelatedTour[] = [
     {
       id: 1,
@@ -73,40 +118,117 @@ const DestinationDetail = () => {
     }
   ];
 
-  // Sample experiences for this destination
+  // Experiences for this destination
   const experiences = [
     {
       title: "Private Guided Tours",
-      description: "Explore the hidden treasures with our expert local guides who bring history and culture to life.",
-      icon: "🔍"
+      description: "Explore hidden gems with our expert local guides who bring history and culture to life.",
+      icon: "guide"
     },
     {
       title: "Exclusive Access",
-      description: "Enjoy special access to restricted areas and experience the destination without the crowds.",
-      icon: "🔑"
+      description: "Skip the lines and enjoy special access to restricted areas without the crowds.",
+      icon: "key"
     },
     {
       title: "Luxury Transportation",
-      description: "Travel in comfort with our fleet of luxury vehicles and experienced drivers.",
-      icon: "🚙"
+      description: "Travel in air-conditioned comfort with our fleet of luxury vehicles.",
+      icon: "transport"
     },
     {
       title: "Authentic Cuisine",
       description: "Savor local delicacies prepared by renowned chefs in stunning settings.",
-      icon: "🍽️"
+      icon: "dining"
     }
   ];
 
+  // Activities for this destination
+  const activities = destination?.activities ? 
+    safeJsonParse(destination.activities, []) : 
+    [
+      {
+        title: "Hiking Adventure",
+        description: "Explore breathtaking trails with panoramic views of the surrounding landscape.",
+        imageUrl: "/images/activities/hiking.jpg",
+        duration: "3-4 hours",
+        difficulty: "Moderate"
+      },
+      {
+        title: "Cultural Tour",
+        description: "Discover the rich cultural heritage and history with our expert local guides.",
+        imageUrl: "/images/activities/cultural-tour.jpg",
+        duration: "Half day",
+        difficulty: "Easy"
+      },
+      {
+        title: "Wildlife Safari",
+        description: "Spot exotic wildlife in their natural habitat with our experienced trackers.",
+        imageUrl: "/images/activities/wildlife-safari.jpg",
+        duration: "Full day",
+        difficulty: "Easy"
+      }
+    ];
+
+  // Gallery images
+  const galleryImages = destination?.galleryImages ? 
+    safeJsonParse(destination.galleryImages, []) : 
+    [
+      {
+        url: destination?.imageUrl || "https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+        alt: `${destination?.name} - Main View`
+      },
+      {
+        url: "https://images.unsplash.com/photo-1627894966831-0c839fa78bfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        alt: `${destination?.name} - Detail 1`
+      },
+      {
+        url: "https://images.unsplash.com/photo-1531259922615-206732e4349b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        alt: `${destination?.name} - Detail 2`
+      },
+      {
+        url: "https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        alt: `${destination?.name} - Detail 3`
+      },
+      {
+        url: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        alt: `${destination?.name} - Detail 4`
+      },
+      {
+        url: "https://images.unsplash.com/photo-1632923057155-39eb928c7c74?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+        alt: `${destination?.name} - Detail 5`
+      }
+    ];
+
+  // Highlights
+  const highlights = destination?.highlights ? 
+    safeJsonParse(destination.highlights, ['Wildlife', 'Cultural Heritage', 'UNESCO Site', 'Panoramic Views']) : 
+    ['Wildlife', 'Cultural Heritage', 'UNESCO Site', 'Panoramic Views'];
+
+  // Loading state
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-16">
         <div className="w-full h-64 bg-gray-200 animate-pulse rounded-lg mb-8"></div>
         <div className="w-2/3 h-10 bg-gray-200 animate-pulse rounded-lg mb-4"></div>
-        <div className="w-full h-40 bg-gray-200 animate-pulse rounded-lg"></div>
+        <div className="flex gap-4 mb-8">
+          <div className="w-24 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
+          <div className="w-24 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
+          <div className="w-24 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="col-span-2">
+            <div className="w-full h-40 bg-gray-200 animate-pulse rounded-lg mb-6"></div>
+            <div className="w-full h-60 bg-gray-200 animate-pulse rounded-lg"></div>
+          </div>
+          <div>
+            <div className="w-full h-80 bg-gray-200 animate-pulse rounded-lg"></div>
+          </div>
+        </div>
       </div>
     );
   }
 
+  // Error state
   if (error || !destination) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
@@ -120,100 +242,276 @@ const DestinationDetail = () => {
   }
 
   return (
-    <main>
+    <main className="bg-white">
       {/* Hero Section */}
-      <section className="relative h-[380px] overflow-hidden">
-        <div className="absolute inset-0 bg-black/30 z-10"></div>
-        <img 
-          src={destination.imageUrl || "https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"} 
-          alt={destination.name} 
-          className="absolute inset-0 w-full h-full object-cover" 
-        />
-        <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-16">
-          <h1 className="font-['Playfair_Display'] text-4xl font-bold text-white mb-4">{destination.name}</h1>
-          <div className="flex flex-wrap gap-2">
-            <span className="bg-[#D4AF37]/90 text-white px-3 py-1 rounded-full text-sm">Luxury Experience</span>
-            <span className="bg-white/90 text-[#0F4C81] px-3 py-1 rounded-full text-sm">Cultural Heritage</span>
-            <span className="bg-white/90 text-[#0F4C81] px-3 py-1 rounded-full text-sm">UNESCO Site</span>
+      <section className="relative h-[500px] md:h-[600px] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
+        <div className="absolute inset-0">
+          {destination.imageUrl ? (
+            <AdaptiveImage
+              src={destination.imageUrl}
+              alt={destination.name}
+              focalPoint={DESTINATION_FOCAL_POINTS[destination.name] || determineFocalPoint(destination.imageUrl, destination.name)}
+              containerClassName="w-full h-full"
+            />
+          ) : (
+            <img 
+              src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
+              alt={destination.name} 
+              className="w-full h-full object-cover" 
+            />
+          )}
+        </div>
+        
+        <div className="absolute top-0 left-0 w-full z-20">
+          <div className="container mx-auto px-4 pt-8 flex justify-between items-center">
+            <Link href="/destinations" className="flex items-center gap-2 text-white hover:text-[#D4AF37] transition-colors">
+              <ChevronRight className="w-5 h-5 rotate-180" />
+              <span>Back to All Destinations</span>
+            </Link>
+            
+            <div className="flex gap-2">
+              <button className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition">
+                <Heart className="w-5 h-5" />
+              </button>
+              <button className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition">
+                <Share2 className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="absolute bottom-0 left-0 w-full z-20">
+          <div className="container mx-auto px-4 pb-8 md:pb-12">
+            <div className="bg-white/10 backdrop-blur-sm py-1 px-3 rounded-full text-white text-sm inline-block mb-4">
+              {destination.region || 'Sri Lanka'}
+            </div>
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3">
+              {destination.name}
+            </h1>
+            <p className="text-white/90 text-lg md:text-xl max-w-3xl mb-6">
+              {destination.shortDescription || destination.description}
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {highlights.slice(0, 3).map((highlight, index) => (
+                <span key={index} className="bg-white/10 backdrop-blur-sm px-4 py-1 rounded-full text-white">
+                  {highlight}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Navigation Tabs */}
+      <section className="sticky top-0 bg-white z-30 border-b border-gray-200 shadow-sm">
+        <div className="container mx-auto px-4">
+          <div className="flex overflow-x-auto hide-scrollbar">
+            <button 
+              onClick={() => {
+                setActiveTab('overview');
+                if (overviewRef.current) {
+                  overviewRef.current.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                activeTab === 'overview' 
+                  ? 'border-[#0F4C81] text-[#0F4C81]' 
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Overview
+            </button>
+            <button 
+              onClick={() => {
+                setActiveTab('activities');
+                if (activitiesRef.current) {
+                  activitiesRef.current.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                activeTab === 'activities' 
+                  ? 'border-[#0F4C81] text-[#0F4C81]' 
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Activities
+            </button>
+            <button 
+              onClick={() => {
+                setActiveTab('gallery');
+                if (galleryRef.current) {
+                  galleryRef.current.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                activeTab === 'gallery' 
+                  ? 'border-[#0F4C81] text-[#0F4C81]' 
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Gallery
+            </button>
+            <button 
+              onClick={() => {
+                setActiveTab('map');
+                if (mapRef.current) {
+                  mapRef.current.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                activeTab === 'map' 
+                  ? 'border-[#0F4C81] text-[#0F4C81]' 
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Map
+            </button>
           </div>
         </div>
       </section>
 
       {/* Overview Section */}
-      <section className="py-12 bg-white">
+      <section ref={overviewRef} className="py-12 bg-white" id="overview">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row gap-12">
-            <div className="md:w-2/3">
-              <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-6">Destination Overview</h2>
-              <p className="text-lg text-[#333333]/80 mb-6">
-                {destination.shortDescription || destination.description}
-              </p>
-              <p className="text-lg text-[#333333]/80 mb-6">
-                {destination.fullDescription || 
-                  `Our luxury tours to ${destination.name} offer an unparalleled travel experience with exclusive access to key sites, private guides, and exquisite accommodation options. Whether you're seeking cultural immersion, adventure, or simply relaxation, our tailored packages ensure you experience the very best this destination has to offer.`
-                }
-              </p>
+          <div className="flex flex-col lg:flex-row gap-12">
+            {/* Main Content */}
+            <div className="lg:w-2/3">
+              <div className="mb-10">
+                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-6">About {destination.name}</h2>
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-gray-700">
+                    {destination.fullDescription || destination.description}
+                  </p>
+                  <p className="text-gray-700">
+                    {destination.fullDescription ? destination.description : 
+                      `Our luxury tours to ${destination.name} offer an unparalleled travel experience with exclusive access to key sites, private guides, and exquisite accommodation options. Whether you're seeking cultural immersion, adventure, or simply relaxation, our tailored packages ensure you experience the very best this destination has to offer.`
+                    }
+                  </p>
+                </div>
+              </div>
+              
+              {/* Highlights & Experiences */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-                {destination.experiences ? 
-                  safeJsonParse(destination.experiences, []).map((experience: any, index: number) => (
-                    <div key={index} className="bg-[#F8F5F0] p-6 rounded-lg">
-                      <div className="text-3xl mb-3">
-                        {experience.icon === 'guide' ? '🧑‍🦱' : 
-                         experience.icon === 'key' ? '🔑' : 
-                         experience.icon === 'dining' ? '🍽️' : '✨'}
-                      </div>
-                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{experience.title}</h3>
-                      <p className="text-[#333333]/70">{experience.description}</p>
+                {experiences.map((experience, index) => (
+                  <div key={index} className="bg-[#F9F7F4] p-6 rounded-xl shadow-sm">
+                    <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] mb-4">
+                      {experience.icon === 'guide' ? (
+                        <Users className="w-6 h-6" />
+                      ) : experience.icon === 'key' ? (
+                        <Bookmark className="w-6 h-6" />
+                      ) : experience.icon === 'transport' ? (
+                        <Compass className="w-6 h-6" />
+                      ) : (
+                        <MessageCircle className="w-6 h-6" />
+                      )}
                     </div>
-                  )) 
-                : experiences.map((experience, index) => (
-                    <div key={index} className="bg-[#F8F5F0] p-6 rounded-lg">
-                      <div className="text-3xl mb-3">{experience.icon}</div>
-                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{experience.title}</h3>
-                      <p className="text-[#333333]/70">{experience.description}</p>
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{experience.title}</h3>
+                    <p className="text-gray-600">{experience.description}</p>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Related Tours */}
+              <div className="mt-12">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81]">
+                    Tours Featuring {destination.name}
+                  </h2>
+                  <Link href="/tour-packages" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
+                    View All <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {relatedTours.slice(0, 2).map((tour) => (
+                    <div key={tour.id} className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                      <div className="w-1/3 h-auto relative">
+                        <img 
+                          src={tour.imageUrl} 
+                          alt={tour.title} 
+                          className="w-full h-full object-cover" 
+                        />
+                      </div>
+                      <div className="w-2/3 p-4">
+                        <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-1">{tour.title}</h3>
+                        <div className="flex items-center text-gray-500 text-sm mb-2">
+                          <Calendar className="w-4 h-4 mr-1" />
+                          <span>{tour.duration} Days</span>
+                          <span className="mx-2">•</span>
+                          <Users className="w-4 h-4 mr-1" />
+                          <span>Max 12 people</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="font-semibold text-[#0F4C81]">
+                            From {formatPrice(tour.price)}
+                          </span>
+                          <Link 
+                            href={`/tour/${tour.slug}`} 
+                            className="text-[#0F4C81] hover:text-[#D4AF37] transition"
+                          >
+                            <ArrowRight className="w-5 h-5" />
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   ))}
+                </div>
               </div>
             </div>
-            <div className="md:w-1/3">
-              <div className="bg-[#F8F5F0] p-6 rounded-lg shadow-sm">
-                <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-4">Plan Your Visit</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-medium">Best Time to Visit</p>
-                    <p className="text-[#333333]/70">{destination.bestTimeToVisit || "January to April"}</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">Recommended Duration</p>
-                    <p className="text-[#333333]/70">{destination.recommendedDuration || "1-2 Days"}</p>
-                  </div>
-                  {destination.weatherInfo && (
+            
+            {/* Sidebar */}
+            <div className="lg:w-1/3">
+              <div className="bg-[#F9F7F4] p-6 rounded-xl shadow-sm sticky top-24">
+                <h3 className="font-['Playfair_Display'] text-xl font-bold mb-6 text-gray-900">Essential Information</h3>
+                
+                <div className="space-y-5">
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                      <Calendar className="w-5 h-5" />
+                    </div>
                     <div>
-                      <p className="font-medium">Weather</p>
-                      <p className="text-[#333333]/70">{destination.weatherInfo}</p>
+                      <h4 className="font-semibold text-gray-900">Best Time to Visit</h4>
+                      <p className="text-gray-600">{destination.bestTimeToVisit || "January to April"}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Recommended Duration</h4>
+                      <p className="text-gray-600">{destination.recommendedDuration || "1-2 Days"}</p>
+                    </div>
+                  </div>
+                  
+                  {destination.weatherInfo && (
+                    <div className="flex gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                        <Sun className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Weather</h4>
+                        <p className="text-gray-600">{destination.weatherInfo}</p>
+                      </div>
                     </div>
                   )}
+                  
                   <div>
-                    <p className="font-medium">Highlights</p>
-                    <ul className="list-disc list-inside text-[#333333]/70">
-                      {destination.highlights ? 
-                        safeJsonParse(destination.highlights, []).map((highlight: string, index: number) => (
-                          <li key={index}>{highlight}</li>
-                        ))
-                        : 
-                        <>
-                          <li>Panoramic Views</li>
-                          <li>Ancient Frescoes</li>
-                          <li>Royal Gardens</li>
-                          <li>Mirror Wall</li>
-                        </>
-                      }
-                    </ul>
+                    <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {highlights.map((highlight, index) => (
+                        <span key={index} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                          {highlight}
+                        </span>
+                      ))}
+                    </div>
                   </div>
+                  
                   {destination.travelTips && (
                     <div>
-                      <p className="font-medium">Travel Tips</p>
-                      <ul className="list-disc list-inside text-[#333333]/70">
+                      <h4 className="font-semibold text-gray-900 mb-2">Travel Tips</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1">
                         {safeJsonParse(destination.travelTips, []).map((tip: string, index: number) => (
                           <li key={index}>{tip}</li>
                         ))}
@@ -221,9 +519,19 @@ const DestinationDetail = () => {
                     </div>
                   )}
                 </div>
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <Link href="/contact" className="block w-full bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-6 rounded-md text-center transition">
-                    Inquire About Custom Tours
+                
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <Link 
+                    href="/custom-tour-request" 
+                    className="block w-full bg-[#0F4C81] hover:bg-[#0D3E6A] text-white font-medium py-3 px-6 rounded-lg text-center transition"
+                  >
+                    Create Custom Tour
+                  </Link>
+                  <Link 
+                    href="/contact" 
+                    className="block w-full bg-white border border-[#0F4C81] text-[#0F4C81] hover:bg-[#F9F7F4] font-medium py-3 px-6 rounded-lg text-center mt-3 transition"
+                  >
+                    Ask a Question
                   </Link>
                 </div>
               </div>
@@ -233,138 +541,45 @@ const DestinationDetail = () => {
       </section>
 
       {/* Activities Section */}
-      {destination.activities && (
-        <section className="py-12 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">Featured Activities</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {safeJsonParse(destination.activities, []).map((activity: any, index: number) => (
-                <div key={index} className="bg-[#F8F5F0] rounded-lg overflow-hidden shadow-sm">
-                  <div className="relative h-48">
-                    <img 
-                      src={activity.imageUrl || "/images/activities/placeholder.jpg"} 
-                      alt={activity.title} 
-                      className="w-full h-full object-cover" 
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{activity.title}</h3>
-                    <p className="text-[#333333]/80 mb-4">{activity.description}</p>
-                    <Link href="/contact" className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
-                      Inquire About This Activity
-                      <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Image Gallery Section */}
-      <section className="py-12 bg-[#F8F5F0]">
+      <section ref={activitiesRef} className="py-12 bg-[#F9F7F4]" id="activities">
         <div className="container mx-auto px-4">
-          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">Visual Journey</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {destination.galleryImages ? (
-              <>
-                {/* Render dynamic gallery images if available */}
-                {safeJsonParse(destination.galleryImages, []).map((image: any, index: number) => (
-                  <div key={index} className={index === 0 ? "col-span-2 md:col-span-2 row-span-2" : ""}>
-                    <img 
-                      src={image.url} 
-                      alt={image.alt || `${destination.name} - Image ${index + 1}`}
-                      className="w-full h-full object-cover rounded-lg" 
-                    />
-                  </div>
-                ))}
-              </>
-            ) : (
-              <>
-                {/* Fallback static gallery */}
-                <div className="col-span-2 md:col-span-2 row-span-2">
-                  <img 
-                    src={`https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80`} 
-                    alt={`${destination.name} - Main View`} 
-                    className="w-full h-full object-cover rounded-lg" 
-                  />
-                </div>
-                <div>
-                  <img 
-                    src={`https://images.unsplash.com/photo-1627894966831-0c839fa78bfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
-                    alt={`${destination.name} - Detail 1`}
-                    className="w-full h-full object-cover rounded-lg" 
-                  />
-                </div>
-                <div>
-                  <img 
-                    src={`https://images.unsplash.com/photo-1531259922615-206732e4349b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
-                    alt={`${destination.name} - Detail 2`}
-                    className="w-full h-full object-cover rounded-lg" 
-                  />
-                </div>
-                <div>
-                  <img 
-                    src={`https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`}
-                    alt={`${destination.name} - Detail 3`}
-                    className="w-full h-full object-cover rounded-lg" 
-                  />
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      {destination.faqs && (
-        <section className="py-12 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">Frequently Asked Questions</h2>
-            <div className="max-w-3xl mx-auto space-y-6">
-              {safeJsonParse(destination.faqs, []).map((faq: any, index: number) => (
-                <div key={index} className="bg-[#F8F5F0] p-6 rounded-lg">
-                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{faq.question}</h3>
-                  <p className="text-[#333333]/80">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Related Tours Section */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8">Tours Featuring {destination.name}</h2>
+          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-center text-[#0F4C81] mb-10">
+            Featured Activities at {destination.name}
+          </h2>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {relatedTours.map((tour) => (
-              <div key={tour.id} className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-                <div className="relative h-48">
+            {activities.map((activity: any, index: number) => (
+              <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                <div className="relative h-56">
                   <img 
-                    src={tour.imageUrl || "https://images.unsplash.com/photo-1581260466152-d2c0303e51f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"} 
-                    alt={tour.title} 
+                    src={activity.imageUrl || `/images/activities/activity-${index + 1}.jpg`} 
+                    alt={activity.title} 
                     className="w-full h-full object-cover" 
                   />
+                  {activity.difficulty && (
+                    <div className="absolute top-4 right-4 bg-white/90 text-[#0F4C81] px-3 py-1 rounded-full text-sm font-medium">
+                      {activity.difficulty}
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{tour.title}</h3>
-                  <div className="flex items-center text-[#333333]/70 mb-4">
-                    <span className="flex items-center mr-4">
-                      <svg className="w-5 h-5 mr-1 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
-                      </svg>
-                      {tour.duration} Days
-                    </span>
-                    <span className="font-semibold text-[#0F4C81]">
-                      {formatPrice(tour.price)}
-                    </span>
-                  </div>
-                  <Link href={`/tour/${tour.slug}`} className="block w-full bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md text-center transition">
-                    View Details
+                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{activity.title}</h3>
+                  
+                  {activity.duration && (
+                    <div className="flex items-center text-gray-500 mb-3">
+                      <Clock className="w-4 h-4 mr-2" />
+                      <span>{activity.duration}</span>
+                    </div>
+                  )}
+                  
+                  <p className="text-gray-600 mb-5">{activity.description}</p>
+                  
+                  <Link 
+                    href="/contact" 
+                    className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#D4AF37] gap-1 transition"
+                  >
+                    Inquire About This Activity
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -373,17 +588,161 @@ const DestinationDetail = () => {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <section ref={galleryRef} className="py-12 bg-white" id="gallery">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81]">
+              Photo Gallery
+            </h2>
+            <div className="flex items-center gap-2 text-[#0F4C81]">
+              <Camera className="w-5 h-5" />
+              <span className="font-medium">{galleryImages.length} Photos</span>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {galleryImages.map((image: any, index: number) => (
+              <div 
+                key={index} 
+                className={`rounded-xl overflow-hidden ${
+                  index === 0 ? "md:col-span-2 md:row-span-2" : ""
+                }`}
+              >
+                <img 
+                  src={image.url} 
+                  alt={image.alt || `${destination.name} - Image ${index + 1}`}
+                  className="w-full h-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-500" 
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section ref={mapRef} className="py-12 bg-[#F9F7F4]" id="map">
+        <div className="container mx-auto px-4">
+          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-10 text-center">
+            Location & Map
+          </h2>
+          
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden p-4">
+            <div className="aspect-[16/9] bg-[#E8EDF0] rounded-lg mb-4 flex items-center justify-center relative">
+              <div className="flex flex-col items-center text-[#0F4C81]">
+                <MapIcon className="w-16 h-16 mb-2 opacity-30" />
+                <p className="text-lg font-medium">Interactive map available on our premium plan</p>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-12 h-12 bg-[#0F4C81] rounded-full flex items-center justify-center animate-pulse">
+                  <div className="w-3 h-3 bg-white rounded-full"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 p-2">
+              <MapPin className="w-5 h-5 text-[#0F4C81]" />
+              <p className="text-gray-600">
+                {destination.location || `${destination.name}, Sri Lanka`}
+              </p>
+            </div>
+          </div>
+          
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-4 text-gray-900">
+                Getting There
+              </h3>
+              <p className="text-gray-600 mb-2">
+                {destination.gettingThere || `${destination.name} is accessible by car from Colombo, with a journey time of approximately 3-4 hours depending on traffic. Private transfers, taxis and buses are available.`}
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-4 text-gray-900">
+                Nearby Attractions
+              </h3>
+              <ul className="text-gray-600 space-y-2">
+                {destination.nearbyAttractions ? 
+                  safeJsonParse(destination.nearbyAttractions, []).map((attraction: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
+                      <span>{attraction}</span>
+                    </li>
+                  )) : (
+                    <>
+                      <li className="flex items-start">
+                        <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
+                        <span>Nearby Wildlife Sanctuary</span>
+                      </li>
+                      <li className="flex items-start">
+                        <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
+                        <span>Local Cultural Village</span>
+                      </li>
+                      <li className="flex items-start">
+                        <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
+                        <span>Ancient Temple Complex</span>
+                      </li>
+                    </>
+                  )
+                }
+              </ul>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-4 text-gray-900">
+                Accommodation
+              </h3>
+              <p className="text-gray-600 mb-2">
+                {destination.accommodation || `We offer a range of luxury accommodations near ${destination.name}, from boutique hotels to private villas. All properties are carefully selected for comfort, service and unique character.`}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      {destination.faqs && (
+        <section className="py-12 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">
+              Frequently Asked Questions
+            </h2>
+            
+            <div className="max-w-3xl mx-auto">
+              <div className="space-y-4">
+                {safeJsonParse(destination.faqs, []).map((faq: any, index: number) => (
+                  <div key={index} className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                    <details className="group">
+                      <summary className="flex justify-between items-center p-6 cursor-pointer">
+                        <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                          {faq.question}
+                        </h3>
+                        <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                      </summary>
+                      <div className="px-6 pb-6 text-gray-600">
+                        <p>{faq.answer}</p>
+                      </div>
+                    </details>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Call to Action */}
       <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
-            src="https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-            alt="Sri Lanka landscape" 
+            src={destination.imageUrl || "https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"} 
+            alt={`${destination.name} landscape`} 
             className="w-full h-full object-cover" 
           />
         </div>
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-white mb-6">
               Ready to Experience {destination.name}?
@@ -392,11 +751,17 @@ const DestinationDetail = () => {
               Let our experts craft a personalized journey featuring {destination.name}, tailored to your preferences and travel style.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/tour-packages" className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
+              <Link 
+                href="/tour-packages" 
+                className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-lg transition"
+              >
                 Browse Tour Packages
               </Link>
-              <Link href="/contact" className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-md transition">
-                Contact Our Travel Experts
+              <Link 
+                href="/custom-tour-request" 
+                className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-lg transition"
+              >
+                Create Custom Tour
               </Link>
             </div>
           </div>
