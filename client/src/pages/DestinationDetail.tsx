@@ -10,6 +10,13 @@ import { Destination } from '@shared/schema';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 import { AdaptiveImage } from '@/components/ui/adaptive-image';
+import { 
+  HeroImage, 
+  FeatureImage, 
+  ExperienceImage, 
+  GalleryImage, 
+  BackgroundImage 
+} from '@/components/ui/optimized-image';
 
 // Helper function to safely parse JSON strings
 const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
@@ -271,17 +278,16 @@ const DestinationDetail = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
         <div className="absolute inset-0">
           {destination.imageUrl ? (
-            <AdaptiveImage
+            <HeroImage
               src={destination.imageUrl}
               alt={destination.name}
-              focalPoint={DESTINATION_FOCAL_POINTS[destination.name] || determineFocalPoint(destination.imageUrl, destination.name)}
-              containerClassName="w-full h-full"
+              className="object-cover"
             />
           ) : (
-            <img 
-              src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-              alt={destination.name} 
-              className="w-full h-full object-cover" 
+            <HeroImage
+              src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+              alt={destination.name}
+              className="object-cover"
             />
           )}
         </div>
@@ -422,7 +428,7 @@ const DestinationDetail = () => {
                     <div className="p-6">
                       <div className="flex mb-4">
                         <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
-                          <img 
+                          <FeatureImage 
                             src={experience.imageUrl 
                               ? experience.imageUrl 
                               : experience.icon === 'heritage-walk' 
@@ -441,7 +447,6 @@ const DestinationDetail = () => {
                               ? "/images/activities/luxury-transport.jpg"
                               : "/images/activities/authentic-cuisine.jpg"} 
                             alt={experience.title}
-                            className="w-full h-full object-cover"
                           />
                         </div>
                         <div>
@@ -496,10 +501,10 @@ const DestinationDetail = () => {
                   {relatedTours.slice(0, 2).map((tour) => (
                     <div key={tour.id} className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                       <div className="w-1/3 h-auto relative">
-                        <img 
+                        <FeatureImage
                           src={tour.imageUrl} 
-                          alt={tour.title} 
-                          className="w-full h-full object-cover" 
+                          alt={tour.title}
+                          className="w-full h-full"
                         />
                       </div>
                       <div className="w-2/3 p-4">
@@ -621,10 +626,10 @@ const DestinationDetail = () => {
             {localExperiences.map((experience: any, index: number) => (
               <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
                 <div className="relative h-56">
-                  <img 
+                  <ExperienceImage 
                     src={experience.imageUrl || `/images/activities/activity-${index + 1}.jpg`} 
-                    alt={experience.title} 
-                    className="w-full h-full object-cover" 
+                    alt={experience.title}
+                    className="w-full h-full"
                   />
                   {experience.difficulty && (
                     <div className="absolute top-4 right-4 bg-white/90 text-[#0F4C81] px-3 py-1 rounded-full text-sm font-medium">
@@ -679,10 +684,11 @@ const DestinationDetail = () => {
                   index === 0 ? "md:col-span-2 md:row-span-2" : ""
                 }`}
               >
-                <img 
+                <GalleryImage 
                   src={image.url} 
                   alt={image.alt || `${destination.name} - Image ${index + 1}`}
-                  className="w-full h-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-500" 
+                  className="w-full h-full hover:scale-105 transition-transform duration-500"
+                  featured={index === 0}
                 />
               </div>
             ))}
@@ -805,10 +811,10 @@ const DestinationDetail = () => {
       {/* Call to Action */}
       <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img 
+          <BackgroundImage 
             src={destination.imageUrl || "https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"} 
-            alt={`${destination.name} landscape`} 
-            className="w-full h-full object-cover" 
+            alt={`${destination.name} landscape`}
+            className="w-full h-full"
           />
         </div>
         
