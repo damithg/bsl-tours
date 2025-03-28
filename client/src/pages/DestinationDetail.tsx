@@ -407,20 +407,44 @@ const DestinationDetail = () => {
               {/* Highlights & Experiences */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
                 {experiences.map((experience, index) => (
-                  <div key={index} className="bg-[#F9F7F4] p-6 rounded-xl shadow-sm">
-                    <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] mb-4">
-                      {experience.icon === 'guide' ? (
-                        <Users className="w-6 h-6" />
-                      ) : experience.icon === 'key' ? (
-                        <Bookmark className="w-6 h-6" />
-                      ) : experience.icon === 'transport' ? (
-                        <Compass className="w-6 h-6" />
-                      ) : (
-                        <MessageCircle className="w-6 h-6" />
-                      )}
+                  <div key={index} className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    {/* Light background image with reduced opacity */}
+                    <div className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-15 transition-opacity duration-300" 
+                      style={{ 
+                        backgroundImage: experience.icon === 'guide' 
+                          ? 'url(/images/activities/guide-experience.jpg)' 
+                          : experience.icon === 'key' 
+                          ? 'url(/images/activities/exclusive-access.jpg)'
+                          : experience.icon === 'transport'
+                          ? 'url(/images/activities/luxury-transport.jpg)'
+                          : 'url(/images/activities/authentic-cuisine.jpg)'
+                      }}>
                     </div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{experience.title}</h3>
-                    <p className="text-gray-600">{experience.description}</p>
+                    
+                    {/* Content with elegant styling */}
+                    <div className="relative p-6 h-full flex flex-col bg-gradient-to-br from-white to-gray-50">
+                      <div className="flex items-center mb-4">
+                        <div className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-[#0F4C81] mr-3 group-hover:bg-[#0F4C81] group-hover:text-white transition-colors duration-300">
+                          {experience.icon === 'guide' ? (
+                            <Users className="w-5 h-5" />
+                          ) : experience.icon === 'key' ? (
+                            <Bookmark className="w-5 h-5" />
+                          ) : experience.icon === 'transport' ? (
+                            <Compass className="w-5 h-5" />
+                          ) : (
+                            <MessageCircle className="w-5 h-5" />
+                          )}
+                        </div>
+                        <h3 className="font-['Playfair_Display'] text-xl font-medium text-gray-900">{experience.title}</h3>
+                      </div>
+                      <p className="text-gray-700 leading-relaxed">{experience.description}</p>
+                      <div className="mt-auto pt-4">
+                        <span className="text-sm font-medium text-[#0F4C81] flex items-center">
+                          Exclusive Experience
+                          <ChevronRight className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
