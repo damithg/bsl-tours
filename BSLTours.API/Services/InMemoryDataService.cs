@@ -492,6 +492,159 @@ namespace BSLTours.API.Services
             };
             
             tourPackages.Add(beachEscape);
+            
+            // 3. Sri Lanka Wildlife Safari
+            var wildlifeSafari = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Encounter Sri Lanka's magnificent wildlife in their natural habitats across multiple national parks.",
+                Title = "Sri Lanka Wildlife Safari",
+                Slug = "sri-lanka-wildlife-safari",
+                Description = "Experience the diverse wildlife of Sri Lanka with expert naturalist guides. Visit Yala, Udawalawe, and other renowned national parks to spot elephants, leopards, sloth bears, and hundreds of bird species.",
+                ImageUrl = "/images/packages/wildlife-safari.jpg",
+                Duration = 8,
+                Price = 2499M,
+                Featured = true,
+                IncludedDestinations = new List<string> { "Yala National Park", "Udawalawe", "Minneriya", "Sinharaja Forest" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(wildlifeSafari);
+            
+            // 4. Romantic Honeymoon Escape
+            var honeymoonEscape = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Create lasting memories with your loved one in the most romantic settings Sri Lanka has to offer.",
+                Title = "Romantic Honeymoon Escape",
+                Slug = "romantic-honeymoon-escape",
+                Description = "Begin your journey together with this exclusive honeymoon tour combining luxury accommodations, private experiences, and the most romantic settings across Sri Lanka.",
+                ImageUrl = "/images/packages/honeymoon-escape.jpg",
+                Duration = 10,
+                Price = 3299M,
+                Featured = true,
+                IncludedDestinations = new List<string> { "Bentota", "Ella", "Kandy", "Mirissa" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(honeymoonEscape);
+            
+            // 5. Sri Lanka Hill Country & Tea Trails
+            var teaTrails = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Journey through misty mountains and lush tea plantations in Sri Lanka's picturesque highlands.",
+                Title = "Sri Lanka Hill Country & Tea Trails",
+                Slug = "sri-lanka-hill-country-tea-trails",
+                Description = "Explore the verdant landscapes of Sri Lanka's central highlands. Visit historic tea factories, stay in colonial-era bungalows, and enjoy the cool climate and breathtaking scenery of Nuwara Eliya, Ella, and Hatton.",
+                ImageUrl = "/images/packages/tea-plantation-tour.jpg",
+                Duration = 7,
+                Price = 1899M,
+                Featured = false,
+                IncludedDestinations = new List<string> { "Nuwara Eliya", "Ella", "Hatton", "Haputale" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(teaTrails);
+            
+            // 6. Sri Lanka Family Adventure
+            var familyAdventure = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Create memorable experiences for the whole family with the perfect blend of culture, wildlife, and beach activities.",
+                Title = "Sri Lanka Family Adventure",
+                Slug = "sri-lanka-family-adventure",
+                Description = "This family-friendly tour combines educational experiences, wildlife encounters, and fun beach activities suitable for all ages. From elephant orphanages to gentle hiking trails and water sports, there's something for everyone.",
+                ImageUrl = "/images/packages/family-adventure.jpg",
+                Duration = 12,
+                Price = 2899M,
+                Featured = false,
+                IncludedDestinations = new List<string> { "Colombo", "Pinnawala", "Kandy", "Bentota" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(familyAdventure);
+            
+            // 7. Surf and Yoga Retreat
+            var surfYogaRetreat = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Find balance with daily yoga sessions and world-class surfing on Sri Lanka's southern coast.",
+                Title = "Surf and Yoga Retreat",
+                Slug = "surf-yoga-retreat",
+                Description = "Combine the thrill of surfing with the tranquility of yoga in this wellness-focused retreat. Perfect for beginners and experienced practitioners alike, with expert instructors and stunning beachfront locations.",
+                ImageUrl = "/images/packages/surf-yoga-retreat.jpg",
+                Duration = 9,
+                Price = 1799M,
+                Featured = false,
+                IncludedDestinations = new List<string> { "Weligama", "Mirissa", "Ahangama", "Hikkaduwa" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(surfYogaRetreat);
+            
+            // 8. Epic Sri Lanka Train Journey
+            var trainJourney = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Experience one of the world's most beautiful train journeys through Sri Lanka's scenic landscapes.",
+                Title = "Epic Sri Lanka Train Journey",
+                Slug = "epic-sri-lanka-train-journey",
+                Description = "Travel on Sri Lanka's iconic railway routes, including the famous blue train through tea country. This tour combines scenic train journeys with cultural experiences and comfortable accommodations at each stop.",
+                ImageUrl = "/images/packages/train-journey.jpg",
+                Duration = 8,
+                Price = 1699M,
+                Featured = true,
+                IncludedDestinations = new List<string> { "Kandy", "Nanu Oya", "Ella", "Haputale" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(trainJourney);
+            
+            // 9. Ancient Kingdoms of Sri Lanka
+            var ancientKingdoms = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Journey through Sri Lanka's rich history and explore ancient cities, temples, and royal palaces.",
+                Title = "Ancient Kingdoms of Sri Lanka",
+                Slug = "ancient-kingdoms-of-sri-lanka",
+                Description = "Delve into Sri Lanka's fascinating past with visits to UNESCO World Heritage Sites including ancient capitals, rock fortresses, and sacred temples dating back over 2,000 years.",
+                ImageUrl = "/images/packages/ancient-kingdoms.jpg",
+                Duration = 10,
+                Price = 2199M,
+                Featured = false,
+                IncludedDestinations = new List<string> { "Anuradhapura", "Polonnaruwa", "Kandy", "Dambulla" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(ancientKingdoms);
+            
+            // 10. A Week in the Tropics
+            var weekInTropics = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Enjoy the perfect introduction to Sri Lanka with this balanced one-week itinerary.",
+                Title = "A Week in the Tropics",
+                Slug = "a-week-in-the-tropics",
+                Description = "This carefully curated 7-day tour provides an ideal introduction to Sri Lanka, featuring the must-see highlights and authentic experiences for travelers with limited time.",
+                ImageUrl = "/images/packages/week-in-tropics.jpg",
+                Duration = 7,
+                Price = 1599M,
+                Featured = false,
+                IncludedDestinations = new List<string> { "Colombo", "Sigiriya", "Kandy", "Bentota" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(weekInTropics);
+            
+            // 11. Luxury Sri Lanka Escape
+            var luxuryEscape = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Excerpt = "Indulge in the finest accommodations and exclusive experiences across Sri Lanka.",
+                Title = "Luxury Sri Lanka Escape",
+                Slug = "luxury-sri-lanka-escape",
+                Description = "Experience Sri Lanka at its most exclusive with stays at world-class hotels and resorts, private guided tours, gourmet dining experiences, and personalized service throughout your journey.",
+                ImageUrl = "/images/packages/luxury-escape.jpg",
+                Duration = 14,
+                Price = 4999M,
+                Featured = true,
+                IncludedDestinations = new List<string> { "Colombo", "Yala", "Tangalle", "Galle", "Kandy" },
+                CreatedAt = DateTime.Now
+            };
+            tourPackages.Add(luxuryEscape);
         }
 
         // Destinations

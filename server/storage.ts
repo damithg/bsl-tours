@@ -196,87 +196,107 @@ export class MemStorage implements IStorage {
         imageUrl: "https://images.unsplash.com/photo-1571435584758-13df417a2154?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 48,
         reviewCount: 19,
-        featured: true
+        featured: true,
+        slug: "coastal-serenity-escape"
       },
       {
-        title: "Hill Country Tea Trails",
-        description: "Journey through misty mountains, tea plantations, and colonial-era luxury bungalows.",
+        title: "Sri Lanka Wildlife Safari",
+        description: "Experience the diverse wildlife of Sri Lanka with expert naturalist guides. Visit Yala, Udawalawe, and other renowned national parks to spot elephants, leopards, sloth bears, and hundreds of bird species.",
         duration: 8,
-        price: 2799,
-        imageUrl: "https://images.unsplash.com/photo-1583230690438-a157757de87a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
-        rating: 50,
-        reviewCount: 28,
-        featured: true
-      },
-      {
-        title: "Wildlife Safari Experience",
-        description: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges.",
-        duration: 6,
-        price: 2199,
+        price: 2499,
         imageUrl: "https://images.unsplash.com/photo-1616352116213-503cb49c8c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
-        rating: 47,
-        reviewCount: 15,
-        featured: false
-      },
-      {
-        title: "Luxury Family Adventure",
-        description: "Create unforgettable memories with your loved ones on this family-friendly luxury tour through Sri Lanka's highlights.",
-        duration: 12,
-        price: 3599,
-        imageUrl: "https://images.unsplash.com/photo-1583309219338-a582f1f9ca6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 49,
-        reviewCount: 22,
-        featured: false
+        reviewCount: 23,
+        featured: true,
+        slug: "sri-lanka-wildlife-safari"
       },
       {
         title: "Romantic Honeymoon Escape",
-        description: "Begin your journey together with exclusive experiences, romantic dinners, and luxurious accommodations.",
-        duration: 9,
+        description: "Begin your journey together with this exclusive honeymoon tour combining luxury accommodations, private experiences, and the most romantic settings across Sri Lanka.",
+        duration: 10,
         price: 3299,
         imageUrl: "https://images.unsplash.com/photo-1578922132951-13b3c524c104?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 50,
         reviewCount: 31,
-        featured: true
+        featured: true,
+        slug: "romantic-honeymoon-escape"
       },
       {
-        title: "Ayurveda & Wellness Retreat",
-        description: "Rejuvenate your mind, body, and soul with traditional Ayurvedic treatments and mindful experiences.",
-        duration: 8,
-        price: 2999,
-        imageUrl: "https://images.unsplash.com/photo-1583416750470-965b2707b355?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        title: "Sri Lanka Hill Country & Tea Trails",
+        description: "Explore the verdant landscapes of Sri Lanka's central highlands. Visit historic tea factories, stay in colonial-era bungalows, and enjoy the cool climate and breathtaking scenery of Nuwara Eliya, Ella, and Hatton.",
+        duration: 7,
+        price: 1899,
+        imageUrl: "https://images.unsplash.com/photo-1583230690438-a157757de87a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 48,
-        reviewCount: 17,
-        featured: false
+        reviewCount: 25,
+        featured: false,
+        slug: "sri-lanka-hill-country-tea-trails"
       },
       {
-        title: "Exclusive Golf Tour",
-        description: "Experience Sri Lanka's stunning golf courses combined with sightseeing and luxury accommodations.",
-        duration: 10,
-        price: 3799,
-        imageUrl: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
-        rating: 46,
-        reviewCount: 14,
-        featured: false
-      },
-      {
-        title: "Culinary Journey",
-        description: "Discover the flavors of Sri Lanka with cooking classes, market visits, and gourmet dining experiences.",
-        duration: 8,
+        title: "Sri Lanka Family Adventure",
+        description: "This family-friendly tour combines educational experiences, wildlife encounters, and fun beach activities suitable for all ages. From elephant orphanages to gentle hiking trails and water sports, there's something for everyone.",
+        duration: 12,
         price: 2899,
-        imageUrl: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
-        rating: 49,
-        reviewCount: 23,
-        featured: false
+        imageUrl: "https://images.unsplash.com/photo-1583309219338-a582f1f9ca6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 47,
+        reviewCount: 19,
+        featured: false,
+        slug: "sri-lanka-family-adventure"
       },
       {
-        title: "Historical Heritage Tour",
-        description: "Immerse yourself in Sri Lanka's rich history from ancient kingdoms to colonial influences with expert guides.",
-        duration: 11,
-        price: 3499,
+        title: "Surf and Yoga Retreat",
+        description: "Combine the thrill of surfing with the tranquility of yoga in this wellness-focused retreat. Perfect for beginners and experienced practitioners alike, with expert instructors and stunning beachfront locations.",
+        duration: 9,
+        price: 1799,
+        imageUrl: "https://images.unsplash.com/photo-1506059571507-8d2a0f9b8bb1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 46,
+        reviewCount: 17,
+        featured: false,
+        slug: "surf-yoga-retreat"
+      },
+      {
+        title: "Epic Sri Lanka Train Journey",
+        description: "Travel on Sri Lanka's iconic railway routes, including the famous blue train through tea country. This tour combines scenic train journeys with cultural experiences and comfortable accommodations at each stop.",
+        duration: 8,
+        price: 1699,
+        imageUrl: "https://images.unsplash.com/photo-1474302694023-9711af8045cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+        rating: 49,
+        reviewCount: 28,
+        featured: true,
+        slug: "epic-sri-lanka-train-journey"
+      },
+      {
+        title: "Ancient Kingdoms of Sri Lanka",
+        description: "Delve into Sri Lanka's fascinating past with visits to UNESCO World Heritage Sites including ancient capitals, rock fortresses, and sacred temples dating back over 2,000 years.",
+        duration: 10,
+        price: 2199,
         imageUrl: "https://images.unsplash.com/photo-1602351447937-745cb720612f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
         rating: 47,
         reviewCount: 18,
-        featured: false
+        featured: false,
+        slug: "ancient-kingdoms-of-sri-lanka"
+      },
+      {
+        title: "A Week in the Tropics",
+        description: "This carefully curated 7-day tour provides an ideal introduction to Sri Lanka, featuring the must-see highlights and authentic experiences for travelers with limited time.",
+        duration: 7,
+        price: 1599,
+        imageUrl: "https://images.unsplash.com/photo-1586613835341-6003c0e2fb11?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80",
+        rating: 45,
+        reviewCount: 15,
+        featured: false,
+        slug: "a-week-in-the-tropics"
+      },
+      {
+        title: "Luxury Sri Lanka Escape",
+        description: "Experience Sri Lanka at its most exclusive with stays at world-class hotels and resorts, private guided tours, gourmet dining experiences, and personalized service throughout your journey.",
+        duration: 14,
+        price: 4999,
+        imageUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80",
+        rating: 50,
+        reviewCount: 32,
+        featured: true,
+        slug: "luxury-sri-lanka-escape"
       }
     ];
     
@@ -457,7 +477,7 @@ export class MemStorage implements IStorage {
       {
         name: "James & Emily Wilson",
         content: "We've traveled extensively, but our journey through Sri Lanka with Best Sri Lanka Tours was one of the most memorable. The personalized service and insider access to hidden gems made all the difference.",
-        packageName: "Wildlife Safari Experience",
+        packageName: "Sri Lanka Wildlife Safari",
         rating: 5
       },
       {
@@ -469,7 +489,7 @@ export class MemStorage implements IStorage {
       {
         name: "David Chen",
         content: "As avid tea lovers, the Hill Country Tea Trails tour was a dream come true. Staying in colonial-era tea planter bungalows and learning about the tea-making process directly from experts was incredible.",
-        packageName: "Hill Country Tea Trails",
+        packageName: "Sri Lanka Hill Country & Tea Trails",
         rating: 5
       },
       {
@@ -487,7 +507,31 @@ export class MemStorage implements IStorage {
       {
         name: "Maria & Carlos Rodriguez",
         content: "Traveling with three generations of our family, we were amazed at how seamlessly BSL accommodated everyone's interests and needs. The grandparents, parents, and children all had the time of their lives!",
-        packageName: "Luxury Family Adventure",
+        packageName: "Sri Lanka Family Adventure",
+        rating: 5
+      },
+      {
+        name: "Robert & Jennifer Miller",
+        content: "The Wildlife Safari exceeded our expectations in every way. We saw elephants, leopards, and even a sloth bear! Our naturalist guide was incredibly knowledgeable and passionate. The luxury tented accommodations put us right in the heart of nature without sacrificing comfort.",
+        packageName: "Sri Lanka Wildlife Safari",
+        rating: 5
+      },
+      {
+        name: "Sophie Martin",
+        content: "I took the train journey tour as a solo traveler and it was the adventure of a lifetime. The blue train through the tea country was like something from a movie, and all the logistics were perfectly handled. I made wonderful friends along the way!",
+        packageName: "Epic Sri Lanka Train Journey",
+        rating: 5
+      },
+      {
+        name: "Daniel & Olivia Chang",
+        content: "Having just a week to explore Sri Lanka, we were concerned about fitting everything in. The Week in the Tropics package was perfectly balanced with just the right amount of culture, nature, and relaxation. It felt like a two-week holiday!",
+        packageName: "A Week in the Tropics",
+        rating: 5
+      },
+      {
+        name: "Raj & Priya Sharma",
+        content: "The Ancient Kingdoms tour brought history to life in ways we never expected. Standing among these ancient ruins with our expert guide explaining the stories behind them was like traveling back in time. The accommodations were also perfectly selected.",
+        packageName: "Ancient Kingdoms of Sri Lanka",
         rating: 5
       }
     ];
