@@ -319,6 +319,7 @@ export class MemStorage implements IStorage {
         
         // Extended information
         shortDescription: "An ancient rock fortress and palace with spectacular views",
+        excerpt: "Experience the ancient marvel of Sigiriya Rock Fortress, a UNESCO World Heritage site with breathtaking views and fascinating history.",
         fullDescription: "Rising dramatically from the central plains, the iconic rocky outcrop of Sigiriya is perhaps Sri Lanka's most dramatic sight. Near-vertical walls soar to a flat-topped summit that contains the ruins of an ancient civilization, thought to be once the epicenter of the short-lived kingdom of Kassapa. A series of galleries and staircases emerging from the mouth of a gigantic lion constructed of bricks and plaster provide access to the site.",
         highlights: JSON.stringify(["Lion's Paw Entrance", "Ancient Frescoes", "Mirror Wall", "Water Gardens", "Panoramic Summit Views"]),
         
@@ -410,56 +411,78 @@ export class MemStorage implements IStorage {
       {
         name: "Galle Fort",
         description: "Colonial charm with boutique hotels, cafes and ocean views",
+        shortDescription: "Historic fort with Dutch colonial architecture",
+        excerpt: "Wander through centuries-old streets, discover artisan boutiques, and watch breathtaking sunsets from the ramparts.",
         imageUrl: "https://images.unsplash.com/photo-1575136042347-ebaaa37049e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Yala National Park",
         description: "Luxury safari experiences with the highest leopard density in the world",
+        shortDescription: "Premier wildlife sanctuary with luxury safari camps",
+        excerpt: "Encounter majestic leopards, elephants, and diverse birdlife in Sri Lanka's premier wildlife reserve.",
         imageUrl: "https://images.unsplash.com/photo-1607793279016-c6865c283483?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Ella",
         description: "Mountain vistas, tea plantations, and iconic Nine Arch Bridge",
+        shortDescription: "Charming hill country destination with stunning panoramas",
+        excerpt: "Adventure through tea plantations, hike to spectacular viewpoints, and ride the iconic blue train.",
         imageUrl: "https://images.unsplash.com/photo-1577094695438-efe3fb02c242?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Bentota Beach",
         description: "Pristine golden sands with luxury beach resorts and water sports",
+        shortDescription: "Luxury beachfront paradise with upscale resorts",
+        excerpt: "Relax on pristine golden beaches, indulge in water sports, and enjoy world-class hospitality at exclusive resorts.",
         imageUrl: "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Kandy",
         description: "Sacred Temple of the Tooth and serene lake surrounded by hills",
+        shortDescription: "Cultural capital and last royal kingdom of Sri Lanka",
+        excerpt: "Immerse yourself in Sri Lanka's cultural heritage in this sacred city nestled among misty hills.",
         imageUrl: "https://images.unsplash.com/photo-1619111942607-1bb91e5c6d65?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Polonnaruwa",
         description: "Ancient city with well-preserved ruins and impressive stone carvings",
+        shortDescription: "Medieval capital with remarkable archaeological treasures",
+        excerpt: "Explore an ancient kingdom with extraordinary stone sculptures, grand palaces, and a rich cultural legacy.",
         imageUrl: "https://images.unsplash.com/photo-1602601320430-0b94c1926dce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Dambulla Cave Temple",
         description: "UNESCO World Heritage site with ancient Buddha statues and painted murals",
+        shortDescription: "Rock temple complex with intricate Buddhist artwork",
+        excerpt: "Discover the largest and best-preserved cave temple complex in Sri Lanka with stunning painted murals and Buddha statues.",
         imageUrl: "https://images.unsplash.com/photo-1624029769122-a836aba27077?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Anuradhapura",
         description: "Sri Lanka's ancient capital with sacred Bo Tree and majestic stupas",
+        shortDescription: "Sacred ancient city with monumental Buddhist architecture",
+        excerpt: "Walk through Sri Lanka's first ancient kingdom and discover sacred Buddhist sites, colossal stupas, and the world's oldest documented tree.",
         imageUrl: "https://images.unsplash.com/photo-1602602516181-a913082de858?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Nuwara Eliya",
         description: "Little England with Tudor-style cottages and world-class tea estates",
+        shortDescription: "Colonial hill station surrounded by tea plantations",
+        excerpt: "Experience Sri Lanka's 'Little England' with its cool climate, charming colonial architecture, and spectacular tea plantations rolling across the hills.",
         imageUrl: "https://images.unsplash.com/photo-1546708936-2af4a8ca0b7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Adam's Peak",
         description: "Sacred mountain pilgrimage with breathtaking sunrise views",
+        shortDescription: "Holy mountain revered by multiple religions",
+        excerpt: "Embark on a sacred pilgrimage to the peak that bears the footprint of Buddha, with an incredible sunrise view that stretches across the island.",
         imageUrl: "https://images.unsplash.com/photo-1579176647030-bd86f6fd4e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       },
       {
         name: "Mirissa",
         description: "Idyllic beach with luxury villas and world-class whale watching",
+        shortDescription: "Paradise beach destination with marine wildlife encounters",
+        excerpt: "Relax on golden sands, surf perfect waves, and embark on unforgettable whale watching expeditions from this idyllic coastal paradise.",
         imageUrl: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
       }
     ];
@@ -664,6 +687,7 @@ export class MemStorage implements IStorage {
       longitude: insertDestination.longitude || null,
       address: insertDestination.address || null,
       shortDescription: insertDestination.shortDescription || null,
+      excerpt: insertDestination.excerpt || null,
       fullDescription: insertDestination.fullDescription || null,
       highlights: insertDestination.highlights || null,
       bestTimeToVisit: insertDestination.bestTimeToVisit || null,

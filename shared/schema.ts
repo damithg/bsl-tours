@@ -61,6 +61,7 @@ export const destinations = pgTable("destinations", {
   
   // Extended information
   shortDescription: text("short_description"),
+  excerpt: text("excerpt"), // Used with .NET API
   fullDescription: text("full_description"),
   highlights: text("highlights"), // Stored as JSON string
   

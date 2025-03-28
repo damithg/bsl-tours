@@ -10,6 +10,7 @@ interface Destination {
   slug: string;
   description: string;
   shortDescription?: string;
+  excerpt?: string;
   imageUrl: string;
   highlights: string[];
 }
@@ -50,7 +51,7 @@ const DestinationCard = ({ destination, index, isActive, onClick }: DestinationC
             {isActive && (
               <div className="mt-3 space-y-4">
                 <p className="text-white/90 max-w-md">
-                  {destination.shortDescription || destination.description}
+                  {destination.excerpt || destination.shortDescription || destination.description}
                 </p>
                 
                 <div className="flex flex-wrap gap-2 mt-3">

@@ -185,7 +185,7 @@ const DestinationShowcase = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 p-6">
                     <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2">{destination.name || 'Destination'}</h3>
-                    <p className="text-white/80 mb-4 max-w-xs">{destination.shortDescription || destination.description || 'Description not available'}</p>
+                    <p className="text-white/80 mb-4 max-w-xs">{destination.excerpt || destination.shortDescription || destination.description || 'Description not available'}</p>
                     <a href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-white hover:text-[#D4AF37] transition">
                       Explore <i className="fas fa-arrow-right ml-2"></i>
                     </a>
