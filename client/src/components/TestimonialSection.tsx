@@ -173,21 +173,21 @@ const TestimonialSection = () => {
               <div key={testimonial.id} className="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3">
                 <div className="bg-white p-8 rounded-lg shadow-lg h-full">
                   <div className="text-[#D4AF37] mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
+                    {[...Array(testimonial.rating || 5)].map((_, i) => (
                       <i key={i} className="fas fa-star"></i>
                     ))}
                   </div>
-                  <p className="text-[#333333]/80 mb-6 italic">"{testimonial.content}"</p>
+                  <p className="text-[#333333]/80 mb-6 italic">"{testimonial.content || 'Wonderful experience with Best Sri Lanka Tours!'}"</p>
                   <div className="flex items-center">
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300 mr-4">
                       {/* Avatar placeholder - no actual image used */}
                       <div className="w-full h-full bg-[#0F4C81]/30 flex items-center justify-center text-white">
-                        {testimonial.name.charAt(0)}
+                        {testimonial.name ? testimonial.name.charAt(0) : 'G'}
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-semibold">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500">{testimonial.packageName}</p>
+                      <h4 className="font-semibold">{testimonial.name || 'Guest'}</h4>
+                      <p className="text-sm text-gray-500">{testimonial.packageName || 'Tour Package'}</p>
                     </div>
                   </div>
                 </div>

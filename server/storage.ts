@@ -692,7 +692,10 @@ export class MemStorage implements IStorage {
     const testimonial: Testimonial = { 
       ...insertTestimonial, 
       id,
-      rating: insertTestimonial.rating || null
+      name: insertTestimonial.name || 'Guest',
+      content: insertTestimonial.content || 'Wonderful experience with Best Sri Lanka Tours!',
+      packageName: insertTestimonial.packageName || 'Tour Package',
+      rating: insertTestimonial.rating || 5
     };
     this.testimonials.set(id, testimonial);
     return testimonial;
