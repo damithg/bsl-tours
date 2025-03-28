@@ -693,7 +693,8 @@ export class MemStorage implements IStorage {
 
 /**
  * Note: This storage implementation is no longer actively used by the application.
- * The frontend now connects directly to the .NET Core API at api.travelnip.com.
+ * The frontend now connects directly to the .NET Core API on Azure at:
+ * https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net
  * This is kept for reference purposes only.
  */
 export const storage = new MemStorage();

@@ -8,7 +8,7 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 // export const API_BASE_URL = "http://localhost:5001";
 
 // Production .NET API base URL
-export const API_BASE_URL = "https://api.travelnip.com";
+export const API_BASE_URL = "https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net";
 
 // Type definitions for API responses
 export interface TourPackage {
