@@ -792,7 +792,7 @@ const EnhancedPackageDetail = () => {
                 </div>
                 <div className="p-8 border-b border-l border-r border-gray-100">
                   <h3 className="text-2xl font-semibold mb-3">{tour.title}</h3>
-                  <p className="text-gray-600 mb-6">{tour.description}</p>
+                  <p className="text-gray-600 mb-6">{tour.excerpt || tour.description}</p>
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-gray-500">From</span>

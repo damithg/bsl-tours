@@ -111,7 +111,7 @@ const TourPackages = () => {
                         {pkg.rating !== null && pkg.rating !== undefined ? `${pkg.rating / 10} (${pkg.reviewCount || 0} reviews)` : 'No ratings yet'}
                       </span>
                     </div>
-                    <p className="text-[#333333]/70 mb-4">{pkg.description}</p>
+                    <p className="text-[#333333]/70 mb-4">{pkg.excerpt || pkg.description}</p>
                     <div className="flex justify-between items-center">
                       <div>
                         <span className="text-sm text-gray-500">From</span>
