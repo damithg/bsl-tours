@@ -794,9 +794,7 @@ const EnhancedPackageDetail = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-block mb-3">
-              <div className="h-0.5 w-10 bg-[#D4AF37] inline-block mr-3"></div>
-              <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Luxury Experiences</span>
-              <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
+              <span className="text-[#103556] uppercase text-sm font-medium tracking-wider block">Luxury Experiences</span>
             </div>
             <h2 className="text-4xl font-bold mb-6">
               You May Also Like
@@ -847,14 +845,11 @@ const EnhancedPackageDetail = () => {
           <div className="max-w-4xl mx-auto bg-white p-10 shadow-2xl">
             <div className="text-center mb-10">
               <div className="inline-block mb-3">
-                <div className="h-0.5 w-10 bg-[#D4AF37] inline-block mr-3"></div>
-                <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Book Your Journey</span>
-                <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
+                <span className="text-[#103556] uppercase text-sm font-medium tracking-wider block">Book Your Journey</span>
               </div>
               <h2 className="text-4xl font-bold mb-6">
                 Interested in This Tour?
               </h2>
-              <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                 Complete the form below and one of our luxury travel consultants will contact you 
                 within 24 hours to discuss your booking and answer any questions.
