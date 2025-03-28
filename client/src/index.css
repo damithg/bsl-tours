@@ -36,6 +36,54 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-['Playfair_Display'] text-[var(--accent)];
   }
+}
+
+@layer components {
+  /* Luxury Timeline Styling */
+  .timeline-luxury .prose p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+  
+  .timeline-luxury img {
+    @apply shadow-lg transition-all duration-500;
+  }
+  
+  .timeline-luxury img:hover {
+    @apply shadow-xl transform scale-[1.02];
+  }
+  
+  /* Add stylized connector lines between timeline points */
+  .timeline-luxury > div:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 30px;
+    bottom: 0;
+    height: 2rem;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), transparent);
+    transform: translateY(100%);
+  }
+  
+  /* Enhanced day circles with pulsing effect on hover */
+  .timeline-luxury .day-circle {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .timeline-luxury > div:hover .day-circle {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(15, 118, 110, 0.2);
+  }
+  
+  /* Add soft highlight for accommodation blocks */
+  .timeline-luxury .accommodation-info {
+    border-left: 4px solid var(--secondary);
+    transition: all 0.3s ease;
+  }
+  
+  .timeline-luxury .accommodation-info:hover {
+    background-color: #f5f3ea;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
   
   /* Gold decorative elements */
   .gold-divider {
