@@ -680,109 +680,112 @@ const EnhancedPackageDetail = () => {
             
             {/* Right Column - Sidebar */}
             <div className="lg:col-span-1">
-              {/* Price Card */}
-              <div className="sticky top-24 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-[#103556] p-6 text-white">
-                  <div className="flex items-baseline">
-                    <span className="text-xl font-medium">From</span>
-                    <span className="text-4xl font-bold ml-2">{formatPrice(packageData.price || 0)}</span>
-                    <span className="ml-1 text-white/80">per person</span>
-                  </div>
-                  <p className="text-white/80 text-sm mt-1">Based on double occupancy</p>
-                </div>
-                
-                <div className="p-6">
-                  <div className="space-y-4 mb-6">
-                    <div className="flex justify-between pb-3 border-b border-gray-100">
-                      <div className="flex items-center">
-                        <Calendar className="h-5 w-5 text-[#D4AF37] mr-3" />
-                        <span className="text-gray-600">Duration</span>
-                      </div>
-                      <span className="font-semibold">{packageData.duration} Days</span>
+              {/* Sticky container for all sidebar components */}
+              <div className="sticky top-24 space-y-8">
+                {/* Price Card */}
+                <div className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+                  <div className="bg-[#103556] p-6 text-white">
+                    <div className="flex items-baseline">
+                      <span className="text-xl font-medium">From</span>
+                      <span className="text-4xl font-bold ml-2">{formatPrice(packageData.price || 0)}</span>
+                      <span className="ml-1 text-white/80">per person</span>
                     </div>
-                    
-                    <div className="flex justify-between pb-3 border-b border-gray-100">
-                      <div className="flex items-center">
-                        <Users className="h-5 w-5 text-[#D4AF37] mr-3" />
-                        <span className="text-gray-600">Tour Type</span>
-                      </div>
-                      <span className="font-semibold">Private Tour</span>
-                    </div>
-                    
-                    <div className="flex justify-between pb-3 border-b border-gray-100">
-                      <div className="flex items-center">
-                        <DollarSign className="h-5 w-5 text-[#D4AF37] mr-3" />
-                        <span className="text-gray-600">Price Includes</span>
-                      </div>
-                      <span className="font-semibold">All Inclusive</span>
-                    </div>
-                    
-                    <div className="flex justify-between">
-                      <div className="flex items-center">
-                        <Award className="h-5 w-5 text-[#D4AF37] mr-3" />
-                        <span className="text-gray-600">Quality</span>
-                      </div>
-                      <span className="font-semibold">5-Star Luxury</span>
-                    </div>
+                    <p className="text-white/80 text-sm mt-1">Based on double occupancy</p>
                   </div>
                   
-                  <div className="space-y-3">
-                    <a 
-                      href="#inquiry" 
-                      className="block bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium text-center px-6 py-3 rounded-sm transition-colors w-full"
-                    >
-                      Book This Tour
-                    </a>
-                    <button 
-                      onClick={handleAddToWishlist}
-                      className="flex items-center justify-center border border-[#103556] text-[#103556] hover:bg-[#103556] hover:text-white font-medium px-6 py-3 rounded-sm transition-colors w-full"
-                    >
-                      <Heart className={`h-5 w-5 mr-2 ${isInWishlist ? 'fill-current' : ''}`} />
-                      {isInWishlist ? 'Saved to Wishlist' : 'Add to Wishlist'}
-                    </button>
+                  <div className="p-6">
+                    <div className="space-y-4 mb-6">
+                      <div className="flex justify-between pb-3 border-b border-gray-100">
+                        <div className="flex items-center">
+                          <Calendar className="h-5 w-5 text-[#D4AF37] mr-3" />
+                          <span className="text-gray-600">Duration</span>
+                        </div>
+                        <span className="font-semibold">{packageData.duration} Days</span>
+                      </div>
+                      
+                      <div className="flex justify-between pb-3 border-b border-gray-100">
+                        <div className="flex items-center">
+                          <Users className="h-5 w-5 text-[#D4AF37] mr-3" />
+                          <span className="text-gray-600">Tour Type</span>
+                        </div>
+                        <span className="font-semibold">Private Tour</span>
+                      </div>
+                      
+                      <div className="flex justify-between pb-3 border-b border-gray-100">
+                        <div className="flex items-center">
+                          <DollarSign className="h-5 w-5 text-[#D4AF37] mr-3" />
+                          <span className="text-gray-600">Price Includes</span>
+                        </div>
+                        <span className="font-semibold">All Inclusive</span>
+                      </div>
+                      
+                      <div className="flex justify-between">
+                        <div className="flex items-center">
+                          <Award className="h-5 w-5 text-[#D4AF37] mr-3" />
+                          <span className="text-gray-600">Quality</span>
+                        </div>
+                        <span className="font-semibold">5-Star Luxury</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <a 
+                        href="#inquiry" 
+                        className="block bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium text-center px-6 py-3 rounded-sm transition-colors w-full"
+                      >
+                        Book This Tour
+                      </a>
+                      <button 
+                        onClick={handleAddToWishlist}
+                        className="flex items-center justify-center border border-[#103556] text-[#103556] hover:bg-[#103556] hover:text-white font-medium px-6 py-3 rounded-sm transition-colors w-full"
+                      >
+                        <Heart className={`h-5 w-5 mr-2 ${isInWishlist ? 'fill-current' : ''}`} />
+                        {isInWishlist ? 'Saved to Wishlist' : 'Add to Wishlist'}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              {/* Need Help Box */}
-              <div className="mt-8 bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
-                <h3 className="text-xl font-semibold mb-4">
-                  Need Help?
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Our luxury travel consultants are ready to assist you with any questions about this tour.
-                </p>
-                <div className="flex items-center mt-4 pb-4 border-b border-gray-200">
-                  <div className="w-10 h-10 bg-[#103556] rounded-full flex items-center justify-center mr-3">
-                    <i className="fas fa-phone-alt text-white"></i>
+                
+                {/* Need Help Box */}
+                <div className="bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Need Help?
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Our luxury travel consultants are ready to assist you with any questions about this tour.
+                  </p>
+                  <div className="flex items-center mt-4 pb-4 border-b border-gray-200">
+                    <div className="w-10 h-10 bg-[#103556] rounded-full flex items-center justify-center mr-3">
+                      <i className="fas fa-phone-alt text-white"></i>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Call us</p>
+                      <p className="font-semibold text-[#103556]">+94 77 123 4567</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Call us</p>
-                    <p className="font-semibold text-[#103556]">+94 77 123 4567</p>
+                  <div className="flex items-center mt-4">
+                    <div className="w-10 h-10 bg-[#103556] rounded-full flex items-center justify-center mr-3">
+                      <i className="fas fa-envelope text-white"></i>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Email us</p>
+                      <p className="font-semibold text-[#103556]">info@bestsrilankatours.com</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center mt-4">
-                  <div className="w-10 h-10 bg-[#103556] rounded-full flex items-center justify-center mr-3">
-                    <i className="fas fa-envelope text-white"></i>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Email us</p>
-                    <p className="font-semibold text-[#103556]">info@bestsrilankatours.com</p>
-                  </div>
+                
+                {/* Customize Box */}
+                <div className="bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Need Customizations?
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    Want to add extra activities, change accommodation options, or adjust the itinerary? Our experts can customize this tour to your preferences.
+                  </p>
+                  <Button variant="outline" className="w-full">
+                    Request Custom Tour
+                  </Button>
                 </div>
-              </div>
-              
-              {/* Customize Box */}
-              <div className="mt-8 bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
-                <h3 className="text-xl font-semibold mb-4">
-                  Need Customizations?
-                </h3>
-                <p className="text-muted-foreground mb-4">
-                  Want to add extra activities, change accommodation options, or adjust the itinerary? Our experts can customize this tour to your preferences.
-                </p>
-                <Button variant="outline" className="w-full">
-                  Request Custom Tour
-                </Button>
               </div>
             </div>
           </div>
