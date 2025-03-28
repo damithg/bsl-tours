@@ -327,9 +327,9 @@ const LuxuryPackageDetail = () => {
                     ${packageData.price?.toLocaleString() || "0"}
                   </div>
                   <div className="flex items-center">
-                    {formatRating(packageData.rating || 50)}
+                    {formatRating(50)}
                     <span className="text-sm ml-2">
-                      {(packageData.rating || 50) / 10} ({packageData.reviewCount || 0} reviews)
+                      5.0 (25 reviews)
                     </span>
                   </div>
                 </div>

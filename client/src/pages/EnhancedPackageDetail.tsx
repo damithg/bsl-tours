@@ -54,6 +54,7 @@ interface RelatedTour {
   price: number;
   imageUrl: string;
   description: string;
+  excerpt?: string;
 }
 
 const EnhancedPackageDetail = () => {

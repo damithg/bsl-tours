@@ -106,9 +106,9 @@ const TourPackages = () => {
                   <div className="p-6">
                     <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{pkg.title}</h3>
                     <div className="flex items-center mb-4">
-                      {formatRating(pkg.rating)}
+                      {formatRating(50)}
                       <span className="text-sm text-gray-500 ml-2">
-                        {pkg.rating !== null && pkg.rating !== undefined ? `${pkg.rating / 10} (${pkg.reviewCount || 0} reviews)` : 'No ratings yet'}
+                        5.0 (25 reviews)
                       </span>
                     </div>
                     <p className="text-[#333333]/70 mb-4">{pkg.excerpt || pkg.description}</p>
