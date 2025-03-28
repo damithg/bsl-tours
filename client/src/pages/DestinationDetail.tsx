@@ -130,8 +130,16 @@ const DestinationDetail = () => {
     }
   ];
 
-  // Experiences for this destination
-  const experiences = [
+  // Define feature interface
+  interface Feature {
+    title: string;
+    description: string;
+    icon: string;
+    imageUrl?: string;
+  }
+  
+  // Use features from API or fallback to sample experiences
+  const experiences: Feature[] = (destination as any)?.features || [
     {
       title: "Private Guided Tours",
       description: "Explore hidden gems with our expert local guides who bring history and culture to life.",
@@ -181,9 +189,14 @@ const DestinationDetail = () => {
       }
     ];
 
-  // Gallery images
-  const galleryImages = destination?.galleryImages ? 
-    safeJsonParse(destination.galleryImages, []) : 
+  // Gallery image interface
+  interface GalleryImage {
+    url: string;
+    alt: string;
+  }
+  
+  // Gallery images - now directly use the structured gallery images from API
+  const galleryImages: GalleryImage[] = (destination as any)?.galleryImages || 
     [
       {
         url: destination?.imageUrl || "/images/destinations/gallery/tropical-beach.jpg",
@@ -211,9 +224,8 @@ const DestinationDetail = () => {
       }
     ];
 
-  // Highlights
-  const highlights = destination?.highlights ? 
-    safeJsonParse(destination.highlights, ['Wildlife', 'Cultural Heritage', 'UNESCO Site', 'Panoramic Views']) : 
+  // Highlights - directly use the array from API
+  const highlights: string[] = (destination as any)?.highlights || 
     ['Wildlife', 'Cultural Heritage', 'UNESCO Site', 'Panoramic Views'];
 
   // Loading state
@@ -406,13 +418,15 @@ const DestinationDetail = () => {
               
               {/* Highlights & Experiences */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-                {experiences.map((experience, index) => (
+                {experiences.map((experience: Feature, index: number) => (
                   <div key={index} className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#0F4C81]/30 shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="p-6">
                       <div className="flex mb-4">
                         <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
                           <img 
-                            src={experience.icon === 'guide' 
+                            src={experience.imageUrl 
+                              ? experience.imageUrl 
+                              : experience.icon === 'guide' 
                               ? "/images/activities/guide-experience.jpg" 
                               : experience.icon === 'key' 
                               ? "/images/activities/exclusive-access.jpg"
@@ -549,11 +563,11 @@ const DestinationDetail = () => {
                     </div>
                   </div>
                   
-                  {destination.travelTips && (
+                  {(destination as any)?.travelTips && (destination as any).travelTips.length > 0 && (
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Travel Tips</h4>
                       <ul className="list-disc list-inside text-gray-600 space-y-1">
-                        {safeJsonParse(destination.travelTips, []).map((tip: string, index: number) => (
+                        {((destination as any).travelTips || []).map((tip: string, index: number) => (
                           <li key={index}>{tip}</li>
                         ))}
                       </ul>
@@ -643,7 +657,7 @@ const DestinationDetail = () => {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {galleryImages.map((image: any, index: number) => (
+            {galleryImages.map((image: GalleryImage, index: number) => (
               <div 
                 key={index} 
                 className={`rounded-xl overflow-hidden ${
@@ -704,8 +718,8 @@ const DestinationDetail = () => {
                 Nearby Attractions
               </h3>
               <ul className="text-gray-600 space-y-2">
-                {(destination as any).nearbyAttractions ? 
-                  safeJsonParse((destination as any).nearbyAttractions, []).map((attraction: string, index: number) => (
+                {((destination as any)?.nearbyAttractions && (destination as any).nearbyAttractions.length > 0) ? 
+                  ((destination as any).nearbyAttractions || []).map((attraction: string, index: number) => (
                     <li key={index} className="flex items-start">
                       <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
                       <span>{attraction}</span>
@@ -743,7 +757,7 @@ const DestinationDetail = () => {
       </section>
 
       {/* FAQ Section */}
-      {destination.faqs && (
+      {((destination as any)?.faQs?.length > 0) && (
         <section className="py-12 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">
@@ -752,7 +766,7 @@ const DestinationDetail = () => {
             
             <div className="max-w-3xl mx-auto">
               <div className="space-y-4">
-                {safeJsonParse(destination.faqs, []).map((faq: any, index: number) => (
+                {((destination as any)?.faQs || []).map((faq: {question: string, answer: string}, index: number) => (
                   <div key={index} className="bg-[#F9F7F4] rounded-xl overflow-hidden">
                     <details className="group">
                       <summary className="flex justify-between items-center p-6 cursor-pointer">
