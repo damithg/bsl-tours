@@ -162,9 +162,8 @@ const DestinationDetail = () => {
     }
   ];
 
-  // Activities for this destination
-  const activities = destination?.activities ? 
-    safeJsonParse(destination.activities, []) : 
+  // Local experiences for this destination
+  const localExperiences = (destination as any)?.localExperiences || 
     [
       {
         title: "Hiking Adventure",
@@ -359,7 +358,7 @@ const DestinationDetail = () => {
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
-              Activities
+              Local Experiences
             </button>
             <button 
               onClick={() => {
@@ -611,45 +610,45 @@ const DestinationDetail = () => {
         </div>
       </section>
 
-      {/* Activities Section */}
+      {/* Local Experiences Section */}
       <section ref={activitiesRef} className="py-12 bg-[#F9F7F4]" id="activities">
         <div className="container mx-auto px-4">
           <h2 className="font-['Playfair_Display'] text-3xl font-bold text-center text-[#0F4C81] mb-10">
-            Featured Activities at {destination.name}
+            Local Experiences in {destination.name}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {activities.map((activity: any, index: number) => (
+            {localExperiences.map((experience: any, index: number) => (
               <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
                 <div className="relative h-56">
                   <img 
-                    src={activity.imageUrl || `/images/activities/activity-${index + 1}.jpg`} 
-                    alt={activity.title} 
+                    src={experience.imageUrl || `/images/activities/activity-${index + 1}.jpg`} 
+                    alt={experience.title} 
                     className="w-full h-full object-cover" 
                   />
-                  {activity.difficulty && (
+                  {experience.difficulty && (
                     <div className="absolute top-4 right-4 bg-white/90 text-[#0F4C81] px-3 py-1 rounded-full text-sm font-medium">
-                      {activity.difficulty}
+                      {experience.difficulty}
                     </div>
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{activity.title}</h3>
+                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{experience.title}</h3>
                   
-                  {activity.duration && (
+                  {experience.duration && (
                     <div className="flex items-center text-gray-500 mb-3">
                       <Clock className="w-4 h-4 mr-2" />
-                      <span>{activity.duration}</span>
+                      <span>{experience.duration}</span>
                     </div>
                   )}
                   
-                  <p className="text-gray-600 mb-5">{activity.description}</p>
+                  <p className="text-gray-600 mb-5">{experience.description}</p>
                   
                   <Link 
                     href="/contact" 
                     className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#D4AF37] gap-1 transition"
                   >
-                    Inquire About This Activity
+                    Book This Experience
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
