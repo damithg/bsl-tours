@@ -35,6 +35,55 @@ namespace BSLTours.API.Services
         {
             InitializeDestinations();
             InitializeTourPackages();
+            InitializeTestimonials();
+        }
+        
+        private void InitializeTestimonials()
+        {
+            // Add testimonials
+            testimonials.Add(new Testimonial
+            {
+                Id = testimonialIdCounter++,
+                CustomerName = "Sarah Johnson",
+                CustomerAvatar = "/images/testimonials/sarah-johnson.jpg",
+                Content = "Our Sri Lanka tour was absolutely incredible! The attention to detail provided by Best Sri Lanka Tours made this trip unforgettable. From the ancient temples to the stunning beaches, everything was perfect.",
+                Rating = 5,
+                TourPackage = "Cultural Triangle Luxury Tour",
+                CreatedAt = DateTime.Now.AddDays(-30)
+            });
+            
+            testimonials.Add(new Testimonial
+            {
+                Id = testimonialIdCounter++,
+                CustomerName = "James Wilson",
+                CustomerAvatar = "/images/testimonials/james-wilson.jpg",
+                Content = "The wildlife safari experience was beyond our expectations. Our guide was knowledgeable and made sure we saw everything - elephants, leopards, and so many birds! Highly recommend BSL Tours for anyone looking to explore Sri Lanka.",
+                Rating = 5,
+                TourPackage = "Sri Lanka Wildlife Safari",
+                CreatedAt = DateTime.Now.AddDays(-45)
+            });
+            
+            testimonials.Add(new Testimonial
+            {
+                Id = testimonialIdCounter++,
+                CustomerName = "Emma Thompson",
+                CustomerAvatar = "/images/testimonials/emma-thompson.jpg",
+                Content = "From gorgeous tea plantations to breathtaking ocean views, our customized tour with BSL was simply perfect. The hotels were luxurious and the private transportation made everything so convenient.",
+                Rating = 5,
+                TourPackage = "Southern Coast Escape",
+                CreatedAt = DateTime.Now.AddDays(-60)
+            });
+            
+            testimonials.Add(new Testimonial
+            {
+                Id = testimonialIdCounter++,
+                CustomerName = "Michael Chen",
+                CustomerAvatar = "/images/testimonials/michael-chen.jpg",
+                Content = "Traveling with BSL Tours allowed us to discover the real Sri Lanka. The cultural insights and authentic experiences made this trip special. The accommodations exceeded our expectations!",
+                Rating = 4,
+                TourPackage = "Authentic Sri Lanka Experience",
+                CreatedAt = DateTime.Now.AddDays(-90)
+            });
         }
         
         private void InitializeDestinations()
