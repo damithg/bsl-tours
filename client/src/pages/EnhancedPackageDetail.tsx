@@ -164,11 +164,15 @@ const EnhancedPackageDetail = () => {
     }
   }, [packageData]);
   
-  // Process itinerary data from API or parse from package data if needed
+  // Process itinerary data directly from the API response
   useEffect(() => {
-    if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0) {
-      // If we have structured itinerary data from the API endpoint
-      console.log("Using structured itinerary data from API:", itineraryData);
+    if (packageData?.itineraryDays && Array.isArray(packageData.itineraryDays) && packageData.itineraryDays.length > 0) {
+      // If we have structured itinerary data directly in package data
+      console.log("Using itineraryDays from API response:", packageData.itineraryDays);
+      setItinerary(packageData.itineraryDays);
+    } else if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0) {
+      // Fallback to separate itinerary endpoint data if available
+      console.log("Using structured itinerary data from API endpoint:", itineraryData);
       setItinerary(itineraryData);
     } else if (packageData?.itinerary) {
       console.log("Itinerary field from package data:", packageData.itinerary);
