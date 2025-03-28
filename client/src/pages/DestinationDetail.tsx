@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { 
   ChevronRight, MapPin, Calendar, Clock, Bookmark, Users, Compass, 
   Sun, Droplets, Star, Menu, ArrowRight, ChevronDown, MessageCircle, 
-  Heart, Share2, Camera, MapIcon
+  Heart, Share2, Camera, MapIcon, Coffee
 } from 'lucide-react';
 import { Destination } from '@shared/schema';
 import { useCurrency } from '@/contexts/CurrencyContext';
@@ -426,6 +426,14 @@ const DestinationDetail = () => {
                           <img 
                             src={experience.imageUrl 
                               ? experience.imageUrl 
+                              : experience.icon === 'heritage-walk' 
+                              ? "/images/activities/guide-experience.jpg" 
+                              : experience.icon === 'boutique-hotel' 
+                              ? "/images/activities/exclusive-access.jpg"
+                              : experience.icon === 'sunset'
+                              ? "/images/activities/luxury-transport.jpg"
+                              : experience.icon === 'coffee-art'
+                              ? "/images/activities/authentic-cuisine.jpg"
                               : experience.icon === 'guide' 
                               ? "/images/activities/guide-experience.jpg" 
                               : experience.icon === 'key' 
@@ -439,7 +447,15 @@ const DestinationDetail = () => {
                         </div>
                         <div>
                           <div className="inline-flex items-center text-[#0F4C81] mb-2">
-                            {experience.icon === 'guide' ? (
+                            {experience.icon === 'heritage-walk' ? (
+                              <Users className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'boutique-hotel' ? (
+                              <Bookmark className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'sunset' ? (
+                              <Sun className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'coffee-art' ? (
+                              <Coffee className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'guide' ? (
                               <Users className="w-4 h-4 mr-2" />
                             ) : experience.icon === 'key' ? (
                               <Bookmark className="w-4 h-4 mr-2" />
