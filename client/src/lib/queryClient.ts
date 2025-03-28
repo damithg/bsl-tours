@@ -189,9 +189,10 @@ export const getQueryFn = <TData>(options: {
           return segment;
         });
         path = updatedPathSegments.join('/');
-      } else if (basePath.includes('/by-slug/')) {
-        // Special handling for /by-slug/ endpoint
-        path = `${basePath}${params[0]}`;
+      } else if (basePath.includes('/slug/') || basePath.includes('/by-slug/')) {
+        // Special handling for slug endpoints
+        path = `${basePath}/${params[0]}`;
+        console.log('Slug API path:', path);
       } else if (basePath.includes('/{')) {
         // Handle .NET style path parameters
         let updatedPath = basePath;

@@ -28,6 +28,7 @@ interface RelatedTour {
   imageUrl: string;
   description: string;
   shortDescription?: string;
+  slug?: string;
 }
 
 const EnhancedPackageDetail = () => {
@@ -386,7 +387,8 @@ const EnhancedPackageDetail = () => {
       price: 2199,
       imageUrl: "https://images.unsplash.com/photo-1544535830-2a087b7641c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       description: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges.",
-      shortDescription: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges."
+      shortDescription: "Discover Sri Lanka's incredible wildlife in luxury tented camps and boutique lodges.",
+      slug: "wildlife-safari-experience"
     },
     {
       id: 2,
@@ -395,7 +397,8 @@ const EnhancedPackageDetail = () => {
       price: 2999,
       imageUrl: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       description: "Rejuvenate with ancient healing traditions in luxury wellness sanctuaries.",
-      shortDescription: "Rejuvenate with ancient healing traditions in luxury wellness sanctuaries."
+      shortDescription: "Rejuvenate with ancient healing traditions in luxury wellness sanctuaries.",
+      slug: "ayurvedic-wellness-retreat"
     },
     {
       id: 3,
@@ -404,7 +407,8 @@ const EnhancedPackageDetail = () => {
       price: 2499,
       imageUrl: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       description: "Experience the finest beach resorts and water activities along Sri Lanka's pristine coast.",
-      shortDescription: "Experience the finest beach resorts and water activities along Sri Lanka's pristine coast."
+      shortDescription: "Experience the finest beach resorts and water activities along Sri Lanka's pristine coast.",
+      slug: "coastal-luxury-getaway"
     }
   ];
 
@@ -829,7 +833,7 @@ const EnhancedPackageDetail = () => {
                       <span className="text-sm text-gray-500">From</span>
                       <span className="text-[#103556] text-2xl font-normal ml-2">{formatPrice(tour.price || 0)}</span>
                     </div>
-                    <Link href={`/tour/${tour.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')}`}>
+                    <Link href={`/tour/${tour.slug || tour.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')}`}>
                       <button className="bg-[#103556] hover:bg-[#1a4971] text-white font-medium px-6 py-2.5 rounded-sm transition-colors">
                         View Details
                       </button>

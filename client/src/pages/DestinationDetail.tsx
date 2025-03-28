@@ -32,8 +32,7 @@ interface RelatedTour {
 }
 
 const DestinationDetail = () => {
-  const [isIdRoute, idParams] = useRoute<{ id: string }>('/destination/:id');
-  const [isSlugRoute, slugParams] = useRoute<{ slug: string }>('/destination/:slug+');
+  const [matched, params] = useRoute<{ slug: string }>('/destination/:slug');
   const { formatPrice } = useCurrency();
   const [activeTab, setActiveTab] = useState<'overview' | 'activities' | 'gallery' | 'map'>('overview');
   const [activeSection, setActiveSection] = useState<string>('hero');
@@ -43,19 +42,32 @@ const DestinationDetail = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   
   // Determine if we're using an ID or slug for the API request
-  const destinationId = isIdRoute && idParams?.id ? parseInt(idParams.id, 10) : 0;
-  const destinationSlug = isSlugRoute && slugParams?.slug ? slugParams.slug : '';
+  const paramValue = params?.slug || '';
+  const isNumeric = /^\d+$/.test(paramValue);
+  const destinationId = isNumeric ? parseInt(paramValue, 10) : 0;
+  const destinationSlug = !isNumeric ? paramValue : '';
+  
+  // Log the route parameters for debugging
+  console.log('Route parameters:', { matched, paramValue, isNumeric, destinationId, destinationSlug });
   
   // Decide which API endpoint to use based on whether we have an ID or a slug
+  // The .NET Core API can handle both ID-based and slug-based requests directly
   const queryEndpoint = destinationId ? ['/api/destinations', destinationId] : 
-                        destinationSlug ? ['/api/destinations/by-slug', destinationSlug] : 
+                        destinationSlug ? ['/api/destinations', destinationSlug] : 
                         ['/api/destinations', 0];
   
   // Fetch destination data
   const { data: destination, isLoading, error } = useQuery<Destination>({
     queryKey: queryEndpoint,
-    enabled: !!(destinationId || destinationSlug),
+    enabled: !!(destinationId || destinationSlug)
   });
+
+  // Error logging
+  useEffect(() => {
+    if (error) {
+      console.error('Destination detail error:', error, 'Query endpoint:', queryEndpoint);
+    }
+  }, [error, queryEndpoint]);
 
   // Setup scroll spy
   useEffect(() => {
@@ -395,20 +407,48 @@ const DestinationDetail = () => {
               {/* Highlights & Experiences */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
                 {experiences.map((experience, index) => (
-                  <div key={index} className="bg-[#F9F7F4] p-6 rounded-xl shadow-sm">
-                    <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] mb-4">
-                      {experience.icon === 'guide' ? (
-                        <Users className="w-6 h-6" />
-                      ) : experience.icon === 'key' ? (
-                        <Bookmark className="w-6 h-6" />
-                      ) : experience.icon === 'transport' ? (
-                        <Compass className="w-6 h-6" />
-                      ) : (
-                        <MessageCircle className="w-6 h-6" />
-                      )}
+                  <div key={index} className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#0F4C81]/30 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="p-6">
+                      <div className="flex mb-4">
+                        <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
+                          <img 
+                            src={experience.icon === 'guide' 
+                              ? "/images/activities/guide-experience.jpg" 
+                              : experience.icon === 'key' 
+                              ? "/images/activities/exclusive-access.jpg"
+                              : experience.icon === 'transport'
+                              ? "/images/activities/luxury-transport.jpg"
+                              : "/images/activities/authentic-cuisine.jpg"} 
+                            alt={experience.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <div className="inline-flex items-center text-[#0F4C81] mb-2">
+                            {experience.icon === 'guide' ? (
+                              <Users className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'key' ? (
+                              <Bookmark className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'transport' ? (
+                              <Compass className="w-4 h-4 mr-2" />
+                            ) : (
+                              <MessageCircle className="w-4 h-4 mr-2" />
+                            )}
+                            <span className="text-sm font-medium">Exclusive</span>
+                          </div>
+                          <h3 className="font-['Playfair_Display'] text-xl font-medium text-gray-900">{experience.title}</h3>
+                        </div>
+                      </div>
+                      <p className="text-gray-700 leading-relaxed">{experience.description}</p>
+                      <div className="mt-4 pt-4 border-t border-gray-100">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-medium">Featured Experience</span>
+                          <div className="w-8 h-8 rounded-full bg-[#F9F7F4] group-hover:bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] transition-colors duration-300">
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{experience.title}</h3>
-                    <p className="text-gray-600">{experience.description}</p>
                   </div>
                 ))}
               </div>
