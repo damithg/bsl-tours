@@ -334,6 +334,15 @@ const EnhancedPackageDetail = () => {
     "Visa fees",
     "Optional activities"
   ];
+  
+  // Tour highlights
+  const tourHighlights = [
+    "Visit the UNESCO World Heritage sites in the Cultural Triangle",
+    "Climb the iconic Sigiriya Rock Fortress",
+    "Explore ancient cities of Polonnaruwa and Anuradhapura",
+    "Experience sacred Buddhist temples and cave paintings in Dambulla",
+    "Discover the Temple of the Sacred Tooth Relic in Kandy"
+  ];
 
   // Mock related tours (in a real app, these would be fetched from API)
   const relatedTours: RelatedTour[] = [
@@ -584,15 +593,15 @@ const EnhancedPackageDetail = () => {
                 )}
               </div>
               
-              {/* Includes/Excludes Section - New Style */}
+              {/* Tour Highlights Section */}
               <div className="mb-16">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold">Included/Excluded</h2>
+                  <h2 className="text-3xl font-bold">Highlights</h2>
                 </div>
                 
                 <div className="space-y-6 mb-8">
-                  {includesItems.map((item, idx) => (
-                    <div key={`include-${idx}`} className="flex items-start">
+                  {tourHighlights.map((item, idx) => (
+                    <div key={`highlight-${idx}`} className="flex items-start">
                       <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
                         <Check className="h-3.5 w-3.5 text-green-600" />
                       </div>
@@ -600,16 +609,38 @@ const EnhancedPackageDetail = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+              
+              {/* Includes/Excludes Section - New Style */}
+              <div className="mb-16">
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold">Included/Excluded</h2>
+                </div>
                 
-                <div className="border-t border-gray-200 my-8 pt-8 space-y-6">
-                  {excludesItems.map((item, idx) => (
-                    <div key={`exclude-${idx}`} className="flex items-start">
-                      <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                        <X className="h-3.5 w-3.5 text-red-500" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Included Column */}
+                  <div className="space-y-6">
+                    {includesItems.map((item, idx) => (
+                      <div key={`include-${idx}`} className="flex items-start">
+                        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                          <Check className="h-3.5 w-3.5 text-green-600" />
+                        </div>
+                        <span className="text-gray-700">{item}</span>
                       </div>
-                      <span className="text-gray-700">{item}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                  
+                  {/* Excluded Column */}
+                  <div className="space-y-6">
+                    {excludesItems.map((item, idx) => (
+                      <div key={`exclude-${idx}`} className="flex items-start">
+                        <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                          <X className="h-3.5 w-3.5 text-red-500" />
+                        </div>
+                        <span className="text-gray-700">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
