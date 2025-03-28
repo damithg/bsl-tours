@@ -124,10 +124,14 @@ namespace BSLTours.API.Services
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "https://images.unsplash.com/photo-1583087253076-5d1315860eb8", Alt = "Sigiriya Rock Fortress - Main View" },
-                    new GalleryImage { Url = "https://images.unsplash.com/photo-1627894966831-0c839fa78bfd", Alt = "Sigiriya Rock Fortress - Ancient Frescoes" },
-                    new GalleryImage { Url = "https://images.unsplash.com/photo-1531259922615-206732e4349b", Alt = "Sigiriya Rock Fortress - Water Gardens" },
-                    new GalleryImage { Url = "https://images.unsplash.com/photo-1618846042125-0a64dc7c3608", Alt = "Sigiriya Rock Fortress - Summit View" }
+                    new GalleryImage { Url = "/images/activities/photo-1583087253076-5d1315860eb8.jpg", Alt = "Sigiriya Rock Fortress - Main View" },
+                    new GalleryImage { Url = "/images/activities/photo-1627894966831-0c839fa78bfd.jpg", Alt = "Sigiriya Rock Fortress - Ancient Frescoes" },
+                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349f.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
+                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349r.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
+                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349t.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
+                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349d.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
+                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349s.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
+                    new GalleryImage { Url = "/images/activities/photo-1618846042125-0a64dc7c360u.jpg", Alt = "Sigiriya Rock Fortress - Summit View" }
                 },
                 
                 // Activities
@@ -188,9 +192,14 @@ namespace BSLTours.API.Services
                 
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "https://images.unsplash.com/photo-1592454869436-cfee29fafa29", Alt = "Galle Fort - Ramparts View" },
-                    new GalleryImage { Url = "https://images.unsplash.com/photo-1583087253076-5d1315860eb8", Alt = "Galle Fort - Lighthouse" },
-                    new GalleryImage { Url = "https://images.unsplash.com/photo-1591331686811-80ebb77d0813", Alt = "Galle Fort - Colonial Architecture" }
+                    new GalleryImage { Url = "/images/activities/photo-1592454869436-cfee29fafa29.jpg", Alt = "Galle Fort - Ramparts View" },
+                    new GalleryImage { Url = "/images/activities/photo-1583087253076-5d1315860eb8.jpg", Alt = "Galle Fort - Lighthouse" },
+                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0813.jpg", Alt = "Galle Fort - Colonial Architecture" },
+                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0814.jpg", Alt = "Galle Fort - Colonial Architecture" },
+                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0815.jpg", Alt = "Galle Fort - Colonial Architecture" },
+                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0816.jpg", Alt = "Galle Fort - Colonial Architecture" },
+                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0817.jpg", Alt = "Galle Fort - Colonial Architecture" },
+                    new GalleryImage { Url = "/images/activities/photo-1591331686811-80ebb77d0819.jpg", Alt = "Galle Fort - Colonial Architecture" }
                 },
                 
                 // FAQs for Galle
