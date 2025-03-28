@@ -144,7 +144,7 @@ const Destinations = () => {
                   </div>
                   <div className="p-6">
                     <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{destination.name}</h3>
-                    <p className="text-[#333333]/70 mb-4">{destination.excerpt || destination.shortDescription || destination.description}</p>
+                    <p className="text-[#333333]/70 mb-4">{destination.excerpt}</p>
                     <Link href={`/destination/${destination.id}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
                       Explore Experiences
                       <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
