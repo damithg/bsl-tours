@@ -70,7 +70,7 @@ const EnhancedPackageDetail = () => {
   const [itinerary, setItinerary] = useState<ItineraryDay[]>([]);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [timelineData, setTimelineData] = useState<TimelineDayData[]>([]);
-  const [itineraryView, setItineraryView] = useState<'standard' | 'visual'>('visual');
+  // Using only the visual timeline format
   
   // Get currency formatter
   const { formatPrice } = useCurrency();
@@ -582,118 +582,14 @@ const EnhancedPackageDetail = () => {
               
               {/* Detailed Itinerary Section - For Additional Details */}
               <div className="mb-16">
-                <div className="mb-8 flex justify-between items-center">
+                <div className="mb-8">
                   <h2 className="text-3xl font-bold">Journey Highlights</h2>
-                  
-                  {/* View Toggle Buttons */}
-                  {itinerary.length > 0 && (
-                    <div className="flex rounded-md overflow-hidden">
-                      <button 
-                        onClick={() => setItineraryView('standard')}
-                        className={`py-2 px-4 text-sm font-medium border transition-colors ${
-                          itineraryView === 'standard' 
-                            ? 'bg-[#103556] text-white border-[#103556]' 
-                            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
-                        }`}
-                      >
-                        Standard View
-                      </button>
-                      <button 
-                        onClick={() => setItineraryView('visual')}
-                        className={`py-2 px-4 text-sm font-medium border border-l-0 transition-colors ${
-                          itineraryView === 'visual' 
-                            ? 'bg-[#103556] text-white border-[#103556]' 
-                            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
-                        }`}
-                      >
-                        Timeline View
-                      </button>
-                    </div>
-                  )}
                 </div>
                 
                 {itinerary.length > 0 ? (
-                  <>
-                    {/* Standard View - Accordion Style */}
-                    {itineraryView === 'standard' && (
-                      <Accordion type="single" collapsible className="w-full border rounded-xl overflow-hidden">
-                        {itinerary.map((day) => (
-                          <AccordionItem key={day.day} value={`day-${day.day}`} className="border-b last:border-0">
-                            <AccordionTrigger className="py-6 px-6 hover:no-underline bg-[#f9f8f5] hover:bg-[#f5f3eb]">
-                              <div className="flex items-center text-left">
-                                <div className="w-12 h-12 bg-[var(--accent)] text-white rounded-full flex items-center justify-center shadow-md mr-4 flex-shrink-0">
-                                  <span className="text-sm font-bold">Day {day.day}</span>
-                                </div>
-                                <h3 className="text-xl font-semibold">
-                                  {day.title}
-                                </h3>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-6 pt-2 pb-6">
-                              <div className="ml-16">
-                                <div className="text-gray-600 mb-4 leading-relaxed">{day.description}</div>
-                                
-                                {/* Activities Section */}
-                                {day.activities && Array.isArray(day.activities) && day.activities.length > 0 && (
-                                  <div className="mb-4">
-                                    <h4 className="text-lg font-semibold mb-2 text-[#103556]">Today's Activities</h4>
-                                    <ul className="space-y-2">
-                                      {day.activities.map((activity, idx) => (
-                                        <li key={idx} className="bg-white p-3 border border-gray-100 rounded-md shadow-sm">
-                                          <div className="font-medium">{activity.title}</div>
-                                          {activity.description && <div className="text-sm text-gray-600 mt-1">{activity.description}</div>}
-                                          {activity.time && <div className="text-sm text-gray-500 mt-1">{activity.time}</div>}
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                )}
-                                
-                                {/* Meals Information */}
-                                {day.meals && (
-                                  <div className="mb-4">
-                                    <h4 className="text-lg font-semibold mb-2 text-[#103556]">Included Meals</h4>
-                                    <div className="flex gap-2">
-                                      {day.meals.breakfast && (
-                                        <span className="bg-[#f1f5f9] text-gray-700 px-3 py-1 rounded-full text-sm">Breakfast</span>
-                                      )}
-                                      {day.meals.lunch && (
-                                        <span className="bg-[#f1f5f9] text-gray-700 px-3 py-1 rounded-full text-sm">Lunch</span>
-                                      )}
-                                      {day.meals.dinner && (
-                                        <span className="bg-[#f1f5f9] text-gray-700 px-3 py-1 rounded-full text-sm">Dinner</span>
-                                      )}
-                                      {!day.meals.breakfast && !day.meals.lunch && !day.meals.dinner && (
-                                        <span className="bg-[#f1f5f9] text-gray-500 px-3 py-1 rounded-full text-sm">No meals included</span>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-                                
-                                {/* Accommodation */}
-                                {day.accommodation && day.accommodation !== "N/A" && (
-                                  <div className="bg-[#f8f7f2] px-4 py-3 rounded-lg inline-block">
-                                    <span className="font-semibold text-[#103556]">Accommodation:</span> {
-                                      typeof day.accommodation === 'object' 
-                                        ? day.accommodation.name 
-                                        : day.accommodation
-                                    }
-                                  </div>
-                                )}
-                              </div>
-                            </AccordionContent>
-                          </AccordionItem>
-                        ))}
-                      </Accordion>
-                    )}
-                    
-                    {/* Visual Timeline View */}
-                    {itineraryView === 'visual' && (
-                      <div className="bg-white px-0">
-                        <VisualTimeline data={timelineData} />
-                      </div>
-                    )}
-                  </>
+                  <div className="bg-white px-0">
+                    <VisualTimeline data={timelineData} />
+                  </div>
                 ) : (
                   <div className="text-center p-8 bg-[#f8f7f2] rounded-lg border border-[#D4AF37]/20">
                     <p className="text-lg text-gray-600 mb-3">
