@@ -6,7 +6,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
 import VisualTimeline, { TimelineDayData } from "@/components/VisualTimeline";
-import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown, LayoutList, List, Home, MapPin } from "lucide-react";
+import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown, LayoutList, List, Home, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -43,6 +43,13 @@ const EnhancedPackageDetail = () => {
   const [itinerary, setItinerary] = useState<APIItineraryDay[]>([]);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [timelineData, setTimelineData] = useState<TimelineDayData[]>([]);
+  
+  // Review form state
+  const [reviewName, setReviewName] = useState('');
+  const [reviewCountry, setReviewCountry] = useState('');
+  const [reviewContent, setReviewContent] = useState('');
+  const [reviewRating, setReviewRating] = useState(5);
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   // Using only the visual timeline format
   
   // Get currency formatter
@@ -311,6 +318,32 @@ const EnhancedPackageDetail = () => {
   const handleAddToWishlist = () => {
     setIsInWishlist(!isInWishlist);
     // In a real app, this would save to user's profile
+  };
+  
+  // Handle review submission
+  const handleReviewSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate form
+    if (!reviewName || !reviewContent || reviewRating < 1) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    
+    setIsSubmittingReview(true);
+    
+    // In a real app, this would send the review to the API
+    setTimeout(() => {
+      // Simulate API call success
+      alert('Thank you for your review! It will be visible after moderation.');
+      
+      // Reset form
+      setReviewName('');
+      setReviewCountry('');
+      setReviewContent('');
+      setReviewRating(5);
+      setIsSubmittingReview(false);
+    }, 1000);
   };
 
   // Default package includes if not available in data
@@ -837,7 +870,7 @@ const EnhancedPackageDetail = () => {
         </div>
       </section>
 
-      {/* Testimonials section */}
+      {/* Reviews and Testimonials section */}
       <section className="py-20 bg-[#f8f7f2]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -855,7 +888,8 @@ const EnhancedPackageDetail = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+          {/* Reviews Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto mb-16">
             <div className="bg-white p-10 shadow-xl relative">
               <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
               <div className="relative z-10">
@@ -866,12 +900,12 @@ const EnhancedPackageDetail = () => {
                   <div>
                     <h4 className="text-xl font-semibold">James Davies</h4>
                     <p className="text-gray-500">United Kingdom</p>
-                    <div className="text-[#D4AF37] mt-1">
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
+                    <div className="flex text-[#D4AF37] mt-1">
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
                     </div>
                   </div>
                 </div>
@@ -894,12 +928,12 @@ const EnhancedPackageDetail = () => {
                   <div>
                     <h4 className="text-xl font-semibold">Sarah Mitchell</h4>
                     <p className="text-gray-500">Australia</p>
-                    <div className="text-[#D4AF37] mt-1">
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
+                    <div className="flex text-[#D4AF37] mt-1">
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
                     </div>
                   </div>
                 </div>
@@ -907,16 +941,95 @@ const EnhancedPackageDetail = () => {
                   "From the moment we landed until our departure, everything was perfectly organized. We especially loved the cultural experiences and the wonderful food. Our tour consultant was responsive and made sure every aspect of our journey was flawless."
                 </p>
                 <div className="mt-6 text-sm text-[#103556]">
-                  <span className="font-medium">Tour:</span> Sri Lankan Heritage
+                  <span className="font-medium">Tour:</span> Cultural Triangle Explorer
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="text-center mt-12">
-            <a href="#" className="inline-flex items-center text-[#103556] hover:text-[#D4AF37] font-medium transition-colors">
-              Read More Reviews <i className="fas fa-arrow-right ml-2"></i>
-            </a>
+          {/* Add Review Section */}
+          <div className="max-w-2xl mx-auto bg-white p-10 shadow-xl rounded-lg">
+            <h3 className="text-2xl font-bold mb-6 text-center">Share Your Experience</h3>
+            
+            <form className="space-y-6" onSubmit={handleReviewSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="reviewerName" className="block text-sm font-medium text-gray-700 mb-1">
+                    Your Name
+                  </label>
+                  <input 
+                    type="text" 
+                    id="reviewerName" 
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent" 
+                    placeholder="John Smith"
+                    value={reviewName}
+                    onChange={(e) => setReviewName(e.target.value)}
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="reviewerCountry" className="block text-sm font-medium text-gray-700 mb-1">
+                    Country
+                  </label>
+                  <input 
+                    type="text" 
+                    id="reviewerCountry" 
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent" 
+                    placeholder="United Kingdom"
+                    value={reviewCountry}
+                    onChange={(e) => setReviewCountry(e.target.value)}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="reviewRating" className="block text-sm font-medium text-gray-700 mb-1">
+                  Rating
+                </label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      className="text-[#D4AF37] hover:scale-110 transition-transform"
+                      onClick={() => setReviewRating(star)}
+                    >
+                      <Star className={`h-8 w-8 ${star <= reviewRating ? 'fill-current' : ''}`} />
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="reviewContent" className="block text-sm font-medium text-gray-700 mb-1">
+                  Your Review
+                </label>
+                <textarea 
+                  id="reviewContent" 
+                  rows={5} 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent"
+                  placeholder="Share your experience with this tour..."
+                  value={reviewContent}
+                  onChange={(e) => setReviewContent(e.target.value)}
+                  required
+                ></textarea>
+              </div>
+              
+              <div className="pt-2">
+                <button 
+                  type="submit" 
+                  className="w-full bg-[#103556] hover:bg-[#1a4971] text-white font-medium py-3 px-6 rounded-md transition-colors"
+                  disabled={isSubmittingReview}
+                >
+                  {isSubmittingReview ? 'Submitting...' : 'Submit Review'}
+                </button>
+              </div>
+              
+              <p className="text-center text-sm text-gray-500 mt-4">
+                Your review will be visible after approval by our team. We appreciate your feedback!
+              </p>
+            </form>
           </div>
         </div>
       </section>
