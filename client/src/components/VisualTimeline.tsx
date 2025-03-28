@@ -60,7 +60,7 @@ const VisualTimeline: React.FC<VisualTimelineProps> = ({ data, className }) => {
                   <div className={`md:col-span-7 order-1 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
                     {/* Description */}
                     {day.description && (
-                      <div className="prose prose-sm max-w-none text-gray-600 mb-6">
+                      <div className="prose prose-sm max-w-none text-gray-600 mb-6 text-[1.1rem] leading-relaxed">
                         <div dangerouslySetInnerHTML={{ __html: day.description }} />
                       </div>
                     )}
