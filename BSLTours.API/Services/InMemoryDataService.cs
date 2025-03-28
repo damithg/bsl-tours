@@ -219,6 +219,678 @@ namespace BSLTours.API.Services
                 
                 CreatedAt = DateTime.Now
             });
+            
+            // Mirissa
+            destinations.Add(new Destination
+            {
+                Id = destinationIdCounter++,
+                Name = "Mirissa",
+                Slug = "mirissa",
+                Description = "Idyllic beach destination famous for whale watching and surfing",
+                ImageUrl = "/images/destinations/mirissa-sri-lanka.jpg",
+                Featured = true,
+                
+                // Location information
+                Region = "Southern Coast",
+                Latitude = "5.9483",
+                Longitude = "80.4716",
+                Address = "Mirissa, Sri Lanka",
+                
+                // Extended information
+                ShortDescription = "A paradise beach destination with whale watching and vibrant coastal atmosphere",
+                FullDescription = "Mirissa offers the perfect blend of relaxation and adventure along Sri Lanka's southern coastline. With its crescent-shaped beach lined with palm trees, it's the ideal spot for swimming and surfing. The town is world-renowned for blue whale watching, offering some of the most reliable sightings globally from December to April.",
+                Highlights = new List<string> { "Whale Watching", "Surfing", "Coconut Tree Hill", "Secret Beach", "Parrot Rock Bridge" },
+                
+                // Planning information
+                BestTimeToVisit = "December to April",
+                RecommendedDuration = "2-3 Days",
+                WeatherInfo = "Peak season is from December to April with calm seas and sunny weather, perfect for whale watching",
+                TravelTips = new List<string>
+                {
+                    "Book whale watching tours in advance during peak season",
+                    "Visit Coconut Tree Hill for sunset",
+                    "Try the fresh seafood restaurants along the beach",
+                    "Consider staying in beachfront accommodations for the best experience"
+                },
+                
+                // Gallery Images
+                GalleryImages = new List<GalleryImage>
+                {
+                    new GalleryImage { Url = "/images/destinations/mirissa-beach.jpg", Alt = "Mirissa Beach Sunset" },
+                    new GalleryImage { Url = "/images/destinations/mirissa-whale-watching.jpg", Alt = "Blue Whale Sighting" },
+                    new GalleryImage { Url = "/images/destinations/mirissa-coconut-hill.jpg", Alt = "Coconut Tree Hill" },
+                    new GalleryImage { Url = "/images/destinations/mirissa-surfing.jpg", Alt = "Surfing in Mirissa" },
+                    new GalleryImage { Url = "/images/destinations/mirissa-parrot-rock.jpg", Alt = "Parrot Rock" }
+                },
+                
+                // Activities
+                Activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "Blue Whale Watching",
+                        Description = "Set sail early morning for spectacular sightings of blue whales, sperm whales, and dolphins",
+                        ImageUrl = "/images/activities/mirissa-whale-watching-tour.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Surfing Lessons",
+                        Description = "Learn to surf with experienced instructors on Mirissa's gentle waves, perfect for beginners",
+                        ImageUrl = "/images/activities/mirissa-surfing.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Sunset Sailing",
+                        Description = "Cruise along the coastline at sunset with refreshments and swimming stops",
+                        ImageUrl = "/images/activities/mirissa-sunset-cruise.jpg"
+                    }
+                },
+                
+                // FAQs
+                FAQs = new List<FAQ>
+                {
+                    new FAQ
+                    {
+                        Question = "What is the best time for whale watching in Mirissa?",
+                        Answer = "The peak whale watching season runs from December to April when blue whales migrate through the waters off Mirissa. Tours typically start early morning when seas are calmest."
+                    },
+                    new FAQ
+                    {
+                        Question = "Is Mirissa suitable for families?",
+                        Answer = "Yes, Mirissa offers family-friendly beaches, accommodations, and activities. The main beach has sections with gentle waves perfect for children, though parental supervision is always recommended."
+                    }
+                },
+                
+                CreatedAt = DateTime.Now
+            });
+            
+            // Ella
+            destinations.Add(new Destination
+            {
+                Id = destinationIdCounter++,
+                Name = "Ella",
+                Slug = "ella",
+                Description = "Scenic hill country town with spectacular hiking, tea plantations and the famous Nine Arch Bridge",
+                ImageUrl = "/images/destinations/ella-sri-lanka.jpg",
+                Featured = true,
+                
+                // Location information
+                Region = "Hill Country",
+                Latitude = "6.8667",
+                Longitude = "81.0466",
+                Address = "Ella, Sri Lanka",
+                
+                // Extended information
+                ShortDescription = "A charming mountain village surrounded by tea plantations and hiking trails",
+                FullDescription = "Nestled in the misty highlands of Sri Lanka, Ella captivates visitors with its breathtaking mountain views, verdant tea plantations, and relaxed atmosphere. Famous for the iconic Nine Arch Bridge, Little Adam's Peak, and Ella Rock, this hill station offers a perfect blend of adventure and tranquility. The spectacular train journey from Kandy to Ella is considered one of the world's most beautiful rail trips.",
+                Highlights = new List<string> { "Nine Arch Bridge", "Little Adam's Peak", "Ella Rock", "Tea Plantations", "Ravana Falls" },
+                
+                // Planning information
+                BestTimeToVisit = "January to May",
+                RecommendedDuration = "2-3 Days",
+                WeatherInfo = "Generally cooler than coastal areas with occasional mist and rain. Mornings are typically clearest for views.",
+                TravelTips = new List<string>
+                {
+                    "Take the scenic train journey from Kandy or Nuwara Eliya",
+                    "Visit Nine Arch Bridge early morning to avoid crowds",
+                    "Book accommodation in advance during peak season",
+                    "Bring layers as temperatures can drop in the evenings"
+                },
+                
+                // Gallery Images
+                GalleryImages = new List<GalleryImage>
+                {
+                    new GalleryImage { Url = "/images/destinations/ella-nine-arch-bridge.jpg", Alt = "Nine Arch Bridge with Train" },
+                    new GalleryImage { Url = "/images/destinations/ella-little-adams-peak.jpg", Alt = "Little Adam's Peak View" },
+                    new GalleryImage { Url = "/images/destinations/ella-tea-plantations.jpg", Alt = "Tea Plantations" },
+                    new GalleryImage { Url = "/images/destinations/ella-rock.jpg", Alt = "Ella Rock Hike" },
+                    new GalleryImage { Url = "/images/destinations/ravana-falls.jpg", Alt = "Ravana Falls" }
+                },
+                
+                // Activities
+                Activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "Nine Arch Bridge Visit",
+                        Description = "Witness trains crossing the iconic colonial-era bridge surrounded by lush tea plantations",
+                        ImageUrl = "/images/activities/nine-arch-bridge-visit.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Little Adam's Peak Hike",
+                        Description = "An easy 2-hour round trip hike offering spectacular panoramic views of the Ella Gap",
+                        ImageUrl = "/images/activities/little-adams-peak-hike.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Tea Factory Tour",
+                        Description = "Learn about the tea-making process from plucking to processing with tasting session",
+                        ImageUrl = "/images/activities/tea-factory-tour.jpg"
+                    }
+                },
+                
+                // FAQs
+                FAQs = new List<FAQ>
+                {
+                    new FAQ
+                    {
+                        Question = "How do I get to Nine Arch Bridge?",
+                        Answer = "The bridge is about 2km from Ella town. You can take a tuk-tuk, or walk following the railway tracks from Ella station for about 30 minutes. There are also several cafes overlooking the bridge where you can relax and wait for trains to pass."
+                    },
+                    new FAQ
+                    {
+                        Question = "Is the train from Kandy to Ella worth it?",
+                        Answer = "Absolutely! This 7-hour journey is considered one of the world's most scenic train rides. The stretch between Nanu Oya (Nuwara Eliya) and Ella is particularly spectacular. Book 2nd or 3rd class seats in advance for the best views."
+                    }
+                },
+                
+                CreatedAt = DateTime.Now
+            });
+            
+            // Nuwara Eliya
+            destinations.Add(new Destination
+            {
+                Id = destinationIdCounter++,
+                Name = "Nuwara Eliya",
+                Slug = "nuwara-eliya",
+                Description = "Sri Lanka's 'Little England' with colonial architecture and rolling tea plantations",
+                ImageUrl = "/images/destinations/nuwara-eliya-sri-lanka.jpg",
+                Featured = true,
+                
+                // Location information
+                Region = "Hill Country",
+                Latitude = "6.9497",
+                Longitude = "80.7891",
+                Address = "Nuwara Eliya, Sri Lanka",
+                
+                // Extended information
+                ShortDescription = "A charming colonial hill station surrounded by tea estates and cool climate",
+                FullDescription = "Nestled among the verdant hills of central Sri Lanka, Nuwara Eliya is known as 'Little England' for its colonial architecture and cool, misty climate. Founded as a British hill resort in the 19th century, the town retains much of its colonial charm with Tudor-style country cottages, a golf course, and manicured gardens. Surrounded by picturesque tea plantations, it's the heart of Sri Lanka's tea country.",
+                Highlights = new List<string> { "Tea Plantations", "Gregory Lake", "Victoria Park", "Horton Plains National Park", "Colonial Architecture" },
+                
+                // Planning information
+                BestTimeToVisit = "February to May",
+                RecommendedDuration = "2-3 Days",
+                WeatherInfo = "Cool climate year-round with temperatures between 10-20°C. April is the driest month, while the southwest monsoon brings rain from May to July.",
+                TravelTips = new List<string>
+                {
+                    "Pack warm clothing as evenings can be quite chilly",
+                    "Visit during the Nuwara Eliya Season (April) for special events and races",
+                    "Try high tea at the Grand Hotel for a colonial experience",
+                    "Start early for day trips to Horton Plains to catch clear views"
+                },
+                
+                // Gallery Images
+                GalleryImages = new List<GalleryImage>
+                {
+                    new GalleryImage { Url = "/images/destinations/nuwara-eliya-tea-plantations.jpg", Alt = "Tea Plantations" },
+                    new GalleryImage { Url = "/images/destinations/nuwara-eliya-gregory-lake.jpg", Alt = "Gregory Lake" },
+                    new GalleryImage { Url = "/images/destinations/nuwara-eliya-colonial-architecture.jpg", Alt = "Colonial Buildings" },
+                    new GalleryImage { Url = "/images/destinations/nuwara-eliya-victoria-park.jpg", Alt = "Victoria Park" },
+                    new GalleryImage { Url = "/images/destinations/horton-plains.jpg", Alt = "Horton Plains National Park" }
+                },
+                
+                // Activities
+                Activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "Tea Plantation Tour",
+                        Description = "Visit historic tea factories to learn about production and sample the world-famous Ceylon tea",
+                        ImageUrl = "/images/activities/tea-plantation-tour.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Horton Plains & World's End Excursion",
+                        Description = "Early morning trek to World's End, a spectacular 880m cliff drop with panoramic views",
+                        ImageUrl = "/images/activities/horton-plains-excursion.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Golf at Nuwara Eliya Golf Club",
+                        Description = "Play at one of Asia's oldest golf courses surrounded by breathtaking mountain scenery",
+                        ImageUrl = "/images/activities/nuwara-eliya-golf.jpg"
+                    }
+                },
+                
+                // FAQs
+                FAQs = new List<FAQ>
+                {
+                    new FAQ
+                    {
+                        Question = "What is the best tea plantation to visit near Nuwara Eliya?",
+                        Answer = "Pedro Tea Estate offers excellent guided tours just 3km from town. Mackwoods and Bluefield tea factories are also popular choices with beautiful viewpoints and detailed production tours."
+                    },
+                    new FAQ
+                    {
+                        Question = "How do I get to Horton Plains from Nuwara Eliya?",
+                        Answer = "Horton Plains is about 32km from Nuwara Eliya. Most visitors hire a vehicle with driver (about 1 hour journey) or join an organized tour. Start by 6am to reach before the mist forms at World's End."
+                    }
+                },
+                
+                CreatedAt = DateTime.Now
+            });
+            
+            // Kandy
+            destinations.Add(new Destination
+            {
+                Id = destinationIdCounter++,
+                Name = "Kandy",
+                Slug = "kandy",
+                Description = "Cultural capital of Sri Lanka and home to the sacred Temple of the Tooth Relic",
+                ImageUrl = "/images/destinations/kandy-sri-lanka.jpg",
+                Featured = true,
+                
+                // Location information
+                Region = "Central Province",
+                Latitude = "7.2906",
+                Longitude = "80.6337",
+                Address = "Kandy, Sri Lanka",
+                
+                // Extended information
+                ShortDescription = "The last royal capital of Sri Lanka with rich cultural heritage and natural beauty",
+                FullDescription = "Set around a picturesque lake in the central highlands, Kandy is Sri Lanka's cultural heart and a UNESCO World Heritage site. The city served as the last capital of the Sri Lankan kings before falling to the British in 1815. Home to the sacred Temple of the Tooth Relic, Kandy maintains its status as a center of Buddhism and Sinhalese culture, with the spectacular Esala Perahera festival held annually.",
+                Highlights = new List<string> { "Temple of the Sacred Tooth Relic", "Kandy Lake", "Royal Botanical Gardens", "Cultural Performances", "Bahiravokanda Vihara Buddha Statue" },
+                
+                // Planning information
+                BestTimeToVisit = "January to April, August for Esala Perahera Festival",
+                RecommendedDuration = "2-3 Days",
+                WeatherInfo = "Moderate climate year-round with temperatures between 20-25°C. The driest period is from January to April.",
+                TravelTips = new List<string>
+                {
+                    "Dress modestly when visiting temples (shoulders and knees covered)",
+                    "Visit the Temple of the Tooth during a puja (offering) ceremony",
+                    "Book accommodation well in advance if visiting during Esala Perahera (July/August)",
+                    "Consider the scenic train journey to or from Ella/Nuwara Eliya"
+                },
+                
+                // Gallery Images
+                GalleryImages = new List<GalleryImage>
+                {
+                    new GalleryImage { Url = "/images/destinations/kandy-temple-of-tooth.jpg", Alt = "Temple of the Sacred Tooth Relic" },
+                    new GalleryImage { Url = "/images/destinations/kandy-lake.jpg", Alt = "Kandy Lake" },
+                    new GalleryImage { Url = "/images/destinations/kandy-peradeniya-gardens.jpg", Alt = "Royal Botanical Gardens" },
+                    new GalleryImage { Url = "/images/destinations/kandy-cultural-dance.jpg", Alt = "Kandyan Cultural Dance" },
+                    new GalleryImage { Url = "/images/destinations/kandy-buddha-statue.jpg", Alt = "Bahiravokanda Vihara Buddha" }
+                },
+                
+                // Activities
+                Activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "Temple of the Tooth Relic Visit",
+                        Description = "Experience the revered Buddhist temple housing a tooth of the Buddha, with evening ritual ceremonies",
+                        ImageUrl = "/images/activities/temple-tooth-visit.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Kandyan Cultural Dance Show",
+                        Description = "Witness traditional Sri Lankan dance, music, and fire-walking performances in colorful costumes",
+                        ImageUrl = "/images/activities/kandyan-dance-show.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Royal Botanical Gardens Tour",
+                        Description = "Explore one of Asia's finest botanical gardens with over 4,000 plant species including the famous orchid house",
+                        ImageUrl = "/images/activities/botanical-gardens-tour.jpg"
+                    }
+                },
+                
+                // FAQs
+                FAQs = new List<FAQ>
+                {
+                    new FAQ
+                    {
+                        Question = "What is the best time to visit the Temple of the Tooth?",
+                        Answer = "Visit during one of the daily puja ceremonies (5:30am, 9:30am, 6:30pm) when the room housing the tooth relic is open to devotees. Arrive 30 minutes early to secure a good viewing position."
+                    },
+                    new FAQ
+                    {
+                        Question = "When is the Esala Perahera festival held?",
+                        Answer = "This spectacular 10-day festival typically occurs in July or August (dates vary by lunar calendar). The grand procession features elaborately decorated elephants, traditional dancers, drummers, and fire performers."
+                    }
+                },
+                
+                CreatedAt = DateTime.Now
+            });
+            
+            // Yala National Park
+            destinations.Add(new Destination
+            {
+                Id = destinationIdCounter++,
+                Name = "Yala National Park",
+                Slug = "yala-national-park",
+                Description = "Premier wildlife sanctuary with the world's highest leopard density",
+                ImageUrl = "/images/destinations/yala-national-park-sri-lanka.jpg",
+                Featured = true,
+                
+                // Location information
+                Region = "Southern Province",
+                Latitude = "6.3620",
+                Longitude = "81.5159",
+                Address = "Yala, Sri Lanka",
+                
+                // Extended information
+                ShortDescription = "Sri Lanka's most famous wildlife reserve, known for leopard sightings and diverse ecosystems",
+                FullDescription = "Spanning over 979 square kilometers, Yala National Park is Sri Lanka's most visited wildlife sanctuary and one of the best places in the world to spot leopards. The park comprises five blocks, of which two are open to the public, featuring diverse landscapes from semi-arid plains to lagoons and rocky outcrops. Besides its famous leopards, Yala hosts elephants, sloth bears, crocodiles, and nearly 215 bird species.",
+                Highlights = new List<string> { "Leopard Spotting", "Elephant Herds", "Coastal Ecosystems", "Bird Watching", "Ancient Ruins" },
+                
+                // Planning information
+                BestTimeToVisit = "February to July",
+                RecommendedDuration = "2-3 Days",
+                WeatherInfo = "Dry season from May to August offers the best wildlife viewing as animals gather around water sources. The park may close sections during September/October for maintenance.",
+                TravelTips = new List<string>
+                {
+                    "Book safari jeeps and accommodations well in advance",
+                    "Morning safaris (6am) offer the best wildlife viewing opportunities",
+                    "Bring binoculars, camera with zoom lens, and neutral-colored clothing",
+                    "Stay hydrated and wear sun protection during safaris"
+                },
+                
+                // Gallery Images
+                GalleryImages = new List<GalleryImage>
+                {
+                    new GalleryImage { Url = "/images/destinations/yala-leopard.jpg", Alt = "Yala Leopard" },
+                    new GalleryImage { Url = "/images/destinations/yala-elephant.jpg", Alt = "Wild Elephants" },
+                    new GalleryImage { Url = "/images/destinations/yala-landscape.jpg", Alt = "Park Landscape" },
+                    new GalleryImage { Url = "/images/destinations/yala-sloth-bear.jpg", Alt = "Sloth Bear" },
+                    new GalleryImage { Url = "/images/destinations/yala-birds.jpg", Alt = "Bird Life" }
+                },
+                
+                // Activities
+                Activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "Full-Day Safari",
+                        Description = "Comprehensive safari experience with expert naturalist guides focusing on leopard and other wildlife viewing",
+                        ImageUrl = "/images/activities/yala-full-day-safari.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Bird Watching Tour",
+                        Description = "Specialized safari focusing on Yala's rich avian diversity including migrants and endemic species",
+                        ImageUrl = "/images/activities/yala-bird-watching.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Leopard Tracking Experience",
+                        Description = "Safari dedicated to tracking the elusive Sri Lankan leopard with specialist guides",
+                        ImageUrl = "/images/activities/leopard-tracking.jpg"
+                    }
+                },
+                
+                // FAQs
+                FAQs = new List<FAQ>
+                {
+                    new FAQ
+                    {
+                        Question = "What are the chances of seeing a leopard at Yala?",
+                        Answer = "Yala has the highest leopard density in the world, so chances are good, especially in Block 1. However, sightings are never guaranteed. Morning and late afternoon provide the best opportunities as leopards are most active during cooler hours."
+                    },
+                    new FAQ
+                    {
+                        Question = "Should I book a private safari or join a shared one?",
+                        Answer = "Private safaris offer flexibility, better wildlife viewing positions, and can be customized to your interests. Shared safaris are more economical but may involve compromises on timing and viewing preferences. For serious wildlife enthusiasts, a private safari is recommended."
+                    }
+                },
+                
+                CreatedAt = DateTime.Now
+            });
+            
+            // Polonnaruwa
+            destinations.Add(new Destination
+            {
+                Id = destinationIdCounter++,
+                Name = "Polonnaruwa",
+                Slug = "polonnaruwa",
+                Description = "Medieval capital with well-preserved ancient ruins and monuments",
+                ImageUrl = "/images/destinations/polonnaruwa-sri-lanka.jpg",
+                Featured = false,
+                
+                // Location information
+                Region = "Cultural Triangle",
+                Latitude = "7.9403",
+                Longitude = "81.0188",
+                Address = "Polonnaruwa, Sri Lanka",
+                
+                // Extended information
+                ShortDescription = "Sri Lanka's second ancient capital with impressive archaeological treasures",
+                FullDescription = "Polonnaruwa served as Sri Lanka's second capital from the 11th to 13th centuries and is now a UNESCO World Heritage site. The remarkably well-preserved archaeological park contains stunning stone temples, enormous Buddha statues, ancient palaces, and an impressive irrigation system that highlights the advanced engineering of the era. The compact nature of the site makes it perfect for exploring by bicycle.",
+                Highlights = new List<string> { "Gal Vihara", "Quadrangle", "Rankot Vihara", "Royal Palace", "Ancient Irrigation System" },
+                
+                // Planning information
+                BestTimeToVisit = "December to March",
+                RecommendedDuration = "1-2 Days",
+                WeatherInfo = "Hot and relatively dry year-round. The cooler months from December to March offer the most comfortable visiting conditions.",
+                TravelTips = new List<string>
+                {
+                    "Visit the Archaeological Museum first for context",
+                    "Rent bicycles to explore the expansive site easily",
+                    "Start early morning or late afternoon to avoid midday heat",
+                    "Wear comfortable footwear as there's considerable walking between sites"
+                },
+                
+                // Gallery Images
+                GalleryImages = new List<GalleryImage>
+                {
+                    new GalleryImage { Url = "/images/destinations/polonnaruwa-gal-vihara.jpg", Alt = "Gal Vihara Buddha Statues" },
+                    new GalleryImage { Url = "/images/destinations/polonnaruwa-vatadage.jpg", Alt = "Vatadage" },
+                    new GalleryImage { Url = "/images/destinations/polonnaruwa-rankot-vihara.jpg", Alt = "Rankot Vihara Stupa" },
+                    new GalleryImage { Url = "/images/destinations/polonnaruwa-royal-palace.jpg", Alt = "Royal Palace Ruins" },
+                    new GalleryImage { Url = "/images/destinations/polonnaruwa-parakrama-samudra.jpg", Alt = "Parakrama Samudra Reservoir" }
+                },
+                
+                // Activities
+                Activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "Archaeological Tour with Historian",
+                        Description = "In-depth guided exploration of the ancient city with expert historical context",
+                        ImageUrl = "/images/activities/polonnaruwa-tour.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Bicycle Tour of Ancient City",
+                        Description = "Cycling exploration of the expansive archaeological park with key monument stops",
+                        ImageUrl = "/images/activities/polonnaruwa-bicycle.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Sunrise Photography at Ancient Ruins",
+                        Description = "Special early access for photographers to capture the monuments in the golden light",
+                        ImageUrl = "/images/activities/polonnaruwa-sunrise.jpg"
+                    }
+                },
+                
+                // FAQs
+                FAQs = new List<FAQ>
+                {
+                    new FAQ
+                    {
+                        Question = "Is it better to hire a guide at Polonnaruwa?",
+                        Answer = "A knowledgeable guide significantly enhances the experience by providing historical context and explaining the significance of structures that might otherwise look like simple ruins. Guides can be hired at the museum or arranged through your hotel."
+                    },
+                    new FAQ
+                    {
+                        Question = "How does Polonnaruwa compare to Anuradhapura?",
+                        Answer = "Polonnaruwa is more compact and has better-preserved monuments than Anuradhapura. If you're short on time, Polonnaruwa offers a more accessible archaeological experience. However, Anuradhapura has greater religious significance and older structures."
+                    }
+                },
+                
+                CreatedAt = DateTime.Now
+            });
+            
+            // Anuradhapura
+            destinations.Add(new Destination
+            {
+                Id = destinationIdCounter++,
+                Name = "Anuradhapura",
+                Slug = "anuradhapura",
+                Description = "Sri Lanka's ancient first capital and sacred Buddhist pilgrimage site",
+                ImageUrl = "/images/destinations/anuradhapura-sri-lanka.jpg",
+                Featured = false,
+                
+                // Location information
+                Region = "Cultural Triangle",
+                Latitude = "8.3114",
+                Longitude = "80.4037",
+                Address = "Anuradhapura, Sri Lanka",
+                
+                // Extended information
+                ShortDescription = "A sprawling UNESCO World Heritage site with sacred Buddhist monuments",
+                FullDescription = "Founded in the 4th century BC, Anuradhapura served as Sri Lanka's first capital for nearly 1,400 years. This UNESCO World Heritage site spreads across a vast area with dagobas (stupas), temples, ancient pools, and palaces. The city remains a living sacred site with the Sri Maha Bodhi, a tree grown from a cutting of the Buddha's original Bodhi tree, attracting pilgrims from around the world.",
+                Highlights = new List<string> { "Sri Maha Bodhi", "Ruwanwelisaya Stupa", "Jetavanaramaya", "Isurumuniya Temple", "Abhayagiri Monastery" },
+                
+                // Planning information
+                BestTimeToVisit = "June to September",
+                RecommendedDuration = "2 Days",
+                WeatherInfo = "Hot year-round with June to September being relatively drier. Early mornings and late afternoons offer the most comfortable temperatures for exploration.",
+                TravelTips = new List<string>
+                {
+                    "Rent bicycles or book a tuk-tuk for the day to cover the extensive site",
+                    "Bring plenty of water and sun protection",
+                    "Wear white or light clothing when visiting Sri Maha Bodhi as a sign of respect",
+                    "Consider visiting during a full moon (Poya) day to experience Buddhist ceremonies"
+                },
+                
+                // Gallery Images
+                GalleryImages = new List<GalleryImage>
+                {
+                    new GalleryImage { Url = "/images/destinations/anuradhapura-ruwanwelisaya.jpg", Alt = "Ruwanwelisaya Stupa" },
+                    new GalleryImage { Url = "/images/destinations/anuradhapura-sri-maha-bodhi.jpg", Alt = "Sri Maha Bodhi Tree" },
+                    new GalleryImage { Url = "/images/destinations/anuradhapura-jetavanaramaya.jpg", Alt = "Jetavanaramaya Stupa" },
+                    new GalleryImage { Url = "/images/destinations/anuradhapura-abhayagiri.jpg", Alt = "Abhayagiri Monastery" },
+                    new GalleryImage { Url = "/images/destinations/anuradhapura-moonstone.jpg", Alt = "Ancient Moonstone" }
+                },
+                
+                // Activities
+                Activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "Sacred City Tour",
+                        Description = "Comprehensive guided tour of the ancient sacred city with focus on Buddhist monuments",
+                        ImageUrl = "/images/activities/anuradhapura-tour.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Mihintale Excursion",
+                        Description = "Visit the nearby mountain sanctuary where Buddhism was first introduced to Sri Lanka",
+                        ImageUrl = "/images/activities/mihintale-excursion.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Evening Worship at Sri Maha Bodhi",
+                        Description = "Experience the atmospheric evening ceremonies around the sacred Bodhi tree",
+                        ImageUrl = "/images/activities/sri-maha-bodhi-evening.jpg"
+                    }
+                },
+                
+                // FAQs
+                FAQs = new List<FAQ>
+                {
+                    new FAQ
+                    {
+                        Question = "Do I need to purchase separate tickets for each site in Anuradhapura?",
+                        Answer = "No, a single Cultural Triangle ticket or Anuradhapura Archaeological Park ticket covers most major sites. The Sri Maha Bodhi has a separate entrance fee. Some monasteries may request additional small donations."
+                    },
+                    new FAQ
+                    {
+                        Question = "What's the significance of the Sri Maha Bodhi tree?",
+                        Answer = "The Sri Maha Bodhi is believed to be grown from a cutting of the original Bodhi tree in India under which the Buddha attained enlightenment. Planted in 288 BC, it's the oldest documented tree in the world and one of Buddhism's most sacred sites."
+                    }
+                },
+                
+                CreatedAt = DateTime.Now
+            });
+            
+            // Arugam Bay
+            destinations.Add(new Destination
+            {
+                Id = destinationIdCounter++,
+                Name = "Arugam Bay",
+                Slug = "arugam-bay",
+                Description = "World-class surfing destination on Sri Lanka's east coast",
+                ImageUrl = "/images/destinations/arugam-bay-sri-lanka.jpg",
+                Featured = false,
+                
+                // Location information
+                Region = "Eastern Province",
+                Latitude = "6.8428",
+                Longitude = "81.8341",
+                Address = "Arugam Bay, Sri Lanka",
+                
+                // Extended information
+                ShortDescription = "A laid-back surfer's paradise with perfect point breaks and pristine beaches",
+                FullDescription = "Arugam Bay has transformed from a remote fishing village to an internationally renowned surfing destination while maintaining its relaxed charm. The crescent-shaped bay offers several world-class surf points with consistent waves during the season. Beyond surfing, the area features stunning lagoons, mangrove forests, and nearby national parks, making it a perfect destination for nature lovers and beach enthusiasts alike.",
+                Highlights = new List<string> { "Main Point Surf Break", "Pottuvil Lagoon", "Elephant Rock", "Kumana National Park", "Whisky Point" },
+                
+                // Planning information
+                BestTimeToVisit = "April to October (Surf Season)",
+                RecommendedDuration = "3-5 Days",
+                WeatherInfo = "The surf season runs from April to October with the best waves typically from July to August. The offseason (November to March) brings more rain but fewer tourists.",
+                TravelTips = new List<string>
+                {
+                    "Book accommodation in advance during peak surf season (July-August)",
+                    "Rent motorbikes to explore the surrounding beaches and attractions",
+                    "Bring your own surfboard or rent quality boards from local shops",
+                    "Be aware of strong currents at some surf points - suitable for experienced surfers"
+                },
+                
+                // Gallery Images
+                GalleryImages = new List<GalleryImage>
+                {
+                    new GalleryImage { Url = "/images/destinations/arugam-bay-main-point.jpg", Alt = "Main Point Surfing" },
+                    new GalleryImage { Url = "/images/destinations/arugam-bay-beach.jpg", Alt = "Arugam Bay Beach" },
+                    new GalleryImage { Url = "/images/destinations/arugam-bay-elephant-rock.jpg", Alt = "Elephant Rock" },
+                    new GalleryImage { Url = "/images/destinations/arugam-bay-lagoon.jpg", Alt = "Pottuvil Lagoon" },
+                    new GalleryImage { Url = "/images/destinations/arugam-bay-sunset.jpg", Alt = "Beach Sunset" }
+                },
+                
+                // Activities
+                Activities = new List<Activity>
+                {
+                    new Activity
+                    {
+                        Title = "Surf Lessons",
+                        Description = "Learn to surf or improve your skills with professional instructors at beginner-friendly breaks",
+                        ImageUrl = "/images/activities/arugam-bay-surf-lessons.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Lagoon Safari",
+                        Description = "Early morning boat tour through mangroves to spot crocodiles, birds, and elephants",
+                        ImageUrl = "/images/activities/pottuvil-lagoon-safari.jpg"
+                    },
+                    new Activity
+                    {
+                        Title = "Kumana National Park Jeep Safari",
+                        Description = "Wildlife safari to spot leopards, elephants, and abundant birdlife in this coastal national park",
+                        ImageUrl = "/images/activities/kumana-safari.jpg"
+                    }
+                },
+                
+                // FAQs
+                FAQs = new List<FAQ>
+                {
+                    new FAQ
+                    {
+                        Question = "Is Arugam Bay suitable for beginner surfers?",
+                        Answer = "While Main Point is best for intermediate to advanced surfers, there are several beginner-friendly breaks nearby like Baby Point and Whisky Point. Several surf schools offer lessons with experienced instructors."
+                    },
+                    new FAQ
+                    {
+                        Question = "What is there to do in Arugam Bay besides surfing?",
+                        Answer = "The area offers lagoon safaris, nearby national parks for wildlife viewing, yoga classes, cooking courses, and a laid-back beach scene with restaurants and bars. The journey to Elephant Rock offers a short hike with rewarding views."
+                    }
+                },
+                
+                CreatedAt = DateTime.Now
+            });
         }
         
         private void InitializeTourPackages()
