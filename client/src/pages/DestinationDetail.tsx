@@ -32,8 +32,7 @@ interface RelatedTour {
 }
 
 const DestinationDetail = () => {
-  const [isIdRoute, idParams] = useRoute<{ id: string }>('/destination/:id');
-  const [isSlugRoute, slugParams] = useRoute<{ slug: string }>('/destination/:slug');
+  const [matched, params] = useRoute<{ slug: string }>('/destination/:slug');
   const { formatPrice } = useCurrency();
   const [activeTab, setActiveTab] = useState<'overview' | 'activities' | 'gallery' | 'map'>('overview');
   const [activeSection, setActiveSection] = useState<string>('hero');
@@ -43,16 +42,18 @@ const DestinationDetail = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   
   // Determine if we're using an ID or slug for the API request
-  const destinationId = isIdRoute && idParams?.id ? parseInt(idParams.id, 10) : 0;
-  const destinationSlug = isSlugRoute && slugParams?.slug ? slugParams.slug : '';
+  const paramValue = params?.slug || '';
+  const isNumeric = /^\d+$/.test(paramValue);
+  const destinationId = isNumeric ? parseInt(paramValue, 10) : 0;
+  const destinationSlug = !isNumeric ? paramValue : '';
   
   // Log the route parameters for debugging
-  console.log('Route parameters:', { isIdRoute, destinationId, isSlugRoute, destinationSlug });
+  console.log('Route parameters:', { matched, paramValue, isNumeric, destinationId, destinationSlug });
   
   // Decide which API endpoint to use based on whether we have an ID or a slug
-  // The .NET Core API uses a different URL structure than our Express API
+  // The .NET Core API can handle both ID-based and slug-based requests directly
   const queryEndpoint = destinationId ? ['/api/destinations', destinationId] : 
-                        destinationSlug ? ['/api/destinations/slug', destinationSlug] : 
+                        destinationSlug ? ['/api/destinations', destinationSlug] : 
                         ['/api/destinations', 0];
   
   // Fetch destination data
