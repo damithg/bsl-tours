@@ -230,7 +230,7 @@ const EnhancedPackageDetail = () => {
   // Transform itinerary data into visual timeline format when itinerary changes
   useEffect(() => {
     if (itinerary.length > 0) {
-      // Simple transformation from itinerary to visual timeline data
+      // Enhanced transformation from itinerary to visual timeline data
       const transformedData: TimelineDayData[] = itinerary.map(day => {
         // Convert accommodation to string if it's an object
         let accommodationString: string | undefined;
@@ -241,13 +241,46 @@ const EnhancedPackageDetail = () => {
           accommodationString = day.accommodation;
         }
         
+        // Build a richer description that includes activities if they exist
+        let enhancedDescription = day.description;
+        
+        if (day.activities && Array.isArray(day.activities) && day.activities.length > 0) {
+          enhancedDescription += '<br/><br/><strong>Today\'s Activities:</strong><ul>';
+          day.activities.forEach(activity => {
+            if (typeof activity === 'object' && activity !== null) {
+              enhancedDescription += `<li><strong>${activity.title}</strong>`;
+              if (activity.description) {
+                enhancedDescription += `: ${activity.description}`;
+              }
+              if (activity.time) {
+                enhancedDescription += ` (${activity.time})`;
+              }
+              enhancedDescription += '</li>';
+            }
+          });
+          enhancedDescription += '</ul>';
+        }
+        
+        // Include meal information
+        if (day.meals) {
+          enhancedDescription += '<br/><strong>Meals:</strong> ';
+          const mealsIncluded = [];
+          if (day.meals.breakfast) mealsIncluded.push('Breakfast');
+          if (day.meals.lunch) mealsIncluded.push('Lunch');
+          if (day.meals.dinner) mealsIncluded.push('Dinner');
+          
+          enhancedDescription += mealsIncluded.length > 0 
+            ? mealsIncluded.join(', ') 
+            : 'No meals included';
+        }
+        
         return {
           day: day.day,
           title: day.title,
-          description: day.description,
+          description: enhancedDescription,
           accommodation: accommodationString,
           // Use the imageUrl from the itinerary data if it exists, otherwise generate one dynamically
-          imageUrl: day.imageUrl || `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`
+          imageUrl: day.imageUrl || `/images/packages/${day.title.toLowerCase().replace(/ /g, '-')}.jpg` || `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`
         };
       });
       
@@ -549,8 +582,34 @@ const EnhancedPackageDetail = () => {
               
               {/* Detailed Itinerary Section - For Additional Details */}
               <div className="mb-16">
-                <div className="mb-8">
+                <div className="mb-8 flex justify-between items-center">
                   <h2 className="text-3xl font-bold">Journey Highlights</h2>
+                  
+                  {/* View Toggle Buttons */}
+                  {itinerary.length > 0 && (
+                    <div className="flex rounded-md overflow-hidden">
+                      <button 
+                        onClick={() => setItineraryView('standard')}
+                        className={`py-2 px-4 text-sm font-medium border transition-colors ${
+                          itineraryView === 'standard' 
+                            ? 'bg-[#103556] text-white border-[#103556]' 
+                            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                        }`}
+                      >
+                        Standard View
+                      </button>
+                      <button 
+                        onClick={() => setItineraryView('visual')}
+                        className={`py-2 px-4 text-sm font-medium border border-l-0 transition-colors ${
+                          itineraryView === 'visual' 
+                            ? 'bg-[#103556] text-white border-[#103556]' 
+                            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                        }`}
+                      >
+                        Timeline View
+                      </button>
+                    </div>
+                  )}
                 </div>
                 
                 {itinerary.length > 0 ? (
@@ -572,7 +631,46 @@ const EnhancedPackageDetail = () => {
                             </AccordionTrigger>
                             <AccordionContent className="px-6 pt-2 pb-6">
                               <div className="ml-16">
-                                <p className="text-gray-600 mb-4 leading-relaxed">{day.description}</p>
+                                <div className="text-gray-600 mb-4 leading-relaxed">{day.description}</div>
+                                
+                                {/* Activities Section */}
+                                {day.activities && Array.isArray(day.activities) && day.activities.length > 0 && (
+                                  <div className="mb-4">
+                                    <h4 className="text-lg font-semibold mb-2 text-[#103556]">Today's Activities</h4>
+                                    <ul className="space-y-2">
+                                      {day.activities.map((activity, idx) => (
+                                        <li key={idx} className="bg-white p-3 border border-gray-100 rounded-md shadow-sm">
+                                          <div className="font-medium">{activity.title}</div>
+                                          {activity.description && <div className="text-sm text-gray-600 mt-1">{activity.description}</div>}
+                                          {activity.time && <div className="text-sm text-gray-500 mt-1">{activity.time}</div>}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                                
+                                {/* Meals Information */}
+                                {day.meals && (
+                                  <div className="mb-4">
+                                    <h4 className="text-lg font-semibold mb-2 text-[#103556]">Included Meals</h4>
+                                    <div className="flex gap-2">
+                                      {day.meals.breakfast && (
+                                        <span className="bg-[#f1f5f9] text-gray-700 px-3 py-1 rounded-full text-sm">Breakfast</span>
+                                      )}
+                                      {day.meals.lunch && (
+                                        <span className="bg-[#f1f5f9] text-gray-700 px-3 py-1 rounded-full text-sm">Lunch</span>
+                                      )}
+                                      {day.meals.dinner && (
+                                        <span className="bg-[#f1f5f9] text-gray-700 px-3 py-1 rounded-full text-sm">Dinner</span>
+                                      )}
+                                      {!day.meals.breakfast && !day.meals.lunch && !day.meals.dinner && (
+                                        <span className="bg-[#f1f5f9] text-gray-500 px-3 py-1 rounded-full text-sm">No meals included</span>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+                                
+                                {/* Accommodation */}
                                 {day.accommodation && day.accommodation !== "N/A" && (
                                   <div className="bg-[#f8f7f2] px-4 py-3 rounded-lg inline-block">
                                     <span className="font-semibold text-[#103556]">Accommodation:</span> {

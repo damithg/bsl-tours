@@ -1,0 +1,132 @@
+"itineraryDays": [
+      {
+        "day": 1,
+        "title": "Arrival in Colombo",
+        "description": "Welcome to Sri Lanka! Upon arrival at Bandaranaike International Airport, you'll be greeted by your private chauffeur and transferred to your luxury hotel in Colombo. Depending on your arrival time, enjoy a brief orientation tour of Colombo's colonial heritage.",
+        "imageUrl": "/images/packages/colombo-arrival.jpg",
+        "accommodation": "Shangri-La Colombo",
+        "activities": [],
+        "meals": {
+          "breakfast": false,
+          "lunch": false,
+          "dinner": true
+        }
+      },
+      {
+        "day": 2,
+        "title": "Sigiriya Rock Fortress",
+        "description": "After breakfast, transfer to Sigiriya (approximately 4 hours). In the afternoon, visit the iconic Sigiriya Rock Fortress, a UNESCO World Heritage site. Climb to the summit for panoramic views and explore the ancient frescoes and water gardens.",
+        "imageUrl": "/images/packages/sigiriya-rock.jpg",
+        "accommodation": "Water Garden Sigiriya",
+        "activities": [
+          {
+            "title": "Sigiriya Rock Climb",
+            "description": "Guided tour of this 5th-century rock fortress with an expert archaeologist",
+            "time": "2:00 PM - 5:00 PM"
+          }
+        ],
+        "meals": {
+          "breakfast": true,
+          "lunch": false,
+          "dinner": true
+        }
+      },
+      {
+        "day": 3,
+        "title": "Dambulla Cave Temples",
+        "description": "Visit the magnificent Dambulla Cave Temples in the morning, exploring five caves adorned with Buddhist murals and statues. In the afternoon, enjoy a safari at Minneriya National Park, famous for its elephant gatherings.",
+        "imageUrl": "/images/packages/dambulla-caves.jpg",
+        "accommodation": "Water Garden Sigiriya",
+        "activities": [
+          {
+            "title": "Dambulla Cave Temple Visit",
+            "description": "Explore the ancient Buddhist cave temples dating back to the 1st century BC",
+            "time": "9:00 AM - 12:00 PM"
+          },
+          {
+            "title": "Minneriya Safari",
+            "description": "Wildlife safari to spot wild elephants, deer, and various bird species",
+            "time": "3:00 PM - 6:00 PM"
+          }
+        ],
+        "meals": {
+          "breakfast": true,
+          "lunch": true,
+          "dinner": true
+        }
+      },
+      {
+        "day": 4,
+        "title": "Ancient City of Polonnaruwa",
+        "description": "Discover the ancient city of Polonnaruwa, Sri Lanka's second capital. Explore well-preserved ruins, impressive stone sculptures, and the famous Gal Vihara Buddha statues. In the evening, enjoy a traditional cultural performance at your hotel.",
+        "imageUrl": "/images/packages/polonnaruwa.jpg",
+        "accommodation": "Water Garden Sigiriya",
+        "activities": [
+          {
+            "title": "Polonnaruwa Archaeological Tour",
+            "description": "Visit the ancient capital with its well-preserved stupas, palaces, and Buddha statues",
+            "time": "9:00 AM - 3:00 PM"
+          }
+        ],
+        "meals": {
+          "breakfast": true,
+          "lunch": true,
+          "dinner": true
+        }
+      },
+      {
+        "day": 5,
+        "title": "Sacred City of Anuradhapura",
+        "description": "Visit Anuradhapura, Sri Lanka's first capital and a UNESCO World Heritage site. Explore ancient stupas, palaces, and the sacred Sri Maha Bodhi tree. Later, travel to Kandy, stopping at a spice garden en route.",
+        "imageUrl": "/images/packages/anuradhapura.jpg",
+        "accommodation": "Kings Pavilion Kandy",
+        "activities": [
+          {
+            "title": "Anuradhapura Sacred City Tour",
+            "description": "Visit the first ancient capital with its dagobas, monasteries, and royal gardens",
+            "time": "8:00 AM - 1:00 PM"
+          }
+        ],
+        "meals": {
+          "breakfast": true,
+          "lunch": false,
+          "dinner": true
+        }
+      },
+      {
+        "day": 6,
+        "title": "Temple of the Sacred Tooth Relic & Botanical Gardens",
+        "description": "Morning visit to the Temple of the Sacred Tooth Relic, one of Buddhism's most revered sites. Afterward, explore the Royal Botanical Gardens in Peradeniya. Evening at leisure to explore Kandy town.",
+        "imageUrl": "/images/packages/kandy-tooth-temple.jpg",
+        "accommodation": "Kings Pavilion Kandy",
+        "activities": [
+          {
+            "title": "Temple of the Sacred Tooth Relic",
+            "description": "Visit the revered Buddhist temple housing Buddha's tooth relic",
+            "time": "9:00 AM - 11:00 AM"
+          },
+          {
+            "title": "Peradeniya Royal Botanical Gardens",
+            "description": "Stroll through one of the finest botanical gardens in Asia",
+            "time": "2:00 PM - 4:00 PM"
+          }
+        ],
+        "meals": {
+          "breakfast": true,
+          "lunch": false,
+          "dinner": true
+        }
+      },
+      {
+        "day": 7,
+        "title": "Departure",
+        "description": "After breakfast, transfer to Colombo airport for your departure flight. End of services.",
+        "imageUrl": "/images/packages/departure.jpg",
+        "activities": [],
+        "meals": {
+          "breakfast": true,
+          "lunch": false,
+          "dinner": false
+        }
+      }
+    ]

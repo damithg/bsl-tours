@@ -48,7 +48,7 @@ const VisualTimeline: React.FC<VisualTimelineProps> = ({ data, className }) => {
                 {/* Description */}
                 {day.description && (
                   <div className="prose prose-sm max-w-none text-gray-600 mb-6">
-                    <p>{day.description}</p>
+                    <div dangerouslySetInnerHTML={{ __html: day.description }} />
                   </div>
                 )}
                 
