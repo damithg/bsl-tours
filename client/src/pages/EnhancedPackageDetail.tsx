@@ -871,85 +871,83 @@ const EnhancedPackageDetail = () => {
       </section>
 
       {/* Reviews and Testimonials section */}
-      <section className="py-20 bg-[#f8f7f2]">
+      <section className="py-20 bg-gradient-to-b from-white to-[#f8f7f2]">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-block mb-3">
-              <div className="h-0.5 w-10 bg-[#D4AF37] inline-block mr-3"></div>
-              <span className="text-[#103556] uppercase text-sm font-medium tracking-wider">Traveler Experiences</span>
-              <div className="h-0.5 w-10 bg-[#D4AF37] inline-block ml-3"></div>
-            </div>
+          <div className="text-center mb-14">
+            <span className="text-[#103556] uppercase text-sm font-medium tracking-wider block mb-3">Traveler Experiences</span>
             <h2 className="text-4xl font-bold mb-6">
               What Our Guests Say
             </h2>
-            <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Read about the experiences of travelers who have enjoyed this tour
             </p>
           </div>
           
-          {/* Reviews Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto mb-16">
-            <div className="bg-white p-10 shadow-xl relative">
-              <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-5 mb-6 border-b border-gray-100 pb-6">
-                  <div className="w-20 h-20 rounded-full bg-[#103556]/10 flex items-center justify-center text-[#103556] font-semibold text-xl">
-                    JD
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold">James Davies</h4>
-                    <p className="text-gray-500">United Kingdom</p>
-                    <div className="flex text-[#D4AF37] mt-1">
-                      <Star className="h-5 w-5 fill-current" />
-                      <Star className="h-5 w-5 fill-current" />
-                      <Star className="h-5 w-5 fill-current" />
-                      <Star className="h-5 w-5 fill-current" />
-                      <Star className="h-5 w-5 fill-current" />
+          {/* Reviews Grid - Past Reviews */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold mb-8 text-center">Recent Reviews</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+              <div className="bg-white p-10 shadow-lg rounded-md hover:shadow-xl transition-shadow relative">
+                <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-5 mb-6 border-b border-gray-100 pb-6">
+                    <div className="w-16 h-16 rounded-full bg-[#103556]/10 flex items-center justify-center text-[#103556] font-semibold text-xl">
+                      JD
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-semibold">James Davies</h4>
+                      <p className="text-gray-500">United Kingdom</p>
+                      <div className="flex text-[#D4AF37] mt-1">
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <p className="italic text-gray-600 leading-relaxed">
-                  "Our trip with BSL Tours exceeded all expectations. The attention to detail was superb, and our guide's knowledge made every destination come alive. The accommodations were stunning and the private transportation was extremely comfortable."
-                </p>
-                <div className="mt-6 text-sm text-[#103556]">
-                  <span className="font-medium">Tour:</span> Luxury Sri Lanka
+                  <p className="italic text-gray-600 leading-relaxed">
+                    "Our trip with BSL Tours exceeded all expectations. The attention to detail was superb, and our guide's knowledge made every destination come alive. The accommodations were stunning and the private transportation was extremely comfortable."
+                  </p>
+                  <div className="mt-6 text-sm text-[#103556]">
+                    <span className="font-medium">Tour:</span> Luxury Sri Lanka
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            <div className="bg-white p-10 shadow-xl relative">
-              <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-5 mb-6 border-b border-gray-100 pb-6">
-                  <div className="w-20 h-20 rounded-full bg-[#103556]/10 flex items-center justify-center text-[#103556] font-semibold text-xl">
-                    SM
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold">Sarah Mitchell</h4>
-                    <p className="text-gray-500">Australia</p>
-                    <div className="flex text-[#D4AF37] mt-1">
-                      <Star className="h-5 w-5 fill-current" />
-                      <Star className="h-5 w-5 fill-current" />
-                      <Star className="h-5 w-5 fill-current" />
-                      <Star className="h-5 w-5 fill-current" />
-                      <Star className="h-5 w-5 fill-current" />
+              
+              <div className="bg-white p-10 shadow-lg rounded-md hover:shadow-xl transition-shadow relative">
+                <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-5 mb-6 border-b border-gray-100 pb-6">
+                    <div className="w-16 h-16 rounded-full bg-[#103556]/10 flex items-center justify-center text-[#103556] font-semibold text-xl">
+                      SM
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-semibold">Sarah Mitchell</h4>
+                      <p className="text-gray-500">Australia</p>
+                      <div className="flex text-[#D4AF37] mt-1">
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                        <Star className="h-5 w-5 fill-current" />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <p className="italic text-gray-600 leading-relaxed">
-                  "From the moment we landed until our departure, everything was perfectly organized. We especially loved the cultural experiences and the wonderful food. Our tour consultant was responsive and made sure every aspect of our journey was flawless."
-                </p>
-                <div className="mt-6 text-sm text-[#103556]">
-                  <span className="font-medium">Tour:</span> Cultural Triangle Explorer
+                  <p className="italic text-gray-600 leading-relaxed">
+                    "From the moment we landed until our departure, everything was perfectly organized. We especially loved the cultural experiences and the wonderful food. Our tour consultant was responsive and made sure every aspect of our journey was flawless."
+                  </p>
+                  <div className="mt-6 text-sm text-[#103556]">
+                    <span className="font-medium">Tour:</span> Cultural Triangle Explorer
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           
           {/* Add Review Section */}
-          <div className="max-w-2xl mx-auto bg-white p-10 shadow-xl rounded-lg">
-            <h3 className="text-2xl font-bold mb-6 text-center">Share Your Experience</h3>
+          <div className="max-w-2xl mx-auto bg-white p-10 shadow-lg rounded-md border border-gray-100">
+            <h3 className="text-2xl font-bold mb-8 text-center">Share Your Experience</h3>
             
             <form className="space-y-6" onSubmit={handleReviewSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -960,7 +958,7 @@ const EnhancedPackageDetail = () => {
                   <input 
                     type="text" 
                     id="reviewerName" 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent" 
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#103556] focus:border-transparent" 
                     placeholder="John Smith"
                     value={reviewName}
                     onChange={(e) => setReviewName(e.target.value)}
@@ -975,7 +973,7 @@ const EnhancedPackageDetail = () => {
                   <input 
                     type="text" 
                     id="reviewerCountry" 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent" 
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#103556] focus:border-transparent" 
                     placeholder="United Kingdom"
                     value={reviewCountry}
                     onChange={(e) => setReviewCountry(e.target.value)}
@@ -1008,7 +1006,7 @@ const EnhancedPackageDetail = () => {
                 <textarea 
                   id="reviewContent" 
                   rows={5} 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#103556] focus:border-transparent"
                   placeholder="Share your experience with this tour..."
                   value={reviewContent}
                   onChange={(e) => setReviewContent(e.target.value)}
@@ -1046,7 +1044,6 @@ const EnhancedPackageDetail = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold mb-6">Ready to Experience Luxury in Sri Lanka?</h2>
-            <div className="w-20 h-0.5 bg-[#D4AF37] mx-auto mb-6"></div>
             <p className="text-xl text-white/80 mb-10">
               Our team of luxury travel specialists is waiting to craft your perfect Sri Lankan journey. 
               Don't miss this opportunity to create memories that will last a lifetime.
