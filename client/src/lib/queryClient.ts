@@ -43,6 +43,22 @@ export interface Destination {
   description: string;
   imageUrl: string;
   featured: boolean;
+  slug?: string;
+  shortDescription?: string | null;
+  excerpt?: string | null;
+  fullDescription?: string | null;
+  region?: string | null;
+  latitude?: string | null;
+  longitude?: string | null;
+  highlights?: string | null;
+  bestTimeToVisit?: string | null;
+  recommendedDuration?: string | null;
+  weatherInfo?: string | null;
+  travelTips?: string | null;
+  galleryImages?: string | null;
+  activities?: string | null;
+  experiences?: string | null;
+  faqs?: string | null;
 }
 
 export interface Testimonial {
