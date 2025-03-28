@@ -17,6 +17,7 @@ export interface TourPackage {
   slug: string | null;
   description: string;
   shortDescription: string | null;
+  excerpt?: string | null; // Added field for compatibility with .NET API
   imageUrl: string;
   price: number;
   duration: number;

@@ -527,11 +527,11 @@ const EnhancedPackageDetail = () => {
                   </h2>
                 </div>
                 <div className="text-xl text-gray-700 font-medium mb-6">
-                  {packageData.shortDescription || "Experience the best of Sri Lanka with our luxury tour package."}
+                  {packageData.shortDescription || packageData.excerpt || "Experience the best of Sri Lanka with our luxury tour package."}
                 </div>
                 <div 
                   className="prose prose-lg max-w-none text-gray-600"
-                  dangerouslySetInnerHTML={{ __html: packageData.description || '' }}
+                  dangerouslySetInnerHTML={{ __html: packageData.description || packageData.excerpt || '' }}
                 />
                 {packageData.tourHighlights && (
                   <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-100">

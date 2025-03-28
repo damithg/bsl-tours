@@ -381,10 +381,11 @@ const DestinationDetail = () => {
                 <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-6">About {destination.name}</h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-gray-700">
-                    {destination.fullDescription || destination.description}
+                    {destination.fullDescription || destination.shortDescription || destination.excerpt || destination.description}
                   </p>
                   <p className="text-gray-700">
-                    {destination.fullDescription ? destination.description : 
+                    {destination.fullDescription && (destination.description || destination.shortDescription || destination.excerpt) ? 
+                      (destination.description || destination.shortDescription || destination.excerpt) : 
                       `Our luxury tours to ${destination.name} offer an unparalleled travel experience with exclusive access to key sites, private guides, and exquisite accommodation options. Whether you're seeking cultural immersion, adventure, or simply relaxation, our tailored packages ensure you experience the very best this destination has to offer.`
                     }
                   </p>
