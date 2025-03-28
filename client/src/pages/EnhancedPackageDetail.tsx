@@ -584,46 +584,32 @@ const EnhancedPackageDetail = () => {
                 )}
               </div>
               
-              {/* Includes/Excludes Section */}
+              {/* Includes/Excludes Section - New Style */}
               <div className="mb-16">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-bold">What's Included</h2>
+                  <h2 className="text-3xl font-bold">Included/Excluded</h2>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-[#f8f7f2] p-6 rounded-lg">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <div className="w-8 h-8 bg-[var(--accent)] rounded-full flex items-center justify-center mr-3">
-                        <Check className="h-5 w-5 text-white" />
+                <div className="space-y-6 mb-8">
+                  {includesItems.map((item, idx) => (
+                    <div key={`include-${idx}`} className="flex items-start">
+                      <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                        <Check className="h-3.5 w-3.5 text-green-600" />
                       </div>
-                      Included
-                    </h3>
-                    <ul className="space-y-3">
-                      {includesItems.map((item, idx) => (
-                        <li key={idx} className="flex">
-                          <Check className="h-5 w-5 text-[var(--secondary)] mr-3 flex-shrink-0 mt-1" />
-                          <span className="text-gray-600">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-[#f8f7f2] p-6 rounded-lg">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <div className="w-8 h-8 bg-[var(--accent)] rounded-full flex items-center justify-center mr-3">
-                        <X className="h-5 w-5 text-white" />
+                      <span className="text-gray-700">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="border-t border-gray-200 my-8 pt-8 space-y-6">
+                  {excludesItems.map((item, idx) => (
+                    <div key={`exclude-${idx}`} className="flex items-start">
+                      <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                        <X className="h-3.5 w-3.5 text-red-500" />
                       </div>
-                      Not Included
-                    </h3>
-                    <ul className="space-y-3">
-                      {excludesItems.map((item, idx) => (
-                        <li key={idx} className="flex">
-                          <X className="h-5 w-5 text-red-500 mr-3 flex-shrink-0 mt-1" />
-                          <span className="text-gray-600">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                      <span className="text-gray-700">{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
