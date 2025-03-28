@@ -34,8 +34,9 @@ namespace BSLTours.API.Services
         private void InitializeData()
         {
             InitializeDestinations();
+            InitializeTourPackages();
         }
-
+        
         private void InitializeDestinations()
         {
             // Sigiriya Rock Fortress
@@ -161,6 +162,277 @@ namespace BSLTours.API.Services
                 CreatedAt = DateTime.Now
             });
         }
+        
+        private void InitializeTourPackages()
+        {
+            // Sample Tour Package 1: Cultural Triangle Luxury Tour
+            var culturalTour = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Title = "Cultural Triangle Luxury Tour",
+                Slug = "cultural-triangle-luxury-tour",
+                Description = "Explore ancient cities, sacred temples, and the cultural heart of Sri Lanka with luxury accommodations.",
+                ImageUrl = "/images/packages/cultural-triangle-tour.jpg",
+                Duration = 7,
+                Price = 2199M,
+                Featured = true,
+                Itinerary = "Day 1: Arrival in Colombo\nDay 2-3: Sigiriya and Dambulla\nDay 4: Polonnaruwa\nDay 5: Anuradhapura\nDay 6: Kandy\nDay 7: Departure",
+                IncludedDestinations = new List<string> { "Sigiriya", "Dambulla", "Polonnaruwa", "Anuradhapura", "Kandy" },
+                CreatedAt = DateTime.Now,
+                ItineraryDays = new List<ItineraryDay>
+                {
+                    new ItineraryDay
+                    {
+                        Day = 1,
+                        Title = "Arrival in Colombo",
+                        Description = "Welcome to Sri Lanka! Upon arrival at Bandaranaike International Airport, you'll be greeted by your private chauffeur and transferred to your luxury hotel in Colombo. Depending on your arrival time, enjoy a brief orientation tour of Colombo's colonial heritage.",
+                        ImageUrl = "/images/packages/colombo-arrival.jpg",
+                        Accommodation = "Shangri-La Colombo",
+                        Meals = new Meals { Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 2,
+                        Title = "Sigiriya Rock Fortress",
+                        Description = "After breakfast, transfer to Sigiriya (approximately 4 hours). In the afternoon, visit the iconic Sigiriya Rock Fortress, a UNESCO World Heritage site. Climb to the summit for panoramic views and explore the ancient frescoes and water gardens.",
+                        ImageUrl = "/images/packages/sigiriya-rock.jpg",
+                        Accommodation = "Water Garden Sigiriya",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Sigiriya Rock Climb",
+                                Description = "Guided tour of this 5th-century rock fortress with an expert archaeologist",
+                                Time = "2:00 PM - 5:00 PM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 3,
+                        Title = "Dambulla Cave Temples",
+                        Description = "Visit the magnificent Dambulla Cave Temples in the morning, exploring five caves adorned with Buddhist murals and statues. In the afternoon, enjoy a safari at Minneriya National Park, famous for its elephant gatherings.",
+                        ImageUrl = "/images/packages/dambulla-caves.jpg",
+                        Accommodation = "Water Garden Sigiriya",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Dambulla Cave Temple Visit",
+                                Description = "Explore the ancient Buddhist cave temples dating back to the 1st century BC",
+                                Time = "9:00 AM - 12:00 PM"
+                            },
+                            new Activity
+                            {
+                                Title = "Minneriya Safari",
+                                Description = "Wildlife safari to spot wild elephants, deer, and various bird species",
+                                Time = "3:00 PM - 6:00 PM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Lunch = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 4,
+                        Title = "Ancient City of Polonnaruwa",
+                        Description = "Discover the ancient city of Polonnaruwa, Sri Lanka's second capital. Explore well-preserved ruins, impressive stone sculptures, and the famous Gal Vihara Buddha statues. In the evening, enjoy a traditional cultural performance at your hotel.",
+                        ImageUrl = "/images/packages/polonnaruwa.jpg",
+                        Accommodation = "Water Garden Sigiriya",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Polonnaruwa Archaeological Tour",
+                                Description = "Visit the ancient capital with its well-preserved stupas, palaces, and Buddha statues",
+                                Time = "9:00 AM - 3:00 PM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Lunch = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 5,
+                        Title = "Sacred City of Anuradhapura",
+                        Description = "Visit Anuradhapura, Sri Lanka's first capital and a UNESCO World Heritage site. Explore ancient stupas, palaces, and the sacred Sri Maha Bodhi tree. Later, travel to Kandy, stopping at a spice garden en route.",
+                        ImageUrl = "/images/packages/anuradhapura.jpg",
+                        Accommodation = "Kings Pavilion Kandy",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Anuradhapura Sacred City Tour",
+                                Description = "Visit the first ancient capital with its dagobas, monasteries, and royal gardens",
+                                Time = "8:00 AM - 1:00 PM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 6,
+                        Title = "Temple of the Sacred Tooth Relic & Botanical Gardens",
+                        Description = "Morning visit to the Temple of the Sacred Tooth Relic, one of Buddhism's most revered sites. Afterward, explore the Royal Botanical Gardens in Peradeniya. Evening at leisure to explore Kandy town.",
+                        ImageUrl = "/images/packages/kandy-tooth-temple.jpg",
+                        Accommodation = "Kings Pavilion Kandy",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Temple of the Sacred Tooth Relic",
+                                Description = "Visit the revered Buddhist temple housing Buddha's tooth relic",
+                                Time = "9:00 AM - 11:00 AM"
+                            },
+                            new Activity
+                            {
+                                Title = "Peradeniya Royal Botanical Gardens",
+                                Description = "Stroll through one of the finest botanical gardens in Asia",
+                                Time = "2:00 PM - 4:00 PM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 7,
+                        Title = "Departure",
+                        Description = "After breakfast, transfer to Colombo airport for your departure flight. End of services.",
+                        ImageUrl = "/images/packages/departure.jpg",
+                        Meals = new Meals { Breakfast = true }
+                    }
+                }
+            };
+            
+            tourPackages.Add(culturalTour);
+            
+            // Sample Tour Package 2: Sri Lankan Beach Escape
+            var beachEscape = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Title = "Sri Lankan Beach Escape",
+                Slug = "sri-lankan-beach-escape",
+                Description = "Relax and unwind at the finest beaches of Sri Lanka's southern coast with luxury accommodations.",
+                ImageUrl = "/images/packages/beach-escape-tour.jpg",
+                Duration = 8,
+                Price = 2599M,
+                Featured = true,
+                Itinerary = "Day 1: Arrival in Colombo\nDay 2-3: Galle\nDay 4-5: Mirissa\nDay 6-7: Tangalle\nDay 8: Departure",
+                IncludedDestinations = new List<string> { "Colombo", "Galle", "Mirissa", "Tangalle" },
+                CreatedAt = DateTime.Now,
+                ItineraryDays = new List<ItineraryDay>
+                {
+                    new ItineraryDay
+                    {
+                        Day = 1,
+                        Title = "Arrival & Transfer to Galle",
+                        Description = "Arrive at Bandaranaike International Airport and transfer directly to your luxury resort in Galle (approximately 2.5 hours). Rest of the day at leisure to recover from your flight and enjoy the facilities of your stunning beachfront resort.",
+                        ImageUrl = "/images/packages/galle-arrival.jpg",
+                        Accommodation = "Amangalla",
+                        Meals = new Meals { Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 2,
+                        Title = "Galle Fort Exploration",
+                        Description = "After breakfast, enjoy a guided walking tour of the historic Galle Fort, a UNESCO World Heritage Site. Explore its charming streets, colonial architecture, boutique shops, and cafes. Afternoon at leisure to continue exploring or relax at your resort.",
+                        ImageUrl = "/images/packages/galle-fort.jpg",
+                        Accommodation = "Amangalla",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Galle Fort Walking Tour",
+                                Description = "Expert-guided tour of the colonial-era fort with its unique architecture and history",
+                                Time = "9:00 AM - 12:00 PM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 3,
+                        Title = "Beach Day & Cooking Class",
+                        Description = "Morning at leisure to relax on the beach. In the afternoon, participate in a traditional Sri Lankan cooking class to learn about local spices and techniques. Evening sunset cocktails at a rooftop bar overlooking the Indian Ocean.",
+                        ImageUrl = "/images/packages/cooking-class.jpg",
+                        Accommodation = "Amangalla",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Sri Lankan Cooking Class",
+                                Description = "Learn to prepare authentic local dishes with a professional chef",
+                                Time = "2:00 PM - 4:00 PM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Lunch = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 4,
+                        Title = "Transfer to Mirissa",
+                        Description = "After breakfast, transfer to Mirissa (approximately 1 hour). Check into your luxury beach resort and spend the afternoon relaxing on one of Sri Lanka's most beautiful beaches.",
+                        ImageUrl = "/images/packages/mirissa-beach.jpg",
+                        Accommodation = "Cape Weligama",
+                        Meals = new Meals { Breakfast = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 5,
+                        Title = "Whale Watching & Beach Relaxation",
+                        Description = "Early morning whale watching excursion to spot blue whales and dolphins (seasonal, November to April). Afternoon at leisure to enjoy the beach or indulge in a spa treatment at your resort.",
+                        ImageUrl = "/images/packages/whale-watching.jpg",
+                        Accommodation = "Cape Weligama",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Whale Watching Excursion",
+                                Description = "Private boat tour to spot blue whales, sperm whales, and dolphins",
+                                Time = "6:00 AM - 10:00 AM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 6,
+                        Title = "Transfer to Tangalle",
+                        Description = "After a leisurely breakfast, transfer to Tangalle (approximately 1.5 hours). Check into your exclusive beach resort and spend the rest of the day relaxing by the pool or at the pristine beach.",
+                        ImageUrl = "/images/packages/tangalle-beach.jpg",
+                        Accommodation = "Amanwella",
+                        Meals = new Meals { Breakfast = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 7,
+                        Title = "Tangalle Beach Day & Sea Turtle Visit",
+                        Description = "Day at leisure to enjoy the facilities of your resort and the beautiful Tangalle beach. In the evening, optional visit to a sea turtle conservation project to observe turtles laying eggs (seasonal).",
+                        ImageUrl = "/images/packages/sea-turtles.jpg",
+                        Accommodation = "Amanwella",
+                        Activities = new List<Activity>
+                        {
+                            new Activity
+                            {
+                                Title = "Sea Turtle Conservation Visit",
+                                Description = "Evening visit to a local conservation project to learn about protection efforts",
+                                Time = "7:00 PM - 9:00 PM"
+                            }
+                        },
+                        Meals = new Meals { Breakfast = true, Lunch = true, Dinner = true }
+                    },
+                    new ItineraryDay
+                    {
+                        Day = 8,
+                        Title = "Departure",
+                        Description = "After breakfast, transfer to Colombo airport for your departure flight (approximately 4 hours). End of services.",
+                        ImageUrl = "/images/packages/departure.jpg",
+                        Meals = new Meals { Breakfast = true }
+                    }
+                }
+            };
+            
+            tourPackages.Add(beachEscape);
+        }
 
         // Destinations
         public async Task<IEnumerable<Destination>> GetDestinationsAsync()
@@ -207,8 +479,7 @@ namespace BSLTours.API.Services
             return await Task.FromResult(destination);
         }
 
-        // Stub methods for other required interface implementations
-        
+        // Tour Packages
         public async Task<IEnumerable<TourPackage>> GetTourPackagesAsync()
         {
             return await Task.FromResult(tourPackages);
@@ -231,12 +502,27 @@ namespace BSLTours.API.Services
 
         public async Task<TourPackage> CreateTourPackageAsync(CreateTourPackageDto tourPackageDto)
         {
-            // Simple placeholder implementation
-            var tourPackage = new TourPackage { Id = tourPackageIdCounter++ };
+            var tourPackage = new TourPackage
+            {
+                Id = tourPackageIdCounter++,
+                Title = tourPackageDto.Title,
+                Slug = tourPackageDto.Title.ToLower().Replace(" ", "-"),
+                Description = tourPackageDto.Description,
+                ImageUrl = tourPackageDto.ImageUrl,
+                Duration = tourPackageDto.Duration,
+                Price = tourPackageDto.Price,
+                Featured = tourPackageDto.Featured,
+                Itinerary = tourPackageDto.Itinerary,
+                IncludedDestinations = tourPackageDto.IncludedDestinations,
+                ItineraryDays = tourPackageDto.ItineraryDays,
+                CreatedAt = DateTime.Now
+            };
+            
             tourPackages.Add(tourPackage);
             return await Task.FromResult(tourPackage);
         }
 
+        // Testimonials
         public async Task<IEnumerable<Testimonial>> GetTestimonialsAsync()
         {
             return await Task.FromResult(testimonials);
@@ -250,6 +536,7 @@ namespace BSLTours.API.Services
             return await Task.FromResult(testimonial);
         }
 
+        // Inquiries
         public async Task<IEnumerable<Inquiry>> GetInquiriesAsync()
         {
             return await Task.FromResult(inquiries);
@@ -263,6 +550,7 @@ namespace BSLTours.API.Services
             return await Task.FromResult(inquiry);
         }
 
+        // Subscribers
         public async Task<Subscriber> GetSubscriberByEmailAsync(string email)
         {
             return await Task.FromResult(subscribers.FirstOrDefault(s => s.Email == email));

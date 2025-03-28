@@ -15,9 +15,11 @@ namespace BSLTours.API.Models
         public bool Featured { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public string Itinerary { get; set; }
 
         // Relationships
         public List<string> IncludedDestinations { get; set; } = new List<string>();
+        public List<ItineraryDay> ItineraryDays { get; set; } = new List<ItineraryDay>();
     }
 
     public class CreateTourPackageDto
@@ -28,6 +30,8 @@ namespace BSLTours.API.Models
         public int Duration { get; set; }
         public decimal Price { get; set; }
         public bool Featured { get; set; }
+        public string Itinerary { get; set; }
         public List<string> IncludedDestinations { get; set; } = new List<string>();
+        public List<ItineraryDay> ItineraryDays { get; set; } = new List<ItineraryDay>();
     }
 }
