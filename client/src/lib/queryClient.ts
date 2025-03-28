@@ -192,6 +192,7 @@ export const getQueryFn = <TData>(options: {
       } else if (basePath.includes('/by-slug/')) {
         // Special handling for /by-slug/ endpoint
         path = `${basePath}${params[0]}`;
+        console.log('Slug API path:', path);
       } else if (basePath.includes('/{')) {
         // Handle .NET style path parameters
         let updatedPath = basePath;

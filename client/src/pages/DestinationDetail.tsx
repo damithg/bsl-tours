@@ -33,7 +33,7 @@ interface RelatedTour {
 
 const DestinationDetail = () => {
   const [isIdRoute, idParams] = useRoute<{ id: string }>('/destination/:id');
-  const [isSlugRoute, slugParams] = useRoute<{ slug: string }>('/destination/:slug+');
+  const [isSlugRoute, slugParams] = useRoute<{ slug: string }>('/destination/:slug');
   const { formatPrice } = useCurrency();
   const [activeTab, setActiveTab] = useState<'overview' | 'activities' | 'gallery' | 'map'>('overview');
   const [activeSection, setActiveSection] = useState<string>('hero');
@@ -46,16 +46,27 @@ const DestinationDetail = () => {
   const destinationId = isIdRoute && idParams?.id ? parseInt(idParams.id, 10) : 0;
   const destinationSlug = isSlugRoute && slugParams?.slug ? slugParams.slug : '';
   
+  // Log the route parameters for debugging
+  console.log('Route parameters:', { isIdRoute, destinationId, isSlugRoute, destinationSlug });
+  
   // Decide which API endpoint to use based on whether we have an ID or a slug
+  // The .NET Core API uses a different URL structure than our Express API
   const queryEndpoint = destinationId ? ['/api/destinations', destinationId] : 
-                        destinationSlug ? ['/api/destinations/by-slug', destinationSlug] : 
+                        destinationSlug ? ['/api/destinations/slug', destinationSlug] : 
                         ['/api/destinations', 0];
   
   // Fetch destination data
   const { data: destination, isLoading, error } = useQuery<Destination>({
     queryKey: queryEndpoint,
-    enabled: !!(destinationId || destinationSlug),
+    enabled: !!(destinationId || destinationSlug)
   });
+
+  // Error logging
+  useEffect(() => {
+    if (error) {
+      console.error('Destination detail error:', error, 'Query endpoint:', queryEndpoint);
+    }
+  }, [error, queryEndpoint]);
 
   // Setup scroll spy
   useEffect(() => {
