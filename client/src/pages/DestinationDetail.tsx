@@ -174,28 +174,28 @@ const DestinationDetail = () => {
     safeJsonParse(destination.galleryImages, []) : 
     [
       {
-        url: destination?.imageUrl || "https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+        url: destination?.imageUrl || "/images/destinations/gallery/tropical-beach.jpg",
         alt: `${destination?.name} - Main View`
       },
       {
-        url: "https://images.unsplash.com/photo-1627894966831-0c839fa78bfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-        alt: `${destination?.name} - Detail 1`
+        url: "/images/destinations/gallery/mountain-view.jpg",
+        alt: `${destination?.name} - Mountain View`
       },
       {
-        url: "https://images.unsplash.com/photo-1531259922615-206732e4349b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-        alt: `${destination?.name} - Detail 2`
+        url: "/images/destinations/gallery/mirissa-beach.jpg",
+        alt: `${destination?.name} - Beach View`
       },
       {
-        url: "https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-        alt: `${destination?.name} - Detail 3`
+        url: "/images/destinations/gallery/mirissa-palm.jpg",
+        alt: `${destination?.name} - Palm Trees`
       },
       {
-        url: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-        alt: `${destination?.name} - Detail 4`
+        url: "/images/destinations/gallery/romantic-beach.jpg",
+        alt: `${destination?.name} - Romantic Beach`
       },
       {
-        url: "https://images.unsplash.com/photo-1632923057155-39eb928c7c74?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-        alt: `${destination?.name} - Detail 5`
+        url: destination?.imageUrl || "/images/destinations/gallery/tropical-beach.jpg",
+        alt: `${destination?.name} - Aerial View`
       }
     ];
 
@@ -293,7 +293,7 @@ const DestinationDetail = () => {
               {destination.shortDescription || destination.description}
             </p>
             <div className="flex flex-wrap gap-2 mb-6">
-              {highlights.slice(0, 3).map((highlight, index) => (
+              {highlights.slice(0, 3).map((highlight: string, index: number) => (
                 <span key={index} className="bg-white/10 backdrop-blur-sm px-4 py-1 rounded-full text-white">
                   {highlight}
                 </span>
@@ -500,7 +500,7 @@ const DestinationDetail = () => {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
                     <div className="flex flex-wrap gap-2">
-                      {highlights.map((highlight, index) => (
+                      {highlights.map((highlight: string, index: number) => (
                         <span key={index} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
                           {highlight}
                         </span>
@@ -643,7 +643,7 @@ const DestinationDetail = () => {
             <div className="flex items-center gap-3 p-2">
               <MapPin className="w-5 h-5 text-[#0F4C81]" />
               <p className="text-gray-600">
-                {destination.location || `${destination.name}, Sri Lanka`}
+                {destination.region ? `${destination.name}, ${destination.region}` : `${destination.name}, Sri Lanka`}
               </p>
             </div>
           </div>
@@ -654,7 +654,7 @@ const DestinationDetail = () => {
                 Getting There
               </h3>
               <p className="text-gray-600 mb-2">
-                {destination.gettingThere || `${destination.name} is accessible by car from Colombo, with a journey time of approximately 3-4 hours depending on traffic. Private transfers, taxis and buses are available.`}
+                {(destination as any).gettingThere || `${destination.name} is accessible by car from Colombo, with a journey time of approximately 3-4 hours depending on traffic. Private transfers, taxis and buses are available.`}
               </p>
             </div>
             
@@ -663,8 +663,8 @@ const DestinationDetail = () => {
                 Nearby Attractions
               </h3>
               <ul className="text-gray-600 space-y-2">
-                {destination.nearbyAttractions ? 
-                  safeJsonParse(destination.nearbyAttractions, []).map((attraction: string, index: number) => (
+                {(destination as any).nearbyAttractions ? 
+                  safeJsonParse((destination as any).nearbyAttractions, []).map((attraction: string, index: number) => (
                     <li key={index} className="flex items-start">
                       <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
                       <span>{attraction}</span>
@@ -694,7 +694,7 @@ const DestinationDetail = () => {
                 Accommodation
               </h3>
               <p className="text-gray-600 mb-2">
-                {destination.accommodation || `We offer a range of luxury accommodations near ${destination.name}, from boutique hotels to private villas. All properties are carefully selected for comfort, service and unique character.`}
+                {(destination as any).accommodation || `We offer a range of luxury accommodations near ${destination.name}, from boutique hotels to private villas. All properties are carefully selected for comfort, service and unique character.`}
               </p>
             </div>
           </div>
