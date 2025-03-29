@@ -130,12 +130,21 @@ namespace BSLTours.API.Models
 
     public class DestinationImageSet
     {
-        public string Thumbnail { get; set; }
-        public string Card { get; set; }
-        public string Banner { get; set; }
-        public string Social { get; set; }
-        public string Original { get; set; }
+        public string BaseUrl { get; set; } // e.g., "https://res.cloudinary.com/mycloud/image/upload/v1711738476/galle-fort.jpg"
+        public string PublicId { get; set; } // optional, e.g. "galle-fort"
+
+        // Optional predefined variants
+        public string Thumbnail => Transform("w_300,h_200,c_fill");
+        public string Card => Transform("w_600,h_400,c_fill");
+        public string Banner => Transform("w_1600,h_800,c_fill");
+
+        private string Transform(string transformation)
+        {
+            if (string.IsNullOrEmpty(BaseUrl)) return null;
+            return BaseUrl.Replace("/upload/", $"/upload/{transformation}/");
+        }
     }
+
 
 
     public class CreateDestinationDto
