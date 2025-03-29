@@ -84,10 +84,48 @@ export interface Destination {
   recommendedDuration?: string | null;
   weatherInfo?: string | null;
   travelTips?: string | null;
-  galleryImages?: string | null;
+  nearbyAttractions?: string | null;
+  transportOptions?: string[] | null;
+  category?: string | null;
+  tags?: string[] | null;
+  address?: string | null;
+  nearestAirport?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  metaKeywords?: string[] | null;
+  
+  // New features from .NET Core API
+  features?: Array<{
+    title: string;
+    description: string;
+    icon: string;
+    imageUrl?: string;
+  }> | null;
+  
+  // Gallery images now structured as objects
+  galleryImages?: Array<{
+    url: string;
+    alt: string;
+  }> | null;
+  
+  // Activities as structured data
   activities?: string | null;
+  
+  // FAQs as structured data
+  faQs?: Array<{
+    question: string;
+    answer: string;
+  }> | null;
+  
+  // Content sections
+  sections?: Array<{
+    type: string;
+    title: string;
+    content: string;
+    imageUrl?: string;
+  }> | null;
+  
   experiences?: string | null;
-  faqs?: string | null;
 }
 
 export interface Testimonial {

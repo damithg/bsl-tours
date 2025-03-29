@@ -4,12 +4,19 @@ import { useQuery } from '@tanstack/react-query';
 import { 
   ChevronRight, MapPin, Calendar, Clock, Bookmark, Users, Compass, 
   Sun, Droplets, Star, Menu, ArrowRight, ChevronDown, MessageCircle, 
-  Heart, Share2, Camera, MapIcon
+  Heart, Share2, Camera, MapIcon, Coffee
 } from 'lucide-react';
 import { Destination } from '@shared/schema';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 import { AdaptiveImage } from '@/components/ui/adaptive-image';
+import { 
+  HeroImage, 
+  FeatureImage, 
+  ExperienceImage, 
+  GalleryImage, 
+  BackgroundImage 
+} from '@/components/ui/optimized-image';
 
 // Helper function to safely parse JSON strings
 const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
@@ -130,8 +137,16 @@ const DestinationDetail = () => {
     }
   ];
 
-  // Experiences for this destination
-  const experiences = [
+  // Define feature interface
+  interface Feature {
+    title: string;
+    description: string;
+    icon: string;
+    imageUrl?: string;
+  }
+  
+  // Use features from API or fallback to sample experiences
+  const experiences: Feature[] = (destination as any)?.features || [
     {
       title: "Private Guided Tours",
       description: "Explore hidden gems with our expert local guides who bring history and culture to life.",
@@ -154,9 +169,8 @@ const DestinationDetail = () => {
     }
   ];
 
-  // Activities for this destination
-  const activities = destination?.activities ? 
-    safeJsonParse(destination.activities, []) : 
+  // Local experiences for this destination
+  const localExperiences = (destination as any)?.localExperiences || 
     [
       {
         title: "Hiking Adventure",
@@ -181,9 +195,14 @@ const DestinationDetail = () => {
       }
     ];
 
-  // Gallery images
-  const galleryImages = destination?.galleryImages ? 
-    safeJsonParse(destination.galleryImages, []) : 
+  // Gallery image interface
+  interface GalleryImage {
+    url: string;
+    alt: string;
+  }
+  
+  // Gallery images - now directly use the structured gallery images from API
+  const galleryImages: GalleryImage[] = (destination as any)?.galleryImages || 
     [
       {
         url: destination?.imageUrl || "/images/destinations/gallery/tropical-beach.jpg",
@@ -211,9 +230,8 @@ const DestinationDetail = () => {
       }
     ];
 
-  // Highlights
-  const highlights = destination?.highlights ? 
-    safeJsonParse(destination.highlights, ['Wildlife', 'Cultural Heritage', 'UNESCO Site', 'Panoramic Views']) : 
+  // Highlights - directly use the array from API
+  const highlights: string[] = (destination as any)?.highlights || 
     ['Wildlife', 'Cultural Heritage', 'UNESCO Site', 'Panoramic Views'];
 
   // Loading state
@@ -260,17 +278,16 @@ const DestinationDetail = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
         <div className="absolute inset-0">
           {destination.imageUrl ? (
-            <AdaptiveImage
+            <HeroImage
               src={destination.imageUrl}
               alt={destination.name}
-              focalPoint={DESTINATION_FOCAL_POINTS[destination.name] || determineFocalPoint(destination.imageUrl, destination.name)}
-              containerClassName="w-full h-full"
+              className="object-cover"
             />
           ) : (
-            <img 
-              src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-              alt={destination.name} 
-              className="w-full h-full object-cover" 
+            <HeroImage
+              src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+              alt={destination.name}
+              className="object-cover"
             />
           )}
         </div>
@@ -347,7 +364,7 @@ const DestinationDetail = () => {
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
-              Activities
+              Local Experiences
             </button>
             <button 
               onClick={() => {
@@ -406,13 +423,23 @@ const DestinationDetail = () => {
               
               {/* Highlights & Experiences */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-                {experiences.map((experience, index) => (
+                {experiences.map((experience: Feature, index: number) => (
                   <div key={index} className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#0F4C81]/30 shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="p-6">
                       <div className="flex mb-4">
                         <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
-                          <img 
-                            src={experience.icon === 'guide' 
+                          <FeatureImage 
+                            src={experience.imageUrl 
+                              ? experience.imageUrl 
+                              : experience.icon === 'heritage-walk' 
+                              ? "/images/activities/guide-experience.jpg" 
+                              : experience.icon === 'boutique-hotel' 
+                              ? "/images/activities/exclusive-access.jpg"
+                              : experience.icon === 'sunset'
+                              ? "/images/activities/luxury-transport.jpg"
+                              : experience.icon === 'coffee-art'
+                              ? "/images/activities/authentic-cuisine.jpg"
+                              : experience.icon === 'guide' 
                               ? "/images/activities/guide-experience.jpg" 
                               : experience.icon === 'key' 
                               ? "/images/activities/exclusive-access.jpg"
@@ -420,12 +447,19 @@ const DestinationDetail = () => {
                               ? "/images/activities/luxury-transport.jpg"
                               : "/images/activities/authentic-cuisine.jpg"} 
                             alt={experience.title}
-                            className="w-full h-full object-cover"
                           />
                         </div>
                         <div>
                           <div className="inline-flex items-center text-[#0F4C81] mb-2">
-                            {experience.icon === 'guide' ? (
+                            {experience.icon === 'heritage-walk' ? (
+                              <Users className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'boutique-hotel' ? (
+                              <Bookmark className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'sunset' ? (
+                              <Sun className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'coffee-art' ? (
+                              <Coffee className="w-4 h-4 mr-2" />
+                            ) : experience.icon === 'guide' ? (
                               <Users className="w-4 h-4 mr-2" />
                             ) : experience.icon === 'key' ? (
                               <Bookmark className="w-4 h-4 mr-2" />
@@ -467,10 +501,10 @@ const DestinationDetail = () => {
                   {relatedTours.slice(0, 2).map((tour) => (
                     <div key={tour.id} className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                       <div className="w-1/3 h-auto relative">
-                        <img 
+                        <FeatureImage
                           src={tour.imageUrl} 
-                          alt={tour.title} 
-                          className="w-full h-full object-cover" 
+                          alt={tour.title}
+                          className="w-full h-full"
                         />
                       </div>
                       <div className="w-2/3 p-4">
@@ -549,11 +583,11 @@ const DestinationDetail = () => {
                     </div>
                   </div>
                   
-                  {destination.travelTips && (
+                  {(destination as any)?.travelTips && (destination as any).travelTips.length > 0 && (
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Travel Tips</h4>
                       <ul className="list-disc list-inside text-gray-600 space-y-1">
-                        {safeJsonParse(destination.travelTips, []).map((tip: string, index: number) => (
+                        {((destination as any).travelTips || []).map((tip: string, index: number) => (
                           <li key={index}>{tip}</li>
                         ))}
                       </ul>
@@ -581,45 +615,45 @@ const DestinationDetail = () => {
         </div>
       </section>
 
-      {/* Activities Section */}
+      {/* Local Experiences Section */}
       <section ref={activitiesRef} className="py-12 bg-[#F9F7F4]" id="activities">
         <div className="container mx-auto px-4">
           <h2 className="font-['Playfair_Display'] text-3xl font-bold text-center text-[#0F4C81] mb-10">
-            Featured Activities at {destination.name}
+            Local Experiences in {destination.name}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {activities.map((activity: any, index: number) => (
+            {localExperiences.map((experience: any, index: number) => (
               <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
                 <div className="relative h-56">
-                  <img 
-                    src={activity.imageUrl || `/images/activities/activity-${index + 1}.jpg`} 
-                    alt={activity.title} 
-                    className="w-full h-full object-cover" 
+                  <ExperienceImage 
+                    src={experience.imageUrl || `/images/activities/activity-${index + 1}.jpg`} 
+                    alt={experience.title}
+                    className="w-full h-full"
                   />
-                  {activity.difficulty && (
+                  {experience.difficulty && (
                     <div className="absolute top-4 right-4 bg-white/90 text-[#0F4C81] px-3 py-1 rounded-full text-sm font-medium">
-                      {activity.difficulty}
+                      {experience.difficulty}
                     </div>
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{activity.title}</h3>
+                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{experience.title}</h3>
                   
-                  {activity.duration && (
+                  {experience.duration && (
                     <div className="flex items-center text-gray-500 mb-3">
                       <Clock className="w-4 h-4 mr-2" />
-                      <span>{activity.duration}</span>
+                      <span>{experience.duration}</span>
                     </div>
                   )}
                   
-                  <p className="text-gray-600 mb-5">{activity.description}</p>
+                  <p className="text-gray-600 mb-5">{experience.description}</p>
                   
                   <Link 
                     href="/contact" 
                     className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#D4AF37] gap-1 transition"
                   >
-                    Inquire About This Activity
+                    Book This Experience
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -643,17 +677,18 @@ const DestinationDetail = () => {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {galleryImages.map((image: any, index: number) => (
+            {galleryImages.map((image: GalleryImage, index: number) => (
               <div 
                 key={index} 
                 className={`rounded-xl overflow-hidden ${
                   index === 0 ? "md:col-span-2 md:row-span-2" : ""
                 }`}
               >
-                <img 
+                <GalleryImage 
                   src={image.url} 
                   alt={image.alt || `${destination.name} - Image ${index + 1}`}
-                  className="w-full h-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-500" 
+                  className="w-full h-full hover:scale-105 transition-transform duration-500"
+                  featured={index === 0}
                 />
               </div>
             ))}
@@ -704,8 +739,8 @@ const DestinationDetail = () => {
                 Nearby Attractions
               </h3>
               <ul className="text-gray-600 space-y-2">
-                {(destination as any).nearbyAttractions ? 
-                  safeJsonParse((destination as any).nearbyAttractions, []).map((attraction: string, index: number) => (
+                {((destination as any)?.nearbyAttractions && (destination as any).nearbyAttractions.length > 0) ? 
+                  ((destination as any).nearbyAttractions || []).map((attraction: string, index: number) => (
                     <li key={index} className="flex items-start">
                       <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
                       <span>{attraction}</span>
@@ -743,7 +778,7 @@ const DestinationDetail = () => {
       </section>
 
       {/* FAQ Section */}
-      {destination.faqs && (
+      {((destination as any)?.faQs?.length > 0) && (
         <section className="py-12 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">
@@ -752,7 +787,7 @@ const DestinationDetail = () => {
             
             <div className="max-w-3xl mx-auto">
               <div className="space-y-4">
-                {safeJsonParse(destination.faqs, []).map((faq: any, index: number) => (
+                {((destination as any)?.faQs || []).map((faq: {question: string, answer: string}, index: number) => (
                   <div key={index} className="bg-[#F9F7F4] rounded-xl overflow-hidden">
                     <details className="group">
                       <summary className="flex justify-between items-center p-6 cursor-pointer">
@@ -776,10 +811,10 @@ const DestinationDetail = () => {
       {/* Call to Action */}
       <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img 
+          <BackgroundImage 
             src={destination.imageUrl || "https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"} 
-            alt={`${destination.name} landscape`} 
-            className="w-full h-full object-cover" 
+            alt={`${destination.name} landscape`}
+            className="w-full h-full"
           />
         </div>
         
