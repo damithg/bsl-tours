@@ -333,9 +333,9 @@ const DestinationDetail = () => {
       </section>
 
       {/* Navigation Tabs */}
-      <section className="sticky top-0 bg-white z-30 border-b border-gray-200 shadow-sm">
+      <section className="sticky top-0 bg-white z-30 border-b border-gray-200 shadow-md">
         <div className="container mx-auto px-4">
-          <div className="flex overflow-x-auto hide-scrollbar">
+          <div className="flex overflow-x-auto hide-scrollbar justify-center">
             <button 
               onClick={() => {
                 setActiveTab('overview');
@@ -343,10 +343,10 @@ const DestinationDetail = () => {
                   overviewRef.current.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+              className={`px-8 py-4 text-base font-medium whitespace-nowrap border-b-3 transition-all ${
                 activeTab === 'overview' 
-                  ? 'border-[#0F4C81] text-[#0F4C81]' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  ? 'border-[#0F4C81] text-[#0F4C81] font-semibold' 
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
               Overview
@@ -358,10 +358,10 @@ const DestinationDetail = () => {
                   activitiesRef.current.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+              className={`px-8 py-4 text-base font-medium whitespace-nowrap border-b-3 transition-all ${
                 activeTab === 'activities' 
-                  ? 'border-[#0F4C81] text-[#0F4C81]' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  ? 'border-[#0F4C81] text-[#0F4C81] font-semibold' 
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
               Local Experiences
@@ -373,10 +373,10 @@ const DestinationDetail = () => {
                   galleryRef.current.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+              className={`px-8 py-4 text-base font-medium whitespace-nowrap border-b-3 transition-all ${
                 activeTab === 'gallery' 
-                  ? 'border-[#0F4C81] text-[#0F4C81]' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  ? 'border-[#0F4C81] text-[#0F4C81] font-semibold' 
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
               Gallery
@@ -388,10 +388,10 @@ const DestinationDetail = () => {
                   mapRef.current.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+              className={`px-8 py-4 text-base font-medium whitespace-nowrap border-b-3 transition-all ${
                 activeTab === 'map' 
-                  ? 'border-[#0F4C81] text-[#0F4C81]' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  ? 'border-[#0F4C81] text-[#0F4C81] font-semibold' 
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
               Map
