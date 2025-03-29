@@ -13,7 +13,7 @@ namespace BSLTours.API.Models
         public string Name { get; set; }
         public string Slug { get; set; }
         public string Description { get; set; }
-        public string ImageUrl { get; set; }
+        public DestinationImageSet Images { get; set; }
         public bool Featured { get; set; }
 
         // Location information
@@ -128,6 +128,16 @@ namespace BSLTours.API.Models
     }
 
 
+    public class DestinationImageSet
+    {
+        public string Thumbnail { get; set; }
+        public string Card { get; set; }
+        public string Banner { get; set; }
+        public string Social { get; set; }
+        public string Original { get; set; }
+    }
+
+
     public class CreateDestinationDto
     {
         public string Name { get; set; }
@@ -136,7 +146,7 @@ namespace BSLTours.API.Models
         public string Description { get; set; }
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
-        public string ImageUrl { get; set; }
+        public DestinationImageSet Images { get; set; }
         public bool Featured { get; set; }
 
         // Location

@@ -95,7 +95,7 @@ namespace BSLTours.API.Services
                 Name = "Sigiriya Rock Fortress",
                 Slug = "sigiriya-rock-fortress",
                 Description = "Ancient rock fortress with panoramic views and stunning frescoes",
-                ImageUrl = "/images/destinations/sigiriya-rock-fortress-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/sigiriya-rock-fortress-sri-lanka.jpg" },
                 Featured = true,
                 
                 // Location information
@@ -176,7 +176,15 @@ namespace BSLTours.API.Services
                 Name = "Galle Fort",
                 Slug = "galle-fort",
                 Description = "Colonial charm with boutique hotels, cafes and ocean views",
-                ImageUrl = "/images/destinations/galle-fort-sri-lanka.jpg",
+                Images = new DestinationImageSet
+                {
+                    Thumbnail = "/images/destinations/galle-fort-thumb.jpg",
+                    Card = "/images/destinations/galle-fort-card.jpg",
+                    Banner = "/images/destinations/galle-fort-banner.jpg",
+                    Social = "/images/destinations/galle-fort-social.jpg",
+                    Original = "/images/destinations/galle-fort-sri-lanka.jpg"
+                },
+
                 Featured = true,
 
                 // Location
@@ -318,7 +326,7 @@ namespace BSLTours.API.Services
                 Name = "Mirissa",
                 Slug = "mirissa",
                 Description = "Idyllic beach destination famous for whale watching and surfing",
-                ImageUrl = "/images/destinations/mirissa-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/mirissa-sri-lanka.jpg" },
                 Featured = true,
                 
                 // Location information
@@ -402,7 +410,7 @@ namespace BSLTours.API.Services
                 Name = "Ella",
                 Slug = "ella",
                 Description = "Scenic hill country town with spectacular hiking, tea plantations and the famous Nine Arch Bridge",
-                ImageUrl = "/images/destinations/ella-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/ella-sri-lanka.jpg" },
                 Featured = true,
                 
                 // Location information
@@ -486,7 +494,7 @@ namespace BSLTours.API.Services
                 Name = "Nuwara Eliya",
                 Slug = "nuwara-eliya",
                 Description = "Sri Lanka's 'Little England' with colonial architecture and rolling tea plantations",
-                ImageUrl = "/images/destinations/nuwara-eliya-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/nuwara-eliya-sri-lanka.jpg" },
                 Featured = true,
                 
                 // Location information
@@ -570,7 +578,7 @@ namespace BSLTours.API.Services
                 Name = "Kandy",
                 Slug = "kandy",
                 Description = "Cultural capital of Sri Lanka and home to the sacred Temple of the Tooth Relic",
-                ImageUrl = "/images/destinations/kandy-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/kandy-sri-lanka.jpg" },
                 Featured = true,
                 
                 // Location information
@@ -654,7 +662,7 @@ namespace BSLTours.API.Services
                 Name = "Yala National Park",
                 Slug = "yala-national-park",
                 Description = "Premier wildlife sanctuary with the world's highest leopard density",
-                ImageUrl = "/images/destinations/yala-national-park-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/yala-national-park-sri-lanka.jpg" },
                 Featured = true,
                 
                 // Location information
@@ -738,7 +746,7 @@ namespace BSLTours.API.Services
                 Name = "Polonnaruwa",
                 Slug = "polonnaruwa",
                 Description = "Medieval capital with well-preserved ancient ruins and monuments",
-                ImageUrl = "/images/destinations/polonnaruwa-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/polonnaruwa-sri-lanka.jpg" },
                 Featured = false,
                 
                 // Location information
@@ -822,7 +830,7 @@ namespace BSLTours.API.Services
                 Name = "Anuradhapura",
                 Slug = "anuradhapura",
                 Description = "Sri Lanka's ancient first capital and sacred Buddhist pilgrimage site",
-                ImageUrl = "/images/destinations/anuradhapura-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/anuradhapura-sri-lanka.jpg" },
                 Featured = false,
                 
                 // Location information
@@ -906,7 +914,7 @@ namespace BSLTours.API.Services
                 Name = "Arugam Bay",
                 Slug = "arugam-bay",
                 Description = "World-class surfing destination on Sri Lanka's east coast",
-                ImageUrl = "/images/destinations/arugam-bay-sri-lanka.jpg",
+                Images = new DestinationImageSet { Thumbnail = "/images/destinations/galle-fort-thumb.jpg", Card = "/images/destinations/galle-fort-card.jpg", Banner = "/images/destinations/galle-fort-banner.jpg", Social = "/images/destinations/galle-fort-social.jpg", Original = "/images/destinations/arugam-bay-sri-lanka.jpg" },
                 Featured = false,
                 
                 // Location information
@@ -1437,7 +1445,7 @@ namespace BSLTours.API.Services
                 Name = destinationDto.Name,
                 Slug = destinationDto.Slug ?? destinationDto.Name.ToLower().Replace(" ", "-"),
                 Description = destinationDto.Description,
-                ImageUrl = destinationDto.ImageUrl,
+                Images = destinationDto.Images,
                 Featured = destinationDto.Featured,
 
                 // Location Info
