@@ -6,15 +6,6 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
 import VisualTimeline, { TimelineDayData } from "@/components/VisualTimeline";
-import { 
-  getCloudinaryUrl, 
-  getHeroImageUrl, 
-  getGalleryImageUrl, 
-  getCardImageUrl,
-  getItineraryImageUrl,
-  getBackgroundImageUrl,
-  getThumbnailImageUrl
-} from "@/lib/cloudinary-utils";
 import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown, LayoutList, List, Home, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -465,7 +456,7 @@ const EnhancedPackageDetail = () => {
         {/* Background Image with Overlay */}
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${getHeroImageUrl(packageData.imageUrl)})` }}
+          style={{ backgroundImage: `url(${packageData.imageUrl})` }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
@@ -547,7 +538,7 @@ const EnhancedPackageDetail = () => {
               <div className="mb-16">
                 <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg mb-4">
                   <img 
-                    src={getGalleryImageUrl(galleryImages[activeImageIndex] || packageData.imageUrl, true)} 
+                    src={galleryImages[activeImageIndex] || packageData.imageUrl} 
                     alt={`${packageData.title} - Image ${activeImageIndex + 1}`}
                     className="w-full h-full object-cover" 
                   />
@@ -583,7 +574,7 @@ const EnhancedPackageDetail = () => {
                         className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${activeImageIndex === index ? 'border-[#D4AF37]' : 'border-transparent'}`}
                       >
                         <img 
-                          src={getThumbnailImageUrl(img)} 
+                          src={img} 
                           alt={`${packageData.title} - Thumbnail ${index + 1}`} 
                           className="w-full h-full object-cover" 
                         />
@@ -825,7 +816,7 @@ const EnhancedPackageDetail = () => {
               <div key={tour.id} className="bg-white overflow-hidden shadow-lg transition-all hover:shadow-2xl group">
                 <div className="relative h-72 overflow-hidden">
                   <img 
-                    src={getCardImageUrl(tour.imageUrl)} 
+                    src={tour.imageUrl} 
                     alt={tour.title} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                   />
