@@ -14,9 +14,9 @@ import {
   HeroImage, 
   FeatureImage, 
   ExperienceImage, 
-  GalleryImage, 
   BackgroundImage 
 } from '@/components/ui/optimized-image';
+import { ResponsivePhotoGallery } from '@/components/ResponsivePhotoGallery';
 
 // Helper function to safely parse JSON strings
 const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
@@ -199,6 +199,9 @@ const DestinationDetail = () => {
   interface GalleryImage {
     url: string;
     alt: string;
+    small?: string;
+    medium?: string;
+    banner?: string;
   }
   
   // Gallery images - now directly use the structured gallery images from API
@@ -676,23 +679,18 @@ const DestinationDetail = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {galleryImages.map((image: GalleryImage, index: number) => (
-              <div 
-                key={index} 
-                className={`rounded-xl overflow-hidden ${
-                  index === 0 ? "md:col-span-2 md:row-span-2" : ""
-                }`}
-              >
-                <GalleryImage 
-                  src={image.url} 
-                  alt={image.alt || `${destination.name} - Image ${index + 1}`}
-                  className="w-full h-full hover:scale-105 transition-transform duration-500"
-                  featured={index === 0}
-                />
-              </div>
-            ))}
-          </div>
+          {/* Responsive Photo Gallery with Lightbox */}
+          <ResponsivePhotoGallery 
+            images={galleryImages.map(image => ({
+              url: image.url,
+              alt: image.alt || `${destination.name} - Gallery Image`,
+              // Use image variants if available
+              small: image.small || image.url,
+              medium: image.medium || image.url,
+              banner: image.banner || image.url
+            }))}
+            className="mb-6"
+          />
         </div>
       </section>
 
