@@ -64,6 +64,13 @@ export interface ItineraryDay {
     dinner: boolean;
   };
   imageUrl?: string;
+  // New image structure from API
+  image?: {
+    baseUrl: string;
+    small: string;
+    medium: string;
+    banner: string;
+  };
 }
 
 export interface Destination {

@@ -269,8 +269,8 @@ const EnhancedPackageDetail = () => {
           title: day.title,
           description: enhancedDescription,
           accommodation: accommodationString,
-          // Use the imageUrl from the itinerary data if it exists, otherwise generate one dynamically
-          imageUrl: day.imageUrl || `/images/packages/${day.title.toLowerCase().replace(/ /g, '-')}.jpg` || `https://source.unsplash.com/featured/?srilanka,${day.title.replace(/ /g, '')}`
+          // Use the image from the new API structure if it exists
+          imageUrl: day.image?.medium || day.image?.small || day.imageUrl || `/images/packages/${day.title.toLowerCase().replace(/ /g, '-')}.jpg`
         };
       });
       
