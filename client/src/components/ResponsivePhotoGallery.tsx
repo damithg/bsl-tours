@@ -7,6 +7,11 @@ export interface GalleryImageType {
   small?: string;
   medium?: string;
   banner?: string;
+  caption?: string;
+  orientation?: 'landscape' | 'portrait' | 'square';
+  width?: number;
+  height?: number;
+  category?: string;
 }
 
 export interface ResponsivePhotoGalleryProps {
@@ -106,11 +111,25 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
       const imagePath = image.url.split('/upload/')[1];
       
       if (context === 'grid') {
-        // Smaller, optimized images for the grid view
-        return `${baseUrl}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
+        // Use orientation to determine optimal crop
+        if (image.orientation === 'portrait') {
+          // Portrait images look better with taller aspect ratio
+          return `${baseUrl}c_fill,g_auto,h_400,w_300,q_auto:good/${imagePath}`;
+        } else if (image.orientation === 'square') {
+          // Square images maintain their aspect ratio
+          return `${baseUrl}c_fill,g_auto,h_350,w_350,q_auto:good/${imagePath}`;
+        } else {
+          // Default landscape orientation
+          return `${baseUrl}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
+        }
       } else {
         // Higher quality, responsive images for the lightbox
-        return `${baseUrl}c_limit,h_1200,w_1600,q_auto:best/${imagePath}`;
+        // Preserve original orientation for lightbox viewing
+        if (image.orientation === 'portrait') {
+          return `${baseUrl}c_limit,h_1600,w_1000,q_auto:best/${imagePath}`;
+        } else {
+          return `${baseUrl}c_limit,h_1200,w_1600,q_auto:best/${imagePath}`;
+        }
       }
     }
     
@@ -123,15 +142,45 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
   };
   
   // Determine if an image should have a special layout
-  const getImageLayout = (index: number): string => {
-    // Make first image larger
-    if (index === 0) return 'sm:col-span-2 sm:row-span-2';
-    
-    // Make every 5th image (excluding the first one) larger
-    if ((index + 4) % 5 === 0) return 'sm:col-span-2 sm:row-span-1';
-    
-    // Second row, second column image
-    if (index === 3) return 'sm:col-span-1 sm:row-span-2';
+  const getImageLayout = (index: number, image: GalleryImageType): string => {
+    // If image has orientation data, use it to determine layout
+    if (image.orientation) {
+      // Portrait images take up 1 column but 2 rows for better display
+      if (image.orientation === 'portrait') {
+        // Showcase portrait images in appropriate spots
+        if (index === 0 || index === 3 || index === 7) {
+          return 'sm:col-span-1 sm:row-span-2';
+        } 
+      }
+      
+      // Landscape images can span 2 columns for better visibility
+      if (image.orientation === 'landscape') {
+        // Make first landscape image a featured one
+        if (index === 0) {
+          return 'sm:col-span-2 sm:row-span-2';
+        }
+        
+        // Other landscape images can span two columns where appropriate
+        if (index === 4 || index === 8) {
+          return 'sm:col-span-2 sm:row-span-1';
+        }
+      }
+      
+      // Square images can be default size or occasionally featured
+      if (image.orientation === 'square' && index === 0) {
+        return 'sm:col-span-2 sm:row-span-2';
+      }
+    } else {
+      // Fallback to index-based layout if no orientation data
+      // Make first image larger
+      if (index === 0) return 'sm:col-span-2 sm:row-span-2';
+      
+      // Make every 5th image (excluding the first one) larger
+      if ((index + 4) % 5 === 0) return 'sm:col-span-2 sm:row-span-1';
+      
+      // Second row, second column image
+      if (index === 3) return 'sm:col-span-1 sm:row-span-2';
+    }
     
     return '';
   };
@@ -143,7 +192,7 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
         {images.map((image, index) => (
           <div
             key={index}
-            className={`rounded-lg overflow-hidden cursor-pointer ${getImageLayout(index)}`}
+            className={`rounded-lg overflow-hidden cursor-pointer ${getImageLayout(index, image)}`}
             onClick={() => openLightbox(index)}
           >
             <img

@@ -1,66 +1,80 @@
 import { useState } from 'react';
-import { ResponsivePhotoGallery } from '@/components/ResponsivePhotoGallery';
+import { ResponsivePhotoGallery, GalleryImageType } from '@/components/ResponsivePhotoGallery';
 import { Link } from 'wouter';
 
 export default function GalleryTest() {
-  // Demo gallery images using Cloudinary hosted images
+  // Demo gallery images with orientation information
   const galleryImages = [
     {
       url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
       alt: "Sigiriya Rock Fortress",
-      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
-      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
-      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg"
+      caption: "The ancient rock fortress rising majestically from the jungle",
+      orientation: "landscape",
+      width: 1600,
+      height: 900
     },
     {
       url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg",
       alt: "Dambulla Cave Temples",
-      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg",
-      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg",
-      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg"
+      caption: "Sacred Buddhist cave temples with ancient murals",
+      orientation: "landscape",
+      width: 1600,
+      height: 900
     },
     {
       url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
-      alt: "Colombo Arrival",
-      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
-      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
-      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg"
+      alt: "Colombo Arrival", 
+      caption: "Modern skyscrapers in Colombo's business district",
+      orientation: "portrait",
+      width: 800,
+      height: 1200,
+      category: "Urban"
     },
     {
       url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
       alt: "Galle Fort",
-      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
-      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
-      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg"
+      caption: "Colonial architecture within the historic fort walls",
+      orientation: "landscape",
+      width: 1600,
+      height: 900,
+      category: "Heritage"
     },
     {
       url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211672/sample.jpg",
       alt: "Sri Lanka Sample Image",
-      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211672/sample.jpg",
-      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211672/sample.jpg",
-      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211672/sample.jpg"
+      caption: "Pristine tropical beach with palm trees",
+      orientation: "landscape", 
+      width: 1600,
+      height: 1067,
+      category: "Beach"
     },
-    // Repeat some images to have enough for gallery demonstration
+    // Additional images with mixed orientations
     {
       url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
-      alt: "Sigiriya Rock Fortress",
-      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
-      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
-      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg"
+      alt: "Sigiriya Detail",
+      caption: "Detailed view of the ancient rock carvings",
+      orientation: "portrait",
+      width: 800,
+      height: 1200,
+      category: "Cultural"
     },
     {
       url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
-      alt: "Galle Fort",
-      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
-      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
-      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg"
+      alt: "Galle Fort Streets",
+      caption: "Charming streets inside the historic fort",
+      orientation: "portrait",
+      width: 800,
+      height: 1200,
+      category: "Heritage"
     },
     {
       url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
-      alt: "Colombo Arrival",
-      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
-      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
-      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg"
+      alt: "Colombo Cityscape",
+      caption: "Panoramic view of Colombo's skyline",
+      orientation: "landscape",
+      width: 1800,
+      height: 900,
+      category: "Urban"
     }
   ];
 
@@ -87,7 +101,7 @@ export default function GalleryTest() {
           
           {/* Responsive Gallery Component */}
           <ResponsivePhotoGallery 
-            images={galleryImages}
+            images={galleryImages as GalleryImageType[]}
             className="mb-6"
           />
           
