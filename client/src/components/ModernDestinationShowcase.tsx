@@ -12,6 +12,13 @@ interface Destination {
   shortDescription?: string;
   excerpt?: string;
   imageUrl: string;
+  images?: {
+    thumbnail?: string;
+    card?: string;
+    banner?: string;
+    social?: string;
+    original?: string;
+  };
   highlights: string[];
 }
 
@@ -34,7 +41,7 @@ const DestinationCard = ({ destination, index, isActive, onClick }: DestinationC
       <div className="relative w-full h-full aspect-[4/5] overflow-hidden group">
         {/* Image */}
         <img 
-          src={destination.imageUrl} 
+          src={destination.images?.card || destination.imageUrl} 
           alt={destination.name} 
           className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105
                     ${isActive ? 'brightness-90' : 'brightness-75 hover:brightness-90'}`}

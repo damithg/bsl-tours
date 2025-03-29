@@ -167,12 +167,12 @@ const DestinationShowcase = () => {
                   key={destination.id}
                   className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start group relative overflow-hidden rounded-lg shadow-lg h-80"
                 >
-                  {destination.imageUrl ? (
+                  {((destination as any).images?.card || destination.imageUrl) ? (
                     <div className="w-full h-full transition duration-700 group-hover:scale-110">
                       <AdaptiveImage
-                        src={destination.imageUrl}
+                        src={(destination as any).images?.card || destination.imageUrl}
                         alt={destination.name}
-                        focalPoint={DESTINATION_FOCAL_POINTS[destination.name] || determineFocalPoint(destination.imageUrl, destination.name)}
+                        focalPoint={DESTINATION_FOCAL_POINTS[destination.name] || determineFocalPoint((destination as any).images?.card || destination.imageUrl, destination.name)}
                         imageClassName="transition duration-700 group-hover:scale-110"
                         containerClassName="w-full h-full"
                       />

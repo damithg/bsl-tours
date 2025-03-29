@@ -277,9 +277,9 @@ const DestinationDetail = () => {
       <section className="relative h-[500px] md:h-[600px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
         <div className="absolute inset-0">
-          {destination.imageUrl ? (
+          {((destination as any).images?.banner || destination.imageUrl) ? (
             <HeroImage
-              src={destination.imageUrl}
+              src={(destination as any).images?.banner || destination.imageUrl}
               alt={destination.name}
               className="object-cover"
             />
@@ -812,7 +812,7 @@ const DestinationDetail = () => {
       <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <BackgroundImage 
-            src={destination.imageUrl || "https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"} 
+            src={(destination as any).images?.banner || destination.imageUrl || "https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"} 
             alt={`${destination.name} landscape`}
             className="w-full h-full"
           />
