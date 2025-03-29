@@ -15,6 +15,7 @@ import CustomTourRequest from "@/pages/CustomTourRequest";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import GalleryTest from "@/pages/GalleryTest";
+import AsymmetricalGalleryTest from "@/pages/AsymmetricalGalleryTest";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
@@ -47,6 +48,7 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="/gallery-test" component={GalleryTest} />
+        <Route path="/asymmetrical-gallery" component={AsymmetricalGalleryTest} />
         <Route component={NotFound} />
       </Switch>
       <Footer />
