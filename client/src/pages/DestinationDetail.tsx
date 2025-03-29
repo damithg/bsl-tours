@@ -204,32 +204,64 @@ const DestinationDetail = () => {
     banner?: string;
   }
   
-  // Gallery images - now directly use the structured gallery images from API
+  // Demo gallery images using existing assets
   const galleryImages: GalleryImage[] = (destination as any)?.galleryImages || 
     [
       {
-        url: destination?.imageUrl || "/images/destinations/gallery/tropical-beach.jpg",
-        alt: `${destination?.name} - Main View`
+        url: "/attached_assets/A Week in the Tropics.jpg",
+        alt: `${destination?.name} - Tropical View`,
+        small: "/attached_assets/A Week in the Tropics.jpg",
+        medium: "/attached_assets/A Week in the Tropics.jpg",
+        banner: "/attached_assets/A Week in the Tropics.jpg"
       },
       {
-        url: "/images/destinations/gallery/mountain-view.jpg",
-        alt: `${destination?.name} - Mountain View`
+        url: "/attached_assets/mirissa (7).jpg",
+        alt: `${destination?.name} - Mirissa Beach View`,
+        small: "/attached_assets/mirissa (7).jpg",
+        medium: "/attached_assets/mirissa (7).jpg",
+        banner: "/attached_assets/mirissa (7).jpg"
       },
       {
-        url: "/images/destinations/gallery/mirissa-beach.jpg",
-        alt: `${destination?.name} - Beach View`
+        url: "/attached_assets/mirissa (8).jpg",
+        alt: `${destination?.name} - Ocean View`,
+        small: "/attached_assets/mirissa (8).jpg",
+        medium: "/attached_assets/mirissa (8).jpg",
+        banner: "/attached_assets/mirissa (8).jpg"
       },
       {
-        url: "/images/destinations/gallery/mirissa-palm.jpg",
-        alt: `${destination?.name} - Palm Trees`
+        url: "/attached_assets/romantic honeymoon escape.jpg",
+        alt: `${destination?.name} - Romantic Setting`,
+        small: "/attached_assets/romantic honeymoon escape.jpg",
+        medium: "/attached_assets/romantic honeymoon escape.jpg",
+        banner: "/attached_assets/romantic honeymoon escape.jpg"
       },
       {
-        url: "/images/destinations/gallery/romantic-beach.jpg",
-        alt: `${destination?.name} - Romantic Beach`
+        url: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        alt: `${destination?.name} - Beach Panorama`,
+        small: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        medium: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        banner: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg"
       },
       {
-        url: destination?.imageUrl || "/images/destinations/gallery/tropical-beach.jpg",
-        alt: `${destination?.name} - Aerial View`
+        url: "/attached_assets/A Week in the Tropics.jpg",
+        alt: `${destination?.name} - Tropical Scene`,
+        small: "/attached_assets/A Week in the Tropics.jpg",
+        medium: "/attached_assets/A Week in the Tropics.jpg",
+        banner: "/attached_assets/A Week in the Tropics.jpg"
+      },
+      {
+        url: "/attached_assets/romantic honeymoon escape.jpg",
+        alt: `${destination?.name} - Sunset View`,
+        small: "/attached_assets/romantic honeymoon escape.jpg",
+        medium: "/attached_assets/romantic honeymoon escape.jpg",
+        banner: "/attached_assets/romantic honeymoon escape.jpg"
+      },
+      {
+        url: "/attached_assets/mirissa (8).jpg",
+        alt: `${destination?.name} - Coastal View`,
+        small: "/attached_assets/mirissa (8).jpg",
+        medium: "/attached_assets/mirissa (8).jpg",
+        banner: "/attached_assets/mirissa (8).jpg"
       }
     ];
 
@@ -288,7 +320,7 @@ const DestinationDetail = () => {
             />
           ) : (
             <HeroImage
-              src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+              src="/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg"
               alt={destination.name}
               className="object-cover"
             />
@@ -810,7 +842,7 @@ const DestinationDetail = () => {
       <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <BackgroundImage 
-            src={(destination as any).images?.banner || destination.imageUrl || "https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"} 
+            src="/attached_assets/romantic honeymoon escape.jpg" 
             alt={`${destination.name} landscape`}
             className="w-full h-full"
           />
