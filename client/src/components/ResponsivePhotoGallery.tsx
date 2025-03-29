@@ -97,6 +97,24 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
   
   // Get optimal image source based on screen size and context
   const getOptimalImageSrc = (image: GalleryImageType, context: 'grid' | 'lightbox'): string => {
+    // If it's a Cloudinary URL, we can add transformations
+    const isCloudinary = image.url.includes('cloudinary.com');
+    
+    if (isCloudinary) {
+      // For Cloudinary images, we can use their transformation API
+      const baseUrl = image.url.split('/upload/')[0] + '/upload/';
+      const imagePath = image.url.split('/upload/')[1];
+      
+      if (context === 'grid') {
+        // Smaller, optimized images for the grid view
+        return `${baseUrl}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
+      } else {
+        // Higher quality, responsive images for the lightbox
+        return `${baseUrl}c_limit,h_1200,w_1600,q_auto:best/${imagePath}`;
+      }
+    }
+    
+    // For non-Cloudinary images, use the provided variants
     if (context === 'grid') {
       return image.small || image.medium || image.url;
     } else {

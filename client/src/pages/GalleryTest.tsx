@@ -3,63 +3,64 @@ import { ResponsivePhotoGallery } from '@/components/ResponsivePhotoGallery';
 import { Link } from 'wouter';
 
 export default function GalleryTest() {
-  // Demo gallery images using existing assets
+  // Demo gallery images using Cloudinary hosted images
   const galleryImages = [
     {
-      url: "/attached_assets/A Week in the Tropics.jpg",
-      alt: "Tropical View",
-      small: "/attached_assets/A Week in the Tropics.jpg",
-      medium: "/attached_assets/A Week in the Tropics.jpg",
-      banner: "/attached_assets/A Week in the Tropics.jpg"
+      url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
+      alt: "Sigiriya Rock Fortress",
+      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
+      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
+      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg"
     },
     {
-      url: "/attached_assets/mirissa (7).jpg",
-      alt: "Mirissa Beach View",
-      small: "/attached_assets/mirissa (7).jpg",
-      medium: "/attached_assets/mirissa (7).jpg",
-      banner: "/attached_assets/mirissa (7).jpg"
+      url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg",
+      alt: "Dambulla Cave Temples",
+      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg",
+      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg",
+      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg"
     },
     {
-      url: "/attached_assets/mirissa (8).jpg",
-      alt: "Ocean View",
-      small: "/attached_assets/mirissa (8).jpg",
-      medium: "/attached_assets/mirissa (8).jpg",
-      banner: "/attached_assets/mirissa (8).jpg"
+      url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
+      alt: "Colombo Arrival",
+      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
+      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
+      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg"
     },
     {
-      url: "/attached_assets/romantic honeymoon escape.jpg",
-      alt: "Romantic Setting",
-      small: "/attached_assets/romantic honeymoon escape.jpg",
-      medium: "/attached_assets/romantic honeymoon escape.jpg",
-      banner: "/attached_assets/romantic honeymoon escape.jpg"
+      url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
+      alt: "Galle Fort",
+      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
+      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
+      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg"
     },
     {
-      url: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
-      alt: "Beach Panorama",
-      small: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
-      medium: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
-      banner: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg"
+      url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211672/sample.jpg",
+      alt: "Sri Lanka Sample Image",
+      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211672/sample.jpg",
+      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211672/sample.jpg",
+      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211672/sample.jpg"
+    },
+    // Repeat some images to have enough for gallery demonstration
+    {
+      url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
+      alt: "Sigiriya Rock Fortress",
+      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
+      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg",
+      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg"
     },
     {
-      url: "/attached_assets/A Week in the Tropics.jpg",
-      alt: "Tropical Scene",
-      small: "/attached_assets/A Week in the Tropics.jpg",
-      medium: "/attached_assets/A Week in the Tropics.jpg",
-      banner: "/attached_assets/A Week in the Tropics.jpg"
+      url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
+      alt: "Galle Fort",
+      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
+      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg",
+      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg"
     },
     {
-      url: "/attached_assets/romantic honeymoon escape.jpg",
-      alt: "Sunset View",
-      small: "/attached_assets/romantic honeymoon escape.jpg",
-      medium: "/attached_assets/romantic honeymoon escape.jpg",
-      banner: "/attached_assets/romantic honeymoon escape.jpg"
-    },
-    {
-      url: "/attached_assets/mirissa (8).jpg",
-      alt: "Coastal View",
-      small: "/attached_assets/mirissa (8).jpg",
-      medium: "/attached_assets/mirissa (8).jpg",
-      banner: "/attached_assets/mirissa (8).jpg"
+      url: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
+      alt: "Colombo Arrival",
+      small: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
+      medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg",
+      banner: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg"
     }
   ];
 
