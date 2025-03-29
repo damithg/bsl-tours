@@ -97,7 +97,7 @@ namespace BSLTours.API.Services
                 Description = "Ancient rock fortress with panoramic views and stunning frescoes",
                 Images = new DestinationImageSet
                 {
-                   BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743211818/sigiriya-rock-fortress_sksfww.jpg"
+                   BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743213326/sigiriya-rock-fortress_f2zjap.jpg"
                 },
                 Featured = true,
                 
@@ -181,7 +181,7 @@ namespace BSLTours.API.Services
                 Description = "Colonial charm with boutique hotels, cafes and ocean views",
                 Images = new DestinationImageSet
                 {
-                    BaseUrl = ""
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg"
                 },
 
                 Featured = true,
@@ -1023,7 +1023,10 @@ namespace BSLTours.API.Services
                 Day = 1,
                 Title = "Arrival in Colombo",
                 Description = "Welcome to Sri Lanka! Upon arrival at Bandaranaike International Airport, you'll be greeted by your private chauffeur and transferred to your luxury hotel in Colombo. Depending on your arrival time, enjoy a brief orientation tour of Colombo's colonial heritage.",
-                ImageUrl = "/images/packages/colombo-arrival.jpg",
+                Image = new ImageSet
+                {
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg"
+                },
                 Accommodation = "Shangri-La Colombo",
                 Meals = new Meals { Dinner = true }
             },
@@ -1032,7 +1035,10 @@ namespace BSLTours.API.Services
                 Day = 2,
                 Title = "Sigiriya Rock Fortress",
                 Description = "After breakfast, transfer to Sigiriya (approximately 4 hours). In the afternoon, visit the iconic Sigiriya Rock Fortress, a UNESCO World Heritage site. Climb to the summit for panoramic views and explore the ancient frescoes and water gardens.",
-                ImageUrl = "/images/packages/sigiriya-rock.jpg",
+                Image = new ImageSet
+                {
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256371/sigiriya-rock-fortress_lvgxjv.jpg"
+                },
                 Accommodation = "Water Garden Sigiriya",
                 Activities = new List<Activity>
                 {
@@ -1050,7 +1056,10 @@ namespace BSLTours.API.Services
                 Day = 3,
                 Title = "Dambulla Cave Temples",
                 Description = "Visit the magnificent Dambulla Cave Temples in the morning, exploring five caves adorned with Buddhist murals and statues. In the afternoon, enjoy a safari at Minneriya National Park, famous for its elephant gatherings.",
-                ImageUrl = "/images/packages/dambulla-caves.jpg",
+                Image = new ImageSet
+                {
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg"
+                },
                 Accommodation = "Water Garden Sigiriya",
                 Activities = new List<Activity>
                 {
@@ -1074,7 +1083,10 @@ namespace BSLTours.API.Services
                 Day = 4,
                 Title = "Ancient City of Polonnaruwa",
                 Description = "Discover the ancient city of Polonnaruwa, Sri Lanka's second capital. Explore well-preserved ruins, impressive stone sculptures, and the famous Gal Vihara Buddha statues. In the evening, enjoy a traditional cultural performance at your hotel.",
-                ImageUrl = "/images/packages/polonnaruwa.jpg",
+                Image = new ImageSet
+                {
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg"
+                },
                 Accommodation = "Water Garden Sigiriya",
                 Activities = new List<Activity>
                 {
@@ -1092,7 +1104,10 @@ namespace BSLTours.API.Services
                 Day = 5,
                 Title = "Sacred City of Anuradhapura",
                 Description = "Visit Anuradhapura, Sri Lanka's first capital and a UNESCO World Heritage site. Explore ancient stupas, palaces, and the sacred Sri Maha Bodhi tree. Later, travel to Kandy, stopping at a spice garden en route.",
-                ImageUrl = "/images/packages/anuradhapura.jpg",
+                Image = new ImageSet
+                {
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg"
+                },
                 Accommodation = "Kings Pavilion Kandy",
                 Activities = new List<Activity>
                 {
@@ -1110,7 +1125,7 @@ namespace BSLTours.API.Services
                 Day = 6,
                 Title = "Temple of the Sacred Tooth Relic & Botanical Gardens",
                 Description = "Morning visit to the Temple of the Sacred Tooth Relic, one of Buddhism's most revered sites. Afterward, explore the Royal Botanical Gardens in Peradeniya. Evening at leisure to explore Kandy town.",
-                ImageUrl = "/images/packages/kandy-tooth-temple.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Accommodation = "Kings Pavilion Kandy",
                 Activities = new List<Activity>
                 {
@@ -1134,7 +1149,7 @@ namespace BSLTours.API.Services
                 Day = 7,
                 Title = "Departure",
                 Description = "After breakfast, transfer to Colombo airport for your departure flight. End of services.",
-                ImageUrl = "/images/packages/departure.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Meals = new Meals { Breakfast = true }
             }
 
@@ -1165,7 +1180,10 @@ namespace BSLTours.API.Services
                 Day = 1,
                 Title = "Arrival & Transfer to Galle",
                 Description = "Arrive at Bandaranaike International Airport and transfer directly to your luxury resort in Galle (approximately 2.5 hours). Rest of the day at leisure to recover from your flight and enjoy the facilities of your stunning beachfront resort.",
-                ImageUrl = "/images/packages/galle-arrival.jpg",
+                Image = new ImageSet
+                {
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg"
+                },
                 Accommodation = "Amangalla",
                 Meals = new Meals { Dinner = true }
             },
@@ -1174,7 +1192,7 @@ namespace BSLTours.API.Services
                 Day = 2,
                 Title = "Galle Fort Exploration",
                 Description = "After breakfast, enjoy a guided walking tour of the historic Galle Fort, a UNESCO World Heritage Site. Explore its charming streets, colonial architecture, boutique shops, and cafes. Afternoon at leisure to continue exploring or relax at your resort.",
-                ImageUrl = "/images/packages/galle-fort.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Accommodation = "Amangalla",
                 Activities = new List<Activity>
                 {
@@ -1192,7 +1210,7 @@ namespace BSLTours.API.Services
                 Day = 3,
                 Title = "Beach Day & Cooking Class",
                 Description = "Morning at leisure to relax on the beach. In the afternoon, participate in a traditional Sri Lankan cooking class to learn about local spices and techniques. Evening sunset cocktails at a rooftop bar overlooking the Indian Ocean.",
-                ImageUrl = "/images/packages/cooking-class.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Accommodation = "Amangalla",
                 Activities = new List<Activity>
                 {
@@ -1210,7 +1228,7 @@ namespace BSLTours.API.Services
                 Day = 4,
                 Title = "Transfer to Mirissa",
                 Description = "After breakfast, transfer to Mirissa (approximately 1 hour). Check into your luxury beach resort and spend the afternoon relaxing on one of Sri Lanka's most beautiful beaches.",
-                ImageUrl = "/images/packages/mirissa-beach.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Accommodation = "Cape Weligama",
                 Meals = new Meals { Breakfast = true, Dinner = true }
             },
@@ -1219,7 +1237,7 @@ namespace BSLTours.API.Services
                 Day = 5,
                 Title = "Whale Watching & Beach Relaxation",
                 Description = "Early morning whale watching excursion to spot blue whales and dolphins (seasonal, November to April). Afternoon at leisure to enjoy the beach or indulge in a spa treatment at your resort.",
-                ImageUrl = "/images/packages/whale-watching.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Accommodation = "Cape Weligama",
                 Activities = new List<Activity>
                 {
@@ -1237,7 +1255,7 @@ namespace BSLTours.API.Services
                 Day = 6,
                 Title = "Transfer to Tangalle",
                 Description = "After a leisurely breakfast, transfer to Tangalle (approximately 1.5 hours). Check into your exclusive beach resort and spend the rest of the day relaxing by the pool or at the pristine beach.",
-                ImageUrl = "/images/packages/tangalle-beach.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Accommodation = "Amanwella",
                 Meals = new Meals { Breakfast = true, Dinner = true }
             },
@@ -1246,7 +1264,7 @@ namespace BSLTours.API.Services
                 Day = 7,
                 Title = "Tangalle Beach Day & Sea Turtle Visit",
                 Description = "Day at leisure to enjoy the facilities of your resort and the beautiful Tangalle beach. In the evening, optional visit to a sea turtle conservation project to observe turtles laying eggs (seasonal).",
-                ImageUrl = "/images/packages/sea-turtles.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Accommodation = "Amanwella",
                 Activities = new List<Activity>
                 {
@@ -1264,7 +1282,7 @@ namespace BSLTours.API.Services
                 Day = 8,
                 Title = "Departure",
                 Description = "After breakfast, transfer to Colombo airport for your departure flight (approximately 4 hours). End of services.",
-                ImageUrl = "/images/packages/departure.jpg",
+                Image = new ImageSet { BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg" },
                 Meals = new Meals { Breakfast = true }
             }
         }
