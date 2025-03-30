@@ -68,6 +68,10 @@ const SigiriyaTemplate = () => {
                   Step Into a Lost Kingdom
                 </h2>
                 
+                <p className="text-lg text-[#333333]/90 mb-6 leading-relaxed">
+                  Imagine standing at the foot of a towering rock that rises straight out of the jungle — 200 meters high — with ancient lion paws guarding the entrance. This isn't just a rock. This is Sigiriya, the heart of a forgotten kingdom, carved with ambition, mystery, and breathtaking artistry.
+                </p>
+                
                 {/* Featured Image - Main View */}
                 <div className="rounded-lg overflow-hidden shadow-xl mb-8">
                   <img 
@@ -79,10 +83,6 @@ const SigiriyaTemplate = () => {
                     <p className="text-[#333333]/80 italic">The majestic Sigiriya Rock Fortress rises 200 meters above the surrounding plains</p>
                   </div>
                 </div>
-                
-                <p className="text-lg text-[#333333]/90 mb-6 leading-relaxed">
-                  Imagine standing at the foot of a towering rock that rises straight out of the jungle — 200 meters high — with ancient lion paws guarding the entrance. This isn't just a rock. This is Sigiriya, the heart of a forgotten kingdom, carved with ambition, mystery, and breathtaking artistry.
-                </p>
                 
                 <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-4 mt-12">
                   A Story Written in Stone
