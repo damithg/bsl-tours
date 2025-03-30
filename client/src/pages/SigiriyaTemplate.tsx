@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "wouter";
-import { Home, ChevronRight, Calendar, Users } from "lucide-react";
+import { Home, ChevronRight, Calendar, Users, Camera } from "lucide-react";
+import { AsymmetricalGallery } from "@/components/AsymmetricalGallery";
 
 const SigiriyaTemplate = () => {
   return (
@@ -470,6 +471,68 @@ const SigiriyaTemplate = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      
+      {/* Photo Gallery Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81]">
+              Photo Gallery
+            </h2>
+            <div className="flex items-center gap-2 text-[#0F4C81]">
+              <Camera className="w-5 h-5" />
+              <span className="font-medium">5 Photos</span>
+            </div>
+          </div>
+          
+          {/* Asymmetrical Gallery with Lightbox */}
+          <AsymmetricalGallery 
+            images={[
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg",
+                alt: "Sigiriya Rock Fortress",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-main-view.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-main-view.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg",
+                caption: "The majestic Sigiriya Rock Fortress rises 200 meters above the surrounding plains"
+              },
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-lion-gate.jpg",
+                alt: "Lion Gate at Sigiriya",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-lion-gate.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill/activities/sigiriya-lion-gate.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-lion-gate.jpg",
+                caption: "The impressive Lion Gate with ancient paw carvings marking the final ascent"
+              },
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-frescoes.jpg",
+                alt: "Ancient Frescoes at Sigiriya",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-frescoes.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill/activities/sigiriya-frescoes.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-frescoes.jpg",
+                caption: "The well-preserved ancient frescoes depicting celestial maidens"
+              },
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-mirror-wall.jpg",
+                alt: "Mirror Wall at Sigiriya",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-mirror-wall.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill/activities/sigiriya-mirror-wall.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-mirror-wall.jpg",
+                caption: "The ancient mirror wall with historical graffiti dating back to the 8th century"
+              },
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-summit-view.jpg",
+                alt: "Panoramic Views from Sigiriya Summit",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-summit-view.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill/activities/sigiriya-summit-view.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-summit-view.jpg",
+                caption: "Breathtaking panoramic views from the summit platform of Sigiriya"
+              }
+            ]}
+            className="mb-6"
+          />
         </div>
       </section>
       
