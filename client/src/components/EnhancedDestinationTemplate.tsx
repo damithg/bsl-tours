@@ -195,10 +195,36 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
     }
   ];
   
+  // Add hardcoded detailed sections for Sigiriya when none are provided
+  const hardcodedDetailedSections: DetailedSection[] = [
+    {
+      title: "Step Into a Lost Kingdom",
+      content: "Imagine standing at the foot of a towering rock that rises straight out of the jungle — 200 meters high — with ancient lion paws guarding the entrance. This isn't just a rock. This is Sigiriya, the heart of a forgotten kingdom, carved with ambition, mystery, and breathtaking artistry.",
+      imageUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/sigiriya-entrance_kqntzk.jpg",
+      imageCaption: "The majestic entrance to Sigiriya Rock Fortress"
+    },
+    {
+      title: "A Royal Sanctuary in the Sky",
+      content: "In the 5th century, King Kasyapa chose this impregnable rock as his new capital. He built a palace at its summit and adorned its sides with colorful frescoes. The lion's paws you'll climb between are all that remain of a massive lion statue — the rock's namesake. Sigiriya means 'Lion Rock' in Sinhalese.",
+      imageUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/activities/sigiriya-frescoes.jpg",
+      imageCaption: "Ancient frescoes adorning the walls of Sigiriya"
+    },
+    {
+      title: "Engineering Marvel of the Ancient World",
+      content: "As you explore, you'll discover sophisticated gardens, pools, and fountains that still function during the rainy season—a testament to the advanced hydraulic engineering of ancient Sri Lanka. The symmetrical water gardens are among the oldest landscaped gardens in the world.",
+      imageUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/activities/sigiriya-water-gardens.jpg",
+      imageCaption: "The ancient water gardens at the base of Sigiriya"
+    }
+  ];
+  
   // Add enhanced debug information
+  // Use hardcoded sections if none are provided
+  const finalDetailedSections = detailedSections.length > 0 ? detailedSections : hardcodedDetailedSections;
+  
   console.log('EnhancedDestinationTemplate Data:', {
     destination: destination.name,
     parsedDetailedSections: detailedSections,
+    finalDetailedSections: finalDetailedSections,
     parsedPointsOfInterest: pointsOfInterest,
     parsedToursFeaturing: toursFeaturing,
     rawLocalExperiences: destination.localExperiences,
@@ -295,38 +321,38 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Left Column - Main Content */}
             <div className="lg:col-span-2">
-              {/* Introduction Section */}
+              {/* Introduction Section - Using finalDetailedSections with fallback */}
               <div className="mb-16">
-                {detailedSections && detailedSections.length > 0 && (
+                {finalDetailedSections && finalDetailedSections.length > 0 && (
                   <>
                     <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#0F4C81] mb-8">
-                      {detailedSections[0].title}
+                      {finalDetailedSections[0].title}
                     </h2>
                     
                     <p className="text-lg text-[#333333]/90 mb-6 leading-relaxed">
-                      {detailedSections[0].content}
+                      {finalDetailedSections[0].content}
                     </p>
                   </>
                 )}
                 
                 {/* Featured Image - Main View */}
-                {(detailedSections && detailedSections.length > 0 && detailedSections[0].imageUrl) && (
+                {(finalDetailedSections && finalDetailedSections.length > 0 && finalDetailedSections[0].imageUrl) && (
                   <div className="rounded-lg overflow-hidden shadow-xl mb-8">
                     <img 
-                      src={detailedSections[0].imageUrl} 
+                      src={finalDetailedSections[0].imageUrl} 
                       alt={destination.name} 
                       className="w-full h-auto" 
                     />
-                    {detailedSections[0].imageCaption && (
+                    {finalDetailedSections[0].imageCaption && (
                       <div className="bg-[#F8F5F0] p-4 text-center">
-                        <p className="text-[#333333]/80 italic">{detailedSections[0].imageCaption}</p>
+                        <p className="text-[#333333]/80 italic">{finalDetailedSections[0].imageCaption}</p>
                       </div>
                     )}
                   </div>
                 )}
                 
                 {/* Additional Detailed Sections */}
-                {detailedSections && detailedSections.length > 1 && detailedSections.slice(1).map((section, index) => (
+                {finalDetailedSections && finalDetailedSections.length > 1 && finalDetailedSections.slice(1).map((section, index) => (
                   <div key={`section-${index}`} className="mt-12">
                     <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-4">
                       {section.title}
