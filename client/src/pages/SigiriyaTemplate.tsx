@@ -90,49 +90,57 @@ const SigiriyaTemplate = () => {
                   </div>
                 </div>
                 
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
+                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
                   What Awaits You at the Top
                 </h3>
                 
-                <div className="space-y-4 mb-12">
-                  <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4 mt-1">
-                      <i className="fas fa-monument text-[#0F4C81]"></i>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                  <div className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
+                        <i className="fas fa-monument text-xl text-[#0F4C81]"></i>
+                      </div>
+                      <h4 className="font-bold text-lg text-[#0F4C81]">The Lion Gate</h4>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">The Lion Gate</h4>
-                      <p className="text-[#333333]/80">Walk through colossal lion claws carved in stone</p>
-                    </div>
+                    <p className="text-[#333333]/80 ml-16">
+                      Walk through the colossal lion claws carved in stone, marking the entrance to the final ascent of this ancient citadel. Once a complete lion figure, these remaining paws hint at the grandeur of the original structure.
+                    </p>
                   </div>
                   
-                  <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4 mt-1">
-                      <i className="fas fa-palette text-[#0F4C81]"></i>
+                  <div className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
+                        <i className="fas fa-palette text-xl text-[#0F4C81]"></i>
+                      </div>
+                      <h4 className="font-bold text-lg text-[#0F4C81]">Sigiriya Frescoes</h4>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Frescoes</h4>
-                      <p className="text-[#333333]/80">Gaze at celestial maidens painted over 1,500 years ago</p>
-                    </div>
+                    <p className="text-[#333333]/80 ml-16">
+                      Admire the world-famous paintings of celestial maidens, preserved for over 1,500 years in a sheltered pocket of the rock. These colorful frescoes showcase the advanced artistic techniques of ancient Sri Lankan painters.
+                    </p>
                   </div>
                   
-                  <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4 mt-1">
-                      <i className="fas fa-pen-fancy text-[#0F4C81]"></i>
+                  <div className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
+                        <i className="fas fa-pen-fancy text-xl text-[#0F4C81]"></i>
+                      </div>
+                      <h4 className="font-bold text-lg text-[#0F4C81]">Mirror Wall</h4>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Mirror Wall</h4>
-                      <p className="text-[#333333]/80">Ancient graffiti and poetry etched by pilgrims</p>
-                    </div>
+                    <p className="text-[#333333]/80 ml-16">
+                      Discover the ancient graffiti on Sigiriya's mirror wall, once polished so smooth it reflected the frescoes above. Today, it bears verses and comments from visitors dating back to the 8th century, offering insights into historical perspectives.
+                    </p>
                   </div>
                   
-                  <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4 mt-1">
-                      <i className="fas fa-mountain text-[#0F4C81]"></i>
+                  <div className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
+                        <i className="fas fa-mountain text-xl text-[#0F4C81]"></i>
+                      </div>
+                      <h4 className="font-bold text-lg text-[#0F4C81]">Summit Views</h4>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Panoramic Views</h4>
-                      <p className="text-[#333333]/80">A jungle-carpeted kingdom unfolds beneath your feet</p>
-                    </div>
+                    <p className="text-[#333333]/80 ml-16">
+                      Experience breathtaking 360-degree panoramas from the summit platform. The lush jungle canopy stretches to the horizon, with distant mountains creating a dramatic backdrop. On clear days, you can spot Pidurangala Rock and several ancient water gardens.
+                    </p>
                   </div>
                 </div>
                 
