@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "wouter";
-import { Home, ChevronRight } from "lucide-react";
+import { Home, ChevronRight, Calendar, Users } from "lucide-react";
 
 const SigiriyaTemplate = () => {
   return (
@@ -222,74 +222,83 @@ const SigiriyaTemplate = () => {
                 </div>
               </div>
               
-              {/* Tours Featuring This Destination - Inline */}
-              <div className="mb-16">
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
-                  Tours Featuring Sigiriya
-                </h3>
+              {/* Tours Featuring This Destination */}
+              <div className="mt-12 mb-16">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81]">
+                    Tours Featuring Sigiriya
+                  </h2>
+                  <Link href="/tour-packages" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
+                    View All <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Tour Card 1 */}
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
-                    <div className="relative h-48">
+                  <div className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="w-1/3 h-auto relative">
                       <img 
                         src="/attached_assets/A Week in the Tropics.jpg" 
                         alt="Cultural Triangle Explorer" 
                         className="w-full h-full object-cover" 
                       />
-                      <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm px-3 py-1 rounded-full">
+                      <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full">
                         Best Seller
                       </div>
                     </div>
-                    <div className="p-6">
-                      <h4 className="font-bold text-lg mb-2">Cultural Triangle Explorer</h4>
-                      <div className="flex items-center mb-3">
-                        <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">7 Days</span>
-                        <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Luxury</span>
+                    <div className="w-2/3 p-4">
+                      <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-1">Cultural Triangle Explorer</h3>
+                      <div className="flex items-center text-gray-500 text-sm mb-2">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        <span>7 Days</span>
+                        <span className="mx-2">•</span>
+                        <Users className="w-4 h-4 mr-1" />
+                        <span>Max 12 people</span>
                       </div>
-                      <p className="text-[#333333]/80 text-sm mb-4">
-                        An immersive journey through Sri Lanka's ancient kingdoms including Sigiriya, Polonnaruwa, and Anuradhapura.
-                      </p>
                       <div className="flex justify-between items-center">
-                        <div>
-                          <span className="text-base font-semibold text-[#0F4C81]">From $1,499</span>
-                          <span className="text-xs text-[#333333]/70">/person</span>
-                        </div>
-                        <Link href="/packages/cultural-triangle-explorer" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center text-sm">
-                          View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                        <span className="font-semibold text-[#0F4C81]">
+                          From $1,499
+                        </span>
+                        <Link 
+                          href="/packages/cultural-triangle-explorer" 
+                          className="text-[#0F4C81] hover:text-[#D4AF37] text-sm font-medium"
+                        >
+                          View
                         </Link>
                       </div>
                     </div>
                   </div>
                   
                   {/* Tour Card 2 */}
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
-                    <div className="relative h-48">
+                  <div className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="w-1/3 h-auto relative">
                       <img 
                         src="/attached_assets/romantic honeymoon escape.jpg" 
                         alt="Sri Lanka Highlights" 
                         className="w-full h-full object-cover" 
                       />
-                      <div className="absolute top-4 right-4 bg-[#0F4C81] text-white text-sm px-3 py-1 rounded-full">
-                        Most Popular
+                      <div className="absolute top-2 right-2 bg-[#0F4C81] text-white text-xs px-2 py-0.5 rounded-full">
+                        Popular
                       </div>
                     </div>
-                    <div className="p-6">
-                      <h4 className="font-bold text-lg mb-2">Sri Lanka Highlights</h4>
-                      <div className="flex items-center mb-3">
-                        <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">10 Days</span>
-                        <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Premium</span>
+                    <div className="w-2/3 p-4">
+                      <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-1">Sri Lanka Highlights</h3>
+                      <div className="flex items-center text-gray-500 text-sm mb-2">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        <span>10 Days</span>
+                        <span className="mx-2">•</span>
+                        <Users className="w-4 h-4 mr-1" />
+                        <span>Max 10 people</span>
                       </div>
-                      <p className="text-[#333333]/80 text-sm mb-4">
-                        Discover the best of Sri Lanka from ancient wonders to pristine beaches and wildlife encounters.
-                      </p>
                       <div className="flex justify-between items-center">
-                        <div>
-                          <span className="text-base font-semibold text-[#0F4C81]">From $2,199</span>
-                          <span className="text-xs text-[#333333]/70">/person</span>
-                        </div>
-                        <Link href="/packages/sri-lanka-highlights" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center text-sm">
-                          View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                        <span className="font-semibold text-[#0F4C81]">
+                          From $2,199
+                        </span>
+                        <Link 
+                          href="/packages/sri-lanka-highlights" 
+                          className="text-[#0F4C81] hover:text-[#D4AF37] text-sm font-medium"
+                        >
+                          View
                         </Link>
                       </div>
                     </div>
