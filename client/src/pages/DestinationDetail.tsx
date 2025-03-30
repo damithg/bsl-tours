@@ -17,6 +17,7 @@ import {
   BackgroundImage 
 } from '@/components/ui/optimized-image';
 import { ResponsivePhotoGallery } from '@/components/ResponsivePhotoGallery';
+import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
 
 // Helper function to safely parse JSON strings
 const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
@@ -711,15 +712,15 @@ const DestinationDetail = () => {
             </div>
           </div>
           
-          {/* Responsive Photo Gallery with Lightbox */}
-          <ResponsivePhotoGallery 
+          {/* Asymmetrical Gallery with Lightbox */}
+          <AsymmetricalGallery 
             images={galleryImages.map(image => ({
-              url: image.url,
+              baseUrl: image.url,
               alt: image.alt || `${destination.name} - Gallery Image`,
               // Use image variants if available
               small: image.small || image.url,
               medium: image.medium || image.url,
-              banner: image.banner || image.url
+              large: image.banner || image.url
             }))}
             className="mb-6"
           />
