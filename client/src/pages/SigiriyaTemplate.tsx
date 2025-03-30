@@ -378,28 +378,11 @@ const SigiriyaTemplate = () => {
                   
                   <div className="pt-5 mt-5 border-t border-gray-200">
                     <h4 className="font-semibold text-gray-900 mb-2">Getting Here</h4>
-                    <div className="space-y-3">
-                      <div className="flex items-start">
-                        <i className="fas fa-map-marker-alt text-[#0F4C81] mt-1 mr-3"></i>
-                        <p className="text-sm text-gray-600">
-                          Sigiriya, Central Province, Sri Lanka
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-start">
-                        <i className="fas fa-car text-[#0F4C81] mt-1 mr-3"></i>
-                        <p className="text-sm text-gray-600">
-                          3-4 hours from Colombo by car
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-start">
-                        <i className="fas fa-plane text-[#0F4C81] mt-1 mr-3"></i>
-                        <p className="text-sm text-gray-600">
-                          30-minute helicopter transfer available
-                        </p>
-                      </div>
-                    </div>
+                    <ul className="list-disc list-inside text-gray-600 space-y-1">
+                      <li>Sigiriya, Central Province, Sri Lanka</li>
+                      <li>3-4 hours from Colombo by car</li>
+                      <li>30-minute helicopter transfer available</li>
+                    </ul>
                   </div>
                 </div>
                 
