@@ -9,7 +9,7 @@ const SigiriyaTemplate = () => {
       <section className="relative h-[600px]">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_800,c_fill/v1743213326/sigiriya-rock-fortress_f2zjap.jpg" 
+            src="/attached_assets/image_1743067682182.png" 
             alt="Sigiriya Rock Fortress" 
             className="w-full h-full object-cover" 
           />
@@ -81,7 +81,7 @@ const SigiriyaTemplate = () => {
                 {/* Featured Image - Frescoes */}
                 <div className="rounded-lg overflow-hidden shadow-xl mb-12">
                   <img 
-                    src="https://images.unsplash.com/photo-1596402184320-417e1a2a3634?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" 
+                    src="/attached_assets/Pasted--galleryImages-publicId-activities-sigiriya-main-view--1743294352870.txt" 
                     alt="Sigiriya Frescoes" 
                     className="w-full h-auto" 
                   />
@@ -139,7 +139,7 @@ const SigiriyaTemplate = () => {
                 {/* Featured Image - Summit View */}
                 <div className="rounded-lg overflow-hidden shadow-xl mb-12">
                   <img 
-                    src="https://images.unsplash.com/photo-1596402184320-417e1a2a3634?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" 
+                    src="/attached_assets/image_1743091860073.png" 
                     alt="Summit view from Sigiriya" 
                     className="w-full h-auto" 
                   />
@@ -180,15 +180,48 @@ const SigiriyaTemplate = () => {
                 </h3>
                 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {[1, 2, 3, 4, 5, 6].map((index) => (
-                    <div key={index} className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                      <img 
-                        src={`https://source.unsplash.com/random/600x400?sigiriya,srilanka&sig=${index}`} 
-                        alt={`Sigiriya Gallery Image ${index}`} 
-                        className="w-full h-48 object-cover" 
-                      />
-                    </div>
-                  ))}
+                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img 
+                      src="/attached_assets/image_1743065917969.png" 
+                      alt="Sigiriya Gallery Image 1" 
+                      className="w-full h-48 object-cover" 
+                    />
+                  </div>
+                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img 
+                      src="/attached_assets/image_1743067682182.png" 
+                      alt="Sigiriya Gallery Image 2" 
+                      className="w-full h-48 object-cover" 
+                    />
+                  </div>
+                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img 
+                      src="/attached_assets/image_1743091860073.png" 
+                      alt="Sigiriya Gallery Image 3" 
+                      className="w-full h-48 object-cover" 
+                    />
+                  </div>
+                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img 
+                      src="/attached_assets/image_1743182459632.png" 
+                      alt="Sigiriya Gallery Image 4" 
+                      className="w-full h-48 object-cover" 
+                    />
+                  </div>
+                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img 
+                      src="/attached_assets/image_1743183045495.png" 
+                      alt="Sigiriya Gallery Image 5" 
+                      className="w-full h-48 object-cover" 
+                    />
+                  </div>
+                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img 
+                      src="/attached_assets/image_1743183280625.png" 
+                      alt="Sigiriya Gallery Image 6" 
+                      className="w-full h-48 object-cover" 
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -320,7 +353,7 @@ const SigiriyaTemplate = () => {
                   <div className="flex items-start">
                     <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
                       <img
-                        src="https://images.unsplash.com/photo-1591801309940-9e7a12ec5665?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
+                        src="/attached_assets/image_1743183016164.png"
                         alt="Dambulla Cave Temple"
                         className="w-full h-full object-cover"
                       />
@@ -334,7 +367,7 @@ const SigiriyaTemplate = () => {
                   <div className="flex items-start">
                     <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
                       <img
-                        src="https://images.unsplash.com/photo-1596402184320-417e1a2a3634?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
+                        src="/attached_assets/image_1743100519865.png"
                         alt="Pidurangala Rock"
                         className="w-full h-full object-cover"
                       />
@@ -348,7 +381,7 @@ const SigiriyaTemplate = () => {
                   <div className="flex items-start">
                     <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
                       <img
-                        src="https://images.unsplash.com/photo-1586861642026-fc21a5ae85b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
+                        src="/attached_assets/image_1743101273205.png"
                         alt="Minneriya National Park"
                         className="w-full h-full object-cover"
                       />
@@ -369,7 +402,7 @@ const SigiriyaTemplate = () => {
       <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
-            src="https://images.unsplash.com/photo-1586861642026-fc21a5ae85b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
+            src="/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg" 
             alt="Sri Lanka landscape" 
             className="w-full h-full object-cover" 
           />
