@@ -116,15 +116,15 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
           
           // Apply different transformations based on size and image position
           if (size === 'small') {
-            // Small images for secondary tiles
-            return `${cloudinaryBase}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
+            // Small images for secondary tiles - wider dimensions for bottom row
+            return `${cloudinaryBase}c_fill,g_auto,h_500,w_800,q_auto:good/${imagePath}`;
           } else if (size === 'medium') {
             // Medium images for normal featured content
             return `${cloudinaryBase}c_fill,g_auto,h_600,w_900,q_auto:good/${imagePath}`;
           } else { // large
             // Large images for hero sections and main featured content
             // Using a higher quality, larger image for the featured tile to prevent stretching
-            return `${cloudinaryBase}c_fill,g_auto,h_900,w_1200,q_auto:best/${imagePath}`;
+            return `${cloudinaryBase}c_fill,g_auto,h_900,w_1600,q_auto:best/${imagePath}`;
           }
         }
       }
@@ -137,14 +137,14 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
     if (image?.publicId) {
       // Include transformations based on requested size
       if (size === 'small') {
-        // Small images for secondary tiles
-        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_300,w_400,q_auto:good/${image.publicId}`;
+        // Small images for secondary tiles - wider dimensions for bottom row
+        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_500,w_800,q_auto:good/${image.publicId}`;
       } else if (size === 'medium') {
         // Medium images for normal featured content
         return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_600,w_900,q_auto:good/${image.publicId}`;
       } else { // large
         // Large images for hero sections and main featured content
-        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_900,w_1200,q_auto:best/${image.publicId}`;
+        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_900,w_1600,q_auto:best/${image.publicId}`;
       }
     }
     
