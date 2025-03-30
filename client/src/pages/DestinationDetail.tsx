@@ -198,71 +198,68 @@ const DestinationDetail = () => {
 
   // Gallery image interface
   interface GalleryImage {
-    url: string;
+    url?: string;
     alt: string;
     small?: string;
     medium?: string;
     banner?: string;
+    large?: string;
+    baseUrl?: string;
+    publicId?: string;
+    caption?: string;
+    orientation?: string;
   }
   
-  // Demo gallery images using existing assets
-  const galleryImages: GalleryImage[] = (destination as any)?.galleryImages || 
+  // Check if we have gallery images from the API
+  const hasApiGalleryImages = 
+    Array.isArray((destination as any)?.galleryImages) && 
+    (destination as any)?.galleryImages.length > 0;
+  
+  // Get gallery images from the API or use fallback
+  const galleryImages: GalleryImage[] = hasApiGalleryImages ?
+    // Using API's gallery images - they already have the Cloudinary format
+    (destination as any).galleryImages :
+    // Fallback to local images with a format compatible with AsymmetricalGallery
     [
       {
-        url: "/attached_assets/A Week in the Tropics.jpg",
+        baseUrl: "/attached_assets/A Week in the Tropics.jpg",
         alt: `${destination?.name} - Tropical View`,
         small: "/attached_assets/A Week in the Tropics.jpg",
         medium: "/attached_assets/A Week in the Tropics.jpg",
-        banner: "/attached_assets/A Week in the Tropics.jpg"
+        large: "/attached_assets/A Week in the Tropics.jpg",
+        caption: `Scenic view of ${destination?.name}`
       },
       {
-        url: "/attached_assets/mirissa (7).jpg",
+        baseUrl: "/attached_assets/mirissa (7).jpg",
         alt: `${destination?.name} - Mirissa Beach View`,
         small: "/attached_assets/mirissa (7).jpg",
         medium: "/attached_assets/mirissa (7).jpg",
-        banner: "/attached_assets/mirissa (7).jpg"
+        large: "/attached_assets/mirissa (7).jpg",
+        caption: `Beach view near ${destination?.name}`
       },
       {
-        url: "/attached_assets/mirissa (8).jpg",
+        baseUrl: "/attached_assets/mirissa (8).jpg",
         alt: `${destination?.name} - Ocean View`,
         small: "/attached_assets/mirissa (8).jpg",
         medium: "/attached_assets/mirissa (8).jpg",
-        banner: "/attached_assets/mirissa (8).jpg"
+        large: "/attached_assets/mirissa (8).jpg",
+        caption: `Ocean landscape at ${destination?.name}`
       },
       {
-        url: "/attached_assets/romantic honeymoon escape.jpg",
+        baseUrl: "/attached_assets/romantic honeymoon escape.jpg",
         alt: `${destination?.name} - Romantic Setting`,
         small: "/attached_assets/romantic honeymoon escape.jpg",
         medium: "/attached_assets/romantic honeymoon escape.jpg",
-        banner: "/attached_assets/romantic honeymoon escape.jpg"
+        large: "/attached_assets/romantic honeymoon escape.jpg",
+        caption: `Romantic sunset at ${destination?.name}`
       },
       {
-        url: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        baseUrl: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
         alt: `${destination?.name} - Beach Panorama`,
         small: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
         medium: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
-        banner: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg"
-      },
-      {
-        url: "/attached_assets/A Week in the Tropics.jpg",
-        alt: `${destination?.name} - Tropical Scene`,
-        small: "/attached_assets/A Week in the Tropics.jpg",
-        medium: "/attached_assets/A Week in the Tropics.jpg",
-        banner: "/attached_assets/A Week in the Tropics.jpg"
-      },
-      {
-        url: "/attached_assets/romantic honeymoon escape.jpg",
-        alt: `${destination?.name} - Sunset View`,
-        small: "/attached_assets/romantic honeymoon escape.jpg",
-        medium: "/attached_assets/romantic honeymoon escape.jpg",
-        banner: "/attached_assets/romantic honeymoon escape.jpg"
-      },
-      {
-        url: "/attached_assets/mirissa (8).jpg",
-        alt: `${destination?.name} - Coastal View`,
-        small: "/attached_assets/mirissa (8).jpg",
-        medium: "/attached_assets/mirissa (8).jpg",
-        banner: "/attached_assets/mirissa (8).jpg"
+        large: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        caption: `Panoramic beach view at ${destination?.name}`
       }
     ];
 
@@ -714,13 +711,15 @@ const DestinationDetail = () => {
           
           {/* Asymmetrical Gallery with Lightbox */}
           <AsymmetricalGallery 
-            images={galleryImages.map(image => ({
-              baseUrl: image.url,
+            images={hasApiGalleryImages ? galleryImages : galleryImages.map(image => ({
+              baseUrl: image.baseUrl || image.url,
               alt: image.alt || `${destination.name} - Gallery Image`,
-              // Use image variants if available
-              small: image.small || image.url,
-              medium: image.medium || image.url,
-              large: image.banner || image.url
+              caption: image.caption,
+              publicId: image.publicId,
+              orientation: image.orientation,
+              small: image.small || image.baseUrl || image.url,
+              medium: image.medium || image.baseUrl || image.url,
+              large: image.large || image.banner || image.baseUrl || image.url
             }))}
             className="mb-6"
           />
