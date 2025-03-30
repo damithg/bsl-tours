@@ -365,6 +365,32 @@ const SigiriyaTemplate = () => {
                       <li>Consider hiring a guide for historical context</li>
                     </ul>
                   </div>
+                  
+                  <div className="pt-5 mt-5 border-t border-gray-200">
+                    <h4 className="font-semibold text-gray-900 mb-2">Getting Here</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-start">
+                        <i className="fas fa-map-marker-alt text-[#0F4C81] mt-1 mr-3"></i>
+                        <p className="text-sm text-gray-600">
+                          Sigiriya, Central Province, Sri Lanka
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <i className="fas fa-car text-[#0F4C81] mt-1 mr-3"></i>
+                        <p className="text-sm text-gray-600">
+                          3-4 hours from Colombo by car
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <i className="fas fa-plane text-[#0F4C81] mt-1 mr-3"></i>
+                        <p className="text-sm text-gray-600">
+                          30-minute helicopter transfer available
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="mt-8 pt-6 border-t border-gray-200">
@@ -380,43 +406,6 @@ const SigiriyaTemplate = () => {
                   >
                     Ask a Question
                   </Link>
-                </div>
-              </div>
-              
-              {/* Location Information */}
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm mb-8">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-4">
-                  Getting Here
-                </h3>
-                
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-start">
-                    <i className="fas fa-map-marker-alt text-[#0F4C81] mt-1 mr-3"></i>
-                    <p className="text-sm text-[#333333]/80">
-                      Sigiriya, Central Province, Sri Lanka
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <i className="fas fa-car text-[#0F4C81] mt-1 mr-3"></i>
-                    <p className="text-sm text-[#333333]/80">
-                      3-4 hours from Colombo by car
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <i className="fas fa-plane text-[#0F4C81] mt-1 mr-3"></i>
-                    <p className="text-sm text-[#333333]/80">
-                      30-minute helicopter transfer available
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="bg-gray-100 rounded-lg overflow-hidden">
-                  {/* This would normally be a map component */}
-                  <div className="h-32 bg-gray-300 flex items-center justify-center">
-                    <i className="fas fa-map-marked-alt text-3xl text-gray-500"></i>
-                  </div>
                 </div>
               </div>
               
