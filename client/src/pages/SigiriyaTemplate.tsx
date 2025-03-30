@@ -384,6 +384,53 @@ const SigiriyaTemplate = () => {
                       <li>30-minute helicopter transfer available</li>
                     </ul>
                   </div>
+                  
+                  <div className="pt-5 mt-5 border-t border-gray-200">
+                    <h4 className="font-semibold text-gray-900 mb-3">Nearby Attractions</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-start">
+                        <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3">
+                          <img
+                            src="/attached_assets/image_1743183016164.png"
+                            alt="Dambulla Cave Temple"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h5 className="font-medium text-sm mb-0.5 text-gray-900">Dambulla Cave Temple</h5>
+                          <p className="text-xs text-gray-600">17 km - UNESCO World Heritage Site</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3">
+                          <img
+                            src="/attached_assets/image_1743100519865.png"
+                            alt="Pidurangala Rock"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h5 className="font-medium text-sm mb-0.5 text-gray-900">Pidurangala Rock</h5>
+                          <p className="text-xs text-gray-600">2 km - Panoramic views of Sigiriya</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3">
+                          <img
+                            src="/attached_assets/image_1743101273205.png"
+                            alt="Minneriya National Park"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h5 className="font-medium text-sm mb-0.5 text-gray-900">Minneriya National Park</h5>
+                          <p className="text-xs text-gray-600">30 km - Famous for elephant gatherings</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="mt-8 pt-6 border-t border-gray-200">
@@ -399,57 +446,6 @@ const SigiriyaTemplate = () => {
                   >
                     Ask a Question
                   </Link>
-                </div>
-              </div>
-              
-              {/* Nearby Attractions */}
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-4">
-                  Nearby Attractions
-                </h3>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
-                      <img
-                        src="/attached_assets/image_1743183016164.png"
-                        alt="Dambulla Cave Temple"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="font-medium mb-1">Dambulla Cave Temple</h4>
-                      <p className="text-sm text-[#333333]/80">17 km - UNESCO World Heritage Site</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
-                      <img
-                        src="/attached_assets/image_1743100519865.png"
-                        alt="Pidurangala Rock"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="font-medium mb-1">Pidurangala Rock</h4>
-                      <p className="text-sm text-[#333333]/80">2 km - Panoramic views of Sigiriya</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
-                      <img
-                        src="/attached_assets/image_1743101273205.png"
-                        alt="Minneriya National Park"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="font-medium mb-1">Minneriya National Park</h4>
-                      <p className="text-sm text-[#333333]/80">30 km - Famous for elephant gatherings</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
