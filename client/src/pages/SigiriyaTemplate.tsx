@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "wouter";
-import { Home, ChevronRight, Calendar, Users, Camera } from "lucide-react";
+import { Home, ChevronRight, Calendar, Users, Camera, ChevronDown } from "lucide-react";
 import { AsymmetricalGallery } from "@/components/AsymmetricalGallery";
 
 const SigiriyaTemplate = () => {
@@ -608,6 +608,89 @@ const SigiriyaTemplate = () => {
             <Link href="/experiences" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
               View All Experiences <ChevronRight className="ml-2 w-5 h-5" />
             </Link>
+          </div>
+        </div>
+      </section>
+      
+      {/* FAQ Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          
+          <div className="max-w-3xl mx-auto">
+            <div className="space-y-4">
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      What is the best time to visit Sigiriya?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>The best time to visit Sigiriya is during the dry season from December to April. Early morning visits (around 7 AM when it opens) are recommended to avoid both the heat and crowds. The site is less crowded on weekdays compared to weekends.</p>
+                  </div>
+                </details>
+              </div>
+              
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      How difficult is the climb to the top of Sigiriya?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>The climb to the top of Sigiriya involves approximately 1,200 steps and takes about 1.5-2 hours for the entire visit. While generally considered moderate in difficulty, there are handrails and proper steps throughout most of the ascent. Those with a fear of heights might find some sections challenging, particularly the spiral staircase to the frescoes and the final ascent via the Lion's Paw. Regular rest stops are available along the way.</p>
+                  </div>
+                </details>
+              </div>
+              
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      Is hiring a guide recommended for Sigiriya?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>Yes, hiring a licensed guide is highly recommended to fully appreciate the historical and cultural significance of Sigiriya. Guides provide fascinating insights into the ancient engineering, art, and stories behind the fortress that you might miss otherwise. They can typically be hired at the entrance for a reasonable fee and speak multiple languages.</p>
+                  </div>
+                </details>
+              </div>
+              
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      What should I wear when visiting Sigiriya?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>Wear comfortable, breathable clothing suitable for hot weather and comfortable walking shoes with good grip for the climb. A hat, sunglasses, and sunscreen are essential as much of the climb is exposed to direct sunlight. Unlike some religious sites in Sri Lanka, there are no specific dress code requirements at Sigiriya, but modest clothing is always respectful in Sri Lankan culture.</p>
+                  </div>
+                </details>
+              </div>
+              
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      Can Sigiriya and Dambulla be visited in the same day?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>Yes, both Sigiriya and the nearby Dambulla Cave Temple can be visited in a single day if you start early. A typical itinerary would involve climbing Sigiriya in the morning (7-11 AM) when it's cooler, followed by lunch, and then visiting Dambulla Cave Temple in the afternoon (around 2-5 PM). Both sites require some physical exertion, so be prepared for a full day of exploration.</p>
+                  </div>
+                </details>
+              </div>
+            </div>
           </div>
         </div>
       </section>
