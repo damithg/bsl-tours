@@ -6,7 +6,6 @@ import {
   Sun, Droplets, Star, Menu, ArrowRight, ChevronDown, MessageCircle, 
   Heart, Share2, Camera, MapIcon, Coffee
 } from 'lucide-react';
-import { Destination } from '@shared/schema';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { parseJsonSafely } from '@/lib/utils';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
@@ -20,6 +19,36 @@ import {
 import { ResponsivePhotoGallery } from '@/components/ResponsivePhotoGallery';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
 import { EnhancedDestinationTemplate } from '@/components/EnhancedDestinationTemplate';
+
+// Extended destination interface to handle all possible properties from the API
+interface Destination {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+  featured: boolean | null;
+  slug?: string | null;
+  shortDescription?: string | null;
+  excerpt?: string | null;
+  fullDescription?: string | null;
+  region?: string | null;
+  latitude?: string | null;
+  longitude?: string | null;
+  highlights?: string | null;
+  activities?: string | null;
+  // Enhanced template properties
+  featuredExperiences?: string | null;
+  relatedTours?: string | null;
+  localExperiences?: string | null;
+  toursFeaturing?: string | null;
+  detailedSections?: string | null;
+  pointsOfInterest?: string | null;
+  faqs?: string | null;
+  essentialInfo?: string | null;
+  templateType?: string | null;
+  // Any other properties
+  [key: string]: any;
+}
 
 // Alias parseJsonSafely to maintain compatibility with existing code
 const safeJsonParse = parseJsonSafely;
@@ -99,11 +128,14 @@ const DestinationDetail = () => {
     };
   }, []);
   
-  // Fetch the destination data
+  // Fetch the destination data from the .NET API (directly, no 'slug' in path)
   const { data: destination, error, isLoading } = useQuery<Destination>({
-    queryKey: ['/api/destinations', isNumeric ? `id/${destinationId}` : `slug/${destinationSlug}`],
+    queryKey: ['/api/destinations', isNumeric ? `${destinationId}` : `${destinationSlug}`],
     enabled: !!paramValue,
   });
+  
+  // Log the API URL for debugging
+  console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations/${isNumeric ? destinationId : destinationSlug}`);
   
   // Parse additional data from JSON strings
   const highlights = destination?.highlights 
@@ -112,34 +144,44 @@ const DestinationDetail = () => {
         : destination.highlights)
     : [];
     
-  const experiences = destination?.featuredExperiences 
-    ? safeJsonParse(destination.featuredExperiences, [])
-    : [
-        {
-          title: "Private Guided Tour",
-          description: "Discover the hidden gems of the destination with our expert local guides who provide personalized insights and exclusive access.",
-          icon: "guide"
-        },
-        {
-          title: "Cultural Immersion",
-          description: "Experience authentic local traditions, cuisine, and customs through carefully curated activities and interactions.",
-          icon: "heritage-walk"
-        },
-        {
-          title: "Luxury Accommodations",
-          description: "Stay in handpicked boutique hotels and luxury resorts that offer exceptional service and authentic character.",
-          icon: "boutique-hotel"
-        },
-        {
-          title: "Culinary Experiences",
-          description: "Indulge in authentic cuisine and unique dining experiences from street food adventures to gourmet meals.",
-          icon: "coffee-art"
-        }
-      ];
+  // Default experiences to use when none are provided by the API
+  const defaultExperiences = [
+    {
+      title: "Private Guided Tour",
+      description: "Discover the hidden gems of the destination with our expert local guides who provide personalized insights and exclusive access.",
+      icon: "guide"
+    },
+    {
+      title: "Cultural Immersion",
+      description: "Experience authentic local traditions, cuisine, and customs through carefully curated activities and interactions.",
+      icon: "heritage-walk"
+    },
+    {
+      title: "Luxury Accommodations",
+      description: "Stay in handpicked boutique hotels and luxury resorts that offer exceptional service and authentic character.",
+      icon: "boutique-hotel"
+    },
+    {
+      title: "Culinary Experiences",
+      description: "Indulge in authentic cuisine and unique dining experiences from street food adventures to gourmet meals.",
+      icon: "coffee-art"
+    }
+  ];
+  
+  // Parse experiences from different API properties using bracket notation to avoid TypeScript errors
+  // This handles any property name that might be present in the API response
+  const experiences = destination && 'featuredExperiences' in destination 
+    ? safeJsonParse(destination['featuredExperiences'] as string, defaultExperiences)
+    : destination && 'localExperiences' in destination 
+      ? safeJsonParse(destination['localExperiences'] as string, defaultExperiences)
+      : defaultExperiences;
       
-  const relatedTours = destination?.relatedTours 
-    ? safeJsonParse(destination.relatedTours, [])
-    : [];
+  // Parse related tours data using bracket notation to avoid TypeScript errors
+  const relatedTours = destination && 'relatedTours' in destination
+    ? safeJsonParse(destination['relatedTours'] as string, [])
+    : destination && 'toursFeaturing' in destination
+      ? safeJsonParse(destination['toursFeaturing'] as string, [])
+      : [];
     
   // Parse gallery data
   const galleryImages = destination?.galleryImages 
