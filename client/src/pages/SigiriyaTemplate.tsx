@@ -214,22 +214,6 @@ const SigiriyaTemplate = () => {
                 </div>
                 
                 <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
-                  When to Go & How to Prepare
-                </h3>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
-                  <div className="bg-[#F8F5F0] p-6 rounded-lg">
-                    <h4 className="font-semibold text-lg mb-3">Best Time to Visit</h4>
-                    <p className="text-[#333333]/80">December to April, during the dry season.</p>
-                  </div>
-                  
-                  <div className="bg-[#F8F5F0] p-6 rounded-lg">
-                    <h4 className="font-semibold text-lg mb-3">Top Tips</h4>
-                    <p className="text-[#333333]/80">Start your climb early morning to beat the heat. Wear sturdy shoes, carry water, and don't forget your camera. You'll want to remember every step.</p>
-                  </div>
-                </div>
-                
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
                   Make It a Journey, Not Just a Stop
                 </h3>
                 
