@@ -95,50 +95,50 @@ const SigiriyaTemplate = () => {
                 </h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                  <div className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
+                  <div className="bg-gradient-to-br from-white to-[#F8F5F0] rounded-lg border border-gray-100 shadow-md hover:shadow-lg transition p-6">
+                    <div className="mb-5">
+                      <div className="w-14 h-14 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mb-3">
                         <i className="fas fa-monument text-xl text-[#0F4C81]"></i>
                       </div>
-                      <h4 className="font-serif text-lg font-semibold text-[#0F4C81]">Lion Gate</h4>
+                      <h4 className="font-['Playfair_Display'] text-xl font-medium text-[#0F4C81]">Lion Gate</h4>
                     </div>
-                    <p className="text-[#333333]/80 ml-16 leading-relaxed">
+                    <p className="text-[#333333]/80 leading-relaxed">
                       Walk through the colossal lion claws carved in stone, marking the entrance to the final ascent of this ancient citadel. Once a complete lion figure, these remaining paws hint at the grandeur of the original structure.
                     </p>
                   </div>
                   
-                  <div className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
+                  <div className="bg-gradient-to-br from-white to-[#F8F5F0] rounded-lg border border-gray-100 shadow-md hover:shadow-lg transition p-6">
+                    <div className="mb-5">
+                      <div className="w-14 h-14 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mb-3">
                         <i className="fas fa-palette text-xl text-[#0F4C81]"></i>
                       </div>
-                      <h4 className="font-serif text-lg font-semibold text-[#0F4C81]">Ancient Frescoes</h4>
+                      <h4 className="font-['Playfair_Display'] text-xl font-medium text-[#0F4C81]">Ancient Frescoes</h4>
                     </div>
-                    <p className="text-[#333333]/80 ml-16 leading-relaxed">
+                    <p className="text-[#333333]/80 leading-relaxed">
                       Admire the world-famous paintings of celestial maidens, preserved for over 1,500 years in a sheltered pocket of the rock. These colorful frescoes showcase the advanced artistic techniques of ancient Sri Lankan painters.
                     </p>
                   </div>
                   
-                  <div className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
+                  <div className="bg-gradient-to-br from-white to-[#F8F5F0] rounded-lg border border-gray-100 shadow-md hover:shadow-lg transition p-6">
+                    <div className="mb-5">
+                      <div className="w-14 h-14 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mb-3">
                         <i className="fas fa-pen-fancy text-xl text-[#0F4C81]"></i>
                       </div>
-                      <h4 className="font-serif text-lg font-semibold text-[#0F4C81]">Mirror Wall</h4>
+                      <h4 className="font-['Playfair_Display'] text-xl font-medium text-[#0F4C81]">Mirror Wall</h4>
                     </div>
-                    <p className="text-[#333333]/80 ml-16 leading-relaxed">
+                    <p className="text-[#333333]/80 leading-relaxed">
                       Discover the ancient graffiti on Sigiriya's mirror wall, once polished so smooth it reflected the frescoes above. Today, it bears verses and comments from visitors dating back to the 8th century, offering insights into historical perspectives.
                     </p>
                   </div>
                   
-                  <div className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
+                  <div className="bg-gradient-to-br from-white to-[#F8F5F0] rounded-lg border border-gray-100 shadow-md hover:shadow-lg transition p-6">
+                    <div className="mb-5">
+                      <div className="w-14 h-14 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mb-3">
                         <i className="fas fa-mountain text-xl text-[#0F4C81]"></i>
                       </div>
-                      <h4 className="font-serif text-lg font-semibold text-[#0F4C81]">Panoramic Views</h4>
+                      <h4 className="font-['Playfair_Display'] text-xl font-medium text-[#0F4C81]">Panoramic Views</h4>
                     </div>
-                    <p className="text-[#333333]/80 ml-16 leading-relaxed">
+                    <p className="text-[#333333]/80 leading-relaxed">
                       Experience breathtaking 360-degree panoramas from the summit platform. The lush jungle canopy stretches to the horizon, with distant mountains creating a dramatic backdrop. On clear days, you can spot Pidurangala Rock and several ancient water gardens.
                     </p>
                   </div>
