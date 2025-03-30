@@ -157,12 +157,7 @@ const Destinations = () => {
                     <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{destination.name}</h3>
                     <p className="text-[#333333]/70 mb-4">{destination.excerpt || destination.shortDescription || destination.description}</p>
                     
-                    {/* Debug information for image properties - temporarily visible */}
-                    <div className="bg-gray-100 p-2 mb-4 rounded text-xs font-mono text-gray-700 overflow-auto max-h-24">
-                      <p><strong>Image URL:</strong> {destination.imageUrl}</p>
-                      <p><strong>Images Object:</strong> {JSON.stringify((destination as any).images || {})}</p>
-                      <p><strong>Card:</strong> {(destination as any).images?.card || 'N/A'}</p>
-                    </div>
+                    {/* Debug info removed */}
                     
                     <Link href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
                       Explore Experiences
