@@ -2,10 +2,13 @@ import { useState, useCallback, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface GalleryImage {
-  url: string;
+  publicId?: string;
+  url?: string;
+  baseUrl?: string;
   alt: string;
   caption?: string;
-  // Optional Cloudinary transformations
+  orientation?: 'landscape' | 'portrait' | 'square' | string;
+  // Cloudinary transformations
   small?: string;
   medium?: string;
   large?: string;
@@ -95,7 +98,16 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
     if (size === 'small' && image.small) return image.small;
     if (size === 'medium' && image.medium) return image.medium;
     if (size === 'large' && image.large) return image.large;
-    return image.url;
+    if (image.baseUrl) return image.baseUrl;
+    if (image.url) return image.url;
+    
+    // Fallback to construct URL from publicId if no direct URLs provided
+    if (image.publicId) {
+      return `https://res.cloudinary.com/drsjp6bqz/image/upload/${image.publicId}`;
+    }
+    
+    // Absolute fallback to avoid breaking rendering
+    return '';
   };
 
   return (

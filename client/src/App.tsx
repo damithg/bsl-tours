@@ -16,6 +16,7 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import GalleryTest from "@/pages/GalleryTest";
 import AsymmetricalGalleryTest from "@/pages/AsymmetricalGalleryTest";
+import ApiGalleryTest from "@/pages/ApiGalleryTest";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
@@ -49,6 +50,7 @@ function Router() {
         <Route path="/contact" component={Contact} />
         <Route path="/gallery-test" component={GalleryTest} />
         <Route path="/asymmetrical-gallery" component={AsymmetricalGalleryTest} />
+        <Route path="/api-gallery-test" component={ApiGalleryTest} />
         <Route component={NotFound} />
       </Switch>
       <Footer />

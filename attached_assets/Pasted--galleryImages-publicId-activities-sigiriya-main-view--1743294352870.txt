@@ -1,0 +1,51 @@
+"galleryImages": [
+        {
+            "publicId": "activities/sigiriya-main-view",
+            "alt": "Sigiriya Rock Fortress - Main View",
+            "caption": "The iconic rock fortress rising above the plains",
+            "orientation": "landscape",
+            "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/activities/sigiriya-main-view.jpg",
+            "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/activities/sigiriya-main-view.jpg",
+            "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/activities/sigiriya-main-view.jpg",
+            "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg"
+        },
+        {
+            "publicId": "activities/sigiriya-frescoes",
+            "alt": "Sigiriya Rock Fortress - Ancient Frescoes",
+            "caption": "Beautiful ancient frescoes adorning the inner rock walls",
+            "orientation": "portrait",
+            "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/activities/sigiriya-frescoes.jpg",
+            "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/activities/sigiriya-frescoes.jpg",
+            "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/activities/sigiriya-frescoes.jpg",
+            "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-frescoes.jpg"
+        },
+        {
+            "publicId": "activities/sigiriya-water-gardens-1",
+            "alt": "Sigiriya Rock Fortress - Water Gardens",
+            "caption": "Symmetrical water gardens at the base of the fortress",
+            "orientation": "landscape",
+            "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/activities/sigiriya-water-gardens-1.jpg",
+            "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/activities/sigiriya-water-gardens-1.jpg",
+            "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/activities/sigiriya-water-gardens-1.jpg",
+            "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-water-gardens-1.jpg"
+        },
+        {
+            "publicId": "activities/sigiriya-water-gardens-2",
+            "alt": "Sigiriya Rock Fortress - Water Gardens",
+            "caption": "An ancient hydraulic engineering marvel",
+            "orientation": "landscape",
+            "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/activities/sigiriya-water-gardens-2.jpg",
+            "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/activities/sigiriya-water-gardens-2.jpg",
+            "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/activities/sigiriya-water-gardens-2.jpg",
+            "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-water-gardens-2.jpg"
+        },
+        {
+            "publicId": "activities/sigiriya-summit-view",
+            "alt": "Sigiriya Rock Fortress - Summit View",
+            "caption": "Breathtaking panoramic views from the summit",
+            "orientation": "landscape",
+            "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/activities/sigiriya-summit-view.jpg",
+            "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/activities/sigiriya-summit-view.jpg",
+            "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/activities/sigiriya-summit-view.jpg",
+            "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-summit-view.jpg"
+        }
