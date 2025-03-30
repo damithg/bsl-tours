@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface GalleryImage {
+export interface GalleryImage {
   publicId?: string;
   url?: string;
   baseUrl?: string;

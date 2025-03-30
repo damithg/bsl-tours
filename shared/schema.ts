@@ -79,6 +79,15 @@ export const destinations = pgTable("destinations", {
   experiences: text("experiences"),
   faqs: text("faqs"),
   
+  // Template and enhanced content fields
+  templateType: text("template_type").default("standard"), // "standard", "enhanced", "sigiriya", etc.
+  detailedSections: text("detailed_sections"), // JSON string of rich content sections
+  pointsOfInterest: text("points_of_interest"), // Key attractions with detailed descriptions (JSON)
+  nearbyAttractions: text("nearby_attractions"), // JSON string
+  toursFeaturing: text("tours_featuring"), // Related tours that include this destination (JSON)
+  localExperiences: text("local_experiences"), // Local activities/experiences (JSON)
+  essentialInfo: text("essential_info"), // Getting there, climate, etc. (JSON)
+  
   // Timestamps
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at"),

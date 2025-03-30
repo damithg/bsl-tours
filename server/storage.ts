@@ -317,6 +317,142 @@ export class MemStorage implements IStorage {
         longitude: "80.7603",
         address: "Sigiriya, Sri Lanka",
         
+        // Enhanced template configuration
+        templateType: "enhanced",
+        
+        // Template specific fields
+        detailedSections: JSON.stringify([
+          {
+            title: "A Story Written in Stone",
+            content: "Rising dramatically from the central plains, the iconic rocky outcrop of Sigiriya is perhaps Sri Lanka's most dramatic sight. Near-vertical walls soar to a flat-topped summit that contains the ruins of an ancient civilization, thought to be once the epicenter of the short-lived kingdom of Kassapa.",
+            imageUrl: "https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+            imageCaption: "The majestic Sigiriya Rock Fortress rises from the surrounding plains"
+          },
+          {
+            title: "What Awaits You at the Top",
+            content: "The summit features the ruins of the ancient palace, including gardens, ponds, and stunning stone carvings. The climb offers breathtaking views of the surrounding jungle and mountains, making it a photographer's paradise.",
+            imageUrl: "https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            imageCaption: "Panoramic views from the summit of Sigiriya"
+          },
+          {
+            title: "Make It a Journey, Not Just a Stop",
+            content: "While climbing Sigiriya is an unforgettable experience, the area surrounding the rock offers much more to explore. Consider staying at a nearby luxury hotel that offers views of the rock, and take time to discover the water gardens, small caves, and local villages.",
+            imageUrl: "https://images.unsplash.com/photo-1531259922615-206732e4349b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            imageCaption: "The ancient water gardens at the base of Sigiriya"
+          }
+        ]),
+        
+        pointsOfInterest: JSON.stringify([
+          {
+            title: "Lion's Paw Entrance",
+            description: "The final ascent to the summit passes through two enormous paws carved from stone - all that remains of a once massive lion statue that gave Sigiriya its name (Lion Rock).",
+            imageUrl: "https://images.unsplash.com/photo-1627894966831-0c839fa78bfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            tag: "Must See",
+            tagType: "highlight",
+            iconLabel: "Historic Landmark"
+          },
+          {
+            title: "Frescoes Gallery",
+            description: "Halfway up the rock is a sheltered gallery containing colorful and remarkably well-preserved frescoes of celestial nymphs that have survived for over 1,500 years.",
+            imageUrl: "https://images.unsplash.com/photo-1627894966831-0c839fa78bfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            tag: "Cultural",
+            tagType: "cultural",
+            iconLabel: "Ancient Art"
+          },
+          {
+            title: "Mirror Wall",
+            description: "Adjacent to the frescoes is a highly polished wall that once shone so brilliantly it reflected the paintings. It contains ancient graffiti dating from the 8th century.",
+            imageUrl: "https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            tag: "Historic",
+            tagType: "default",
+            iconLabel: "Archaeological Site"
+          },
+          {
+            title: "Summit Ruins",
+            description: "The palace complex at the top contains ruined buildings, gardens, pools, and terraces that offer insights into the sophisticated engineering and aesthetics of ancient Sri Lankan civilization.",
+            imageUrl: "https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            tag: "Panoramic",
+            tagType: "scenic",
+            iconLabel: "Royal Palace"
+          }
+        ]),
+        
+        toursFeaturing: JSON.stringify([
+          {
+            id: 1,
+            title: "Cultural Triangle Discovery",
+            duration: "7 Days",
+            maxPeople: 12,
+            price: 2499,
+            imageUrl: "https://images.unsplash.com/photo-1586613835341-6003c0e2fb11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+            isBestSeller: true,
+            slug: "cultural-triangle-discovery"
+          },
+          {
+            id: 2,
+            title: "Ancient Kingdoms Expedition",
+            duration: "10 Days",
+            maxPeople: 10,
+            price: 3299,
+            imageUrl: "https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            slug: "ancient-kingdoms-expedition"
+          }
+        ]),
+        
+        localExperiences: JSON.stringify([
+          {
+            id: 1,
+            title: "Sunrise Sigiriya Climb",
+            description: "Early morning access to climb Sigiriya Rock before regular opening hours for spectacular sunrise views and photography without crowds.",
+            imageUrl: "https://images.unsplash.com/photo-1618846042125-0a64dc7c3608?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            price: 95,
+            duration: "3 hours",
+            bookingUrl: "#"
+          },
+          {
+            id: 2,
+            title: "Helicopter Tour",
+            description: "Experience the magnificent aerial view of Sigiriya and surrounding landscapes with a private helicopter tour.",
+            imageUrl: "https://images.unsplash.com/photo-1586613835341-6003c0e2fb11?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+            price: 450,
+            duration: "45 minutes",
+            bookingUrl: "#"
+          },
+          {
+            id: 3,
+            title: "Archaeological Tour",
+            description: "In-depth tour with an archaeologist who explains the historical significance and latest discoveries at Sigiriya.",
+            imageUrl: "https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+            price: 75,
+            duration: "4 hours",
+            bookingUrl: "#"
+          }
+        ]),
+        
+        nearbyAttractions: JSON.stringify([
+          {
+            name: "Dambulla Cave Temple",
+            description: "UNESCO World Heritage site featuring Buddhist mural paintings and statues inside caves",
+            distance: "25 km",
+            travelTime: "30 minutes",
+            imageUrl: "https://images.unsplash.com/photo-1624029769122-a836aba27077?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+          },
+          {
+            name: "Minneriya National Park",
+            description: "Famous for the 'Gathering' - one of the largest wild elephant assemblies in the world",
+            distance: "30 km",
+            travelTime: "40 minutes",
+            imageUrl: "https://images.unsplash.com/photo-1607793279016-c6865c283483?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+          }
+        ]),
+        
+        essentialInfo: JSON.stringify({
+          gettingThere: "Sigiriya is located in the Cultural Triangle of Sri Lanka, approximately 3-4 hours drive from Colombo. Private transfers, helicopter services, and domestic flights to nearby Sigiriya are available.",
+          entranceFees: "USD 30 per person for foreign visitors",
+          openingHours: "7:00 AM to 5:30 PM daily (last entry at 5:00 PM)",
+          bestTimeToVisit: "Early morning (7-9 AM) or late afternoon (3-5 PM) to avoid heat and crowds"
+        }),
+        
         // Extended information
         shortDescription: "An ancient rock fortress and palace with spectacular views",
         excerpt: "Experience the ancient marvel of Sigiriya Rock Fortress, a UNESCO World Heritage site with breathtaking views and fascinating history.",
@@ -698,6 +834,16 @@ export class MemStorage implements IStorage {
       activities: insertDestination.activities || null,
       experiences: insertDestination.experiences || null,
       faqs: insertDestination.faqs || null,
+      
+      // Enhanced template fields
+      templateType: insertDestination.templateType || 'standard',
+      detailedSections: insertDestination.detailedSections || null,
+      pointsOfInterest: insertDestination.pointsOfInterest || null,
+      nearbyAttractions: insertDestination.nearbyAttractions || null,
+      toursFeaturing: insertDestination.toursFeaturing || null,
+      localExperiences: insertDestination.localExperiences || null,
+      essentialInfo: insertDestination.essentialInfo || null,
+      
       createdAt: new Date(),
       updatedAt: null
     };

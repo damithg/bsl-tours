@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { Destination } from '@shared/schema';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { parseJsonSafely } from '@/lib/utils';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 import { AdaptiveImage } from '@/components/ui/adaptive-image';
 import { 
@@ -18,17 +19,10 @@ import {
 } from '@/components/ui/optimized-image';
 import { ResponsivePhotoGallery } from '@/components/ResponsivePhotoGallery';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
+import { EnhancedDestinationTemplate } from '@/components/EnhancedDestinationTemplate';
 
-// Helper function to safely parse JSON strings
-const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
-  if (!jsonString) return fallback;
-  try {
-    return JSON.parse(jsonString);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-    return fallback;
-  }
-};
+// Alias parseJsonSafely to maintain compatibility with existing code
+const safeJsonParse = parseJsonSafely;
 
 interface RelatedTour {
   id: number;
@@ -302,6 +296,12 @@ const DestinationDetail = () => {
         </Link>
       </div>
     );
+  }
+  
+  // Check if we need to use the enhanced template
+  const templateType = destination.templateType || 'standard';
+  if (templateType === 'enhanced' || templateType === 'sigiriya') {
+    return <EnhancedDestinationTemplate destination={destination} />;
   }
 
   return (
