@@ -549,7 +549,210 @@ export class MemStorage implements IStorage {
         description: "Colonial charm with boutique hotels, cafes and ocean views",
         shortDescription: "Historic fort with Dutch colonial architecture",
         excerpt: "Wander through centuries-old streets, discover artisan boutiques, and watch breathtaking sunsets from the ramparts.",
-        imageUrl: "https://images.unsplash.com/photo-1575136042347-ebaaa37049e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80"
+        imageUrl: "https://images.unsplash.com/photo-1575136042347-ebaaa37049e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80",
+        templateType: "enhanced",
+        region: "Southern Coast",
+        latitude: "6.0269",
+        longitude: "80.2167",
+        address: "Galle, Sri Lanka",
+        
+        // Template specific fields
+        detailedSections: JSON.stringify([
+          {
+            title: "Colonial Heritage on the Coast",
+            content: "The historic Galle Fort, built by the Portuguese and later fortified by the Dutch in the 17th century, stands as one of Sri Lanka's most atmospheric colonial treasures. This UNESCO World Heritage site encompasses an entire peninsula, featuring charming cobblestone streets lined with Dutch colonial buildings, trendy cafes, luxury boutiques, and stylish hotels.",
+            imageUrl: "https://images.unsplash.com/photo-1623676527467-5e23091abce8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+            imageCaption: "Historic Dutch colonial architecture within Galle Fort's walls"
+          },
+          {
+            title: "Where Time Stands Still",
+            content: "Walking through Galle Fort feels like stepping back in time. The well-preserved colonial architecture includes the iconic Galle Lighthouse, the historic Dutch Reformed Church, and the old Dutch Hospital complex, now transformed into a shopping and dining precinct. The fort walls themselves offer spectacular sunset views over the Indian Ocean.",
+            imageUrl: "https://images.unsplash.com/photo-1574530976754-4025a1b76bc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+            imageCaption: "The iconic Galle Lighthouse standing sentinel over the fort"
+          }
+        ]),
+        
+        pointsOfInterest: JSON.stringify([
+          {
+            title: "Galle Lighthouse",
+            description: "Standing 26.5 meters tall, the iconic white lighthouse dates from 1939 and remains an active coastal beacon. Climb to the top for panoramic views of the fort and coastline.",
+            imageUrl: "https://images.unsplash.com/photo-1630335866862-02bc6fbbff2f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            tag: "Heritage",
+            tagType: "cultural"
+          },
+          {
+            title: "The Ramparts",
+            description: "The massive 3km perimeter stone walls built by the Dutch encircle the fort and offer stunning ocean views, especially at sunset. These formidable defenses have withstood centuries of colonial conflicts and natural forces.",
+            imageUrl: "https://images.unsplash.com/photo-1590023783997-9aed2d7a8b0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            tag: "Scenic",
+            tagType: "scenic"
+          },
+          {
+            title: "Dutch Reformed Church",
+            description: "Built in 1755, this historic church features tombstones from the Dutch colonial era embedded in the floor and a magnificent pipe organ. The church's architecture exemplifies colonial religious buildings.",
+            imageUrl: "https://images.unsplash.com/photo-1566932769119-2511389ecce4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            tag: "Religious",
+            tagType: "cultural"
+          }
+        ]),
+        
+        nearbyAttractions: JSON.stringify([
+          {
+            name: "Unawatuna Beach",
+            description: "A horseshoe-shaped beach known for its golden sands and safe swimming conditions.",
+            distance: "6 km",
+            travelTime: "15 minutes",
+            imageUrl: "https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          },
+          {
+            name: "Jungle Beach",
+            description: "A secluded beach accessible via a short hike through dense greenery, offering excellent snorkeling.",
+            distance: "8 km",
+            travelTime: "20 minutes",
+            imageUrl: "https://images.unsplash.com/photo-1573790387438-4da905039392?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          },
+          {
+            name: "Japanese Peace Pagoda",
+            description: "A tranquil hilltop Buddhist stupa offering panoramic views of the coastline.",
+            distance: "7 km",
+            travelTime: "18 minutes",
+            imageUrl: "https://images.unsplash.com/photo-1508099417327-e58a1d8149df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          }
+        ]),
+        
+        toursFeaturing: JSON.stringify([
+          {
+            id: 1,
+            title: "Southern Coast Explorer",
+            imageUrl: "https://images.unsplash.com/photo-1575406966868-b7a95cfbf7f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=70",
+            duration: "5 Days",
+            maxPeople: 12,
+            price: 1299,
+            isBestSeller: true,
+            slug: "southern-coast-explorer"
+          },
+          {
+            id: 2,
+            title: "Colonial Heritage Tour",
+            imageUrl: "https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=70",
+            duration: "7 Days",
+            maxPeople: 10,
+            price: 1899,
+            slug: "colonial-heritage-tour"
+          },
+          {
+            id: 3,
+            title: "Luxury Beach & Culture",
+            imageUrl: "https://images.unsplash.com/photo-1569383746724-6a80b8953958?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=70",
+            duration: "9 Days",
+            maxPeople: 8,
+            price: 2599,
+            slug: "luxury-beach-culture"
+          }
+        ]),
+        
+        localExperiences: JSON.stringify([
+          {
+            id: 1,
+            title: "Traditional Mask Carving Workshop",
+            description: "Learn the ancient art of mask carving from skilled local artisans, who will guide you through creating your own decorative piece to take home.",
+            imageUrl: "https://images.unsplash.com/photo-1581873372796-635b67ca2008?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60",
+            price: 45,
+            duration: "2 hours",
+            bookingUrl: "/experiences/mask-carving"
+          },
+          {
+            id: 2,
+            title: "Sunset Sailing Around the Fort",
+            description: "Board a traditional outrigger catamaran (oruva) for a spectacular sunset sailing experience around the fort, with drinks and canapés included.",
+            imageUrl: "https://images.unsplash.com/photo-1620410606261-cc1a0f7e9038?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60",
+            price: 75,
+            duration: "3 hours",
+            bookingUrl: "/experiences/sunset-sailing"
+          },
+          {
+            id: 3,
+            title: "Sri Lankan Cooking Class",
+            description: "Discover the secrets of authentic Sri Lankan cuisine in this hands-on cooking class. Learn to prepare curries, sambols, and hoppers.",
+            imageUrl: "https://images.unsplash.com/photo-1631292784748-334c447a0392?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60",
+            price: 60,
+            duration: "4 hours",
+            bookingUrl: "/experiences/cooking-class"
+          }
+        ]),
+        
+        galleryImages: JSON.stringify([
+          {
+            publicId: "destinations/galle-lighthouse",
+            url: "https://images.unsplash.com/photo-1578662996442-48f1e16243aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            alt: "Galle Fort - Lighthouse",
+            caption: "The iconic white lighthouse overlooking the Indian Ocean",
+            orientation: "landscape"
+          },
+          {
+            publicId: "destinations/galle-streets",
+            url: "https://images.unsplash.com/photo-1630335866862-02bc6fbbff2f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            alt: "Galle Fort - Colonial Streets",
+            caption: "Charming colonial streets with boutique shops and cafes",
+            orientation: "portrait"
+          },
+          {
+            publicId: "destinations/galle-ramparts",
+            url: "https://images.unsplash.com/photo-1566932769119-2511389ecce4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            alt: "Galle Fort - Ramparts",
+            caption: "Ancient fort walls with sunset views over the ocean",
+            orientation: "landscape"
+          },
+          {
+            publicId: "destinations/galle-dutch-church",
+            url: "https://images.unsplash.com/photo-1573790387438-4da905039392?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            alt: "Galle Fort - Dutch Reformed Church",
+            caption: "Historic Dutch Reformed Church with colonial architecture",
+            orientation: "landscape"
+          },
+          {
+            publicId: "destinations/galle-beach-nearby",
+            url: "https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            alt: "Nearby Beaches",
+            caption: "Beautiful beaches just minutes from Galle Fort",
+            orientation: "landscape"
+          },
+          {
+            publicId: "destinations/galle-sunset",
+            url: "https://images.unsplash.com/photo-1569383746724-6a80b8953958?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+            alt: "Galle Fort - Sunset",
+            caption: "Spectacular sunset views from the ramparts",
+            orientation: "landscape"
+          }
+        ]),
+        
+        faqs: JSON.stringify([
+          {
+            question: "What is the best time of day to visit Galle Fort?",
+            answer: "Late afternoon to sunset (between 3-6pm) is the ideal time to visit Galle Fort. The harsh midday sun is less intense, the light is perfect for photography, and you can enjoy the spectacular sunset from the ramparts. The fort is also less crowded during early mornings."
+          },
+          {
+            question: "How much time should I allocate for exploring Galle Fort?",
+            answer: "A thorough exploration of Galle Fort requires at least half a day (4-5 hours). This allows time to walk the ramparts, visit key attractions like the lighthouse and Dutch church, browse boutique shops, and enjoy a meal at one of the fort's cafes or restaurants."
+          },
+          {
+            question: "Is there an entrance fee to visit Galle Fort?",
+            answer: "No, there is no entrance fee to visit Galle Fort itself. It's a living heritage site with residents, shops, and hotels. However, specific attractions within the fort like the Maritime Museum have their own entrance fees (typically 300-600 LKR for foreign visitors)."
+          },
+          {
+            question: "What unique souvenirs can I purchase in Galle Fort?",
+            answer: "Galle Fort offers high-quality crafts and souvenirs including handmade lace (a Dutch colonial heritage), traditional Sri Lankan masks, handcrafted jewelry featuring local gemstones, spices, Ceylon tea, and contemporary artwork from local artists. The boutique shops primarily line Church Street, Pedlar Street, and Lighthouse Street."
+          },
+          {
+            question: "Is Galle Fort suitable for visitors with mobility issues?",
+            answer: "Galle Fort presents some challenges for visitors with mobility issues. While the main streets are paved, they're often uneven with cobblestones. The ramparts require climbing stairs, and many historical buildings have steps. However, the main thoroughfares are navigable, and many restaurants and hotels have made accessibility accommodations."
+          }
+        ]),
+        
+        essentialInfo: JSON.stringify({
+          gettingThere: "Galle Fort is located 130km south of Colombo, approximately a 2.5-hour drive along the Southern Expressway. The coastal train from Colombo to Galle offers a scenic alternative and takes about 3 hours. Within Galle, tuk-tuks are readily available to take you to the fort entrance.",
+          travelTips: "Wear comfortable walking shoes for exploring the cobblestone streets and ramparts. Apply sunscreen and bring a hat as there's limited shade. The fort area has numerous ATMs and money exchange facilities. Most establishments accept credit cards, but smaller vendors may require cash."
+        })
       },
       {
         name: "Yala National Park",
