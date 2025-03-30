@@ -222,54 +222,77 @@ const SigiriyaTemplate = () => {
                 </div>
               </div>
               
-              {/* Gallery Section */}
+              {/* Tours Featuring This Destination - Inline */}
               <div className="mb-16">
                 <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
-                  Explore Sigiriya
+                  Tours Featuring Sigiriya
                 </h3>
                 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743065917969.png" 
-                      alt="Sigiriya Gallery Image 1" 
-                      className="w-full h-48 object-cover" 
-                    />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Tour Card 1 */}
+                  <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
+                    <div className="relative h-48">
+                      <img 
+                        src="/attached_assets/A Week in the Tropics.jpg" 
+                        alt="Cultural Triangle Explorer" 
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm px-3 py-1 rounded-full">
+                        Best Seller
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-bold text-lg mb-2">Cultural Triangle Explorer</h4>
+                      <div className="flex items-center mb-3">
+                        <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">7 Days</span>
+                        <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Luxury</span>
+                      </div>
+                      <p className="text-[#333333]/80 text-sm mb-4">
+                        An immersive journey through Sri Lanka's ancient kingdoms including Sigiriya, Polonnaruwa, and Anuradhapura.
+                      </p>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <span className="text-base font-semibold text-[#0F4C81]">From $1,499</span>
+                          <span className="text-xs text-[#333333]/70">/person</span>
+                        </div>
+                        <Link href="/packages/cultural-triangle-explorer" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center text-sm">
+                          View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743067682182.png" 
-                      alt="Sigiriya Gallery Image 2" 
-                      className="w-full h-48 object-cover" 
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743091860073.png" 
-                      alt="Sigiriya Gallery Image 3" 
-                      className="w-full h-48 object-cover" 
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743182459632.png" 
-                      alt="Sigiriya Gallery Image 4" 
-                      className="w-full h-48 object-cover" 
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743183045495.png" 
-                      alt="Sigiriya Gallery Image 5" 
-                      className="w-full h-48 object-cover" 
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743183280625.png" 
-                      alt="Sigiriya Gallery Image 6" 
-                      className="w-full h-48 object-cover" 
-                    />
+                  
+                  {/* Tour Card 2 */}
+                  <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
+                    <div className="relative h-48">
+                      <img 
+                        src="/attached_assets/romantic honeymoon escape.jpg" 
+                        alt="Sri Lanka Highlights" 
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute top-4 right-4 bg-[#0F4C81] text-white text-sm px-3 py-1 rounded-full">
+                        Most Popular
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-bold text-lg mb-2">Sri Lanka Highlights</h4>
+                      <div className="flex items-center mb-3">
+                        <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">10 Days</span>
+                        <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Premium</span>
+                      </div>
+                      <p className="text-[#333333]/80 text-sm mb-4">
+                        Discover the best of Sri Lanka from ancient wonders to pristine beaches and wildlife encounters.
+                      </p>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <span className="text-base font-semibold text-[#0F4C81]">From $2,199</span>
+                          <span className="text-xs text-[#333333]/70">/person</span>
+                        </div>
+                        <Link href="/packages/sri-lanka-highlights" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center text-sm">
+                          View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -452,113 +475,113 @@ const SigiriyaTemplate = () => {
         </div>
       </section>
       
-      {/* Tours Featuring This Destination */}
+      {/* Local Experiences Section */}
       <section className="py-16 bg-[#F8F5F0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">
-              Tours Featuring Sigiriya
+              Local Experiences
             </h2>
             <p className="text-lg text-[#333333]/80 max-w-3xl mx-auto">
-              Experience the ancient rock fortress as part of our carefully crafted luxury tour packages
+              Complete your visit to Sigiriya with these authentic Sri Lankan experiences nearby
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Tour Card 1 */}
+            {/* Experience Card 1 */}
             <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
               <div className="relative h-64">
                 <img 
-                  src="/attached_assets/A Week in the Tropics.jpg" 
-                  alt="Cultural Triangle Explorer" 
+                  src="/attached_assets/image_1743100519865.png" 
+                  alt="Sunrise at Pidurangala" 
                   className="w-full h-full object-cover" 
                 />
                 <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm px-3 py-1 rounded-full">
-                  Best Seller
+                  Popular
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-xl mb-2">Cultural Triangle Explorer</h3>
+                <h3 className="font-bold text-xl mb-2">Sunrise at Pidurangala</h3>
                 <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">7 Days</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Luxury</span>
+                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">3 Hours</span>
+                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Active</span>
                 </div>
                 <p className="text-[#333333]/80 mb-4">
-                  An immersive journey through Sri Lanka's ancient kingdoms including Sigiriya, Polonnaruwa, and Anuradhapura.
+                  Climb Pidurangala Rock for the most breathtaking views of Sigiriya and the surrounding landscapes at dawn.
                 </p>
                 <div className="flex justify-between items-center">
                   <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $1,499</span>
+                    <span className="text-lg font-semibold text-[#0F4C81]">From $45</span>
                     <span className="text-sm text-[#333333]/70">/person</span>
                   </div>
-                  <Link href="/packages/cultural-triangle-explorer" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                  <Link href="/experiences/sunrise-pidurangala" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
             </div>
             
-            {/* Tour Card 2 */}
+            {/* Experience Card 2 */}
             <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
               <div className="relative h-64">
                 <img 
-                  src="/attached_assets/romantic honeymoon escape.jpg" 
-                  alt="Sri Lanka Highlights" 
+                  src="/attached_assets/image_1743101273205.png" 
+                  alt="Minneriya Safari" 
                   className="w-full h-full object-cover" 
                 />
                 <div className="absolute top-4 right-4 bg-[#0F4C81] text-white text-sm px-3 py-1 rounded-full">
-                  Most Popular
+                  Bestseller
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-xl mb-2">Sri Lanka Highlights</h3>
+                <h3 className="font-bold text-xl mb-2">Minneriya Safari</h3>
                 <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">10 Days</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Premium</span>
+                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">4 Hours</span>
+                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Wildlife</span>
                 </div>
                 <p className="text-[#333333]/80 mb-4">
-                  Discover the best of Sri Lanka from ancient wonders to pristine beaches and wildlife encounters.
+                  Experience one of Asia's most spectacular wildlife gatherings with hundreds of elephants in their natural habitat.
                 </p>
                 <div className="flex justify-between items-center">
                   <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $2,199</span>
+                    <span className="text-lg font-semibold text-[#0F4C81]">From $85</span>
                     <span className="text-sm text-[#333333]/70">/person</span>
                   </div>
-                  <Link href="/packages/sri-lanka-highlights" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                  <Link href="/experiences/minneriya-safari" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
             </div>
             
-            {/* Tour Card 3 */}
+            {/* Experience Card 3 */}
             <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
               <div className="relative h-64">
                 <img 
-                  src="/attached_assets/mirissa (7).jpg" 
-                  alt="Luxury Sri Lanka Adventure" 
+                  src="/attached_assets/mirissa (8).jpg" 
+                  alt="Village Cycling Tour" 
                   className="w-full h-full object-cover" 
                 />
                 <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm px-3 py-1 rounded-full">
-                  Ultra Luxury
+                  Authentic
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-xl mb-2">Luxury Sri Lanka Adventure</h3>
+                <h3 className="font-bold text-xl mb-2">Village Cycling Tour</h3>
                 <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">14 Days</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Ultra Luxury</span>
+                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">3 Hours</span>
+                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Cultural</span>
                 </div>
                 <p className="text-[#333333]/80 mb-4">
-                  An exclusive journey with private guides, luxury accommodations, and extraordinary experiences.
+                  Cycle through rural villages, meet locals, and experience authentic rural life in the shadow of Sigiriya rock.
                 </p>
                 <div className="flex justify-between items-center">
                   <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $3,899</span>
+                    <span className="text-lg font-semibold text-[#0F4C81]">From $35</span>
                     <span className="text-sm text-[#333333]/70">/person</span>
                   </div>
-                  <Link href="/packages/luxury-sri-lanka-adventure" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                  <Link href="/experiences/village-cycling-tour" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
@@ -566,143 +589,9 @@ const SigiriyaTemplate = () => {
           </div>
           
           <div className="text-center mt-10">
-            <Link href="/packages" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
-              View All Tour Packages <ChevronRight className="ml-2 w-5 h-5" />
+            <Link href="/experiences" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
+              View All Experiences <ChevronRight className="ml-2 w-5 h-5" />
             </Link>
-          </div>
-        </div>
-      </section>
-      
-      {/* Local Experiences */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">
-              Local Experiences in Sigiriya
-            </h2>
-            <p className="text-lg text-[#333333]/80 max-w-3xl mx-auto">
-              Enhance your visit with authentic cultural experiences and activities
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Experience 1 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-bicycle text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Village Cycling Tour</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Explore the rural landscapes surrounding Sigiriya by bicycle, visiting local villages, paddy fields, and meeting local farmers.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$45 per person</span>
-                  <span className="text-sm text-[#333333]/70">3-4 hours</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Experience 2 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-utensils text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Sri Lankan Cooking Class</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Learn to prepare authentic Sri Lankan dishes with a local chef in a village home, using traditional ingredients and cooking methods.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$65 per person</span>
-                  <span className="text-sm text-[#333333]/70">3 hours</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Experience 3 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-tree text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Herbal Garden Walk</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Discover the medicinal plants used in traditional Ayurvedic treatments with an expert guide, followed by a herbal tea tasting.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$35 per person</span>
-                  <span className="text-sm text-[#333333]/70">2 hours</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Experience 4 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-elephant text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Elephant Safari</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Join a guided jeep safari in Minneriya National Park to witness the famous elephant gathering, one of Asia's greatest wildlife spectacles.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$85 per person</span>
-                  <span className="text-sm text-[#333333]/70">Half-day</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Experience 5 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-hot-tub text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Ayurvedic Spa Treatment</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Indulge in a traditional Ayurvedic treatment at a luxury spa, using ancient techniques and natural oils to restore balance.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$120 per person</span>
-                  <span className="text-sm text-[#333333]/70">2 hours</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Experience 6 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-sunrise text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Pidurangala Sunrise Hike</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Trek up Pidurangala Rock before dawn to witness a breathtaking sunrise with panoramic views of Sigiriya Rock and the surrounding landscapes.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$55 per person</span>
-                  <span className="text-sm text-[#333333]/70">3 hours</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-12 bg-[#F8F5F0] p-8 rounded-lg">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-6 md:mb-0 md:mr-6">
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-2">
-                  Custom Experience Packages
-                </h3>
-                <p className="text-[#333333]/80">
-                  Let us design a personalized itinerary combining your preferred experiences for an unforgettable stay.
-                </p>
-              </div>
-              <Link href="/contact" className="bg-[#0F4C81] hover:bg-[#D4AF37] text-white font-medium py-3 px-6 rounded-md transition whitespace-nowrap">
-                Inquire Now
-              </Link>
-            </div>
           </div>
         </div>
       </section>
