@@ -90,81 +90,93 @@ const SigiriyaTemplate = () => {
                   </div>
                 </div>
                 
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] text-center mb-10">
+                <h3 className="text-2xl font-bold text-[#0F4C81] mb-8">
                   What Awaits You at the Top
                 </h3>
                 
-                <div className="flex flex-col gap-8 mb-12 max-w-4xl mx-auto">
-                  <div className="flex flex-col md:flex-row gap-6 items-center bg-white rounded-xl shadow-lg p-0 overflow-hidden">
-                    <div className="md:w-2/5 h-64 relative overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                    <div className="h-52 overflow-hidden relative">
                       <img 
-                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_600,c_fill,g_auto,q_auto:best/activities/sigiriya-lion-gate.jpg" 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-lion-gate.jpg" 
                         alt="Lion Gate at Sigiriya" 
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#0F4C81]/60 to-transparent flex items-center justify-center">
-                        <i className="fas fa-monument text-4xl text-white"></i>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 flex items-center">
+                        <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center mr-3 shadow-md">
+                          <i className="fas fa-monument text-[#0F4C81]"></i>
+                        </div>
+                        <h4 className="text-white text-xl font-medium">Lion Gate</h4>
                       </div>
                     </div>
-                    <div className="md:w-3/5 p-6 md:p-8">
-                      <h4 className="font-['Playfair_Display'] text-2xl font-medium text-[#0F4C81] mb-3">Lion Gate</h4>
+                    <div className="p-5">
                       <p className="text-[#333333]/80 leading-relaxed">
                         Walk through the colossal lion claws carved in stone, marking the entrance to the final ascent of this ancient citadel. Once a complete lion figure, these remaining paws hint at the grandeur of the original structure.
                       </p>
                     </div>
                   </div>
                   
-                  <div className="flex flex-col md:flex-row gap-6 items-center bg-white rounded-xl shadow-lg p-0 overflow-hidden">
-                    <div className="md:w-2/5 h-64 relative overflow-hidden md:order-last">
+                  <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                    <div className="h-52 overflow-hidden relative">
                       <img 
-                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_600,c_fill,g_auto,q_auto:best/activities/sigiriya-frescoes.jpg" 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-frescoes.jpg" 
                         alt="Ancient Frescoes at Sigiriya" 
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-l from-[#0F4C81]/60 to-transparent flex items-center justify-center">
-                        <i className="fas fa-palette text-4xl text-white"></i>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 flex items-center">
+                        <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center mr-3 shadow-md">
+                          <i className="fas fa-palette text-[#0F4C81]"></i>
+                        </div>
+                        <h4 className="text-white text-xl font-medium">Ancient Frescoes</h4>
                       </div>
                     </div>
-                    <div className="md:w-3/5 p-6 md:p-8">
-                      <h4 className="font-['Playfair_Display'] text-2xl font-medium text-[#0F4C81] mb-3">Ancient Frescoes</h4>
+                    <div className="p-5">
                       <p className="text-[#333333]/80 leading-relaxed">
                         Admire the world-famous paintings of celestial maidens, preserved for over 1,500 years in a sheltered pocket of the rock. These colorful frescoes showcase the advanced artistic techniques of ancient Sri Lankan painters.
                       </p>
                     </div>
                   </div>
                   
-                  <div className="flex flex-col md:flex-row gap-6 items-center bg-white rounded-xl shadow-lg p-0 overflow-hidden">
-                    <div className="md:w-2/5 h-64 relative overflow-hidden">
+                  <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                    <div className="h-52 overflow-hidden relative">
                       <img 
-                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_600,c_fill,g_auto,q_auto:best/activities/sigiriya-mirror-wall.jpg" 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-mirror-wall.jpg" 
                         alt="Mirror Wall at Sigiriya" 
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#0F4C81]/60 to-transparent flex items-center justify-center">
-                        <i className="fas fa-pen-fancy text-4xl text-white"></i>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 flex items-center">
+                        <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center mr-3 shadow-md">
+                          <i className="fas fa-pen-fancy text-[#0F4C81]"></i>
+                        </div>
+                        <h4 className="text-white text-xl font-medium">Mirror Wall</h4>
                       </div>
                     </div>
-                    <div className="md:w-3/5 p-6 md:p-8">
-                      <h4 className="font-['Playfair_Display'] text-2xl font-medium text-[#0F4C81] mb-3">Mirror Wall</h4>
+                    <div className="p-5">
                       <p className="text-[#333333]/80 leading-relaxed">
                         Discover the ancient graffiti on Sigiriya's mirror wall, once polished so smooth it reflected the frescoes above. Today, it bears verses and comments from visitors dating back to the 8th century, offering insights into historical perspectives.
                       </p>
                     </div>
                   </div>
                   
-                  <div className="flex flex-col md:flex-row gap-6 items-center bg-white rounded-xl shadow-lg p-0 overflow-hidden">
-                    <div className="md:w-2/5 h-64 relative overflow-hidden md:order-last">
+                  <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                    <div className="h-52 overflow-hidden relative">
                       <img 
-                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_600,c_fill,g_auto,q_auto:best/activities/sigiriya-summit-view.jpg" 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-summit-view.jpg" 
                         alt="Panoramic Views from Sigiriya Summit" 
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-l from-[#0F4C81]/60 to-transparent flex items-center justify-center">
-                        <i className="fas fa-mountain text-4xl text-white"></i>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 flex items-center">
+                        <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center mr-3 shadow-md">
+                          <i className="fas fa-mountain text-[#0F4C81]"></i>
+                        </div>
+                        <h4 className="text-white text-xl font-medium">Panoramic Views</h4>
                       </div>
                     </div>
-                    <div className="md:w-3/5 p-6 md:p-8">
-                      <h4 className="font-['Playfair_Display'] text-2xl font-medium text-[#0F4C81] mb-3">Panoramic Views</h4>
+                    <div className="p-5">
                       <p className="text-[#333333]/80 leading-relaxed">
                         Experience breathtaking 360-degree panoramas from the summit platform. The lush jungle canopy stretches to the horizon, with distant mountains creating a dramatic backdrop. On clear days, you can spot Pidurangala Rock and several ancient water gardens.
                       </p>
