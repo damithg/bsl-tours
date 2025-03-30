@@ -549,9 +549,9 @@ const SigiriyaTemplate = () => {
                 <p className="text-[#333333]/80 mb-4">
                   Climb Pidurangala Rock for the most breathtaking views of Sigiriya and the surrounding landscapes at dawn.
                 </p>
-                <div className="text-right">
-                  <Link href="/experiences/sunrise-pidurangala" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center justify-end ml-auto">
-                    Book this experience <ChevronRight className="w-4 h-4 ml-1" />
+                <div>
+                  <Link href="/experiences/sunrise-pidurangala" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Book This Experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
@@ -574,9 +574,9 @@ const SigiriyaTemplate = () => {
                 <p className="text-[#333333]/80 mb-4">
                   Experience one of Asia's most spectacular wildlife gatherings with hundreds of elephants in their natural habitat.
                 </p>
-                <div className="text-right">
-                  <Link href="/experiences/minneriya-safari" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center justify-end ml-auto">
-                    Book this experience <ChevronRight className="w-4 h-4 ml-1" />
+                <div>
+                  <Link href="/experiences/minneriya-safari" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Book This Experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
@@ -599,9 +599,9 @@ const SigiriyaTemplate = () => {
                 <p className="text-[#333333]/80 mb-4">
                   Cycle through rural villages, meet locals, and experience authentic rural life in the shadow of Sigiriya rock.
                 </p>
-                <div className="text-right">
-                  <Link href="/experiences/village-cycling-tour" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center justify-end ml-auto">
-                    Book this experience <ChevronRight className="w-4 h-4 ml-1" />
+                <div>
+                  <Link href="/experiences/village-cycling-tour" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Book This Experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
