@@ -87,9 +87,13 @@ const SigiriyaTemplate = () => {
                 <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-4 mt-12">
                   A Story Written in Stone
                 </h3>
-                <p className="text-lg text-[#333333]/90 mb-12 leading-relaxed">
+                <p className="text-lg text-[#333333]/90 mb-8 leading-relaxed">
                   Built by King Kasyapa in the 5th century, Sigiriya was more than a fortress — it was a statement. A sky palace. A sanctuary. A show of power perched above the clouds. Today, its winding staircases and ancient frescoes speak of an era where art and architecture reigned supreme.
                 </p>
+                
+                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
+                  What Awaits You at the Top
+                </h3>
                 
                 {/* Featured Image - Frescoes */}
                 <div className="rounded-lg overflow-hidden shadow-xl mb-12">
@@ -102,10 +106,6 @@ const SigiriyaTemplate = () => {
                     <p className="text-[#333333]/80 italic">Sigiriya's ancient frescoes depict celestial maidens, preserved for over 1,500 years</p>
                   </div>
                 </div>
-                
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
-                  What Awaits You at the Top
-                </h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                   {/* Lion Gate Card */}
