@@ -95,18 +95,6 @@ const SigiriyaTemplate = () => {
                   What Awaits You at the Top
                 </h3>
                 
-                {/* Featured Image - Frescoes */}
-                <div className="rounded-lg overflow-hidden shadow-xl mb-12">
-                  <img 
-                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-frescoes.jpg" 
-                    alt="Sigiriya Frescoes" 
-                    className="w-full h-auto" 
-                  />
-                  <div className="bg-[#F8F5F0] p-4 text-center">
-                    <p className="text-[#333333]/80 italic">Sigiriya's ancient frescoes depict celestial maidens, preserved for over 1,500 years</p>
-                  </div>
-                </div>
-                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                   {/* Lion Gate Card */}
                   <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
@@ -210,6 +198,18 @@ const SigiriyaTemplate = () => {
                         <span>Photography Highlight</span>
                       </div>
                     </div>
+                  </div>
+                </div>
+                
+                {/* Featured Image - Frescoes */}
+                <div className="rounded-lg overflow-hidden shadow-xl mb-12">
+                  <img 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-frescoes.jpg" 
+                    alt="Sigiriya Frescoes" 
+                    className="w-full h-auto" 
+                  />
+                  <div className="bg-[#F8F5F0] p-4 text-center">
+                    <p className="text-[#333333]/80 italic">Sigiriya's ancient frescoes depict celestial maidens, preserved for over 1,500 years</p>
                   </div>
                 </div>
                 
