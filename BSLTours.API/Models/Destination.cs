@@ -83,9 +83,26 @@ namespace BSLTours.API.Models
 
     public class GalleryImage
     {
-        public string Url { get; set; }
+        public string PublicId { get; set; } // E.g. "destinations/sacred-city-of-anuradhapura-4"
         public string Alt { get; set; }
+        public string Caption { get; set; }
+        public string Orientation { get; set; } // landscape / portrait / square (optional)
+
+        private const string CloudName = "drsjp6bqz";
+
+        public string BaseUrl => $"https://res.cloudinary.com/{CloudName}/image/upload/{PublicId}.jpg";
+
+        public string Small => Transform("w_400,h_300,c_fill");
+        public string Medium => Transform("w_800,h_600,c_fill");
+        public string Large => Transform("w_1600,h_900,c_fill");
+
+        private string Transform(string transformation)
+        {
+            return $"https://res.cloudinary.com/{CloudName}/image/upload/{transformation}/{PublicId}.jpg";
+        }
     }
+
+
 
     public class Experience
     {

@@ -1,4 +1,7 @@
 using System;
+using System;
+using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -123,20 +126,47 @@ namespace BSLTours.API.Services
                     "Wear comfortable shoes for steep staircases",
                     "Allow 3-4 hours for the complete experience"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/activities/photo-1583087253076-5d1315860eb8.jpg", Alt = "Sigiriya Rock Fortress - Main View" },
-                    new GalleryImage { Url = "/images/activities/photo-1627894966831-0c839fa78bfd.jpg", Alt = "Sigiriya Rock Fortress - Ancient Frescoes" },
-                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349f.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
-                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349r.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
-                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349t.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
-                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349d.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
-                    new GalleryImage { Url = "/images/activities/photo-1531259922615-206732e4349s.jpg", Alt = "Sigiriya Rock Fortress - Water Gardens" },
-                    new GalleryImage { Url = "/images/activities/photo-1618846042125-0a64dc7c360u.jpg", Alt = "Sigiriya Rock Fortress - Summit View" }
+                    new GalleryImage
+                    {
+                        PublicId = "destinations/sacred-city-of-anuradhapura",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "destinations/admiring-sigiriya-rock-fortress",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "destinations/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "destinations/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "destinations/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -206,16 +236,43 @@ namespace BSLTours.API.Services
     },
 
                 GalleryImages = new List<GalleryImage>
-    {
-        new() { Url = "/images/activities/photo-1592454869436-cfee29fafa29.jpg", Alt = "Galle Fort - Ramparts View" },
-        new() { Url = "/images/activities/photo-1583087253076-5d1315860eb8.jpg", Alt = "Galle Fort - Lighthouse" },
-        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0813.jpg", Alt = "Galle Fort - Colonial Architecture" },
-        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0814.jpg", Alt = "Galle Fort - Colonial Architecture" },
-        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0815.jpg", Alt = "Galle Fort - Colonial Architecture" },
-        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0816.jpg", Alt = "Galle Fort - Colonial Architecture" },
-        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0817.jpg", Alt = "Galle Fort - Colonial Architecture" },
-        new() { Url = "/images/activities/photo-1591331686811-80ebb77d0819.jpg", Alt = "Galle Fort - Colonial Architecture" }
-    },
+                {
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
+                },
 
                 FAQs = new List<FAQ>
     {
@@ -353,17 +410,47 @@ namespace BSLTours.API.Services
                     "Try the fresh seafood restaurants along the beach",
                     "Consider staying in beachfront accommodations for the best experience"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/destinations/mirissa-beach.jpg", Alt = "Mirissa Beach Sunset" },
-                    new GalleryImage { Url = "/images/destinations/mirissa-whale-watching.jpg", Alt = "Blue Whale Sighting" },
-                    new GalleryImage { Url = "/images/destinations/mirissa-coconut-hill.jpg", Alt = "Coconut Tree Hill" },
-                    new GalleryImage { Url = "/images/destinations/mirissa-surfing.jpg", Alt = "Surfing in Mirissa" },
-                    new GalleryImage { Url = "/images/destinations/mirissa-parrot-rock.jpg", Alt = "Parrot Rock" }
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -440,17 +527,47 @@ namespace BSLTours.API.Services
                     "Book accommodation in advance during peak season",
                     "Bring layers as temperatures can drop in the evenings"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/destinations/ella-nine-arch-bridge.jpg", Alt = "Nine Arch Bridge with Train" },
-                    new GalleryImage { Url = "/images/destinations/ella-little-adams-peak.jpg", Alt = "Little Adam's Peak View" },
-                    new GalleryImage { Url = "/images/destinations/ella-tea-plantations.jpg", Alt = "Tea Plantations" },
-                    new GalleryImage { Url = "/images/destinations/ella-rock.jpg", Alt = "Ella Rock Hike" },
-                    new GalleryImage { Url = "/images/destinations/ravana-falls.jpg", Alt = "Ravana Falls" }
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -524,17 +641,47 @@ namespace BSLTours.API.Services
                     "Try high tea at the Grand Hotel for a colonial experience",
                     "Start early for day trips to Horton Plains to catch clear views"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/destinations/nuwara-eliya-tea-plantations.jpg", Alt = "Tea Plantations" },
-                    new GalleryImage { Url = "/images/destinations/nuwara-eliya-gregory-lake.jpg", Alt = "Gregory Lake" },
-                    new GalleryImage { Url = "/images/destinations/nuwara-eliya-colonial-architecture.jpg", Alt = "Colonial Buildings" },
-                    new GalleryImage { Url = "/images/destinations/nuwara-eliya-victoria-park.jpg", Alt = "Victoria Park" },
-                    new GalleryImage { Url = "/images/destinations/horton-plains.jpg", Alt = "Horton Plains National Park" }
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -608,17 +755,47 @@ namespace BSLTours.API.Services
                     "Book accommodation well in advance if visiting during Esala Perahera (July/August)",
                     "Consider the scenic train journey to or from Ella/Nuwara Eliya"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/destinations/kandy-temple-of-tooth.jpg", Alt = "Temple of the Sacred Tooth Relic" },
-                    new GalleryImage { Url = "/images/destinations/kandy-lake.jpg", Alt = "Kandy Lake" },
-                    new GalleryImage { Url = "/images/destinations/kandy-peradeniya-gardens.jpg", Alt = "Royal Botanical Gardens" },
-                    new GalleryImage { Url = "/images/destinations/kandy-cultural-dance.jpg", Alt = "Kandyan Cultural Dance" },
-                    new GalleryImage { Url = "/images/destinations/kandy-buddha-statue.jpg", Alt = "Bahiravokanda Vihara Buddha" }
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -692,17 +869,47 @@ namespace BSLTours.API.Services
                     "Bring binoculars, camera with zoom lens, and neutral-colored clothing",
                     "Stay hydrated and wear sun protection during safaris"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/destinations/yala-leopard.jpg", Alt = "Yala Leopard" },
-                    new GalleryImage { Url = "/images/destinations/yala-elephant.jpg", Alt = "Wild Elephants" },
-                    new GalleryImage { Url = "/images/destinations/yala-landscape.jpg", Alt = "Park Landscape" },
-                    new GalleryImage { Url = "/images/destinations/yala-sloth-bear.jpg", Alt = "Sloth Bear" },
-                    new GalleryImage { Url = "/images/destinations/yala-birds.jpg", Alt = "Bird Life" }
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -776,17 +983,47 @@ namespace BSLTours.API.Services
                     "Start early morning or late afternoon to avoid midday heat",
                     "Wear comfortable footwear as there's considerable walking between sites"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/destinations/polonnaruwa-gal-vihara.jpg", Alt = "Gal Vihara Buddha Statues" },
-                    new GalleryImage { Url = "/images/destinations/polonnaruwa-vatadage.jpg", Alt = "Vatadage" },
-                    new GalleryImage { Url = "/images/destinations/polonnaruwa-rankot-vihara.jpg", Alt = "Rankot Vihara Stupa" },
-                    new GalleryImage { Url = "/images/destinations/polonnaruwa-royal-palace.jpg", Alt = "Royal Palace Ruins" },
-                    new GalleryImage { Url = "/images/destinations/polonnaruwa-parakrama-samudra.jpg", Alt = "Parakrama Samudra Reservoir" }
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -860,17 +1097,47 @@ namespace BSLTours.API.Services
                     "Wear white or light clothing when visiting Sri Maha Bodhi as a sign of respect",
                     "Consider visiting during a full moon (Poya) day to experience Buddhist ceremonies"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/destinations/anuradhapura-ruwanwelisaya.jpg", Alt = "Ruwanwelisaya Stupa" },
-                    new GalleryImage { Url = "/images/destinations/anuradhapura-sri-maha-bodhi.jpg", Alt = "Sri Maha Bodhi Tree" },
-                    new GalleryImage { Url = "/images/destinations/anuradhapura-jetavanaramaya.jpg", Alt = "Jetavanaramaya Stupa" },
-                    new GalleryImage { Url = "/images/destinations/anuradhapura-abhayagiri.jpg", Alt = "Abhayagiri Monastery" },
-                    new GalleryImage { Url = "/images/destinations/anuradhapura-moonstone.jpg", Alt = "Ancient Moonstone" }
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -944,17 +1211,47 @@ namespace BSLTours.API.Services
                     "Bring your own surfboard or rent quality boards from local shops",
                     "Be aware of strong currents at some surf points - suitable for experienced surfers"
                 },
-                
+
                 // Gallery Images
                 GalleryImages = new List<GalleryImage>
                 {
-                    new GalleryImage { Url = "/images/destinations/arugam-bay-main-point.jpg", Alt = "Main Point Surfing" },
-                    new GalleryImage { Url = "/images/destinations/arugam-bay-beach.jpg", Alt = "Arugam Bay Beach" },
-                    new GalleryImage { Url = "/images/destinations/arugam-bay-elephant-rock.jpg", Alt = "Elephant Rock" },
-                    new GalleryImage { Url = "/images/destinations/arugam-bay-lagoon.jpg", Alt = "Pottuvil Lagoon" },
-                    new GalleryImage { Url = "/images/destinations/arugam-bay-sunset.jpg", Alt = "Beach Sunset" }
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-main-view",
+                        Alt = "Sigiriya Rock Fortress - Main View",
+                        Caption = "The iconic rock fortress rising above the plains",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-frescoes",
+                        Alt = "Sigiriya Rock Fortress - Ancient Frescoes",
+                        Caption = "Beautiful ancient frescoes adorning the inner rock walls",
+                        Orientation = "portrait"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-1",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "Symmetrical water gardens at the base of the fortress",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-water-gardens-2",
+                        Alt = "Sigiriya Rock Fortress - Water Gardens",
+                        Caption = "An ancient hydraulic engineering marvel",
+                        Orientation = "landscape"
+                    },
+                    new GalleryImage
+                    {
+                        PublicId = "activities/sigiriya-summit-view",
+                        Alt = "Sigiriya Rock Fortress - Summit View",
+                        Caption = "Breathtaking panoramic views from the summit",
+                        Orientation = "landscape"
+                    }
                 },
-                
+
                 // Activities
                 Activities = new List<Activity>
                 {
@@ -1085,7 +1382,7 @@ namespace BSLTours.API.Services
                 Description = "Discover the ancient city of Polonnaruwa, Sri Lanka's second capital. Explore well-preserved ruins, impressive stone sculptures, and the famous Gal Vihara Buddha statues. In the evening, enjoy a traditional cultural performance at your hotel.",
                 Image = new ImageSet
                 {
-                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg"
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743272346/ancient-city-of-polonnaruwa_e4mnnf.jpg"
                 },
                 Accommodation = "Water Garden Sigiriya",
                 Activities = new List<Activity>
@@ -1106,7 +1403,7 @@ namespace BSLTours.API.Services
                 Description = "Visit Anuradhapura, Sri Lanka's first capital and a UNESCO World Heritage site. Explore ancient stupas, palaces, and the sacred Sri Maha Bodhi tree. Later, travel to Kandy, stopping at a spice garden en route.",
                 Image = new ImageSet
                 {
-                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg"
+                    BaseUrl = "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743274007/sacred-city-of-anuradhapura_mjkppj.jpg"
                 },
                 Accommodation = "Kings Pavilion Kandy",
                 Activities = new List<Activity>
