@@ -94,16 +94,51 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
 
   // Get optimized image URL based on context
   const getOptimizedImageUrl = (image: GalleryImage, size: 'small' | 'medium' | 'large'): string => {
-    // Use the specified size if available, otherwise fall back to the original URL
-    if (size === 'small' && image.small) return image.small;
-    if (size === 'medium' && image.medium) return image.medium;
-    if (size === 'large' && image.large) return image.large;
-    if (image.baseUrl) return image.baseUrl;
-    if (image.url) return image.url;
+    // Skip null checks for image properties by using optional chaining and nullish coalescing
+    
+    // Use the specified size if available
+    if (size === 'small' && image?.small) return image.small;
+    if (size === 'medium' && image?.medium) return image.medium;
+    if (size === 'large' && image?.large) return image.large;
+    
+    // Otherwise fall back to the original URL
+    const baseUrl = image?.baseUrl ?? image?.url ?? '';
+    
+    // If we have a direct URL, use it
+    if (baseUrl) {
+      // For larger tiles (featured image), use a higher quality transformation if it's a Cloudinary URL
+      if (baseUrl.includes && baseUrl.includes('cloudinary.com')) {
+        // Extract the components for transformation
+        const parts = baseUrl.split('/upload/');
+        if (parts.length === 2) {
+          const cloudinaryBase = parts[0] + '/upload/';
+          const imagePath = parts[1];
+          
+          // Apply different transformations based on size and image position
+          if (size === 'small') {
+            return `${cloudinaryBase}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
+          } else if (size === 'medium') {
+            return `${cloudinaryBase}c_fill,g_auto,h_600,w_800,q_auto:good/${imagePath}`;
+          } else { // large
+            return `${cloudinaryBase}c_limit,h_1200,w_1600,q_auto:best/${imagePath}`;
+          }
+        }
+      }
+      
+      // Return the unmodified URL if not Cloudinary or couldn't parse
+      return baseUrl;
+    }
     
     // Fallback to construct URL from publicId if no direct URLs provided
-    if (image.publicId) {
-      return `https://res.cloudinary.com/drsjp6bqz/image/upload/${image.publicId}`;
+    if (image?.publicId) {
+      // Include transformations based on requested size
+      if (size === 'small') {
+        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_300,w_400,q_auto:good/${image.publicId}`;
+      } else if (size === 'medium') {
+        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_600,w_800,q_auto:good/${image.publicId}`;
+      } else { // large
+        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_limit,h_1200,w_1600,q_auto:best/${image.publicId}`;
+      }
     }
     
     // Absolute fallback to avoid breaking rendering
@@ -123,11 +158,11 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
             >
               <img 
                 src={getOptimizedImageUrl(images[0], 'medium')} 
-                alt={images[0].alt}
+                alt={images[0]?.alt || "Gallery image"}
                 className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                <p className="font-medium">{images[0].caption || images[0].alt}</p>
+                <p className="font-medium">{images[0]?.caption || images[0]?.alt || "Gallery image"}</p>
               </div>
             </div>
 
@@ -140,11 +175,11 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
                 >
                   <img 
                     src={getOptimizedImageUrl(images[1], 'small')} 
-                    alt={images[1].alt}
+                    alt={images[1]?.alt || "Gallery image"}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    <p className="font-medium">{images[1].caption || images[1].alt}</p>
+                    <p className="font-medium">{images[1]?.caption || images[1]?.alt || "Gallery image"}</p>
                   </div>
                 </div>
               )}
@@ -156,11 +191,11 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
                 >
                   <img 
                     src={getOptimizedImageUrl(images[2], 'small')} 
-                    alt={images[2].alt}
+                    alt={images[2]?.alt || "Gallery image"}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    <p className="font-medium">{images[2].caption || images[2].alt}</p>
+                    <p className="font-medium">{images[2]?.caption || images[2]?.alt || "Gallery image"}</p>
                   </div>
                 </div>
               )}
@@ -177,11 +212,11 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
             >
               <img 
                 src={getOptimizedImageUrl(images[3], 'small')} 
-                alt={images[3].alt}
+                alt={images[3]?.alt || "Gallery image"}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                <p className="font-medium">{images[3].caption || images[3].alt}</p>
+                <p className="font-medium">{images[3]?.caption || images[3]?.alt || "Gallery image"}</p>
               </div>
             </div>
           )}
@@ -195,11 +230,11 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
             >
               <img 
                 src={getOptimizedImageUrl(images[4], 'small')} 
-                alt={images[4].alt}
+                alt={images[4]?.alt || "Gallery image"}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                <p className="font-medium">{images[4].caption || images[4].alt}</p>
+                <p className="font-medium">{images[4]?.caption || images[4]?.alt || "Gallery image"}</p>
               </div>
             </div>
           )}
@@ -222,13 +257,13 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
             {/* Image */}
             <img 
               src={getOptimizedImageUrl(images[currentImageIndex], 'large')}
-              alt={images[currentImageIndex].alt}
+              alt={images[currentImageIndex]?.alt || "Gallery image"}
               className="max-h-[80vh] max-w-full object-contain mx-auto"
             />
             
             {/* Caption */}
             <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-4 text-white text-center">
-              {images[currentImageIndex].caption || images[currentImageIndex].alt}
+              {images[currentImageIndex]?.caption || images[currentImageIndex]?.alt || "Gallery image"}
             </div>
 
             {/* Navigation Controls */}

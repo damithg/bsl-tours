@@ -110,13 +110,17 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
     }
   };
   
-  // Get optimal image source based on screen size and context
-  const getOptimalImageSrc = (image: GalleryImageType, context: 'grid' | 'lightbox'): string => {
-    // First check if we have pre-optimized images from the API
-    if (context === 'grid' && image.small) {
-      return image.small;
+  // Get optimal image source based on screen size, context, and layout position
+  const getOptimalImageSrc = (image: GalleryImageType, context: 'grid' | 'lightbox', index?: number): string => {
+    // Use the appropriate URL (handle both API formats)
+    const imageUrl = image.url || image.baseUrl || '';
+    
+    // If we don't have a URL at all
+    if (!imageUrl) {
+      return image.medium || image.small || image.banner || image.large || '';
     }
     
+    // First check if we have pre-optimized images from the API
     if (context === 'lightbox' && image.large) {
       return image.large;
     }
@@ -125,12 +129,24 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
       return image.medium;
     }
     
-    // Use the appropriate URL (handle both API formats)
-    const imageUrl = image.url || image.baseUrl || '';
-    
-    // If we don't have a URL at all
-    if (!imageUrl) {
-      return image.medium || image.small || image.banner || image.large || '';
+    // For grid view, check the layout position to determine optimal image size
+    if (context === 'grid') {
+      // Calculate if this is a featured tile that spans multiple cells
+      const isSpanningTile = index !== undefined && (
+        index === 0 || // First image always spans
+        (image.orientation === 'landscape' && (index === 4 || index === 8)) || // Landscape images in these positions span horizontally
+        (image.orientation === 'square' && index === 0) // Featured square
+      );
+      
+      // Use medium size for featured/spanning tiles to avoid stretching
+      if (isSpanningTile && image.medium) {
+        return image.medium;
+      }
+      
+      // Use small size for regular tiles
+      if (image.small) {
+        return image.small;
+      }
     }
     
     // If it's a Cloudinary URL, we can add transformations
@@ -142,16 +158,32 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
       const imagePath = imageUrl.split('/upload/')[1];
       
       if (context === 'grid') {
-        // Use orientation to determine optimal crop
-        if (image.orientation === 'portrait') {
-          // Portrait images look better with taller aspect ratio
-          return `${baseUrl}c_fill,g_auto,h_400,w_300,q_auto:good/${imagePath}`;
-        } else if (image.orientation === 'square') {
-          // Square images maintain their aspect ratio
-          return `${baseUrl}c_fill,g_auto,h_350,w_350,q_auto:good/${imagePath}`;
+        // Calculate if this is a featured tile that spans multiple cells
+        const isSpanningTile = index !== undefined && (
+          index === 0 || // First image always spans
+          (image.orientation === 'landscape' && (index === 4 || index === 8)) || // Landscape images in these positions span horizontally
+          (image.orientation === 'square' && index === 0) // Featured square
+        );
+        
+        // Different sizes based on layout position and orientation
+        if (isSpanningTile) {
+          // For larger tiles, use larger images
+          if (image.orientation === 'portrait') {
+            return `${baseUrl}c_fill,g_auto,h_800,w_600,q_auto:good/${imagePath}`;
+          } else if (image.orientation === 'square') {
+            return `${baseUrl}c_fill,g_auto,h_700,w_700,q_auto:good/${imagePath}`;
+          } else { // landscape
+            return `${baseUrl}c_fill,g_auto,h_600,w_800,q_auto:good/${imagePath}`;
+          }
         } else {
-          // Default landscape orientation
-          return `${baseUrl}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
+          // Regular tiles
+          if (image.orientation === 'portrait') {
+            return `${baseUrl}c_fill,g_auto,h_400,w_300,q_auto:good/${imagePath}`;
+          } else if (image.orientation === 'square') {
+            return `${baseUrl}c_fill,g_auto,h_350,w_350,q_auto:good/${imagePath}`;
+          } else { // landscape
+            return `${baseUrl}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
+          }
         }
       } else {
         // Higher quality, responsive images for the lightbox
@@ -227,7 +259,7 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
             onClick={() => openLightbox(index)}
           >
             <img
-              src={getOptimalImageSrc(image, 'grid')}
+              src={getOptimalImageSrc(image, 'grid', index)}
               alt={image.alt || `Gallery image ${index + 1}`}
               className="w-full h-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300"
               loading="lazy"
