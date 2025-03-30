@@ -300,6 +300,32 @@ const DestinationDetail = () => {
   
   // Check if we need to use the enhanced template
   const templateType = destination.templateType || 'standard';
+  
+  // Add detailed debugging for template data
+  console.log('Destination data for enhanced template:', {
+    name: destination.name,
+    templateType,
+    hasDetailedSections: !!destination.detailedSections,
+    detailedSectionsLength: destination.detailedSections ? 
+                           parseJsonSafely(destination.detailedSections, []).length : 0,
+    hasPointsOfInterest: !!destination.pointsOfInterest,
+    pointsOfInterestLength: destination.pointsOfInterest ? 
+                           parseJsonSafely(destination.pointsOfInterest, []).length : 0,
+    hasToursFeaturing: !!destination.toursFeaturing,
+    toursFeaturingLength: destination.toursFeaturing ? 
+                         parseJsonSafely(destination.toursFeaturing, []).length : 0,
+    hasLocalExperiences: !!destination.localExperiences,
+    localExperiencesLength: destination.localExperiences ? 
+                           parseJsonSafely(destination.localExperiences, []).length : 0,
+    hasGalleryImages: !!destination.galleryImages,
+    galleryImagesLength: destination.galleryImages ? 
+                         parseJsonSafely(destination.galleryImages, []).length : 0,
+    hasFaqs: !!destination.faqs,
+    faqsLength: destination.faqs ? 
+               parseJsonSafely(destination.faqs, []).length : 0,
+    hasEssentialInfo: !!destination.essentialInfo,
+  });
+  
   if (templateType === 'enhanced' || templateType === 'sigiriya') {
     return <EnhancedDestinationTemplate destination={destination} />;
   }

@@ -73,6 +73,25 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   const faqs = parseJsonSafely<FAQ[]>(destination.faqs, []);
   const essentialInfo = parseJsonSafely<{gettingThere?: string; travelTips?: string}>(destination.essentialInfo, {});
   
+  // Add enhanced debug information
+  console.log('EnhancedDestinationTemplate Data:', {
+    destination: destination.name,
+    rawDetailedSections: destination.detailedSections,
+    parsedDetailedSections: detailedSections,
+    rawPointsOfInterest: destination.pointsOfInterest,
+    parsedPointsOfInterest: pointsOfInterest,
+    rawToursFeaturing: destination.toursFeaturing,
+    parsedToursFeaturing: toursFeaturing,
+    rawLocalExperiences: destination.localExperiences,
+    parsedLocalExperiences: localExperiences,
+    rawGalleryImages: destination.galleryImages,
+    parsedGalleryImages: galleryImages,
+    rawFaqs: destination.faqs,
+    parsedFaqs: faqs,
+    rawEssentialInfo: destination.essentialInfo,
+    parsedEssentialInfo: essentialInfo
+  });
+  
   // FAQ toggles
   const [openFaqs, setOpenFaqs] = React.useState<number[]>([]);
   
