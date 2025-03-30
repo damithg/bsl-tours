@@ -9,7 +9,7 @@ const SigiriyaTemplate = () => {
       <section className="relative h-[600px]">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/attached_assets/image_1743067682182.png" 
+            src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_800,c_fill/v1743212891/galle-fort_kqntzk.jpg" 
             alt="Sigiriya Rock Fortress" 
             className="w-full h-full object-cover" 
           />
@@ -81,7 +81,7 @@ const SigiriyaTemplate = () => {
                 {/* Featured Image - Frescoes */}
                 <div className="rounded-lg overflow-hidden shadow-xl mb-12">
                   <img 
-                    src="/attached_assets/Pasted--galleryImages-publicId-activities-sigiriya-main-view--1743294352870.txt" 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-frescoes.jpg" 
                     alt="Sigiriya Frescoes" 
                     className="w-full h-auto" 
                   />
@@ -139,7 +139,7 @@ const SigiriyaTemplate = () => {
                 {/* Featured Image - Summit View */}
                 <div className="rounded-lg overflow-hidden shadow-xl mb-12">
                   <img 
-                    src="/attached_assets/image_1743091860073.png" 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg" 
                     alt="Summit view from Sigiriya" 
                     className="w-full h-auto" 
                   />
