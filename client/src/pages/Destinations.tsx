@@ -2,11 +2,22 @@ import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
 import { Link } from "wouter";
 import { Home, ChevronRight } from "lucide-react";
+import React from "react";
 
 const Destinations = () => {
   const { data: destinations, isLoading, error } = useQuery<Destination[]>({
-    queryKey: ['/api/destinations'],
+    queryKey: ['/api/destinations']
   });
+  
+  // Manually log data when component renders and destinations are available
+  React.useEffect(() => {
+    if (destinations && destinations.length > 0) {
+      console.log("Destinations data:", destinations);
+      console.log("First destination:", destinations[0]);
+      console.log("Images property:", (destinations[0] as any).images);
+      console.log("Card image URL:", (destinations[0] as any).images?.card);
+    }
+  }, [destinations]);
 
   // Additional content for featured destination
   const featuredDestinationContent = {
@@ -137,7 +148,7 @@ const Destinations = () => {
                 <div key={destination.id} className="bg-white rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
                   <div className="relative h-64">
                     <img 
-                      src={destination.imageUrl} 
+                      src={(destination as any).images?.card || destination.imageUrl || "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg"} 
                       alt={destination.name} 
                       className="w-full h-full object-cover" 
                     />
@@ -145,6 +156,14 @@ const Destinations = () => {
                   <div className="p-6">
                     <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{destination.name}</h3>
                     <p className="text-[#333333]/70 mb-4">{destination.excerpt || destination.shortDescription || destination.description}</p>
+                    
+                    {/* Debug information for image properties - temporarily visible */}
+                    <div className="bg-gray-100 p-2 mb-4 rounded text-xs font-mono text-gray-700 overflow-auto max-h-24">
+                      <p><strong>Image URL:</strong> {destination.imageUrl}</p>
+                      <p><strong>Images Object:</strong> {JSON.stringify((destination as any).images || {})}</p>
+                      <p><strong>Card:</strong> {(destination as any).images?.card || 'N/A'}</p>
+                    </div>
+                    
                     <Link href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
                       Explore Experiences
                       <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
