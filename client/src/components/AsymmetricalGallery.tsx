@@ -116,11 +116,15 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
           
           // Apply different transformations based on size and image position
           if (size === 'small') {
+            // Small images for secondary tiles
             return `${cloudinaryBase}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
           } else if (size === 'medium') {
-            return `${cloudinaryBase}c_fill,g_auto,h_600,w_800,q_auto:good/${imagePath}`;
+            // Medium images for normal featured content
+            return `${cloudinaryBase}c_fill,g_auto,h_600,w_900,q_auto:good/${imagePath}`;
           } else { // large
-            return `${cloudinaryBase}c_limit,h_1200,w_1600,q_auto:best/${imagePath}`;
+            // Large images for hero sections and main featured content
+            // Using a higher quality, larger image for the featured tile to prevent stretching
+            return `${cloudinaryBase}c_fill,g_auto,h_900,w_1200,q_auto:best/${imagePath}`;
           }
         }
       }
@@ -133,11 +137,14 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
     if (image?.publicId) {
       // Include transformations based on requested size
       if (size === 'small') {
+        // Small images for secondary tiles
         return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_300,w_400,q_auto:good/${image.publicId}`;
       } else if (size === 'medium') {
-        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_600,w_800,q_auto:good/${image.publicId}`;
+        // Medium images for normal featured content
+        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_600,w_900,q_auto:good/${image.publicId}`;
       } else { // large
-        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_limit,h_1200,w_1600,q_auto:best/${image.publicId}`;
+        // Large images for hero sections and main featured content
+        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_900,w_1200,q_auto:best/${image.publicId}`;
       }
     }
     
@@ -157,7 +164,7 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
               onClick={() => openLightbox(0)}
             >
               <img 
-                src={getOptimizedImageUrl(images[0], 'medium')} 
+                src={getOptimizedImageUrl(images[0], 'large')} 
                 alt={images[0]?.alt || "Gallery image"}
                 className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
               />
