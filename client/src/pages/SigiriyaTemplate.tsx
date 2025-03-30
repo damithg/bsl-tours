@@ -201,6 +201,14 @@ const SigiriyaTemplate = () => {
                   </div>
                 </div>
                 
+                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
+                  Make It a Journey, Not Just a Stop
+                </h3>
+                
+                <p className="text-lg text-[#333333]/90 mb-8 leading-relaxed">
+                  Pair Sigiriya with nearby wonders like Pidurangala Rock (for a dramatic sunrise view of Sigiriya itself), or the spiritual caves of Dambulla. You're not just seeing Sri Lanka — you're feeling it come alive.
+                </p>
+                
                 {/* Featured Image - Frescoes */}
                 <div className="rounded-lg overflow-hidden shadow-xl mb-12">
                   <img 
@@ -212,14 +220,6 @@ const SigiriyaTemplate = () => {
                     <p className="text-[#333333]/80 italic">Sigiriya's ancient frescoes depict celestial maidens, preserved for over 1,500 years</p>
                   </div>
                 </div>
-                
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
-                  Make It a Journey, Not Just a Stop
-                </h3>
-                
-                <p className="text-lg text-[#333333]/90 mb-6 leading-relaxed">
-                  Pair Sigiriya with nearby wonders like Pidurangala Rock (for a dramatic sunrise view of Sigiriya itself), or the spiritual caves of Dambulla. You're not just seeing Sri Lanka — you're feeling it come alive.
-                </p>
               </div>
               
               {/* Gallery Section */}
