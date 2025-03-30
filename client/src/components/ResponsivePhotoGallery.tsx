@@ -2,13 +2,23 @@ import React, { useState, useRef, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface GalleryImageType {
-  url: string;
+  // Core required properties
   alt: string;
+  
+  // URL properties (at least one of these must exist)
+  url?: string;
+  baseUrl?: string;
+  
+  // Cloudinary transformation URLs
   small?: string;
   medium?: string;
   banner?: string;
+  large?: string;
+  
+  // Additional metadata
+  publicId?: string;
   caption?: string;
-  orientation?: 'landscape' | 'portrait' | 'square';
+  orientation?: 'landscape' | 'portrait' | 'square' | string;
   width?: number;
   height?: number;
   category?: string;
@@ -102,13 +112,34 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
   
   // Get optimal image source based on screen size and context
   const getOptimalImageSrc = (image: GalleryImageType, context: 'grid' | 'lightbox'): string => {
+    // First check if we have pre-optimized images from the API
+    if (context === 'grid' && image.small) {
+      return image.small;
+    }
+    
+    if (context === 'lightbox' && image.large) {
+      return image.large;
+    }
+    
+    if (context === 'lightbox' && image.medium) {
+      return image.medium;
+    }
+    
+    // Use the appropriate URL (handle both API formats)
+    const imageUrl = image.url || image.baseUrl || '';
+    
+    // If we don't have a URL at all
+    if (!imageUrl) {
+      return image.medium || image.small || image.banner || image.large || '';
+    }
+    
     // If it's a Cloudinary URL, we can add transformations
-    const isCloudinary = image.url.includes('cloudinary.com');
+    const isCloudinary = imageUrl.includes && imageUrl.includes('cloudinary.com');
     
     if (isCloudinary) {
       // For Cloudinary images, we can use their transformation API
-      const baseUrl = image.url.split('/upload/')[0] + '/upload/';
-      const imagePath = image.url.split('/upload/')[1];
+      const baseUrl = imageUrl.split('/upload/')[0] + '/upload/';
+      const imagePath = imageUrl.split('/upload/')[1];
       
       if (context === 'grid') {
         // Use orientation to determine optimal crop
@@ -135,9 +166,9 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
     
     // For non-Cloudinary images, use the provided variants
     if (context === 'grid') {
-      return image.small || image.medium || image.url;
+      return image.small || image.medium || imageUrl || '';
     } else {
-      return image.banner || image.medium || image.url;
+      return image.banner || image.large || image.medium || imageUrl || '';
     }
   };
   
