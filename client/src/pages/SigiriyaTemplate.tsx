@@ -94,131 +94,107 @@ const SigiriyaTemplate = () => {
                   What Awaits You at the Top
                 </h3>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                  <div className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#0F4C81]/30 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div className="p-6">
-                      <div className="flex mb-4">
-                        <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
-                          <img 
-                            src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_200,h_200,c_fill,g_auto,q_auto:best/activities/sigiriya-lion-gate.jpg" 
-                            alt="Lion Gate at Sigiriya" 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="inline-flex items-center text-[#0F4C81] mb-2">
-                            <i className="fas fa-monument text-sm mr-2"></i>
-                            <span className="text-sm font-medium">Must See</span>
-                          </div>
-                          <h4 className="font-['Playfair_Display'] text-xl font-medium text-gray-900">Lion Gate</h4>
-                        </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  {/* Lion Gate Card */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-lion-gate.jpg" 
+                        alt="Lion Gate at Sigiriya" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                        Must See
                       </div>
-                      <p className="text-gray-700 leading-relaxed">
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">Lion Gate</h4>
+                      <p className="text-gray-600 mb-4">
                         Walk through the colossal lion claws carved in stone, marking the entrance to the final ascent of this ancient citadel. Once a complete lion figure, these remaining paws hint at the grandeur of the original structure.
                       </p>
-                      <div className="mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">Historical Marvel</span>
-                          <div className="w-8 h-8 rounded-full bg-[#F9F7F4] group-hover:bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] transition-colors duration-300">
-                            <i className="fas fa-arrow-right text-xs group-hover:translate-x-0.5 transition-transform duration-300"></i>
-                          </div>
-                        </div>
+                      <div className="flex items-center text-sm text-[#0F4C81]">
+                        <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                          <i className="fas fa-monument text-xs"></i>
+                        </span>
+                        <span>Historical Marvel</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#0F4C81]/30 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div className="p-6">
-                      <div className="flex mb-4">
-                        <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
-                          <img 
-                            src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_200,h_200,c_fill,g_auto,q_auto:best/activities/sigiriya-frescoes.jpg" 
-                            alt="Ancient Frescoes at Sigiriya" 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="inline-flex items-center text-[#0F4C81] mb-2">
-                            <i className="fas fa-palette text-sm mr-2"></i>
-                            <span className="text-sm font-medium">Art Highlight</span>
-                          </div>
-                          <h4 className="font-['Playfair_Display'] text-xl font-medium text-gray-900">Ancient Frescoes</h4>
-                        </div>
+                  {/* Ancient Frescoes Card */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-frescoes.jpg" 
+                        alt="Ancient Frescoes at Sigiriya" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                        Art Highlight
                       </div>
-                      <p className="text-gray-700 leading-relaxed">
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">Ancient Frescoes</h4>
+                      <p className="text-gray-600 mb-4">
                         Admire the world-famous paintings of celestial maidens, preserved for over 1,500 years in a sheltered pocket of the rock. These colorful frescoes showcase the advanced artistic techniques of ancient Sri Lankan painters.
                       </p>
-                      <div className="mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">Cultural Wonder</span>
-                          <div className="w-8 h-8 rounded-full bg-[#F9F7F4] group-hover:bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] transition-colors duration-300">
-                            <i className="fas fa-arrow-right text-xs group-hover:translate-x-0.5 transition-transform duration-300"></i>
-                          </div>
-                        </div>
+                      <div className="flex items-center text-sm text-[#0F4C81]">
+                        <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                          <i className="fas fa-palette text-xs"></i>
+                        </span>
+                        <span>Cultural Wonder</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#0F4C81]/30 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div className="p-6">
-                      <div className="flex mb-4">
-                        <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
-                          <img 
-                            src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_200,h_200,c_fill,g_auto,q_auto:best/activities/sigiriya-mirror-wall.jpg" 
-                            alt="Mirror Wall at Sigiriya" 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="inline-flex items-center text-[#0F4C81] mb-2">
-                            <i className="fas fa-pen-fancy text-sm mr-2"></i>
-                            <span className="text-sm font-medium">Ancient Text</span>
-                          </div>
-                          <h4 className="font-['Playfair_Display'] text-xl font-medium text-gray-900">Mirror Wall</h4>
-                        </div>
+                  {/* Mirror Wall Card */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-mirror-wall.jpg" 
+                        alt="Mirror Wall at Sigiriya" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                        Ancient Text
                       </div>
-                      <p className="text-gray-700 leading-relaxed">
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">Mirror Wall</h4>
+                      <p className="text-gray-600 mb-4">
                         Discover the ancient graffiti on Sigiriya's mirror wall, once polished so smooth it reflected the frescoes above. Today, it bears verses and comments from visitors dating back to the 8th century, offering insights into historical perspectives.
                       </p>
-                      <div className="mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">Historical Insight</span>
-                          <div className="w-8 h-8 rounded-full bg-[#F9F7F4] group-hover:bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] transition-colors duration-300">
-                            <i className="fas fa-arrow-right text-xs group-hover:translate-x-0.5 transition-transform duration-300"></i>
-                          </div>
-                        </div>
+                      <div className="flex items-center text-sm text-[#0F4C81]">
+                        <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                          <i className="fas fa-pen-fancy text-xs"></i>
+                        </span>
+                        <span>Historical Insight</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#0F4C81]/30 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div className="p-6">
-                      <div className="flex mb-4">
-                        <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
-                          <img 
-                            src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_200,h_200,c_fill,g_auto,q_auto:best/activities/sigiriya-summit-view.jpg" 
-                            alt="Panoramic Views from Sigiriya Summit" 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="inline-flex items-center text-[#0F4C81] mb-2">
-                            <i className="fas fa-mountain text-sm mr-2"></i>
-                            <span className="text-sm font-medium">Scenic Vista</span>
-                          </div>
-                          <h4 className="font-['Playfair_Display'] text-xl font-medium text-gray-900">Panoramic Views</h4>
-                        </div>
+                  {/* Panoramic Views Card */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-summit-view.jpg" 
+                        alt="Panoramic Views from Sigiriya Summit" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                        Scenic Vista
                       </div>
-                      <p className="text-gray-700 leading-relaxed">
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">Panoramic Views</h4>
+                      <p className="text-gray-600 mb-4">
                         Experience breathtaking 360-degree panoramas from the summit platform. The lush jungle canopy stretches to the horizon, with distant mountains creating a dramatic backdrop. On clear days, you can spot Pidurangala Rock and several ancient water gardens.
                       </p>
-                      <div className="mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">Photography Highlight</span>
-                          <div className="w-8 h-8 rounded-full bg-[#F9F7F4] group-hover:bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] transition-colors duration-300">
-                            <i className="fas fa-arrow-right text-xs group-hover:translate-x-0.5 transition-transform duration-300"></i>
-                          </div>
-                        </div>
+                      <div className="flex items-center text-sm text-[#0F4C81]">
+                        <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                          <i className="fas fa-mountain text-xs"></i>
+                        </span>
+                        <span>Photography Highlight</span>
                       </div>
                     </div>
                   </div>
@@ -316,82 +292,87 @@ const SigiriyaTemplate = () => {
             
             {/* Right Column - Sidebar */}
             <div className="lg:col-span-1">
-              {/* Booking Widget */}
-              <div className="bg-[#F8F5F0] p-6 rounded-lg shadow-md mb-8 sticky top-4">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-6 border-b border-[#0F4C81]/20 pb-3">
-                  Plan Your Sigiriya Experience
-                </h3>
+              {/* Essential Information */}
+              <div className="bg-[#F9F7F4] p-6 rounded-xl shadow-sm mb-8 sticky top-4">
+                <h3 className="font-['Playfair_Display'] text-xl font-bold mb-6 text-gray-900">Essential Information</h3>
                 
-                <div className="mb-6">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-[#333333]/90 font-medium">Private Tour</span>
-                    <span className="text-2xl font-normal text-[#0F4C81]">$79</span>
-                  </div>
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-[#333333]/90 font-medium">With Expert Guide</span>
-                    <span className="text-2xl font-normal text-[#0F4C81]">$149</span>
-                  </div>
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-[#333333]/90 font-medium">Luxury Package</span>
-                    <span className="text-2xl font-normal text-[#0F4C81]">$299</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-4 mb-6">
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-3">
-                      <i className="fas fa-check text-sm text-[#0F4C81]"></i>
+                <div className="space-y-5">
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                      <i className="fas fa-calendar text-lg"></i>
                     </div>
-                    <p className="text-[#333333]/80 text-sm">Skip-the-line entrance tickets</p>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-3">
-                      <i className="fas fa-check text-sm text-[#0F4C81]"></i>
-                    </div>
-                    <p className="text-[#333333]/80 text-sm">Luxury transportation</p>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-3">
-                      <i className="fas fa-check text-sm text-[#0F4C81]"></i>
-                    </div>
-                    <p className="text-[#333333]/80 text-sm">Expert local guide</p>
-                  </div>
-                </div>
-                
-                <Link href="/contact" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-6 rounded-md transition block text-center">
-                  Inquire About Availability
-                </Link>
-              </div>
-              
-              {/* Weather Information */}
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm mb-8">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-4">
-                  Weather at Sigiriya
-                </h3>
-                
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    <i className="fas fa-sun text-2xl text-yellow-500 mr-3"></i>
                     <div>
-                      <p className="text-lg font-medium">28°C</p>
-                      <p className="text-sm text-[#333333]/70">Average high</p>
+                      <h4 className="font-semibold text-gray-900">Best Time to Visit</h4>
+                      <p className="text-gray-600">December to April, during the dry season</p>
                     </div>
                   </div>
                   
-                  <div className="text-right">
-                    <p className="text-lg font-medium">22°C</p>
-                    <p className="text-sm text-[#333333]/70">Average low</p>
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                      <i className="fas fa-clock text-lg"></i>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Recommended Duration</h4>
+                      <p className="text-gray-600">4-5 hours</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                      <i className="fas fa-sun text-lg"></i>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Weather</h4>
+                      <p className="text-gray-600">Hot and humid with temperatures ranging from 22-32°C year-round</p>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Lion Gate
+                      </span>
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Ancient Frescoes
+                      </span>
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Mirror Wall
+                      </span>
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Summit Views
+                      </span>
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Water Gardens
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Travel Tips</h4>
+                    <ul className="list-disc list-inside text-gray-600 space-y-1">
+                      <li>Start your climb early morning (opens at 7 AM)</li>
+                      <li>Bring water and wear comfortable shoes</li>
+                      <li>Allow 3-4 hours for the full experience</li>
+                      <li>Consider hiring a guide for historical context</li>
+                    </ul>
                   </div>
                 </div>
                 
-                <p className="text-sm text-[#333333]/80 mb-2">
-                  <strong>Dry Season:</strong> December to April
-                </p>
-                <p className="text-sm text-[#333333]/80">
-                  <strong>Monsoon Season:</strong> May to November
-                </p>
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <Link 
+                    href="/custom-tour-request" 
+                    className="block w-full bg-[#0F4C81] hover:bg-[#0D3E6A] text-white font-medium py-3 px-6 rounded-lg text-center transition"
+                  >
+                    Create Custom Tour
+                  </Link>
+                  <Link 
+                    href="/contact" 
+                    className="block w-full bg-white border border-[#0F4C81] text-[#0F4C81] hover:bg-[#F9F7F4] font-medium py-3 px-6 rounded-lg text-center mt-3 transition"
+                  >
+                    Ask a Question
+                  </Link>
+                </div>
               </div>
               
               {/* Location Information */}
