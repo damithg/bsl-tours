@@ -500,20 +500,12 @@ const SigiriyaTemplate = () => {
               </div>
               <div className="p-6">
                 <h3 className="font-bold text-xl mb-2">Sunrise at Pidurangala</h3>
-                <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">3 Hours</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Active</span>
-                </div>
                 <p className="text-[#333333]/80 mb-4">
                   Climb Pidurangala Rock for the most breathtaking views of Sigiriya and the surrounding landscapes at dawn.
                 </p>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $45</span>
-                    <span className="text-sm text-[#333333]/70">/person</span>
-                  </div>
-                  <Link href="/experiences/sunrise-pidurangala" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
+                <div className="text-right">
+                  <Link href="/experiences/sunrise-pidurangala" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center justify-end ml-auto">
+                    Book this experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
@@ -533,20 +525,12 @@ const SigiriyaTemplate = () => {
               </div>
               <div className="p-6">
                 <h3 className="font-bold text-xl mb-2">Minneriya Safari</h3>
-                <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">4 Hours</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Wildlife</span>
-                </div>
                 <p className="text-[#333333]/80 mb-4">
                   Experience one of Asia's most spectacular wildlife gatherings with hundreds of elephants in their natural habitat.
                 </p>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $85</span>
-                    <span className="text-sm text-[#333333]/70">/person</span>
-                  </div>
-                  <Link href="/experiences/minneriya-safari" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
+                <div className="text-right">
+                  <Link href="/experiences/minneriya-safari" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center justify-end ml-auto">
+                    Book this experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
@@ -566,20 +550,12 @@ const SigiriyaTemplate = () => {
               </div>
               <div className="p-6">
                 <h3 className="font-bold text-xl mb-2">Village Cycling Tour</h3>
-                <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">3 Hours</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Cultural</span>
-                </div>
                 <p className="text-[#333333]/80 mb-4">
                   Cycle through rural villages, meet locals, and experience authentic rural life in the shadow of Sigiriya rock.
                 </p>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $35</span>
-                    <span className="text-sm text-[#333333]/70">/person</span>
-                  </div>
-                  <Link href="/experiences/village-cycling-tour" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
+                <div className="text-right">
+                  <Link href="/experiences/village-cycling-tour" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center justify-end ml-auto">
+                    Book this experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
