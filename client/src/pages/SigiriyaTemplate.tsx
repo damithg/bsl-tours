@@ -67,6 +67,19 @@ const SigiriyaTemplate = () => {
                 <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#0F4C81] mb-8">
                   Step Into a Lost Kingdom
                 </h2>
+                
+                {/* Featured Image - Main View */}
+                <div className="rounded-lg overflow-hidden shadow-xl mb-8">
+                  <img 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg" 
+                    alt="Sigiriya Rock Fortress" 
+                    className="w-full h-auto" 
+                  />
+                  <div className="bg-[#F8F5F0] p-4 text-center">
+                    <p className="text-[#333333]/80 italic">The majestic Sigiriya Rock Fortress rises 200 meters above the surrounding plains</p>
+                  </div>
+                </div>
+                
                 <p className="text-lg text-[#333333]/90 mb-6 leading-relaxed">
                   Imagine standing at the foot of a towering rock that rises straight out of the jungle — 200 meters high — with ancient lion paws guarding the entrance. This isn't just a rock. This is Sigiriya, the heart of a forgotten kingdom, carved with ambition, mystery, and breathtaking artistry.
                 </p>
@@ -86,7 +99,7 @@ const SigiriyaTemplate = () => {
                     className="w-full h-auto" 
                   />
                   <div className="bg-[#F8F5F0] p-4 text-center">
-                    <p className="text-[#333333]/80 italic">Sigiriya Frescoes</p>
+                    <p className="text-[#333333]/80 italic">Sigiriya's ancient frescoes depict celestial maidens, preserved for over 1,500 years</p>
                   </div>
                 </div>
                 
@@ -197,18 +210,6 @@ const SigiriyaTemplate = () => {
                         <span>Photography Highlight</span>
                       </div>
                     </div>
-                  </div>
-                </div>
-                
-                {/* Featured Image - Summit View */}
-                <div className="rounded-lg overflow-hidden shadow-xl mb-12">
-                  <img 
-                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg" 
-                    alt="Summit view from Sigiriya" 
-                    className="w-full h-auto" 
-                  />
-                  <div className="bg-[#F8F5F0] p-4 text-center">
-                    <p className="text-[#333333]/80 italic">Summit view from Sigiriya</p>
                   </div>
                 </div>
                 
