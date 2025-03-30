@@ -137,13 +137,11 @@ const DestinationDetail = () => {
   // Log the API URL for debugging
   console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations/${isNumeric ? destinationId : destinationSlug}`);
   
-  // Parse additional data from JSON strings
-  const highlights = destination?.highlights 
-    ? (typeof destination.highlights === 'string' 
-        ? safeJsonParse(destination.highlights, []) 
-        : destination.highlights)
-    : [];
-    
+  // If we have destination data, log it for debugging
+  if (destination) {
+    console.log('Full destination data received:', destination);
+  }
+  
   // Default experiences to use when none are provided by the API
   const defaultExperiences = [
     {
@@ -167,26 +165,34 @@ const DestinationDetail = () => {
       icon: "coffee-art"
     }
   ];
+
+  // Parse additional data with better debug information
+  const highlights = parseJsonSafely(
+    destination?.highlights, 
+    [], 
+    'highlights'
+  );
   
-  // Parse experiences from different API properties using bracket notation to avoid TypeScript errors
-  // This handles any property name that might be present in the API response
-  const experiences = destination && 'featuredExperiences' in destination 
-    ? safeJsonParse(destination['featuredExperiences'] as string, defaultExperiences)
-    : destination && 'localExperiences' in destination 
-      ? safeJsonParse(destination['localExperiences'] as string, defaultExperiences)
+  // Parse experiences from different API properties with debugging labels
+  const experiences = destination?.featuredExperiences
+    ? parseJsonSafely(destination.featuredExperiences, defaultExperiences, 'featuredExperiences')
+    : destination?.localExperiences
+      ? parseJsonSafely(destination.localExperiences, defaultExperiences, 'localExperiences')
       : defaultExperiences;
       
-  // Parse related tours data using bracket notation to avoid TypeScript errors
-  const relatedTours = destination && 'relatedTours' in destination
-    ? safeJsonParse(destination['relatedTours'] as string, [])
-    : destination && 'toursFeaturing' in destination
-      ? safeJsonParse(destination['toursFeaturing'] as string, [])
+  // Parse related tours data with debugging labels
+  const relatedTours = destination?.relatedTours
+    ? parseJsonSafely(destination.relatedTours, [], 'relatedTours')
+    : destination?.toursFeaturing
+      ? parseJsonSafely(destination.toursFeaturing, [], 'toursFeaturing')
       : [];
     
-  // Parse gallery data
-  const galleryImages = destination?.galleryImages 
-    ? safeJsonParse(destination.galleryImages, [])
-    : [];
+  // Parse gallery data with debugging label
+  const galleryImages = parseJsonSafely(
+    destination?.galleryImages, 
+    [], 
+    'galleryImages'
+  );
     
   // Determine if we have API-provided gallery images
   const hasApiGalleryImages = galleryImages && galleryImages.length > 0;
@@ -250,8 +256,28 @@ const DestinationDetail = () => {
     hasEssentialInfo: !!destination.essentialInfo,
   });
   
+  // Enhanced destination object with all needed properties
+  // We'll make sure the destination has all properties needed by the template
+  const enhancedDestination = {
+    ...destination,
+    // Ensure these properties exist even if null
+    address: destination.address || null,
+    bestTimeToVisit: destination.bestTimeToVisit || null,
+    recommendedDuration: destination.recommendedDuration || null,
+    weatherInfo: destination.weatherInfo || null,
+    // Enhanced template properties
+    detailedSections: destination.detailedSections || null,
+    pointsOfInterest: destination.pointsOfInterest || null,
+    toursFeaturing: destination.toursFeaturing || null,
+    localExperiences: destination.localExperiences || null,
+    galleryImages: destination.galleryImages || null,
+    faqs: destination.faqs || null,
+    essentialInfo: destination.essentialInfo || null,
+    nearbyAttractions: destination.nearbyAttractions || null,
+  };
+  
   // Always use the enhanced template UI for all destinations
-  return <EnhancedDestinationTemplate destination={destination} />;
+  return <EnhancedDestinationTemplate destination={enhancedDestination} />;
 };
 
 export default DestinationDetail;

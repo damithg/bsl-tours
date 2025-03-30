@@ -2,18 +2,44 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 /**
- * Safely parses a JSON string and returns the parsed data or a fallback value
+ * Safely handles JSON data which might be a string that needs parsing
+ * or an already parsed object
  * 
- * @param jsonString The JSON string to parse
- * @param fallback The fallback value to return if parsing fails
+ * @param data The input data which could be a JSON string, parsed object, or null/undefined
+ * @param fallback The fallback value to return if parsing fails or data is absent
+ * @param debugLabel Optional label for debugging
  * @returns The parsed JSON object or the fallback value
  */
-export function parseJsonSafely<T>(jsonString: string | null | undefined, fallback: T): T {
-  if (!jsonString) return fallback;
+export function parseJsonSafely<T>(
+  data: string | object | null | undefined, 
+  fallback: T, 
+  debugLabel?: string
+): T {
+  // Return fallback if data is absent
+  if (data === null || data === undefined) {
+    if (debugLabel) console.log(`[${debugLabel}] No data provided, using fallback`);
+    return fallback;
+  }
+  
   try {
-    return JSON.parse(jsonString) as T;
+    // If it's already an object (not a string), return it
+    if (typeof data === 'object') {
+      if (debugLabel) console.log(`[${debugLabel}] Data is already an object:`, data);
+      return data as unknown as T;
+    }
+    
+    // Try to parse the string
+    if (typeof data === 'string') {
+      if (debugLabel) console.log(`[${debugLabel}] Parsing string data`);
+      return JSON.parse(data) as T;
+    }
+    
+    // For any other type, log and return fallback
+    if (debugLabel) console.log(`[${debugLabel}] Unexpected data type:`, typeof data);
+    return fallback;
   } catch (error) {
-    console.error("Error parsing JSON:", error);
+    console.error(`Error parsing JSON${debugLabel ? ` [${debugLabel}]` : ''}:`, error);
+    console.log(`Data that failed to parse${debugLabel ? ` [${debugLabel}]` : ''}:`, data);
     return fallback;
   }
 }
