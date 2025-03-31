@@ -32,7 +32,9 @@ public class StrapiService :IStrapiService
 
     public async Task<List<DestinationDto>> GetDestinationsAsync()
     {
-        var response = await _httpClient.GetAsync("/api/destinations?populate=*");
+        var query = StrapiQueryBuilder.GetAllDestinationsQuery();
+
+        var response = await _httpClient.GetAsync(query);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync();
@@ -41,23 +43,9 @@ public class StrapiService :IStrapiService
         return strapiResponse?.Data ?? new List<DestinationDto>();
     }
 
-
-
     public async Task<DestinationDto?> GetDestinationBySlugAsync(string slug)
     {
-        var query =
-            $"/api/destinations?filters[slug][$eq]={slug}" +
-            "&populate[overview][populate][image]=true" +
-            "&populate[subSections][populate][image]=true" +
-            "&populate[heroImage]=true" +
-            "&populate[featuresSection][populate][items][populate][image]=true" +
-            "&populate[galleryImages]=true" +
-            "&populate[faqs]=true" +
-            "&populate[quoteBlock]=true" +
-            "&populate[videoBlock]=true" +
-            "&populate[relatedTours][populate][image]=true" +
-            "&populate[nearbyAttractions][populate][image]=true" +
-            "&populate[essentialInfo]=true";
+        var query = "/api/" + StrapiQueryBuilder.GetBySlugQuery(slug);
 
         var response = await _httpClient.GetAsync(query);
         response.EnsureSuccessStatusCode();
@@ -68,9 +56,43 @@ public class StrapiService :IStrapiService
         return strapiResponse?.Data?.FirstOrDefault();
     }
 
+
 }
 
 public class StrapiResponse<T>
 {
     public T Data { get; set; }
+}
+
+
+
+public static class StrapiQueryBuilder
+{
+    public static string GetDestinationPopulateQuery()
+    {
+        // Fully working hardcoded populate structure based on successful test
+        return string.Join("",
+            "?populate[overview][populate][image]=true",
+            "&populate[subSections][populate][image]=true",
+            "&populate[heroImage]=true",
+            "&populate[featuresSection][populate][items][populate][image]=true",
+            "&populate[galleryImages]=true",
+            "&populate[faqs]=true",
+            "&populate[quoteBlock]=true",
+            "&populate[videoBlock]=true",
+            "&populate[relatedTours][populate][image]=true",
+            "&populate[nearbyAttractions][populate][image]=true",
+            "&populate[essentialInfo]=true"
+        );
+    }
+
+    public static string GetBySlugQuery(string slug)
+    {
+        return $"/api/destinations?filters[slug][$eq]={Uri.EscapeDataString(slug)}" + GetDestinationPopulateQuery();
+    }
+
+    public static string GetAllDestinationsQuery()
+    {
+        return "/api/destinations" + GetDestinationPopulateQuery();
+    }
 }
