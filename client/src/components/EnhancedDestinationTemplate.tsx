@@ -664,94 +664,168 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                 </div>
               )}
               
-              {/* Photo Gallery - Use fallback if needed */}
-              {(galleryImages.length > 0 || hardcodedGalleryImages.length > 0) && (
-                <div className="mt-12 mb-16">
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81]">
-                      Photo Gallery
-                    </h2>
-                  </div>
-                  <AsymmetricalGallery 
-                    images={galleryImages.length > 0 ? galleryImages : hardcodedGalleryImages} 
-                  />
-                </div>
-              )}
-              
-              {/* Local Experiences - Use fallback if needed */}
-              {(localExperiences.length > 0 || hardcodedLocalExperiences.length > 0) && (
-                <div className="mt-12 mb-16">
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81]">
-                      Local Experiences
-                    </h2>
-                    <Link href="/experiences" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
-                      View All <ChevronRight className="w-4 h-4" />
-                    </Link>
-                  </div>
+            </div>
+            
+            {/* Right Column - Sidebar */}
+            <div className="lg:col-span-1">
+              {/* Essential Information Card */}
+              <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden mb-8">
+                <div className="p-6">
+                  <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-4">
+                    Essential Information
+                  </h3>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {(localExperiences.length > 0 ? localExperiences : hardcodedLocalExperiences).map((experience, index) => (
-                      <div 
-                        key={`exp-${experience.id || index}`}
-                        className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
+                  {/* Best Time to Visit */}
+                  {destination.bestTimeToVisit && (
+                    <div className="mb-4">
+                      <p className="font-semibold text-gray-800 mb-1">Best Time to Visit</p>
+                      <p className="text-gray-600">{destination.bestTimeToVisit}</p>
+                    </div>
+                  )}
+                  
+                  {/* Recommended Duration */}
+                  {destination.recommendedDuration && (
+                    <div className="mb-4">
+                      <p className="font-semibold text-gray-800 mb-1">Recommended Duration</p>
+                      <p className="text-gray-600">{destination.recommendedDuration}</p>
+                    </div>
+                  )}
+                  
+                  {/* Getting Here */}
+                  {essentialInfo.gettingThere && (
+                    <div className="mb-4">
+                      <p className="font-semibold text-gray-800 mb-1">Getting Here</p>
+                      <p className="text-gray-600">{essentialInfo.gettingThere}</p>
+                    </div>
+                  )}
+                  
+                  {/* Nearby Attractions */}
+                  {nearbyAttractions && nearbyAttractions.length > 0 && (
+                    <div className="mb-4">
+                      <p className="font-semibold text-gray-800 mb-1">Nearby Attractions</p>
+                      <ul className="list-disc list-inside text-gray-600">
+                        {nearbyAttractions.map((attraction, index) => (
+                          <li key={`attraction-${index}`} className="mb-2">
+                            <span className="font-medium">{attraction.name}</span>
+                            {attraction.distance && ` - ${attraction.distance} away`}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Photo Gallery Section - Full Width */}
+      {(galleryImages.length > 0 || hardcodedGalleryImages.length > 0) && (
+        <section className="py-12 bg-white border-t border-gray-100">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center mb-10">
+              <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81]">
+                Photo Gallery
+              </h2>
+              <div className="flex items-center gap-2 text-[#0F4C81]">
+                <Camera className="w-5 h-5" />
+                <span className="font-medium">{galleryImages.length > 0 ? galleryImages.length : hardcodedGalleryImages.length} Photos</span>
+              </div>
+            </div>
+            <AsymmetricalGallery 
+              images={galleryImages.length > 0 ? galleryImages : hardcodedGalleryImages} 
+            />
+          </div>
+        </section>
+      )}
+      
+      {/* Local Experiences Section */}
+      {(localExperiences.length > 0 || hardcodedLocalExperiences.length > 0) && (
+        <section className="py-12 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center mb-10">
+              <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81]">
+                Local Experiences
+              </h2>
+              <Link href="/experiences" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
+                View All <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(localExperiences.length > 0 ? localExperiences : hardcodedLocalExperiences).map((experience, index) => (
+                <div 
+                  key={`exp-${experience.id || index}`}
+                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={experience.imageUrl} 
+                      alt={experience.title} 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">{experience.title}</h3>
+                    <p className="text-gray-600 mb-4">
+                      {experience.description}
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span className="font-semibold text-[#0F4C81]">
+                        {experience.price ? `$${experience.price}` : "Price on request"}
+                      </span>
+                      <a 
+                        href={experience.bookingUrl || "#"} 
+                        className="text-[#0F4C81] font-medium hover:text-[#D4AF37]"
                       >
-                        <div className="relative h-48 overflow-hidden">
-                          <img 
-                            src={experience.imageUrl} 
-                            alt={experience.title} 
-                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
-                          />
-                        </div>
-                        <div className="p-6">
-                          <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">{experience.title}</h3>
-                          <p className="text-gray-600 mb-4">
-                            {experience.description}
-                          </p>
-                          <div className="flex justify-between items-center">
-                            <span className="font-semibold text-[#0F4C81]">
-                              {experience.price ? `$${experience.price}` : "Price on request"}
-                            </span>
-                            <a 
-                              href={experience.bookingUrl || "#"} 
-                              className="text-[#0F4C81] font-medium hover:text-[#D4AF37]"
-                            >
-                              Book This Experience
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                        Book This Experience
+                      </a>
+                    </div>
                   </div>
                 </div>
-              )}
-              
-              {/* FAQs Section - Enhanced with details/summary from Sigiriya Template */}
-              {(faqs.length > 0 || hardcodedFaqs.length > 0) && (
-                <div className="mt-12 mb-16">
-                  <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
-                    Frequently Asked Questions
-                  </h2>
-                  
-                  <div className="space-y-4">
-                    {(faqs.length > 0 ? faqs : hardcodedFaqs).map((faq, index) => (
-                      <div key={`faq-${index}`} className="bg-[#F9F7F4] rounded-xl overflow-hidden">
-                        <details className="group">
-                          <summary className="flex justify-between items-center p-6 cursor-pointer">
-                            <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
-                              {faq.question}
-                            </h3>
-                            <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
-                          </summary>
-                          <div className="px-6 pb-6 text-gray-600">
-                            <p>{faq.answer}</p>
-                          </div>
-                        </details>
-                      </div>
-                    ))}
-                  </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+      
+      {/* FAQs Section */}
+      {(faqs.length > 0 || hardcodedFaqs.length > 0) && (
+        <section className="py-12 bg-gray-50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-10 text-center">
+              Frequently Asked Questions
+            </h2>
+            
+            <div className="max-w-3xl mx-auto space-y-6">
+              {(faqs.length > 0 ? faqs : hardcodedFaqs).map((faq, index) => (
+                <div key={`faq-${index}`} className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                  <details className="group">
+                    <summary className="flex justify-between items-center p-6 cursor-pointer">
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                        {faq.question}
+                      </h3>
+                      <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                    </summary>
+                    <div className="px-6 pb-6 text-gray-600">
+                      <p>{faq.answer}</p>
+                    </div>
+                  </details>
                 </div>
-              )}
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+      
+      {/* Main Content Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Left Column - Main Content */}
+            <div className="lg:col-span-2">
+              {/* Content will be placed here */}
             </div>
             
             {/* Right Column - Sidebar */}
