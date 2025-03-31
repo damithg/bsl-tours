@@ -513,34 +513,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                   </div>
                 )}
                 
-                {/* Additional Detailed Sections */}
-                {finalDetailedSections && finalDetailedSections.length > 1 && finalDetailedSections.slice(1).map((section, index) => (
-                  <div key={`section-${index}`} className="mt-12">
-                    <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-4">
-                      {section.title}
-                    </h3>
-                    <p className="text-lg text-[#333333]/90 mb-8 leading-relaxed">
-                      {section.content}
-                    </p>
-                    
-                    {section.imageUrl && (
-                      <div className="rounded-lg overflow-hidden shadow-xl mb-12">
-                        <img 
-                          src={section.imageUrl} 
-                          alt={section.title} 
-                          className="w-full h-auto" 
-                        />
-                        {section.imageCaption && (
-                          <div className="bg-[#F8F5F0] p-4 text-center">
-                            <p className="text-[#333333]/80 italic">{section.imageCaption}</p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                
-                {/* Points of Interest */}
+                {/* Points of Interest - Move this before the second subsection */}
                 {pointsOfInterest && pointsOfInterest.length > 0 && (
                   <div className="mt-12">
                     <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
@@ -578,6 +551,33 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                         </div>
                       ))}
                     </div>
+                  </div>
+                )}
+                
+                {/* Second Subsection - Display after the Points of Interest */}
+                {finalDetailedSections && finalDetailedSections.length > 1 && (
+                  <div className="mt-12">
+                    <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-4">
+                      {finalDetailedSections[1].title}
+                    </h3>
+                    <p className="text-lg text-[#333333]/90 mb-8 leading-relaxed">
+                      {finalDetailedSections[1].content}
+                    </p>
+                    
+                    {finalDetailedSections[1].imageUrl && (
+                      <div className="rounded-lg overflow-hidden shadow-xl mb-12">
+                        <img 
+                          src={finalDetailedSections[1].imageUrl} 
+                          alt={finalDetailedSections[1].title} 
+                          className="w-full h-auto" 
+                        />
+                        {finalDetailedSections[1].imageCaption && (
+                          <div className="bg-[#F8F5F0] p-4 text-center">
+                            <p className="text-[#333333]/80 italic">{finalDetailedSections[1].imageCaption}</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
