@@ -4,34 +4,26 @@ import { Home, ChevronRight, Calendar, Users, Camera, ChevronDown } from "lucide
 import { AsymmetricalGallery, GalleryImage } from "@/components/AsymmetricalGallery";
 import { parseJsonSafely } from "@/lib/utils";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { Destination as ApiDestination } from "@/lib/queryClient";
 
-// We define our own Destination interface to ensure it matches what we need for the template
-interface Destination {
+// We'll use the ApiDestination interface directly, but add a new interface for our component props
+// This avoids type conflicts between the backend and frontend interfaces
+interface EnhancedDestinationProps {
+  // Core properties
   id: number;
   name: string;
-  description: string;
-  imageUrl: string;
-  featured?: boolean | null;
-  slug?: string | null;
-  shortDescription?: string | null;
-  highlights?: string | null;
-  bestTimeToVisit?: string | null;
-  recommendedDuration?: string | null;
-  weatherInfo?: string | null;
-  address?: string | null;
-  latitude?: string | null;
-  longitude?: string | null;
-  region?: string | null;
-  // Enhanced template fields
-  detailedSections?: string | null;
-  pointsOfInterest?: string | null;
-  toursFeaturing?: string | null;
-  localExperiences?: string | null;
-  galleryImages?: string | null | any[];
-  faqs?: string | null;
-  essentialInfo?: string | null;
-  nearbyAttractions?: string | null;
-  // Allow any additional properties
+  slug: string;
+  description?: string; // Will be populated from overview.fullDescription if missing
+  imageUrl?: string | null; // Will be populated from heroImage.publicId if missing
+  featured: boolean;
+  // Other properties needed by the template
+  essentialInfo?: ApiDestination['essentialInfo'];
+  overview?: ApiDestination['overview'];
+  heroImage?: ApiDestination['heroImage'];
+  galleryImages?: ApiDestination['galleryImages'];
+  nearbyAttractions?: ApiDestination['nearbyAttractions'];
+  faqs?: ApiDestination['faqs'];
+  // Allow any additional properties from the destination
   [key: string]: any;
 }
 
@@ -88,18 +80,147 @@ interface FAQ {
 }
 
 interface EnhancedDestinationTemplateProps {
-  destination: Destination;
+  destination: EnhancedDestinationProps;
 }
 
 export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplateProps> = ({ destination }) => {
+  // Ensure description is populated - use overview.fullDescription if available
+  if (!destination.description && destination.overview?.fullDescription) {
+    destination.description = destination.overview.fullDescription;
+  }
+  
+  // Ensure imageUrl is populated - use heroImage.publicId through Cloudinary if available
+  if (!destination.imageUrl && destination.heroImage?.publicId) {
+    destination.imageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.heroImage.publicId}`;
+  }
+  
+  // Convert subSections to DetailedSections format
+  const apiDetailedSections: DetailedSection[] = [];
+  
+  if (destination.overview) {
+    apiDetailedSections.push({
+      title: destination.overview.title,
+      content: destination.overview.fullDescription,
+      imageUrl: destination.heroImage ? 
+        `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.heroImage.publicId}` :
+        undefined,
+      imageCaption: destination.heroImage?.caption
+    });
+  }
+  
+  if (destination.subSections && destination.subSections.length > 0) {
+    destination.subSections.forEach((section: { title: string; fullDescription: string }) => {
+      apiDetailedSections.push({
+        title: section.title,
+        content: section.fullDescription,
+        // You can add image handling here when sub-sections have images
+      });
+    });
+  }
+  
+  // Convert featureSection.items to PointsOfInterest format
+  const apiPointsOfInterest: PointOfInterest[] = [];
+  
+  if (destination.featuresSection?.items && destination.featuresSection.items.length > 0) {
+    destination.featuresSection.items.forEach((item: { 
+      title: string; 
+      description: string;
+      image?: { publicId: string; alt: string; } 
+    }) => {
+      apiPointsOfInterest.push({
+        title: item.title,
+        description: item.description,
+        imageUrl: item.image ? 
+          `https://res.cloudinary.com/drsjp6bqz/image/upload/${item.image.publicId}` :
+          "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/sigiriya-entrance_kqntzk.jpg",
+        tag: 'Featured',
+        iconLabel: 'Key Attraction'
+      });
+    });
+  }
+  
+  // Convert API relatedTours to TourFeature format
+  const apiToursFeaturing: TourFeature[] = [];
+  
+  if (destination.relatedTours && destination.relatedTours.length > 0) {
+    destination.relatedTours.forEach((tour: {
+      id: number;
+      name: string;
+      slug: string;
+      duration: string;
+      startingFrom: number;
+    }) => {
+      apiToursFeaturing.push({
+        id: tour.id,
+        title: tour.name,
+        slug: tour.slug,
+        imageUrl: `https://res.cloudinary.com/drsjp6bqz/image/upload/tours/${tour.slug}`,  // Placeholder URL
+        duration: tour.duration,
+        maxPeople: 12,  // Default value
+        price: tour.startingFrom,
+        isBestSeller: false
+      });
+    });
+  }
+  
+  // Convert API galleryImages to GalleryImage format
+  const apiGalleryImages: GalleryImage[] = [];
+  
+  if (destination.galleryImages && destination.galleryImages.length > 0) {
+    destination.galleryImages.forEach((img: {
+      id: number;
+      publicId: string;
+      alt: string;
+      caption?: string;
+      orientation?: string;
+    }) => {
+      apiGalleryImages.push({
+        publicId: img.publicId,
+        alt: img.alt,
+        caption: img.caption,
+        orientation: img.orientation || 'landscape',
+        baseUrl: `https://res.cloudinary.com/drsjp6bqz/image/upload/${img.publicId}`,
+        small: `https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/${img.publicId}`,
+        medium: `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/${img.publicId}`, 
+        large: `https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/${img.publicId}`
+      });
+    });
+  }
+  
+  // Use the new API FAQs structure directly if it exists
+  const apiFaqs: FAQ[] = destination.faqs && destination.faqs.length > 0 ? 
+    destination.faqs.map((faq: { id: number; question: string; answer: string }) => ({
+      question: faq.question,
+      answer: faq.answer
+    })) : [];
+  
+  // Convert API nearbyAttractions to our format
+  const apiNearbyAttractions: NearbyAttraction[] = destination.nearbyAttractions && Array.isArray(destination.nearbyAttractions) ? 
+    destination.nearbyAttractions.map((attraction: {
+      id: number;
+      name: string;
+      description: string;
+      distance?: string;
+      travelTime?: string;
+    }) => ({
+      name: attraction.name,
+      description: attraction.description,
+      distance: attraction.distance,
+      travelTime: attraction.travelTime,
+    })) : [];
+  
+  // Create essentialInfo from API data
+  const apiEssentialInfo = destination.essentialInfo || {};
+  
+  // Legacy parsing for backward compatibility
   // Parse JSON data from the destination with better debugging
-  const pointsOfInterest = parseJsonSafely<PointOfInterest[]>(
+  const parsedPointsOfInterest = parseJsonSafely<PointOfInterest[]>(
     destination.pointsOfInterest, 
     [], 
     'template-pointsOfInterest'
   );
   
-  const detailedSections = parseJsonSafely<DetailedSection[]>(
+  const parsedDetailedSections = parseJsonSafely<DetailedSection[]>(
     destination.detailedSections, 
     [], 
     'template-detailedSections'
@@ -111,35 +232,63 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
     'template-localExperiences'
   );
   
-  const nearbyAttractions = parseJsonSafely<NearbyAttraction[]>(
+  const parsedNearbyAttractions = parseJsonSafely<NearbyAttraction[]>(
     destination.nearbyAttractions, 
     [], 
     'template-nearbyAttractions'
   );
   
-  const toursFeaturing = parseJsonSafely<TourFeature[]>(
+  const parsedToursFeaturing = parseJsonSafely<TourFeature[]>(
     destination.toursFeaturing, 
     [], 
     'template-toursFeaturing'
   );
   
-  const galleryImages = parseJsonSafely<GalleryImage[]>(
+  const parsedGalleryImages = parseJsonSafely<GalleryImage[]>(
     destination.galleryImages, 
     [], 
     'template-galleryImages'
   );
   
-  const faqs = parseJsonSafely<FAQ[]>(
+  const parsedFaqs = parseJsonSafely<FAQ[]>(
     destination.faqs, 
     [], 
     'template-faqs'
   );
   
-  const essentialInfo = parseJsonSafely<{gettingThere?: string; travelTips?: string}>(
+  // Define a type for essential info to avoid TypeScript errors
+  interface EssentialInfoType {
+    id?: number;
+    gettingThere?: string;
+    bestTimeToVisit?: string;
+    entryRequirements?: string;
+    localCuisine?: string;
+    travelTips?: string;
+    [key: string]: any;
+  }
+  
+  const parsedEssentialInfo = parseJsonSafely<EssentialInfoType>(
     destination.essentialInfo, 
-    {}, 
+    { 
+      gettingThere: '',
+      travelTips: '',
+      bestTimeToVisit: '',
+      entryRequirements: '',
+      localCuisine: ''
+    }, 
     'template-essentialInfo'
   );
+  
+  // Combine both API and parsed data, prioritizing API data
+  const detailedSections = apiDetailedSections.length > 0 ? apiDetailedSections : parsedDetailedSections;
+  const pointsOfInterest = apiPointsOfInterest.length > 0 ? apiPointsOfInterest : parsedPointsOfInterest;
+  const toursFeaturing = apiToursFeaturing.length > 0 ? apiToursFeaturing : parsedToursFeaturing;
+  const galleryImages = apiGalleryImages.length > 0 ? apiGalleryImages : parsedGalleryImages;
+  const faqs = apiFaqs.length > 0 ? apiFaqs : parsedFaqs;
+  const nearbyAttractions = apiNearbyAttractions.length > 0 ? apiNearbyAttractions : parsedNearbyAttractions;
+  const essentialInfo: EssentialInfoType = Object.keys(apiEssentialInfo).length > 0 
+    ? apiEssentialInfo as EssentialInfoType 
+    : parsedEssentialInfo;
   
   // For debugging - add hard-coded fallback experiences when none are provided
   const hardcodedLocalExperiences: LocalExperience[] = [

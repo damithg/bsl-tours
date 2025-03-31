@@ -74,78 +74,131 @@ export interface ItineraryDay {
 }
 
 export interface Destination {
+  // Core properties
   id: number;
   name: string;
-  description: string;
-  imageUrl: string;
-  featured: boolean | null;
-  slug?: string | null;
-  shortDescription?: string | null;
-  excerpt?: string | null;
-  fullDescription?: string | null;
-  region?: string | null;
-  latitude?: string | null;
-  longitude?: string | null;
-  highlights?: string | null;
-  bestTimeToVisit?: string | null;
-  recommendedDuration?: string | null;
-  weatherInfo?: string | null;
-  travelTips?: string | null;
-  nearbyAttractions?: string | null;
-  transportOptions?: string[] | null;
-  category?: string | null;
-  tags?: string[] | null;
-  address?: string | null;
-  nearestAirport?: string | null;
-  metaTitle?: string | null;
-  metaDescription?: string | null;
-  metaKeywords?: string[] | null;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
+  slug: string;
+  excerpt?: string;
+  shortDescription?: string;
+  featured: boolean;
+  region?: string;
+  address?: string;
+  latitude?: string;
+  longitude?: string;
+  recommendedDuration?: string;
   
-  // Enhanced template properties
-  relatedTours?: string | null; // JSON string of related tours
-  featuredExperiences?: string | null; // JSON string of experiences  
-  detailedSections?: string | null; // JSON string of detailed content sections
-  pointsOfInterest?: string | null; // JSON string of points of interest
-  toursFeaturing?: string | null; // JSON string of tours featuring this destination
-  localExperiences?: string | null; // JSON string of local experiences
-  faqs?: string | null; // JSON string of FAQs (lowercase to match .NET)
-  essentialInfo?: string | null; // JSON string of essential travel information
-  templateType?: string | null; // Type of template to use for this destination
-  
-  // New features from .NET Core API
-  features?: Array<{
-    title: string;
-    description: string;
-    icon: string;
-    imageUrl?: string;
-  }> | null;
-  
-  // Gallery images now structured as objects
-  galleryImages?: Array<{
-    url: string;
-    alt: string;
-  }> | string | null; // Can be a JSON string or an array of objects
-  
-  // Activities as structured data
-  activities?: string | null;
-  
-  // FAQs as structured data (uppercase Q to match .NET API)
-  faQs?: Array<{
-    question: string;
-    answer: string;
-  }> | null;
+  // Metadata
+  documentId?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
   
   // Content sections
-  sections?: Array<{
-    type: string;
+  overview?: {
+    id: number;
     title: string;
-    content: string;
-    imageUrl?: string;
-  }> | null;
+    fullDescription: string;
+  };
   
-  experiences?: string | null;
+  subSections?: Array<{
+    id: number;
+    title: string;
+    fullDescription: string;
+  }>;
+  
+  // Features
+  featuresSection?: {
+    id: number;
+    title: string;
+    items?: Array<{
+      id: number;
+      title: string;
+      description: string;
+      image?: {
+        publicId: string;
+        alt: string;
+      };
+    }>;
+  };
+  
+  // Media
+  heroImage?: {
+    id: number;
+    publicId: string;
+    alt: string;
+    caption?: string;
+    orientation?: string;
+  };
+  
+  galleryImages?: Array<{
+    id: number;
+    publicId: string;
+    alt: string;
+    caption?: string;
+    orientation?: string;
+  }>;
+  
+  videoBlock?: {
+    id: number;
+    title: string;
+    videoUrl: string;
+    thumbnailUrl?: string;
+  };
+  
+  quoteBlock?: {
+    id: number;
+    quote: string;
+    author?: string;
+  };
+  
+  // Related content
+  relatedTours?: Array<{
+    id: number;
+    name: string;
+    slug: string;
+    summary: string;
+    duration: string;
+    startingFrom: number;
+    currency: string;
+    link: string;
+  }>;
+  
+  nearbyAttractions?: Array<{
+    id: number;
+    name: string;
+    description: string;
+    distance?: string;
+    travelTime?: string;
+  }>;
+  
+  // Additional information
+  essentialInfo?: {
+    id?: number;
+    gettingThere?: string;
+    bestTimeToVisit?: string;
+    entryRequirements?: string;
+    localCuisine?: string;
+    travelTips?: string;
+    [key: string]: any;
+  };
+  
+  faqs?: Array<{
+    id: number;
+    question: string;
+    answer: string;
+  }>;
+  
+  // Legacy properties for backward compatibility (essential for template)
+  description?: string;
+  imageUrl?: string;
+  bestTimeToVisit?: string;
+  weatherInfo?: string;
+  
+  // Legacy JSON string fields for backward compatibility
+  detailedSections?: string | null;
+  pointsOfInterest?: string | null;
+  toursFeaturing?: string | null;
+  localExperiences?: string | null;
   
   // Allow any additional properties returned by the API
   [key: string]: any;

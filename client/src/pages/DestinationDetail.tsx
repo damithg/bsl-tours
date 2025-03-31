@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { parseJsonSafely } from '@/lib/utils';
+import { Destination } from '@/lib/queryClient';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 import { AdaptiveImage } from '@/components/ui/adaptive-image';
 import { 
@@ -21,13 +22,15 @@ import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
 import { EnhancedDestinationTemplate } from '@/components/EnhancedDestinationTemplate';
 
 // Extended destination interface to handle all possible properties from the API
-interface Destination {
+// Use Destination interface from queryClient.ts
+// This local interface is just for component props/state
+interface LocalDestination {
   id: number;
   name: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string; // Make imageUrl optional to match the Destination interface
   featured: boolean | null;
-  slug?: string | null;
+  slug?: string;
   shortDescription?: string | null;
   excerpt?: string | null;
   fullDescription?: string | null;
@@ -128,14 +131,21 @@ const DestinationDetail = () => {
     };
   }, []);
   
-  // Fetch the destination data from the .NET API (directly, no 'slug' in path)
-  const { data: destination, error, isLoading } = useQuery<Destination>({
-    queryKey: ['/api/destinations', isNumeric ? `${destinationId}` : `${destinationSlug}`],
+  // Fetch destinations from the new API endpoint
+  // The API now returns an array of destinations - we need to filter for the one we want
+  const { data: destinationsData, error, isLoading } = useQuery<Destination[]>({
+    queryKey: ['/api/destinations'],
     enabled: !!paramValue,
   });
   
+  // Find the matching destination from the array
+  const destination = destinationsData?.find(dest => 
+    (isNumeric && dest.id === destinationId) || 
+    (!isNumeric && dest.slug === destinationSlug)
+  );
+  
   // Log the API URL for debugging
-  console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations/${isNumeric ? destinationId : destinationSlug}`);
+  console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations`);
   
   // If we have destination data, log it for debugging
   if (destination) {
@@ -257,24 +267,34 @@ const DestinationDetail = () => {
   });
   
   // Enhanced destination object with all needed properties
-  // We'll make sure the destination has all properties needed by the template
+  // Use type assertion to ensure compatibility with EnhancedDestinationTemplate
   const enhancedDestination = {
     ...destination,
-    // Ensure these properties exist even if null
-    address: destination.address || null,
-    bestTimeToVisit: destination.bestTimeToVisit || null,
-    recommendedDuration: destination.recommendedDuration || null,
-    weatherInfo: destination.weatherInfo || null,
-    // Enhanced template properties
-    detailedSections: destination.detailedSections || null,
-    pointsOfInterest: destination.pointsOfInterest || null,
-    toursFeaturing: destination.toursFeaturing || null,
-    localExperiences: destination.localExperiences || null,
-    galleryImages: destination.galleryImages || null,
-    faqs: destination.faqs || null,
-    essentialInfo: destination.essentialInfo || null,
-    nearbyAttractions: destination.nearbyAttractions || null,
-  };
+    // Make sure required properties exist
+    slug: destination.slug || "",
+    name: destination.name,
+    description: destination.overview?.fullDescription || destination.description || destination.excerpt || "",
+    featured: destination.featured || false,
+    // Ensure these properties exist but convert nulls to undefined for API compatibility
+    address: destination.address || undefined,
+    bestTimeToVisit: destination.bestTimeToVisit || undefined,
+    recommendedDuration: destination.recommendedDuration || undefined,
+    weatherInfo: destination.weatherInfo || undefined,
+    // Set imageUrl if not already present (will be added from heroImage in the component)
+    imageUrl: destination.imageUrl || destination.heroImage?.publicId ? 
+              `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.heroImage?.publicId}` : 
+              undefined,
+    // Enhanced template properties (these get processed in EnhancedDestinationTemplate)
+    // Convert nulls to undefined when passing to the component
+    detailedSections: destination.detailedSections || undefined,
+    pointsOfInterest: destination.pointsOfInterest || undefined,
+    toursFeaturing: destination.toursFeaturing || undefined,
+    localExperiences: destination.localExperiences || undefined,
+    galleryImages: destination.galleryImages || undefined,
+    faqs: destination.faqs || undefined,
+    essentialInfo: destination.essentialInfo || undefined,
+    nearbyAttractions: destination.nearbyAttractions || undefined,
+  } as any; // Use type assertion to avoid TypeScript errors
   
   // Always use the enhanced template UI for all destinations
   return <EnhancedDestinationTemplate destination={enhancedDestination} />;
