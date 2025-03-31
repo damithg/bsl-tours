@@ -934,55 +934,8 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
         </section>
       )}
       
-      {/* Local Experiences Section */}
-      {(localExperiences.length > 0 || hardcodedLocalExperiences.length > 0) && (
-        <section className="py-12 bg-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center mb-10">
-              <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81]">
-                Local Experiences
-              </h2>
-              <Link href="/experiences" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
-                View All <ChevronRight className="w-4 h-4" />
-              </Link>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {(localExperiences.length > 0 ? localExperiences : hardcodedLocalExperiences).map((experience, index) => (
-                <div 
-                  key={`exp-${experience.id || index}`}
-                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={experience.imageUrl} 
-                      alt={experience.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">{experience.title}</h3>
-                    <p className="text-gray-600 mb-4">
-                      {experience.description}
-                    </p>
-                    <div className="flex justify-between items-center">
-                      <span className="font-semibold text-[#0F4C81]">
-                        {experience.price ? `$${experience.price}` : "Price on request"}
-                      </span>
-                      <a 
-                        href={experience.bookingUrl || "#"} 
-                        className="text-[#0F4C81] font-medium hover:text-[#D4AF37]"
-                      >
-                        Book This Experience
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Local Experiences Section - Hidden until API provides data */}
+      {/* We're hiding this section until the API provides local experiences data */}
       
       {/* FAQs Section */}
       {(faqs.length > 0 || hardcodedFaqs.length > 0) && (
