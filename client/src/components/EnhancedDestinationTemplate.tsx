@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { Link } from "wouter";
-import { Home, ChevronRight, Calendar, Users, Camera, ChevronDown } from "lucide-react";
+import { Home, ChevronRight, Calendar, Users, Camera, ChevronDown, ChevronLeft } from "lucide-react";
 import { AsymmetricalGallery, GalleryImage } from "@/components/AsymmetricalGallery";
+import useEmblaCarousel from 'embla-carousel-react';
 import { parseJsonSafely } from "@/lib/utils";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { Destination as ApiDestination } from "@/lib/queryClient";
@@ -84,6 +85,39 @@ interface EnhancedDestinationTemplateProps {
 }
 
 export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplateProps> = ({ destination }) => {
+  // Set up Embla carousel for mobile 
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+  
+  // Initialize Embla Carousel
+  React.useEffect(() => {
+    if (!emblaApi) return;
+    
+    // Setup scrollsnaps for pagination
+    setScrollSnaps(emblaApi.scrollSnapList());
+    
+    // Add event listeners
+    emblaApi.on('select', onSelect);
+    onSelect();
+    
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi, onSelect]);
   // Ensure description is populated - use overview.fullDescription if available
   if (!destination.description && destination.overview?.fullDescription) {
     destination.description = destination.overview.fullDescription;
@@ -895,9 +929,67 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                 <span className="font-medium">{galleryImages.length > 0 ? galleryImages.length : hardcodedGalleryImages.length} Photos</span>
               </div>
             </div>
-            <AsymmetricalGallery 
-              images={galleryImages.length > 0 ? galleryImages : hardcodedGalleryImages} 
-            />
+            
+            {/* Desktop View: Asymmetrical Gallery */}
+            <div className="hidden md:block">
+              <AsymmetricalGallery 
+                images={galleryImages.length > 0 ? galleryImages : hardcodedGalleryImages} 
+              />
+            </div>
+            
+            {/* Mobile View: Embla Carousel */}
+            <div className="block md:hidden">
+              <div className="relative">
+                <div className="overflow-hidden" ref={emblaRef}>
+                  <div className="flex">
+                    {(galleryImages.length > 0 ? galleryImages : hardcodedGalleryImages).map((image, index) => (
+                      <div key={`carousel-${index}`} className="flex-[0_0_100%] min-w-0 relative">
+                        <div className="h-64 sm:h-80 relative">
+                          <img 
+                            src={image.medium || image.baseUrl}
+                            alt={image.alt}
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                          {image.caption && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white p-2 text-sm">
+                              {image.caption}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Navigation buttons */}
+                <button 
+                  onClick={scrollPrev} 
+                  className="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-100 rounded-full p-2 text-[#0F4C81] transition"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={scrollNext} 
+                  className="absolute top-1/2 right-2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-100 rounded-full p-2 text-[#0F4C81] transition"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                
+                {/* Pagination dots */}
+                <div className="flex justify-center mt-4">
+                  {(galleryImages.length > 0 ? galleryImages : hardcodedGalleryImages).map((_, index) => (
+                    <button
+                      key={`dot-${index}`}
+                      className={`mx-1 w-2 h-2 rounded-full ${selectedIndex === index ? 'bg-[#0F4C81]' : 'bg-gray-300'}`}
+                      onClick={() => emblaApi?.scrollTo(index)}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       )}
