@@ -94,6 +94,11 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   const [emblaFeaturesRef, emblaFeaturesApi] = useEmblaCarousel({ loop: true });
   const [featuresIndex, setFeaturesIndex] = useState(0);
   const [featuresSnaps, setFeaturesSnaps] = useState<number[]>([]);
+  
+  // Set up Embla carousel for mobile tours section
+  const [emblaTourRef, emblaTourApi] = useEmblaCarousel({ loop: true });
+  const [tourIndex, setTourIndex] = useState(0);
+  const [tourSnaps, setTourSnaps] = useState<number[]>([]);
 
   // Gallery carousel controls
   const onSelectGallery = useCallback(() => {
@@ -154,6 +159,36 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
       emblaFeaturesApi.off('select', onSelectFeatures);
     };
   }, [emblaFeaturesApi, onSelectFeatures]);
+  
+  // Tours carousel controls
+  const onSelectTour = useCallback(() => {
+    if (!emblaTourApi) return;
+    setTourIndex(emblaTourApi.selectedScrollSnap());
+  }, [emblaTourApi]);
+
+  const scrollPrevTour = useCallback(() => {
+    if (emblaTourApi) emblaTourApi.scrollPrev();
+  }, [emblaTourApi]);
+
+  const scrollNextTour = useCallback(() => {
+    if (emblaTourApi) emblaTourApi.scrollNext();
+  }, [emblaTourApi]);
+  
+  // Initialize Tours Carousel
+  React.useEffect(() => {
+    if (!emblaTourApi) return;
+    
+    // Setup scrollsnaps for pagination
+    setTourSnaps(emblaTourApi.scrollSnapList());
+    
+    // Add event listeners
+    emblaTourApi.on('select', onSelectTour);
+    onSelectTour();
+    
+    return () => {
+      emblaTourApi.off('select', onSelectTour);
+    };
+  }, [emblaTourApi, onSelectTour]);
   // Ensure description is populated - use overview.fullDescription if available
   if (!destination.description && destination.overview?.fullDescription) {
     destination.description = destination.overview.fullDescription;
@@ -774,8 +809,9 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
               
               {/* Tours Featuring This Destination */}
               {toursFeaturing && toursFeaturing.length > 0 && (
-                <div className="mt-12 mb-16">
-                  <div className="flex justify-between items-center mb-6">
+                <div className="mt-12 mb-16 relative">
+                  <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-gray-50 to-transparent -z-10"></div>
+                  <div className="flex justify-between items-center mb-8">
                     <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81]">
                       Tours Featuring {destination.name}
                     </h2>
@@ -784,27 +820,28 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                     </Link>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Desktop View: Grid Layout */}
+                  <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
                     {toursFeaturing.map((tour, index) => (
                       <div 
-                        key={`tour-${tour.id || index}`}
-                        className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                        key={`tour-grid-${tour.id || index}`}
+                        className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 group"
                       >
-                        <div className="w-1/3 h-auto relative">
+                        <div className="w-1/3 h-auto relative overflow-hidden">
                           <img 
                             src={tour.imageUrl} 
                             alt={tour.title} 
-                            className="w-full h-full object-cover" 
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                           />
                           {tour.isBestSeller && (
-                            <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full">
+                            <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full z-10">
                               Best Seller
                             </div>
                           )}
                         </div>
-                        <div className="w-2/3 p-4">
-                          <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-1">{tour.title}</h3>
-                          <div className="flex items-center text-gray-500 text-sm mb-2">
+                        <div className="w-2/3 p-5">
+                          <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 group-hover:text-[#0F4C81] transition-colors">{tour.title}</h3>
+                          <div className="flex items-center text-gray-500 text-sm mb-3">
                             <Calendar className="w-4 h-4 mr-1" />
                             <span>{tour.duration}</span>
                             <span className="mx-2">•</span>
@@ -812,12 +849,12 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                             <span>Max {tour.maxPeople} people</span>
                           </div>
                           <div className="flex justify-between items-center">
-                            <span className="font-semibold text-[#0F4C81]">
+                            <span className="font-bold text-[#0F4C81] text-lg">
                               From ${tour.price}
                             </span>
                             <Link 
                               href={`/packages/${tour.slug || tour.id}`}
-                              className="text-sm font-medium text-[#0F4C81] hover:text-[#D4AF37]"
+                              className="text-sm font-medium bg-[#F9F7F4] text-[#0F4C81] px-3 py-1.5 rounded-full hover:bg-[#0F4C81] hover:text-white transition-colors"
                             >
                               View Details
                             </Link>
@@ -825,6 +862,86 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                         </div>
                       </div>
                     ))}
+                  </div>
+                  
+                  {/* Mobile View: Carousel */}
+                  <div className="md:hidden">
+                    <div className="relative">
+                      <div className="overflow-hidden" ref={emblaTourRef}>
+                        <div className="flex">
+                          {toursFeaturing.map((tour, index) => (
+                            <div 
+                              key={`tour-carousel-${tour.id || index}`}
+                              className="flex-[0_0_100%] min-w-0 px-2"
+                            >
+                              <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
+                                <div className="relative h-48">
+                                  <img 
+                                    src={tour.imageUrl} 
+                                    alt={tour.title} 
+                                    className="w-full h-full object-cover" 
+                                  />
+                                  {tour.isBestSeller && (
+                                    <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full">
+                                      Best Seller
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="p-5">
+                                  <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2">{tour.title}</h3>
+                                  <div className="flex items-center text-gray-500 text-sm mb-3">
+                                    <Calendar className="w-4 h-4 mr-1" />
+                                    <span>{tour.duration}</span>
+                                    <span className="mx-2">•</span>
+                                    <Users className="w-4 h-4 mr-1" />
+                                    <span>Max {tour.maxPeople} people</span>
+                                  </div>
+                                  <div className="flex justify-between items-center">
+                                    <span className="font-bold text-[#0F4C81] text-lg">
+                                      From ${tour.price}
+                                    </span>
+                                    <Link 
+                                      href={`/packages/${tour.slug || tour.id}`}
+                                      className="text-sm font-medium bg-[#F9F7F4] text-[#0F4C81] px-3 py-1.5 rounded-full"
+                                    >
+                                      View Details
+                                    </Link>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      {/* Navigation buttons */}
+                      <button 
+                        onClick={scrollPrevTour} 
+                        className="absolute top-24 left-0 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-100 rounded-full p-2 text-[#0F4C81] transition"
+                        aria-label="Previous tour"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <button 
+                        onClick={scrollNextTour} 
+                        className="absolute top-24 right-0 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-100 rounded-full p-2 text-[#0F4C81] transition"
+                        aria-label="Next tour"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                      
+                      {/* Pagination dots */}
+                      <div className="flex justify-center mt-4">
+                        {toursFeaturing.map((_, index) => (
+                          <button
+                            key={`tour-dot-${index}`}
+                            className={`mx-1 w-2 h-2 rounded-full ${tourIndex === index ? 'bg-[#0F4C81]' : 'bg-gray-300'}`}
+                            onClick={() => emblaTourApi?.scrollTo(index)}
+                            aria-label={`Go to tour ${index + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
