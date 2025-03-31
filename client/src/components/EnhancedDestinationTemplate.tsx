@@ -770,6 +770,31 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                     </div>
                   )}
                   
+                  {/* Highlights Section */}
+                  {essentialInfo.highlights && (
+                    <div className="pt-5 mt-5 border-t border-gray-200">
+                      <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {typeof essentialInfo.highlights === 'string'
+                          ? essentialInfo.highlights.split('\n').filter(line => line.trim()).map((highlight, index) => (
+                              <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                                {highlight.trim()}
+                              </span>
+                            ))
+                          : Array.isArray(essentialInfo.highlights)
+                            ? essentialInfo.highlights.map((highlight, index) => (
+                                <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                                  {highlight}
+                                </span>
+                              ))
+                            : <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                                {String(essentialInfo.highlights)}
+                              </span>
+                        }
+                      </div>
+                    </div>
+                  )}
+                  
                   {/* Travel Tips */}
                   {essentialInfo.travelTips && (
                     <div className="pt-5 mt-5 border-t border-gray-200">
@@ -784,6 +809,25 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                                 <li key={`tip-${index}`}>{tip}</li>
                               ))
                             : <li>{String(essentialInfo.travelTips)}</li>
+                        }
+                      </ul>
+                    </div>
+                  )}
+                  
+                  {/* Accessibility Information */}
+                  {essentialInfo.accessibility && (
+                    <div className="pt-5 mt-5 border-t border-gray-200">
+                      <h4 className="font-semibold text-gray-900 mb-2">Accessibility</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1">
+                        {typeof essentialInfo.accessibility === 'string'
+                          ? essentialInfo.accessibility.split('\n').filter(line => line.trim()).map((access, index) => (
+                              <li key={`access-${index}`}>{access.trim()}</li>
+                            ))
+                          : Array.isArray(essentialInfo.accessibility)
+                            ? essentialInfo.accessibility.map((access, index) => (
+                                <li key={`access-${index}`}>{access}</li>
+                              ))
+                            : <li>{String(essentialInfo.accessibility)}</li>
                         }
                       </ul>
                     </div>
@@ -822,6 +866,22 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       </div>
                     </div>
                   )}
+                  
+                  {/* Action Buttons */}
+                  <div className="mt-8 pt-6 border-t border-gray-200">
+                    <Link 
+                      href="/custom-tour-request" 
+                      className="block w-full bg-[#0F4C81] hover:bg-[#0D3E6A] text-white font-medium py-3 px-6 rounded-lg text-center transition"
+                    >
+                      Create Custom Tour
+                    </Link>
+                    <Link 
+                      href="/contact" 
+                      className="block w-full bg-white border border-[#0F4C81] text-[#0F4C81] hover:bg-[#F9F7F4] font-medium py-3 px-6 rounded-lg text-center mt-3 transition"
+                    >
+                      Ask a Question
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
