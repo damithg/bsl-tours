@@ -557,7 +557,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                             </p>
                             <div className="flex items-center text-sm text-[#0F4C81]">
                               <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
-                                <i className="fas fa-monument text-xs"></i>
+                                <i className={`fas fa-${poi.icon || 'monument'} text-xs`}></i>
                               </span>
                               <span>{poi.iconLabel || 'Key Attraction'}</span>
                             </div>
@@ -688,7 +688,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                 </div>
               )}
               
-              {/* FAQs Section - Use hardcoded data if needed */}
+              {/* FAQs Section - Enhanced with details/summary from Sigiriya Template */}
               {(faqs.length > 0 || hardcodedFaqs.length > 0) && (
                 <div className="mt-12 mb-16">
                   <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
@@ -697,24 +697,18 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                   
                   <div className="space-y-4">
                     {(faqs.length > 0 ? faqs : hardcodedFaqs).map((faq, index) => (
-                      <div key={`faq-${index}`} className="border border-gray-200 rounded-lg overflow-hidden">
-                        <button
-                          className="flex justify-between items-center w-full p-4 text-left bg-white hover:bg-gray-50"
-                          onClick={() => toggleFaq(index)}
-                          aria-expanded={openFaqs.includes(index)}
-                        >
-                          <span className="font-medium text-[#0F4C81]">{faq.question}</span>
-                          <ChevronDown
-                            className={`w-5 h-5 text-[#0F4C81] transition-transform ${
-                              openFaqs.includes(index) ? "rotate-180" : ""
-                            }`}
-                          />
-                        </button>
-                        {openFaqs.includes(index) && (
-                          <div className="p-4 bg-gray-50 border-t border-gray-200">
-                            <p className="text-gray-700">{faq.answer}</p>
+                      <div key={`faq-${index}`} className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                        <details className="group">
+                          <summary className="flex justify-between items-center p-6 cursor-pointer">
+                            <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                              {faq.question}
+                            </h3>
+                            <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                          </summary>
+                          <div className="px-6 pb-6 text-gray-600">
+                            <p>{faq.answer}</p>
                           </div>
-                        )}
+                        </details>
                       </div>
                     ))}
                   </div>
@@ -845,6 +839,36 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                   )}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="bg-[#0F4C81] text-white py-20 relative">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <img 
+            src="/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg" 
+            alt="Sri Lanka landscape" 
+            className="w-full h-full object-cover" 
+          />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-white mb-6">
+              Ready to Experience {destination.name}?
+            </h2>
+            <p className="text-xl text-white/80 mb-10">
+              Let us create your perfect Sri Lankan adventure with {destination.name} as part of your journey.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link href="/packages" className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
+                View Luxury Packages
+              </Link>
+              <Link href="/contact" className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-md transition">
+                Contact Our Experts
+              </Link>
             </div>
           </div>
         </div>
