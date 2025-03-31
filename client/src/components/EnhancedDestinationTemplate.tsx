@@ -668,49 +668,158 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
             
             {/* Right Column - Sidebar */}
             <div className="lg:col-span-1">
-              {/* Essential Information Card */}
-              <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden mb-8">
-                <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-4">
-                    Essential Information
-                  </h3>
-                  
+              {/* Essential Information Card - Styled like SigiriyaTemplate */}
+              <div className="bg-[#F9F7F4] p-6 rounded-xl shadow-sm mb-8 sticky top-4">
+                <h3 className="font-['Playfair_Display'] text-xl font-bold mb-6 text-gray-900">Essential Information</h3>
+                
+                <div className="space-y-5">
                   {/* Best Time to Visit */}
                   {destination.bestTimeToVisit && (
-                    <div className="mb-4">
-                      <p className="font-semibold text-gray-800 mb-1">Best Time to Visit</p>
-                      <p className="text-gray-600">{destination.bestTimeToVisit}</p>
+                    <div className="flex gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                        <i className="fas fa-calendar text-lg"></i>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Best Time to Visit</h4>
+                        <p className="text-gray-600">{destination.bestTimeToVisit}</p>
+                      </div>
                     </div>
                   )}
                   
                   {/* Recommended Duration */}
                   {destination.recommendedDuration && (
-                    <div className="mb-4">
-                      <p className="font-semibold text-gray-800 mb-1">Recommended Duration</p>
-                      <p className="text-gray-600">{destination.recommendedDuration}</p>
+                    <div className="flex gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                        <i className="fas fa-clock text-lg"></i>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Recommended Duration</h4>
+                        <p className="text-gray-600">{destination.recommendedDuration}</p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Weather */}
+                  {destination.weatherInfo && (
+                    <div className="flex gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                        <i className="fas fa-sun text-lg"></i>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Weather</h4>
+                        <p className="text-gray-600">{destination.weatherInfo}</p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Location */}
+                  {destination.address && (
+                    <div className="flex gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                        <i className="fas fa-map-marker-alt text-lg"></i>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Location</h4>
+                        <p className="text-gray-600">{destination.address}</p>
+                        
+                        {/* Map Placeholder */}
+                        {destination.latitude && destination.longitude && (
+                          <div className="mt-3 rounded-lg overflow-hidden h-36 bg-gray-200 relative">
+                            <iframe
+                              title={`Map of ${destination.name}`}
+                              className="w-full h-full border-0"
+                              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${destination.latitude},${destination.longitude}&zoom=12`}
+                              allowFullScreen
+                            ></iframe>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Highlights */}
+                  {destination.highlights && parseJsonSafely<string[]>(destination.highlights, []).length > 0 && (
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {parseJsonSafely<string[]>(destination.highlights, []).map((highlight, index) => (
+                          <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                            {highlight}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   )}
                   
                   {/* Getting Here */}
                   {essentialInfo.gettingThere && (
-                    <div className="mb-4">
-                      <p className="font-semibold text-gray-800 mb-1">Getting Here</p>
-                      <p className="text-gray-600">{essentialInfo.gettingThere}</p>
+                    <div className="pt-5 mt-5 border-t border-gray-200">
+                      <h4 className="font-semibold text-gray-900 mb-2">Getting Here</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1">
+                        {typeof essentialInfo.gettingThere === 'string'
+                          ? essentialInfo.gettingThere.split('\n').filter(line => line.trim()).map((info, index) => (
+                              <li key={`getting-${index}`}>{info.trim()}</li>
+                            ))
+                          : Array.isArray(essentialInfo.gettingThere)
+                            ? essentialInfo.gettingThere.map((info, index) => (
+                                <li key={`getting-${index}`}>{info}</li>
+                              ))
+                            : <li>{String(essentialInfo.gettingThere)}</li>
+                        }
+                      </ul>
+                    </div>
+                  )}
+                  
+                  {/* Travel Tips */}
+                  {essentialInfo.travelTips && (
+                    <div className="pt-5 mt-5 border-t border-gray-200">
+                      <h4 className="font-semibold text-gray-900 mb-2">Travel Tips</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1">
+                        {typeof essentialInfo.travelTips === 'string'
+                          ? essentialInfo.travelTips.split('\n').filter(line => line.trim()).map((tip, index) => (
+                              <li key={`tip-${index}`}>{tip.trim()}</li>
+                            ))
+                          : Array.isArray(essentialInfo.travelTips)
+                            ? essentialInfo.travelTips.map((tip, index) => (
+                                <li key={`tip-${index}`}>{tip}</li>
+                              ))
+                            : <li>{String(essentialInfo.travelTips)}</li>
+                        }
+                      </ul>
                     </div>
                   )}
                   
                   {/* Nearby Attractions */}
                   {nearbyAttractions && nearbyAttractions.length > 0 && (
-                    <div className="mb-4">
-                      <p className="font-semibold text-gray-800 mb-1">Nearby Attractions</p>
-                      <ul className="list-disc list-inside text-gray-600">
+                    <div className="pt-5 mt-5 border-t border-gray-200">
+                      <h4 className="font-semibold text-gray-900 mb-3">Nearby Attractions</h4>
+                      <div className="space-y-3">
                         {nearbyAttractions.map((attraction, index) => (
-                          <li key={`attraction-${index}`} className="mb-2">
-                            <span className="font-medium">{attraction.name}</span>
-                            {attraction.distance && ` - ${attraction.distance} away`}
-                          </li>
+                          <div key={`attraction-${index}`} className="flex items-start">
+                            {attraction.imageUrl ? (
+                              <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3">
+                                <img
+                                  src={attraction.imageUrl}
+                                  alt={attraction.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3 flex items-center justify-center text-gray-400">
+                                <i className="fas fa-image"></i>
+                              </div>
+                            )}
+                            <div>
+                              <h5 className="font-medium text-sm mb-0.5 text-gray-900">{attraction.name}</h5>
+                              <p className="text-xs text-gray-500">
+                                {attraction.distance && `${attraction.distance}`}
+                                {attraction.distance && attraction.travelTime && ` • `}
+                                {attraction.travelTime && `${attraction.travelTime}`}
+                              </p>
+                            </div>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   )}
                 </div>
