@@ -109,11 +109,24 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   }
   
   if (destination.subSections && destination.subSections.length > 0) {
-    destination.subSections.forEach((section: { title: string; fullDescription: string }) => {
+    destination.subSections.forEach((section: { 
+      title: string; 
+      fullDescription: string;
+      image?: {
+        id?: number;
+        publicId?: string;
+        alt?: string;
+        caption?: string;
+        orientation?: string;
+      }
+    }) => {
       apiDetailedSections.push({
         title: section.title,
         content: section.fullDescription,
-        // You can add image handling here when sub-sections have images
+        imageUrl: section.image?.publicId 
+          ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${section.image.publicId}`
+          : undefined,
+        imageCaption: section.image?.caption
       });
     });
   }
