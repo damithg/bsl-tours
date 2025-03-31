@@ -858,39 +858,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                     </div>
                   )}
                   
-                  {/* Nearby Attractions */}
-                  {nearbyAttractions && nearbyAttractions.length > 0 && (
-                    <div className="pt-5 mt-5 border-t border-gray-200">
-                      <h4 className="font-semibold text-gray-900 mb-3">Nearby Attractions</h4>
-                      <div className="space-y-3">
-                        {nearbyAttractions.map((attraction, index) => (
-                          <div key={`attraction-${index}`} className="flex items-start">
-                            {attraction.imageUrl ? (
-                              <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3">
-                                <img
-                                  src={attraction.imageUrl}
-                                  alt={attraction.name}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                            ) : (
-                              <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3 flex items-center justify-center text-gray-400">
-                                <i className="fas fa-image"></i>
-                              </div>
-                            )}
-                            <div>
-                              <h5 className="font-medium text-sm mb-0.5 text-gray-900">{attraction.name}</h5>
-                              <p className="text-xs text-gray-500">
-                                {attraction.distance && `${attraction.distance}`}
-                                {attraction.distance && attraction.travelTime && ` • `}
-                                {attraction.travelTime && `${attraction.travelTime}`}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  {/* Nearby Attractions - Hidden from Essential Information Card as requested */}
                   
                   {/* Action Buttons */}
                   <div className="mt-8 pt-6 border-t border-gray-200">
