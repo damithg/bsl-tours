@@ -183,16 +183,39 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
       slug: string;
       duration: string;
       startingFrom: number;
+      heroImage?: {
+        publicId?: string;
+        alt?: string;
+      }
     }) => {
+      // Properly handle tour images - try to get from heroImage, fallback to attached_assets or use a placeholder
+      let imageUrl = '/attached_assets/A Week in the Tropics.jpg'; // Default fallback image
+      
+      // If tour has heroImage with publicId, use that
+      if (tour.heroImage && tour.heroImage.publicId) {
+        imageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/${tour.heroImage.publicId}`;
+      } 
+      // Second fallback - try to use predictable slug-based naming
+      else if (tour.slug) {
+        // Try different formats that might exist in the attached_assets folder
+        if (tour.slug === 'cultural-triangle-explorer') {
+          imageUrl = '/attached_assets/A Week in the Tropics.jpg';
+        } else if (tour.slug === 'romantic-honeymoon-escape' || tour.slug.includes('honeymoon')) {
+          imageUrl = '/attached_assets/romantic honeymoon escape.jpg';
+        } else if (tour.slug.includes('mirissa')) {
+          imageUrl = '/attached_assets/mirissa (7).jpg';
+        }
+      }
+      
       apiToursFeaturing.push({
         id: tour.id,
         title: tour.name,
         slug: tour.slug,
-        imageUrl: `https://res.cloudinary.com/drsjp6bqz/image/upload/tours/${tour.slug}`,  // Placeholder URL
+        imageUrl: imageUrl,
         duration: tour.duration,
         maxPeople: 12,  // Default value
         price: tour.startingFrom,
-        isBestSeller: false
+        isBestSeller: tour.slug === 'cultural-triangle-explorer' // Mark this popular tour as best seller
       });
     });
   }
