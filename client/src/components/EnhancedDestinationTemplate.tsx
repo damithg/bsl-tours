@@ -485,8 +485,9 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
             <div className="lg:col-span-2">
               {/* Introduction Section - Using finalDetailedSections with fallback */}
               <div className="mb-16">
+                {/* First Subsection */}
                 {finalDetailedSections && finalDetailedSections.length > 0 && (
-                  <>
+                  <div className="mb-12">
                     <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#0F4C81] mb-8">
                       {finalDetailedSections[0].title}
                     </h2>
@@ -494,28 +495,28 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                     <p className="text-lg text-[#333333]/90 mb-6 leading-relaxed">
                       {finalDetailedSections[0].content}
                     </p>
-                  </>
-                )}
-                
-                {/* Featured Image - Main View */}
-                {(finalDetailedSections && finalDetailedSections.length > 0 && finalDetailedSections[0].imageUrl) && (
-                  <div className="rounded-lg overflow-hidden shadow-xl mb-8">
-                    <img 
-                      src={finalDetailedSections[0].imageUrl} 
-                      alt={destination.name} 
-                      className="w-full h-auto" 
-                    />
-                    {finalDetailedSections[0].imageCaption && (
-                      <div className="bg-[#F8F5F0] p-4 text-center">
-                        <p className="text-[#333333]/80 italic">{finalDetailedSections[0].imageCaption}</p>
+                    
+                    {/* Only show image if it exists */}
+                    {finalDetailedSections[0].imageUrl && (
+                      <div className="rounded-lg overflow-hidden shadow-xl mb-8">
+                        <img 
+                          src={finalDetailedSections[0].imageUrl} 
+                          alt={destination.name} 
+                          className="w-full h-auto" 
+                        />
+                        {finalDetailedSections[0].imageCaption && (
+                          <div className="bg-[#F8F5F0] p-4 text-center">
+                            <p className="text-[#333333]/80 italic">{finalDetailedSections[0].imageCaption}</p>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
                 )}
                 
-                {/* Points of Interest - Move this before the second subsection */}
+                {/* Points of Interest - Features Section */}
                 {pointsOfInterest && pointsOfInterest.length > 0 && (
-                  <div className="mt-12">
+                  <div className="mb-12">
                     <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
                       {destination.featuresSection?.title || "What Awaits You"}
                     </h3>
@@ -556,7 +557,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                 
                 {/* Second Subsection - Display after the Points of Interest */}
                 {finalDetailedSections && finalDetailedSections.length > 1 && (
-                  <div className="mt-12">
+                  <div className="mb-12">
                     <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-4">
                       {finalDetailedSections[1].title}
                     </h3>
@@ -564,8 +565,9 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       {finalDetailedSections[1].content}
                     </p>
                     
+                    {/* Only show image if it exists */}
                     {finalDetailedSections[1].imageUrl && (
-                      <div className="rounded-lg overflow-hidden shadow-xl mb-12">
+                      <div className="rounded-lg overflow-hidden shadow-xl mb-8">
                         <img 
                           src={finalDetailedSections[1].imageUrl} 
                           alt={finalDetailedSections[1].title} 
