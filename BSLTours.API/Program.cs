@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<IDataService, InMemoryDataService>();
+builder.Services.AddHttpClient<IStrapiService, StrapiService>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -40,6 +40,9 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
+builder.Services.AddHttpClient<StrapiService>();
+
 // Add observability - new in .NET 8
 // Uncomment when adding OpenTelemetry NuGet packages
 // builder.Services.AddOpenTelemetry()
@@ -49,6 +52,10 @@ builder.Services.AddSwaggerGen(c =>
 //     .WithMetrics(metrics => metrics
 //         .AddAspNetCoreInstrumentation()
 //         .AddHttpClientInstrumentation());
+
+
+// Add AutoMapper using current assembly (or point to your profile assembly)
+builder.Services.AddAutoMapper(typeof(Program));
 
 // Build the app
 var app = builder.Build();

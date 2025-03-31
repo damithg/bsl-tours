@@ -7,77 +7,168 @@ namespace BSLTours.API.Models
 {
     public class Destination
     {
-        public int Id { get; set; }
 
-        public string Excerpt { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
-        public string Description { get; set; }
-        public DestinationImageSet Images { get; set; }
+        public string Excerpt { get; set; }
+
+        // Hero Section
+        public string ShortDescription { get; set; }
         public bool Featured { get; set; }
+        public GalleryImage HeroImage { get; set; }
+        public List<string> Tags { get; set; }
+
 
         // Location information
         public string Region { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string Address { get; set; }
-        
-        // Extended information
-        public string ShortDescription { get; set; }
-        public string FullDescription { get; set; }
-        public List<string> TransportOptions { get; set; }
+
+        // Overview with subsections
+        public OverviewBlock Overview { get; set; }
+
+        // Features Section (with custom title)
+        public FeatureSection FeaturesSection { get; set; }
+
+        // Highlights
         public List<string> Highlights { get; set; }
-        
-        // Planning information
-        public string BestTimeToVisit { get; set; }
-        public string NearestAirport { get; set; }
-        public string RecommendedDuration { get; set; }
-        public string WeatherInfo { get; set; }
 
-        // SEO metadata
-        public string MetaTitle { get; set; }
-        public string MetaDescription { get; set; }
-        public List<string> MetaKeywords { get; set; }
-        public List<string> Tags { get; set; }
-        public string Category { get; set; }
+        // Gallery
+        public List<GalleryImage> Images { get; set; }
 
+        // Local Experiences
+        public List<Experience> Experiences { get; set; }
 
-        // Features (e.g., Private Guided Tours, Exclusive Access)
-        public List<Feature> Features { get; set; }
+        // Quote block
+        public QuoteBlock QuoteBlock { get; set; }
 
-        // TravelTips
+        // Video section
+        public VideoBlock Video { get; set; }
+
+        // Travel tips
         public List<string> TravelTips { get; set; }
 
-        // Gallery images
-        public List<GalleryImage> GalleryImages { get; set; }
-        
         // FAQs
         public List<FAQ> FAQs { get; set; }
 
-        // Sections (e.g., text blocks, quotes, videos)
-        public List<Section> Sections { get; set; }
+        // Essential info
+        public EssentialInfo EssentialInfo { get; set; }
 
-        // Local experiences
-        public List<LocalExperience> LocalExperiences { get; set; }
+        // Weather info
+        public WeatherInfo Weather { get; set; }
 
-        // Related tours
+        public string RecommendedDuration { get; set; }
+
+        // Nearby Attractions with images and links
+        public List<NearbyAttraction> NearbyAttractions { get; set; }
+
+        // Social
+        public SocialLinks SocialMedia { get; set; }
+
         public List<RelatedTour> RelatedTours { get; set; }
-
-        // Additional content
-        public List<Activity> Activities { get; set; }
-        public List<Experience> Experiences { get; set; }
         
-        // Timestamps
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }
-    
+
+
+    public class OverviewBlock
+    {
+        public string Title { get; set; }
+        public string FullDescription { get; set; }
+        public GalleryImage Image { get; set; }
+        public List<OverviewSubSection> SubSections { get; set; }
+    }
+
+    public class OverviewSubSection
+    {
+        public string Title { get; set; }
+        public string FullDescription { get; set; }
+        public GalleryImage Image { get; set; }
+    }
+
+
+    public class FeatureSection
+    {
+        public string Title { get; set; }
+        public List<Feature> Items { get; set; }
+    }
+
     public class Feature
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Icon { get; set; } // Optional: for icon representation
-        public string ImageUrl { get; set; } // Optional: for image representation
+        public string Icon { get; set; }
+        public GalleryImage Image { get; set; }
+    }
+
+    public class Experience
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+    }
+
+    public class QuoteBlock
+    {
+        public string Content { get; set; }
+        public string Author { get; set; }
+    }
+
+    public class VideoBlock
+    {
+        public string Title { get; set; }
+        public string VideoUrl { get; set; }
+    }
+
+    public class FAQ
+    {
+        public string Question { get; set; }
+        public string Answer { get; set; }
+    }
+
+
+    public class EssentialInfo
+    {
+        public Dictionary<string, string> OpeningHours { get; set; }
+        public EntranceFees EntranceFees { get; set; }
+        public string BestTimeToVisit { get; set; }
+        public string NearestAirport { get; set; }
+        public List<string> TransportOptions { get; set; }
+        public List<string> Accessibility { get; set; }
+        public List<string> TravelTips { get; set; }
+    }
+
+    public class CurrencyInfo
+    {
+        public string Primary { get; set; }
+        public string Local { get; set; }
+    }
+
+    public class WeatherInfo
+    {
+        public string Summary { get; set; }
+        public string TemperatureRange { get; set; }
+        public string RainySeason { get; set; }
+    }
+
+    public class NearbyAttraction
+    {
+        public string Name { get; set; }
+        public string Slug { get; set; }
+        public string Description { get; set; }
+        public string Distance { get; set; }
+        public string Link { get; set; }
+        public GalleryImage Image { get; set; }
+    }
+
+    public class SocialLinks
+    {
+        public string Facebook { get; set; }
+        public string Instagram { get; set; }
+        public string Twitter { get; set; }
     }
 
 
@@ -101,22 +192,6 @@ namespace BSLTours.API.Models
             return $"https://res.cloudinary.com/{CloudName}/image/upload/{transformation}/{PublicId}.jpg";
         }
     }
-
-
-
-    public class Experience
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Icon { get; set; }
-    }
-
-    public class FAQ
-    {
-        public string Question { get; set; }
-        public string Answer { get; set; }
-    }
-
 
     public class Section
     {

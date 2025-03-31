@@ -31,4 +31,13 @@ namespace BSLTours.API.Services
         Task<Subscriber> GetSubscriberByEmailAsync(string email);
         Task<Subscriber> AddSubscriberAsync(CreateSubscriberDto subscriberDto);
     }
+
+
+    public interface IStrapiService
+    {
+        Task<List<DestinationDto>> GetDestinationsAsync();
+
+        Task<DestinationDto?> GetDestinationBySlugAsync(string slug);
+        // Optional: add by slug, etc. in future
+    }
 }
