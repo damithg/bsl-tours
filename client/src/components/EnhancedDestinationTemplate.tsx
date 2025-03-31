@@ -97,18 +97,22 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   // Convert subSections to DetailedSections format
   const apiDetailedSections: DetailedSection[] = [];
   
+  // First, add the overview section as the first detailed section
   if (destination.overview) {
     apiDetailedSections.push({
       title: destination.overview.title,
       content: destination.overview.fullDescription,
-      imageUrl: destination.heroImage ? 
-        `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.heroImage.publicId}` :
-        undefined,
-      imageCaption: destination.heroImage?.caption
+      imageUrl: destination.overview.image?.publicId 
+        ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.overview.image.publicId}` 
+        : undefined,
+      imageCaption: destination.overview.image?.caption
     });
   }
   
-  if (destination.subSections && destination.subSections.length > 0) {
+  // Next, add subsections if they exist
+  if (destination.subSections && Array.isArray(destination.subSections) && destination.subSections.length > 0) {
+    console.log("Processing subSections:", destination.subSections.length);
+    
     destination.subSections.forEach((section: { 
       title: string; 
       fullDescription: string;
@@ -119,7 +123,9 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
         caption?: string;
         orientation?: string;
       }
-    }) => {
+    }, index: number) => {
+      console.log(`Adding subsection ${index + 1}: ${section.title}`);
+      
       apiDetailedSections.push({
         title: section.title,
         content: section.fullDescription,
@@ -413,8 +419,10 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
     );
   };
 
-  // Get appropriate hero image URL
-  const heroImageUrl = ((destination as any).images?.banner || destination.imageUrl);
+  // Get appropriate hero image URL directly from heroImage field (preferred) or fallback to other sources
+  const heroImageUrl = destination.heroImage?.publicId 
+    ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.heroImage.publicId}`
+    : ((destination as any).images?.banner || destination.imageUrl);
   
   // Helper function to get the first section image
   const getFirstSectionImage = () => {
@@ -467,9 +475,12 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
           </nav>
           
           <div className="max-w-4xl">
-            <h1 className="font-['Playfair_Display'] text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+            <h1 className="font-['Playfair_Display'] text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
               {destination.name}
             </h1>
+            <p className="text-2xl text-white/90 max-w-2xl mb-6">
+              {destination.shortDescription || "A must-visit destination in Sri Lanka"}
+            </p>
             <p className="text-xl text-white/90 max-w-2xl">
               {destination.description}
             </p>
