@@ -85,39 +85,75 @@ interface EnhancedDestinationTemplateProps {
 }
 
 export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplateProps> = ({ destination }) => {
-  // Set up Embla carousel for mobile 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+  // Set up Embla carousel for mobile gallery
+  const [emblaGalleryRef, emblaGalleryApi] = useEmblaCarousel({ loop: true });
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [gallerySnaps, setGallerySnaps] = useState<number[]>([]);
   
-  // Initialize Embla Carousel
+  // Set up Embla carousel for mobile features section
+  const [emblaFeaturesRef, emblaFeaturesApi] = useEmblaCarousel({ loop: true });
+  const [featuresIndex, setFeaturesIndex] = useState(0);
+  const [featuresSnaps, setFeaturesSnaps] = useState<number[]>([]);
+
+  // Gallery carousel controls
+  const onSelectGallery = useCallback(() => {
+    if (!emblaGalleryApi) return;
+    setGalleryIndex(emblaGalleryApi.selectedScrollSnap());
+  }, [emblaGalleryApi]);
+
+  const scrollPrevGallery = useCallback(() => {
+    if (emblaGalleryApi) emblaGalleryApi.scrollPrev();
+  }, [emblaGalleryApi]);
+
+  const scrollNextGallery = useCallback(() => {
+    if (emblaGalleryApi) emblaGalleryApi.scrollNext();
+  }, [emblaGalleryApi]);
+  
+  // Features carousel controls
+  const onSelectFeatures = useCallback(() => {
+    if (!emblaFeaturesApi) return;
+    setFeaturesIndex(emblaFeaturesApi.selectedScrollSnap());
+  }, [emblaFeaturesApi]);
+
+  const scrollPrevFeatures = useCallback(() => {
+    if (emblaFeaturesApi) emblaFeaturesApi.scrollPrev();
+  }, [emblaFeaturesApi]);
+
+  const scrollNextFeatures = useCallback(() => {
+    if (emblaFeaturesApi) emblaFeaturesApi.scrollNext();
+  }, [emblaFeaturesApi]);
+  
+  // Initialize Gallery Carousel
   React.useEffect(() => {
-    if (!emblaApi) return;
+    if (!emblaGalleryApi) return;
     
     // Setup scrollsnaps for pagination
-    setScrollSnaps(emblaApi.scrollSnapList());
+    setGallerySnaps(emblaGalleryApi.scrollSnapList());
     
     // Add event listeners
-    emblaApi.on('select', onSelect);
-    onSelect();
+    emblaGalleryApi.on('select', onSelectGallery);
+    onSelectGallery();
     
     return () => {
-      emblaApi.off('select', onSelect);
+      emblaGalleryApi.off('select', onSelectGallery);
     };
-  }, [emblaApi, onSelect]);
+  }, [emblaGalleryApi, onSelectGallery]);
+  
+  // Initialize Features Carousel
+  React.useEffect(() => {
+    if (!emblaFeaturesApi) return;
+    
+    // Setup scrollsnaps for pagination
+    setFeaturesSnaps(emblaFeaturesApi.scrollSnapList());
+    
+    // Add event listeners
+    emblaFeaturesApi.on('select', onSelectFeatures);
+    onSelectFeatures();
+    
+    return () => {
+      emblaFeaturesApi.off('select', onSelectFeatures);
+    };
+  }, [emblaFeaturesApi, onSelectFeatures]);
   // Ensure description is populated - use overview.fullDescription if available
   if (!destination.description && destination.overview?.fullDescription) {
     destination.description = destination.overview.fullDescription;
@@ -603,10 +639,11 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       {destination.featuresSection?.title || "What Awaits You"}
                     </h3>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    {/* Desktop View: Grid */}
+                    <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                       {pointsOfInterest.map((poi, index) => (
                         <div 
-                          key={`poi-${index}`}
+                          key={`poi-grid-${index}`}
                           className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
                         >
                           <div className="relative h-48 overflow-hidden">
@@ -633,6 +670,75 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                           </div>
                         </div>
                       ))}
+                    </div>
+                    
+                    {/* Mobile View: Carousel */}
+                    <div className="md:hidden mb-12">
+                      <div className="relative">
+                        <div className="overflow-hidden" ref={emblaFeaturesRef}>
+                          <div className="flex">
+                            {pointsOfInterest.map((poi, index) => (
+                              <div 
+                                key={`poi-carousel-${index}`} 
+                                className="flex-[0_0_100%] min-w-0 px-2"
+                              >
+                                <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                                  <div className="relative h-48 overflow-hidden">
+                                    <img 
+                                      src={poi.imageUrl} 
+                                      alt={poi.title} 
+                                      className="w-full h-full object-cover" 
+                                    />
+                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                                      {poi.tag || 'Must See'}
+                                    </div>
+                                  </div>
+                                  <div className="p-6">
+                                    <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">{poi.title}</h4>
+                                    <p className="text-gray-600 mb-4">
+                                      {poi.description}
+                                    </p>
+                                    <div className="flex items-center text-sm text-[#0F4C81]">
+                                      <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                                        <i className={`fas fa-${poi.icon || 'monument'} text-xs`}></i>
+                                      </span>
+                                      <span>{poi.iconLabel || 'Key Attraction'}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        {/* Navigation buttons */}
+                        <button 
+                          onClick={scrollPrevFeatures} 
+                          className="absolute top-1/2 left-0 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-100 rounded-full p-2 text-[#0F4C81] transition"
+                          aria-label="Previous feature"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button 
+                          onClick={scrollNextFeatures} 
+                          className="absolute top-1/2 right-0 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-100 rounded-full p-2 text-[#0F4C81] transition"
+                          aria-label="Next feature"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                        
+                        {/* Pagination dots */}
+                        <div className="flex justify-center mt-4">
+                          {pointsOfInterest.map((_, index) => (
+                            <button
+                              key={`feature-dot-${index}`}
+                              className={`mx-1 w-2 h-2 rounded-full ${featuresIndex === index ? 'bg-[#0F4C81]' : 'bg-gray-300'}`}
+                              onClick={() => emblaFeaturesApi?.scrollTo(index)}
+                              aria-label={`Go to feature ${index + 1}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -940,7 +1046,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
             {/* Mobile View: Embla Carousel */}
             <div className="block md:hidden">
               <div className="relative">
-                <div className="overflow-hidden" ref={emblaRef}>
+                <div className="overflow-hidden" ref={emblaGalleryRef}>
                   <div className="flex">
                     {(galleryImages.length > 0 ? galleryImages : hardcodedGalleryImages).map((image, index) => (
                       <div key={`carousel-${index}`} className="flex-[0_0_100%] min-w-0 relative">
@@ -963,14 +1069,14 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                 
                 {/* Navigation buttons */}
                 <button 
-                  onClick={scrollPrev} 
+                  onClick={scrollPrevGallery} 
                   className="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-100 rounded-full p-2 text-[#0F4C81] transition"
                   aria-label="Previous image"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button 
-                  onClick={scrollNext} 
+                  onClick={scrollNextGallery} 
                   className="absolute top-1/2 right-2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-100 rounded-full p-2 text-[#0F4C81] transition"
                   aria-label="Next image"
                 >
@@ -982,8 +1088,8 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                   {(galleryImages.length > 0 ? galleryImages : hardcodedGalleryImages).map((_, index) => (
                     <button
                       key={`dot-${index}`}
-                      className={`mx-1 w-2 h-2 rounded-full ${selectedIndex === index ? 'bg-[#0F4C81]' : 'bg-gray-300'}`}
-                      onClick={() => emblaApi?.scrollTo(index)}
+                      className={`mx-1 w-2 h-2 rounded-full ${galleryIndex === index ? 'bg-[#0F4C81]' : 'bg-gray-300'}`}
+                      onClick={() => emblaGalleryApi?.scrollTo(index)}
                       aria-label={`Go to slide ${index + 1}`}
                     />
                   ))}
