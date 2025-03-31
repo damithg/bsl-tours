@@ -97,15 +97,30 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   // Convert subSections to DetailedSections format
   const apiDetailedSections: DetailedSection[] = [];
   
+  // Define a type for the overview object
+  interface OverviewType {
+    id: number;
+    title: string;
+    fullDescription: string;
+    image?: {
+      id?: number;
+      publicId?: string;
+      alt?: string;
+      caption?: string;
+      orientation?: string;
+    };
+  }
+  
   // First, add the overview section as the first detailed section
   if (destination.overview) {
+    const overview = destination.overview as OverviewType;
     apiDetailedSections.push({
-      title: destination.overview.title,
-      content: destination.overview.fullDescription,
-      imageUrl: destination.overview.image?.publicId 
-        ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.overview.image.publicId}` 
+      title: overview.title,
+      content: overview.fullDescription,
+      imageUrl: overview.image?.publicId
+        ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${overview.image.publicId}` 
         : undefined,
-      imageCaption: destination.overview.image?.caption
+      imageCaption: overview.image?.caption
     });
   }
   
@@ -478,11 +493,8 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
             <h1 className="font-['Playfair_Display'] text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
               {destination.name}
             </h1>
-            <p className="text-2xl text-white/90 max-w-2xl mb-6">
+            <p className="text-2xl text-white/90 max-w-4xl whitespace-normal">
               {destination.shortDescription || "A must-visit destination in Sri Lanka"}
-            </p>
-            <p className="text-xl text-white/90 max-w-2xl">
-              {destination.description}
             </p>
           </div>
         </div>
