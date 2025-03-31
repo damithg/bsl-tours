@@ -31,6 +31,7 @@ public class DestinationDto
     public List<RelatedTourDto> RelatedTours { get; set; }
     public List<NearbyAttractionDto> NearbyAttractions { get; set; }
     public EssentialInfoDto EssentialInfo { get; set; }
+    public CardImageDto CardImage { get; set; }
 }
 
 
@@ -41,7 +42,15 @@ public class OverviewDto
     public int Id { get; set; }
     public string Title { get; set; }
     public string FullDescription { get; set; }
-    public ImageDto Image { get; set; }
+    public CardDto Card { get; set; }
+}
+
+public class CardDto
+{
+    public CardImageDto Image { get; set; }
+    public string Title { get; set; }           // Optional: override name
+    public string Subtitle { get; set; }        // Optional: short line
+    public string Tag { get; set; }             // Optional: e.g., "Surf", "Heritage", etc.
 }
 
 public class SubSectionDto : OverviewDto { }
@@ -58,6 +67,10 @@ public class ImageDto
 
 // HeroImage
 public class HeroImageDto : ImageDto { }
+
+
+public class CardImageDto : ImageDto { }
+
 
 // Features Section
 public class FeaturesSectionDto
@@ -78,6 +91,7 @@ public class FeatureItemDto
 
 // Gallery Image
 public class GalleryImageDto : ImageDto { }
+
 
 // FAQ
 public class FaqDto
