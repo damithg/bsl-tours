@@ -183,21 +183,23 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
       slug: string;
       duration: string;
       startingFrom: number;
-      heroImage?: {
+      image?: {
+        id?: number;
         publicId?: string;
         alt?: string;
+        caption?: string;
+        orientation?: string;
       }
     }) => {
-      // Properly handle tour images - try to get from heroImage, fallback to attached_assets or use a placeholder
+      // Get image URL from the tour's image property
       let imageUrl = '/attached_assets/A Week in the Tropics.jpg'; // Default fallback image
       
-      // If tour has heroImage with publicId, use that
-      if (tour.heroImage && tour.heroImage.publicId) {
-        imageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/${tour.heroImage.publicId}`;
+      // If tour has image with publicId from the API, use that (this is the main data source)
+      if (tour.image && tour.image.publicId) {
+        imageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/${tour.image.publicId}`;
       } 
-      // Second fallback - try to use predictable slug-based naming
+      // Fallback options if the API doesn't provide an image
       else if (tour.slug) {
-        // Try different formats that might exist in the attached_assets folder
         if (tour.slug === 'cultural-triangle-explorer') {
           imageUrl = '/attached_assets/A Week in the Tropics.jpg';
         } else if (tour.slug === 'romantic-honeymoon-escape' || tour.slug.includes('honeymoon')) {
