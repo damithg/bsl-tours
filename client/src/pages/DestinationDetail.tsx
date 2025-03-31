@@ -14,9 +14,10 @@ import {
   HeroImage, 
   FeatureImage, 
   ExperienceImage, 
-  GalleryImage, 
   BackgroundImage 
 } from '@/components/ui/optimized-image';
+import { ResponsivePhotoGallery } from '@/components/ResponsivePhotoGallery';
+import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
 
 // Helper function to safely parse JSON strings
 const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
@@ -197,36 +198,68 @@ const DestinationDetail = () => {
 
   // Gallery image interface
   interface GalleryImage {
-    url: string;
+    url?: string;
     alt: string;
+    small?: string;
+    medium?: string;
+    banner?: string;
+    large?: string;
+    baseUrl?: string;
+    publicId?: string;
+    caption?: string;
+    orientation?: string;
   }
   
-  // Gallery images - now directly use the structured gallery images from API
-  const galleryImages: GalleryImage[] = (destination as any)?.galleryImages || 
+  // Check if we have gallery images from the API
+  const hasApiGalleryImages = 
+    Array.isArray((destination as any)?.galleryImages) && 
+    (destination as any)?.galleryImages.length > 0;
+  
+  // Get gallery images from the API or use fallback
+  const galleryImages: GalleryImage[] = hasApiGalleryImages ?
+    // Using API's gallery images - they already have the Cloudinary format
+    (destination as any).galleryImages :
+    // Fallback to local images with a format compatible with AsymmetricalGallery
     [
       {
-        url: destination?.imageUrl || "/images/destinations/gallery/tropical-beach.jpg",
-        alt: `${destination?.name} - Main View`
+        baseUrl: "/attached_assets/A Week in the Tropics.jpg",
+        alt: `${destination?.name} - Tropical View`,
+        small: "/attached_assets/A Week in the Tropics.jpg",
+        medium: "/attached_assets/A Week in the Tropics.jpg",
+        large: "/attached_assets/A Week in the Tropics.jpg",
+        caption: `Scenic view of ${destination?.name}`
       },
       {
-        url: "/images/destinations/gallery/mountain-view.jpg",
-        alt: `${destination?.name} - Mountain View`
+        baseUrl: "/attached_assets/mirissa (7).jpg",
+        alt: `${destination?.name} - Mirissa Beach View`,
+        small: "/attached_assets/mirissa (7).jpg",
+        medium: "/attached_assets/mirissa (7).jpg",
+        large: "/attached_assets/mirissa (7).jpg",
+        caption: `Beach view near ${destination?.name}`
       },
       {
-        url: "/images/destinations/gallery/mirissa-beach.jpg",
-        alt: `${destination?.name} - Beach View`
+        baseUrl: "/attached_assets/mirissa (8).jpg",
+        alt: `${destination?.name} - Ocean View`,
+        small: "/attached_assets/mirissa (8).jpg",
+        medium: "/attached_assets/mirissa (8).jpg",
+        large: "/attached_assets/mirissa (8).jpg",
+        caption: `Ocean landscape at ${destination?.name}`
       },
       {
-        url: "/images/destinations/gallery/mirissa-palm.jpg",
-        alt: `${destination?.name} - Palm Trees`
+        baseUrl: "/attached_assets/romantic honeymoon escape.jpg",
+        alt: `${destination?.name} - Romantic Setting`,
+        small: "/attached_assets/romantic honeymoon escape.jpg",
+        medium: "/attached_assets/romantic honeymoon escape.jpg",
+        large: "/attached_assets/romantic honeymoon escape.jpg",
+        caption: `Romantic sunset at ${destination?.name}`
       },
       {
-        url: "/images/destinations/gallery/romantic-beach.jpg",
-        alt: `${destination?.name} - Romantic Beach`
-      },
-      {
-        url: destination?.imageUrl || "/images/destinations/gallery/tropical-beach.jpg",
-        alt: `${destination?.name} - Aerial View`
+        baseUrl: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        alt: `${destination?.name} - Beach Panorama`,
+        small: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        medium: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        large: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
+        caption: `Panoramic beach view at ${destination?.name}`
       }
     ];
 
@@ -285,7 +318,7 @@ const DestinationDetail = () => {
             />
           ) : (
             <HeroImage
-              src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+              src="/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg"
               alt={destination.name}
               className="object-cover"
             />
@@ -676,23 +709,20 @@ const DestinationDetail = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {galleryImages.map((image: GalleryImage, index: number) => (
-              <div 
-                key={index} 
-                className={`rounded-xl overflow-hidden ${
-                  index === 0 ? "md:col-span-2 md:row-span-2" : ""
-                }`}
-              >
-                <GalleryImage 
-                  src={image.url} 
-                  alt={image.alt || `${destination.name} - Image ${index + 1}`}
-                  className="w-full h-full hover:scale-105 transition-transform duration-500"
-                  featured={index === 0}
-                />
-              </div>
-            ))}
-          </div>
+          {/* Asymmetrical Gallery with Lightbox */}
+          <AsymmetricalGallery 
+            images={hasApiGalleryImages ? galleryImages : galleryImages.map(image => ({
+              baseUrl: image.baseUrl || image.url,
+              alt: image.alt || `${destination.name} - Gallery Image`,
+              caption: image.caption,
+              publicId: image.publicId,
+              orientation: image.orientation,
+              small: image.small || image.baseUrl || image.url,
+              medium: image.medium || image.baseUrl || image.url,
+              large: image.large || image.banner || image.baseUrl || image.url
+            }))}
+            className="mb-6"
+          />
         </div>
       </section>
 
@@ -812,7 +842,7 @@ const DestinationDetail = () => {
       <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <BackgroundImage 
-            src={(destination as any).images?.banner || destination.imageUrl || "https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"} 
+            src="/attached_assets/romantic honeymoon escape.jpg" 
             alt={`${destination.name} landscape`}
             className="w-full h-full"
           />
