@@ -266,35 +266,60 @@ const DestinationDetail = () => {
     hasEssentialInfo: !!destination.essentialInfo,
   });
   
-  // Enhanced destination object with all needed properties
+  // Enhanced destination object with all needed properties from the updated API
   // Use type assertion to ensure compatibility with EnhancedDestinationTemplate
   const enhancedDestination = {
     ...destination,
-    // Make sure required properties exist
+    // Core properties (ensure they exist)
+    id: destination.id,
     slug: destination.slug || "",
     name: destination.name,
     description: destination.overview?.fullDescription || destination.description || destination.excerpt || "",
     featured: destination.featured || false,
-    // Ensure these properties exist but convert nulls to undefined for API compatibility
+    
+    // Essential information
     address: destination.address || undefined,
-    bestTimeToVisit: destination.bestTimeToVisit || undefined,
+    bestTimeToVisit: destination.essentialInfo?.bestTimeToVisit || destination.bestTimeToVisit || undefined,
     recommendedDuration: destination.recommendedDuration || undefined,
     weatherInfo: destination.weatherInfo || undefined,
-    // Set imageUrl if not already present (will be added from heroImage in the component)
-    imageUrl: destination.imageUrl || destination.heroImage?.publicId ? 
-              `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.heroImage?.publicId}` : 
-              undefined,
-    // Enhanced template properties (these get processed in EnhancedDestinationTemplate)
-    // Convert nulls to undefined when passing to the component
+    region: destination.region || undefined,
+    
+    // Coordinates for maps
+    latitude: destination.latitude || undefined,
+    longitude: destination.longitude || undefined,
+    
+    // Media - set imageUrl if not already present
+    imageUrl: destination.imageUrl || 
+              (destination.heroImage?.publicId ? 
+              `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.heroImage.publicId}` : 
+              undefined),
+    
+    // New API structure fields
+    overview: destination.overview || undefined,
+    subSections: destination.subSections || undefined,
+    featuresSection: destination.featuresSection || undefined,
+    heroImage: destination.heroImage || undefined,
+    galleryImages: destination.galleryImages || undefined, // Now is an array of objects in new API
+    videoBlock: destination.videoBlock || undefined,
+    quoteBlock: destination.quoteBlock || undefined,
+    relatedTours: destination.relatedTours || undefined, // Now is an array of objects in new API
+    nearbyAttractions: destination.nearbyAttractions || undefined, // Now is an array of objects in new API
+    essentialInfo: destination.essentialInfo || undefined, // Now is an object in new API
+    faqs: destination.faqs || undefined, // Now is an array of objects in new API
+    
+    // Legacy data fields for backward compatibility with the template
+    // These will be used if the new API fields are not populated
     detailedSections: destination.detailedSections || undefined,
     pointsOfInterest: destination.pointsOfInterest || undefined,
     toursFeaturing: destination.toursFeaturing || undefined,
     localExperiences: destination.localExperiences || undefined,
-    galleryImages: destination.galleryImages || undefined,
-    faqs: destination.faqs || undefined,
-    essentialInfo: destination.essentialInfo || undefined,
-    nearbyAttractions: destination.nearbyAttractions || undefined,
+    
+    // For debugging
+    fullApiData: destination,
   } as any; // Use type assertion to avoid TypeScript errors
+  
+  // Log the enhanced destination for debugging
+  console.log('Enhanced destination data:', enhancedDestination);
   
   // Always use the enhanced template UI for all destinations
   return <EnhancedDestinationTemplate destination={enhancedDestination} />;
