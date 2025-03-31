@@ -6,8 +6,8 @@ import {
   Sun, Droplets, Star, Menu, ArrowRight, ChevronDown, MessageCircle, 
   Heart, Share2, Camera, MapIcon, Coffee
 } from 'lucide-react';
-import { Destination } from '@shared/schema';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { parseJsonSafely } from '@/lib/utils';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 import { AdaptiveImage } from '@/components/ui/adaptive-image';
 import { 
@@ -18,17 +18,40 @@ import {
 } from '@/components/ui/optimized-image';
 import { ResponsivePhotoGallery } from '@/components/ResponsivePhotoGallery';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
+import { EnhancedDestinationTemplate } from '@/components/EnhancedDestinationTemplate';
 
-// Helper function to safely parse JSON strings
-const safeJsonParse = (jsonString: string | null | undefined, fallback: any = null) => {
-  if (!jsonString) return fallback;
-  try {
-    return JSON.parse(jsonString);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-    return fallback;
-  }
-};
+// Extended destination interface to handle all possible properties from the API
+interface Destination {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+  featured: boolean | null;
+  slug?: string | null;
+  shortDescription?: string | null;
+  excerpt?: string | null;
+  fullDescription?: string | null;
+  region?: string | null;
+  latitude?: string | null;
+  longitude?: string | null;
+  highlights?: string | null;
+  activities?: string | null;
+  // Enhanced template properties
+  featuredExperiences?: string | null;
+  relatedTours?: string | null;
+  localExperiences?: string | null;
+  toursFeaturing?: string | null;
+  detailedSections?: string | null;
+  pointsOfInterest?: string | null;
+  faqs?: string | null;
+  essentialInfo?: string | null;
+  templateType?: string | null;
+  // Any other properties
+  [key: string]: any;
+}
+
+// Alias parseJsonSafely to maintain compatibility with existing code
+const safeJsonParse = parseJsonSafely;
 
 interface RelatedTour {
   id: number;
@@ -37,6 +60,26 @@ interface RelatedTour {
   duration: number;
   price: number;
   imageUrl: string;
+}
+
+interface Feature {
+  title: string;
+  description: string;
+  icon: string;
+  imageUrl?: string;
+}
+
+interface GalleryImage {
+  url?: string;
+  alt: string;
+  small?: string;
+  medium?: string;
+  banner?: string;
+  large?: string;
+  baseUrl?: string;
+  publicId?: string;
+  caption?: string;
+  orientation?: string;
 }
 
 const DestinationDetail = () => {
@@ -55,244 +98,129 @@ const DestinationDetail = () => {
   const destinationId = isNumeric ? parseInt(paramValue, 10) : 0;
   const destinationSlug = !isNumeric ? paramValue : '';
   
-  // Log the route parameters for debugging
-  console.log('Route parameters:', { matched, paramValue, isNumeric, destinationId, destinationSlug });
-  
-  // Decide which API endpoint to use based on whether we have an ID or a slug
-  // The .NET Core API can handle both ID-based and slug-based requests directly
-  const queryEndpoint = destinationId ? ['/api/destinations', destinationId] : 
-                        destinationSlug ? ['/api/destinations', destinationSlug] : 
-                        ['/api/destinations', 0];
-  
-  // Fetch destination data
-  const { data: destination, isLoading, error } = useQuery<Destination>({
-    queryKey: queryEndpoint,
-    enabled: !!(destinationId || destinationSlug)
-  });
-
-  // Error logging
-  useEffect(() => {
-    if (error) {
-      console.error('Destination detail error:', error, 'Query endpoint:', queryEndpoint);
-    }
-  }, [error, queryEndpoint]);
-
-  // Setup scroll spy
+  // Handle scroll events to update active navigation
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
       
-      // Check which section is visible
-      if (overviewRef.current && scrollPosition >= overviewRef.current.offsetTop) {
-        setActiveSection('overview');
-        setActiveTab('overview');
-      }
-      
-      if (activitiesRef.current && scrollPosition >= activitiesRef.current.offsetTop) {
-        setActiveSection('activities');
-        setActiveTab('activities');
-      }
-      
-      if (galleryRef.current && scrollPosition >= galleryRef.current.offsetTop) {
-        setActiveSection('gallery');
-        setActiveTab('gallery');
-      }
-      
-      if (mapRef.current && scrollPosition >= mapRef.current.offsetTop) {
-        setActiveSection('map');
-        setActiveTab('map');
+      if (overviewRef.current && activitiesRef.current && galleryRef.current && mapRef.current) {
+        const overviewTop = overviewRef.current.offsetTop;
+        const activitiesTop = activitiesRef.current.offsetTop;
+        const galleryTop = galleryRef.current.offsetTop;
+        const mapTop = mapRef.current.offsetTop;
+        
+        if (scrollPosition >= mapTop) {
+          setActiveTab('map');
+        } else if (scrollPosition >= galleryTop) {
+          setActiveTab('gallery');
+        } else if (scrollPosition >= activitiesTop) {
+          setActiveTab('activities');
+        } else if (scrollPosition >= overviewTop) {
+          setActiveTab('overview');
+        }
       }
     };
     
     window.addEventListener('scroll', handleScroll);
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  // Related tours based on the destination
-  const relatedTours: RelatedTour[] = [
-    {
-      id: 1,
-      slug: "cultural-heritage-tour",
-      title: "Cultural Heritage Expedition",
-      duration: 7,
-      price: 2499,
-      imageUrl: "/images/packages/cultural-heritage-expedition.jpg"
-    },
-    {
-      id: 2,
-      slug: "wildlife-safari",
-      title: "Wildlife Safari Adventure",
-      duration: 5,
-      price: 1899,
-      imageUrl: "/images/packages/wildlife-safari-adventure.jpg"
-    },
-    {
-      id: 3,
-      slug: "beach-retreat",
-      title: "Tropical Beach Retreat",
-      duration: 6,
-      price: 2199,
-      imageUrl: "/images/packages/tropical-beach-retreat.jpg"
-    }
-  ];
-
-  // Define feature interface
-  interface Feature {
-    title: string;
-    description: string;
-    icon: string;
-    imageUrl?: string;
+  
+  // Fetch the destination data from the .NET API (directly, no 'slug' in path)
+  const { data: destination, error, isLoading } = useQuery<Destination>({
+    queryKey: ['/api/destinations', isNumeric ? `${destinationId}` : `${destinationSlug}`],
+    enabled: !!paramValue,
+  });
+  
+  // Log the API URL for debugging
+  console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations/${isNumeric ? destinationId : destinationSlug}`);
+  
+  // If we have destination data, log it for debugging
+  if (destination) {
+    console.log('Full destination data received:', destination);
   }
   
-  // Use features from API or fallback to sample experiences
-  const experiences: Feature[] = (destination as any)?.features || [
+  // Default experiences to use when none are provided by the API
+  const defaultExperiences = [
     {
-      title: "Private Guided Tours",
-      description: "Explore hidden gems with our expert local guides who bring history and culture to life.",
+      title: "Private Guided Tour",
+      description: "Discover the hidden gems of the destination with our expert local guides who provide personalized insights and exclusive access.",
       icon: "guide"
     },
     {
-      title: "Exclusive Access",
-      description: "Skip the lines and enjoy special access to restricted areas without the crowds.",
-      icon: "key"
+      title: "Cultural Immersion",
+      description: "Experience authentic local traditions, cuisine, and customs through carefully curated activities and interactions.",
+      icon: "heritage-walk"
     },
     {
-      title: "Luxury Transportation",
-      description: "Travel in air-conditioned comfort with our fleet of luxury vehicles.",
-      icon: "transport"
+      title: "Luxury Accommodations",
+      description: "Stay in handpicked boutique hotels and luxury resorts that offer exceptional service and authentic character.",
+      icon: "boutique-hotel"
     },
     {
-      title: "Authentic Cuisine",
-      description: "Savor local delicacies prepared by renowned chefs in stunning settings.",
-      icon: "dining"
+      title: "Culinary Experiences",
+      description: "Indulge in authentic cuisine and unique dining experiences from street food adventures to gourmet meals.",
+      icon: "coffee-art"
     }
   ];
 
-  // Local experiences for this destination
-  const localExperiences = (destination as any)?.localExperiences || 
-    [
-      {
-        title: "Hiking Adventure",
-        description: "Explore breathtaking trails with panoramic views of the surrounding landscape.",
-        imageUrl: "/images/activities/hiking.jpg",
-        duration: "3-4 hours",
-        difficulty: "Moderate"
-      },
-      {
-        title: "Cultural Tour",
-        description: "Discover the rich cultural heritage and history with our expert local guides.",
-        imageUrl: "/images/activities/cultural-tour.jpg",
-        duration: "Half day",
-        difficulty: "Easy"
-      },
-      {
-        title: "Wildlife Safari",
-        description: "Spot exotic wildlife in their natural habitat with our experienced trackers.",
-        imageUrl: "/images/activities/wildlife-safari.jpg",
-        duration: "Full day",
-        difficulty: "Easy"
-      }
-    ];
-
-  // Gallery image interface
-  interface GalleryImage {
-    url?: string;
-    alt: string;
-    small?: string;
-    medium?: string;
-    banner?: string;
-    large?: string;
-    baseUrl?: string;
-    publicId?: string;
-    caption?: string;
-    orientation?: string;
-  }
+  // Parse additional data with better debug information
+  const highlights = parseJsonSafely(
+    destination?.highlights, 
+    [], 
+    'highlights'
+  );
   
-  // Check if we have gallery images from the API
-  const hasApiGalleryImages = 
-    Array.isArray((destination as any)?.galleryImages) && 
-    (destination as any)?.galleryImages.length > 0;
+  // Parse experiences from different API properties with debugging labels
+  const experiences = destination?.featuredExperiences
+    ? parseJsonSafely(destination.featuredExperiences, defaultExperiences, 'featuredExperiences')
+    : destination?.localExperiences
+      ? parseJsonSafely(destination.localExperiences, defaultExperiences, 'localExperiences')
+      : defaultExperiences;
+      
+  // Parse related tours data with debugging labels
+  const relatedTours = destination?.relatedTours
+    ? parseJsonSafely(destination.relatedTours, [], 'relatedTours')
+    : destination?.toursFeaturing
+      ? parseJsonSafely(destination.toursFeaturing, [], 'toursFeaturing')
+      : [];
+    
+  // Parse gallery data with debugging label
+  const galleryImages = parseJsonSafely(
+    destination?.galleryImages, 
+    [], 
+    'galleryImages'
+  );
+    
+  // Determine if we have API-provided gallery images
+  const hasApiGalleryImages = galleryImages && galleryImages.length > 0;
   
-  // Get gallery images from the API or use fallback
-  const galleryImages: GalleryImage[] = hasApiGalleryImages ?
-    // Using API's gallery images - they already have the Cloudinary format
-    (destination as any).galleryImages :
-    // Fallback to local images with a format compatible with AsymmetricalGallery
-    [
-      {
-        baseUrl: "/attached_assets/A Week in the Tropics.jpg",
-        alt: `${destination?.name} - Tropical View`,
-        small: "/attached_assets/A Week in the Tropics.jpg",
-        medium: "/attached_assets/A Week in the Tropics.jpg",
-        large: "/attached_assets/A Week in the Tropics.jpg",
-        caption: `Scenic view of ${destination?.name}`
-      },
-      {
-        baseUrl: "/attached_assets/mirissa (7).jpg",
-        alt: `${destination?.name} - Mirissa Beach View`,
-        small: "/attached_assets/mirissa (7).jpg",
-        medium: "/attached_assets/mirissa (7).jpg",
-        large: "/attached_assets/mirissa (7).jpg",
-        caption: `Beach view near ${destination?.name}`
-      },
-      {
-        baseUrl: "/attached_assets/mirissa (8).jpg",
-        alt: `${destination?.name} - Ocean View`,
-        small: "/attached_assets/mirissa (8).jpg",
-        medium: "/attached_assets/mirissa (8).jpg",
-        large: "/attached_assets/mirissa (8).jpg",
-        caption: `Ocean landscape at ${destination?.name}`
-      },
-      {
-        baseUrl: "/attached_assets/romantic honeymoon escape.jpg",
-        alt: `${destination?.name} - Romantic Setting`,
-        small: "/attached_assets/romantic honeymoon escape.jpg",
-        medium: "/attached_assets/romantic honeymoon escape.jpg",
-        large: "/attached_assets/romantic honeymoon escape.jpg",
-        caption: `Romantic sunset at ${destination?.name}`
-      },
-      {
-        baseUrl: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
-        alt: `${destination?.name} - Beach Panorama`,
-        small: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
-        medium: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
-        large: "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg",
-        caption: `Panoramic beach view at ${destination?.name}`
-      }
-    ];
-
-  // Highlights - directly use the array from API
-  const highlights: string[] = (destination as any)?.highlights || 
-    ['Wildlife', 'Cultural Heritage', 'UNESCO Site', 'Panoramic Views'];
-
   // Loading state
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-16">
-        <div className="w-full h-64 bg-gray-200 animate-pulse rounded-lg mb-8"></div>
-        <div className="w-2/3 h-10 bg-gray-200 animate-pulse rounded-lg mb-4"></div>
-        <div className="flex gap-4 mb-8">
-          <div className="w-24 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
-          <div className="w-24 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
-          <div className="w-24 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="col-span-2">
-            <div className="w-full h-40 bg-gray-200 animate-pulse rounded-lg mb-6"></div>
-            <div className="w-full h-60 bg-gray-200 animate-pulse rounded-lg"></div>
-          </div>
-          <div>
-            <div className="w-full h-80 bg-gray-200 animate-pulse rounded-lg"></div>
-          </div>
-        </div>
+      <div className="container mx-auto px-4 py-16 flex justify-center">
+        <div className="w-16 h-16 border-4 border-[#0F4C81] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
-
+  
   // Error state
-  if (error || !destination) {
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <h2 className="font-['Playfair_Display'] text-3xl text-[#0F4C81] mb-4">Error Loading Destination</h2>
+        <p className="mb-8">We encountered an error while loading the destination information. Please try again later.</p>
+        <Link href="/destinations" className="inline-block bg-[#0F4C81] text-white font-medium py-3 px-8 rounded-md">
+          Return to Destinations
+        </Link>
+      </div>
+    );
+  }
+  
+  // Not found state
+  if (!destination) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
         <h2 className="font-['Playfair_Display'] text-3xl text-[#0F4C81] mb-4">Destination Not Found</h2>
@@ -303,578 +231,53 @@ const DestinationDetail = () => {
       </div>
     );
   }
-
-  return (
-    <main className="bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[500px] md:h-[600px] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10"></div>
-        <div className="absolute inset-0">
-          {((destination as any).images?.banner || destination.imageUrl) ? (
-            <HeroImage
-              src={(destination as any).images?.banner || destination.imageUrl}
-              alt={destination.name}
-              className="object-cover"
-            />
-          ) : (
-            <HeroImage
-              src="/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg"
-              alt={destination.name}
-              className="object-cover"
-            />
-          )}
-        </div>
-        
-        <div className="absolute top-0 left-0 w-full z-20">
-          <div className="container mx-auto px-4 pt-8 flex justify-between items-center">
-            <Link href="/destinations" className="flex items-center gap-2 text-white hover:text-[#D4AF37] transition-colors">
-              <ChevronRight className="w-5 h-5 rotate-180" />
-              <span>Back to All Destinations</span>
-            </Link>
-            
-            <div className="flex gap-2">
-              <button className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition">
-                <Heart className="w-5 h-5" />
-              </button>
-              <button className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition">
-                <Share2 className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <div className="absolute bottom-0 left-0 w-full z-20">
-          <div className="container mx-auto px-4 pb-8 md:pb-12">
-            <div className="bg-white/10 backdrop-blur-sm py-1 px-3 rounded-full text-white text-sm inline-block mb-4">
-              {destination.region || 'Sri Lanka'}
-            </div>
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3">
-              {destination.name}
-            </h1>
-            <p className="text-white/90 text-lg md:text-xl max-w-3xl mb-6">
-              {destination.shortDescription || destination.description}
-            </p>
-            <div className="flex flex-wrap gap-2 mb-6">
-              {highlights.slice(0, 3).map((highlight: string, index: number) => (
-                <span key={index} className="bg-white/10 backdrop-blur-sm px-4 py-1 rounded-full text-white">
-                  {highlight}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Navigation Tabs */}
-      <section className="sticky top-0 bg-white z-30 border-b border-gray-200 shadow-md">
-        <div className="container mx-auto px-4">
-          <div className="flex overflow-x-auto hide-scrollbar justify-center">
-            <button 
-              onClick={() => {
-                setActiveTab('overview');
-                if (overviewRef.current) {
-                  overviewRef.current.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className={`px-8 py-4 text-base font-medium whitespace-nowrap border-b-3 transition-all ${
-                activeTab === 'overview' 
-                  ? 'border-[#0F4C81] text-[#0F4C81] font-semibold' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              Overview
-            </button>
-            <button 
-              onClick={() => {
-                setActiveTab('activities');
-                if (activitiesRef.current) {
-                  activitiesRef.current.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className={`px-8 py-4 text-base font-medium whitespace-nowrap border-b-3 transition-all ${
-                activeTab === 'activities' 
-                  ? 'border-[#0F4C81] text-[#0F4C81] font-semibold' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              Local Experiences
-            </button>
-            <button 
-              onClick={() => {
-                setActiveTab('gallery');
-                if (galleryRef.current) {
-                  galleryRef.current.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className={`px-8 py-4 text-base font-medium whitespace-nowrap border-b-3 transition-all ${
-                activeTab === 'gallery' 
-                  ? 'border-[#0F4C81] text-[#0F4C81] font-semibold' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              Gallery
-            </button>
-            <button 
-              onClick={() => {
-                setActiveTab('map');
-                if (mapRef.current) {
-                  mapRef.current.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className={`px-8 py-4 text-base font-medium whitespace-nowrap border-b-3 transition-all ${
-                activeTab === 'map' 
-                  ? 'border-[#0F4C81] text-[#0F4C81] font-semibold' 
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              Map
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Overview Section */}
-      <section ref={overviewRef} className="py-12 bg-white" id="overview">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-12">
-            {/* Main Content */}
-            <div className="lg:w-2/3">
-              <div className="mb-10">
-                <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-6">About {destination.name}</h2>
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-gray-700">
-                    {destination.fullDescription || destination.shortDescription || destination.excerpt || destination.description}
-                  </p>
-                  <p className="text-gray-700">
-                    {destination.fullDescription && (destination.description || destination.shortDescription || destination.excerpt) ? 
-                      (destination.description || destination.shortDescription || destination.excerpt) : 
-                      `Our luxury tours to ${destination.name} offer an unparalleled travel experience with exclusive access to key sites, private guides, and exquisite accommodation options. Whether you're seeking cultural immersion, adventure, or simply relaxation, our tailored packages ensure you experience the very best this destination has to offer.`
-                    }
-                  </p>
-                </div>
-              </div>
-              
-              {/* Highlights & Experiences */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-                {experiences.map((experience: Feature, index: number) => (
-                  <div key={index} className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#0F4C81]/30 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div className="p-6">
-                      <div className="flex mb-4">
-                        <div className="w-16 h-16 rounded-lg overflow-hidden mr-4 flex-shrink-0">
-                          <FeatureImage 
-                            src={experience.imageUrl 
-                              ? experience.imageUrl 
-                              : experience.icon === 'heritage-walk' 
-                              ? "/images/activities/guide-experience.jpg" 
-                              : experience.icon === 'boutique-hotel' 
-                              ? "/images/activities/exclusive-access.jpg"
-                              : experience.icon === 'sunset'
-                              ? "/images/activities/luxury-transport.jpg"
-                              : experience.icon === 'coffee-art'
-                              ? "/images/activities/authentic-cuisine.jpg"
-                              : experience.icon === 'guide' 
-                              ? "/images/activities/guide-experience.jpg" 
-                              : experience.icon === 'key' 
-                              ? "/images/activities/exclusive-access.jpg"
-                              : experience.icon === 'transport'
-                              ? "/images/activities/luxury-transport.jpg"
-                              : "/images/activities/authentic-cuisine.jpg"} 
-                            alt={experience.title}
-                          />
-                        </div>
-                        <div>
-                          <div className="inline-flex items-center text-[#0F4C81] mb-2">
-                            {experience.icon === 'heritage-walk' ? (
-                              <Users className="w-4 h-4 mr-2" />
-                            ) : experience.icon === 'boutique-hotel' ? (
-                              <Bookmark className="w-4 h-4 mr-2" />
-                            ) : experience.icon === 'sunset' ? (
-                              <Sun className="w-4 h-4 mr-2" />
-                            ) : experience.icon === 'coffee-art' ? (
-                              <Coffee className="w-4 h-4 mr-2" />
-                            ) : experience.icon === 'guide' ? (
-                              <Users className="w-4 h-4 mr-2" />
-                            ) : experience.icon === 'key' ? (
-                              <Bookmark className="w-4 h-4 mr-2" />
-                            ) : experience.icon === 'transport' ? (
-                              <Compass className="w-4 h-4 mr-2" />
-                            ) : (
-                              <MessageCircle className="w-4 h-4 mr-2" />
-                            )}
-                            <span className="text-sm font-medium">Exclusive</span>
-                          </div>
-                          <h3 className="font-['Playfair_Display'] text-xl font-medium text-gray-900">{experience.title}</h3>
-                        </div>
-                      </div>
-                      <p className="text-gray-700 leading-relaxed">{experience.description}</p>
-                      <div className="mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">Featured Experience</span>
-                          <div className="w-8 h-8 rounded-full bg-[#F9F7F4] group-hover:bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] transition-colors duration-300">
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Related Tours */}
-              <div className="mt-12">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81]">
-                    Tours Featuring {destination.name}
-                  </h2>
-                  <Link href="/tour-packages" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
-                    View All <ChevronRight className="w-4 h-4" />
-                  </Link>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {relatedTours.slice(0, 2).map((tour) => (
-                    <div key={tour.id} className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="w-1/3 h-auto relative">
-                        <FeatureImage
-                          src={tour.imageUrl} 
-                          alt={tour.title}
-                          className="w-full h-full"
-                        />
-                      </div>
-                      <div className="w-2/3 p-4">
-                        <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-1">{tour.title}</h3>
-                        <div className="flex items-center text-gray-500 text-sm mb-2">
-                          <Calendar className="w-4 h-4 mr-1" />
-                          <span>{tour.duration} Days</span>
-                          <span className="mx-2">•</span>
-                          <Users className="w-4 h-4 mr-1" />
-                          <span>Max 12 people</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="font-semibold text-[#0F4C81]">
-                            From {formatPrice(tour.price)}
-                          </span>
-                          <Link 
-                            href={`/tour/${tour.slug}`} 
-                            className="text-[#0F4C81] hover:text-[#D4AF37] transition"
-                          >
-                            <ArrowRight className="w-5 h-5" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            
-            {/* Sidebar */}
-            <div className="lg:w-1/3">
-              <div className="bg-[#F9F7F4] p-6 rounded-xl shadow-sm sticky top-24">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold mb-6 text-gray-900">Essential Information</h3>
-                
-                <div className="space-y-5">
-                  <div className="flex gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
-                      <Calendar className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Best Time to Visit</h4>
-                      <p className="text-gray-600">{destination.bestTimeToVisit || "January to April"}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
-                      <Clock className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Recommended Duration</h4>
-                      <p className="text-gray-600">{destination.recommendedDuration || "1-2 Days"}</p>
-                    </div>
-                  </div>
-                  
-                  {destination.weatherInfo && (
-                    <div className="flex gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
-                        <Sun className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Weather</h4>
-                        <p className="text-gray-600">{destination.weatherInfo}</p>
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {highlights.map((highlight: string, index: number) => (
-                        <span key={index} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
-                          {highlight}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {(destination as any)?.travelTips && (destination as any).travelTips.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Travel Tips</h4>
-                      <ul className="list-disc list-inside text-gray-600 space-y-1">
-                        {((destination as any).travelTips || []).map((tip: string, index: number) => (
-                          <li key={index}>{tip}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <Link 
-                    href="/custom-tour-request" 
-                    className="block w-full bg-[#0F4C81] hover:bg-[#0D3E6A] text-white font-medium py-3 px-6 rounded-lg text-center transition"
-                  >
-                    Create Custom Tour
-                  </Link>
-                  <Link 
-                    href="/contact" 
-                    className="block w-full bg-white border border-[#0F4C81] text-[#0F4C81] hover:bg-[#F9F7F4] font-medium py-3 px-6 rounded-lg text-center mt-3 transition"
-                  >
-                    Ask a Question
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Local Experiences Section */}
-      <section ref={activitiesRef} className="py-12 bg-[#F9F7F4]" id="activities">
-        <div className="container mx-auto px-4">
-          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-center text-[#0F4C81] mb-10">
-            Local Experiences in {destination.name}
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {localExperiences.map((experience: any, index: number) => (
-              <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-                <div className="relative h-56">
-                  <ExperienceImage 
-                    src={experience.imageUrl || `/images/activities/activity-${index + 1}.jpg`} 
-                    alt={experience.title}
-                    className="w-full h-full"
-                  />
-                  {experience.difficulty && (
-                    <div className="absolute top-4 right-4 bg-white/90 text-[#0F4C81] px-3 py-1 rounded-full text-sm font-medium">
-                      {experience.difficulty}
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2 text-gray-900">{experience.title}</h3>
-                  
-                  {experience.duration && (
-                    <div className="flex items-center text-gray-500 mb-3">
-                      <Clock className="w-4 h-4 mr-2" />
-                      <span>{experience.duration}</span>
-                    </div>
-                  )}
-                  
-                  <p className="text-gray-600 mb-5">{experience.description}</p>
-                  
-                  <Link 
-                    href="/contact" 
-                    className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#D4AF37] gap-1 transition"
-                  >
-                    Book This Experience
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery Section */}
-      <section ref={galleryRef} className="py-12 bg-white" id="gallery">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81]">
-              Photo Gallery
-            </h2>
-            <div className="flex items-center gap-2 text-[#0F4C81]">
-              <Camera className="w-5 h-5" />
-              <span className="font-medium">{galleryImages.length} Photos</span>
-            </div>
-          </div>
-          
-          {/* Asymmetrical Gallery with Lightbox */}
-          <AsymmetricalGallery 
-            images={hasApiGalleryImages ? galleryImages : galleryImages.map(image => ({
-              baseUrl: image.baseUrl || image.url,
-              alt: image.alt || `${destination.name} - Gallery Image`,
-              caption: image.caption,
-              publicId: image.publicId,
-              orientation: image.orientation,
-              small: image.small || image.baseUrl || image.url,
-              medium: image.medium || image.baseUrl || image.url,
-              large: image.large || image.banner || image.baseUrl || image.url
-            }))}
-            className="mb-6"
-          />
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section ref={mapRef} className="py-12 bg-[#F9F7F4]" id="map">
-        <div className="container mx-auto px-4">
-          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-10 text-center">
-            Location & Map
-          </h2>
-          
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden p-4">
-            <div className="aspect-[16/9] bg-[#E8EDF0] rounded-lg mb-4 flex items-center justify-center relative">
-              <div className="flex flex-col items-center text-[#0F4C81]">
-                <MapIcon className="w-16 h-16 mb-2 opacity-30" />
-                <p className="text-lg font-medium">Interactive map available on our premium plan</p>
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-12 h-12 bg-[#0F4C81] rounded-full flex items-center justify-center animate-pulse">
-                  <div className="w-3 h-3 bg-white rounded-full"></div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-3 p-2">
-              <MapPin className="w-5 h-5 text-[#0F4C81]" />
-              <p className="text-gray-600">
-                {destination.region ? `${destination.name}, ${destination.region}` : `${destination.name}, Sri Lanka`}
-              </p>
-            </div>
-          </div>
-          
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-4 text-gray-900">
-                Getting There
-              </h3>
-              <p className="text-gray-600 mb-2">
-                {(destination as any).gettingThere || `${destination.name} is accessible by car from Colombo, with a journey time of approximately 3-4 hours depending on traffic. Private transfers, taxis and buses are available.`}
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-4 text-gray-900">
-                Nearby Attractions
-              </h3>
-              <ul className="text-gray-600 space-y-2">
-                {((destination as any)?.nearbyAttractions && (destination as any).nearbyAttractions.length > 0) ? 
-                  ((destination as any).nearbyAttractions || []).map((attraction: string, index: number) => (
-                    <li key={index} className="flex items-start">
-                      <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
-                      <span>{attraction}</span>
-                    </li>
-                  )) : (
-                    <>
-                      <li className="flex items-start">
-                        <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
-                        <span>Nearby Wildlife Sanctuary</span>
-                      </li>
-                      <li className="flex items-start">
-                        <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
-                        <span>Local Cultural Village</span>
-                      </li>
-                      <li className="flex items-start">
-                        <ChevronRight className="w-4 h-4 text-[#0F4C81] mt-1 mr-1 flex-shrink-0" />
-                        <span>Ancient Temple Complex</span>
-                      </li>
-                    </>
-                  )
-                }
-              </ul>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-4 text-gray-900">
-                Accommodation
-              </h3>
-              <p className="text-gray-600 mb-2">
-                {(destination as any).accommodation || `We offer a range of luxury accommodations near ${destination.name}, from boutique hotels to private villas. All properties are carefully selected for comfort, service and unique character.`}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      {((destination as any)?.faQs?.length > 0) && (
-        <section className="py-12 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">
-              Frequently Asked Questions
-            </h2>
-            
-            <div className="max-w-3xl mx-auto">
-              <div className="space-y-4">
-                {((destination as any)?.faQs || []).map((faq: {question: string, answer: string}, index: number) => (
-                  <div key={index} className="bg-[#F9F7F4] rounded-xl overflow-hidden">
-                    <details className="group">
-                      <summary className="flex justify-between items-center p-6 cursor-pointer">
-                        <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
-                          {faq.question}
-                        </h3>
-                        <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
-                      </summary>
-                      <div className="px-6 pb-6 text-gray-600">
-                        <p>{faq.answer}</p>
-                      </div>
-                    </details>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Call to Action */}
-      <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <BackgroundImage 
-            src="/attached_assets/romantic honeymoon escape.jpg" 
-            alt={`${destination.name} landscape`}
-            className="w-full h-full"
-          />
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to Experience {destination.name}?
-            </h2>
-            <p className="text-xl text-white/80 mb-10">
-              Let our experts craft a personalized journey featuring {destination.name}, tailored to your preferences and travel style.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link 
-                href="/tour-packages" 
-                className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-lg transition"
-              >
-                Browse Tour Packages
-              </Link>
-              <Link 
-                href="/custom-tour-request" 
-                className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-lg transition"
-              >
-                Create Custom Tour
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+  
+  // Apply the enhanced template UI to all destinations regardless of API data
+  console.log('Destination data for enhanced template:', {
+    name: destination.name,
+    hasDetailedSections: !!destination.detailedSections,
+    detailedSectionsLength: destination.detailedSections ? 
+                           parseJsonSafely(destination.detailedSections, []).length : 0,
+    hasPointsOfInterest: !!destination.pointsOfInterest,
+    pointsOfInterestLength: destination.pointsOfInterest ? 
+                           parseJsonSafely(destination.pointsOfInterest, []).length : 0,
+    hasToursFeaturing: !!destination.toursFeaturing,
+    toursFeaturingLength: destination.toursFeaturing ? 
+                         parseJsonSafely(destination.toursFeaturing, []).length : 0,
+    hasLocalExperiences: !!destination.localExperiences,
+    localExperiencesLength: destination.localExperiences ? 
+                           parseJsonSafely(destination.localExperiences, []).length : 0,
+    hasGalleryImages: !!destination.galleryImages,
+    galleryImagesLength: destination.galleryImages ? 
+                         parseJsonSafely(destination.galleryImages, []).length : 0,
+    hasFaqs: !!destination.faqs,
+    faqsLength: destination.faqs ? 
+               parseJsonSafely(destination.faqs, []).length : 0,
+    hasEssentialInfo: !!destination.essentialInfo,
+  });
+  
+  // Enhanced destination object with all needed properties
+  // We'll make sure the destination has all properties needed by the template
+  const enhancedDestination = {
+    ...destination,
+    // Ensure these properties exist even if null
+    address: destination.address || null,
+    bestTimeToVisit: destination.bestTimeToVisit || null,
+    recommendedDuration: destination.recommendedDuration || null,
+    weatherInfo: destination.weatherInfo || null,
+    // Enhanced template properties
+    detailedSections: destination.detailedSections || null,
+    pointsOfInterest: destination.pointsOfInterest || null,
+    toursFeaturing: destination.toursFeaturing || null,
+    localExperiences: destination.localExperiences || null,
+    galleryImages: destination.galleryImages || null,
+    faqs: destination.faqs || null,
+    essentialInfo: destination.essentialInfo || null,
+    nearbyAttractions: destination.nearbyAttractions || null,
+  };
+  
+  // Always use the enhanced template UI for all destinations
+  return <EnhancedDestinationTemplate destination={enhancedDestination} />;
 };
 
 export default DestinationDetail;

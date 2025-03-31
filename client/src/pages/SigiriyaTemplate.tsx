@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "wouter";
-import { Home, ChevronRight } from "lucide-react";
+import { Home, ChevronRight, Calendar, Users, Camera, ChevronDown } from "lucide-react";
+import { AsymmetricalGallery } from "@/components/AsymmetricalGallery";
 
 const SigiriyaTemplate = () => {
   return (
@@ -67,15 +68,146 @@ const SigiriyaTemplate = () => {
                 <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#0F4C81] mb-8">
                   Step Into a Lost Kingdom
                 </h2>
+                
                 <p className="text-lg text-[#333333]/90 mb-6 leading-relaxed">
                   Imagine standing at the foot of a towering rock that rises straight out of the jungle — 200 meters high — with ancient lion paws guarding the entrance. This isn't just a rock. This is Sigiriya, the heart of a forgotten kingdom, carved with ambition, mystery, and breathtaking artistry.
                 </p>
                 
+                {/* Featured Image - Main View */}
+                <div className="rounded-lg overflow-hidden shadow-xl mb-8">
+                  <img 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg" 
+                    alt="Sigiriya Rock Fortress" 
+                    className="w-full h-auto" 
+                  />
+                  <div className="bg-[#F8F5F0] p-4 text-center">
+                    <p className="text-[#333333]/80 italic">The majestic Sigiriya Rock Fortress rises 200 meters above the surrounding plains</p>
+                  </div>
+                </div>
+                
                 <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-4 mt-12">
                   A Story Written in Stone
                 </h3>
-                <p className="text-lg text-[#333333]/90 mb-12 leading-relaxed">
+                <p className="text-lg text-[#333333]/90 mb-8 leading-relaxed">
                   Built by King Kasyapa in the 5th century, Sigiriya was more than a fortress — it was a statement. A sky palace. A sanctuary. A show of power perched above the clouds. Today, its winding staircases and ancient frescoes speak of an era where art and architecture reigned supreme.
+                </p>
+                
+                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
+                  What Awaits You at the Top
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  {/* Lion Gate Card */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-lion-gate.jpg" 
+                        alt="Lion Gate at Sigiriya" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                        Must See
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">Lion Gate</h4>
+                      <p className="text-gray-600 mb-4">
+                        Walk through the colossal lion claws carved in stone, marking the entrance to the final ascent of this ancient citadel. Once a complete lion figure, these remaining paws hint at the grandeur of the original structure.
+                      </p>
+                      <div className="flex items-center text-sm text-[#0F4C81]">
+                        <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                          <i className="fas fa-monument text-xs"></i>
+                        </span>
+                        <span>Historical Marvel</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Ancient Frescoes Card */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-frescoes.jpg" 
+                        alt="Ancient Frescoes at Sigiriya" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                        Art Highlight
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">Ancient Frescoes</h4>
+                      <p className="text-gray-600 mb-4">
+                        Admire the world-famous paintings of celestial maidens, preserved for over 1,500 years in a sheltered pocket of the rock. These colorful frescoes showcase the advanced artistic techniques of ancient Sri Lankan painters.
+                      </p>
+                      <div className="flex items-center text-sm text-[#0F4C81]">
+                        <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                          <i className="fas fa-palette text-xs"></i>
+                        </span>
+                        <span>Cultural Wonder</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Mirror Wall Card */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-mirror-wall.jpg" 
+                        alt="Mirror Wall at Sigiriya" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                        Ancient Text
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">Mirror Wall</h4>
+                      <p className="text-gray-600 mb-4">
+                        Discover the ancient graffiti on Sigiriya's mirror wall, once polished so smooth it reflected the frescoes above. Today, it bears verses and comments from visitors dating back to the 8th century, offering insights into historical perspectives.
+                      </p>
+                      <div className="flex items-center text-sm text-[#0F4C81]">
+                        <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                          <i className="fas fa-pen-fancy text-xs"></i>
+                        </span>
+                        <span>Historical Insight</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Panoramic Views Card */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-summit-view.jpg" 
+                        alt="Panoramic Views from Sigiriya Summit" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                        Scenic Vista
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h4 className="font-['Playfair_Display'] text-xl font-bold text-gray-900 mb-3">Panoramic Views</h4>
+                      <p className="text-gray-600 mb-4">
+                        Experience breathtaking 360-degree panoramas from the summit platform. The lush jungle canopy stretches to the horizon, with distant mountains creating a dramatic backdrop. On clear days, you can spot Pidurangala Rock and several ancient water gardens.
+                      </p>
+                      <div className="flex items-center text-sm text-[#0F4C81]">
+                        <span className="inline-block w-4 h-4 rounded-full bg-[#0F4C81]/10 mr-2 flex items-center justify-center">
+                          <i className="fas fa-mountain text-xs"></i>
+                        </span>
+                        <span>Photography Highlight</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
+                  Make It a Journey, Not Just a Stop
+                </h3>
+                
+                <p className="text-lg text-[#333333]/90 mb-8 leading-relaxed">
+                  Pair Sigiriya with nearby wonders like Pidurangala Rock (for a dramatic sunrise view of Sigiriya itself), or the spiritual caves of Dambulla. You're not just seeing Sri Lanka — you're feeling it come alive.
                 </p>
                 
                 {/* Featured Image - Frescoes */}
@@ -86,141 +218,91 @@ const SigiriyaTemplate = () => {
                     className="w-full h-auto" 
                   />
                   <div className="bg-[#F8F5F0] p-4 text-center">
-                    <p className="text-[#333333]/80 italic">Sigiriya Frescoes</p>
+                    <p className="text-[#333333]/80 italic">Sigiriya's ancient frescoes depict celestial maidens, preserved for over 1,500 years</p>
                   </div>
                 </div>
-                
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
-                  What Awaits You at the Top
-                </h3>
-                
-                <div className="space-y-4 mb-12">
-                  <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4 mt-1">
-                      <i className="fas fa-monument text-[#0F4C81]"></i>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">The Lion Gate</h4>
-                      <p className="text-[#333333]/80">Walk through colossal lion claws carved in stone</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4 mt-1">
-                      <i className="fas fa-palette text-[#0F4C81]"></i>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Frescoes</h4>
-                      <p className="text-[#333333]/80">Gaze at celestial maidens painted over 1,500 years ago</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4 mt-1">
-                      <i className="fas fa-pen-fancy text-[#0F4C81]"></i>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Mirror Wall</h4>
-                      <p className="text-[#333333]/80">Ancient graffiti and poetry etched by pilgrims</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4 mt-1">
-                      <i className="fas fa-mountain text-[#0F4C81]"></i>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Panoramic Views</h4>
-                      <p className="text-[#333333]/80">A jungle-carpeted kingdom unfolds beneath your feet</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Featured Image - Summit View */}
-                <div className="rounded-lg overflow-hidden shadow-xl mb-12">
-                  <img 
-                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg" 
-                    alt="Summit view from Sigiriya" 
-                    className="w-full h-auto" 
-                  />
-                  <div className="bg-[#F8F5F0] p-4 text-center">
-                    <p className="text-[#333333]/80 italic">Summit view from Sigiriya</p>
-                  </div>
-                </div>
-                
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
-                  When to Go & How to Prepare
-                </h3>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
-                  <div className="bg-[#F8F5F0] p-6 rounded-lg">
-                    <h4 className="font-semibold text-lg mb-3">Best Time to Visit</h4>
-                    <p className="text-[#333333]/80">December to April, during the dry season.</p>
-                  </div>
-                  
-                  <div className="bg-[#F8F5F0] p-6 rounded-lg">
-                    <h4 className="font-semibold text-lg mb-3">Top Tips</h4>
-                    <p className="text-[#333333]/80">Start your climb early morning to beat the heat. Wear sturdy shoes, carry water, and don't forget your camera. You'll want to remember every step.</p>
-                  </div>
-                </div>
-                
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-6">
-                  Make It a Journey, Not Just a Stop
-                </h3>
-                
-                <p className="text-lg text-[#333333]/90 mb-6 leading-relaxed">
-                  Pair Sigiriya with nearby wonders like Pidurangala Rock (for a dramatic sunrise view of Sigiriya itself), or the spiritual caves of Dambulla. You're not just seeing Sri Lanka — you're feeling it come alive.
-                </p>
               </div>
               
-              {/* Gallery Section */}
-              <div className="mb-16">
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
-                  Explore Sigiriya
-                </h3>
+              {/* Tours Featuring This Destination */}
+              <div className="mt-12 mb-16">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81]">
+                    Tours Featuring Sigiriya
+                  </h2>
+                  <Link href="/tour-packages" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
+                    View All <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743065917969.png" 
-                      alt="Sigiriya Gallery Image 1" 
-                      className="w-full h-48 object-cover" 
-                    />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Tour Card 1 */}
+                  <div className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="w-1/3 h-auto relative">
+                      <img 
+                        src="/attached_assets/A Week in the Tropics.jpg" 
+                        alt="Cultural Triangle Explorer" 
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full">
+                        Best Seller
+                      </div>
+                    </div>
+                    <div className="w-2/3 p-4">
+                      <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-1">Cultural Triangle Explorer</h3>
+                      <div className="flex items-center text-gray-500 text-sm mb-2">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        <span>7 Days</span>
+                        <span className="mx-2">•</span>
+                        <Users className="w-4 h-4 mr-1" />
+                        <span>Max 12 people</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="font-semibold text-[#0F4C81]">
+                          From $1,499
+                        </span>
+                        <Link 
+                          href="/packages/cultural-triangle-explorer" 
+                          className="text-[#0F4C81] hover:text-[#D4AF37] text-sm font-medium"
+                        >
+                          View
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743067682182.png" 
-                      alt="Sigiriya Gallery Image 2" 
-                      className="w-full h-48 object-cover" 
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743091860073.png" 
-                      alt="Sigiriya Gallery Image 3" 
-                      className="w-full h-48 object-cover" 
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743182459632.png" 
-                      alt="Sigiriya Gallery Image 4" 
-                      className="w-full h-48 object-cover" 
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743183045495.png" 
-                      alt="Sigiriya Gallery Image 5" 
-                      className="w-full h-48 object-cover" 
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                    <img 
-                      src="/attached_assets/image_1743183280625.png" 
-                      alt="Sigiriya Gallery Image 6" 
-                      className="w-full h-48 object-cover" 
-                    />
+                  
+                  {/* Tour Card 2 */}
+                  <div className="flex bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="w-1/3 h-auto relative">
+                      <img 
+                        src="/attached_assets/romantic honeymoon escape.jpg" 
+                        alt="Sri Lanka Highlights" 
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute top-2 right-2 bg-[#0F4C81] text-white text-xs px-2 py-0.5 rounded-full">
+                        Popular
+                      </div>
+                    </div>
+                    <div className="w-2/3 p-4">
+                      <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-1">Sri Lanka Highlights</h3>
+                      <div className="flex items-center text-gray-500 text-sm mb-2">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        <span>10 Days</span>
+                        <span className="mx-2">•</span>
+                        <Users className="w-4 h-4 mr-1" />
+                        <span>Max 10 people</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="font-semibold text-[#0F4C81]">
+                          From $2,199
+                        </span>
+                        <Link 
+                          href="/packages/sri-lanka-highlights" 
+                          className="text-[#0F4C81] hover:text-[#D4AF37] text-sm font-medium"
+                        >
+                          View
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -228,169 +310,142 @@ const SigiriyaTemplate = () => {
             
             {/* Right Column - Sidebar */}
             <div className="lg:col-span-1">
-              {/* Booking Widget */}
-              <div className="bg-[#F8F5F0] p-6 rounded-lg shadow-md mb-8 sticky top-4">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-6 border-b border-[#0F4C81]/20 pb-3">
-                  Plan Your Sigiriya Experience
-                </h3>
+              {/* Essential Information */}
+              <div className="bg-[#F9F7F4] p-6 rounded-xl shadow-sm mb-8 sticky top-4">
+                <h3 className="font-['Playfair_Display'] text-xl font-bold mb-6 text-gray-900">Essential Information</h3>
                 
-                <div className="mb-6">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-[#333333]/90 font-medium">Private Tour</span>
-                    <span className="text-2xl font-normal text-[#0F4C81]">$79</span>
-                  </div>
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-[#333333]/90 font-medium">With Expert Guide</span>
-                    <span className="text-2xl font-normal text-[#0F4C81]">$149</span>
-                  </div>
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-[#333333]/90 font-medium">Luxury Package</span>
-                    <span className="text-2xl font-normal text-[#0F4C81]">$299</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-4 mb-6">
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-3">
-                      <i className="fas fa-check text-sm text-[#0F4C81]"></i>
-                    </div>
-                    <p className="text-[#333333]/80 text-sm">Skip-the-line entrance tickets</p>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-3">
-                      <i className="fas fa-check text-sm text-[#0F4C81]"></i>
-                    </div>
-                    <p className="text-[#333333]/80 text-sm">Luxury transportation</p>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-3">
-                      <i className="fas fa-check text-sm text-[#0F4C81]"></i>
-                    </div>
-                    <p className="text-[#333333]/80 text-sm">Expert local guide</p>
-                  </div>
-                </div>
-                
-                <Link href="/contact" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-6 rounded-md transition block text-center">
-                  Inquire About Availability
-                </Link>
-              </div>
-              
-              {/* Weather Information */}
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm mb-8">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-4">
-                  Weather at Sigiriya
-                </h3>
-                
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    <i className="fas fa-sun text-2xl text-yellow-500 mr-3"></i>
-                    <div>
-                      <p className="text-lg font-medium">28°C</p>
-                      <p className="text-sm text-[#333333]/70">Average high</p>
-                    </div>
-                  </div>
-                  
-                  <div className="text-right">
-                    <p className="text-lg font-medium">22°C</p>
-                    <p className="text-sm text-[#333333]/70">Average low</p>
-                  </div>
-                </div>
-                
-                <p className="text-sm text-[#333333]/80 mb-2">
-                  <strong>Dry Season:</strong> December to April
-                </p>
-                <p className="text-sm text-[#333333]/80">
-                  <strong>Monsoon Season:</strong> May to November
-                </p>
-              </div>
-              
-              {/* Location Information */}
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm mb-8">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-4">
-                  Getting Here
-                </h3>
-                
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-start">
-                    <i className="fas fa-map-marker-alt text-[#0F4C81] mt-1 mr-3"></i>
-                    <p className="text-sm text-[#333333]/80">
-                      Sigiriya, Central Province, Sri Lanka
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <i className="fas fa-car text-[#0F4C81] mt-1 mr-3"></i>
-                    <p className="text-sm text-[#333333]/80">
-                      3-4 hours from Colombo by car
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <i className="fas fa-plane text-[#0F4C81] mt-1 mr-3"></i>
-                    <p className="text-sm text-[#333333]/80">
-                      30-minute helicopter transfer available
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="bg-gray-100 rounded-lg overflow-hidden">
-                  {/* This would normally be a map component */}
-                  <div className="h-32 bg-gray-300 flex items-center justify-center">
-                    <i className="fas fa-map-marked-alt text-3xl text-gray-500"></i>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Nearby Attractions */}
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#0F4C81] mb-4">
-                  Nearby Attractions
-                </h3>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
-                      <img
-                        src="/attached_assets/image_1743183016164.png"
-                        alt="Dambulla Cave Temple"
-                        className="w-full h-full object-cover"
-                      />
+                <div className="space-y-5">
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                      <i className="fas fa-calendar text-lg"></i>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Dambulla Cave Temple</h4>
-                      <p className="text-sm text-[#333333]/80">17 km - UNESCO World Heritage Site</p>
+                      <h4 className="font-semibold text-gray-900">Best Time to Visit</h4>
+                      <p className="text-gray-600">December to April, during the dry season</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start">
-                    <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
-                      <img
-                        src="/attached_assets/image_1743100519865.png"
-                        alt="Pidurangala Rock"
-                        className="w-full h-full object-cover"
-                      />
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                      <i className="fas fa-clock text-lg"></i>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Pidurangala Rock</h4>
-                      <p className="text-sm text-[#333333]/80">2 km - Panoramic views of Sigiriya</p>
+                      <h4 className="font-semibold text-gray-900">Recommended Duration</h4>
+                      <p className="text-gray-600">4-5 hours</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start">
-                    <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden mr-3">
-                      <img
-                        src="/attached_assets/image_1743101273205.png"
-                        alt="Minneriya National Park"
-                        className="w-full h-full object-cover"
-                      />
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center text-[#0F4C81] flex-shrink-0">
+                      <i className="fas fa-sun text-lg"></i>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Minneriya National Park</h4>
-                      <p className="text-sm text-[#333333]/80">30 km - Famous for elephant gatherings</p>
+                      <h4 className="font-semibold text-gray-900">Weather</h4>
+                      <p className="text-gray-600">Hot and humid with temperatures ranging from 22-32°C year-round</p>
                     </div>
                   </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Lion Gate
+                      </span>
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Ancient Frescoes
+                      </span>
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Mirror Wall
+                      </span>
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Summit Views
+                      </span>
+                      <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                        Water Gardens
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Travel Tips</h4>
+                    <ul className="list-disc list-inside text-gray-600 space-y-1">
+                      <li>Start your climb early morning (opens at 7 AM)</li>
+                      <li>Bring water and wear comfortable shoes</li>
+                      <li>Allow 3-4 hours for the full experience</li>
+                      <li>Consider hiring a guide for historical context</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="pt-5 mt-5 border-t border-gray-200">
+                    <h4 className="font-semibold text-gray-900 mb-2">Getting Here</h4>
+                    <ul className="list-disc list-inside text-gray-600 space-y-1">
+                      <li>Sigiriya, Central Province, Sri Lanka</li>
+                      <li>3-4 hours from Colombo by car</li>
+                      <li>30-minute helicopter transfer available</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="pt-5 mt-5 border-t border-gray-200">
+                    <h4 className="font-semibold text-gray-900 mb-3">Nearby Attractions</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-start">
+                        <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3">
+                          <img
+                            src="/attached_assets/image_1743183016164.png"
+                            alt="Dambulla Cave Temple"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h5 className="font-medium text-sm mb-0.5 text-gray-900">Dambulla Cave Temple</h5>
+                          <p className="text-xs text-gray-600">17 km - UNESCO World Heritage Site</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3">
+                          <img
+                            src="/attached_assets/image_1743100519865.png"
+                            alt="Pidurangala Rock"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h5 className="font-medium text-sm mb-0.5 text-gray-900">Pidurangala Rock</h5>
+                          <p className="text-xs text-gray-600">2 km - Panoramic views of Sigiriya</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden mr-3">
+                          <img
+                            src="/attached_assets/image_1743101273205.png"
+                            alt="Minneriya National Park"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h5 className="font-medium text-sm mb-0.5 text-gray-900">Minneriya National Park</h5>
+                          <p className="text-xs text-gray-600">30 km - Famous for elephant gatherings</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <Link 
+                    href="/custom-tour-request" 
+                    className="block w-full bg-[#0F4C81] hover:bg-[#0D3E6A] text-white font-medium py-3 px-6 rounded-lg text-center transition"
+                  >
+                    Create Custom Tour
+                  </Link>
+                  <Link 
+                    href="/contact" 
+                    className="block w-full bg-white border border-[#0F4C81] text-[#0F4C81] hover:bg-[#F9F7F4] font-medium py-3 px-6 rounded-lg text-center mt-3 transition"
+                  >
+                    Ask a Question
+                  </Link>
                 </div>
               </div>
             </div>
@@ -398,113 +453,151 @@ const SigiriyaTemplate = () => {
         </div>
       </section>
       
-      {/* Tours Featuring This Destination */}
+      {/* Photo Gallery Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81]">
+              Photo Gallery
+            </h2>
+            <div className="flex items-center gap-2 text-[#0F4C81]">
+              <Camera className="w-5 h-5" />
+              <span className="font-medium">5 Photos</span>
+            </div>
+          </div>
+          
+          {/* Asymmetrical Gallery with Lightbox */}
+          <AsymmetricalGallery 
+            images={[
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg",
+                alt: "Sigiriya Rock Fortress",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-main-view.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-main-view.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/sigiriya-main-view.jpg",
+                caption: "The majestic Sigiriya Rock Fortress rises 200 meters above the surrounding plains"
+              },
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-lion-gate.jpg",
+                alt: "Lion Gate at Sigiriya",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-lion-gate.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill/activities/sigiriya-lion-gate.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-lion-gate.jpg",
+                caption: "The impressive Lion Gate with ancient paw carvings marking the final ascent"
+              },
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-frescoes.jpg",
+                alt: "Ancient Frescoes at Sigiriya",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-frescoes.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill/activities/sigiriya-frescoes.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-frescoes.jpg",
+                caption: "The well-preserved ancient frescoes depicting celestial maidens"
+              },
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-mirror-wall.jpg",
+                alt: "Mirror Wall at Sigiriya",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-mirror-wall.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill/activities/sigiriya-mirror-wall.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-mirror-wall.jpg",
+                caption: "The ancient mirror wall with historical graffiti dating back to the 8th century"
+              },
+              {
+                baseUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill,g_auto,q_auto:best/activities/sigiriya-summit-view.jpg",
+                alt: "Panoramic Views from Sigiriya Summit",
+                small: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_600,h_400,c_fill/activities/sigiriya-summit-view.jpg",
+                medium: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_500,c_fill/activities/sigiriya-summit-view.jpg",
+                large: "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1200,h_800,c_fill/activities/sigiriya-summit-view.jpg",
+                caption: "Breathtaking panoramic views from the summit platform of Sigiriya"
+              }
+            ]}
+            className="mb-6"
+          />
+        </div>
+      </section>
+      
+      {/* Local Experiences Section */}
       <section className="py-16 bg-[#F8F5F0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">
-              Tours Featuring Sigiriya
+              Local Experiences
             </h2>
             <p className="text-lg text-[#333333]/80 max-w-3xl mx-auto">
-              Experience the ancient rock fortress as part of our carefully crafted luxury tour packages
+              Complete your visit to Sigiriya with these authentic Sri Lankan experiences nearby
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Tour Card 1 */}
+            {/* Experience Card 1 */}
             <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
               <div className="relative h-64">
                 <img 
-                  src="/attached_assets/A Week in the Tropics.jpg" 
-                  alt="Cultural Triangle Explorer" 
+                  src="/attached_assets/image_1743100519865.png" 
+                  alt="Sunrise at Pidurangala" 
                   className="w-full h-full object-cover" 
                 />
                 <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm px-3 py-1 rounded-full">
-                  Best Seller
+                  Popular
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-xl mb-2">Cultural Triangle Explorer</h3>
-                <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">7 Days</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Luxury</span>
-                </div>
+                <h3 className="font-bold text-xl mb-2">Sunrise at Pidurangala</h3>
                 <p className="text-[#333333]/80 mb-4">
-                  An immersive journey through Sri Lanka's ancient kingdoms including Sigiriya, Polonnaruwa, and Anuradhapura.
+                  Climb Pidurangala Rock for the most breathtaking views of Sigiriya and the surrounding landscapes at dawn.
                 </p>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $1,499</span>
-                    <span className="text-sm text-[#333333]/70">/person</span>
-                  </div>
-                  <Link href="/packages/cultural-triangle-explorer" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                <div>
+                  <Link href="/experiences/sunrise-pidurangala" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Book This Experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
             </div>
             
-            {/* Tour Card 2 */}
+            {/* Experience Card 2 */}
             <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
               <div className="relative h-64">
                 <img 
-                  src="/attached_assets/romantic honeymoon escape.jpg" 
-                  alt="Sri Lanka Highlights" 
+                  src="/attached_assets/image_1743101273205.png" 
+                  alt="Minneriya Safari" 
                   className="w-full h-full object-cover" 
                 />
                 <div className="absolute top-4 right-4 bg-[#0F4C81] text-white text-sm px-3 py-1 rounded-full">
-                  Most Popular
+                  Bestseller
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-xl mb-2">Sri Lanka Highlights</h3>
-                <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">10 Days</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Premium</span>
-                </div>
+                <h3 className="font-bold text-xl mb-2">Minneriya Safari</h3>
                 <p className="text-[#333333]/80 mb-4">
-                  Discover the best of Sri Lanka from ancient wonders to pristine beaches and wildlife encounters.
+                  Experience one of Asia's most spectacular wildlife gatherings with hundreds of elephants in their natural habitat.
                 </p>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $2,199</span>
-                    <span className="text-sm text-[#333333]/70">/person</span>
-                  </div>
-                  <Link href="/packages/sri-lanka-highlights" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                <div>
+                  <Link href="/experiences/minneriya-safari" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Book This Experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
             </div>
             
-            {/* Tour Card 3 */}
+            {/* Experience Card 3 */}
             <div className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-xl">
               <div className="relative h-64">
                 <img 
-                  src="/attached_assets/mirissa (7).jpg" 
-                  alt="Luxury Sri Lanka Adventure" 
+                  src="/attached_assets/mirissa (8).jpg" 
+                  alt="Village Cycling Tour" 
                   className="w-full h-full object-cover" 
                 />
                 <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm px-3 py-1 rounded-full">
-                  Ultra Luxury
+                  Authentic
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-xl mb-2">Luxury Sri Lanka Adventure</h3>
-                <div className="flex items-center mb-3">
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full mr-2">14 Days</span>
-                  <span className="text-sm bg-[#0F4C81]/10 text-[#0F4C81] px-3 py-1 rounded-full">Ultra Luxury</span>
-                </div>
+                <h3 className="font-bold text-xl mb-2">Village Cycling Tour</h3>
                 <p className="text-[#333333]/80 mb-4">
-                  An exclusive journey with private guides, luxury accommodations, and extraordinary experiences.
+                  Cycle through rural villages, meet locals, and experience authentic rural life in the shadow of Sigiriya rock.
                 </p>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-lg font-semibold text-[#0F4C81]">From $3,899</span>
-                    <span className="text-sm text-[#333333]/70">/person</span>
-                  </div>
-                  <Link href="/packages/luxury-sri-lanka-adventure" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
-                    View Tour <ChevronRight className="w-4 h-4 ml-1" />
+                <div>
+                  <Link href="/experiences/village-cycling-tour" className="text-[#0F4C81] font-medium hover:text-[#D4AF37] transition flex items-center">
+                    Book This Experience <ChevronRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
@@ -512,142 +605,91 @@ const SigiriyaTemplate = () => {
           </div>
           
           <div className="text-center mt-10">
-            <Link href="/packages" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
-              View All Tour Packages <ChevronRight className="ml-2 w-5 h-5" />
+            <Link href="/experiences" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
+              View All Experiences <ChevronRight className="ml-2 w-5 h-5" />
             </Link>
           </div>
         </div>
       </section>
       
-      {/* Local Experiences */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">
-              Local Experiences in Sigiriya
-            </h2>
-            <p className="text-lg text-[#333333]/80 max-w-3xl mx-auto">
-              Enhance your visit with authentic cultural experiences and activities
-            </p>
-          </div>
+      {/* FAQ Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Experience 1 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-bicycle text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Village Cycling Tour</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Explore the rural landscapes surrounding Sigiriya by bicycle, visiting local villages, paddy fields, and meeting local farmers.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$45 per person</span>
-                  <span className="text-sm text-[#333333]/70">3-4 hours</span>
-                </div>
+          <div className="max-w-3xl mx-auto">
+            <div className="space-y-4">
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      What is the best time to visit Sigiriya?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>The best time to visit Sigiriya is during the dry season from December to April. Early morning visits (around 7 AM when it opens) are recommended to avoid both the heat and crowds. The site is less crowded on weekdays compared to weekends.</p>
+                  </div>
+                </details>
               </div>
-            </div>
-            
-            {/* Experience 2 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-utensils text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Sri Lankan Cooking Class</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Learn to prepare authentic Sri Lankan dishes with a local chef in a village home, using traditional ingredients and cooking methods.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$65 per person</span>
-                  <span className="text-sm text-[#333333]/70">3 hours</span>
-                </div>
+              
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      How difficult is the climb to the top of Sigiriya?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>The climb to the top of Sigiriya involves approximately 1,200 steps and takes about 1.5-2 hours for the entire visit. While generally considered moderate in difficulty, there are handrails and proper steps throughout most of the ascent. Those with a fear of heights might find some sections challenging, particularly the spiral staircase to the frescoes and the final ascent via the Lion's Paw. Regular rest stops are available along the way.</p>
+                  </div>
+                </details>
               </div>
-            </div>
-            
-            {/* Experience 3 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-tree text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Herbal Garden Walk</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Discover the medicinal plants used in traditional Ayurvedic treatments with an expert guide, followed by a herbal tea tasting.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$35 per person</span>
-                  <span className="text-sm text-[#333333]/70">2 hours</span>
-                </div>
+              
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      Is hiring a guide recommended for Sigiriya?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>Yes, hiring a licensed guide is highly recommended to fully appreciate the historical and cultural significance of Sigiriya. Guides provide fascinating insights into the ancient engineering, art, and stories behind the fortress that you might miss otherwise. They can typically be hired at the entrance for a reasonable fee and speak multiple languages.</p>
+                  </div>
+                </details>
               </div>
-            </div>
-            
-            {/* Experience 4 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-elephant text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Elephant Safari</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Join a guided jeep safari in Minneriya National Park to witness the famous elephant gathering, one of Asia's greatest wildlife spectacles.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$85 per person</span>
-                  <span className="text-sm text-[#333333]/70">Half-day</span>
-                </div>
+              
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      What should I wear when visiting Sigiriya?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>Wear comfortable, breathable clothing suitable for hot weather and comfortable walking shoes with good grip for the climb. A hat, sunglasses, and sunscreen are essential as much of the climb is exposed to direct sunlight. Unlike some religious sites in Sri Lanka, there are no specific dress code requirements at Sigiriya, but modest clothing is always respectful in Sri Lankan culture.</p>
+                  </div>
+                </details>
               </div>
-            </div>
-            
-            {/* Experience 5 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-hot-tub text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Ayurvedic Spa Treatment</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Indulge in a traditional Ayurvedic treatment at a luxury spa, using ancient techniques and natural oils to restore balance.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$120 per person</span>
-                  <span className="text-sm text-[#333333]/70">2 hours</span>
-                </div>
+              
+              <div className="bg-[#F9F7F4] rounded-xl overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-900">
+                      Can Sigiriya and Dambulla be visited in the same day?
+                    </h3>
+                    <ChevronDown className="w-5 h-5 text-[#0F4C81] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>Yes, both Sigiriya and the nearby Dambulla Cave Temple can be visited in a single day if you start early. A typical itinerary would involve climbing Sigiriya in the morning (7-11 AM) when it's cooler, followed by lunch, and then visiting Dambulla Cave Temple in the afternoon (around 2-5 PM). Both sites require some physical exertion, so be prepared for a full day of exploration.</p>
+                  </div>
+                </details>
               </div>
-            </div>
-            
-            {/* Experience 6 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-              <div className="p-6">
-                <div className="w-14 h-14 bg-[#0F4C81]/10 rounded-full flex items-center justify-center mb-6">
-                  <i className="fas fa-sunrise text-xl text-[#0F4C81]"></i>
-                </div>
-                <h3 className="font-bold text-xl mb-3">Pidurangala Sunrise Hike</h3>
-                <p className="text-[#333333]/80 mb-4">
-                  Trek up Pidurangala Rock before dawn to witness a breathtaking sunrise with panoramic views of Sigiriya Rock and the surrounding landscapes.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-[#0F4C81] font-semibold">$55 per person</span>
-                  <span className="text-sm text-[#333333]/70">3 hours</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-12 bg-[#F8F5F0] p-8 rounded-lg">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-6 md:mb-0 md:mr-6">
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-2">
-                  Custom Experience Packages
-                </h3>
-                <p className="text-[#333333]/80">
-                  Let us design a personalized itinerary combining your preferred experiences for an unforgettable stay.
-                </p>
-              </div>
-              <Link href="/contact" className="bg-[#0F4C81] hover:bg-[#D4AF37] text-white font-medium py-3 px-6 rounded-md transition whitespace-nowrap">
-                Inquire Now
-              </Link>
             </div>
           </div>
         </div>

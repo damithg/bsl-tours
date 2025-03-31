@@ -78,8 +78,8 @@ export interface Destination {
   name: string;
   description: string;
   imageUrl: string;
-  featured: boolean;
-  slug?: string;
+  featured: boolean | null;
+  slug?: string | null;
   shortDescription?: string | null;
   excerpt?: string | null;
   fullDescription?: string | null;
@@ -100,6 +100,19 @@ export interface Destination {
   metaTitle?: string | null;
   metaDescription?: string | null;
   metaKeywords?: string[] | null;
+  createdAt?: Date | null;
+  updatedAt?: Date | null;
+  
+  // Enhanced template properties
+  relatedTours?: string | null; // JSON string of related tours
+  featuredExperiences?: string | null; // JSON string of experiences  
+  detailedSections?: string | null; // JSON string of detailed content sections
+  pointsOfInterest?: string | null; // JSON string of points of interest
+  toursFeaturing?: string | null; // JSON string of tours featuring this destination
+  localExperiences?: string | null; // JSON string of local experiences
+  faqs?: string | null; // JSON string of FAQs (lowercase to match .NET)
+  essentialInfo?: string | null; // JSON string of essential travel information
+  templateType?: string | null; // Type of template to use for this destination
   
   // New features from .NET Core API
   features?: Array<{
@@ -113,12 +126,12 @@ export interface Destination {
   galleryImages?: Array<{
     url: string;
     alt: string;
-  }> | null;
+  }> | string | null; // Can be a JSON string or an array of objects
   
   // Activities as structured data
   activities?: string | null;
   
-  // FAQs as structured data
+  // FAQs as structured data (uppercase Q to match .NET API)
   faQs?: Array<{
     question: string;
     answer: string;
@@ -133,6 +146,9 @@ export interface Destination {
   }> | null;
   
   experiences?: string | null;
+  
+  // Allow any additional properties returned by the API
+  [key: string]: any;
 }
 
 export interface Testimonial {
@@ -234,8 +250,12 @@ export const getQueryFn = <TData>(options: {
           return segment;
         });
         path = updatedPathSegments.join('/');
+      } else if (basePath.includes('/destinations')) {
+        // For destinations, we now directly use the ID or slug without the 'slug/' prefix
+        path = `${basePath}/${params[0]}`;
+        console.log('Destination API path:', path);
       } else if (basePath.includes('/slug/') || basePath.includes('/by-slug/')) {
-        // Special handling for slug endpoints
+        // Special handling for other slug endpoints (if we still have them)
         path = `${basePath}/${params[0]}`;
         console.log('Slug API path:', path);
       } else if (basePath.includes('/{')) {
