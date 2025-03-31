@@ -517,7 +517,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                 {pointsOfInterest && pointsOfInterest.length > 0 && (
                   <div className="mt-12">
                     <h3 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81] mb-8">
-                      What Awaits You
+                      {destination.featuresSection?.title || "What Awaits You"}
                     </h3>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
