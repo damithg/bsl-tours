@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { parseJsonSafely } from '@/lib/utils';
+import { Destination } from '@/lib/queryClient';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 import { AdaptiveImage } from '@/components/ui/adaptive-image';
 import { 
@@ -21,13 +22,15 @@ import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
 import { EnhancedDestinationTemplate } from '@/components/EnhancedDestinationTemplate';
 
 // Extended destination interface to handle all possible properties from the API
-interface Destination {
+// Use Destination interface from queryClient.ts
+// This local interface is just for component props/state
+interface LocalDestination {
   id: number;
   name: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string; // Make imageUrl optional to match the Destination interface
   featured: boolean | null;
-  slug?: string | null;
+  slug?: string;
   shortDescription?: string | null;
   excerpt?: string | null;
   fullDescription?: string | null;
@@ -128,14 +131,21 @@ const DestinationDetail = () => {
     };
   }, []);
   
-  // Fetch the destination data from the .NET API (directly, no 'slug' in path)
-  const { data: destination, error, isLoading } = useQuery<Destination>({
-    queryKey: ['/api/destinations', isNumeric ? `${destinationId}` : `${destinationSlug}`],
+  // Fetch destinations from the new API endpoint
+  // The API now returns an array of destinations - we need to filter for the one we want
+  const { data: destinationsData, error, isLoading } = useQuery<Destination[]>({
+    queryKey: ['/api/destinations'],
     enabled: !!paramValue,
   });
   
+  // Find the matching destination from the array
+  const destination = destinationsData?.find(dest => 
+    (isNumeric && dest.id === destinationId) || 
+    (!isNumeric && dest.slug === destinationSlug)
+  );
+  
   // Log the API URL for debugging
-  console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations/${isNumeric ? destinationId : destinationSlug}`);
+  console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations`);
   
   // If we have destination data, log it for debugging
   if (destination) {
@@ -256,25 +266,60 @@ const DestinationDetail = () => {
     hasEssentialInfo: !!destination.essentialInfo,
   });
   
-  // Enhanced destination object with all needed properties
-  // We'll make sure the destination has all properties needed by the template
+  // Enhanced destination object with all needed properties from the updated API
+  // Use type assertion to ensure compatibility with EnhancedDestinationTemplate
   const enhancedDestination = {
     ...destination,
-    // Ensure these properties exist even if null
-    address: destination.address || null,
-    bestTimeToVisit: destination.bestTimeToVisit || null,
-    recommendedDuration: destination.recommendedDuration || null,
-    weatherInfo: destination.weatherInfo || null,
-    // Enhanced template properties
-    detailedSections: destination.detailedSections || null,
-    pointsOfInterest: destination.pointsOfInterest || null,
-    toursFeaturing: destination.toursFeaturing || null,
-    localExperiences: destination.localExperiences || null,
-    galleryImages: destination.galleryImages || null,
-    faqs: destination.faqs || null,
-    essentialInfo: destination.essentialInfo || null,
-    nearbyAttractions: destination.nearbyAttractions || null,
-  };
+    // Core properties (ensure they exist)
+    id: destination.id,
+    slug: destination.slug || "",
+    name: destination.name,
+    description: destination.overview?.fullDescription || destination.description || destination.excerpt || "",
+    featured: destination.featured || false,
+    
+    // Essential information
+    address: destination.address || undefined,
+    bestTimeToVisit: destination.essentialInfo?.bestTimeToVisit || destination.bestTimeToVisit || undefined,
+    recommendedDuration: destination.recommendedDuration || undefined,
+    weatherInfo: destination.weatherInfo || undefined,
+    region: destination.region || undefined,
+    
+    // Coordinates for maps
+    latitude: destination.latitude || undefined,
+    longitude: destination.longitude || undefined,
+    
+    // Media - set imageUrl if not already present
+    imageUrl: destination.imageUrl || 
+              (destination.heroImage?.publicId ? 
+              `https://res.cloudinary.com/drsjp6bqz/image/upload/${destination.heroImage.publicId}` : 
+              undefined),
+    
+    // New API structure fields
+    overview: destination.overview || undefined,
+    subSections: destination.subSections || undefined,
+    featuresSection: destination.featuresSection || undefined,
+    heroImage: destination.heroImage || undefined,
+    galleryImages: destination.galleryImages || undefined, // Now is an array of objects in new API
+    videoBlock: destination.videoBlock || undefined,
+    quoteBlock: destination.quoteBlock || undefined,
+    relatedTours: destination.relatedTours || undefined, // Now is an array of objects in new API
+    nearbyAttractions: destination.nearbyAttractions || undefined, // Now is an array of objects in new API
+    essentialInfo: destination.essentialInfo || undefined, // Now is an object in new API
+    faqs: destination.faqs || undefined, // Now is an array of objects in new API
+    
+    // Legacy data fields for backward compatibility with the template
+    // These will be used if the new API fields are not populated
+    detailedSections: destination.detailedSections || undefined,
+    pointsOfInterest: destination.pointsOfInterest || undefined,
+    toursFeaturing: destination.toursFeaturing || undefined,
+    localExperiences: destination.localExperiences || undefined,
+    
+    // For debugging
+    fullApiData: destination,
+  } as any; // Use type assertion to avoid TypeScript errors
+  
+  // Log the enhanced destination for debugging
+  console.log('Enhanced destination data:', enhancedDestination);
   
   // Always use the enhanced template UI for all destinations
   return <EnhancedDestinationTemplate destination={enhancedDestination} />;
