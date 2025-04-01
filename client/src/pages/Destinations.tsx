@@ -2,15 +2,50 @@ import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
 import { Link } from "wouter";
 import { Home, ChevronRight } from "lucide-react";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Destinations = () => {
   const { data: destinations, isLoading, error } = useQuery<Destination[]>({
     queryKey: ['/api/destinations']
   });
   
-  // Manually log data when component renders and destinations are available
-  React.useEffect(() => {
+  // State for lazy loading
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const loaderRef = useRef(null);
+  
+  // Get visible destinations
+  const visibleDestinations = destinations?.slice(0, visibleCount);
+  const hasMore = destinations && visibleCount < destinations.length;
+  
+  // Set up intersection observer for infinite scroll
+  useEffect(() => {
+    if (!loaderRef.current || isLoading) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      const target = entries[0];
+      if (target.isIntersecting && hasMore && !isLoadingMore) {
+        setIsLoadingMore(true);
+        
+        // Simulate loading delay
+        setTimeout(() => {
+          setVisibleCount(prevCount => prevCount + 6);
+          setIsLoadingMore(false);
+        }, 800);
+      }
+    }, { threshold: 0.1 });
+    
+    observer.observe(loaderRef.current);
+    
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  }, [hasMore, isLoadingMore, visibleCount, isLoading]);
+  
+  // Debug logs
+  useEffect(() => {
     if (destinations && destinations.length > 0) {
       console.log("Destinations data:", destinations);
       console.log("First destination:", destinations[0]);
@@ -143,45 +178,68 @@ const Destinations = () => {
               <p className="text-red-500">Failed to load destinations. Please try again later.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {destinations?.map((destination) => (
-                <div key={destination.id} className="bg-white rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
-                  <div className="relative h-64">
-                    <img 
-                      src={(destination as any).card?.image?.publicId ? 
-                           `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).card.image.publicId}` :
-                           (destination as any).images?.card || 
-                           destination.imageUrl || 
-                           ((destination as any).heroImage && (destination as any).heroImage.publicId ? 
-                             `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).heroImage.publicId}` : 
-                             "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg")}
-                      alt={(destination as any).card?.image?.alt || destination.name} 
-                      className="w-full h-full object-cover" 
-                    />
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {visibleDestinations?.map((destination) => (
+                  <div 
+                    key={destination.id} 
+                    className="bg-white rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl"
+                  >
+                    <div className="relative h-64">
+                      <img 
+                        src={(destination as any).card?.image?.publicId ? 
+                             `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).card.image.publicId}` :
+                             (destination as any).images?.card || 
+                             destination.imageUrl || 
+                             ((destination as any).heroImage && (destination as any).heroImage.publicId ? 
+                               `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).heroImage.publicId}` : 
+                               "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg")}
+                        alt={(destination as any).card?.image?.alt || destination.name} 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" 
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">
+                        {(destination as any).card?.title || destination.name}
+                      </h3>
+                      <p className="text-[#333333]/70 mb-4">
+                        {(destination as any).card?.subtitle || 
+                         destination.excerpt || 
+                         destination.shortDescription || 
+                         destination.description}
+                      </p>
+                      
+                      <Link href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#D4AF37] transition">
+                        Explore Experiences
+                        <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">
-                      {(destination as any).card?.title || destination.name}
-                    </h3>
-                    <p className="text-[#333333]/70 mb-4">
-                      {(destination as any).card?.subtitle || 
-                       destination.excerpt || 
-                       destination.shortDescription || 
-                       destination.description}
-                    </p>
-                    
-                    {/* Debug info removed */}
-                    
-                    <Link href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#2E8B57] transition">
-                      Explore Experiences
-                      <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                      </svg>
+                ))}
+              </div>
+              
+              {/* Load More / End of Content */}
+              <div className="mt-12 text-center" ref={loaderRef}>
+                {isLoadingMore && (
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="w-10 h-10 border-4 border-[#0F4C81] border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-[#0F4C81] font-medium">Loading more destinations...</p>
+                  </div>
+                )}
+                
+                {!hasMore && destinations && destinations.length > 0 && (
+                  <div className="text-center py-8">
+                    <p className="text-[#0F4C81]/80 font-medium">You've explored all our destinations!</p>
+                    <p className="text-[#333333]/60 mt-2">Ready to plan your adventure?</p>
+                    <Link href="/contact" className="mt-4 inline-block bg-[#0F4C81] hover:bg-[#0a325a] text-white font-medium py-2 px-6 rounded-full transition">
+                      Contact Our Experts
                     </Link>
                   </div>
-                </div>
-              ))}
-            </div>
+                )}
+              </div>
+            </>
           )}
         </div>
       </section>
