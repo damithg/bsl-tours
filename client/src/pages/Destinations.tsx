@@ -148,14 +148,27 @@ const Destinations = () => {
                 <div key={destination.id} className="bg-white rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
                   <div className="relative h-64">
                     <img 
-                      src={(destination as any).images?.card || destination.imageUrl || "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg"} 
-                      alt={destination.name} 
+                      src={(destination as any).card?.image?.publicId ? 
+                           `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).card.image.publicId}` :
+                           (destination as any).images?.card || 
+                           destination.imageUrl || 
+                           ((destination as any).heroImage && (destination as any).heroImage.publicId ? 
+                             `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).heroImage.publicId}` : 
+                             "/attached_assets/yves-alarie-3R50kTNBKiE-unsplash.jpg")}
+                      alt={(destination as any).card?.image?.alt || destination.name} 
                       className="w-full h-full object-cover" 
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{destination.name}</h3>
-                    <p className="text-[#333333]/70 mb-4">{destination.excerpt || destination.shortDescription || destination.description}</p>
+                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">
+                      {(destination as any).card?.title || destination.name}
+                    </h3>
+                    <p className="text-[#333333]/70 mb-4">
+                      {(destination as any).card?.subtitle || 
+                       destination.excerpt || 
+                       destination.shortDescription || 
+                       destination.description}
+                    </p>
                     
                     {/* Debug info removed */}
                     
