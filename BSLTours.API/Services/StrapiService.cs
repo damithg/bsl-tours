@@ -82,7 +82,8 @@ public static class StrapiQueryBuilder
             "&populate[videoBlock]=true",
             "&populate[relatedTours][populate][image]=true",
             "&populate[nearbyAttractions][populate][image]=true",
-            "&populate[essentialInfo]=true"
+            "&populate[essentialInfo]=true",
+            "&populate[card][populate][image]=true"
         );
     }
 
