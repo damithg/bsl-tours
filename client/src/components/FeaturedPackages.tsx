@@ -63,8 +63,8 @@ interface StrapiResponse {
 }
 
 const FeaturedPackages = () => {
-  // Add featured=true parameter to get only featured tours
-  const queryKey = ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours?featured=true'];
+  // Use the correct API endpoint for featured tours
+  const queryKey = ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours/featured'];
   const { data: strapiResponse, isLoading, error, refetch } = useQuery<StrapiResponse>({
     queryKey,
   });

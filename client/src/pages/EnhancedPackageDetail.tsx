@@ -36,10 +36,14 @@ interface TourData {
   currency: string;
   inclusions: string[];
   exclusions: string[];
+  includes?: string | string[]; // Additional property for backward compatibility
+  excludes?: string | string[]; // Additional property for backward compatibility
   imageUrl?: string;
   gallery?: string;
   galleryImages?: string[];
   itinerary?: string;
+  // destinationNames can be a string or array of destination names
+  destinations?: string | string[]; // Can be string or array
   itineraryDays?: Array<{
     id?: number;
     day: number;
@@ -79,7 +83,6 @@ interface TourData {
     orientation: string;
   };
   tourHighlights?: string[];
-  destinations?: string[];
   accommodationInfo?: string;
   operatedBy?: string;
   category?: string;
@@ -254,24 +257,45 @@ const EnhancedPackageDetail = () => {
       // Parse includes/excludes if available
       if (tourData.includes) {
         try {
-          setIncludes(JSON.parse(tourData.includes));
+          // Handle both string and array types
+          if (typeof tourData.includes === 'string') {
+            setIncludes(JSON.parse(tourData.includes));
+          } else if (Array.isArray(tourData.includes)) {
+            setIncludes(tourData.includes);
+          }
         } catch (e) {
           setIncludes([]);
         }
+      } else if (tourData.inclusions && Array.isArray(tourData.inclusions)) {
+        // Use inclusions if includes is not available
+        setIncludes(tourData.inclusions);
       }
 
       if (tourData.excludes) {
         try {
-          setExcludes(JSON.parse(tourData.excludes));
+          // Handle both string and array types
+          if (typeof tourData.excludes === 'string') {
+            setExcludes(JSON.parse(tourData.excludes));
+          } else if (Array.isArray(tourData.excludes)) {
+            setExcludes(tourData.excludes);
+          }
         } catch (e) {
           setExcludes([]);
         }
+      } else if (tourData.exclusions && Array.isArray(tourData.exclusions)) {
+        // Use exclusions if excludes is not available
+        setExcludes(tourData.exclusions);
       }
 
       // Parse destinations if available
       if (tourData.destinations) {
         try {
-          setDestinations(JSON.parse(tourData.destinations));
+          // Handle both string and array types
+          if (typeof tourData.destinations === 'string') {
+            setDestinations(JSON.parse(tourData.destinations));
+          } else if (Array.isArray(tourData.destinations)) {
+            setDestinations(tourData.destinations);
+          }
         } catch (e) {
           setDestinations([]);
         }
@@ -640,7 +664,7 @@ const EnhancedPackageDetail = () => {
               </div>
               <div className="flex items-center text-white/90">
                 <MapPin className="h-5 w-5 mr-2" />
-                <span>{tourData.destinations?.replace(/,/g, ', ') || "Multiple Destinations"}</span>
+                <span>{Array.isArray(tourData.destinations) ? tourData.destinations.join(', ') : (typeof tourData.destinations === 'string' ? tourData.destinations.replace(/,/g, ', ') : "Multiple Destinations")}</span>
               </div>
             </div>
             
