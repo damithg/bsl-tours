@@ -235,27 +235,21 @@ const EnhancedPackageDetail = () => {
       });
       
       // Process heroImage first - this determines the main tour image
+      let processedHeroImageUrl = '';
+      
       if (tourData.heroImage && tourData.heroImage.publicId) {
         console.log("Using heroImage from API response:", tourData.heroImage);
         // Create Cloudinary URL from publicId
-        const heroImageCloudinaryUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.heroImage.publicId}`;
-        setHeroImageUrl(heroImageCloudinaryUrl);
-        
-        // If we don't have an imageUrl set, use the heroImage
-        if (!tourData.imageUrl) {
-          tourData.imageUrl = heroImageCloudinaryUrl;
-        }
+        processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.heroImage.publicId}`;
+        setHeroImageUrl(processedHeroImageUrl);
       } else if (tourData.cardImage && tourData.cardImage.publicId) {
         // Fallback to cardImage if heroImage isn't available
         console.log("Using cardImage as fallback for heroImage:", tourData.cardImage);
-        const cardImageCloudinaryUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.cardImage.publicId}`;
-        setHeroImageUrl(cardImageCloudinaryUrl);
-        
-        // If we don't have an imageUrl set, use the cardImage
-        if (!tourData.imageUrl) {
-          tourData.imageUrl = cardImageCloudinaryUrl;
-        }
+        processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.cardImage.publicId}`;
+        setHeroImageUrl(processedHeroImageUrl);
       }
+      
+      // Important: we're not directly modifying tourData anymore to avoid infinite update loops
       
       // Handle gallery images
       // First check for galleryImages array in the API response
@@ -282,13 +276,13 @@ const EnhancedPackageDetail = () => {
           setGalleryImages(parsedGallery);
         } catch (e) {
           console.log("Error parsing gallery, using imageUrl as fallback");
-          // Use heroImageUrl as primary fallback if available
-          setGalleryImages([heroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
+          // Use processedHeroImageUrl (local var) as primary fallback if available
+          setGalleryImages([processedHeroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
         }
       } else {
         console.log("No gallery found, using imageUrl as fallback");
-        // Use heroImageUrl as primary fallback if available
-        setGalleryImages([heroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
+        // Use processedHeroImageUrl (local var) as primary fallback if available
+        setGalleryImages([processedHeroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
       }
 
       // Parse includes/excludes if available
@@ -653,7 +647,7 @@ const EnhancedPackageDetail = () => {
         {/* Background Image with Overlay */}
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImageUrl || tourData.imageUrl})` }}
+          style={{ backgroundImage: `url(${heroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg'})` }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
