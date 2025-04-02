@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
-import { TourPackage, ItineraryDay as APIItineraryDay } from "@/lib/queryClient";
+import { TourPackage } from "@/lib/queryClient";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
-import VisualTimeline, { TimelineDayData } from "@/components/VisualTimeline";
+import VisualTimeline from "@/components/VisualTimeline";
 import { Calendar, Clock, Map, Users, DollarSign, Award, Check, X, ChevronRight, ChevronLeft, Heart, ChevronDown, LayoutList, List, Home, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

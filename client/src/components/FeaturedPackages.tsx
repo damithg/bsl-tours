@@ -63,12 +63,15 @@ interface StrapiResponse {
 }
 
 const FeaturedPackages = () => {
-  const queryKey = ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours'];
+  // Add featured=true parameter to get only featured tours
+  const queryKey = ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours?featured=true'];
   const { data: strapiResponse, isLoading, error, refetch } = useQuery<StrapiResponse>({
     queryKey,
   });
   
+  // Extract tour data from response
   const tours = strapiResponse?.data || [];
+  console.log("Featured tours data:", tours);
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
