@@ -519,7 +519,13 @@ const EnhancedPackageDetail = () => {
           description: enhancedDescription,
           accommodation: accommodationString,
           // Use the image from the new API structure if it exists
-          imageUrl: day.image?.medium || day.image?.small || day.imageUrl || `/images/tours/${day.title.toLowerCase().replace(/ /g, '-')}.jpg`
+          imageUrl: 
+            (day.image?.medium ? `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${day.image.medium}.jpg` : null) || 
+            (day.image?.small ? `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${day.image.small}.jpg` : null) || 
+            (day.imageUrl && day.imageUrl.includes('publicId') ? 
+              `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${JSON.parse(day.imageUrl).publicId}.jpg` : 
+              day.imageUrl) || 
+            `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/destinations/${day.title.toLowerCase().replace(/ /g, '-')}.jpg`
         };
       });
       
