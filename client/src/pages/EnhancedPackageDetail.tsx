@@ -17,8 +17,71 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Helper Types - only for RelatedTour now
+// Helper Types
 // We're using the ItineraryDay interface from queryClient.ts
+
+// Strapi API response interface
+interface StrapiTourData {
+  id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    summary: string;
+    duration: string;
+    startingFrom: number;
+    currency: string;
+    inclusions?: string[];
+    exclusions?: string[];
+    heroImage?: {
+      data?: {
+        id: number;
+        attributes: {
+          url: string;
+          alternativeText?: string;
+        }
+      }
+    };
+    cardImage?: {
+      data?: {
+        id: number;
+        attributes: {
+          url: string;
+          alternativeText?: string;
+        }
+      }
+    };
+    galleryImages?: {
+      data?: Array<{
+        id: number;
+        attributes: {
+          url: string;
+          alternativeText?: string;
+        }
+      }>
+    };
+    itineraryDays?: Array<{
+      id: number;
+      day: number;
+      title: string;
+      description: string;
+      accommodation?: string;
+      imageUrl?: string;
+    }>;
+    [key: string]: any;
+  };
+}
+
+interface StrapiResponse {
+  data: StrapiTourData | StrapiTourData[];
+  meta?: {
+    pagination?: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    }
+  };
+}
 
 interface RelatedTour {
   id: number;
@@ -56,86 +119,98 @@ const EnhancedPackageDetail = () => {
   // Get currency formatter
   const { formatPrice } = useCurrency();
 
-  // Determine queries based on available parameters
-  const packageQueryKey = slug 
-    ? ['/api/tour-packages/by-slug/', slug] 
-    : ['/api/tour-packages', parseInt(id || "0")];
+  // Use Strapi API for tour details
+  const strapiTourQueryKey = ['https://graceful-happiness-10e3a700b4.strapiapp.com/api/tours'];
+  
+  // Build the right query based on slug or id
+  const strapiQueryUrl = slug 
+    ? `${strapiTourQueryKey[0]}?populate=*&filters[slug][$eq]=${slug}`
+    : `${strapiTourQueryKey[0]}/${id}?populate=*`;
     
-  const itineraryQueryKey = slug 
-    ? ['/api/tour-packages/by-slug/', slug, '/itinerary'] 
-    : ['/api/tour-packages', parseInt(id || "0"), '/itinerary'];
-
-  // Fetch tour package data
+  // Fetch tour data
   const { 
-    data: packageData, 
-    isLoading: isPackageLoading, 
-    error: packageError 
-  } = useQuery<TourPackage>({
-    queryKey: packageQueryKey,
+    data: strapiResponse, 
+    isLoading: isTourLoading, 
+    error: tourError 
+  } = useQuery<StrapiResponse>({
+    queryKey: [strapiQueryUrl],
   });
   
-  // Fetch itinerary data directly from the new endpoint
-  const { 
-    data: itineraryData, 
-    isLoading: isItineraryLoading,
-    error: itineraryError
-  } = useQuery<APIItineraryDay[]>({
-    queryKey: itineraryQueryKey,
-    enabled: !!packageData, // Only fetch itinerary once we have package data
-  });
+  // Extract the tour data from the response
+  const tourData = strapiResponse && strapiResponse.data
+    ? (Array.isArray(strapiResponse.data) && strapiResponse.data.length > 0
+      ? strapiResponse.data[0]
+      : strapiResponse.data)
+    : {} as StrapiTourData;
+    
+  // Extract itinerary data from the tour data
+  const itineraryData = tourData?.itineraryDays || [];
+  const isItineraryLoading = isTourLoading;
+  const itineraryError = null;
 
   // Process JSON fields when data is loaded
   useEffect(() => {
-    if (packageData) {
-      console.log("Package data received:", packageData);
+    if (tourData) {
+      console.log("Tour data received:", tourData);
+      
+      // Log the structure of tourData to help debug
+      console.log("Tour data structure check:", {
+        id: tourData.id,
+        attributes: tourData.attributes,
+        hasAttributes: !!tourData.attributes,
+        imageUrl: tourData.imageUrl,
+        heroImage: tourData.attributes?.heroImage,
+        galleryImages: tourData.attributes?.galleryImages
+      });
+      
       console.log("Gallery Image URL Check:", {
-        galleryImages: packageData.galleryImages,
-        isArray: packageData.galleryImages && Array.isArray(packageData.galleryImages),
-        galleryField: packageData.gallery
+        galleryImages: tourData.galleryImages,
+        isArray: tourData.galleryImages && Array.isArray(tourData.galleryImages),
+        galleryField: tourData.gallery
       });
       
       // Handle gallery images
       // First check for galleryImages array in the API response
-      if (packageData.galleryImages && Array.isArray(packageData.galleryImages)) {
-        console.log("Using galleryImages from API response:", packageData.galleryImages);
-        setGalleryImages(packageData.galleryImages);
+      if (tourData.galleryImages && Array.isArray(tourData.galleryImages)) {
+        console.log("Using galleryImages from API response:", tourData.galleryImages);
+        setGalleryImages(tourData.galleryImages);
       } 
       // Then try to parse gallery field if it exists
-      else if (packageData.gallery) {
+      else if (tourData.gallery) {
         try {
-          const parsedGallery = JSON.parse(packageData.gallery);
+          const parsedGallery = JSON.parse(tourData.gallery);
           console.log("Parsed gallery from JSON string:", parsedGallery);
           setGalleryImages(parsedGallery);
         } catch (e) {
           console.log("Error parsing gallery, using imageUrl as fallback");
-          setGalleryImages([packageData.imageUrl]);
+          setGalleryImages([tourData.imageUrl]);
         }
       } else {
         console.log("No gallery found, using imageUrl as fallback");
-        setGalleryImages([packageData.imageUrl]);
+        setGalleryImages([tourData.imageUrl]);
       }
 
       // Parse includes/excludes if available
-      if (packageData.includes) {
+      if (tourData.includes) {
         try {
-          setIncludes(JSON.parse(packageData.includes));
+          setIncludes(JSON.parse(tourData.includes));
         } catch (e) {
           setIncludes([]);
         }
       }
 
-      if (packageData.excludes) {
+      if (tourData.excludes) {
         try {
-          setExcludes(JSON.parse(packageData.excludes));
+          setExcludes(JSON.parse(tourData.excludes));
         } catch (e) {
           setExcludes([]);
         }
       }
 
       // Parse destinations if available
-      if (packageData.destinations) {
+      if (tourData.destinations) {
         try {
-          setDestinations(JSON.parse(packageData.destinations));
+          setDestinations(JSON.parse(tourData.destinations));
         } catch (e) {
           setDestinations([]);
         }
@@ -143,23 +218,23 @@ const EnhancedPackageDetail = () => {
 
       // We'll handle itinerary in a separate useEffect that watches itineraryData
     }
-  }, [packageData]);
+  }, [tourData]);
   
   // Process itinerary data directly from the API response
   useEffect(() => {
-    if (packageData?.itineraryDays && Array.isArray(packageData.itineraryDays) && packageData.itineraryDays.length > 0) {
-      // If we have structured itinerary data directly in package data
-      console.log("Using itineraryDays from API response:", packageData.itineraryDays);
-      setItinerary(packageData.itineraryDays);
+    if (tourData?.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
+      // If we have structured itinerary data directly in tour data
+      console.log("Using itineraryDays from API response:", tourData.itineraryDays);
+      setItinerary(tourData.itineraryDays);
     } else if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0) {
       // Fallback to separate itinerary endpoint data if available
       console.log("Using structured itinerary data from API endpoint:", itineraryData);
       setItinerary(itineraryData);
-    } else if (packageData?.itinerary) {
-      console.log("Itinerary field from package data:", packageData.itinerary);
+    } else if (tourData?.itinerary) {
+      console.log("Itinerary field from tour data:", tourData.itinerary);
       // First check if it's already a JSON string
       try {
-        const parsedItinerary = JSON.parse(packageData.itinerary);
+        const parsedItinerary = JSON.parse(tourData.itinerary);
         console.log("Parsed itinerary as JSON:", parsedItinerary);
         
         // Check if we got a valid array
@@ -173,11 +248,11 @@ const EnhancedPackageDetail = () => {
         console.log("Itinerary is not a JSON string, trying to parse from text format");
         
         // Try to parse as plain text format with "Day X: Description" format
-        if (typeof packageData.itinerary === 'string' && packageData.itinerary.includes('Day')) {
-          const lines = packageData.itinerary.split('\n');
+        if (typeof tourData.itinerary === 'string' && tourData.itinerary.includes('Day')) {
+          const lines = tourData.itinerary.split('\n');
           const parsedItinerary: APIItineraryDay[] = [];
           
-          lines.forEach(line => {
+          lines.forEach((line: string) => {
             const match = line.match(/Day (\d+)(?:-\d+)?: (.+)/);
             if (match) {
               const day = parseInt(match[1]);
@@ -210,7 +285,7 @@ const EnhancedPackageDetail = () => {
       console.log("No itinerary data available");
       setItinerary([]);
     }
-  }, [packageData, itineraryData]);
+  }, [tourData, itineraryData]);
 
   // Transform itinerary data into visual timeline format when itinerary changes
   useEffect(() => {
@@ -270,7 +345,7 @@ const EnhancedPackageDetail = () => {
           description: enhancedDescription,
           accommodation: accommodationString,
           // Use the image from the new API structure if it exists
-          imageUrl: day.image?.medium || day.image?.small || day.imageUrl || `/images/packages/${day.title.toLowerCase().replace(/ /g, '-')}.jpg`
+          imageUrl: day.image?.medium || day.image?.small || day.imageUrl || `/images/tours/${day.title.toLowerCase().replace(/ /g, '-')}.jpg`
         };
       });
       
@@ -413,7 +488,7 @@ const EnhancedPackageDetail = () => {
   ];
 
   // Loading state
-  if (isPackageLoading || isItineraryLoading) {
+  if (isTourLoading || isItineraryLoading) {
     return (
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -433,15 +508,15 @@ const EnhancedPackageDetail = () => {
   }
 
   // Error state
-  if (packageError || itineraryError || !packageData) {
+  if (tourError || itineraryError || !tourData) {
     return (
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">Package Not Found</h1>
-            <p className="text-lg text-muted-foreground mb-6">We couldn't find the tour package you're looking for.</p>
-            <Link href="/tour-packages">
-              <Button size="lg">View All Tour Packages</Button>
+            <h1 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">Tour Not Found</h1>
+            <p className="text-lg text-muted-foreground mb-6">We couldn't find the tour you're looking for.</p>
+            <Link href="/tours">
+              <Button size="lg">View All Sri Lanka Tours</Button>
             </Link>
           </div>
         </div>
@@ -456,7 +531,7 @@ const EnhancedPackageDetail = () => {
         {/* Background Image with Overlay */}
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${packageData.imageUrl})` }}
+          style={{ backgroundImage: `url(${tourData.imageUrl})` }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
@@ -475,8 +550,8 @@ const EnhancedPackageDetail = () => {
               <li>
                 <div className="flex items-center">
                   <ChevronRight className="w-5 h-5 text-white/60" />
-                  <Link href="/packages" className="ml-1 text-sm font-medium hover:text-white">
-                    Tour Packages
+                  <Link href="/tours" className="ml-1 text-sm font-medium hover:text-white">
+                    Sri Lanka Tours
                   </Link>
                 </div>
               </li>
@@ -484,7 +559,7 @@ const EnhancedPackageDetail = () => {
                 <div className="flex items-center">
                   <ChevronRight className="w-5 h-5 text-white/60" />
                   <span className="ml-1 text-sm font-medium text-white/80">
-                    {packageData.title}
+                    {tourData.title}
                   </span>
                 </div>
               </li>
@@ -494,17 +569,17 @@ const EnhancedPackageDetail = () => {
           {/* Tour Title and Info - Simplified */}
           <div className="text-white relative z-10">
             <h1 className="font-['Playfair_Display'] text-2xl md:text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight md:text-left text-center">
-              {packageData.title}
+              {tourData.title}
             </h1>
             
             <div className="flex flex-wrap md:justify-start justify-center gap-4 mb-8">
               <div className="flex items-center text-white/90">
                 <Calendar className="h-5 w-5 mr-2" />
-                <span>{packageData.duration} Days</span>
+                <span>{tourData.duration} Days</span>
               </div>
               <div className="flex items-center text-white/90">
                 <MapPin className="h-5 w-5 mr-2" />
-                <span>{packageData.destinations?.replace(/,/g, ', ') || "Multiple Destinations"}</span>
+                <span>{tourData.destinations?.replace(/,/g, ', ') || "Multiple Destinations"}</span>
               </div>
             </div>
             
@@ -538,8 +613,8 @@ const EnhancedPackageDetail = () => {
               <div className="mb-16">
                 <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg mb-4">
                   <img 
-                    src={galleryImages[activeImageIndex] || packageData.imageUrl} 
-                    alt={`${packageData.title} - Image ${activeImageIndex + 1}`}
+                    src={galleryImages[activeImageIndex] || tourData.imageUrl} 
+                    alt={`${tourData.title} - Image ${activeImageIndex + 1}`}
                     className="w-full h-full object-cover" 
                   />
                   
@@ -575,7 +650,7 @@ const EnhancedPackageDetail = () => {
                       >
                         <img 
                           src={img} 
-                          alt={`${packageData.title} - Thumbnail ${index + 1}`} 
+                          alt={`${tourData.title} - Thumbnail ${index + 1}`} 
                           className="w-full h-full object-cover" 
                         />
                       </button>
@@ -588,20 +663,20 @@ const EnhancedPackageDetail = () => {
               <div className="mb-16">
                 <div className="mb-8">
                   <h2 className="text-3xl font-bold mb-4">
-                    {packageData.title}
+                    {tourData.title}
                   </h2>
                 </div>
                 <div className="text-xl text-gray-700 font-medium mb-6">
-                  {packageData.shortDescription || "Experience the best of Sri Lanka with our luxury tour package."}
+                  {tourData.shortDescription || "Experience the best of Sri Lanka with our luxury tour package."}
                 </div>
                 <div 
                   className="prose prose-lg max-w-none text-gray-600"
-                  dangerouslySetInnerHTML={{ __html: packageData.description || '' }}
+                  dangerouslySetInnerHTML={{ __html: tourData.description || '' }}
                 />
-                {packageData.tourHighlights && (
+                {tourData.tourHighlights && (
                   <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
                     <h3 className="text-xl font-semibold mb-3">Tour Highlights</h3>
-                    <div className="text-gray-700">{packageData.tourHighlights}</div>
+                    <div className="text-gray-700">{tourData.tourHighlights}</div>
                   </div>
                 )}
               </div>
@@ -621,7 +696,7 @@ const EnhancedPackageDetail = () => {
                 ) : (
                   <div className="text-center p-8 bg-[#f8f7f2] rounded-lg border border-[#D4AF37]/20">
                     <p className="text-lg text-gray-600 mb-3">
-                      Full {packageData.duration}-day itinerary available upon request.
+                      Full {tourData.duration}-day itinerary available upon request.
                     </p>
                     <p className="text-gray-500">
                       Contact our travel consultants for a detailed day-by-day plan.
@@ -691,7 +766,7 @@ const EnhancedPackageDetail = () => {
                   <div className="bg-[#103556] p-6 text-white">
                     <div className="flex items-baseline">
                       <span className="text-xl font-medium">From</span>
-                      <span className="text-2xl font-normal ml-2">{formatPrice(packageData.price || 0)}</span>
+                      <span className="text-2xl font-normal ml-2">{formatPrice(tourData.price || 0)}</span>
                       <span className="ml-1 text-white/80">per person</span>
                     </div>
                     <p className="text-white/80 text-sm mt-1">Based on double occupancy</p>
@@ -704,7 +779,7 @@ const EnhancedPackageDetail = () => {
                           <Calendar className="h-5 w-5 text-[#D4AF37] mr-3" />
                           <span className="text-gray-600">Duration</span>
                         </div>
-                        <span className="font-semibold">{packageData.duration} Days</span>
+                        <span className="font-semibold">{tourData.duration} Days</span>
                       </div>
                       
                       <div className="flex justify-between pb-3 border-b border-gray-100">
@@ -842,6 +917,14 @@ const EnhancedPackageDetail = () => {
                 </div>
               </div>
             ))}
+          </div>
+          
+          <div className="text-center mt-14">
+            <Link href="/tours">
+              <Button variant="outline" size="lg" className="border-[#103556] text-[#103556] hover:bg-[#103556] hover:text-white transition-colors">
+                View All Sri Lanka Tours
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
