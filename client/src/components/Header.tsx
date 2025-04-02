@@ -42,7 +42,7 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-6">
             {/* Desktop Navigation */}
             <nav className="flex space-x-6">
-              <Link href="/packages" className={`font-['Raleway'] font-medium ${location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
+              <Link href="/tours" className={`font-['Raleway'] font-medium ${location === '/tours' || location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
                 Tour Packages
               </Link>
               <div className="relative group">
@@ -99,7 +99,7 @@ const Header = () => {
         
         {/* Mobile Navigation Menu */}
         <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white pt-2 pb-4 px-4`}>
-          <Link href="/packages" className={`block py-2 font-medium ${location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
+          <Link href="/tours" className={`block py-2 font-medium ${location === '/tours' || location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             Tour Packages
           </Link>
           <div className="py-1">

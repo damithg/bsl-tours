@@ -30,13 +30,17 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         
-        {/* Tour packages routes */}
+        {/* Tour routes */}
+        <Route path="/tours" component={TourPackages} />
+        <Route path="/tours/:id" component={EnhancedPackageDetail} />
+        
+        {/* Legacy routes (to be eventually removed) */}
         <Route path="/packages" component={TourPackages} />
         <Route path="/packages/:id" component={PackageDetail} />
         <Route path="/tour-packages" component={TourPackages} />
         <Route path="/tour-packages/:id" component={EnhancedPackageDetail} />
         
-        {/* New slug-based route for tours */}
+        {/* Slug-based route for tours */}
         <Route path="/tour/:slug" component={EnhancedPackageDetail} />
         
         {/* Destination routes */}

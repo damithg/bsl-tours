@@ -1,18 +1,74 @@
 import { useQuery } from "@tanstack/react-query";
-import { TourPackage } from "@shared/schema";
 import { Link } from "wouter";
 import { useCurrency } from "../contexts/CurrencyContext";
 
+// Strapi API Tour interface
+interface StrapiTour {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  summary: string;
+  duration: string;
+  startingFrom: number;
+  currency: string;
+  inclusions: string[];
+  exclusions: string[];
+  accommodationInfo: string;
+  operatedBy: string;
+  category: string;
+  tags: string[];
+  minGroupSize: number;
+  maxGroupSize: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  heroImage?: {
+    id: number;
+    publicId: string;
+    alt: string;
+    caption: string;
+    orientation: string;
+  };
+  cardImage?: {
+    id: number;
+    publicId: string;
+    alt: string;
+    caption: string;
+    orientation: string;
+  };
+  reviews?: {
+    id: number;
+    reviewer: string;
+    country: string;
+    comment: string;
+    rating: number;
+  }[];
+}
+
+interface StrapiResponse {
+  data: StrapiTour[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}
+
 const TourPackages = () => {
-  const { data: packages, isLoading, error } = useQuery<TourPackage[]>({
-    queryKey: ['/api/tour-packages'],
+  const { data: strapiResponse, isLoading, error } = useQuery<StrapiResponse>({
+    queryKey: ['https://graceful-happiness-10e3a700b4.strapiapp.com/api/tours?populate=*'],
   });
   
+  const tours = strapiResponse?.data || [];
   const { formatPrice } = useCurrency();
 
-  // Format rating to display as stars (50 = 5 stars)
+  // Format rating to display as stars (5 = 5 stars)
   const formatRating = (rating: number | null) => {
-    if (rating === null) {
+    if (rating === null || rating === undefined) {
       return (
         <div className="text-gray-400 flex">
           <span>No ratings yet</span>
@@ -20,8 +76,8 @@ const TourPackages = () => {
       );
     }
     
-    const fullStars = Math.floor(rating / 10);
-    const hasHalfStar = rating % 10 >= 5;
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
     
     return (
@@ -91,43 +147,81 @@ const TourPackages = () => {
             </div>
           ) : error ? (
             <div className="text-center py-8">
-              <p className="text-red-500">Failed to load packages. Please try again later.</p>
+              <p className="text-red-500">Failed to load tours. Please try again later.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {packages?.map((pkg) => (
-                <div key={pkg.id} className="bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
-                  <div className="relative h-64 flex items-center justify-center overflow-hidden">
-                    <img src={pkg.imageUrl} alt={pkg.title} className="w-full h-full object-cover object-center" />
-                    <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
-                      {pkg.duration} Days
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{pkg.title}</h3>
-                    <div className="flex items-center mb-4">
-                      {formatRating(pkg.rating || 50)}
-                      <span className="text-sm text-gray-500 ml-2">
-                        {((pkg.rating || 50) / 10).toFixed(1)} ({pkg.reviewCount || 25} reviews)
-                      </span>
-                    </div>
-                    <p className="text-[#333333]/70 mb-4">{pkg.shortDescription || pkg.description}</p>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <span className="text-sm text-gray-500">From</span>
-                        <span className="text-[#0F4C81] text-xl font-semibold">{formatPrice(pkg.price)}</span>
-                        <span className="text-gray-500 text-sm">per person</span>
+              {tours.map((tour) => {
+                // Get the image URL from cardImage or heroImage, with fallbacks
+                const getImageUrl = () => {
+                  if (tour.cardImage?.publicId) {
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.cardImage.publicId}`;
+                  } else if (tour.heroImage?.publicId) {
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.heroImage.publicId}`;
+                  } else {
+                    return "https://images.unsplash.com/photo-1571983823232-07c155b4b685?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80";
+                  }
+                };
+                
+                // Extract average rating from reviews
+                const reviews = tour.reviews || [];
+                const averageRating = reviews.length > 0 
+                  ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length 
+                  : null;
+                
+                return (
+                  <div key={tour.id} className="bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
+                    <div className="relative h-64 flex items-center justify-center overflow-hidden">
+                      <img 
+                        src={getImageUrl()} 
+                        alt={tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
+                        className="w-full h-full object-cover object-center" 
+                      />
+                      <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
+                        {tour.duration}
                       </div>
-                      <Link 
-                        href={pkg.slug ? `/tour/${pkg.slug}` : `/tour-packages/${pkg.id}`} 
-                        className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-md transition"
-                      >
-                        View Details
-                      </Link>
+                      {tour.tags && tour.tags.length > 0 && (
+                        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                          {tour.tags.slice(0, 2).map((tag, i) => (
+                            <span 
+                              key={i}
+                              className="bg-black/50 backdrop-blur-sm text-white text-xs py-1 px-2 rounded-full"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{tour.name}</h3>
+                      <div className="flex items-center mb-4">
+                        {formatRating(averageRating)}
+                        <span className="text-sm text-gray-500 ml-2">
+                          {averageRating ? averageRating.toFixed(1) : 'N/A'} 
+                          ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
+                        </span>
+                      </div>
+                      <p className="text-[#333333]/70 mb-4">{tour.summary}</p>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <span className="text-sm text-gray-500">From</span>
+                          <span className="text-[#0F4C81] text-xl font-semibold">
+                            {formatPrice(tour.startingFrom, { currency: tour.currency })}
+                          </span>
+                          <span className="text-gray-500 text-sm">per person</span>
+                        </div>
+                        <Link 
+                          href={`/tours/${tour.slug}`} 
+                          className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-md transition"
+                        >
+                          View Details
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

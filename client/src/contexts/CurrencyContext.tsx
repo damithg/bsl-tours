@@ -18,11 +18,15 @@ export const SUPPORTED_CURRENCIES: Currency[] = [
   { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar', rate: 1.38, flag: '/images/flags/ca.svg' },
 ];
 
+interface FormatPriceOptions {
+  currency?: string;
+}
+
 interface CurrencyContextType {
   currency: Currency;
   setCurrency: (currency: Currency) => void;
   currencies: Currency[];
-  formatPrice: (priceInUSD: number) => string;
+  formatPrice: (price: number, options?: FormatPriceOptions) => string;
 }
 
 // Create context with default values
@@ -88,11 +92,21 @@ export const CurrencyProvider = ({ children }: CurrencyProviderProps) => {
   }, [currency]);
 
   // Format price based on current currency
-  const formatPrice = (priceInUSD: number): string => {
-    if (!priceInUSD) return `${currency.symbol}0`;
+  const formatPrice = (price: number, options?: FormatPriceOptions): string => {
+    if (!price) return `${currency.symbol}0`;
     
-    // Convert price to selected currency
-    const convertedPrice = priceInUSD * currency.rate;
+    // Determine which currency to use (default to the user's selected currency)
+    const sourceCurrency = options?.currency || 'USD';
+    
+    // If source currency is the same as display currency, no conversion needed
+    let convertedPrice = price;
+    
+    // Only convert if source currency is USD and display currency is different
+    if (sourceCurrency === 'USD' && currency.code !== 'USD') {
+      convertedPrice = price * currency.rate;
+    }
+    // For other currency conversions, we would need exchange rates between them
+    // This is simplified for now assuming source is USD
     
     // Format based on currency
     return new Intl.NumberFormat('en-US', {

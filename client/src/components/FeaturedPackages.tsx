@@ -1,17 +1,74 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { TourPackage } from "@shared/schema";
 import { useState, useRef } from "react";
 import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { AdaptiveImage } from "./ui/adaptive-image";
 import { determineFocalPoint } from "@/lib/image-utils";
 
+// Strapi API Tour interface
+interface StrapiTour {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  summary: string;
+  duration: string;
+  startingFrom: number;
+  currency: string;
+  inclusions: string[];
+  exclusions: string[];
+  accommodationInfo: string;
+  operatedBy: string;
+  category: string;
+  tags: string[];
+  minGroupSize: number;
+  maxGroupSize: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  heroImage?: {
+    id: number;
+    publicId: string;
+    alt: string;
+    caption: string;
+    orientation: string;
+  };
+  cardImage?: {
+    id: number;
+    publicId: string;
+    alt: string;
+    caption: string;
+    orientation: string;
+  };
+  reviews?: {
+    id: number;
+    reviewer: string;
+    country: string;
+    comment: string;
+    rating: number;
+  }[];
+}
+
+interface StrapiResponse {
+  data: StrapiTour[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}
+
 const FeaturedPackages = () => {
-  const queryKey = ['/api/tour-packages/featured'];
-  const { data: packages, isLoading, error, refetch } = useQuery<TourPackage[]>({
+  const queryKey = ['https://graceful-happiness-10e3a700b4.strapiapp.com/api/tours?populate=*'];
+  const { data: strapiResponse, isLoading, error, refetch } = useQuery<StrapiResponse>({
     queryKey,
   });
+  
+  const tours = strapiResponse?.data || [];
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -77,7 +134,7 @@ const FeaturedPackages = () => {
       <section id="packages" className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Tour Packages</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Sri Lanka Tours</h2>
             <p className="text-lg text-[#333333]/80">Each journey is tailor-made to reflect your preferences, with private guides, luxury accommodations, and unforgettable experiences.</p>
           </div>
           
@@ -113,22 +170,22 @@ const FeaturedPackages = () => {
       <section id="packages" className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Tour Packages</h2>
-            <p className="text-red-500">Failed to load packages. Please try again later.</p>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Sri Lanka Tours</h2>
+            <p className="text-red-500">Failed to load tours. Please try again later.</p>
           </div>
         </div>
       </section>
     );
   }
 
-  // Handle empty packages array
-  if (!packages || packages.length === 0) {
+  // Handle empty tours array
+  if (!tours || tours.length === 0) {
     return (
       <section id="packages" className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Tour Packages</h2>
-            <p className="text-lg text-[#333333]/80 mb-4">Currently configuring our tour packages. Please check back soon!</p>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Sri Lanka Tours</h2>
+            <p className="text-lg text-[#333333]/80 mb-4">Currently configuring our tours. Please check back soon!</p>
             <button 
               onClick={() => {
                 // Force a refresh
@@ -136,7 +193,7 @@ const FeaturedPackages = () => {
               }}
               className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition flex items-center mx-auto"
             >
-              <LucideRefreshCw size={18} className="mr-2" /> Refresh Packages
+              <LucideRefreshCw size={18} className="mr-2" /> Refresh Tours
             </button>
           </div>
         </div>
@@ -149,15 +206,15 @@ const FeaturedPackages = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="flex items-center justify-center">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Tour Packages</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Sri Lanka Tours</h2>
             <button 
               onClick={() => {
                 // This will force a fresh fetch from the server
                 queryClient.invalidateQueries({ queryKey });
               }}
               className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
-              aria-label="Refresh packages"
-              title="Refresh packages"
+              aria-label="Refresh tours"
+              title="Refresh tours"
             >
               <LucideRefreshCw size={20} />
             </button>
@@ -195,54 +252,81 @@ const FeaturedPackages = () => {
             className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory hide-scrollbar"
             onScroll={checkScrollable}
           >
-            {packages.map((pkg) => (
-              <div 
-                key={pkg.id} 
-                className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl"
-              >
-                <div className="relative h-64 flex items-center justify-center overflow-hidden">
-                  {pkg.imageUrl ? (
-                    <AdaptiveImage 
-                      src={pkg.imageUrl} 
-                      alt={pkg.title}
-                      focalPoint={determineFocalPoint(pkg.imageUrl, pkg.title)}
-                      aspectRatio="16/9"
-                      containerClassName="w-full h-full"
-                      imageClassName="transition duration-700 group-hover:scale-110"
-                      fallbackSrc="/images/fallback-tour-package.jpg"
-                      loadingPlaceholder={true}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No Image Available</div>
-                  )}
-                  <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
-                    {pkg.duration} Days
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{pkg.title}</h3>
-                  <div className="flex items-center mb-4">
-                    {formatRating(pkg.rating || 50)}
-                    <span className="text-sm text-gray-500 ml-2">{((pkg.rating || 50) / 10).toFixed(1)} ({pkg.reviewCount || 25} reviews)</span>
-                  </div>
-                  <p className="text-[#333333]/70 mb-4">{pkg.shortDescription || pkg.description}</p>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <span className="text-sm text-gray-500">From</span>
-                      <span className="text-[#0F4C81] text-xl font-semibold">${pkg.price?.toLocaleString() || 0}</span>
-                      <span className="text-gray-500 text-sm">per person</span>
+            {tours.map((tour) => {
+                // Get the image URL from cardImage or heroImage, with fallbacks
+                const getImageUrl = () => {
+                  if (tour.cardImage?.publicId) {
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.cardImage.publicId}`;
+                  } else if (tour.heroImage?.publicId) {
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.heroImage.publicId}`;
+                  } else {
+                    return "/images/fallback-tour-package.jpg";
+                  }
+                };
+                
+                // Extract average rating from reviews
+                const reviews = tour.reviews || [];
+                const averageRating = reviews.length > 0 
+                  ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length 
+                  : null;
+              
+                return (
+                  <div 
+                    key={tour.id} 
+                    className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl"
+                  >
+                    <div className="relative h-64 flex items-center justify-center overflow-hidden">
+                      <img 
+                        src={getImageUrl()} 
+                        alt={tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
+                        className="w-full h-full object-cover object-center" 
+                      />
+                      <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
+                        {tour.duration}
+                      </div>
+                      {tour.tags && tour.tags.length > 0 && (
+                        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                          {tour.tags.slice(0, 1).map((tag, i) => (
+                            <span 
+                              key={i}
+                              className="bg-black/50 backdrop-blur-sm text-white text-xs py-1 px-2 rounded-full"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                    <Link href={pkg.slug ? `/tour/${pkg.slug}` : `/tour-packages/${pkg.id}`} className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition">View Details</Link>
+                    <div className="p-6">
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{tour.name}</h3>
+                      <div className="flex items-center mb-4">
+                        {formatRating(averageRating || 5)}
+                        <span className="text-sm text-gray-500 ml-2">
+                          {averageRating ? averageRating.toFixed(1) : '5.0'} 
+                          ({reviews.length || 0} {reviews.length === 1 ? 'review' : 'reviews'})
+                        </span>
+                      </div>
+                      <p className="text-[#333333]/70 mb-4">{tour.summary}</p>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <span className="text-sm text-gray-500">From</span>
+                          <span className="text-[#0F4C81] text-xl font-semibold">
+                            ${tour.startingFrom?.toLocaleString() || 0}
+                          </span>
+                          <span className="text-gray-500 text-sm">per person</span>
+                        </div>
+                        <Link href={`/tours/${tour.slug}`} className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition">View Details</Link>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                );
+            })}
           </div>
         </div>
         
         <div className="text-center mt-12">
-          <Link href="/tour-packages" className="inline-flex items-center border-2 border-[#0F4C81] text-[#0F4C81] hover:bg-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
-            View All Packages
+          <Link href="/tours" className="inline-flex items-center border-2 border-[#0F4C81] text-[#0F4C81] hover:bg-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
+            View All Tours
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
