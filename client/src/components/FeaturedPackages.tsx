@@ -9,24 +9,31 @@ import { determineFocalPoint } from "@/lib/image-utils";
 // Strapi API Tour interface
 interface StrapiTour {
   id: number;
-  documentId: string;
   name: string;
   slug: string;
+  featured: boolean;
   summary: string;
   duration: string;
   startingFrom: number;
   currency: string;
-  inclusions: string[];
-  exclusions: string[];
-  accommodationInfo: string;
-  operatedBy: string;
-  category: string;
-  tags: string[];
-  minGroupSize: number;
-  maxGroupSize: number;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+  // Optional fields
+  documentId?: string;
+  inclusions?: string[];
+  exclusions?: string[];
+  accommodationInfo?: string;
+  operatedBy?: string;
+  category?: string;
+  tags?: string[];
+  minGroupSize?: number;
+  maxGroupSize?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  itinerary?: Array<{
+    day: number;
+    title: string;
+    description: string;
+  }>;
   heroImage?: {
     id: number;
     publicId: string;
@@ -41,13 +48,40 @@ interface StrapiTour {
     caption: string;
     orientation: string;
   };
-  reviews?: {
+  galleryImages?: Array<{
     id: number;
+    publicId: string;
+    alt: string;
+    caption: string;
+    orientation: string;
+  }>;
+  pricingTiers?: Array<{
+    label: string;
+    price: number;
+    description: string;
+  }>;
+  optionalAddOns?: Array<{
+    title: string;
+    price: number;
+    description: string;
+  }>;
+  relatedDestinations?: Array<{
+    name: string;
+    slug: string;
+  }>;
+  reviews?: Array<{
     reviewer: string;
     country: string;
     comment: string;
     rating: number;
-  }[];
+  }>;
+  languagesSupported?: string[];
+  routeOverview?: string;
+  bookingUrl?: string;
+  guideProfileUrl?: string;
+  departureDates?: string[];
+  bookingWindow?: string;
+  mapEmbedUrl?: string;
 }
 
 interface StrapiResponse {
@@ -259,11 +293,12 @@ const FeaturedPackages = () => {
                 // Get the image URL from cardImage or heroImage, with fallbacks
                 const getImageUrl = () => {
                   if (tour.cardImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.cardImage.publicId}`;
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,h_400,w_600,q_auto/${tour.cardImage.publicId}`;
                   } else if (tour.heroImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.heroImage.publicId}`;
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,h_400,w_600,q_auto/${tour.heroImage.publicId}`;
                   } else {
-                    return "/images/fallback-tour-package.jpg";
+                    // For now use a fallback, but ideally this should never happen as all tours should have images
+                    return "/images/tours/scenic-sri-lanka-hero.jpg";
                   }
                 };
                 

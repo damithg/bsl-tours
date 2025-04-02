@@ -247,11 +247,11 @@ const EnhancedPackageDetail = () => {
           setGalleryImages(parsedGallery);
         } catch (e) {
           console.log("Error parsing gallery, using imageUrl as fallback");
-          setGalleryImages([tourData.imageUrl]);
+          setGalleryImages([tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
         }
       } else {
         console.log("No gallery found, using imageUrl as fallback");
-        setGalleryImages([tourData.imageUrl]);
+        setGalleryImages([tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
       }
 
       // Parse includes/excludes if available
