@@ -32,7 +32,7 @@ function Router() {
         
         {/* Tour routes */}
         <Route path="/tours" component={TourPackages} />
-        <Route path="/tours/:id" component={EnhancedPackageDetail} />
+        <Route path="/tours/:slug" component={EnhancedPackageDetail} />
         
         {/* Legacy routes (to be eventually removed) */}
         <Route path="/packages" component={TourPackages} />
@@ -40,7 +40,7 @@ function Router() {
         <Route path="/tour-packages" component={TourPackages} />
         <Route path="/tour-packages/:id" component={EnhancedPackageDetail} />
         
-        {/* Slug-based route for tours */}
+        {/* Slug-based route for tours (older structure) */}
         <Route path="/tour/:slug" component={EnhancedPackageDetail} />
         
         {/* Destination routes */}

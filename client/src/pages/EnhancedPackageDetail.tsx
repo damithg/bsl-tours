@@ -197,16 +197,28 @@ const EnhancedPackageDetail = () => {
     data: strapiResponse, 
     isLoading: isTourLoading, 
     error: tourError 
-  } = useQuery<StrapiResponse>({
+  } = useQuery({
     queryKey: [strapiQueryUrl],
   });
   
   // Extract the tour data from the response
-  const tourData: TourData = strapiResponse && strapiResponse.data
-    ? (Array.isArray(strapiResponse.data) && strapiResponse.data.length > 0
-      ? strapiResponse.data[0]
-      : strapiResponse.data as TourData)
+  // Handle the response potentially being flat without a data property wrapping it
+  const tourData: TourData = strapiResponse 
+    ? (typeof strapiResponse === 'object' 
+        ? (strapiResponse.data 
+            ? (Array.isArray(strapiResponse.data) && strapiResponse.data.length > 0
+                ? strapiResponse.data[0]
+                : strapiResponse.data as TourData)
+            : strapiResponse as TourData) // Handle both wrapper and direct object
+        : {} as TourData)
     : {} as TourData;
+    
+  // Debug log the JSON to see exact structure
+  if (tourData) {
+    console.log("PROCESSED TOUR DATA:", JSON.stringify(tourData, null, 2));
+  }
+    
+  console.log("PROCESSED TOUR DATA:", tourData);
     
   // Extract itinerary data from the tour data
   const itineraryData = tourData?.itineraryDays || [];
@@ -237,15 +249,44 @@ const EnhancedPackageDetail = () => {
       // Process heroImage first - this determines the main tour image
       let processedHeroImageUrl = '';
       
-      if (tourData.heroImage && tourData.heroImage.publicId) {
-        console.log("Using heroImage from API response:", tourData.heroImage);
-        // Create Cloudinary URL from publicId
-        processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.heroImage.publicId}`;
-        setHeroImageUrl(processedHeroImageUrl);
-      } else if (tourData.cardImage && tourData.cardImage.publicId) {
-        // Fallback to cardImage if heroImage isn't available
-        console.log("Using cardImage as fallback for heroImage:", tourData.cardImage);
-        processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.cardImage.publicId}`;
+      // Direct debug of the heroImage object
+      console.log("HERO IMAGE OBJECT:", JSON.stringify(tourData.heroImage, null, 2));
+      
+      if (tourData.heroImage) {
+        if (typeof tourData.heroImage === 'object') {
+          if (tourData.heroImage.publicId) {
+            console.log("Using heroImage with publicId from API response:", tourData.heroImage);
+            processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.heroImage.publicId}`;
+            setHeroImageUrl(processedHeroImageUrl);
+          } else if (tourData.heroImage.url) {
+            console.log("Using heroImage with url from API response:", tourData.heroImage);
+            processedHeroImageUrl = tourData.heroImage.url;
+            setHeroImageUrl(processedHeroImageUrl);
+          } 
+        } else if (typeof tourData.heroImage === 'string') {
+          console.log("Using heroImage string from API response:", tourData.heroImage);
+          processedHeroImageUrl = tourData.heroImage;
+          setHeroImageUrl(processedHeroImageUrl);
+        }
+      } else if (tourData.cardImage) {
+        if (typeof tourData.cardImage === 'object') {
+          if (tourData.cardImage.publicId) {
+            console.log("Using cardImage as fallback for heroImage:", tourData.cardImage);
+            processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.cardImage.publicId}`;
+            setHeroImageUrl(processedHeroImageUrl);
+          } else if (tourData.cardImage.url) {
+            console.log("Using cardImage url as fallback for heroImage:", tourData.cardImage);
+            processedHeroImageUrl = tourData.cardImage.url;
+            setHeroImageUrl(processedHeroImageUrl);
+          }
+        } else if (typeof tourData.cardImage === 'string') {
+          console.log("Using cardImage string as fallback for heroImage:", tourData.cardImage);
+          processedHeroImageUrl = tourData.cardImage;
+          setHeroImageUrl(processedHeroImageUrl);
+        }
+      } else if (tourData.imageUrl) {
+        console.log("Using imageUrl as fallback for hero:", tourData.imageUrl);
+        processedHeroImageUrl = tourData.imageUrl;
         setHeroImageUrl(processedHeroImageUrl);
       }
       
@@ -338,17 +379,27 @@ const EnhancedPackageDetail = () => {
   
   // Process itinerary data directly from the API response
   useEffect(() => {
-    if (tourData?.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
-      // If we have structured itinerary data directly in tour data
+    console.log("PROCESSING ITINERARY DATA:", tourData.itinerary);
+    
+    // Check if we have a direct itinerary array from the API (format in the JSON like your example)
+    if (tourData.itinerary && Array.isArray(tourData.itinerary) && tourData.itinerary.length > 0) {
+      console.log("Found ARRAY ITINERARY:", tourData.itinerary);
+      setItinerary(tourData.itinerary);
+    }
+    // Check for itineraryDays property (some APIs might use this)
+    else if (tourData?.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
       console.log("Using itineraryDays from API response:", tourData.itineraryDays);
       setItinerary(tourData.itineraryDays);
-    } else if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0) {
-      // Fallback to separate itinerary endpoint data if available
+    } 
+    // Use itineraryData from separate endpoint if available
+    else if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0) {
       console.log("Using structured itinerary data from API endpoint:", itineraryData);
       setItinerary(itineraryData);
-    } else if (tourData?.itinerary) {
-      console.log("Itinerary field from tour data:", tourData.itinerary);
-      // First check if it's already a JSON string
+    } 
+    // Try to parse itinerary if it's a string (older API format)
+    else if (tourData?.itinerary && typeof tourData.itinerary === 'string') {
+      console.log("Itinerary field from tour data is a string:", tourData.itinerary);
+      // Try to parse as JSON
       try {
         const parsedItinerary = JSON.parse(tourData.itinerary);
         console.log("Parsed itinerary as JSON:", parsedItinerary);
@@ -364,7 +415,7 @@ const EnhancedPackageDetail = () => {
         console.log("Itinerary is not a JSON string, trying to parse from text format");
         
         // Try to parse as plain text format with "Day X: Description" format
-        if (typeof tourData.itinerary === 'string' && tourData.itinerary.includes('Day')) {
+        if (tourData.itinerary.includes('Day')) {
           const lines = tourData.itinerary.split('\n');
           const parsedItinerary: APIItineraryDay[] = [];
           
@@ -378,8 +429,7 @@ const EnhancedPackageDetail = () => {
                 day,
                 title,
                 description: `Visit key attractions in ${title} with your private guide. Experience authentic Sri Lankan culture and cuisine.`,
-                accommodation: "Luxury Hotel",
-                imageUrl: `https://source.unsplash.com/featured/?srilanka,${title.replace(/ /g, '')}`
+                accommodation: "Luxury Hotel"
               });
             }
           });
