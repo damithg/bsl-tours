@@ -84,27 +84,18 @@ interface StrapiTour {
   mapEmbedUrl?: string;
 }
 
-interface StrapiResponse {
-  data: StrapiTour[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
-}
+// The API returns the tour data directly as an array, not wrapped in a data property
+type StrapiResponse = StrapiTour[];
 
 const FeaturedPackages = () => {
   // Use the correct API endpoint for featured tours
-  const queryKey = ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours/featured'];
+  const queryKey = ['/api/tours/featured'];
   const { data: strapiResponse, isLoading, error, refetch } = useQuery<StrapiResponse>({
     queryKey,
   });
   
-  // Extract tour data from response
-  const tours = strapiResponse?.data || [];
+  // The API response is the array of tours directly
+  const tours = strapiResponse || [];
   console.log("Featured tours data:", tours);
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -289,7 +280,7 @@ const FeaturedPackages = () => {
             className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory hide-scrollbar"
             onScroll={checkScrollable}
           >
-            {tours.map((tour) => {
+            {tours.map((tour: StrapiTour) => {
                 // Get the image URL from cardImage or heroImage, with fallbacks
                 const getImageUrl = () => {
                   if (tour.cardImage?.publicId) {
@@ -305,7 +296,7 @@ const FeaturedPackages = () => {
                 // Extract average rating from reviews
                 const reviews = tour.reviews || [];
                 const averageRating = reviews.length > 0 
-                  ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length 
+                  ? reviews.reduce((acc: number, review: {rating: number}) => acc + review.rating, 0) / reviews.length 
                   : null;
               
                 return (
@@ -324,7 +315,7 @@ const FeaturedPackages = () => {
                       </div>
                       {tour.tags && tour.tags.length > 0 && (
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                          {tour.tags.slice(0, 1).map((tag, i) => (
+                          {tour.tags.slice(0, 1).map((tag: string, i: number) => (
                             <span 
                               key={i}
                               className="bg-black/50 backdrop-blur-sm text-white text-xs py-1 px-2 rounded-full"
