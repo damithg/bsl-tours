@@ -251,18 +251,26 @@ const EnhancedPackageDetail = () => {
       
       // Direct debug of the heroImage object
       console.log("HERO IMAGE OBJECT:", JSON.stringify(tourData.heroImage, null, 2));
+      console.log("HERO IMAGE TYPE CHECK:", {
+        exists: !!tourData.heroImage,
+        type: typeof tourData.heroImage,
+        hasPublicId: tourData.heroImage && typeof tourData.heroImage === 'object' && 'publicId' in tourData.heroImage
+      });
       
       if (tourData.heroImage) {
         if (typeof tourData.heroImage === 'object') {
-          if (tourData.heroImage.publicId) {
-            console.log("Using heroImage with publicId from API response:", tourData.heroImage);
+          if ('publicId' in tourData.heroImage && tourData.heroImage.publicId) {
+            console.log("Using heroImage with publicId from API response:", tourData.heroImage.publicId);
             processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.heroImage.publicId}`;
             setHeroImageUrl(processedHeroImageUrl);
-          } else if (tourData.heroImage.url) {
-            console.log("Using heroImage with url from API response:", tourData.heroImage);
+            console.log("SET HERO URL TO:", processedHeroImageUrl);
+          } else if ('url' in tourData.heroImage && tourData.heroImage.url) {
+            console.log("Using heroImage with url from API response:", tourData.heroImage.url);
             processedHeroImageUrl = tourData.heroImage.url;
             setHeroImageUrl(processedHeroImageUrl);
-          } 
+          } else {
+            console.log("HeroImage object exists but has no publicId or url");
+          }
         } else if (typeof tourData.heroImage === 'string') {
           console.log("Using heroImage string from API response:", tourData.heroImage);
           processedHeroImageUrl = tourData.heroImage;
