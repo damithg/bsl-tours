@@ -261,7 +261,7 @@ const EnhancedPackageDetail = () => {
         if (typeof tourData.heroImage === 'object') {
           if ('publicId' in tourData.heroImage && tourData.heroImage.publicId) {
             console.log("Using heroImage with publicId from API response:", tourData.heroImage.publicId);
-            processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.heroImage.publicId}`;
+            processedHeroImageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${tourData.heroImage.publicId}.jpg`;
             setHeroImageUrl(processedHeroImageUrl);
             console.log("SET HERO URL TO:", processedHeroImageUrl);
           } else if ('url' in tourData.heroImage && tourData.heroImage.url) {
@@ -280,7 +280,7 @@ const EnhancedPackageDetail = () => {
         if (typeof tourData.cardImage === 'object') {
           if (tourData.cardImage.publicId) {
             console.log("Using cardImage as fallback for heroImage:", tourData.cardImage);
-            processedHeroImageUrl = `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_1600,h_900,q_auto/${tourData.cardImage.publicId}`;
+            processedHeroImageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${tourData.cardImage.publicId}.jpg`;
             setHeroImageUrl(processedHeroImageUrl);
           } else if (tourData.cardImage.url) {
             console.log("Using cardImage url as fallback for heroImage:", tourData.cardImage);
@@ -308,7 +308,7 @@ const EnhancedPackageDetail = () => {
         // Process gallery images - convert publicId objects to Cloudinary URLs if needed
         const processedGalleryImages = tourData.galleryImages.map((image: any) => {
           if (typeof image === 'object' && image.publicId) {
-            return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,w_800,h_600,q_auto/${image.publicId}`;
+            return `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${image.publicId}.jpg`;
           } else if (typeof image === 'string') {
             return image;
           }
