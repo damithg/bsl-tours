@@ -20,59 +20,87 @@ import {
 // Helper Types
 // We're using the ItineraryDay interface from queryClient.ts
 
-// Strapi API response interface
-interface StrapiTourData {
+// Tour API response interface based on .NET API structure
+interface TourData {
   id: number;
-  attributes: {
-    name: string;
-    slug: string;
-    summary: string;
-    duration: string;
-    startingFrom: number;
-    currency: string;
-    inclusions?: string[];
-    exclusions?: string[];
-    heroImage?: {
-      data?: {
-        id: number;
-        attributes: {
-          url: string;
-          alternativeText?: string;
-        }
-      }
+  documentId: string;
+  name: string;
+  title?: string; // Some places use title instead of name
+  slug: string;
+  summary: string;
+  description?: string;
+  shortDescription?: string;
+  duration: string;
+  startingFrom: number;
+  price?: number; // Some places use price instead of startingFrom
+  currency: string;
+  inclusions: string[];
+  exclusions: string[];
+  imageUrl?: string;
+  gallery?: string;
+  galleryImages?: string[];
+  itinerary?: string;
+  itineraryDays?: Array<{
+    id?: number;
+    day: number;
+    title: string;
+    description: string;
+    accommodation?: string;
+    imageUrl?: string;
+    image?: {
+      small?: string;
+      medium?: string;
+      large?: string;
     };
-    cardImage?: {
-      data?: {
-        id: number;
-        attributes: {
-          url: string;
-          alternativeText?: string;
-        }
-      }
-    };
-    galleryImages?: {
-      data?: Array<{
-        id: number;
-        attributes: {
-          url: string;
-          alternativeText?: string;
-        }
-      }>
-    };
-    itineraryDays?: Array<{
-      id: number;
-      day: number;
+    activities?: Array<{
       title: string;
-      description: string;
-      accommodation?: string;
+      description?: string;
+      time?: string;
       imageUrl?: string;
     }>;
-    [key: string]: any;
+    meals?: {
+      breakfast: boolean;
+      lunch: boolean;
+      dinner: boolean;
+    };
+  }>;
+  heroImage?: {
+    id: number;
+    publicId: string;
+    alt: string;
+    caption: string;
+    orientation: string;
   };
+  cardImage?: {
+    id: number;
+    publicId: string;
+    alt: string;
+    caption: string;
+    orientation: string;
+  };
+  tourHighlights?: string[];
+  destinations?: string[];
+  accommodationInfo?: string;
+  operatedBy?: string;
+  category?: string;
+  tags?: string[];
+  minGroupSize?: number;
+  maxGroupSize?: number;
+  reviews?: Array<{
+    id: number;
+    reviewer: string;
+    country: string;
+    comment: string;
+    rating: number;
+  }>;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
 }
 
+// For direct API responses
 interface StrapiResponse {
-  data: StrapiTourData | StrapiTourData[];
+  data: TourData | TourData[];
   meta?: {
     pagination?: {
       page: number;
@@ -81,6 +109,39 @@ interface StrapiResponse {
       total: number;
     }
   };
+}
+
+// Define the interface for variables used in the component  
+interface APIItineraryDay {
+  day: number;
+  title: string;
+  description: string;
+  accommodation?: string | { name: string };
+  imageUrl?: string;
+  image?: {
+    small?: string;
+    medium?: string;
+    large?: string;
+  };
+  activities?: Array<{
+    title: string;
+    description?: string;
+    time?: string;
+    imageUrl?: string;
+  }>;
+  meals?: {
+    breakfast: boolean;
+    lunch: boolean;
+    dinner: boolean;
+  };
+}
+
+interface TimelineDayData {
+  day: number;
+  title: string;
+  description: string;
+  accommodation?: string;
+  imageUrl?: string;
 }
 
 interface RelatedTour {
@@ -119,13 +180,13 @@ const EnhancedPackageDetail = () => {
   // Get currency formatter
   const { formatPrice } = useCurrency();
 
-  // Use Strapi API for tour details
-  const strapiTourQueryKey = ['https://graceful-happiness-10e3a700b4.strapiapp.com/api/tours'];
+  // Use the Azure-hosted .NET API for tour details
+  const apiBaseUrl = 'https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours';
   
   // Build the right query based on slug or id
   const strapiQueryUrl = slug 
-    ? `${strapiTourQueryKey[0]}?populate=*&filters[slug][$eq]=${slug}`
-    : `${strapiTourQueryKey[0]}/${id}?populate=*`;
+    ? `${apiBaseUrl}/${slug}`
+    : `${apiBaseUrl}/${id}`;
     
   // Fetch tour data
   const { 
@@ -137,11 +198,11 @@ const EnhancedPackageDetail = () => {
   });
   
   // Extract the tour data from the response
-  const tourData = strapiResponse && strapiResponse.data
+  const tourData: TourData = strapiResponse && strapiResponse.data
     ? (Array.isArray(strapiResponse.data) && strapiResponse.data.length > 0
       ? strapiResponse.data[0]
-      : strapiResponse.data)
-    : {} as StrapiTourData;
+      : strapiResponse.data as TourData)
+    : {} as TourData;
     
   // Extract itinerary data from the tour data
   const itineraryData = tourData?.itineraryDays || [];
@@ -156,11 +217,11 @@ const EnhancedPackageDetail = () => {
       // Log the structure of tourData to help debug
       console.log("Tour data structure check:", {
         id: tourData.id,
-        attributes: tourData.attributes,
-        hasAttributes: !!tourData.attributes,
+        name: tourData.name || tourData.title,
+        slug: tourData.slug,
         imageUrl: tourData.imageUrl,
-        heroImage: tourData.attributes?.heroImage,
-        galleryImages: tourData.attributes?.galleryImages
+        heroImage: tourData.heroImage,
+        galleryImages: tourData.galleryImages
       });
       
       console.log("Gallery Image URL Check:", {

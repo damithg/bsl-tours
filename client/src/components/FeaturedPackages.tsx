@@ -63,7 +63,7 @@ interface StrapiResponse {
 }
 
 const FeaturedPackages = () => {
-  const queryKey = ['https://graceful-happiness-10e3a700b4.strapiapp.com/api/tours?populate=*'];
+  const queryKey = ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours'];
   const { data: strapiResponse, isLoading, error, refetch } = useQuery<StrapiResponse>({
     queryKey,
   });
