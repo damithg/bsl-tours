@@ -676,22 +676,22 @@ const EnhancedPackageDetail = () => {
             </h1>
             
             <div className="flex flex-wrap md:justify-start justify-center gap-4 mb-4">
-              <div className="flex items-center text-white/80">
+              <div key="duration" className="flex items-center text-white/80">
                 <Calendar className="w-4 h-4 mr-2" />
                 <span className="text-sm">{tourData.duration} Days</span>
               </div>
               
-              <div className="flex items-center text-white/80">
+              <div key="destinations" className="flex items-center text-white/80">
                 <MapPin className="w-4 h-4 mr-2" />
                 <span className="text-sm">{destinations.slice(0, 3).join(', ')}{destinations.length > 3 ? '...' : ''}</span>
               </div>
               
-              <div className="flex items-center text-white/80">
+              <div key="tour-type" className="flex items-center text-white/80">
                 <Users className="w-4 h-4 mr-2" />
                 <span className="text-sm">Private Tour</span>
               </div>
               
-              <div className="flex items-center text-white/80">
+              <div key="rating" className="flex items-center text-white/80">
                 <Star className="w-4 h-4 mr-2 text-amber-400" />
                 <span className="text-sm">5.0 (23 reviews)</span>
               </div>
@@ -1007,15 +1007,15 @@ const EnhancedPackageDetail = () => {
               {/* Quick Info */}
               <div className="border-t border-b border-border py-4 mb-4">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center">
+                  <div key="duration-sidebar" className="flex items-center">
                     <Calendar className="w-4 h-4 mr-2 text-primary/70" />
                     <span className="text-sm">{tourData.duration} Days</span>
                   </div>
-                  <div className="flex items-center">
+                  <div key="tour-type-sidebar" className="flex items-center">
                     <Users className="w-4 h-4 mr-2 text-primary/70" />
                     <span className="text-sm">Private Tour</span>
                   </div>
-                  <div className="flex items-center col-span-2">
+                  <div key="destinations-sidebar" className="flex items-center col-span-2">
                     <MapPin className="w-4 h-4 mr-2 text-primary/70" />
                     <span className="text-sm">{destinations.slice(0, 3).join(', ')}{destinations.length > 3 ? '...' : ''}</span>
                   </div>
