@@ -676,25 +676,33 @@ const EnhancedPackageDetail = () => {
             </h1>
             
             <div className="flex flex-wrap md:justify-start justify-center gap-4 mb-4">
-              <div key="duration" className="flex items-center text-white/80">
-                <Calendar className="w-4 h-4 mr-2" />
-                <span className="text-sm">{tourData.duration} Days</span>
-              </div>
-              
-              <div key="destinations" className="flex items-center text-white/80">
-                <MapPin className="w-4 h-4 mr-2" />
-                <span className="text-sm">{destinations.slice(0, 3).join(', ')}{destinations.length > 3 ? '...' : ''}</span>
-              </div>
-              
-              <div key="tour-type" className="flex items-center text-white/80">
-                <Users className="w-4 h-4 mr-2" />
-                <span className="text-sm">Private Tour</span>
-              </div>
-              
-              <div key="rating" className="flex items-center text-white/80">
-                <Star className="w-4 h-4 mr-2 text-amber-400" />
-                <span className="text-sm">5.0 (23 reviews)</span>
-              </div>
+              {[
+                { 
+                  id: "duration", 
+                  icon: <Calendar className="w-4 h-4 mr-2" />, 
+                  text: `${tourData.duration} Days` 
+                },
+                { 
+                  id: "destinations", 
+                  icon: <MapPin className="w-4 h-4 mr-2" />, 
+                  text: `${destinations.slice(0, 3).join(', ')}${destinations.length > 3 ? '...' : ''}` 
+                },
+                { 
+                  id: "tour-type", 
+                  icon: <Users className="w-4 h-4 mr-2" />, 
+                  text: "Private Tour" 
+                },
+                { 
+                  id: "rating", 
+                  icon: <Star className="w-4 h-4 mr-2 text-amber-400" />, 
+                  text: "5.0 (23 reviews)" 
+                }
+              ].map((item) => (
+                <div key={`header-info-${item.id}`} className="flex items-center text-white/80">
+                  {item.icon}
+                  <span className="text-sm">{item.text}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -945,7 +953,7 @@ const EnhancedPackageDetail = () => {
                     <div className="flex items-center">
                       {[1, 2, 3, 4, 5].map((rating) => (
                         <button
-                          key={rating}
+                          key={`rating-star-${rating}`}
                           type="button"
                           onClick={() => setReviewRating(rating * 10)}
                           className="text-2xl"
