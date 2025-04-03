@@ -280,12 +280,7 @@ const TestTourPage: React.FC = () => {
                   
                   {/* Content section with unified layout - fixes empty right column */}
                   <div className="p-6 md:p-10">
-                    {/* Main summary section */}
-                    <div className="prose prose-lg max-w-none mb-8">
-                      <p className="text-gray-700 text-lg leading-relaxed">{tourData.summary}</p>
-                    </div>
-                    
-                    {/* Visual features section in a 4-column grid */}
+                    {/* Visual features section in a 4-column grid - MOVED BEFORE SUMMARY */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
                       <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
@@ -315,6 +310,11 @@ const TestTourPage: React.FC = () => {
                         <h4 className="font-semibold mb-1">Destinations</h4>
                         <p>Multiple Locations</p>
                       </div>
+                    </div>
+                    
+                    {/* Main summary section */}
+                    <div className="prose prose-lg max-w-none mb-8">
+                      <p className="text-gray-700 text-lg leading-relaxed">{tourData.summary}</p>
                     </div>
                     
                     {/* Two-column layout for why choose and highlights */}
