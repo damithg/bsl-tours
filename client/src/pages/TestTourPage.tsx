@@ -278,32 +278,32 @@ const TestTourPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Content section with unified layout - fixes empty right column */}
-                  <div className="pt-0 px-6 pb-6 md:px-10 md:pb-10">
-                    {/* Visual features section in a 4-column grid - MOVED BEFORE SUMMARY */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 -mt-6">
-                      <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                  {/* Feature icons section - positioned to overlap with header */}
+                  <div className="px-6 md:px-10">
+                    {/* Visual features section in a 4-column grid - No borders */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 -mt-10">
+                      <div className="bg-white shadow-sm p-4 flex flex-col items-center text-center">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Calendar className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Duration</h4>
                         <p>{tourData.duration}</p>
                       </div>
-                      <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                      <div className="bg-white shadow-sm p-4 flex flex-col items-center text-center">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Heart className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Tour Type</h4>
                         <p>Private Luxury</p>
                       </div>
-                      <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                      <div className="bg-white shadow-sm p-4 flex flex-col items-center text-center">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Hotel className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Accommodation</h4>
                         <p>Luxury Hotels</p>
                       </div>
-                      <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                      <div className="bg-white shadow-sm p-4 flex flex-col items-center text-center">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Map className="w-6 h-6" />
                         </div>
