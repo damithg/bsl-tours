@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
-import { TourPackage } from "@/lib/queryClient";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import ContactForm from "@/components/ContactForm";
 import TourRouteMap from "@/components/TourRouteMap";
@@ -17,9 +16,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Helper Types
-// We're using the ItineraryDay interface from queryClient.ts
-
+// Helper Types 
 // Tour API response interface based on .NET API structure
 interface TourData {
   id: number;
@@ -40,8 +37,8 @@ interface TourData {
   excludes?: string | string[]; // Additional property for backward compatibility
   imageUrl?: string;
   gallery?: string;
-  galleryImages?: string[];
-  itinerary?: string;
+  galleryImages?: any[]; // Either string[] or object array with image properties
+  itinerary?: any; // Can be string or array
   // destinationNames can be a string or array of destination names
   destinations?: string | string[]; // Can be string or array
   itineraryDays?: Array<{
@@ -49,12 +46,13 @@ interface TourData {
     day: number;
     title: string;
     description: string;
-    accommodation?: string;
+    accommodation?: string | { name: string };
     imageUrl?: string;
     image?: {
       small?: string;
       medium?: string;
       large?: string;
+      baseUrl?: string;
     };
     activities?: Array<{
       title: string;
@@ -69,29 +67,29 @@ interface TourData {
     };
   }>;
   heroImage?: {
-    id: number;
-    publicId: string;
-    alt: string;
-    caption: string;
-    orientation: string;
+    id?: number;
+    publicId?: string;
+    alt?: string;
+    caption?: string;
+    orientation?: string;
     baseUrl?: string;
     small?: string;
     medium?: string;
     large?: string;
     url?: string;
-  };
+  } | string;
   cardImage?: {
-    id: number;
-    publicId: string;
-    alt: string;
-    caption: string;
-    orientation: string;
+    id?: number;
+    publicId?: string;
+    alt?: string;
+    caption?: string;
+    orientation?: string;
     baseUrl?: string;
     small?: string;
     medium?: string;
     large?: string;
     url?: string;
-  };
+  } | string;
   tourHighlights?: string[];
   accommodationInfo?: string;
   operatedBy?: string;
@@ -106,22 +104,6 @@ interface TourData {
     comment: string;
     rating: number;
   }>;
-  createdAt?: string;
-  updatedAt?: string;
-  publishedAt?: string;
-}
-
-// For direct API responses
-interface StrapiResponse {
-  data: TourData | TourData[];
-  meta?: {
-    pagination?: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    }
-  };
 }
 
 // Define the interface for variables used in the component  
@@ -190,7 +172,6 @@ const EnhancedPackageDetail = () => {
   const [reviewContent, setReviewContent] = useState('');
   const [reviewRating, setReviewRating] = useState(5);
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
-  // Using only the visual timeline format
   
   // Get currency formatter
   const { formatPrice } = useCurrency();
@@ -199,345 +180,274 @@ const EnhancedPackageDetail = () => {
   const apiBaseUrl = 'https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours';
   
   // Build the right query based on slug or id
-  const strapiQueryUrl = slug 
+  const apiQueryUrl = slug 
     ? `${apiBaseUrl}/${slug}`
     : `${apiBaseUrl}/${id}`;
     
   // Fetch tour data
   const { 
-    data: strapiResponse, 
+    data: tourData, 
     isLoading: isTourLoading, 
     error: tourError 
-  } = useQuery({
-    queryKey: [strapiQueryUrl],
+  } = useQuery<TourData>({
+    queryKey: [apiQueryUrl],
   });
   
-  // Extract the tour data from the response in a type-safe way
-  // Handle the response potentially being flat without a data property wrapping it
-  const parseTourData = (response: any): TourData => {
-    if (!response) {
-      return {} as TourData;
-    }
-    
-    // Handle various response formats
-    const responseObj = response as any;
-    
-    // Check if response has a data property (Strapi format)
-    if (responseObj.data) {
-      // Check if data is an array (collection) or single object
-      if (Array.isArray(responseObj.data)) {
-        return responseObj.data.length > 0 ? responseObj.data[0] : {} as TourData;
-      } else {
-        return responseObj.data as TourData;
-      }
-    }
-    
-    // If no data property, assume direct object format
-    return responseObj as TourData;
-  };
-  
-  const tourData: TourData = parseTourData(strapiResponse);
-    
-  // We'll use tourData in our useEffects
-    
-  // Extract itinerary data from the tour data
-  const itineraryData = tourData?.itineraryDays || [];
   const isItineraryLoading = isTourLoading;
   const itineraryError = null;
-
-  // Process JSON fields when data is loaded
-  useEffect(() => {
-    if (tourData) {
-      // Process heroImage first - this determines the main tour image
-      let processedHeroImageUrl = '';
-      
-      if (tourData.heroImage) {
-        if (typeof tourData.heroImage === 'object') {
-          if ('publicId' in tourData.heroImage && tourData.heroImage.publicId) {
-            // Check for optimized URLs first
-            if (tourData.heroImage.large) {
-              processedHeroImageUrl = tourData.heroImage.large;
-            } else if (tourData.heroImage.medium) {
-              processedHeroImageUrl = tourData.heroImage.medium;
-            } else if (tourData.heroImage.baseUrl) {
-              processedHeroImageUrl = tourData.heroImage.baseUrl;
-            } else {
-              // Fallback to constructing URL from publicId
-              processedHeroImageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/${tourData.heroImage.publicId}.jpg`;
-            }
-            setHeroImageUrl(processedHeroImageUrl);
-          } else if ('url' in tourData.heroImage && tourData.heroImage.url) {
-            processedHeroImageUrl = tourData.heroImage.url;
-            setHeroImageUrl(processedHeroImageUrl);
-          }
-        } else if (typeof tourData.heroImage === 'string') {
-          processedHeroImageUrl = tourData.heroImage;
-          setHeroImageUrl(processedHeroImageUrl);
-        }
-      } else if (tourData.cardImage) {
-        if (typeof tourData.cardImage === 'object') {
-          if (tourData.cardImage.publicId) {
-            processedHeroImageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${tourData.cardImage.publicId}.jpg`;
-            setHeroImageUrl(processedHeroImageUrl);
-          } else if (tourData.cardImage.url) {
-            processedHeroImageUrl = tourData.cardImage.url;
-            setHeroImageUrl(processedHeroImageUrl);
-          }
-        } else if (typeof tourData.cardImage === 'string') {
-          processedHeroImageUrl = tourData.cardImage;
-          setHeroImageUrl(processedHeroImageUrl);
-        }
-      } else if (tourData.imageUrl) {
-        processedHeroImageUrl = tourData.imageUrl;
-        setHeroImageUrl(processedHeroImageUrl);
-      }
-      
-      // Important: we're not directly modifying tourData anymore to avoid infinite update loops
-      
-      // Handle gallery images
-      // First check for galleryImages array in the API response
-      if (tourData.galleryImages && Array.isArray(tourData.galleryImages)) {
-        // Process gallery images - use optimized URLs from the streamlined image data
-        const processedGalleryImages = tourData.galleryImages.map((image: any) => {
-          if (typeof image === 'object') {
-            // Use the most appropriate size or fallback in sequence
-            if (image.large) {
-              return image.large;
-            } else if (image.medium) {
-              return image.medium;
-            } else if (image.baseUrl) {
-              return image.baseUrl;
-            } else if (image.publicId) {
-              return `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/${image.publicId}.jpg`;
-            }
-          } else if (typeof image === 'string') {
-            return image;
-          }
-          return '';  // Return empty string instead of null to maintain string[] type
-        }).filter((url: string) => url !== '');  // Filter out empty strings
-        
-        setGalleryImages(processedGalleryImages);
-      } 
-      // Then try to parse gallery field if it exists
-      else if (tourData.gallery) {
-        try {
-          const parsedGallery = JSON.parse(tourData.gallery);
-          setGalleryImages(parsedGallery);
-        } catch (e) {
-          // Use processedHeroImageUrl (local var) as primary fallback if available
-          setGalleryImages([processedHeroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
-        }
-      } else {
-        // Use processedHeroImageUrl (local var) as primary fallback if available
-        setGalleryImages([processedHeroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
-      }
-
-      // Parse includes/excludes if available
-      if (tourData.includes) {
-        try {
-          // Handle both string and array types
-          if (typeof tourData.includes === 'string') {
-            setIncludes(JSON.parse(tourData.includes));
-          } else if (Array.isArray(tourData.includes)) {
-            setIncludes(tourData.includes);
-          }
-        } catch (e) {
-          setIncludes([]);
-        }
-      } else if (tourData.inclusions && Array.isArray(tourData.inclusions)) {
-        // Use inclusions if includes is not available
-        setIncludes(tourData.inclusions);
-      }
-
-      if (tourData.excludes) {
-        try {
-          // Handle both string and array types
-          if (typeof tourData.excludes === 'string') {
-            setExcludes(JSON.parse(tourData.excludes));
-          } else if (Array.isArray(tourData.excludes)) {
-            setExcludes(tourData.excludes);
-          }
-        } catch (e) {
-          setExcludes([]);
-        }
-      } else if (tourData.exclusions && Array.isArray(tourData.exclusions)) {
-        // Use exclusions if excludes is not available
-        setExcludes(tourData.exclusions);
-      }
-
-      // Parse destinations if available
-      if (tourData.destinations) {
-        try {
-          // Handle both string and array types
-          if (typeof tourData.destinations === 'string') {
-            setDestinations(JSON.parse(tourData.destinations));
-          } else if (Array.isArray(tourData.destinations)) {
-            setDestinations(tourData.destinations);
-          }
-        } catch (e) {
-          setDestinations([]);
-        }
-      }
-
-      // We'll handle itinerary in a separate useEffect that watches itineraryData
-    }
-  }, [tourData]);
   
-  // Process itinerary data directly from the API response, runs only when tour data changes
+  // Process main tour data when loaded
   useEffect(() => {
-    // Skip processing if no tour data
     if (!tourData) return;
-    
-    // Initialize a variable to track if we've set the itinerary in this run
-    let itinerarySet = false;
-    
-    // Check if we have a direct itinerary array from the API
-    if (tourData.itinerary && Array.isArray(tourData.itinerary) && tourData.itinerary.length > 0) {
-      setItinerary(tourData.itinerary);
-      itinerarySet = true;
+
+    // Process hero image URL
+    let heroUrl = '';
+    if (tourData.heroImage) {
+      if (typeof tourData.heroImage === 'object') {
+        heroUrl = 
+          tourData.heroImage.large || 
+          tourData.heroImage.medium || 
+          tourData.heroImage.small || 
+          tourData.heroImage.baseUrl || 
+          (tourData.heroImage.publicId ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${tourData.heroImage.publicId}.jpg` : '');
+      } else if (typeof tourData.heroImage === 'string') {
+        heroUrl = tourData.heroImage;
+      }
+    } else if (tourData.cardImage) {
+      if (typeof tourData.cardImage === 'object') {
+        heroUrl = 
+          tourData.cardImage.large || 
+          tourData.cardImage.medium || 
+          tourData.cardImage.small || 
+          tourData.cardImage.baseUrl || 
+          (tourData.cardImage.publicId ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${tourData.cardImage.publicId}.jpg` : '');
+      } else if (typeof tourData.cardImage === 'string') {
+        heroUrl = tourData.cardImage;
+      }
+    } else if (tourData.imageUrl) {
+      heroUrl = tourData.imageUrl;
     }
-    // Check for itineraryDays property (some APIs might use this)
-    else if (tourData.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
-      setItinerary(tourData.itineraryDays);
-      itinerarySet = true;
-    } 
-    // Skip the itineraryData check in this useEffect to prevent dependency cycles
-    // The itineraryData part is handled in a separate useEffect below
     
-    // Try to parse itinerary if it's a string (older API format)
-    else if (tourData.itinerary && typeof tourData.itinerary === 'string' && !itinerarySet) {
-      // Try to parse as JSON
+    setHeroImageUrl(heroUrl);
+    
+    // Process gallery images
+    const images: string[] = [];
+    
+    if (tourData.galleryImages && Array.isArray(tourData.galleryImages)) {
+      tourData.galleryImages.forEach(img => {
+        if (typeof img === 'object') {
+          const imgUrl = 
+            img.large || 
+            img.medium || 
+            img.small || 
+            img.baseUrl || 
+            (img.publicId ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${img.publicId}.jpg` : '');
+          if (imgUrl) images.push(imgUrl);
+        } else if (typeof img === 'string') {
+          images.push(img);
+        }
+      });
+    } else if (tourData.gallery) {
       try {
-        const parsedItinerary = JSON.parse(tourData.itinerary);
-        
-        // Check if we got a valid array
-        if (Array.isArray(parsedItinerary) && parsedItinerary.length > 0) {
-          setItinerary(parsedItinerary);
-          itinerarySet = true;
-        } else {
-          // Not a valid array, fall through to next parsing option
-          throw new Error("Not a valid itinerary array");
+        const parsedGallery = JSON.parse(tourData.gallery);
+        if (Array.isArray(parsedGallery)) {
+          parsedGallery.forEach(img => {
+            if (typeof img === 'string') images.push(img);
+          });
         }
       } catch (e) {
-        // Try to parse as plain text format with "Day X: Description" format
-        if (tourData.itinerary.includes('Day')) {
-          const lines = tourData.itinerary.split('\n');
-          const parsedItinerary: APIItineraryDay[] = [];
-          
-          lines.forEach((line: string) => {
-            const match = line.match(/Day (\d+)(?:-\d+)?: (.+)/);
-            if (match) {
-              const day = parseInt(match[1]);
-              const title = match[2].trim();
-              
-              parsedItinerary.push({
-                day,
-                title,
-                description: `Visit key attractions in ${title} with your private guide. Experience authentic Sri Lankan culture and cuisine.`,
-                accommodation: "Luxury Hotel"
-              });
-            }
-          });
-          
-          if (parsedItinerary.length > 0) {
+        // If parsing fails, use hero image as fallback
+        if (heroUrl) images.push(heroUrl);
+      }
+    } else if (heroUrl) {
+      images.push(heroUrl);
+    }
+    
+    if (images.length > 0) {
+      setGalleryImages(images);
+    } else if (heroUrl) {
+      setGalleryImages([heroUrl]);
+    }
+    
+    // Process includes/excludes
+    if (tourData.includes) {
+      if (Array.isArray(tourData.includes)) {
+        setIncludes(tourData.includes);
+      } else if (typeof tourData.includes === 'string') {
+        try {
+          const parsedIncludes = JSON.parse(tourData.includes);
+          if (Array.isArray(parsedIncludes)) {
+            setIncludes(parsedIncludes);
+          }
+        } catch (e) {
+          // If parsing fails, use default empty array
+          setIncludes([]);
+        }
+      }
+    } else if (tourData.inclusions && Array.isArray(tourData.inclusions)) {
+      setIncludes(tourData.inclusions);
+    }
+    
+    if (tourData.excludes) {
+      if (Array.isArray(tourData.excludes)) {
+        setExcludes(tourData.excludes);
+      } else if (typeof tourData.excludes === 'string') {
+        try {
+          const parsedExcludes = JSON.parse(tourData.excludes);
+          if (Array.isArray(parsedExcludes)) {
+            setExcludes(parsedExcludes);
+          }
+        } catch (e) {
+          // If parsing fails, use default empty array
+          setExcludes([]);
+        }
+      }
+    } else if (tourData.exclusions && Array.isArray(tourData.exclusions)) {
+      setExcludes(tourData.exclusions);
+    }
+    
+    // Process destinations
+    if (tourData.destinations) {
+      if (Array.isArray(tourData.destinations)) {
+        setDestinations(tourData.destinations);
+      } else if (typeof tourData.destinations === 'string') {
+        try {
+          const parsedDestinations = JSON.parse(tourData.destinations);
+          if (Array.isArray(parsedDestinations)) {
+            setDestinations(parsedDestinations);
+          } else {
+            // If it's a comma-separated string
+            setDestinations(tourData.destinations.split(',').map(d => d.trim()));
+          }
+        } catch (e) {
+          // If parsing fails, try splitting by comma
+          setDestinations(tourData.destinations.split(',').map(d => d.trim()));
+        }
+      }
+    }
+    
+    // Process itinerary data
+    let itineraryProcessed = false;
+    
+    // First try using itineraryDays if available
+    if (tourData.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
+      setItinerary(tourData.itineraryDays);
+      itineraryProcessed = true;
+    }
+    // Then try the itinerary property 
+    else if (tourData.itinerary) {
+      // If itinerary is already an array
+      if (Array.isArray(tourData.itinerary) && tourData.itinerary.length > 0) {
+        setItinerary(tourData.itinerary);
+        itineraryProcessed = true;
+      }
+      // If itinerary is a JSON string
+      else if (typeof tourData.itinerary === 'string') {
+        try {
+          const parsedItinerary = JSON.parse(tourData.itinerary);
+          if (Array.isArray(parsedItinerary) && parsedItinerary.length > 0) {
             setItinerary(parsedItinerary);
-            itinerarySet = true;
+            itineraryProcessed = true;
+          }
+        } catch (e) {
+          // If parsing fails, try to extract day information from text
+          if (tourData.itinerary.includes('Day')) {
+            const lines = tourData.itinerary.split('\n');
+            const textItinerary: APIItineraryDay[] = [];
+            
+            lines.forEach(line => {
+              const match = line.match(/Day (\d+)(?:-\d+)?: (.+)/);
+              if (match) {
+                const day = parseInt(match[1]);
+                const title = match[2].trim();
+                
+                textItinerary.push({
+                  day,
+                  title,
+                  description: `Visit key attractions in ${title} with your private guide.`,
+                  accommodation: "Luxury Hotel"
+                });
+              }
+            });
+            
+            if (textItinerary.length > 0) {
+              setItinerary(textItinerary);
+              itineraryProcessed = true;
+            }
           }
         }
       }
     }
     
-    // Only set empty itinerary if no other method worked
-    if (!itinerarySet) {
+    // If we haven't processed any itinerary data, set empty array
+    if (!itineraryProcessed) {
       setItinerary([]);
     }
-  }, [tourData]); // Remove itineraryData from dependencies
+    
+  }, [tourData]);
   
-  // Separate effect to handle itineraryData changes - with itinerary.length removed from deps
+  // Process itinerary items into timeline format
   useEffect(() => {
-    // Only run this if we have itineraryData and tourData is fully loaded
-    if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0 && tourData) {
-      // Check if we need to apply the itinerary (only if we don't have data yet)
-      if (itinerary.length === 0) {
-        setItinerary(itineraryData);
-      }
-    }
-  }, [itineraryData, tourData]);
-
-  // Transform itinerary data into visual timeline format when itinerary changes
-  // This useEffect will run once when itinerary is populated
-  useEffect(() => {
-    // Skip if the itinerary is empty
     if (!itinerary || itinerary.length === 0) return;
     
-    // Enhanced transformation from itinerary to visual timeline data
-    const transformedData: TimelineDayData[] = itinerary.map(day => {
-      // Convert accommodation to string if it's an object
-      let accommodationString: string | undefined;
-      
+    const timelineItems = itinerary.map(day => {
+      // Process accommodation
+      let accommodationText: string | undefined;
       if (typeof day.accommodation === 'object' && day.accommodation !== null) {
-        accommodationString = day.accommodation.name;
+        accommodationText = day.accommodation.name;
       } else if (typeof day.accommodation === 'string') {
-        accommodationString = day.accommodation;
+        accommodationText = day.accommodation;
       }
       
-      // Build a richer description that includes activities if they exist
-      let enhancedDescription = day.description;
+      // Process description with activities and meals
+      let fullDescription = day.description || '';
       
+      // Add activities if available
       if (day.activities && Array.isArray(day.activities) && day.activities.length > 0) {
-        enhancedDescription += '<br/><br/><strong>Today\'s Activities:</strong><ul>';
-        day.activities.forEach((activity: { 
-          title: string; 
-          description?: string;
-          time?: string;
-          imageUrl?: string;
-        }) => {
-          if (typeof activity === 'object' && activity !== null) {
-            enhancedDescription += `<li><strong>${activity.title}</strong>`;
-            if (activity.description) {
-              enhancedDescription += `: ${activity.description}`;
-            }
-            if (activity.time) {
-              enhancedDescription += ` (${activity.time})`;
-            }
-            enhancedDescription += '</li>';
-          }
+        fullDescription += '<br/><br/><strong>Today\'s Activities:</strong><ul>';
+        day.activities.forEach(activity => {
+          fullDescription += `<li><strong>${activity.title}</strong>`;
+          if (activity.description) fullDescription += `: ${activity.description}`;
+          if (activity.time) fullDescription += ` (${activity.time})`;
+          fullDescription += '</li>';
         });
-        enhancedDescription += '</ul>';
+        fullDescription += '</ul>';
       }
       
-      // Include meal information
+      // Add meals if available
       if (day.meals) {
-        enhancedDescription += '<br/><strong>Meals:</strong> ';
-        const mealsIncluded = [];
-        if (day.meals.breakfast) mealsIncluded.push('Breakfast');
-        if (day.meals.lunch) mealsIncluded.push('Lunch');
-        if (day.meals.dinner) mealsIncluded.push('Dinner');
+        fullDescription += '<br/><strong>Meals:</strong> ';
+        const meals = [];
+        if (day.meals.breakfast) meals.push('Breakfast');
+        if (day.meals.lunch) meals.push('Lunch');
+        if (day.meals.dinner) meals.push('Dinner');
         
-        enhancedDescription += mealsIncluded.length > 0 
-          ? mealsIncluded.join(', ') 
-          : 'No meals included';
+        fullDescription += meals.length > 0 ? meals.join(', ') : 'No meals included';
+      }
+      
+      // Process image URL
+      let imageUrl: string | undefined;
+      if (day.image) {
+        imageUrl = day.image.medium || day.image.small || day.image.baseUrl;
+      }
+      if (!imageUrl && day.imageUrl) {
+        imageUrl = day.imageUrl;
+      }
+      if (!imageUrl) {
+        // Fallback to a placeholder based on day number
+        imageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/itineraries/day-${day.day}.jpg`;
       }
       
       return {
         day: day.day,
         title: day.title,
-        description: enhancedDescription,
-        accommodation: accommodationString,
-        // Use the image from the streamlined data structure
-        imageUrl: 
-          (day.image?.medium) || 
-          (day.image?.small) || 
-          (day.image?.baseUrl) || 
-          (day.imageUrl) || 
-          `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/itineraries/day-${day.day}.jpg`
+        description: fullDescription,
+        accommodation: accommodationText,
+        imageUrl
       };
     });
     
-    // Only update if we have data to update with
-    if (transformedData.length > 0) {
-      setTimelineData(transformedData);
-    }
+    setTimelineData(timelineItems);
   }, [itinerary]);
 
   // Format rating to display as stars (50 = 5 stars)
