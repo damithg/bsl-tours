@@ -8,7 +8,8 @@ import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils
 
 const DestinationShowcase = () => {
   const queryKey = ['/api/destinations'];
-  console.log("DestinationShowcase mounted");
+  // Debug code (temporarily hidden)
+  // console.log("DestinationShowcase mounted");
 
   const { data: destinations, isLoading, error, refetch } = useQuery<Destination[]>({
     queryKey,
@@ -160,7 +161,8 @@ const DestinationShowcase = () => {
             onScroll={checkScrollable}
           >
             {destinations.map((destination) => {
-              console.log("full destination:", destination); // ✅ This line
+              // Debug code (temporarily hidden)
+              // console.log("full destination:", destination);
 
               return (
                 <div

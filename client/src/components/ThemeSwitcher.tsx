@@ -51,7 +51,8 @@ export function ThemeSwitcher() {
       // Fetch the theme JSON file
       const response = await fetch(`/${themeFile}`);
       if (!response.ok) {
-        console.error(`Failed to load theme: ${themeFile}`);
+        // Debug code (temporarily hidden)
+        // console.error(`Failed to load theme: ${themeFile}`);
         return;
       }
       
@@ -73,7 +74,8 @@ export function ThemeSwitcher() {
       rootElement.style.setProperty('--accent', theme.accent);
       rootElement.style.setProperty('--accent-foreground', '#ffffff');
       
-      console.log(`Applied theme: ${themeFile} with primary: ${themeData.primary}, secondary: ${theme.secondary}, accent: ${theme.accent}`);
+      // Debug code (temporarily hidden)
+      // console.log(`Applied theme: ${themeFile} with primary: ${themeData.primary}, secondary: ${theme.secondary}, accent: ${theme.accent}`);
       
       // Store the selected theme
       setCurrentTheme(themeFile);
@@ -82,7 +84,8 @@ export function ThemeSwitcher() {
       // Close the popover
       setOpen(false);
     } catch (error) {
-      console.error('Error applying theme:', error);
+      // Debug code (temporarily hidden)
+      // console.error('Error applying theme:', error);
     }
   };
   

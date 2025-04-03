@@ -96,7 +96,8 @@ const FeaturedPackages = () => {
   
   // The API response is the array of tours directly
   const tours = strapiResponse || [];
-  console.log("Featured tours data:", tours);
+  // Debug code (temporarily hidden)
+  // console.log("Featured tours data:", tours);
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);

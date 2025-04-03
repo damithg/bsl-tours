@@ -14,7 +14,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // Serve static files from the 'public' directory
 const publicPath = path.join(__dirname, '..', 'public');
-console.log('Static files path:', publicPath);
+// Debug code (temporarily hidden)
+// console.log('Static files path:', publicPath);
 app.use(express.static(publicPath));
 
 // Simple logging middleware

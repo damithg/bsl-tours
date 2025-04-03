@@ -306,11 +306,13 @@ export const getQueryFn = <TData>(options: {
       } else if (basePath.includes('/destinations')) {
         // For destinations, we now directly use the ID or slug without the 'slug/' prefix
         path = `${basePath}/${params[0]}`;
-        console.log('Destination API path:', path);
+        // Debug code (temporarily hidden)
+        // console.log('Destination API path:', path);
       } else if (basePath.includes('/slug/') || basePath.includes('/by-slug/')) {
         // Special handling for other slug endpoints (if we still have them)
         path = `${basePath}/${params[0]}`;
-        console.log('Slug API path:', path);
+        // Debug code (temporarily hidden)
+        // console.log('Slug API path:', path);
       } else if (basePath.includes('/{')) {
         // Handle .NET style path parameters
         let updatedPath = basePath;
@@ -327,7 +329,8 @@ export const getQueryFn = <TData>(options: {
     // If the URL is not absolute, prepend the API base URL
     const url = path.startsWith('http') ? path : `${API_BASE_URL}${path}`;
     
-    console.log(`Making API request to: ${url}`);
+    // Debug code (temporarily hidden)
+    // console.log(`Making API request to: ${url}`);
     const res = await fetch(url);
 
     // Handle 401 Unauthorized based on the provided behavior option
