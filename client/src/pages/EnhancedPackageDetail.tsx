@@ -184,13 +184,24 @@ const EnhancedPackageDetail = () => {
     ? `${apiBaseUrl}/${slug}`
     : `${apiBaseUrl}/${id}`;
     
-  // Fetch tour data
+  // Fetch tour data with proper caching and stable query key
   const { 
     data: tourData, 
     isLoading: isTourLoading, 
     error: tourError 
   } = useQuery<TourData>({
-    queryKey: [apiQueryUrl],
+    queryKey: ['tour', slug || id], // Use stable query key
+    queryFn: async () => {
+      console.log(`Fetching tour data: ${apiQueryUrl}`);
+      const response = await fetch(apiQueryUrl);
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      return response.json();
+    },
+    staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    enabled: !!slug || !!id, // Only run query when we have either slug or id
+    retry: 1, // Limit retries to prevent excessive requests
   });
   
   const isItineraryLoading = isTourLoading;
