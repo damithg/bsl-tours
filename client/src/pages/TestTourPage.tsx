@@ -20,7 +20,8 @@ import {
   Heart,
   Info,
   Home,
-  ChevronRight
+  ChevronRight,
+  MapPin
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
@@ -406,31 +407,90 @@ const TestTourPage: React.FC = () => {
                     {tourData.itinerary.map((day) => (
                       <div 
                         key={day.day} 
-                        className={`bg-white shadow-md rounded-lg overflow-hidden mb-6 ${activeDay === day.day ? 'block' : 'hidden'}`}
+                        className={`bg-white shadow-xl rounded-xl overflow-hidden mb-8 transform transition-all duration-300 ${activeDay === day.day ? 'scale-100 opacity-100' : 'scale-95 opacity-0 hidden'}`}
                       >
-                        <div className="p-6 border-b border-gray-100">
-                          <h3 className="text-xl font-semibold mb-2 flex items-center">
-                            <span className="bg-primary/10 text-primary rounded-full w-8 h-8 inline-flex items-center justify-center text-sm font-bold mr-3">
-                              {day.day}
-                            </span>
-                            <span>{day.title}</span>
-                          </h3>
-                          <p className="text-gray-700">{day.description}</p>
-                        </div>
-                        {day.image && (
-                          <div className="relative">
-                            <img 
-                              src={day.image.medium || day.image.large || day.image.small || day.image.baseUrl} 
-                              alt={day.image.alt || day.title}
-                              className="w-full h-auto"
-                            />
-                            {day.image.caption && (
-                              <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-3 text-sm">
-                                {day.image.caption}
+                        {/* Enhanced layout with side-by-side or top-bottom based on screen size */}
+                        <div className="md:flex">
+                          {/* Image Section - Left side on desktop, top on mobile */}
+                          {day.image && (
+                            <div className="md:w-1/2 relative overflow-hidden">
+                              <div className="relative h-full">
+                                {/* Background blur effect */}
+                                <div className="absolute inset-0 blur-sm scale-110 opacity-20" 
+                                  style={{
+                                    backgroundImage: `url(${day.image.medium || day.image.large || day.image.small || day.image.baseUrl})`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center'
+                                  }}
+                                ></div>
+                                
+                                {/* Main image */}
+                                <img 
+                                  src={day.image.medium || day.image.large || day.image.small || day.image.baseUrl} 
+                                  alt={day.image.alt || day.title}
+                                  className="w-full h-full object-cover object-center relative z-10 aspect-[4/3]"
+                                />
+                                
+                                {/* Day badge */}
+                                <div className="absolute top-4 left-4 z-20 bg-white/90 text-primary shadow-lg rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-sm border border-primary/20">
+                                  <div className="text-center">
+                                    <div className="text-xs font-semibold uppercase">Day</div>
+                                    <div className="text-xl font-bold">{day.day}</div>
+                                  </div>
+                                </div>
+                                
+                                {/* Caption */}
+                                {day.image.caption && (
+                                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-black/0 text-white p-4 pt-8 text-sm font-medium">
+                                    {day.image.caption}
+                                  </div>
+                                )}
                               </div>
-                            )}
+                            </div>
+                          )}
+                          
+                          {/* Content Section - Right side on desktop, bottom on mobile */}
+                          <div className={`${day.image ? 'md:w-1/2' : 'w-full'} p-6 md:p-8 flex flex-col ${!day.image && 'md:min-h-[300px]'}`}>
+                            {/* Decorative dot pattern in the corner */}
+                            <div className="absolute top-6 right-6 opacity-10 pointer-events-none">
+                              <div className="flex space-x-1">
+                                {[...Array(3)].map((_, i) => (
+                                  <div key={i} className="flex flex-col space-y-1">
+                                    {[...Array(3)].map((_, j) => (
+                                      <div key={j} className="w-1 h-1 rounded-full bg-primary"></div>
+                                    ))}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                            
+                            {/* Title with enhanced styling */}
+                            <div className="relative">
+                              <h3 className="text-2xl font-bold mb-4 pr-8 font-['Playfair_Display'] text-gray-800">
+                                {day.title}
+                              </h3>
+                              {!day.image && (
+                                <div className="absolute -top-1 -left-10 bg-primary/10 text-primary rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold">
+                                  {day.day}
+                                </div>
+                              )}
+                            </div>
+                            
+                            {/* Description with better typography */}
+                            <div className="prose prose-lg max-w-none mt-2">
+                              <p className="text-gray-600 leading-relaxed">{day.description}</p>
+                            </div>
+                            
+                            {/* Visual elements at the bottom */}
+                            <div className="mt-auto pt-6">
+                              <div className="w-16 h-1 bg-primary/30 rounded-full mb-4"></div>
+                              <div className="flex items-center text-sm text-gray-500">
+                                <MapPin className="w-4 h-4 mr-2 text-primary" />
+                                <span>Locations visited on Day {day.day}</span>
+                              </div>
+                            </div>
                           </div>
-                        )}
+                        </div>
                       </div>
                     ))}
                   </TabsContent>
