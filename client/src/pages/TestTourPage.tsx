@@ -257,18 +257,12 @@ const TestTourPage: React.FC = () => {
                 
                 <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
                   {/* Header section with visual impact */}
-                  <div className="relative h-32 bg-gradient-to-r from-primary/90 to-blue-600/90 flex items-end">
-                    <div className="absolute inset-0 opacity-20">
-                      <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <defs>
-                          <pattern id="overviewPattern" width="10" height="10" patternUnits="userSpaceOnUse">
-                            <path d="M0,10 L10,0" stroke="white" strokeWidth="0.5" />
-                          </pattern>
-                        </defs>
-                        <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="url(#overviewPattern)" />
-                      </svg>
-                    </div>
-                    <div className="container mx-auto px-6 pb-6">
+                  <div className="relative h-32 bg-gradient-to-r from-primary/90 to-blue-600/90 flex items-end" 
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,20 L20,0' stroke='white' stroke-width='0.5' stroke-opacity='0.2'/%3E%3C/svg%3E")`,
+                      backgroundSize: '20px 20px'
+                    }}>
+                    <div className="container mx-auto px-6 pb-6 relative z-10">
                       <div className="flex items-center">
                         <Info className="w-8 h-8 text-white mr-4" />
                         <h2 className="text-3xl font-bold text-white font-['Playfair_Display']">
