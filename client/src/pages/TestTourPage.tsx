@@ -248,12 +248,39 @@ const TestTourPage: React.FC = () => {
                 </div>
               )}
               
-              {/* Tour Tabs: Overview, Itinerary, Inclusions, Gallery, Map */}
+              {/* Tour Overview Outside Tabs - More Prominent */}
+              <div className="mb-8 bg-white shadow-lg rounded-lg p-6 border-l-4 border-primary">
+                <h2 className="text-2xl font-bold mb-4 flex items-center text-primary">
+                  <Info className="w-6 h-6 mr-2" />
+                  Tour Overview
+                </h2>
+                <p className="text-gray-700 mb-6 text-lg">{tourData.summary}</p>
+                
+                {tourData.highlights && tourData.highlights.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-xl font-semibold mb-4">Tour Highlights</h3>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {tourData.highlights.map((highlight, index) => (
+                        <li key={`highlight-list-${index}`} className="flex items-start">
+                          <Check className="w-5 h-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700">{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                <div className="bg-blue-50 border-l-4 border-blue-500 p-5 rounded">
+                  <h3 className="text-lg font-semibold text-blue-800 mb-2">Why Choose This Tour</h3>
+                  <p className="text-blue-800">Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.</p>
+                </div>
+              </div>
+              
+              {/* Tour Tabs: Itinerary, Inclusions, Gallery, Map */}
               <div className="mb-8">
-                <Tabs defaultValue="overview" className="w-full">
-                  <TabsList className="mb-4 grid grid-cols-5 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
+                <Tabs defaultValue="itinerary" className="w-full">
+                  <TabsList className="mb-4 grid grid-cols-4 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
                     {[
-                      { id: "overview", label: "Overview", icon: <Info className="w-4 h-4 mr-2" /> },
                       { id: "itinerary", label: "Itinerary", icon: <LayoutList className="w-4 h-4 mr-2" /> },
                       { id: "inclusions", label: "Inclusions", icon: <List className="w-4 h-4 mr-2" /> },
                       { id: "gallery", label: "Gallery", icon: <ImageIcon className="w-4 h-4 mr-2" /> },
@@ -269,36 +296,6 @@ const TestTourPage: React.FC = () => {
                       </TabsTrigger>
                     ))}
                   </TabsList>
-                
-                  {/* Overview Tab Content */}
-                  <TabsContent value="overview" className="mt-0">
-                    <div className="bg-white shadow-md rounded-lg p-6 mb-4">
-                      <h2 className="text-xl font-bold mb-4 flex items-center">
-                        <Info className="w-5 h-5 mr-2 text-primary" />
-                        Tour Overview
-                      </h2>
-                      <p className="text-gray-700 mb-6">{tourData.summary}</p>
-                      
-                      {tourData.highlights && tourData.highlights.length > 0 && (
-                        <div className="mb-6">
-                          <h3 className="text-lg font-semibold mb-3">Tour Highlights</h3>
-                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            {tourData.highlights.map((highlight, index) => (
-                              <li key={`highlight-list-${index}`} className="flex items-start">
-                                <Check className="w-4 h-4 text-primary mr-2 mt-1" />
-                                <span className="text-gray-700">{highlight}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                      
-                      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-                        <h3 className="text-lg font-semibold text-blue-800 mb-2">Why Choose This Tour</h3>
-                        <p className="text-blue-800">Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.</p>
-                      </div>
-                    </div>
-                  </TabsContent>
                   
                   {/* Itinerary Tab Content */}
                   <TabsContent value="itinerary" className="mt-0">
