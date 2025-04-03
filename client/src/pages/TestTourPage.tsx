@@ -20,7 +20,8 @@ import {
   Heart,
   Info,
   Home,
-  ChevronRight
+  ChevronRight,
+  DollarSign
 } from 'lucide-react';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
 import Header from '@/components/Header';
@@ -205,19 +206,7 @@ const TestTourPage: React.FC = () => {
               <p className="text-xl text-white/90 mb-6">{tourData.heroImage.caption}</p>
             )}
             
-            <div className="flex flex-wrap gap-4 mb-8">
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm">
-                <Calendar className="w-4 h-4 mr-2" />
-                {tourData.duration}
-              </span>
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm">
-                <Heart className="w-4 h-4 mr-2" />
-                Private Tour
-              </span>
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-[#D4AF37] text-white">
-                From {tourData.currency} {tourData.startingFrom}
-              </span>
-            </div>
+            {/* Remove tags as requested */}
             
             <div className="flex flex-wrap gap-4">
               <button className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
@@ -282,11 +271,11 @@ const TestTourPage: React.FC = () => {
                         <p>Luxury Hotels</p>
                       </div>
                       <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
-                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
-                          <Map className="w-6 h-6" />
+                        <div className="bg-[#D4AF37]/10 rounded-full p-3 mb-3 text-[#D4AF37]">
+                          <DollarSign className="w-6 h-6" />
                         </div>
-                        <h4 className="font-semibold mb-1">Destinations</h4>
-                        <p>Multiple Locations</p>
+                        <h4 className="font-semibold mb-1">Starting Price</h4>
+                        <p>{tourData.currency} {tourData.startingFrom}</p>
                       </div>
                     </div>
                     
