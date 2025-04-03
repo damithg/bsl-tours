@@ -43,10 +43,10 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
       </div>
       
       {/* Image and content in side-by-side layout */}
-      <div className="md:flex">
+      <div className="md:flex items-start">
         {/* Image Section - Left side on desktop, top on mobile */}
         {image && (
-          <div className="md:w-1/2 relative p-4">
+          <div className="md:w-1/2 relative p-4 self-start">
             <div className="relative rounded-lg overflow-hidden shadow-lg border-4 border-white outline outline-1 outline-gray-200">
               {/* Main image with fancy border */}
               <img 
@@ -72,7 +72,7 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
         )}
         
         {/* Content Section - Right side on desktop, bottom on mobile */}
-        <div className={`${image ? 'md:w-1/2' : 'w-full'} p-6 md:p-8 flex flex-col ${!image && 'md:min-h-[300px]'}`}>
+        <div className={`${image ? 'md:w-1/2' : 'w-full'} p-6 md:p-8 flex flex-col ${!image && 'md:min-h-[300px]'} self-start`}>
           {/* Decorative dot pattern in the corner */}
           <div className="absolute top-6 right-6 opacity-10 pointer-events-none">
             <div className="flex space-x-1">
