@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <main>
       <Hero />
-      <Highlights />
+      {/* <Highlights /> */}
       <FeaturedPackages />
       <DestinationShowcase />
       <ExperienceShowcase />
