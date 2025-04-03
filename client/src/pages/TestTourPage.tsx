@@ -11,8 +11,15 @@ import {
   Check, 
   X,
   Map, 
-  LayoutList 
+  LayoutList,
+  Image,
+  BookOpenText,
+  Hotel,
+  Phone
 } from 'lucide-react';
+import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
+import AnimatedRouteMap from '@/components/AnimatedRouteMap';
+import ContactForm from '@/components/ContactForm';
 
 // Type definition for our tour data
 interface TourImage {
@@ -43,15 +50,27 @@ interface TourData {
   startingFrom: number;
   currency: string;
   heroImage?: TourImage;
+  cardImage?: TourImage;
+  galleryImages?: TourImage[];
   itinerary: ItineraryDay[];
   inclusions: string[];
   exclusions: string[];
+  highlights?: string[];
+  mapImage?: string;
+  mapPoints?: {
+    id: number | string;
+    name: string;
+    x: number;
+    y: number;
+    day?: number;
+  }[];
 }
 
 const TestTourPage: React.FC = () => {
   const [tourData, setTourData] = useState<TourData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeDay, setActiveDay] = useState<number | undefined>(1);
 
   // Function to fetch tour data from the API
   useEffect(() => {
@@ -159,14 +178,16 @@ const TestTourPage: React.FC = () => {
         <p className="text-gray-700">{tourData.summary}</p>
       </div>
       
-      {/* Tour Tabs: Itinerary, Inclusions, Map */}
+      {/* Tour Tabs: Itinerary, Inclusions, Gallery, Map, Book */}
       <div className="mb-8">
         <Tabs defaultValue="itinerary" className="w-full">
-          <TabsList className="mb-4 grid grid-cols-3 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
+          <TabsList className="mb-4 grid grid-cols-5 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
             {[
               { id: "itinerary", label: "Itinerary", icon: <LayoutList className="w-4 h-4 mr-2" /> },
               { id: "inclusions", label: "Inclusions", icon: <List className="w-4 h-4 mr-2" /> },
-              { id: "map", label: "Map", icon: <Map className="w-4 h-4 mr-2" /> }
+              { id: "gallery", label: "Gallery", icon: <Image className="w-4 h-4 mr-2" /> },
+              { id: "map", label: "Map", icon: <Map className="w-4 h-4 mr-2" /> },
+              { id: "book", label: "Book Tour", icon: <Phone className="w-4 h-4 mr-2" /> }
             ].map((tab) => (
               <TabsTrigger 
                 key={`tab-${tab.id}`} 
@@ -174,20 +195,39 @@ const TestTourPage: React.FC = () => {
                 className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
               >
                 {tab.icon}
-                {tab.label}
+                <span className="hidden sm:inline">{tab.label}</span>
               </TabsTrigger>
             ))}
           </TabsList>
           
           {/* Itinerary Tab Content */}
           <TabsContent value="itinerary" className="mt-0">
+            <div className="mb-6 flex overflow-x-auto space-x-2 pb-2">
+              {tourData.itinerary.map((day) => (
+                <button
+                  key={`day-button-${day.day}`}
+                  onClick={() => setActiveDay(day.day)}
+                  className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                    activeDay === day.day
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                  }`}
+                >
+                  Day {day.day}
+                </button>
+              ))}
+            </div>
+            
             {tourData.itinerary.map((day) => (
-              <div key={day.day} className="bg-white shadow-md rounded-lg p-6 mb-4">
+              <div 
+                key={day.day} 
+                className={`bg-white shadow-md rounded-lg p-6 mb-4 ${activeDay === day.day ? 'block' : 'hidden'}`}
+              >
                 <h3 className="text-xl font-semibold mb-2">Day {day.day}: {day.title}</h3>
                 <p className="text-gray-700 mb-4">{day.description}</p>
                 {day.image && (
                   <img 
-                    src={day.image.medium || day.image.baseUrl} 
+                    src={day.image.medium || day.image.large || day.image.small || day.image.baseUrl} 
                     alt={day.image.alt || day.title}
                     className="w-full h-auto rounded"
                   />
@@ -229,11 +269,133 @@ const TestTourPage: React.FC = () => {
             </div>
           </TabsContent>
           
+          {/* Gallery Tab Content */}
+          <TabsContent value="gallery" className="mt-0">
+            <div className="bg-white shadow-md rounded-lg p-6">
+              <h2 className="text-xl font-bold mb-6 flex items-center">
+                <Image className="w-5 h-5 mr-2 text-primary" />
+                Tour Photo Gallery
+              </h2>
+              
+              {tourData.galleryImages && tourData.galleryImages.length > 0 ? (
+                <AsymmetricalGallery images={tourData.galleryImages} />
+              ) : (
+                <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                  <Image className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                  <p className="text-gray-500">No gallery images available for this tour.</p>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+          
           {/* Map Tab Content */}
           <TabsContent value="map" className="mt-0">
-            <div className="bg-white shadow-md rounded-lg p-6 text-center">
-              <p className="text-gray-700">Map information will be displayed here.</p>
-              <p className="text-sm text-gray-500 mt-2">Coming soon: Interactive tour route map</p>
+            <div className="bg-white shadow-md rounded-lg p-6">
+              <h2 className="text-xl font-bold mb-6 flex items-center">
+                <Map className="w-5 h-5 mr-2 text-primary" />
+                Tour Route Map
+              </h2>
+              
+              {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
+                <>
+                  <div className="mb-6 flex overflow-x-auto space-x-2 pb-2">
+                    {tourData.itinerary.map((day) => (
+                      <button
+                        key={`map-day-button-${day.day}`}
+                        onClick={() => setActiveDay(day.day)}
+                        className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                          activeDay === day.day
+                            ? 'bg-primary text-white'
+                            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                        }`}
+                      >
+                        Day {day.day}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="aspect-[4/3] relative border border-gray-100 rounded overflow-hidden">
+                    <AnimatedRouteMap
+                      mapImage={tourData.mapImage || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"}
+                      points={tourData.mapPoints.map(point => ({
+                        ...point,
+                        isActive: point.day === activeDay
+                      }))}
+                      activeDay={activeDay}
+                      className="w-full h-full"
+                      onPointClick={(pointId) => {
+                        const point = tourData.mapPoints.find(p => p.id === pointId);
+                        if (point && point.day) {
+                          setActiveDay(point.day);
+                        }
+                      }}
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                  <Map className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                  <p className="text-gray-500">No map data available for this tour.</p>
+                  <p className="text-xs text-gray-400 mt-2">Interactive map coming soon</p>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+          
+          {/* Book Tour Tab Content */}
+          <TabsContent value="book" className="mt-0">
+            <div className="bg-white shadow-md rounded-lg p-6">
+              <h2 className="text-xl font-bold mb-6 flex items-center">
+                <Phone className="w-5 h-5 mr-2 text-primary" />
+                Book This Tour
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <div className="bg-blue-50 rounded-lg p-6 mb-6">
+                    <h3 className="text-lg font-semibold mb-4 text-blue-800">Tour Details</h3>
+                    <ul className="space-y-3">
+                      <li className="flex items-start">
+                        <Calendar className="w-4 h-4 text-blue-800 mr-2 mt-1" />
+                        <div>
+                          <span className="font-medium text-blue-800">Duration:</span>
+                          <span className="ml-2">{tourData.duration}</span>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <Hotel className="w-4 h-4 text-blue-800 mr-2 mt-1" />
+                        <div>
+                          <span className="font-medium text-blue-800">Accommodation:</span>
+                          <span className="ml-2">Luxury hotels and resorts</span>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <BookOpenText className="w-4 h-4 text-blue-800 mr-2 mt-1" />
+                        <div>
+                          <span className="font-medium text-blue-800">Price:</span>
+                          <span className="ml-2">{tourData.currency} {tourData.startingFrom} per person</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-green-50 rounded-lg p-6">
+                    <h3 className="text-lg font-semibold mb-4 text-green-800">Booking Information</h3>
+                    <p className="text-green-800 mb-4">
+                      Fill out the form to book this tour or request more information. Our team will get back to you within 24 hours.
+                    </p>
+                    <p className="text-sm text-green-700">
+                      <span className="font-bold">Note:</span> Customization available for group size, dates, and accommodations.
+                    </p>
+                  </div>
+                </div>
+                
+                <div>
+                  <ContactForm 
+                    tourName={tourData.name}
+                    prefilledMessage={`I'm interested in the ${tourData.name} tour lasting ${tourData.duration}. Please provide more information.`}
+                  />
+                </div>
+              </div>
             </div>
           </TabsContent>
         </Tabs>
