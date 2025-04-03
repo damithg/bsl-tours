@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useMemo, useCallback, FormEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -197,39 +197,43 @@ const EnhancedPackageDetail = () => {
     retry: 1, // Limit retries to prevent excessive requests
   });
   
-  // Process gallery images
-  const galleryImages = React.useMemo(() => {
-    if (!tourData) return [];
+  // Extract hero image URL for use in other places
+  const heroImageUrl = useMemo(() => {
+    if (!tourData) return '';
     
-    const images: string[] = [];
-    let heroImageUrl = '';
-    
-    // Process hero image first for fallback
+    // Process hero image
     if (tourData.heroImage) {
       if (typeof tourData.heroImage === 'object') {
-        heroImageUrl = 
-          tourData.heroImage.large || 
+        return tourData.heroImage.large || 
           tourData.heroImage.medium || 
           tourData.heroImage.small || 
           tourData.heroImage.baseUrl || 
           (tourData.heroImage.publicId ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${tourData.heroImage.publicId}.jpg` : '');
       } else if (typeof tourData.heroImage === 'string') {
-        heroImageUrl = tourData.heroImage;
+        return tourData.heroImage;
       }
     } else if (tourData.cardImage) {
       if (typeof tourData.cardImage === 'object') {
-        heroImageUrl = 
-          tourData.cardImage.large || 
+        return tourData.cardImage.large || 
           tourData.cardImage.medium || 
           tourData.cardImage.small || 
           tourData.cardImage.baseUrl || 
           (tourData.cardImage.publicId ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${tourData.cardImage.publicId}.jpg` : '');
       } else if (typeof tourData.cardImage === 'string') {
-        heroImageUrl = tourData.cardImage;
+        return tourData.cardImage;
       }
     } else if (tourData.imageUrl) {
-      heroImageUrl = tourData.imageUrl;
+      return tourData.imageUrl;
     }
+    
+    return '';
+  }, [tourData]);
+  
+  // Process gallery images
+  const galleryImages = useMemo(() => {
+    if (!tourData) return [];
+    
+    const images: string[] = [];
     
     // Process gallery images
     if (tourData.galleryImages && Array.isArray(tourData.galleryImages)) {
@@ -263,10 +267,10 @@ const EnhancedPackageDetail = () => {
     }
     
     return images.length > 0 ? images : (heroImageUrl ? [heroImageUrl] : []);
-  }, [tourData]);
+  }, [tourData, heroImageUrl]);
   
   // Process includes
-  const includes = React.useMemo(() => {
+  const includes = useMemo(() => {
     if (!tourData) return [];
     
     if (tourData.includes) {
@@ -288,7 +292,7 @@ const EnhancedPackageDetail = () => {
   }, [tourData]);
   
   // Process excludes
-  const excludes = React.useMemo(() => {
+  const excludes = useMemo(() => {
     if (!tourData) return [];
     
     if (tourData.excludes) {
@@ -310,7 +314,7 @@ const EnhancedPackageDetail = () => {
   }, [tourData]);
   
   // Process destinations
-  const destinations = React.useMemo(() => {
+  const destinations = useMemo(() => {
     if (!tourData || !tourData.destinations) return [];
     
     if (Array.isArray(tourData.destinations)) {
@@ -333,7 +337,7 @@ const EnhancedPackageDetail = () => {
   }, [tourData]);
   
   // Process itinerary data
-  const itinerary = React.useMemo((): APIItineraryDay[] => {
+  const itinerary = useMemo((): APIItineraryDay[] => {
     if (!tourData) return [];
     
     // First try using itineraryDays if available
@@ -388,7 +392,7 @@ const EnhancedPackageDetail = () => {
   }, [tourData]);
   
   // Transform itinerary data into timeline format
-  const timelineData = React.useMemo((): TimelineDayData[] => {
+  const timelineData = useMemo((): TimelineDayData[] => {
     if (!itinerary || itinerary.length === 0) return [];
     
     return itinerary.map(day => {
@@ -486,7 +490,7 @@ const EnhancedPackageDetail = () => {
   };
   
   // Handle review submission
-  const handleReviewSubmit = (e: React.FormEvent) => {
+  const handleReviewSubmit = (e: FormEvent) => {
     e.preventDefault();
     
     // Validate form
@@ -577,7 +581,7 @@ const EnhancedPackageDetail = () => {
   ];
 
   // Loading state
-  if (isTourLoading || isItineraryLoading) {
+  if (isTourLoading) {
     return (
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -597,7 +601,7 @@ const EnhancedPackageDetail = () => {
   }
 
   // Error state
-  if (tourError || itineraryError || !tourData) {
+  if (tourError || !tourData) {
     return (
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -648,7 +652,7 @@ const EnhancedPackageDetail = () => {
                 <div className="flex items-center">
                   <ChevronRight className="w-5 h-5 text-white/60" />
                   <span className="ml-1 text-sm font-medium text-white/80">
-                    {tourData.title}
+                    {tourData.title || tourData.name}
                   </span>
                 </div>
               </li>
@@ -658,579 +662,382 @@ const EnhancedPackageDetail = () => {
           {/* Tour Title and Info - Simplified */}
           <div className="text-white relative z-10">
             <h1 className="font-['Playfair_Display'] text-2xl md:text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight md:text-left text-center">
-              {tourData.title}
+              {tourData.title || tourData.name}
             </h1>
             
-            <div className="flex flex-wrap md:justify-start justify-center gap-4 mb-8">
-              <div className="flex items-center text-white/90">
-                <Calendar className="h-5 w-5 mr-2" />
-                <span>{tourData.duration} Days</span>
+            <div className="flex flex-wrap md:justify-start justify-center gap-4 mb-4">
+              <div className="flex items-center text-white/80">
+                <Calendar className="w-4 h-4 mr-2" />
+                <span className="text-sm">{tourData.duration} Days</span>
               </div>
-              <div className="flex items-center text-white/90">
-                <MapPin className="h-5 w-5 mr-2" />
-                <span>{Array.isArray(tourData.destinations) ? tourData.destinations.join(', ') : (typeof tourData.destinations === 'string' ? tourData.destinations.replace(/,/g, ', ') : "Multiple Destinations")}</span>
+              
+              <div className="flex items-center text-white/80">
+                <MapPin className="w-4 h-4 mr-2" />
+                <span className="text-sm">{destinations.slice(0, 3).join(', ')}{destinations.length > 3 ? '...' : ''}</span>
               </div>
-            </div>
-            
-            <div className="flex md:justify-start justify-center gap-4">
-              <a 
-                href="#inquiry" 
-                className="bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium px-8 py-3 rounded-sm transition-colors"
-              >
-                Book This Tour
-              </a>
-              <a 
-                href="#customizeForm" 
-                className="bg-transparent hover:bg-white/10 text-white border border-white/30 font-medium px-8 py-3 rounded-sm transition-colors"
-              >
-                Customize Tour
-              </a>
+              
+              <div className="flex items-center text-white/80">
+                <Users className="w-4 h-4 mr-2" />
+                <span className="text-sm">Private Tour</span>
+              </div>
+              
+              <div className="flex items-center text-white/80">
+                <Star className="w-4 h-4 mr-2 text-amber-400" />
+                <span className="text-sm">5.0 (23 reviews)</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Main Content */}
-      <div className="bg-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-            
-            {/* Left Column - Tour Info */}
-            <div className="lg:col-span-3">
-              
-              {/* Gallery */}
-              <div className="mb-16">
-                <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg mb-4">
-                  <img 
-                    src={galleryImages[activeImageIndex] || heroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg'} 
-                    alt={`${tourData.title} - Image ${activeImageIndex + 1}`}
-                    className="w-full h-full object-cover" 
-                  />
-                  
-                  {/* Image Navigation */}
+      {/* Main Content Section */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Main Tour Details - Left Column (2/3 width on desktop) */}
+          <div className="lg:w-2/3">
+            {/* Gallery Images */}
+            <div className="relative mb-8 overflow-hidden rounded-lg">
+              {galleryImages.length > 0 ? (
+                <>
+                  <div className="w-full h-[400px] md:h-[500px] relative overflow-hidden">
+                    <img 
+                      src={galleryImages[activeImageIndex]}
+                      alt={`${tourData.title || tourData.name} - Gallery image ${activeImageIndex + 1}`}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  {/* Gallery Navigation */}
                   {galleryImages.length > 1 && (
-                    <>
+                    <div className="absolute inset-0 flex items-center justify-between px-4">
                       <button 
                         onClick={() => handleImageNav('prev')}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-colors"
+                        className="bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors"
                         aria-label="Previous image"
                       >
-                        <ChevronLeft className="h-6 w-6 text-[#103556]" />
+                        <ChevronLeft className="w-6 h-6" />
                       </button>
                       <button 
                         onClick={() => handleImageNav('next')}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-colors"
+                        className="bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors"
                         aria-label="Next image"
                       >
-                        <ChevronRight className="h-6 w-6 text-[#103556]" />
+                        <ChevronRight className="w-6 h-6" />
                       </button>
-                    </>
-                  )}
-                </div>
-                
-                {/* Thumbnails */}
-                {galleryImages.length > 1 && (
-                  <div className="flex gap-2 overflow-x-auto pb-2">
-                    {galleryImages.map((img, index) => (
-                      <button 
-                        key={index}
-                        onClick={() => setActiveImageIndex(index)}
-                        className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${activeImageIndex === index ? 'border-[#D4AF37]' : 'border-transparent'}`}
-                      >
-                        <img 
-                          src={img} 
-                          alt={`${tourData.title} - Thumbnail ${index + 1}`} 
-                          className="w-full h-full object-cover" 
-                        />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-              
-              {/* Tour Description */}
-              <div className="mb-16">
-                <div className="mb-8">
-                  <h2 className="text-3xl font-bold mb-4">
-                    {tourData.title}
-                  </h2>
-                </div>
-                <div className="text-xl text-gray-700 font-medium mb-6">
-                  {tourData.shortDescription || "Experience the best of Sri Lanka with our luxury tour package."}
-                </div>
-                <div 
-                  className="prose prose-lg max-w-none text-gray-600"
-                  dangerouslySetInnerHTML={{ __html: tourData.description || '' }}
-                />
-                {tourData.tourHighlights && (
-                  <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
-                    <h3 className="text-xl font-semibold mb-3">Tour Highlights</h3>
-                    <div className="text-gray-700">{tourData.tourHighlights}</div>
-                  </div>
-                )}
-              </div>
-              
-              {/* Tour Map & Itinerary - Integrated Experience - Hidden per request */}
-              
-              {/* Detailed Itinerary Section - For Additional Details */}
-              <div className="mb-16">
-                <div className="mb-8">
-                  <h2 className="text-3xl font-bold">Journey Highlights</h2>
-                </div>
-                
-                {itinerary.length > 0 ? (
-                  <div className="bg-white px-0">
-                    <VisualTimeline data={timelineData} className="timeline-luxury" />
-                  </div>
-                ) : (
-                  <div className="text-center p-8 bg-[#f8f7f2] rounded-lg border border-[#D4AF37]/20">
-                    <p className="text-lg text-gray-600 mb-3">
-                      Full {tourData.duration}-day itinerary available upon request.
-                    </p>
-                    <p className="text-gray-500">
-                      Contact our travel consultants for a detailed day-by-day plan.
-                    </p>
-                  </div>
-                )}
-              </div>
-              
-              {/* Tour Highlights Section */}
-              <div className="mb-16">
-                <div className="mb-8">
-                  <h2 className="text-3xl font-bold">Highlights</h2>
-                </div>
-                
-                <div className="space-y-6 mb-8">
-                  {tourHighlights.map((item, idx) => (
-                    <div key={`highlight-${idx}`} className="flex items-start">
-                      <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                        <Check className="h-3.5 w-3.5 text-green-600" />
-                      </div>
-                      <span className="text-gray-700">{item}</span>
                     </div>
-                  ))}
+                  )}
+                  {/* Image Counter */}
+                  <div className="absolute bottom-4 right-4 bg-black/50 text-white text-sm px-3 py-1 rounded-full">
+                    {activeImageIndex + 1} / {galleryImages.length}
+                  </div>
+                </>
+              ) : (
+                <div className="w-full h-[400px] bg-gray-200 flex items-center justify-center">
+                  <p className="text-gray-500">No gallery images available</p>
                 </div>
-              </div>
+              )}
+            </div>
+            
+            {/* Tour Summary or Description */}
+            <div className="mb-8">
+              <h2 className="font-['Playfair_Display'] text-2xl font-bold text-primary mb-4">Tour Overview</h2>
+              <div 
+                className="prose prose-lg max-w-none text-muted-foreground" 
+                dangerouslySetInnerHTML={{ __html: tourData.description || tourData.summary || '' }} 
+              />
+            </div>
+            
+            {/* Tour Highlights */}
+            <div className="mb-8 bg-primary/5 p-6 rounded-lg">
+              <h2 className="font-['Playfair_Display'] text-xl font-bold text-primary mb-4 flex items-center">
+                <Award className="w-5 h-5 mr-2" />
+                Tour Highlights
+              </h2>
+              <ul className="grid md:grid-cols-2 gap-3">
+                {(tourData.tourHighlights || tourHighlights).map((highlight, index) => (
+                  <li key={index} className="flex items-start">
+                    <Check className="w-5 h-5 text-primary/80 mr-2 mt-1" />
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Tour Tabs: Itinerary, Inclusions, Map */}
+            <Tabs defaultValue="itinerary" className="mb-8">
+              <TabsList className="mb-4 grid grid-cols-3 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
+                <TabsTrigger value="itinerary" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
+                  <LayoutList className="w-4 h-4 mr-2" />
+                  Itinerary
+                </TabsTrigger>
+                <TabsTrigger value="inclusions" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
+                  <List className="w-4 h-4 mr-2" />
+                  Inclusions
+                </TabsTrigger>
+                <TabsTrigger value="map" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
+                  <Map className="w-4 h-4 mr-2" />
+                  Map
+                </TabsTrigger>
+              </TabsList>
               
-              {/* Includes/Excludes Section - New Style */}
-              <div className="mb-16">
-                <div className="mb-8">
-                  <h2 className="text-3xl font-bold">Included/Excluded</h2>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Included Column */}
-                  <div className="space-y-6">
-                    {includesItems.map((item, idx) => (
-                      <div key={`include-${idx}`} className="flex items-start">
-                        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                          <Check className="h-3.5 w-3.5 text-green-600" />
-                        </div>
-                        <span className="text-gray-700">{item}</span>
-                      </div>
-                    ))}
+              {/* Itinerary Tab Content */}
+              <TabsContent value="itinerary" className="mt-0">
+                {timelineData.length > 0 ? (
+                  <VisualTimeline days={timelineData} />
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <p>Detailed itinerary information is not available for this tour.</p>
+                    <p className="mt-2">Please contact us for a customized day-by-day plan.</p>
+                  </div>
+                )}
+              </TabsContent>
+              
+              {/* Inclusions Tab Content */}
+              <TabsContent value="inclusions" className="mt-0">
+                <div className="grid md:grid-cols-2 gap-8">
+                  {/* Package Includes */}
+                  <div>
+                    <h3 className="font-['Playfair_Display'] text-lg font-bold text-primary mb-4 flex items-center">
+                      <Check className="w-5 h-5 mr-2 text-green-600" />
+                      Package Includes
+                    </h3>
+                    <ul className="space-y-2">
+                      {includesItems.map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <Check className="w-4 h-4 text-green-600 mr-2 mt-1" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                   
-                  {/* Excluded Column */}
-                  <div className="space-y-6">
-                    {excludesItems.map((item, idx) => (
-                      <div key={`exclude-${idx}`} className="flex items-start">
-                        <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-                          <X className="h-3.5 w-3.5 text-red-500" />
-                        </div>
-                        <span className="text-gray-700">{item}</span>
-                      </div>
-                    ))}
+                  {/* Package Excludes */}
+                  <div>
+                    <h3 className="font-['Playfair_Display'] text-lg font-bold text-primary mb-4 flex items-center">
+                      <X className="w-5 h-5 mr-2 text-red-500" />
+                      Package Excludes
+                    </h3>
+                    <ul className="space-y-2">
+                      {excludesItems.map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <X className="w-4 h-4 text-red-500 mr-2 mt-1" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
+              </TabsContent>
+              
+              {/* Map Tab Content */}
+              <TabsContent value="map" className="mt-0">
+                {destinations.length > 0 ? (
+                  <div className="rounded-lg overflow-hidden">
+                    <TourRouteMap destinations={destinations} />
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <p>Map information is not available for this tour.</p>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
+            
+            {/* Accommodation Information */}
+            {tourData.accommodationInfo && (
+              <div className="mb-8">
+                <h2 className="font-['Playfair_Display'] text-xl font-bold text-primary mb-4 flex items-center">
+                  <Home className="w-5 h-5 mr-2" />
+                  Accommodation
+                </h2>
+                <div 
+                  className="prose prose-lg max-w-none text-muted-foreground" 
+                  dangerouslySetInnerHTML={{ __html: tourData.accommodationInfo }} 
+                />
+              </div>
+            )}
+            
+            {/* Customer Reviews */}
+            <div className="mb-8">
+              <h2 className="font-['Playfair_Display'] text-xl font-bold text-primary mb-4">Customer Reviews</h2>
+              
+              {/* Reviews List */}
+              <div className="space-y-4 mb-6">
+                {tourData.reviews && tourData.reviews.length > 0 ? (
+                  tourData.reviews.map(review => (
+                    <div key={review.id} className="border border-border rounded-lg p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-bold">{review.reviewer}</h4>
+                          <p className="text-sm text-muted-foreground">{review.country}</p>
+                        </div>
+                        {formatRating(review.rating)}
+                      </div>
+                      <p className="text-muted-foreground">{review.comment}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-6 border border-border rounded-lg">
+                    <p className="text-muted-foreground">No reviews yet. Be the first to review this tour.</p>
+                  </div>
+                )}
+              </div>
+              
+              {/* Review Form */}
+              <div className="border border-border rounded-lg p-4">
+                <h3 className="font-['Playfair_Display'] text-lg font-bold text-primary mb-4">Leave a Review</h3>
+                <form onSubmit={handleReviewSubmit}>
+                  <div className="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1" htmlFor="name">
+                        Your Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        value={reviewName}
+                        onChange={(e) => setReviewName(e.target.value)}
+                        className="border-border rounded-md w-full p-2"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1" htmlFor="country">
+                        Country
+                      </label>
+                      <input
+                        type="text"
+                        id="country"
+                        value={reviewCountry}
+                        onChange={(e) => setReviewCountry(e.target.value)}
+                        className="border-border rounded-md w-full p-2"
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1" htmlFor="review">
+                      Your Review *
+                    </label>
+                    <textarea
+                      id="review"
+                      rows={4}
+                      value={reviewContent}
+                      onChange={(e) => setReviewContent(e.target.value)}
+                      className="border-border rounded-md w-full p-2"
+                      required
+                    ></textarea>
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">
+                      Rating *
+                    </label>
+                    <div className="flex items-center">
+                      {[1, 2, 3, 4, 5].map((rating) => (
+                        <button
+                          key={rating}
+                          type="button"
+                          onClick={() => setReviewRating(rating * 10)}
+                          className="text-2xl"
+                        >
+                          <i className={`fas fa-star ${reviewRating >= rating * 10 ? 'text-amber-400' : 'text-gray-300'}`}></i>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <Button type="submit" disabled={isSubmittingReview}>
+                    {isSubmittingReview ? 'Submitting...' : 'Submit Review'}
+                  </Button>
+                </form>
               </div>
             </div>
             
-            {/* Right Column - Sidebar */}
-            <div className="lg:col-span-1">
-              {/* Sticky container for all sidebar components */}
-              <div className="sticky top-24 space-y-8">
-                {/* Price Card */}
-                <div className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-                  <div className="bg-[#103556] p-6 text-white">
-                    <div className="flex items-baseline">
-                      <span className="text-xl font-medium">From</span>
-                      <span className="text-2xl font-normal ml-2">{formatPrice(tourData.price || 0)}</span>
-                      <span className="ml-1 text-white/80">per person</span>
-                    </div>
-                    <p className="text-white/80 text-sm mt-1">Based on double occupancy</p>
-                  </div>
-                  
-                  <div className="p-6">
-                    <div className="space-y-4 mb-6">
-                      <div className="flex justify-between pb-3 border-b border-gray-100">
-                        <div className="flex items-center">
-                          <Calendar className="h-5 w-5 text-[#D4AF37] mr-3" />
-                          <span className="text-gray-600">Duration</span>
-                        </div>
-                        <span className="font-semibold">{tourData.duration} Days</span>
+            {/* Related Tours */}
+            <div className="mb-8">
+              <h2 className="font-['Playfair_Display'] text-xl font-bold text-primary mb-4">You Might Also Like</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {relatedTours.map((tour) => (
+                  <Link href={`/tours/${tour.slug}`} key={tour.id} className="group">
+                    <div className="border border-border rounded-lg overflow-hidden h-full transition-shadow hover:shadow-md">
+                      <div className="h-48 overflow-hidden">
+                        <img 
+                          src={tour.imageUrl} 
+                          alt={tour.title}
+                          className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                        />
                       </div>
-                      
-                      <div className="flex justify-between pb-3 border-b border-gray-100">
-                        <div className="flex items-center">
-                          <Users className="h-5 w-5 text-[#D4AF37] mr-3" />
-                          <span className="text-gray-600">Tour Type</span>
+                      <div className="p-4">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-bold group-hover:text-primary">{tour.title}</h3>
+                          <Badge variant="outline">{tour.duration} Days</Badge>
                         </div>
-                        <span className="font-semibold">Private Tour</span>
-                      </div>
-                      
-                      <div className="flex justify-between pb-3 border-b border-gray-100">
-                        <div className="flex items-center">
-                          <DollarSign className="h-5 w-5 text-[#D4AF37] mr-3" />
-                          <span className="text-gray-600">Price Includes</span>
+                        <p className="text-sm text-muted-foreground line-clamp-2 mb-2">{tour.shortDescription || tour.description}</p>
+                        <div className="font-bold text-primary">
+                          From {formatPrice(tour.price)}
                         </div>
-                        <span className="font-semibold">All Inclusive</span>
-                      </div>
-                      
-                      <div className="flex justify-between">
-                        <div className="flex items-center">
-                          <Award className="h-5 w-5 text-[#D4AF37] mr-3" />
-                          <span className="text-gray-600">Quality</span>
-                        </div>
-                        <span className="font-semibold">5-Star Luxury</span>
                       </div>
                     </div>
-                    
-                    <div className="space-y-3">
-                      <a 
-                        href="#inquiry" 
-                        className="block bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium text-center px-6 py-3 rounded-sm transition-colors w-full"
-                      >
-                        Book This Tour
-                      </a>
-                      <button 
-                        onClick={handleAddToWishlist}
-                        className="flex items-center justify-center border border-[#103556] text-[#103556] hover:bg-[#103556] hover:text-white font-medium px-6 py-3 rounded-sm transition-colors w-full"
-                      >
-                        <Heart className={`h-5 w-5 mr-2 ${isInWishlist ? 'fill-current' : ''}`} />
-                        {isInWishlist ? 'Saved to Wishlist' : 'Add to Wishlist'}
-                      </button>
-                    </div>
-                  </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          {/* Sidebar - Right Column (1/3 width on desktop) */}
+          <div className="lg:w-1/3">
+            {/* Booking Card */}
+            <div className="border border-border rounded-lg p-6 mb-8 sticky top-24">
+              {/* Price Display */}
+              <div className="mb-4">
+                <div className="text-sm text-muted-foreground">Starting from</div>
+                <div className="text-3xl font-bold text-primary">
+                  {formatPrice(tourData.startingFrom || tourData.price || 0)}
                 </div>
-                
-                {/* Need Help Box */}
-                <div className="bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
-                  <h3 className="text-xl font-semibold mb-4">
-                    Need Help?
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Our luxury travel consultants are ready to assist you with any questions about this tour.
-                  </p>
-                  <div className="flex items-center mt-4 pb-4 border-b border-gray-200">
-                    <div className="w-10 h-10 bg-[#103556] rounded-full flex items-center justify-center mr-3">
-                      <i className="fas fa-phone-alt text-white"></i>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Call us</p>
-                      <p className="font-semibold text-[#103556]">+94 77 123 4567</p>
-                    </div>
+                <div className="text-sm text-muted-foreground">per person</div>
+              </div>
+              
+              {/* Quick Info */}
+              <div className="border-t border-b border-border py-4 mb-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center">
+                    <Calendar className="w-4 h-4 mr-2 text-primary/70" />
+                    <span className="text-sm">{tourData.duration} Days</span>
                   </div>
-                  <div className="flex items-center mt-4">
-                    <div className="w-10 h-10 bg-[#103556] rounded-full flex items-center justify-center mr-3">
-                      <i className="fas fa-envelope text-white"></i>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Email us</p>
-                      <p className="font-semibold text-[#103556]">info@bestsrilankatours.com</p>
-                    </div>
+                  <div className="flex items-center">
+                    <Users className="w-4 h-4 mr-2 text-primary/70" />
+                    <span className="text-sm">Private Tour</span>
                   </div>
-                </div>
-                
-                {/* Customize Box */}
-                <div className="bg-[#f8f7f2] p-6 rounded-lg border border-[#D4AF37]/20">
-                  <h3 className="text-xl font-semibold mb-4">
-                    Need Customizations?
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Want to add extra activities, change accommodation options, or adjust the itinerary? Our experts can customize this tour to your preferences.
-                  </p>
-                  <Button variant="outline" className="w-full">
-                    Request Custom Tour
-                  </Button>
+                  <div className="flex items-center col-span-2">
+                    <MapPin className="w-4 h-4 mr-2 text-primary/70" />
+                    <span className="text-sm">{destinations.slice(0, 3).join(', ')}{destinations.length > 3 ? '...' : ''}</span>
+                  </div>
                 </div>
               </div>
+              
+              {/* Actions */}
+              <div className="space-y-3">
+                <Button className="w-full" size="lg">
+                  <DollarSign className="w-4 h-4 mr-2" />
+                  Request Quote
+                </Button>
+                <Button variant="outline" className="w-full" onClick={handleAddToWishlist}>
+                  <Heart className={`w-4 h-4 mr-2 ${isInWishlist ? 'fill-primary text-primary' : ''}`} />
+                  {isInWishlist ? 'Saved to Wishlist' : 'Add to Wishlist'}
+                </Button>
+              </div>
+              
+              {/* Tour Operated By */}
+              <div className="mt-6 text-center text-sm text-muted-foreground">
+                <p>Operated by <strong>{tourData.operatedBy || "Best Sri Lanka Tours"}</strong></p>
+              </div>
+            </div>
+            
+            {/* Contact Form */}
+            <div className="border border-border rounded-lg p-6">
+              <h2 className="font-['Playfair_Display'] text-lg font-bold text-primary mb-4">Ask a Question</h2>
+              <ContactForm tourName={tourData.title || tourData.name} prefilledMessage={`I'm interested in the ${tourData.title || tourData.name} tour and would like more information.`} />
             </div>
           </div>
         </div>
       </div>
-      
-      {/* Related Tours */}
-      <section className="py-20 bg-gradient-to-b from-white to-[#f8f7f2]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-block mb-3">
-              <span className="text-[#103556] uppercase text-sm font-medium tracking-wider block">Luxury Experiences</span>
-            </div>
-            <h2 className="text-4xl font-bold mb-6">
-              You May Also Like
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Explore our other luxury experiences across Sri Lanka's most captivating destinations
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {relatedTours.map((tour) => (
-              <div key={tour.id} className="bg-white overflow-hidden shadow-lg transition-all hover:shadow-2xl group">
-                <div className="relative h-72 overflow-hidden">
-                  <img 
-                    src={tour.imageUrl} 
-                    alt={tour.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                  />
-                  <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-4 rounded-full">
-                    {tour.duration} Days
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                </div>
-                <div className="p-8 border-b border-l border-r border-gray-100">
-                  <h3 className="text-2xl font-semibold mb-3">{tour.title}</h3>
-                  <p className="text-gray-600 mb-6">{tour.shortDescription || tour.description}</p>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <span className="text-sm text-gray-500">From</span>
-                      <span className="text-[#103556] text-2xl font-normal ml-2">{formatPrice(tour.price || 0)}</span>
-                    </div>
-                    <Link href={`/tour/${tour.slug || tour.title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')}`}>
-                      <button className="bg-[#103556] hover:bg-[#1a4971] text-white font-medium px-6 py-2.5 rounded-sm transition-colors">
-                        View Details
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="text-center mt-14">
-            <Link href="/tours">
-              <Button variant="outline" size="lg" className="border-[#103556] text-[#103556] hover:bg-[#103556] hover:text-white transition-colors">
-                View All Sri Lanka Tours
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-      
-      {/* Inquiry Form */}
-      <section id="inquiry" className="py-24 bg-[#103556] bg-[url('/images/pattern-bg.png')] bg-opacity-10 bg-blend-overlay">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-white p-10 shadow-2xl">
-            <div className="text-center mb-10">
-              <div className="inline-block mb-3">
-                <span className="text-[#103556] uppercase text-sm font-medium tracking-wider block">Book Your Journey</span>
-              </div>
-              <h2 className="text-4xl font-bold mb-6">
-                Interested in This Tour?
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Complete the form below and one of our luxury travel consultants will contact you 
-                within 24 hours to discuss your booking and answer any questions.
-              </p>
-            </div>
-            
-            <ContactForm />
-            
-            <div className="mt-8 text-center text-gray-600 text-sm">
-              <p>By submitting this form, you agree to our <span className="text-[#103556] font-medium">Privacy Policy</span> and <span className="text-[#103556] font-medium">Terms of Service</span>.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Reviews and Testimonials section */}
-      <section className="py-20 bg-gradient-to-b from-white to-[#f8f7f2]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-14">
-            <span className="text-[#103556] uppercase text-sm font-medium tracking-wider block mb-3">Traveler Experiences</span>
-            <h2 className="text-4xl font-bold mb-6">
-              What Our Guests Say
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Read about the experiences of travelers who have enjoyed this tour
-            </p>
-          </div>
-          
-          {/* Reviews Grid - Past Reviews */}
-          <div className="mb-16">
-            <h3 className="text-2xl font-bold mb-8 text-center">Recent Reviews</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-              <div className="bg-white p-10 shadow-lg rounded-md hover:shadow-xl transition-shadow relative">
-                <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-5 mb-6 border-b border-gray-100 pb-6">
-                    <div className="w-16 h-16 rounded-full bg-[#103556]/10 flex items-center justify-center text-[#103556] font-semibold text-xl">
-                      JD
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-semibold">James Davies</h4>
-                      <p className="text-gray-500">United Kingdom</p>
-                      <div className="flex text-[#D4AF37] mt-1">
-                        <Star className="h-5 w-5 fill-current" />
-                        <Star className="h-5 w-5 fill-current" />
-                        <Star className="h-5 w-5 fill-current" />
-                        <Star className="h-5 w-5 fill-current" />
-                        <Star className="h-5 w-5 fill-current" />
-                      </div>
-                    </div>
-                  </div>
-                  <p className="italic text-gray-600 leading-relaxed">
-                    "Our trip with BSL Tours exceeded all expectations. The attention to detail was superb, and our guide's knowledge made every destination come alive. The accommodations were stunning and the private transportation was extremely comfortable."
-                  </p>
-                  <div className="mt-6 text-sm text-[#103556]">
-                    <span className="font-medium">Tour:</span> Luxury Sri Lanka
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white p-10 shadow-lg rounded-md hover:shadow-xl transition-shadow relative">
-                <div className="absolute -top-6 left-10 text-[#D4AF37] text-7xl opacity-20">"</div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-5 mb-6 border-b border-gray-100 pb-6">
-                    <div className="w-16 h-16 rounded-full bg-[#103556]/10 flex items-center justify-center text-[#103556] font-semibold text-xl">
-                      SM
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-semibold">Sarah Mitchell</h4>
-                      <p className="text-gray-500">Australia</p>
-                      <div className="flex text-[#D4AF37] mt-1">
-                        <Star className="h-5 w-5 fill-current" />
-                        <Star className="h-5 w-5 fill-current" />
-                        <Star className="h-5 w-5 fill-current" />
-                        <Star className="h-5 w-5 fill-current" />
-                        <Star className="h-5 w-5 fill-current" />
-                      </div>
-                    </div>
-                  </div>
-                  <p className="italic text-gray-600 leading-relaxed">
-                    "From the moment we landed until our departure, everything was perfectly organized. We especially loved the cultural experiences and the wonderful food. Our tour consultant was responsive and made sure every aspect of our journey was flawless."
-                  </p>
-                  <div className="mt-6 text-sm text-[#103556]">
-                    <span className="font-medium">Tour:</span> Cultural Triangle Explorer
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Add Review Section */}
-          <div className="max-w-2xl mx-auto bg-white p-10 shadow-lg rounded-md border border-gray-100">
-            <h3 className="text-2xl font-bold mb-8 text-center">Share Your Experience</h3>
-            
-            <form className="space-y-6" onSubmit={handleReviewSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="reviewerName" className="block text-sm font-medium text-gray-700 mb-1">
-                    Your Name
-                  </label>
-                  <input 
-                    type="text" 
-                    id="reviewerName" 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#103556] focus:border-transparent" 
-                    placeholder="John Smith"
-                    value={reviewName}
-                    onChange={(e) => setReviewName(e.target.value)}
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="reviewerCountry" className="block text-sm font-medium text-gray-700 mb-1">
-                    Country
-                  </label>
-                  <input 
-                    type="text" 
-                    id="reviewerCountry" 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#103556] focus:border-transparent" 
-                    placeholder="United Kingdom"
-                    value={reviewCountry}
-                    onChange={(e) => setReviewCountry(e.target.value)}
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="reviewRating" className="block text-sm font-medium text-gray-700 mb-1">
-                  Rating
-                </label>
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      className="text-[#D4AF37] hover:scale-110 transition-transform"
-                      onClick={() => setReviewRating(star)}
-                    >
-                      <Star className={`h-8 w-8 ${star <= reviewRating ? 'fill-current' : ''}`} />
-                    </button>
-                  ))}
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="reviewContent" className="block text-sm font-medium text-gray-700 mb-1">
-                  Your Review
-                </label>
-                <textarea 
-                  id="reviewContent" 
-                  rows={5} 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#103556] focus:border-transparent"
-                  placeholder="Share your experience with this tour..."
-                  value={reviewContent}
-                  onChange={(e) => setReviewContent(e.target.value)}
-                  required
-                ></textarea>
-              </div>
-              
-              <div className="pt-2">
-                <button 
-                  type="submit" 
-                  className="w-full bg-[#103556] hover:bg-[#1a4971] text-white font-medium py-3 px-6 rounded-md transition-colors"
-                  disabled={isSubmittingReview}
-                >
-                  {isSubmittingReview ? 'Submitting...' : 'Submit Review'}
-                </button>
-              </div>
-              
-              <p className="text-center text-sm text-gray-500 mt-4">
-                Your review will be visible after approval by our team. We appreciate your feedback!
-              </p>
-            </form>
-          </div>
-        </div>
-      </section>
-      
-      {/* Call To Action */}
-      <section className="relative py-20 bg-[#103556] text-white overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-10">
-          <img 
-            src="/images/cta-background.jpg"
-            alt="Sri Lanka Beach" 
-            className="w-full h-full object-cover" 
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-6">Ready to Experience Luxury in Sri Lanka?</h2>
-            <p className="text-xl text-white/80 mb-10">
-              Our team of luxury travel specialists is waiting to craft your perfect Sri Lankan journey. 
-              Don't miss this opportunity to create memories that will last a lifetime.
-            </p>
-            <a 
-              href="#inquiry" 
-              className="inline-block bg-[#D4AF37] hover:bg-[#c4a033] text-white font-medium px-8 py-3 rounded-sm transition-colors"
-            >
-              Book Your Tour Now
-            </a>
-          </div>
-        </div>
-      </section>
     </main>
   );
 };
