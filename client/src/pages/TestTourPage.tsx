@@ -373,19 +373,21 @@ const TestTourPage: React.FC = () => {
               </div>
               
               {/* Tour Tabs: Itinerary, Inclusions, Gallery, Map */}
-              <div className="mb-8">
+              <div className="mb-10">
                 <Tabs defaultValue="itinerary" className="w-full">
-                  <TabsList className="mb-4 grid grid-cols-4 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
+                  <TabsList className="mb-6 flex space-x-2 md:space-x-4 w-full rounded-lg bg-gray-50 p-1.5 border border-gray-100 shadow-sm">
                     {[
-                      { id: "itinerary", label: "Itinerary", icon: <LayoutList className="w-4 h-4 mr-2" /> },
-                      { id: "inclusions", label: "Inclusions", icon: <List className="w-4 h-4 mr-2" /> },
-                      { id: "gallery", label: "Gallery", icon: <ImageIcon className="w-4 h-4 mr-2" /> },
-                      { id: "map", label: "Map", icon: <Map className="w-4 h-4 mr-2" /> }
+                      { id: "itinerary", label: "Itinerary", icon: <LayoutList className="w-5 h-5 mr-2" /> },
+                      { id: "inclusions", label: "Inclusions", icon: <List className="w-5 h-5 mr-2" /> },
+                      { id: "gallery", label: "Gallery", icon: <ImageIcon className="w-5 h-5 mr-2" /> },
+                      { id: "map", label: "Map", icon: <Map className="w-5 h-5 mr-2" /> }
                     ].map((tab) => (
                       <TabsTrigger 
                         key={`tab-${tab.id}`} 
                         value={tab.id} 
-                        className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
+                        className="flex-1 py-3 text-gray-600 font-medium flex items-center justify-center rounded-md transition-all
+                        data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm
+                        hover:bg-gray-100 data-[state=active]:hover:bg-white"
                       >
                         {tab.icon}
                         <span className="hidden sm:inline">{tab.label}</span>
@@ -395,15 +397,15 @@ const TestTourPage: React.FC = () => {
                   
                   {/* Itinerary Tab Content */}
                   <TabsContent value="itinerary" className="mt-0">
-                    <div className="mb-6 flex overflow-x-auto space-x-2 pb-2">
+                    <div className="mb-6 flex overflow-x-auto space-x-3 pb-3">
                       {tourData.itinerary.map((day) => (
                         <button
                           key={`day-button-${day.day}`}
                           onClick={() => setActiveDay(day.day)}
-                          className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                          className={`px-6 py-2.5 rounded-full whitespace-nowrap transition-all text-sm font-medium ${
                             activeDay === day.day
-                              ? 'bg-primary text-white'
-                              : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                              ? 'bg-primary text-white shadow-md shadow-primary/20 ring-2 ring-primary/30'
+                              : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:shadow-sm'
                           }`}
                         >
                           Day {day.day}
@@ -414,16 +416,30 @@ const TestTourPage: React.FC = () => {
                     {tourData.itinerary.map((day) => (
                       <div 
                         key={day.day} 
-                        className={`bg-white shadow-md rounded-lg p-6 mb-4 ${activeDay === day.day ? 'block' : 'hidden'}`}
+                        className={`bg-white shadow-md rounded-lg overflow-hidden mb-6 ${activeDay === day.day ? 'block' : 'hidden'}`}
                       >
-                        <h3 className="text-xl font-semibold mb-2">Day {day.day}: {day.title}</h3>
-                        <p className="text-gray-700 mb-4">{day.description}</p>
+                        <div className="p-6 border-b border-gray-100">
+                          <h3 className="text-xl font-semibold mb-2 flex items-center">
+                            <span className="bg-primary/10 text-primary rounded-full w-8 h-8 inline-flex items-center justify-center text-sm font-bold mr-3">
+                              {day.day}
+                            </span>
+                            <span>{day.title}</span>
+                          </h3>
+                          <p className="text-gray-700">{day.description}</p>
+                        </div>
                         {day.image && (
-                          <img 
-                            src={day.image.medium || day.image.large || day.image.small || day.image.baseUrl} 
-                            alt={day.image.alt || day.title}
-                            className="w-full h-auto rounded"
-                          />
+                          <div className="relative">
+                            <img 
+                              src={day.image.medium || day.image.large || day.image.small || day.image.baseUrl} 
+                              alt={day.image.alt || day.title}
+                              className="w-full h-auto"
+                            />
+                            {day.image.caption && (
+                              <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-3 text-sm">
+                                {day.image.caption}
+                              </div>
+                            )}
+                          </div>
                         )}
                       </div>
                     ))}
@@ -431,111 +447,138 @@ const TestTourPage: React.FC = () => {
                   
                   {/* Inclusions/Exclusions Tab Content */}
                   <TabsContent value="inclusions" className="mt-0">
-                    <div className="bg-white shadow-md rounded-lg p-6 mb-4">
-                      <h2 className="text-xl font-bold mb-4 flex items-center">
-                        <Check className="w-5 h-5 mr-2 text-green-600" />
-                        What's Included
-                      </h2>
-                      <ul className="space-y-2">
-                        {tourData.inclusions.map((item, index) => (
-                          <li key={`inclusion-${index}`} className="flex items-start">
-                            <Check className="w-4 h-4 text-green-600 mr-2 mt-1" />
-                            <span className="text-gray-700">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div className="bg-white shadow-md rounded-lg p-6">
-                      <h2 className="text-xl font-bold mb-4 flex items-center">
-                        <X className="w-5 h-5 mr-2 text-red-500" />
-                        What's Not Included
-                      </h2>
-                      <ul className="space-y-2">
-                        {tourData.exclusions.map((item, index) => (
-                          <li key={`exclusion-${index}`} className="flex items-start">
-                            <X className="w-4 h-4 text-red-500 mr-2 mt-1" />
-                            <span className="text-gray-700">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="bg-gradient-to-b from-green-50 to-white shadow-md rounded-lg overflow-hidden">
+                        <div className="bg-green-600 py-4 px-6">
+                          <h2 className="text-lg font-bold text-white flex items-center">
+                            <Check className="w-5 h-5 mr-2" />
+                            What's Included
+                          </h2>
+                        </div>
+                        <div className="p-6">
+                          <ul className="space-y-3">
+                            {tourData.inclusions.map((item, index) => (
+                              <li key={`inclusion-${index}`} className="flex items-start group">
+                                <div className="bg-green-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-green-200 transition-colors">
+                                  <Check className="w-4 h-4 text-green-600" />
+                                </div>
+                                <span className="text-gray-700">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gradient-to-b from-red-50 to-white shadow-md rounded-lg overflow-hidden">
+                        <div className="bg-red-500 py-4 px-6">
+                          <h2 className="text-lg font-bold text-white flex items-center">
+                            <X className="w-5 h-5 mr-2" />
+                            What's Not Included
+                          </h2>
+                        </div>
+                        <div className="p-6">
+                          <ul className="space-y-3">
+                            {tourData.exclusions.map((item, index) => (
+                              <li key={`exclusion-${index}`} className="flex items-start group">
+                                <div className="bg-red-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-red-200 transition-colors">
+                                  <X className="w-4 h-4 text-red-500" />
+                                </div>
+                                <span className="text-gray-700">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
                     </div>
                   </TabsContent>
                   
                   {/* Gallery Tab Content */}
                   <TabsContent value="gallery" className="mt-0">
-                    <div className="bg-white shadow-md rounded-lg p-6">
-                      <h2 className="text-xl font-bold mb-6 flex items-center">
-                        <ImageIcon className="w-5 h-5 mr-2 text-primary" />
-                        Tour Photo Gallery
-                      </h2>
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                      <div className="bg-gradient-to-r from-primary/80 to-primary p-6 text-white">
+                        <h2 className="text-xl font-bold flex items-center">
+                          <ImageIcon className="w-5 h-5 mr-3" />
+                          Tour Photo Gallery
+                        </h2>
+                        <p className="text-white/80 mt-1 text-sm">Explore the visual journey of this luxury tour</p>
+                      </div>
                       
-                      {tourData.galleryImages && tourData.galleryImages.length > 0 ? (
-                        <AsymmetricalGallery 
-                          images={tourData.galleryImages.map(img => ({
-                            ...img,
-                            alt: img.alt || 'Tour image'
-                          }))} 
-                        />
-                      ) : (
-                        <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
-                          <ImageIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                          <p className="text-gray-500">No gallery images available for this tour.</p>
-                        </div>
-                      )}
+                      <div className="p-6">
+                        {tourData.galleryImages && tourData.galleryImages.length > 0 ? (
+                          <AsymmetricalGallery 
+                            images={tourData.galleryImages.map(img => ({
+                              ...img,
+                              alt: img.alt || 'Tour image'
+                            }))} 
+                          />
+                        ) : (
+                          <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                            <ImageIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                            <p className="text-gray-500">No gallery images available for this tour.</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </TabsContent>
                   
                   {/* Map Tab Content */}
                   <TabsContent value="map" className="mt-0">
-                    <div className="bg-white shadow-md rounded-lg p-6">
-                      <h2 className="text-xl font-bold mb-6 flex items-center">
-                        <Map className="w-5 h-5 mr-2 text-primary" />
-                        Tour Route Map
-                      </h2>
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                      <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+                        <h2 className="text-xl font-bold flex items-center">
+                          <Map className="w-5 h-5 mr-3" />
+                          Tour Route Map
+                        </h2>
+                        <p className="text-white/80 mt-1 text-sm">Follow the journey through Sri Lanka's most beautiful destinations</p>
+                      </div>
                       
-                      {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
-                        <>
-                          <div className="mb-6 flex overflow-x-auto space-x-2 pb-2">
-                            {tourData.itinerary.map((day) => (
-                              <button
-                                key={`map-day-button-${day.day}`}
-                                onClick={() => setActiveDay(day.day)}
-                                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
-                                  activeDay === day.day
-                                    ? 'bg-primary text-white'
-                                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                                }`}
-                              >
-                                Day {day.day}
-                              </button>
-                            ))}
+                      <div className="p-6">
+                        {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
+                          <>
+                            <div className="mb-6 flex overflow-x-auto space-x-3 pb-3">
+                              {tourData.itinerary.map((day) => (
+                                <button
+                                  key={`map-day-button-${day.day}`}
+                                  onClick={() => setActiveDay(day.day)}
+                                  className={`px-6 py-2.5 rounded-full whitespace-nowrap transition-all text-sm font-medium ${
+                                    activeDay === day.day
+                                      ? 'bg-primary text-white shadow-md shadow-primary/20 ring-2 ring-primary/30'
+                                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:shadow-sm'
+                                  }`}
+                                >
+                                  Day {day.day}
+                                </button>
+                              ))}
+                            </div>
+                            <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">
+                              <AnimatedRouteMap
+                                mapImage={tourData.mapImage || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"}
+                                points={(tourData.mapPoints || []).map(point => ({
+                                  ...point,
+                                  isActive: point.day === activeDay
+                                }))}
+                                activeDay={activeDay}
+                                className="w-full h-full"
+                                onPointClick={(pointId) => {
+                                  const point = tourData.mapPoints ? tourData.mapPoints.find(p => p.id === pointId) : undefined;
+                                  if (point && point.day) {
+                                    setActiveDay(point.day);
+                                  }
+                                }}
+                              />
+                            </div>
+                            <div className="mt-4 text-center text-sm text-gray-500">
+                              Click on a day number to see the route or click map locations to navigate
+                            </div>
+                          </>
+                        ) : (
+                          <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                            <Map className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                            <p className="text-gray-500">No map data available for this tour.</p>
+                            <p className="text-xs text-gray-400 mt-2">Interactive map coming soon</p>
                           </div>
-                          <div className="aspect-[4/3] relative border border-gray-100 rounded overflow-hidden">
-                            <AnimatedRouteMap
-                              mapImage={tourData.mapImage || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"}
-                              points={(tourData.mapPoints || []).map(point => ({
-                                ...point,
-                                isActive: point.day === activeDay
-                              }))}
-                              activeDay={activeDay}
-                              className="w-full h-full"
-                              onPointClick={(pointId) => {
-                                const point = tourData.mapPoints ? tourData.mapPoints.find(p => p.id === pointId) : undefined;
-                                if (point && point.day) {
-                                  setActiveDay(point.day);
-                                }
-                              }}
-                            />
-                          </div>
-                        </>
-                      ) : (
-                        <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
-                          <Map className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                          <p className="text-gray-500">No map data available for this tour.</p>
-                          <p className="text-xs text-gray-400 mt-2">Interactive map coming soon</p>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
                   </TabsContent>
                 </Tabs>
