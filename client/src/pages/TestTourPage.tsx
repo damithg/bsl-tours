@@ -260,13 +260,13 @@ const TestTourPage: React.FC = () => {
                   <div className="relative h-32 bg-gradient-to-r from-primary/90 to-blue-600/90 flex items-end">
                     <div className="absolute inset-0 opacity-20">
                       <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                          <pattern id="overviewPattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                            <path d="M0,10 L10,0" stroke="white" strokeWidth="0.5" />
+                          </pattern>
+                        </defs>
                         <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="url(#overviewPattern)" />
                       </svg>
-                      <defs>
-                        <pattern id="overviewPattern" width="10" height="10" patternUnits="userSpaceOnUse">
-                          <path d="M0,10 L10,0" stroke="white" strokeWidth="0.5" />
-                        </pattern>
-                      </defs>
                     </div>
                     <div className="container mx-auto px-6 pb-6">
                       <div className="flex items-center">
