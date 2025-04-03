@@ -279,9 +279,9 @@ const TestTourPage: React.FC = () => {
                   </div>
                   
                   {/* Content section with unified layout - fixes empty right column */}
-                  <div className="p-6 md:p-10">
+                  <div className="pt-0 px-6 pb-6 md:px-10 md:pb-10">
                     {/* Visual features section in a 4-column grid - MOVED BEFORE SUMMARY */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 -mt-6">
                       <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Calendar className="w-6 h-6" />
