@@ -32,10 +32,7 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
   
   return (
     <div className="bg-white shadow-xl rounded-xl overflow-hidden mb-8 transform transition-all duration-300">
-      {/* Day badge in top-right - just to indicate which day without text */}
-      <div className="absolute top-4 right-4 z-20 bg-primary/10 text-primary rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-        {day}
-      </div>
+      {/* Day badge removed as requested */}
       
       {/* Image and content in side-by-side layout */}
       <div className="md:flex items-start">
