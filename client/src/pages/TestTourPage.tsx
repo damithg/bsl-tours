@@ -110,11 +110,13 @@ const TestTourPage: React.FC<TestTourPageProps> = ({ params }) => {
         }
         
         const data = await response.json();
-        console.log('Fetched tour data:', data);
+        // Debug code (temporarily hidden)
+        // console.log('Fetched tour data:', data);
         setTourData(data);
         setError(null);
       } catch (err) {
-        console.error('Error fetching tour data:', err);
+        // Debug code (temporarily hidden)
+        // console.error('Error fetching tour data:', err);
         setError(err instanceof Error ? err.message : 'Unknown error occurred');
       } finally {
         setLoading(false);
@@ -574,15 +576,18 @@ const TestTourPage: React.FC<TestTourPageProps> = ({ params }) => {
                 />
               </div>
               
-              {/* Raw JSON Data for Debugging - Hidden in production */}
-              {process.env.NODE_ENV === 'development' && (
-                <div className="mt-12 border-t pt-8">
-                  <h2 className="text-2xl font-bold mb-4">Raw API Response (For Debugging)</h2>
-                  <pre className="bg-gray-100 p-4 rounded overflow-auto text-xs">
-                    {JSON.stringify(tourData, null, 2)}
-                  </pre>
-                </div>
-              )}
+              {/* Raw JSON Data for Debugging - Hidden completely */}
+              {/* 
+                Debug section temporarily hidden as requested
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="mt-12 border-t pt-8">
+                    <h2 className="text-2xl font-bold mb-4">Raw API Response (For Debugging)</h2>
+                    <pre className="bg-gray-100 p-4 rounded overflow-auto text-xs">
+                      {JSON.stringify(tourData, null, 2)}
+                    </pre>
+                  </div>
+                )}
+              */}
             </div>
           </div>
           
