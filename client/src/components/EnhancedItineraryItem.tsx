@@ -32,14 +32,9 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
   
   return (
     <div className="bg-white shadow-xl rounded-xl overflow-hidden mb-8 transform transition-all duration-300">
-      {/* Day header with number first, aligned across both columns */}
-      <div className="bg-gradient-to-r from-primary/5 to-transparent p-4 border-l-4 border-primary flex items-center">
-        <div className="bg-primary/10 text-primary rounded-full w-8 h-8 inline-flex items-center justify-center text-sm font-bold mr-3">
-          {day}
-        </div>
-        <h3 className="text-2xl font-bold font-['Playfair_Display'] text-gray-800">
-          {title}
-        </h3>
+      {/* Day badge in top-right - just to indicate which day without text */}
+      <div className="absolute top-4 right-4 z-20 bg-primary/10 text-primary rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+        {day}
       </div>
       
       {/* Image and content in side-by-side layout */}
@@ -48,11 +43,11 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
         {image && (
           <div className="md:w-1/2 relative p-4 self-start">
             <div className="relative rounded-lg overflow-hidden shadow-lg border-4 border-white outline outline-1 outline-gray-200">
-              {/* Main image with fancy border */}
+              {/* Main image with taller aspect ratio */}
               <img 
                 src={image.medium || image.large || image.small || image.baseUrl} 
                 alt={image.alt || title}
-                className="w-full h-full object-cover object-center aspect-[4/3]"
+                className="w-full h-full object-cover object-center aspect-[4/5]"
               />
               
               {/* Caption */}
@@ -73,6 +68,13 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
         
         {/* Content Section - Right side on desktop, bottom on mobile */}
         <div className={`${image ? 'md:w-1/2' : 'w-full'} p-6 md:p-8 flex flex-col ${!image && 'md:min-h-[300px]'} self-start`}>
+          {/* Title now in the right column */}
+          <div className="mb-4 border-b border-primary/20 pb-3">
+            <h3 className="text-2xl font-bold font-['Playfair_Display'] text-gray-800">
+              {title}
+            </h3>
+          </div>
+
           {/* Decorative dot pattern in the corner */}
           <div className="absolute top-6 right-6 opacity-10 pointer-events-none">
             <div className="flex space-x-1">
@@ -87,7 +89,7 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
           </div>
           
           {/* Description with formatted text and better typography */}
-          <div className="prose prose-lg max-w-none mt-2">
+          <div className="prose prose-lg max-w-none">
             {description.split('\n').map((paragraph, i) => (
               paragraph ? (
                 <p key={`para-${i}`} className="text-gray-600 leading-relaxed mb-3">
