@@ -278,34 +278,49 @@ const TestTourPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Content section with improved layout */}
-                  <div className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-12 gap-8">
+                  {/* Content section with unified layout - fixes empty right column */}
+                  <div className="p-6 md:p-10">
                     {/* Main summary section */}
-                    <div className="md:col-span-7">
-                      <div className="prose prose-lg max-w-none mb-8">
-                        <p className="text-gray-700 text-lg leading-relaxed">{tourData.summary}</p>
-                      </div>
-                      
-                      {/* Visual features section */}
-                      <div className="grid grid-cols-2 gap-4 mb-8">
-                        <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
-                          <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
-                            <Calendar className="w-6 h-6" />
-                          </div>
-                          <h4 className="font-semibold mb-1">Duration</h4>
-                          <p>{tourData.duration}</p>
+                    <div className="prose prose-lg max-w-none mb-8">
+                      <p className="text-gray-700 text-lg leading-relaxed">{tourData.summary}</p>
+                    </div>
+                    
+                    {/* Visual features section in a 4-column grid */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                      <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                          <Calendar className="w-6 h-6" />
                         </div>
-                        <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
-                          <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
-                            <Heart className="w-6 h-6" />
-                          </div>
-                          <h4 className="font-semibold mb-1">Tour Type</h4>
-                          <p>Private Luxury Tour</p>
-                        </div>
+                        <h4 className="font-semibold mb-1">Duration</h4>
+                        <p>{tourData.duration}</p>
                       </div>
-                      
+                      <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                          <Heart className="w-6 h-6" />
+                        </div>
+                        <h4 className="font-semibold mb-1">Tour Type</h4>
+                        <p>Private Luxury</p>
+                      </div>
+                      <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                          <Hotel className="w-6 h-6" />
+                        </div>
+                        <h4 className="font-semibold mb-1">Accommodation</h4>
+                        <p>Luxury Hotels</p>
+                      </div>
+                      <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                          <Map className="w-6 h-6" />
+                        </div>
+                        <h4 className="font-semibold mb-1">Destinations</h4>
+                        <p>Multiple Locations</p>
+                      </div>
+                    </div>
+                    
+                    {/* Two-column layout for why choose and highlights */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                       {/* Why Choose section with improved design */}
-                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-l-4 border-blue-500 shadow-sm">
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-l-4 border-blue-500 shadow-sm h-full flex flex-col">
                         <h3 className="text-xl font-semibold text-blue-900 mb-3 flex items-center">
                           <Heart className="w-5 h-5 mr-2 text-blue-600" />
                           Why Choose This Tour
@@ -313,20 +328,28 @@ const TestTourPage: React.FC = () => {
                         <p className="text-blue-800 leading-relaxed">
                           Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.
                         </p>
+                        <div className="mt-auto pt-4">
+                          <button 
+                            onClick={() => document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition flex items-center justify-center"
+                          >
+                            <Phone className="w-5 h-5 mr-2" />
+                            Contact Us
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    
-                    {/* Highlights in enhanced premium card layout */}
-                    <div className="md:col-span-5">
-                      {tourData.highlights && tourData.highlights.length > 0 && (
-                        <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                          <h3 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <Check className="w-5 h-5 text-primary mr-2" />
-                            Tour Highlights
-                          </h3>
-                          
-                          <div className="space-y-3">
-                            {tourData.highlights.map((highlight, index) => (
+                      
+                      {/* Tour Highlights Section */}
+                      <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                        <h3 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200 flex items-center">
+                          <Check className="w-5 h-5 text-primary mr-2" />
+                          Tour Highlights
+                        </h3>
+                        
+                        <div className="space-y-3">
+                          {tourData.highlights && tourData.highlights.length > 0 ? (
+                            // If highlights exist, map through them
+                            tourData.highlights.map((highlight, index) => (
                               <div 
                                 key={`highlight-premium-${index}`} 
                                 className="flex items-start group"
@@ -336,21 +359,36 @@ const TestTourPage: React.FC = () => {
                                 </div>
                                 <span className="text-gray-700">{highlight}</span>
                               </div>
-                            ))}
-                          </div>
-                          
-                          {/* CTA button */}
-                          <div className="mt-6 pt-4 border-t border-gray-200">
-                            <button 
-                              onClick={() => document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth' })}
-                              className="w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded-lg font-medium transition flex items-center justify-center"
-                            >
-                              <Calendar className="w-5 h-5 mr-2" />
-                              Book This Experience
-                            </button>
-                          </div>
+                            ))
+                          ) : (
+                            // If no highlights, show some default ones
+                            <>
+                              {["Expert local guides", "Luxury accommodations", "Private transportation", "Cultural experiences"].map((highlight, index) => (
+                                <div 
+                                  key={`default-highlight-${index}`} 
+                                  className="flex items-start group"
+                                >
+                                  <div className="bg-primary/10 rounded-full p-1.5 mr-3 group-hover:bg-primary/20 transition-all duration-300 mt-0.5">
+                                    <Check className="w-3 h-3 text-primary flex-shrink-0" />
+                                  </div>
+                                  <span className="text-gray-700">{highlight}</span>
+                                </div>
+                              ))}
+                            </>
+                          )}
                         </div>
-                      )}
+                        
+                        {/* CTA button */}
+                        <div className="mt-6 pt-4 border-t border-gray-200">
+                          <button 
+                            onClick={() => document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded-lg font-medium transition flex items-center justify-center"
+                          >
+                            <Calendar className="w-5 h-5 mr-2" />
+                            Book This Experience
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
