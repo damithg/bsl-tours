@@ -1,0 +1,175 @@
+{
+  "id": 8,
+  "name": "Scenic Wonders of Sri Lanka",
+  "slug": "scenic-wonders-of-sri-lanka",
+  "featured": true,
+  "summary": "A 10-day adventure through Sri Lanka’s stunning mountains, coastlines, and cultural sites.",
+  "duration": "10 days",
+  "startingFrom": 1450,
+  "currency": "USD",
+  "heroImage": {
+    "publicId": "destinations/galle-ramparts",
+    "alt": "Scenic landscape in Sri Lanka",
+    "caption": "Explore Sri Lanka’s diverse terrain",
+    "orientation": "landscape",
+    "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/destinations/galle-ramparts.jpg",
+    "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/destinations/galle-ramparts.jpg",
+    "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/destinations/galle-ramparts.jpg",
+    "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/destinations/galle-ramparts.jpg"
+  },
+  "cardImage": {
+    "publicId": "destinations/galle-ramparts",
+    "alt": "Tour cover image",
+    "caption": "A blend of nature, culture, and coast",
+    "orientation": "landscape",
+    "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/destinations/galle-ramparts.jpg",
+    "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/destinations/galle-ramparts.jpg",
+    "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/destinations/galle-ramparts.jpg",
+    "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/destinations/galle-ramparts.jpg"
+  },
+  "galleryImages": [
+    {
+      "publicId": "gallery/ella-train",
+      "alt": "Train through Ella",
+      "caption": "Iconic train ride through lush hills",
+      "orientation": "landscape",
+      "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/gallery/ella-train.jpg",
+      "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/gallery/ella-train.jpg",
+      "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/gallery/ella-train.jpg",
+      "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/gallery/ella-train.jpg"
+    },
+    {
+      "publicId": "gallery/ella-train1",
+      "alt": "test",
+      "caption": "test",
+      "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/gallery/ella-train1.jpg",
+      "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/gallery/ella-train1.jpg",
+      "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/gallery/ella-train1.jpg",
+      "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/gallery/ella-train1.jpg"
+    },
+    {
+      "publicId": "gallery/ella-train2",
+      "alt": "test",
+      "caption": "tes",
+      "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/gallery/ella-train2.jpg",
+      "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/gallery/ella-train2.jpg",
+      "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/gallery/ella-train2.jpg",
+      "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/gallery/ella-train2.jpg"
+    },
+    {
+      "publicId": "gallery/ella-train4",
+      "alt": "4",
+      "caption": "4",
+      "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/gallery/ella-train4.jpg",
+      "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/gallery/ella-train4.jpg",
+      "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/gallery/ella-train4.jpg",
+      "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/gallery/ella-train4.jpg"
+    }
+  ],
+  "itinerary": [
+    {
+      "day": 1,
+      "title": "Arrival in Colombo",
+      "description": "Meet and greet at the airport. Transfer to your hotel for a restful night.",
+      "image": {
+        "publicId": "tet",
+        "alt": "ttt",
+        "caption": "ttt",
+        "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/tet.jpg",
+        "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/tet.jpg",
+        "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/tet.jpg",
+        "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/tet.jpg"
+      }
+    },
+    {
+      "day": 2,
+      "title": "Colombo to Kandy",
+      "description": "Explore the Temple of the Tooth and enjoy a cultural performance."
+    }
+  ],
+  "inclusions": [
+    "Accommodation with breakfast",
+    "Private vehicle with driver",
+    "Entry fees to mentioned sites"
+  ],
+  "exclusions": [
+    "International airfare",
+    "Lunch and dinner",
+    "Personal expenses"
+  ],
+  "accommodationInfo": "Deluxe hotel stays throughout the journey",
+  "relatedDestinations": [
+    {
+      "name": "Kandy",
+      "slug": "kandy",
+      "image": {
+        "publicId": "destinations/kandy",
+        "alt": "View of Kandy lake",
+        "caption": "Cultural capital of Sri Lanka",
+        "orientation": "landscape",
+        "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/destinations/kandy.jpg",
+        "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/destinations/kandy.jpg",
+        "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/destinations/kandy.jpg",
+        "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/destinations/kandy.jpg"
+      }
+    }
+  ],
+  "faqs": [
+    {
+      "id": 8,
+      "question": "What type of accommodation is provided?",
+      "answer": "Deluxe and luxury hotel options based on availability."
+    }
+  ],
+  "pricingTiers": [
+    {
+      "label": "Standard",
+      "price": 1450,
+      "description": "3-star hotels and guided group tours."
+    },
+    {
+      "label": "Deluxe",
+      "price": 1950,
+      "description": "4-star hotels, private driver and premium inclusions."
+    }
+  ],
+  "optionalAddOns": [
+    {
+      "title": "Whale Watching Tour",
+      "price": 80,
+      "description": "Early morning boat ride from Mirissa"
+    }
+  ],
+  "operatedBy": "Best Sri Lanka Tours",
+  "guideProfileUrl": "https://bestsrilankatours.com/guides/john-silva",
+  "category": "Adventure",
+  "tags": [
+    "mountains",
+    "coast",
+    "UNESCO",
+    "wildlife"
+  ],
+  "departureDates": [
+    "2025-07-01T00:00:00Z",
+    "2025-08-15T00:00:00Z"
+  ],
+  "bookingWindow": "Available Year-Round",
+  "reviews": [
+    {
+      "reviewer": "Emily H.",
+      "country": "USA",
+      "comment": "An incredible trip — we loved the diversity of experiences!",
+      "rating": 5
+    }
+  ],
+  "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d...",
+  "routeOverview": "Colombo → Kandy → Nuwara Eliya → Ella → Yala → Galle → Colombo",
+  "minGroupSize": 2,
+  "maxGroupSize": 12,
+  "bookingUrl": "https://bestsrilankatours.com/book/scenic-wonders",
+  "languagesSupported": [
+    "English",
+    "French",
+    "German"
+  ]
+}

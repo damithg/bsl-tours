@@ -433,15 +433,17 @@ const EnhancedPackageDetail = () => {
       // Process image URL
       let imageUrl: string | undefined;
       if (day.image) {
-        imageUrl = day.image.medium || day.image.small || day.image.baseUrl;
+        // Handle our API's image structure with medium, small, baseUrl properties
+        if (typeof day.image === 'object' && day.image !== null) {
+          imageUrl = day.image.medium || day.image.small || day.image.large || day.image.baseUrl;
+        } else if (typeof day.image === 'string') {
+          imageUrl = day.image;
+        }
       }
       if (!imageUrl && day.imageUrl) {
         imageUrl = day.imageUrl;
       }
-      if (!imageUrl) {
-        // Fallback to a placeholder based on day number
-        imageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/itineraries/day-${day.day}.jpg`;
-      }
+      // Don't use fallback image - the VisualTimeline component has its own fallback
       
       return {
         day: day.day,
