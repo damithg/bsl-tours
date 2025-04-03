@@ -20,9 +20,9 @@ import {
   Heart,
   Info,
   Home,
-  ChevronRight,
-  DollarSign
+  ChevronRight
 } from 'lucide-react';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
 import Header from '@/components/Header';
 import AnimatedRouteMap from '@/components/AnimatedRouteMap';
@@ -78,6 +78,7 @@ const TestTourPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [activeDay, setActiveDay] = useState<number | undefined>(1);
+  const { formatPrice } = useCurrency();
 
   // Function to fetch tour data from the API
   useEffect(() => {
@@ -275,7 +276,7 @@ const TestTourPage: React.FC = () => {
                           <BookOpenText className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Starting Price</h4>
-                        <p>{tourData.currency} {tourData.startingFrom}</p>
+                        <p>{formatPrice(tourData.startingFrom, { currency: tourData.currency })}</p>
                       </div>
                     </div>
                     
