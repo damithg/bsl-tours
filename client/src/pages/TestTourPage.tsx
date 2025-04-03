@@ -156,9 +156,9 @@ const TestTourPage: React.FC = () => {
       <Header />
       
       {/* Hero Section */}
-      <div className="relative pt-24">
+      <div className="relative pt-24 z-0">
         {tourData.heroImage && (
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0">
             <img 
               src={tourData.heroImage.large || tourData.heroImage.medium || tourData.heroImage.baseUrl} 
               alt={tourData.heroImage.alt || tourData.name}
@@ -194,7 +194,7 @@ const TestTourPage: React.FC = () => {
         </div>
       </div>
       
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 -mt-16">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 mt-24 relative z-10">
         <div className="bg-white shadow-xl rounded-lg p-6 mb-8">
           
           {/* Highlights */}
