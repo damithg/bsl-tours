@@ -775,15 +775,15 @@ const EnhancedPackageDetail = () => {
             {/* Tour Tabs: Itinerary, Inclusions, Map */}
             <Tabs defaultValue="itinerary" className="mb-8">
               <TabsList className="mb-4 grid grid-cols-3 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
-                <TabsTrigger value="itinerary" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
+                <TabsTrigger key="tab-itinerary" value="itinerary" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
                   <LayoutList className="w-4 h-4 mr-2" />
                   Itinerary
                 </TabsTrigger>
-                <TabsTrigger value="inclusions" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
+                <TabsTrigger key="tab-inclusions" value="inclusions" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
                   <List className="w-4 h-4 mr-2" />
                   Inclusions
                 </TabsTrigger>
-                <TabsTrigger value="map" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
+                <TabsTrigger key="tab-map" value="map" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
                   <Map className="w-4 h-4 mr-2" />
                   Map
                 </TabsTrigger>
