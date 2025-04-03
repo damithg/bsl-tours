@@ -238,12 +238,7 @@ const EnhancedPackageDetail = () => {
   
   const tourData: TourData = parseTourData(strapiResponse);
     
-  // Debug log the JSON to see exact structure
-  if (tourData) {
-    console.log("PROCESSED TOUR DATA:", JSON.stringify(tourData, null, 2));
-  }
-    
-  console.log("PROCESSED TOUR DATA:", tourData);
+  // We'll use tourData in our useEffects
     
   // Extract itinerary data from the tour data
   const itineraryData = tourData?.itineraryDays || [];
@@ -253,39 +248,12 @@ const EnhancedPackageDetail = () => {
   // Process JSON fields when data is loaded
   useEffect(() => {
     if (tourData) {
-      console.log("Tour data received:", tourData);
-      
-      // Log the structure of tourData to help debug
-      console.log("Tour data structure check:", {
-        id: tourData.id,
-        name: tourData.name || tourData.title,
-        slug: tourData.slug,
-        imageUrl: tourData.imageUrl,
-        heroImage: tourData.heroImage,
-        galleryImages: tourData.galleryImages
-      });
-      
-      console.log("Gallery Image URL Check:", {
-        galleryImages: tourData.galleryImages,
-        isArray: tourData.galleryImages && Array.isArray(tourData.galleryImages),
-        galleryField: tourData.gallery
-      });
-      
       // Process heroImage first - this determines the main tour image
       let processedHeroImageUrl = '';
-      
-      // Direct debug of the heroImage object
-      console.log("HERO IMAGE OBJECT:", JSON.stringify(tourData.heroImage, null, 2));
-      console.log("HERO IMAGE TYPE CHECK:", {
-        exists: !!tourData.heroImage,
-        type: typeof tourData.heroImage,
-        hasPublicId: tourData.heroImage && typeof tourData.heroImage === 'object' && 'publicId' in tourData.heroImage
-      });
       
       if (tourData.heroImage) {
         if (typeof tourData.heroImage === 'object') {
           if ('publicId' in tourData.heroImage && tourData.heroImage.publicId) {
-            console.log("Using heroImage with publicId from API response:", tourData.heroImage);
             // Check for optimized URLs first
             if (tourData.heroImage.large) {
               processedHeroImageUrl = tourData.heroImage.large;
@@ -298,37 +266,28 @@ const EnhancedPackageDetail = () => {
               processedHeroImageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/${tourData.heroImage.publicId}.jpg`;
             }
             setHeroImageUrl(processedHeroImageUrl);
-            console.log("SET HERO URL TO:", processedHeroImageUrl);
           } else if ('url' in tourData.heroImage && tourData.heroImage.url) {
-            console.log("Using heroImage with url from API response:", tourData.heroImage.url);
             processedHeroImageUrl = tourData.heroImage.url;
             setHeroImageUrl(processedHeroImageUrl);
-          } else {
-            console.log("HeroImage object exists but has no publicId or url");
           }
         } else if (typeof tourData.heroImage === 'string') {
-          console.log("Using heroImage string from API response:", tourData.heroImage);
           processedHeroImageUrl = tourData.heroImage;
           setHeroImageUrl(processedHeroImageUrl);
         }
       } else if (tourData.cardImage) {
         if (typeof tourData.cardImage === 'object') {
           if (tourData.cardImage.publicId) {
-            console.log("Using cardImage as fallback for heroImage:", tourData.cardImage);
             processedHeroImageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${tourData.cardImage.publicId}.jpg`;
             setHeroImageUrl(processedHeroImageUrl);
           } else if (tourData.cardImage.url) {
-            console.log("Using cardImage url as fallback for heroImage:", tourData.cardImage);
             processedHeroImageUrl = tourData.cardImage.url;
             setHeroImageUrl(processedHeroImageUrl);
           }
         } else if (typeof tourData.cardImage === 'string') {
-          console.log("Using cardImage string as fallback for heroImage:", tourData.cardImage);
           processedHeroImageUrl = tourData.cardImage;
           setHeroImageUrl(processedHeroImageUrl);
         }
       } else if (tourData.imageUrl) {
-        console.log("Using imageUrl as fallback for hero:", tourData.imageUrl);
         processedHeroImageUrl = tourData.imageUrl;
         setHeroImageUrl(processedHeroImageUrl);
       }
@@ -338,8 +297,6 @@ const EnhancedPackageDetail = () => {
       // Handle gallery images
       // First check for galleryImages array in the API response
       if (tourData.galleryImages && Array.isArray(tourData.galleryImages)) {
-        console.log("Using galleryImages from API response:", tourData.galleryImages);
-        
         // Process gallery images - use optimized URLs from the streamlined image data
         const processedGalleryImages = tourData.galleryImages.map((image: any) => {
           if (typeof image === 'object') {
@@ -365,15 +322,12 @@ const EnhancedPackageDetail = () => {
       else if (tourData.gallery) {
         try {
           const parsedGallery = JSON.parse(tourData.gallery);
-          console.log("Parsed gallery from JSON string:", parsedGallery);
           setGalleryImages(parsedGallery);
         } catch (e) {
-          console.log("Error parsing gallery, using imageUrl as fallback");
           // Use processedHeroImageUrl (local var) as primary fallback if available
           setGalleryImages([processedHeroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
         }
       } else {
-        console.log("No gallery found, using imageUrl as fallback");
         // Use processedHeroImageUrl (local var) as primary fallback if available
         setGalleryImages([processedHeroImageUrl || tourData.imageUrl || '/images/tours/scenic-sri-lanka-hero.jpg']);
       }
@@ -431,30 +385,23 @@ const EnhancedPackageDetail = () => {
   
   // Process itinerary data directly from the API response
   useEffect(() => {
-    console.log("PROCESSING ITINERARY DATA:", tourData.itinerary);
-    
     // Check if we have a direct itinerary array from the API (format in the JSON like your example)
     if (tourData.itinerary && Array.isArray(tourData.itinerary) && tourData.itinerary.length > 0) {
-      console.log("Found ARRAY ITINERARY:", tourData.itinerary);
       setItinerary(tourData.itinerary);
     }
     // Check for itineraryDays property (some APIs might use this)
     else if (tourData?.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
-      console.log("Using itineraryDays from API response:", tourData.itineraryDays);
       setItinerary(tourData.itineraryDays);
     } 
     // Use itineraryData from separate endpoint if available
     else if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0) {
-      console.log("Using structured itinerary data from API endpoint:", itineraryData);
       setItinerary(itineraryData);
     } 
     // Try to parse itinerary if it's a string (older API format)
     else if (tourData?.itinerary && typeof tourData.itinerary === 'string') {
-      console.log("Itinerary field from tour data is a string:", tourData.itinerary);
       // Try to parse as JSON
       try {
         const parsedItinerary = JSON.parse(tourData.itinerary);
-        console.log("Parsed itinerary as JSON:", parsedItinerary);
         
         // Check if we got a valid array
         if (Array.isArray(parsedItinerary) && parsedItinerary.length > 0) {
@@ -464,8 +411,6 @@ const EnhancedPackageDetail = () => {
           throw new Error("Not a valid itinerary array");
         }
       } catch (e) {
-        console.log("Itinerary is not a JSON string, trying to parse from text format");
-        
         // Try to parse as plain text format with "Day X: Description" format
         if (tourData.itinerary.includes('Day')) {
           const lines = tourData.itinerary.split('\n');
@@ -486,21 +431,16 @@ const EnhancedPackageDetail = () => {
             }
           });
           
-          console.log("Parsed itinerary from text:", parsedItinerary);
-          
           if (parsedItinerary.length > 0) {
             setItinerary(parsedItinerary);
           } else {
-            console.log("Could not parse itinerary from text format");
             setItinerary([]);
           }
         } else {
-          console.log("Itinerary is not in expected format");
           setItinerary([]);
         }
       }
     } else {
-      console.log("No itinerary data available");
       setItinerary([]);
     }
   }, [tourData, itineraryData]);
@@ -567,9 +507,7 @@ const EnhancedPackageDetail = () => {
             (day.image?.medium) || 
             (day.image?.small) || 
             (day.image?.baseUrl) || 
-            (day.imageUrl && day.imageUrl.includes('publicId') ? 
-              JSON.parse(day.imageUrl).medium || JSON.parse(day.imageUrl).baseUrl : 
-              day.imageUrl) || 
+            (day.imageUrl) || 
             `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/itineraries/day-${day.day}.jpg`
         };
       });
@@ -601,13 +539,6 @@ const EnhancedPackageDetail = () => {
 
   // Handle image navigation
   const handleImageNav = (direction: 'prev' | 'next') => {
-    console.log("Navigating gallery images:", { 
-      direction, 
-      currentIndex: activeImageIndex, 
-      totalImages: galleryImages.length,
-      galleryImages
-    });
-    
     if (direction === 'prev') {
       setActiveImageIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
     } else {
