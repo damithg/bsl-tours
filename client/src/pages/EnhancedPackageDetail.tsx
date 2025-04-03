@@ -74,6 +74,11 @@ interface TourData {
     alt: string;
     caption: string;
     orientation: string;
+    baseUrl?: string;
+    small?: string;
+    medium?: string;
+    large?: string;
+    url?: string;
   };
   cardImage?: {
     id: number;
@@ -81,6 +86,11 @@ interface TourData {
     alt: string;
     caption: string;
     orientation: string;
+    baseUrl?: string;
+    small?: string;
+    medium?: string;
+    large?: string;
+    url?: string;
   };
   tourHighlights?: string[];
   accommodationInfo?: string;
@@ -125,6 +135,7 @@ interface APIItineraryDay {
     small?: string;
     medium?: string;
     large?: string;
+    baseUrl?: string;
   };
   activities?: Array<{
     title: string;
@@ -201,17 +212,31 @@ const EnhancedPackageDetail = () => {
     queryKey: [strapiQueryUrl],
   });
   
-  // Extract the tour data from the response
+  // Extract the tour data from the response in a type-safe way
   // Handle the response potentially being flat without a data property wrapping it
-  const tourData: TourData = strapiResponse 
-    ? (typeof strapiResponse === 'object' 
-        ? (strapiResponse.data 
-            ? (Array.isArray(strapiResponse.data) && strapiResponse.data.length > 0
-                ? strapiResponse.data[0]
-                : strapiResponse.data as TourData)
-            : strapiResponse as TourData) // Handle both wrapper and direct object
-        : {} as TourData)
-    : {} as TourData;
+  const parseTourData = (response: any): TourData => {
+    if (!response) {
+      return {} as TourData;
+    }
+    
+    // Handle various response formats
+    const responseObj = response as any;
+    
+    // Check if response has a data property (Strapi format)
+    if (responseObj.data) {
+      // Check if data is an array (collection) or single object
+      if (Array.isArray(responseObj.data)) {
+        return responseObj.data.length > 0 ? responseObj.data[0] : {} as TourData;
+      } else {
+        return responseObj.data as TourData;
+      }
+    }
+    
+    // If no data property, assume direct object format
+    return responseObj as TourData;
+  };
+  
+  const tourData: TourData = parseTourData(strapiResponse);
     
   // Debug log the JSON to see exact structure
   if (tourData) {
@@ -260,8 +285,18 @@ const EnhancedPackageDetail = () => {
       if (tourData.heroImage) {
         if (typeof tourData.heroImage === 'object') {
           if ('publicId' in tourData.heroImage && tourData.heroImage.publicId) {
-            console.log("Using heroImage with publicId from API response:", tourData.heroImage.publicId);
-            processedHeroImageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${tourData.heroImage.publicId}.jpg`;
+            console.log("Using heroImage with publicId from API response:", tourData.heroImage);
+            // Check for optimized URLs first
+            if (tourData.heroImage.large) {
+              processedHeroImageUrl = tourData.heroImage.large;
+            } else if (tourData.heroImage.medium) {
+              processedHeroImageUrl = tourData.heroImage.medium;
+            } else if (tourData.heroImage.baseUrl) {
+              processedHeroImageUrl = tourData.heroImage.baseUrl;
+            } else {
+              // Fallback to constructing URL from publicId
+              processedHeroImageUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/${tourData.heroImage.publicId}.jpg`;
+            }
             setHeroImageUrl(processedHeroImageUrl);
             console.log("SET HERO URL TO:", processedHeroImageUrl);
           } else if ('url' in tourData.heroImage && tourData.heroImage.url) {
@@ -305,10 +340,19 @@ const EnhancedPackageDetail = () => {
       if (tourData.galleryImages && Array.isArray(tourData.galleryImages)) {
         console.log("Using galleryImages from API response:", tourData.galleryImages);
         
-        // Process gallery images - convert publicId objects to Cloudinary URLs if needed
+        // Process gallery images - use optimized URLs from the streamlined image data
         const processedGalleryImages = tourData.galleryImages.map((image: any) => {
-          if (typeof image === 'object' && image.publicId) {
-            return `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${image.publicId}.jpg`;
+          if (typeof image === 'object') {
+            // Use the most appropriate size or fallback in sequence
+            if (image.large) {
+              return image.large;
+            } else if (image.medium) {
+              return image.medium;
+            } else if (image.baseUrl) {
+              return image.baseUrl;
+            } else if (image.publicId) {
+              return `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/${image.publicId}.jpg`;
+            }
           } else if (typeof image === 'string') {
             return image;
           }
@@ -518,14 +562,15 @@ const EnhancedPackageDetail = () => {
           title: day.title,
           description: enhancedDescription,
           accommodation: accommodationString,
-          // Use the image from the new API structure if it exists
+          // Use the image from the streamlined data structure
           imageUrl: 
-            (day.image?.medium ? `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${day.image.medium}.jpg` : null) || 
-            (day.image?.small ? `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${day.image.small}.jpg` : null) || 
+            (day.image?.medium) || 
+            (day.image?.small) || 
+            (day.image?.baseUrl) || 
             (day.imageUrl && day.imageUrl.includes('publicId') ? 
-              `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/${JSON.parse(day.imageUrl).publicId}.jpg` : 
+              JSON.parse(day.imageUrl).medium || JSON.parse(day.imageUrl).baseUrl : 
               day.imageUrl) || 
-            `https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583187/destinations/${day.title.toLowerCase().replace(/ /g, '-')}.jpg`
+            `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/itineraries/day-${day.day}.jpg`
         };
       });
       
