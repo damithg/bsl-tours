@@ -87,25 +87,34 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
           
           {/* Description with formatted text and better typography */}
           <div className="prose prose-lg max-w-none">
-            {description.split('\n').map((paragraph, i) => (
-              paragraph ? (
+            {description.split('\n').map((paragraph, i) => {
+              // Handle empty paragraphs
+              if (!paragraph) {
+                return <br key={`br-${i}`} />;
+              }
+              
+              // Process sentences in paragraphs more carefully
+              const sentences = paragraph.split('. ');
+              return (
                 <p key={`para-${i}`} className="text-gray-600 leading-relaxed mb-3">
-                  {paragraph.split('. ').map((sentence, j, arr) => {
-                    // Create fragment with key but no additional props
+                  {sentences.map((sentence, j) => {
+                    const isLastSentence = j === sentences.length - 1;
                     return (
-                      <React.Fragment key={`sent-${i}-${j}`}>
-                        {sentence}{j < arr.length - 1 ? '. ' : ''}
-                        {/* Add line break after key destinations or attractions */}
-                        {(sentence.includes('visit') || 
-                          sentence.includes('explore') || 
-                          sentence.includes('discover')) && 
-                          j < arr.length - 1 && <br className="hidden sm:block" />}
-                      </React.Fragment>
+                      <span key={`sent-${i}-${j}`}>
+                        {sentence}
+                        {!isLastSentence && '. '}
+                        {!isLastSentence && 
+                          (sentence.includes('visit') || 
+                           sentence.includes('explore') || 
+                           sentence.includes('discover')) && (
+                          <br className="hidden sm:block" />
+                        )}
+                      </span>
                     );
                   })}
                 </p>
-              ) : <br key={`br-${i}`} />
-            ))}
+              );
+            })}
           </div>
           
           {/* Visual elements at the bottom */}
