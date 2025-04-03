@@ -75,12 +75,21 @@ interface TourData {
   }[];
 }
 
-const TestTourPage: React.FC = () => {
+interface TestTourPageProps {
+  params?: {
+    slug?: string;
+  };
+}
+
+const TestTourPage: React.FC<TestTourPageProps> = ({ params }) => {
   const [tourData, setTourData] = useState<TourData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [activeDay, setActiveDay] = useState<number | undefined>(1);
   const { formatPrice } = useCurrency();
+  
+  // Get the slug from the URL params or use a default if not available
+  const tourSlug = params?.slug || 'scenic-wonders-of-sri-lanka';
 
   // Function to fetch tour data from the API
   useEffect(() => {
@@ -89,7 +98,7 @@ const TestTourPage: React.FC = () => {
         setLoading(true);
         
         // Call the API endpoint with the full Azure URL and CORS headers
-        const response = await fetch('https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours/scenic-wonders-of-sri-lanka', {
+        const response = await fetch(`https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours/${tourSlug}`, {
           headers: {
             'Accept': 'application/json',
             'Origin': window.location.origin
@@ -113,7 +122,7 @@ const TestTourPage: React.FC = () => {
     };
 
     fetchTourData();
-  }, []);
+  }, [tourSlug]);
 
   // Show loading state
   if (loading) {
@@ -160,8 +169,6 @@ const TestTourPage: React.FC = () => {
   // Show actual tour data
   return (
     <div>
-      {/* Header */}
-      <Header />
       
       {/* Hero Section */}
       <section className="relative h-[600px]">

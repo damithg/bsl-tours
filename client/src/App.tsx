@@ -33,7 +33,9 @@ function Router() {
         
         {/* Tour routes */}
         <Route path="/tours" component={TourPackages} />
-        <Route path="/tours/:slug" component={EnhancedPackageDetail} />
+        <Route path="/tours/:slug">
+          {(params) => <TestTourPage params={params} />}
+        </Route>
         
         {/* Legacy routes (to be eventually removed) */}
         <Route path="/packages" component={TourPackages} />
@@ -42,7 +44,14 @@ function Router() {
         <Route path="/tour-packages/:id" component={EnhancedPackageDetail} />
         
         {/* Slug-based route for tours (older structure) */}
-        <Route path="/tour/:slug" component={EnhancedPackageDetail} />
+        <Route path="/tour/:slug">
+          {(params) => <TestTourPage params={params} />}
+        </Route>
+        
+        {/* Test page for development */}
+        <Route path="/test-tour">
+          {() => <TestTourPage />}
+        </Route>
         
         {/* Destination routes */}
         <Route path="/destinations" component={Destinations} />
@@ -58,7 +67,6 @@ function Router() {
         <Route path="/asymmetrical-gallery" component={AsymmetricalGalleryTest} />
         <Route path="/api-gallery-test" component={ApiGalleryTest} />
         <Route path="/sigiriya-template" component={SigiriyaTemplate} />
-        <Route path="/test-tour" component={TestTourPage} />
         <Route component={NotFound} />
       </Switch>
       <Footer />
