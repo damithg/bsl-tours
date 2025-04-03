@@ -200,7 +200,9 @@ const TestTourPage: React.FC = () => {
           
           <div className="max-w-3xl">
             <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-4">{tourData.name}</h1>
-            <p className="text-xl text-white/90 mb-6">{tourData.heroImage?.caption || tourData.summary}</p>
+            {tourData.heroImage?.caption && (
+              <p className="text-xl text-white/90 mb-6">{tourData.heroImage.caption}</p>
+            )}
             
             <div className="flex flex-wrap gap-4 mb-8">
               <span className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm">
