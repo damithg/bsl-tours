@@ -772,7 +772,7 @@ const EnhancedPackageDetail = () => {
               </h2>
               <ul className="grid md:grid-cols-2 gap-3">
                 {(tourData.tourHighlights || tourHighlights).map((highlight, index) => (
-                  <li key={index} className="flex items-start">
+                  <li key={`highlight-${highlight.substring(0, 15)}-${index}`} className="flex items-start">
                     <Check className="w-5 h-5 text-primary/80 mr-2 mt-1" />
                     <span>{highlight}</span>
                   </li>
@@ -822,7 +822,7 @@ const EnhancedPackageDetail = () => {
                     </h3>
                     <ul className="space-y-2">
                       {includesItems.map((item, index) => (
-                        <li key={index} className="flex items-start">
+                        <li key={`inclusion-${item.substring(0, 15)}-${index}`} className="flex items-start">
                           <Check className="w-4 h-4 text-green-600 mr-2 mt-1" />
                           <span>{item}</span>
                         </li>
@@ -838,7 +838,7 @@ const EnhancedPackageDetail = () => {
                     </h3>
                     <ul className="space-y-2">
                       {excludesItems.map((item, index) => (
-                        <li key={index} className="flex items-start">
+                        <li key={`exclusion-${item.substring(0, 15)}-${index}`} className="flex items-start">
                           <X className="w-4 h-4 text-red-500 mr-2 mt-1" />
                           <span>{item}</span>
                         </li>
