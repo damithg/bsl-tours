@@ -335,7 +335,7 @@ const FeaturedPackages = () => {
                           ({reviews.length || 0} {reviews.length === 1 ? 'review' : 'reviews'})
                         </span>
                       </div>
-                      <p className="text-[#333333]/70 mb-4">{tour.summary}</p>
+                      <p className="text-[#333333]/70 mb-4">{tour.cardImage?.caption || tour.summary}</p>
                       <div className="flex justify-between items-center">
                         <div>
                           <span className="text-sm text-gray-500">From</span>
