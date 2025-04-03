@@ -430,20 +430,28 @@ const EnhancedPackageDetail = () => {
         fullDescription += meals.length > 0 ? meals.join(', ') : 'No meals included';
       }
       
-      // Process image URL
+      // Process image URL - specifically extract medium from image object 
       let imageUrl: string | undefined;
-      if (day.image) {
-        // Handle our API's image structure with medium, small, baseUrl properties
-        if (typeof day.image === 'object' && day.image !== null) {
-          imageUrl = day.image.medium || day.image.small || day.image.large || day.image.baseUrl;
-        } else if (typeof day.image === 'string') {
-          imageUrl = day.image;
+      
+      // First priority: Extract from image object structure following your exact itinerary example
+      if (day.image && typeof day.image === 'object' && day.image !== null) {
+        // Get the medium URL as the preferred size
+        imageUrl = day.image.medium;
+        // If medium is not available, fall back to other sizes
+        if (!imageUrl) {
+          imageUrl = day.image.large || day.image.small || day.image.baseUrl;
         }
+        
+        console.log(`Day ${day.day} image found:`, imageUrl);
+      } 
+      // Second priority: If image is a direct string
+      else if (day.image && typeof day.image === 'string') {
+        imageUrl = day.image;
       }
-      if (!imageUrl && day.imageUrl) {
+      // Third priority: If there's an imageUrl property
+      else if (day.imageUrl) {
         imageUrl = day.imageUrl;
       }
-      // Don't use fallback image - the VisualTimeline component has its own fallback
       
       return {
         day: day.day,
