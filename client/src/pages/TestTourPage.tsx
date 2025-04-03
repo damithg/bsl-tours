@@ -18,6 +18,7 @@ import {
   Hotel,
   Phone,
   Heart,
+  Info,
   Home,
   ChevronRight
 } from 'lucide-react';
@@ -236,7 +237,7 @@ const TestTourPage: React.FC = () => {
           {/* Left Column - Main Content */}
           <div className="lg:w-8/12">
             <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
-              {/* Highlights */}
+              {/* Quick Highlights - Positioned as tags above tabs for scanning */}
               {tourData.highlights && tourData.highlights.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-6">
                   {tourData.highlights.map((highlight, index) => (
@@ -246,15 +247,13 @@ const TestTourPage: React.FC = () => {
                   ))}
                 </div>
               )}
-                    
-              {/* Tour Summary */}
-              <p className="text-gray-700 mb-6">{tourData.summary}</p>
               
-              {/* Tour Tabs: Itinerary, Inclusions, Gallery, Map */}
+              {/* Tour Tabs: Overview, Itinerary, Inclusions, Gallery, Map */}
               <div className="mb-8">
-                <Tabs defaultValue="itinerary" className="w-full">
-                  <TabsList className="mb-4 grid grid-cols-4 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
+                <Tabs defaultValue="overview" className="w-full">
+                  <TabsList className="mb-4 grid grid-cols-5 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
                     {[
+                      { id: "overview", label: "Overview", icon: <Info className="w-4 h-4 mr-2" /> },
                       { id: "itinerary", label: "Itinerary", icon: <LayoutList className="w-4 h-4 mr-2" /> },
                       { id: "inclusions", label: "Inclusions", icon: <List className="w-4 h-4 mr-2" /> },
                       { id: "gallery", label: "Gallery", icon: <ImageIcon className="w-4 h-4 mr-2" /> },
@@ -271,6 +270,36 @@ const TestTourPage: React.FC = () => {
                     ))}
                   </TabsList>
                 
+                  {/* Overview Tab Content */}
+                  <TabsContent value="overview" className="mt-0">
+                    <div className="bg-white shadow-md rounded-lg p-6 mb-4">
+                      <h2 className="text-xl font-bold mb-4 flex items-center">
+                        <Info className="w-5 h-5 mr-2 text-primary" />
+                        Tour Overview
+                      </h2>
+                      <p className="text-gray-700 mb-6">{tourData.summary}</p>
+                      
+                      {tourData.highlights && tourData.highlights.length > 0 && (
+                        <div className="mb-6">
+                          <h3 className="text-lg font-semibold mb-3">Tour Highlights</h3>
+                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {tourData.highlights.map((highlight, index) => (
+                              <li key={`highlight-list-${index}`} className="flex items-start">
+                                <Check className="w-4 h-4 text-primary mr-2 mt-1" />
+                                <span className="text-gray-700">{highlight}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      
+                      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                        <h3 className="text-lg font-semibold text-blue-800 mb-2">Why Choose This Tour</h3>
+                        <p className="text-blue-800">Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.</p>
+                      </div>
+                    </div>
+                  </TabsContent>
+                  
                   {/* Itinerary Tab Content */}
                   <TabsContent value="itinerary" className="mt-0">
                     <div className="mb-6 flex overflow-x-auto space-x-2 pb-2">
@@ -419,13 +448,26 @@ const TestTourPage: React.FC = () => {
                 </Tabs>
               </div>
               
-              {/* Raw JSON Data for Debugging */}
-              <div className="mt-12 border-t pt-8">
-                <h2 className="text-2xl font-bold mb-4">Raw API Response (For Debugging)</h2>
-                <pre className="bg-gray-100 p-4 rounded overflow-auto text-xs">
-                  {JSON.stringify(tourData, null, 2)}
-                </pre>
+              {/* Contact Form Section */}
+              <div id="contact-form-container" className="mt-12 border-t pt-8">
+                <h2 className="text-2xl font-bold mb-4">Book This Tour</h2>
+                <p className="text-gray-600 mb-6">Fill out the form below and our travel experts will get back to you within 24 hours with a customized itinerary and quote.</p>
+                
+                <ContactForm 
+                  tourName={tourData.name}
+                  prefilledMessage={`I'm interested in the "${tourData.name}" tour package. Please provide more information about availability and pricing.`}
+                />
               </div>
+              
+              {/* Raw JSON Data for Debugging - Hidden in production */}
+              {process.env.NODE_ENV === 'development' && (
+                <div className="mt-12 border-t pt-8">
+                  <h2 className="text-2xl font-bold mb-4">Raw API Response (For Debugging)</h2>
+                  <pre className="bg-gray-100 p-4 rounded overflow-auto text-xs">
+                    {JSON.stringify(tourData, null, 2)}
+                  </pre>
+                </div>
+              )}
             </div>
           </div>
           
@@ -471,12 +513,18 @@ const TestTourPage: React.FC = () => {
                   </div>
                 </div>
                 
-                <button className="w-full bg-[#D4AF37] hover:bg-[#C8A52E] text-white py-3 rounded-md font-medium transition mb-4">
+                <button 
+                  onClick={() => document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="w-full bg-[#D4AF37] hover:bg-[#C8A52E] text-white py-3 rounded-md font-medium transition mb-4"
+                >
                   Book Now
                 </button>
                 
                 <div className="text-center">
-                  <button className="text-sm text-primary hover:underline">
+                  <button 
+                    onClick={() => document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="text-sm text-primary hover:underline"
+                  >
                     Request Custom Quote
                   </button>
                 </div>
