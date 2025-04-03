@@ -248,31 +248,59 @@ const TestTourPage: React.FC = () => {
                 </div>
               )}
               
-              {/* Tour Overview Outside Tabs - More Prominent */}
-              <div className="mb-8 bg-white shadow-lg rounded-lg p-6 border-l-4 border-primary">
-                <h2 className="text-2xl font-bold mb-4 flex items-center text-primary">
-                  <Info className="w-6 h-6 mr-2" />
-                  Tour Overview
-                </h2>
-                <p className="text-gray-700 mb-6 text-lg">{tourData.summary}</p>
+              {/* Modern Tour Overview Section */}
+              <div className="mb-12 relative overflow-hidden">
+                {/* Decorative elements */}
+                <div className="absolute w-32 h-32 -top-10 -left-10 bg-primary/10 rounded-full"></div>
+                <div className="absolute w-20 h-20 -bottom-6 right-20 bg-yellow-400/10 rounded-full"></div>
                 
-                {tourData.highlights && tourData.highlights.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold mb-4">Tour Highlights</h3>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {tourData.highlights.map((highlight, index) => (
-                        <li key={`highlight-list-${index}`} className="flex items-start">
-                          <Check className="w-5 h-5 text-primary mr-2 mt-1 flex-shrink-0" />
-                          <span className="text-gray-700">{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
+                {/* Main content with modern layout */}
+                <div className="relative bg-white rounded-xl shadow-lg overflow-hidden">
+                  {/* Top accent bar */}
+                  <div className="h-2 bg-gradient-to-r from-primary to-blue-400"></div>
+                  
+                  {/* Content section */}
+                  <div className="p-8">
+                    <h2 className="text-3xl font-bold mb-6 flex items-center text-gray-800">
+                      <span className="text-primary border-b-2 border-primary pb-1">Tour Overview</span>
+                    </h2>
+                    <p className="text-gray-700 mb-8 text-lg leading-relaxed">{tourData.summary}</p>
+                    
+                    {/* Why Choose section */}
+                    <div className="mb-10 p-6 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg">
+                      <h3 className="text-xl font-semibold text-blue-900 mb-3 flex items-center">
+                        <Heart className="w-5 h-5 mr-2 text-blue-600" />
+                        Why Choose This Tour
+                      </h3>
+                      <p className="text-blue-800 leading-relaxed">
+                        Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.
+                      </p>
+                    </div>
+                    
+                    {/* Highlights in modern card layout */}
+                    {tourData.highlights && tourData.highlights.length > 0 && (
+                      <div>
+                        <h3 className="text-2xl font-semibold mb-5 flex items-center">
+                          <span className="h-6 w-1.5 bg-primary rounded-full mr-2"></span>
+                          Tour Highlights
+                        </h3>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {tourData.highlights.map((highlight, index) => (
+                            <div 
+                              key={`highlight-card-${index}`} 
+                              className="bg-gray-50 hover:bg-gray-100 p-4 rounded-lg border border-gray-100 transition-all duration-300 flex items-start group"
+                            >
+                              <div className="bg-primary/10 rounded-full p-2 mr-3 group-hover:bg-primary/20 transition-all duration-300">
+                                <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                              </div>
+                              <span className="text-gray-700">{highlight}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-                
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-5 rounded">
-                  <h3 className="text-lg font-semibold text-blue-800 mb-2">Why Choose This Tour</h3>
-                  <p className="text-blue-800">Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.</p>
                 </div>
               </div>
               
