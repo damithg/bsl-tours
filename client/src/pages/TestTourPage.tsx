@@ -248,58 +248,110 @@ const TestTourPage: React.FC = () => {
                 </div>
               )}
               
-              {/* Modern Tour Overview Section */}
-              <div className="mb-12 relative overflow-hidden">
-                {/* Decorative elements */}
-                <div className="absolute w-32 h-32 -top-10 -left-10 bg-primary/10 rounded-full"></div>
-                <div className="absolute w-20 h-20 -bottom-6 right-20 bg-yellow-400/10 rounded-full"></div>
+              {/* Premium Luxury Tour Overview Section */}
+              <div className="mb-16 relative">
+                {/* Background decorative elements */}
+                <div className="absolute w-64 h-64 -top-12 -right-12 bg-primary/5 rounded-full blur-xl"></div>
+                <div className="absolute w-48 h-48 bottom-0 -left-12 bg-yellow-400/5 rounded-full blur-xl"></div>
+                <div className="absolute hidden md:block h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-blue-400/30 left-0 top-0 rounded-full"></div>
                 
-                {/* Main content with modern layout */}
-                <div className="relative bg-white rounded-xl shadow-lg overflow-hidden">
-                  {/* Top accent bar */}
-                  <div className="h-2 bg-gradient-to-r from-primary to-blue-400"></div>
-                  
-                  {/* Content section */}
-                  <div className="p-8">
-                    <h2 className="text-3xl font-bold mb-6 flex items-center text-gray-800">
-                      <span className="text-primary border-b-2 border-primary pb-1">Tour Overview</span>
-                    </h2>
-                    <p className="text-gray-700 mb-8 text-lg leading-relaxed">{tourData.summary}</p>
-                    
-                    {/* Why Choose section */}
-                    <div className="mb-10 p-6 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg">
-                      <h3 className="text-xl font-semibold text-blue-900 mb-3 flex items-center">
-                        <Heart className="w-5 h-5 mr-2 text-blue-600" />
-                        Why Choose This Tour
-                      </h3>
-                      <p className="text-blue-800 leading-relaxed">
-                        Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.
-                      </p>
+                <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                  {/* Header section with visual impact */}
+                  <div className="relative h-32 bg-gradient-to-r from-primary/90 to-blue-600/90 flex items-end">
+                    <div className="absolute inset-0 opacity-20">
+                      <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="url(#overviewPattern)" />
+                      </svg>
+                      <defs>
+                        <pattern id="overviewPattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                          <path d="M0,10 L10,0" stroke="white" strokeWidth="0.5" />
+                        </pattern>
+                      </defs>
                     </div>
-                    
-                    {/* Highlights in modern card layout */}
-                    {tourData.highlights && tourData.highlights.length > 0 && (
-                      <div>
-                        <h3 className="text-2xl font-semibold mb-5 flex items-center">
-                          <span className="h-6 w-1.5 bg-primary rounded-full mr-2"></span>
-                          Tour Highlights
-                        </h3>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {tourData.highlights.map((highlight, index) => (
-                            <div 
-                              key={`highlight-card-${index}`} 
-                              className="bg-gray-50 hover:bg-gray-100 p-4 rounded-lg border border-gray-100 transition-all duration-300 flex items-start group"
-                            >
-                              <div className="bg-primary/10 rounded-full p-2 mr-3 group-hover:bg-primary/20 transition-all duration-300">
-                                <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                              </div>
-                              <span className="text-gray-700">{highlight}</span>
-                            </div>
-                          ))}
+                    <div className="container mx-auto px-6 pb-6">
+                      <div className="flex items-center">
+                        <Info className="w-8 h-8 text-white mr-4" />
+                        <h2 className="text-3xl font-bold text-white font-['Playfair_Display']">
+                          Tour Overview
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content section with improved layout */}
+                  <div className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-12 gap-8">
+                    {/* Main summary section */}
+                    <div className="md:col-span-7">
+                      <div className="prose prose-lg max-w-none mb-8">
+                        <p className="text-gray-700 text-lg leading-relaxed">{tourData.summary}</p>
+                      </div>
+                      
+                      {/* Visual features section */}
+                      <div className="grid grid-cols-2 gap-4 mb-8">
+                        <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                          <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                            <Calendar className="w-6 h-6" />
+                          </div>
+                          <h4 className="font-semibold mb-1">Duration</h4>
+                          <p>{tourData.duration}</p>
+                        </div>
+                        <div className="bg-primary/5 rounded-lg p-4 flex flex-col items-center text-center">
+                          <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                            <Heart className="w-6 h-6" />
+                          </div>
+                          <h4 className="font-semibold mb-1">Tour Type</h4>
+                          <p>Private Luxury Tour</p>
                         </div>
                       </div>
-                    )}
+                      
+                      {/* Why Choose section with improved design */}
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-l-4 border-blue-500 shadow-sm">
+                        <h3 className="text-xl font-semibold text-blue-900 mb-3 flex items-center">
+                          <Heart className="w-5 h-5 mr-2 text-blue-600" />
+                          Why Choose This Tour
+                        </h3>
+                        <p className="text-blue-800 leading-relaxed">
+                          Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Highlights in enhanced premium card layout */}
+                    <div className="md:col-span-5">
+                      {tourData.highlights && tourData.highlights.length > 0 && (
+                        <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                          <h3 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200 flex items-center">
+                            <Check className="w-5 h-5 text-primary mr-2" />
+                            Tour Highlights
+                          </h3>
+                          
+                          <div className="space-y-3">
+                            {tourData.highlights.map((highlight, index) => (
+                              <div 
+                                key={`highlight-premium-${index}`} 
+                                className="flex items-start group"
+                              >
+                                <div className="bg-primary/10 rounded-full p-1.5 mr-3 group-hover:bg-primary/20 transition-all duration-300 mt-0.5">
+                                  <Check className="w-3 h-3 text-primary flex-shrink-0" />
+                                </div>
+                                <span className="text-gray-700">{highlight}</span>
+                              </div>
+                            ))}
+                          </div>
+                          
+                          {/* CTA button */}
+                          <div className="mt-6 pt-4 border-t border-gray-200">
+                            <button 
+                              onClick={() => document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth' })}
+                              className="w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded-lg font-medium transition flex items-center justify-center"
+                            >
+                              <Calendar className="w-5 h-5 mr-2" />
+                              Book This Experience
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
