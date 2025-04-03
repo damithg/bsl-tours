@@ -45,7 +45,7 @@ const VisualTimeline: React.FC<VisualTimelineProps> = ({ data, className }) => {
                     <div className="w-full overflow-hidden rounded-lg border border-gray-100 shadow-lg hover:shadow-xl transition-shadow duration-300">
                       <div className="aspect-w-4 aspect-h-3">
                         <img 
-                          src={day.imageUrl || `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/itineraries/day-${day.day}.jpg`}
+                          src={day.imageUrl || `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/destinations/galle-ramparts.jpg`}
                           alt={day.title || `Day ${day.day}`} 
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                           width="400"
@@ -53,7 +53,7 @@ const VisualTimeline: React.FC<VisualTimelineProps> = ({ data, className }) => {
                           loading="lazy"
                           onError={(e) => {
                             // Fallback if the image fails to load
-                            e.currentTarget.src = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/destinations/default-day.jpg`;
+                            e.currentTarget.src = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/gallery/ella-train.jpg`;
                           }}
                         />
                       </div>

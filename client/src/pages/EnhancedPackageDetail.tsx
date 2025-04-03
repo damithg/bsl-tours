@@ -383,22 +383,29 @@ const EnhancedPackageDetail = () => {
     }
   }, [tourData]);
   
-  // Process itinerary data directly from the API response
+  // Process itinerary data directly from the API response, runs only when tour data changes
   useEffect(() => {
-    // Check if we have a direct itinerary array from the API (format in the JSON like your example)
+    // Skip processing if no tour data
+    if (!tourData) return;
+    
+    // Initialize a variable to track if we've set the itinerary in this run
+    let itinerarySet = false;
+    
+    // Check if we have a direct itinerary array from the API
     if (tourData.itinerary && Array.isArray(tourData.itinerary) && tourData.itinerary.length > 0) {
       setItinerary(tourData.itinerary);
+      itinerarySet = true;
     }
     // Check for itineraryDays property (some APIs might use this)
-    else if (tourData?.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
+    else if (tourData.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
       setItinerary(tourData.itineraryDays);
+      itinerarySet = true;
     } 
-    // Use itineraryData from separate endpoint if available
-    else if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0) {
-      setItinerary(itineraryData);
-    } 
+    // Skip the itineraryData check in this useEffect to prevent dependency cycles
+    // The itineraryData part is handled in a separate useEffect below
+    
     // Try to parse itinerary if it's a string (older API format)
-    else if (tourData?.itinerary && typeof tourData.itinerary === 'string') {
+    else if (tourData.itinerary && typeof tourData.itinerary === 'string' && !itinerarySet) {
       // Try to parse as JSON
       try {
         const parsedItinerary = JSON.parse(tourData.itinerary);
@@ -406,6 +413,7 @@ const EnhancedPackageDetail = () => {
         // Check if we got a valid array
         if (Array.isArray(parsedItinerary) && parsedItinerary.length > 0) {
           setItinerary(parsedItinerary);
+          itinerarySet = true;
         } else {
           // Not a valid array, fall through to next parsing option
           throw new Error("Not a valid itinerary array");
@@ -433,17 +441,25 @@ const EnhancedPackageDetail = () => {
           
           if (parsedItinerary.length > 0) {
             setItinerary(parsedItinerary);
-          } else {
-            setItinerary([]);
+            itinerarySet = true;
           }
-        } else {
-          setItinerary([]);
         }
       }
-    } else {
+    }
+    
+    // Only set empty itinerary if no other method worked
+    if (!itinerarySet) {
       setItinerary([]);
     }
-  }, [tourData, itineraryData]);
+  }, [tourData]); // Remove itineraryData from dependencies
+  
+  // Separate effect to handle itineraryData changes
+  useEffect(() => {
+    // Only run this if we have itineraryData and we don't already have an itinerary
+    if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0 && itinerary.length === 0) {
+      setItinerary(itineraryData);
+    }
+  }, [itineraryData, itinerary.length]);
 
   // Transform itinerary data into visual timeline format when itinerary changes
   useEffect(() => {
