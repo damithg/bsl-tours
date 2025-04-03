@@ -256,48 +256,32 @@ const TestTourPage: React.FC = () => {
                 <div className="absolute hidden md:block h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-blue-400/30 left-0 top-0 rounded-full"></div>
                 
                 <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-                  {/* Header section with visual impact */}
-                  <div className="relative h-32 bg-gradient-to-r from-primary/90 to-blue-600/90 flex items-end" 
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,20 L20,0' stroke='white' stroke-width='0.5' stroke-opacity='0.2'/%3E%3C/svg%3E")`,
-                      backgroundSize: '20px 20px'
-                    }}>
-                    <div className="container mx-auto px-6 pb-6 relative z-10">
-                      <div className="flex items-center">
-                        <Info className="w-8 h-8 text-white mr-4" />
-                        <h2 className="text-3xl font-bold text-white font-['Playfair_Display']">
-                          Tour Overview
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Feature icons section - positioned to overlap with header */}
-                  <div className="px-6 md:px-10">
+                  {/* Feature icons section in a 4-column grid */}
+                  <div className="px-6 md:px-10 pt-6">
                     {/* Visual features section in a 4-column grid - No borders */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 -mt-10">
-                      <div className="bg-white shadow-sm p-4 flex flex-col items-center text-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+                      <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Calendar className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Duration</h4>
                         <p>{tourData.duration}</p>
                       </div>
-                      <div className="bg-white shadow-sm p-4 flex flex-col items-center text-center">
+                      <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Heart className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Tour Type</h4>
                         <p>Private Luxury</p>
                       </div>
-                      <div className="bg-white shadow-sm p-4 flex flex-col items-center text-center">
+                      <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Hotel className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Accommodation</h4>
                         <p>Luxury Hotels</p>
                       </div>
-                      <div className="bg-white shadow-sm p-4 flex flex-col items-center text-center">
+                      <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
                           <Map className="w-6 h-6" />
                         </div>
