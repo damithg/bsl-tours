@@ -28,6 +28,7 @@ import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
 import Header from '@/components/Header';
 import AnimatedRouteMap from '@/components/AnimatedRouteMap';
 import ContactForm from '@/components/ContactForm';
+import EnhancedItineraryItem from '@/components/EnhancedItineraryItem';
 
 // Type definition for our tour data
 interface TourImage {
@@ -405,124 +406,14 @@ const TestTourPage: React.FC = () => {
                     </div>
                     
                     {tourData.itinerary.map((day) => (
-                      <div 
-                        key={day.day} 
-                        className={`bg-white shadow-xl rounded-xl overflow-hidden mb-8 transform transition-all duration-300 ${activeDay === day.day ? 'scale-100 opacity-100' : 'scale-95 opacity-0 hidden'}`}
-                      >
-                        {/* Enhanced layout with side-by-side or top-bottom based on screen size */}
-                        <div className="md:flex">
-                          {/* Image Section - Left side on desktop, top on mobile */}
-                          {day.image && (
-                            <div className="md:w-1/2 relative overflow-hidden">
-                              <div className="relative h-full">
-                                {/* Background blur effect */}
-                                <div className="absolute inset-0 blur-sm scale-110 opacity-20" 
-                                  style={{
-                                    backgroundImage: `url(${day.image.medium || day.image.large || day.image.small || day.image.baseUrl})`,
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center'
-                                  }}
-                                ></div>
-                                
-                                {/* Main image */}
-                                <img 
-                                  src={day.image.medium || day.image.large || day.image.small || day.image.baseUrl} 
-                                  alt={day.image.alt || day.title}
-                                  className="w-full h-full object-cover object-center relative z-10 aspect-[4/3]"
-                                />
-                                
-                                {/* Day badge */}
-                                <div className="absolute top-4 left-4 z-20 bg-white/90 text-primary shadow-lg rounded-full w-14 h-14 flex items-center justify-center backdrop-blur-sm border border-primary/20">
-                                  <div className="text-center">
-                                    <div className="text-xs font-semibold uppercase">Day</div>
-                                    <div className="text-xl font-bold">{day.day}</div>
-                                  </div>
-                                </div>
-                                
-                                {/* Caption */}
-                                {day.image.caption && (
-                                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-black/0 text-white p-4 pt-8 text-sm font-medium">
-                                    {day.image.caption}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          )}
-                          
-                          {/* Content Section - Right side on desktop, bottom on mobile */}
-                          <div className={`${day.image ? 'md:w-1/2' : 'w-full'} p-6 md:p-8 flex flex-col ${!day.image && 'md:min-h-[300px]'}`}>
-                            {/* Decorative dot pattern in the corner */}
-                            <div className="absolute top-6 right-6 opacity-10 pointer-events-none">
-                              <div className="flex space-x-1">
-                                {[...Array(3)].map((_, i) => (
-                                  <div key={i} className="flex flex-col space-y-1">
-                                    {[...Array(3)].map((_, j) => (
-                                      <div key={j} className="w-1 h-1 rounded-full bg-primary"></div>
-                                    ))}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                            
-                            {/* Title with enhanced styling */}
-                            <div className="relative">
-                              <h3 className="text-2xl font-bold mb-4 pr-8 font-['Playfair_Display'] text-gray-800">
-                                {day.title}
-                              </h3>
-                              {!day.image && (
-                                <div className="absolute -top-1 -left-10 bg-primary/10 text-primary rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold">
-                                  {day.day}
-                                </div>
-                              )}
-                            </div>
-                            
-                            {/* Description with formatted text and better typography */}
-                            <div className="prose prose-lg max-w-none mt-2">
-                              {day.description.split('\n').map((paragraph, i) => (
-                                paragraph ? (
-                                  <p key={`para-${i}`} className="text-gray-600 leading-relaxed mb-3">
-                                    {paragraph.split('. ').map((sentence, j, arr) => (
-                                      <React.Fragment key={`sent-${i}-${j}`}>
-                                        {sentence}{j < arr.length - 1 ? '. ' : ''}
-                                        {/* Add line break after key destinations or attractions */}
-                                        {(sentence.includes('visit') || 
-                                          sentence.includes('explore') || 
-                                          sentence.includes('discover')) && 
-                                          j < arr.length - 1 && <br className="hidden sm:block" />}
-                                      </React.Fragment>
-                                    ))}
-                                  </p>
-                                ) : <br key={`br-${i}`} />
-                              ))}
-                            </div>
-                            
-                            {/* Visual elements at the bottom */}
-                            <div className="mt-auto pt-6">
-                              <div className="w-16 h-1 bg-primary/30 rounded-full mb-4"></div>
-                              
-                              {/* Locations */}
-                              <div className="space-y-3">
-                                <h4 className="text-sm font-semibold text-gray-700 flex items-center">
-                                  <MapPin className="w-4 h-4 mr-2 text-primary" />
-                                  <span>Key Locations on Day {day.day}</span>
-                                </h4>
-                                
-                                {/* Extract and highlight likely locations from the description */}
-                                <div className="flex flex-wrap gap-2">
-                                  {day.description.match(/([A-Z][a-z]+ ?(?:[A-Z][a-z]+)?)(?: National Park| Temple| Fort| Beach| Museum| Gardens| Estate| Lake| Rock| Peak| Falls| Ancient City| Village)/g)?.map((location, i) => (
-                                    <div key={`location-${i}`} className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-primary/10 text-primary/90 border border-primary/20">
-                                      <MapPin className="w-3 h-3 mr-1" />
-                                      {location}
-                                    </div>
-                                  )) || (
-                                    <div className="text-sm text-gray-500 italic">Explore Sri Lanka's beautiful scenery and culture</div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <EnhancedItineraryItem
+                        key={day.day}
+                        day={day.day}
+                        title={day.title}
+                        description={day.description}
+                        image={day.image}
+                        isActive={activeDay === day.day}
+                      />
                     ))}
                   </TabsContent>
                   
