@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -157,14 +157,7 @@ const EnhancedPackageDetail = () => {
   const id = params.id;      // Also support ID parameter for backward compatibility
   
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [galleryImages, setGalleryImages] = useState<string[]>([]);
-  const [heroImageUrl, setHeroImageUrl] = useState<string>('');
-  const [includes, setIncludes] = useState<string[]>([]);
-  const [excludes, setExcludes] = useState<string[]>([]);
-  const [destinations, setDestinations] = useState<string[]>([]);
-  const [itinerary, setItinerary] = useState<APIItineraryDay[]>([]);
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [timelineData, setTimelineData] = useState<TimelineDayData[]>([]);
   
   // Review form state
   const [reviewName, setReviewName] = useState('');
@@ -176,7 +169,7 @@ const EnhancedPackageDetail = () => {
   // Get currency formatter
   const { formatPrice } = useCurrency();
 
-  // Use the Azure-hosted .NET API for tour details
+  // Use the Azure-hosted .NET API for tour details - single API endpoint with all data
   const apiBaseUrl = 'https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours';
   
   // Build the right query based on slug or id
@@ -184,7 +177,7 @@ const EnhancedPackageDetail = () => {
     ? `${apiBaseUrl}/${slug}`
     : `${apiBaseUrl}/${id}`;
     
-  // Fetch tour data with proper caching and stable query key
+  // Fetch tour data - all data comes from a single API request
   const { 
     data: tourData, 
     isLoading: isTourLoading, 
@@ -204,46 +197,41 @@ const EnhancedPackageDetail = () => {
     retry: 1, // Limit retries to prevent excessive requests
   });
   
-  const isItineraryLoading = isTourLoading;
-  const itineraryError = null;
-  
-  // Process main tour data when loaded
-  useEffect(() => {
-    if (!tourData) return;
-
-    // Process hero image URL
-    let heroUrl = '';
+  // Process gallery images
+  const galleryImages = React.useMemo(() => {
+    if (!tourData) return [];
+    
+    const images: string[] = [];
+    let heroImageUrl = '';
+    
+    // Process hero image first for fallback
     if (tourData.heroImage) {
       if (typeof tourData.heroImage === 'object') {
-        heroUrl = 
+        heroImageUrl = 
           tourData.heroImage.large || 
           tourData.heroImage.medium || 
           tourData.heroImage.small || 
           tourData.heroImage.baseUrl || 
           (tourData.heroImage.publicId ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${tourData.heroImage.publicId}.jpg` : '');
       } else if (typeof tourData.heroImage === 'string') {
-        heroUrl = tourData.heroImage;
+        heroImageUrl = tourData.heroImage;
       }
     } else if (tourData.cardImage) {
       if (typeof tourData.cardImage === 'object') {
-        heroUrl = 
+        heroImageUrl = 
           tourData.cardImage.large || 
           tourData.cardImage.medium || 
           tourData.cardImage.small || 
           tourData.cardImage.baseUrl || 
           (tourData.cardImage.publicId ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${tourData.cardImage.publicId}.jpg` : '');
       } else if (typeof tourData.cardImage === 'string') {
-        heroUrl = tourData.cardImage;
+        heroImageUrl = tourData.cardImage;
       }
     } else if (tourData.imageUrl) {
-      heroUrl = tourData.imageUrl;
+      heroImageUrl = tourData.imageUrl;
     }
     
-    setHeroImageUrl(heroUrl);
-    
     // Process gallery images
-    const images: string[] = [];
-    
     if (tourData.galleryImages && Array.isArray(tourData.galleryImages)) {
       tourData.galleryImages.forEach(img => {
         if (typeof img === 'object') {
@@ -268,97 +256,104 @@ const EnhancedPackageDetail = () => {
         }
       } catch (e) {
         // If parsing fails, use hero image as fallback
-        if (heroUrl) images.push(heroUrl);
+        if (heroImageUrl) images.push(heroImageUrl);
       }
-    } else if (heroUrl) {
-      images.push(heroUrl);
+    } else if (heroImageUrl) {
+      images.push(heroImageUrl);
     }
     
-    if (images.length > 0) {
-      setGalleryImages(images);
-    } else if (heroUrl) {
-      setGalleryImages([heroUrl]);
-    }
+    return images.length > 0 ? images : (heroImageUrl ? [heroImageUrl] : []);
+  }, [tourData]);
+  
+  // Process includes
+  const includes = React.useMemo(() => {
+    if (!tourData) return [];
     
-    // Process includes/excludes
     if (tourData.includes) {
       if (Array.isArray(tourData.includes)) {
-        setIncludes(tourData.includes);
+        return tourData.includes;
       } else if (typeof tourData.includes === 'string') {
         try {
           const parsedIncludes = JSON.parse(tourData.includes);
           if (Array.isArray(parsedIncludes)) {
-            setIncludes(parsedIncludes);
+            return parsedIncludes;
           }
         } catch (e) {
-          // If parsing fails, use default empty array
-          setIncludes([]);
+          // If parsing fails, try inclusions field
         }
       }
-    } else if (tourData.inclusions && Array.isArray(tourData.inclusions)) {
-      setIncludes(tourData.inclusions);
     }
+    
+    return tourData.inclusions && Array.isArray(tourData.inclusions) ? tourData.inclusions : [];
+  }, [tourData]);
+  
+  // Process excludes
+  const excludes = React.useMemo(() => {
+    if (!tourData) return [];
     
     if (tourData.excludes) {
       if (Array.isArray(tourData.excludes)) {
-        setExcludes(tourData.excludes);
+        return tourData.excludes;
       } else if (typeof tourData.excludes === 'string') {
         try {
           const parsedExcludes = JSON.parse(tourData.excludes);
           if (Array.isArray(parsedExcludes)) {
-            setExcludes(parsedExcludes);
+            return parsedExcludes;
           }
         } catch (e) {
-          // If parsing fails, use default empty array
-          setExcludes([]);
-        }
-      }
-    } else if (tourData.exclusions && Array.isArray(tourData.exclusions)) {
-      setExcludes(tourData.exclusions);
-    }
-    
-    // Process destinations
-    if (tourData.destinations) {
-      if (Array.isArray(tourData.destinations)) {
-        setDestinations(tourData.destinations);
-      } else if (typeof tourData.destinations === 'string') {
-        try {
-          const parsedDestinations = JSON.parse(tourData.destinations);
-          if (Array.isArray(parsedDestinations)) {
-            setDestinations(parsedDestinations);
-          } else {
-            // If it's a comma-separated string
-            setDestinations(tourData.destinations.split(',').map(d => d.trim()));
-          }
-        } catch (e) {
-          // If parsing fails, try splitting by comma
-          setDestinations(tourData.destinations.split(',').map(d => d.trim()));
+          // If parsing fails, try exclusions field
         }
       }
     }
     
-    // Process itinerary data
-    let itineraryProcessed = false;
+    return tourData.exclusions && Array.isArray(tourData.exclusions) ? tourData.exclusions : [];
+  }, [tourData]);
+  
+  // Process destinations
+  const destinations = React.useMemo(() => {
+    if (!tourData || !tourData.destinations) return [];
+    
+    if (Array.isArray(tourData.destinations)) {
+      return tourData.destinations;
+    } else if (typeof tourData.destinations === 'string') {
+      try {
+        const parsedDestinations = JSON.parse(tourData.destinations);
+        if (Array.isArray(parsedDestinations)) {
+          return parsedDestinations;
+        }
+        // If it's a comma-separated string
+        return tourData.destinations.split(',').map(d => d.trim());
+      } catch (e) {
+        // If parsing fails, try splitting by comma
+        return tourData.destinations.split(',').map(d => d.trim());
+      }
+    }
+    
+    return [];
+  }, [tourData]);
+  
+  // Process itinerary data
+  const itinerary = React.useMemo((): APIItineraryDay[] => {
+    if (!tourData) return [];
     
     // First try using itineraryDays if available
     if (tourData.itineraryDays && Array.isArray(tourData.itineraryDays) && tourData.itineraryDays.length > 0) {
-      setItinerary(tourData.itineraryDays);
-      itineraryProcessed = true;
+      return tourData.itineraryDays;
     }
-    // Then try the itinerary property 
-    else if (tourData.itinerary) {
+    
+    // Then try the itinerary property
+    if (tourData.itinerary) {
       // If itinerary is already an array
       if (Array.isArray(tourData.itinerary) && tourData.itinerary.length > 0) {
-        setItinerary(tourData.itinerary);
-        itineraryProcessed = true;
+        return tourData.itinerary;
       }
+      
       // If itinerary is a JSON string
-      else if (typeof tourData.itinerary === 'string') {
+      if (typeof tourData.itinerary === 'string') {
         try {
           const parsedItinerary = JSON.parse(tourData.itinerary);
           if (Array.isArray(parsedItinerary) && parsedItinerary.length > 0) {
-            setItinerary(parsedItinerary);
-            itineraryProcessed = true;
+            return parsedItinerary;
           }
         } catch (e) {
           // If parsing fails, try to extract day information from text
@@ -382,26 +377,21 @@ const EnhancedPackageDetail = () => {
             });
             
             if (textItinerary.length > 0) {
-              setItinerary(textItinerary);
-              itineraryProcessed = true;
+              return textItinerary;
             }
           }
         }
       }
     }
     
-    // If we haven't processed any itinerary data, set empty array
-    if (!itineraryProcessed) {
-      setItinerary([]);
-    }
-    
+    return [];
   }, [tourData]);
   
-  // Process itinerary items into timeline format
-  useEffect(() => {
-    if (!itinerary || itinerary.length === 0) return;
+  // Transform itinerary data into timeline format
+  const timelineData = React.useMemo((): TimelineDayData[] => {
+    if (!itinerary || itinerary.length === 0) return [];
     
-    const timelineItems = itinerary.map(day => {
+    return itinerary.map(day => {
       // Process accommodation
       let accommodationText: string | undefined;
       if (typeof day.accommodation === 'object' && day.accommodation !== null) {
@@ -457,8 +447,6 @@ const EnhancedPackageDetail = () => {
         imageUrl
       };
     });
-    
-    setTimelineData(timelineItems);
   }, [itinerary]);
 
   // Format rating to display as stars (50 = 5 stars)
