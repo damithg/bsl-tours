@@ -775,18 +775,20 @@ const EnhancedPackageDetail = () => {
             {/* Tour Tabs: Itinerary, Inclusions, Map */}
             <Tabs defaultValue="itinerary" className="mb-8">
               <TabsList className="mb-4 grid grid-cols-3 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
-                <TabsTrigger key="tab-itinerary" value="itinerary" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
-                  <LayoutList className="w-4 h-4 mr-2" />
-                  Itinerary
-                </TabsTrigger>
-                <TabsTrigger key="tab-inclusions" value="inclusions" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
-                  <List className="w-4 h-4 mr-2" />
-                  Inclusions
-                </TabsTrigger>
-                <TabsTrigger key="tab-map" value="map" className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none">
-                  <Map className="w-4 h-4 mr-2" />
-                  Map
-                </TabsTrigger>
+                {[
+                  { id: "itinerary", label: "Itinerary", icon: <LayoutList className="w-4 h-4 mr-2" /> },
+                  { id: "inclusions", label: "Inclusions", icon: <List className="w-4 h-4 mr-2" /> },
+                  { id: "map", label: "Map", icon: <Map className="w-4 h-4 mr-2" /> }
+                ].map((tab) => (
+                  <TabsTrigger 
+                    key={`tab-${tab.id}`} 
+                    value={tab.id} 
+                    className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
+                  >
+                    {tab.icon}
+                    {tab.label}
+                  </TabsTrigger>
+                ))}
               </TabsList>
               
               {/* Itinerary Tab Content */}
@@ -1007,18 +1009,34 @@ const EnhancedPackageDetail = () => {
               {/* Quick Info */}
               <div className="border-t border-b border-border py-4 mb-4">
                 <div className="grid grid-cols-2 gap-4">
-                  <div key="duration-sidebar" className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-2 text-primary/70" />
-                    <span className="text-sm">{tourData.duration} Days</span>
-                  </div>
-                  <div key="tour-type-sidebar" className="flex items-center">
-                    <Users className="w-4 h-4 mr-2 text-primary/70" />
-                    <span className="text-sm">Private Tour</span>
-                  </div>
-                  <div key="destinations-sidebar" className="flex items-center col-span-2">
-                    <MapPin className="w-4 h-4 mr-2 text-primary/70" />
-                    <span className="text-sm">{destinations.slice(0, 3).join(', ')}{destinations.length > 3 ? '...' : ''}</span>
-                  </div>
+                  {[
+                    { 
+                      id: "duration", 
+                      icon: <Calendar className="w-4 h-4 mr-2 text-primary/70" />, 
+                      text: `${tourData.duration} Days`,
+                      colSpan: 1
+                    },
+                    { 
+                      id: "tour-type", 
+                      icon: <Users className="w-4 h-4 mr-2 text-primary/70" />, 
+                      text: "Private Tour",
+                      colSpan: 1
+                    },
+                    { 
+                      id: "destinations", 
+                      icon: <MapPin className="w-4 h-4 mr-2 text-primary/70" />, 
+                      text: `${destinations.slice(0, 3).join(', ')}${destinations.length > 3 ? '...' : ''}`,
+                      colSpan: 2
+                    }
+                  ].map((item) => (
+                    <div 
+                      key={`sidebar-info-${item.id}`} 
+                      className={`flex items-center ${item.colSpan === 2 ? 'col-span-2' : ''}`}
+                    >
+                      {item.icon}
+                      <span className="text-sm">{item.text}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
               
