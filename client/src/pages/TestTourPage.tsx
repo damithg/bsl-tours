@@ -271,8 +271,8 @@ const TestTourPage: React.FC = () => {
                         <p>Luxury Hotels</p>
                       </div>
                       <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
-                        <div className="bg-[#D4AF37]/10 rounded-full p-3 mb-3 text-[#D4AF37]">
-                          <DollarSign className="w-6 h-6" />
+                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                          <BookOpenText className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Starting Price</h4>
                         <p>{tourData.currency} {tourData.startingFrom}</p>
