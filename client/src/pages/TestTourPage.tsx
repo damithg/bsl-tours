@@ -1,59 +1,115 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-// Sample tour data from the provided JSON
-const tourData = {
-  "id": 8,
-  "name": "Scenic Wonders of Sri Lanka",
-  "slug": "scenic-wonders-of-sri-lanka",
-  "featured": true,
-  "summary": "A 10-day adventure through Sri Lanka's stunning mountains, coastlines, and cultural sites.",
-  "duration": "10 days",
-  "startingFrom": 1450,
-  "currency": "USD",
-  "heroImage": {
-    "publicId": "destinations/galle-ramparts",
-    "alt": "Scenic landscape in Sri Lanka",
-    "caption": "Explore Sri Lanka's diverse terrain",
-    "orientation": "landscape",
-    "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/destinations/galle-ramparts.jpg",
-    "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/destinations/galle-ramparts.jpg",
-    "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/destinations/galle-ramparts.jpg",
-    "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/destinations/galle-ramparts.jpg"
-  },
-  "itinerary": [
-    {
-      "day": 1,
-      "title": "Arrival in Colombo",
-      "description": "Meet and greet at the airport. Transfer to your hotel for a restful night.",
-      "image": {
-        "publicId": "tet",
-        "alt": "ttt",
-        "caption": "ttt",
-        "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/tet.jpg",
-        "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/tet.jpg",
-        "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/tet.jpg",
-        "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/tet.jpg"
-      }
-    },
-    {
-      "day": 2,
-      "title": "Colombo to Kandy",
-      "description": "Explore the Temple of the Tooth and enjoy a cultural performance."
-    }
-  ],
-  "inclusions": [
-    "Accommodation with breakfast",
-    "Private vehicle with driver",
-    "Entry fees to mentioned sites"
-  ],
-  "exclusions": [
-    "International airfare",
-    "Lunch and dinner",
-    "Personal expenses"
-  ]
-};
+// Type definition for our tour data
+interface TourImage {
+  publicId?: string;
+  alt?: string;
+  caption?: string;
+  orientation?: string;
+  baseUrl?: string;
+  small?: string;
+  medium?: string;
+  large?: string;
+}
+
+interface ItineraryDay {
+  day: number;
+  title: string;
+  description: string;
+  image?: TourImage;
+}
+
+interface TourData {
+  id: number;
+  name: string;
+  slug: string;
+  featured: boolean;
+  summary: string;
+  duration: string;
+  startingFrom: number;
+  currency: string;
+  heroImage?: TourImage;
+  itinerary: ItineraryDay[];
+  inclusions: string[];
+  exclusions: string[];
+}
 
 const TestTourPage: React.FC = () => {
+  const [tourData, setTourData] = useState<TourData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Function to fetch tour data from the API
+  useEffect(() => {
+    const fetchTourData = async () => {
+      try {
+        setLoading(true);
+        
+        // Call the API endpoint
+        const response = await fetch('/api/tours/scenic-wonders-of-sri-lanka');
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch tour data: ${response.status} ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Fetched tour data:', data);
+        setTourData(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching tour data:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTourData();
+  }, []);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="max-w-6xl mx-auto p-6 text-center">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="h-8 bg-gray-200 rounded w-1/2 mb-4"></div>
+          <div className="h-64 bg-gray-200 rounded w-full mb-4"></div>
+          <div className="h-24 bg-gray-200 rounded w-full mb-4"></div>
+          <div className="h-64 bg-gray-200 rounded w-full"></div>
+        </div>
+        <p className="mt-4 text-gray-600">Loading tour data...</p>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="max-w-6xl mx-auto p-6">
+        <div className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-6">
+          <h2 className="text-xl font-bold mb-2">Error Loading Tour Data</h2>
+          <p>{error}</p>
+          <p className="mt-4">
+            Please try again later or contact support if the problem persists.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // If no data found
+  if (!tourData) {
+    return (
+      <div className="max-w-6xl mx-auto p-6">
+        <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-6">
+          <h2 className="text-xl font-bold mb-2">No Tour Data Found</h2>
+          <p>The requested tour could not be found.</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show actual tour data
   return (
     <div className="max-w-6xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">{tourData.name}</h1>
@@ -120,6 +176,14 @@ const TestTourPage: React.FC = () => {
             <li key={index} className="mb-1 text-gray-700">{item}</li>
           ))}
         </ul>
+      </div>
+      
+      {/* Raw JSON Data for Debugging */}
+      <div className="mt-12 border-t pt-8">
+        <h2 className="text-2xl font-bold mb-4">Raw API Response (For Debugging)</h2>
+        <pre className="bg-gray-100 p-4 rounded overflow-auto text-xs">
+          {JSON.stringify(tourData, null, 2)}
+        </pre>
       </div>
     </div>
   );
