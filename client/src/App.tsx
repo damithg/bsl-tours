@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import TourPackages from "@/pages/TourPackages";
 import PackageDetail from "@/pages/PackageDetail";
 import EnhancedPackageDetail from "@/pages/EnhancedPackageDetail";
+import TestTourPage from "@/pages/TestTourPage";
 import Destinations from "@/pages/Destinations";
 import DestinationDetail from "@/pages/DestinationDetail";
 import DestinationMap from "@/pages/DestinationMap";
@@ -57,6 +58,7 @@ function Router() {
         <Route path="/asymmetrical-gallery" component={AsymmetricalGalleryTest} />
         <Route path="/api-gallery-test" component={ApiGalleryTest} />
         <Route path="/sigiriya-template" component={SigiriyaTemplate} />
+        <Route path="/test-tour" component={TestTourPage} />
         <Route component={NotFound} />
       </Switch>
       <Footer />
