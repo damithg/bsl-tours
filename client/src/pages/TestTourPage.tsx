@@ -15,9 +15,11 @@ import {
   Image,
   BookOpenText,
   Hotel,
-  Phone
+  Phone,
+  Heart,
 } from 'lucide-react';
-import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
+import { AsymmetricalGallery, GalleryImage } from '@/components/AsymmetricalGallery';
+import Header from '@/components/Header';
 import AnimatedRouteMap from '@/components/AnimatedRouteMap';
 import ContactForm from '@/components/ContactForm';
 
@@ -149,38 +151,69 @@ const TestTourPage: React.FC = () => {
 
   // Show actual tour data
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">{tourData.name}</h1>
+    <div>
+      {/* Header */}
+      <Header />
       
-      {/* Hero Image */}
-      <div className="mb-8 rounded-lg overflow-hidden">
+      {/* Hero Section */}
+      <div className="relative pt-24">
         {tourData.heroImage && (
-          <img 
-            src={tourData.heroImage.medium || tourData.heroImage.baseUrl} 
-            alt={tourData.heroImage.alt || tourData.name}
-            className="w-full h-auto"
-          />
-        )}
-      </div>
-      
-      {/* Tour Summary */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-        <div className="flex justify-between mb-4">
-          <div>
-            <span className="text-gray-600 block">Duration:</span>
-            <span className="font-semibold">{tourData.duration}</span>
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={tourData.heroImage.large || tourData.heroImage.medium || tourData.heroImage.baseUrl} 
+              alt={tourData.heroImage.alt || tourData.name}
+              className="w-full h-[70vh] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent"></div>
           </div>
-          <div>
-            <span className="text-gray-600 block">Starting From:</span>
-            <span className="font-semibold">{tourData.currency} {tourData.startingFrom}</span>
+        )}
+        
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 text-white">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">{tourData.name}</h1>
+            <p className="text-xl opacity-90 mb-6">{tourData.summary}</p>
+            
+            <div className="flex flex-wrap gap-4 mb-8">
+              <span className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm">
+                <Calendar className="w-4 h-4 mr-2" />
+                {tourData.duration}
+              </span>
+              <span className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm">
+                <Heart className="w-4 h-4 mr-2" />
+                Private Tour
+              </span>
+              <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary text-white">
+                From {tourData.currency} {tourData.startingFrom}
+              </span>
+            </div>
+            
+            <button className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-md transition">
+              Book This Tour
+            </button>
           </div>
         </div>
-        <p className="text-gray-700">{tourData.summary}</p>
       </div>
       
-      {/* Tour Tabs: Itinerary, Inclusions, Gallery, Map, Book */}
-      <div className="mb-8">
-        <Tabs defaultValue="itinerary" className="w-full">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 -mt-16">
+        <div className="bg-white shadow-xl rounded-lg p-6 mb-8">
+          
+          {/* Highlights */}
+          {tourData.highlights && tourData.highlights.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              {tourData.highlights.map((highlight, index) => (
+                <span key={`highlight-${index}`} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
+                  {highlight}
+                </span>
+              ))}
+            </div>
+          )}
+                
+          {/* Tour Summary */}
+          <p className="text-gray-700 mb-6">{tourData.summary}</p>
+          
+          {/* Tour Tabs: Itinerary, Inclusions, Gallery, Map, Book */}
+          <div className="mb-8">
+            <Tabs defaultValue="itinerary" className="w-full">
           <TabsList className="mb-4 grid grid-cols-5 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
             {[
               { id: "itinerary", label: "Itinerary", icon: <LayoutList className="w-4 h-4 mr-2" /> },
@@ -278,7 +311,12 @@ const TestTourPage: React.FC = () => {
               </h2>
               
               {tourData.galleryImages && tourData.galleryImages.length > 0 ? (
-                <AsymmetricalGallery images={tourData.galleryImages} />
+                <AsymmetricalGallery 
+                  images={tourData.galleryImages.map(img => ({
+                    ...img,
+                    alt: img.alt || 'Tour image'
+                  }))} 
+                />
               ) : (
                 <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
                   <Image className="w-16 h-16 mx-auto text-gray-400 mb-4" />
@@ -316,14 +354,14 @@ const TestTourPage: React.FC = () => {
                   <div className="aspect-[4/3] relative border border-gray-100 rounded overflow-hidden">
                     <AnimatedRouteMap
                       mapImage={tourData.mapImage || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"}
-                      points={tourData.mapPoints.map(point => ({
+                      points={(tourData.mapPoints || []).map(point => ({
                         ...point,
                         isActive: point.day === activeDay
                       }))}
                       activeDay={activeDay}
                       className="w-full h-full"
                       onPointClick={(pointId) => {
-                        const point = tourData.mapPoints.find(p => p.id === pointId);
+                        const point = tourData.mapPoints ? tourData.mapPoints.find(p => p.id === pointId) : undefined;
                         if (point && point.day) {
                           setActiveDay(point.day);
                         }
@@ -409,6 +447,8 @@ const TestTourPage: React.FC = () => {
         </pre>
       </div>
     </div>
+  </main>
+  </div>
   );
 };
 
