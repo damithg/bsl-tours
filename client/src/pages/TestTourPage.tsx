@@ -45,8 +45,13 @@ const TestTourPage: React.FC = () => {
       try {
         setLoading(true);
         
-        // Call the API endpoint
-        const response = await fetch('/api/tours/scenic-wonders-of-sri-lanka');
+        // Call the API endpoint with the full Azure URL and CORS headers
+        const response = await fetch('https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours/scenic-wonders-of-sri-lanka', {
+          headers: {
+            'Accept': 'application/json',
+            'Origin': window.location.origin
+          }
+        });
         
         if (!response.ok) {
           throw new Error(`Failed to fetch tour data: ${response.status} ${response.statusText}`);
