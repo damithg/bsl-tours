@@ -410,7 +410,7 @@ const EnhancedPackageDetail = () => {
       // Add activities if available
       if (day.activities && Array.isArray(day.activities) && day.activities.length > 0) {
         fullDescription += '<br/><br/><strong>Today\'s Activities:</strong><ul>';
-        day.activities.forEach(activity => {
+        day.activities.forEach((activity, activityIndex) => {
           fullDescription += `<li><strong>${activity.title}</strong>`;
           if (activity.description) fullDescription += `: ${activity.description}`;
           if (activity.time) fullDescription += ` (${activity.time})`;
@@ -476,7 +476,7 @@ const EnhancedPackageDetail = () => {
         {Array.from({length: fullStars}, (_, i) => (
           <i key={`full-${i}`} className="fas fa-star"></i>
         ))}
-        {hasHalfStar && <i className="fas fa-star-half-alt"></i>}
+        {hasHalfStar && <i key="half-star" className="fas fa-star-half-alt"></i>}
         {Array.from({length: emptyStars}, (_, i) => (
           <i key={`empty-${i}`} className="far fa-star"></i>
         ))}
