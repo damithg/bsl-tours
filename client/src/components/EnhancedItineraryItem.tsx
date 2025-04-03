@@ -93,16 +93,19 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
             {description.split('\n').map((paragraph, i) => (
               paragraph ? (
                 <p key={`para-${i}`} className="text-gray-600 leading-relaxed mb-3">
-                  {paragraph.split('. ').map((sentence, j, arr) => (
-                    <React.Fragment key={`sent-${i}-${j}`}>
-                      {sentence}{j < arr.length - 1 ? '. ' : ''}
-                      {/* Add line break after key destinations or attractions */}
-                      {(sentence.includes('visit') || 
-                        sentence.includes('explore') || 
-                        sentence.includes('discover')) && 
-                        j < arr.length - 1 && <br className="hidden sm:block" />}
-                    </React.Fragment>
-                  ))}
+                  {paragraph.split('. ').map((sentence, j, arr) => {
+                    // Create fragment with key but no additional props
+                    return (
+                      <React.Fragment key={`sent-${i}-${j}`}>
+                        {sentence}{j < arr.length - 1 ? '. ' : ''}
+                        {/* Add line break after key destinations or attractions */}
+                        {(sentence.includes('visit') || 
+                          sentence.includes('explore') || 
+                          sentence.includes('discover')) && 
+                          j < arr.length - 1 && <br className="hidden sm:block" />}
+                      </React.Fragment>
+                    );
+                  })}
                 </p>
               ) : <br key={`br-${i}`} />
             ))}
@@ -116,7 +119,7 @@ export const EnhancedItineraryItem: React.FC<ItineraryDayProps> = ({
             <div className="space-y-3">
               <h4 className="text-sm font-semibold text-gray-700 flex items-center">
                 <MapPin className="w-4 h-4 mr-2 text-primary" />
-                <span>Key Locations on Day {day}</span>
+                <span>Key Locations</span>
               </h4>
               
               {/* Extract and highlight likely locations from the description */}
