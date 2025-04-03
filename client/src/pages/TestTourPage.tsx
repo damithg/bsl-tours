@@ -476,17 +476,48 @@ const TestTourPage: React.FC = () => {
                               )}
                             </div>
                             
-                            {/* Description with better typography */}
+                            {/* Description with formatted text and better typography */}
                             <div className="prose prose-lg max-w-none mt-2">
-                              <p className="text-gray-600 leading-relaxed">{day.description}</p>
+                              {day.description.split('\n').map((paragraph, i) => (
+                                paragraph ? (
+                                  <p key={`para-${i}`} className="text-gray-600 leading-relaxed mb-3">
+                                    {paragraph.split('. ').map((sentence, j, arr) => (
+                                      <React.Fragment key={`sent-${i}-${j}`}>
+                                        {sentence}{j < arr.length - 1 ? '. ' : ''}
+                                        {/* Add line break after key destinations or attractions */}
+                                        {(sentence.includes('visit') || 
+                                          sentence.includes('explore') || 
+                                          sentence.includes('discover')) && 
+                                          j < arr.length - 1 && <br className="hidden sm:block" />}
+                                      </React.Fragment>
+                                    ))}
+                                  </p>
+                                ) : <br key={`br-${i}`} />
+                              ))}
                             </div>
                             
                             {/* Visual elements at the bottom */}
                             <div className="mt-auto pt-6">
                               <div className="w-16 h-1 bg-primary/30 rounded-full mb-4"></div>
-                              <div className="flex items-center text-sm text-gray-500">
-                                <MapPin className="w-4 h-4 mr-2 text-primary" />
-                                <span>Locations visited on Day {day.day}</span>
+                              
+                              {/* Locations */}
+                              <div className="space-y-3">
+                                <h4 className="text-sm font-semibold text-gray-700 flex items-center">
+                                  <MapPin className="w-4 h-4 mr-2 text-primary" />
+                                  <span>Key Locations on Day {day.day}</span>
+                                </h4>
+                                
+                                {/* Extract and highlight likely locations from the description */}
+                                <div className="flex flex-wrap gap-2">
+                                  {day.description.match(/([A-Z][a-z]+ ?(?:[A-Z][a-z]+)?)(?: National Park| Temple| Fort| Beach| Museum| Gardens| Estate| Lake| Rock| Peak| Falls| Ancient City| Village)/g)?.map((location, i) => (
+                                    <div key={`location-${i}`} className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-primary/10 text-primary/90 border border-primary/20">
+                                      <MapPin className="w-3 h-3 mr-1" />
+                                      {location}
+                                    </div>
+                                  )) || (
+                                    <div className="text-sm text-gray-500 italic">Explore Sri Lanka's beautiful scenery and culture</div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
