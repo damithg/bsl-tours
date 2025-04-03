@@ -1,4 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { 
+  Tabs, 
+  TabsContent, 
+  TabsList, 
+  TabsTrigger 
+} from '@/components/ui/tabs';
+import { 
+  Calendar, 
+  List,
+  Check, 
+  X,
+  Map, 
+  LayoutList 
+} from 'lucide-react';
 
 // Type definition for our tour data
 interface TourImage {
@@ -145,42 +159,84 @@ const TestTourPage: React.FC = () => {
         <p className="text-gray-700">{tourData.summary}</p>
       </div>
       
-      {/* Itinerary */}
+      {/* Tour Tabs: Itinerary, Inclusions, Map */}
       <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">Tour Itinerary</h2>
-        {tourData.itinerary.map((day) => (
-          <div key={day.day} className="bg-white shadow-md rounded-lg p-6 mb-4">
-            <h3 className="text-xl font-semibold mb-2">Day {day.day}: {day.title}</h3>
-            <p className="text-gray-700 mb-4">{day.description}</p>
-            {day.image && (
-              <img 
-                src={day.image.medium || day.image.baseUrl} 
-                alt={day.image.alt || day.title}
-                className="w-full h-auto rounded"
-              />
-            )}
-          </div>
-        ))}
-      </div>
-      
-      {/* Inclusions */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-        <h2 className="text-2xl font-bold mb-4">What's Included</h2>
-        <ul className="list-disc pl-6">
-          {tourData.inclusions.map((item, index) => (
-            <li key={index} className="mb-1 text-gray-700">{item}</li>
-          ))}
-        </ul>
-      </div>
-      
-      {/* Exclusions */}
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-4">What's Not Included</h2>
-        <ul className="list-disc pl-6">
-          {tourData.exclusions.map((item, index) => (
-            <li key={index} className="mb-1 text-gray-700">{item}</li>
-          ))}
-        </ul>
+        <Tabs defaultValue="itinerary" className="w-full">
+          <TabsList className="mb-4 grid grid-cols-3 border-b border-b-muted w-full rounded-none bg-transparent h-auto">
+            {[
+              { id: "itinerary", label: "Itinerary", icon: <LayoutList className="w-4 h-4 mr-2" /> },
+              { id: "inclusions", label: "Inclusions", icon: <List className="w-4 h-4 mr-2" /> },
+              { id: "map", label: "Map", icon: <Map className="w-4 h-4 mr-2" /> }
+            ].map((tab) => (
+              <TabsTrigger 
+                key={`tab-${tab.id}`} 
+                value={tab.id} 
+                className="py-2 text-sm md:text-base data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
+              >
+                {tab.icon}
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          
+          {/* Itinerary Tab Content */}
+          <TabsContent value="itinerary" className="mt-0">
+            {tourData.itinerary.map((day) => (
+              <div key={day.day} className="bg-white shadow-md rounded-lg p-6 mb-4">
+                <h3 className="text-xl font-semibold mb-2">Day {day.day}: {day.title}</h3>
+                <p className="text-gray-700 mb-4">{day.description}</p>
+                {day.image && (
+                  <img 
+                    src={day.image.medium || day.image.baseUrl} 
+                    alt={day.image.alt || day.title}
+                    className="w-full h-auto rounded"
+                  />
+                )}
+              </div>
+            ))}
+          </TabsContent>
+          
+          {/* Inclusions/Exclusions Tab Content */}
+          <TabsContent value="inclusions" className="mt-0">
+            <div className="bg-white shadow-md rounded-lg p-6 mb-4">
+              <h2 className="text-xl font-bold mb-4 flex items-center">
+                <Check className="w-5 h-5 mr-2 text-green-600" />
+                What's Included
+              </h2>
+              <ul className="space-y-2">
+                {tourData.inclusions.map((item, index) => (
+                  <li key={`inclusion-${index}`} className="flex items-start">
+                    <Check className="w-4 h-4 text-green-600 mr-2 mt-1" />
+                    <span className="text-gray-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="bg-white shadow-md rounded-lg p-6">
+              <h2 className="text-xl font-bold mb-4 flex items-center">
+                <X className="w-5 h-5 mr-2 text-red-500" />
+                What's Not Included
+              </h2>
+              <ul className="space-y-2">
+                {tourData.exclusions.map((item, index) => (
+                  <li key={`exclusion-${index}`} className="flex items-start">
+                    <X className="w-4 h-4 text-red-500 mr-2 mt-1" />
+                    <span className="text-gray-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </TabsContent>
+          
+          {/* Map Tab Content */}
+          <TabsContent value="map" className="mt-0">
+            <div className="bg-white shadow-md rounded-lg p-6 text-center">
+              <p className="text-gray-700">Map information will be displayed here.</p>
+              <p className="text-sm text-gray-500 mt-2">Coming soon: Interactive tour route map</p>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
       
       {/* Raw JSON Data for Debugging */}
