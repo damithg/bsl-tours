@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import { TourPackage } from "@/lib/queryClient";
@@ -453,81 +453,89 @@ const EnhancedPackageDetail = () => {
     }
   }, [tourData]); // Remove itineraryData from dependencies
   
-  // Separate effect to handle itineraryData changes
+  // Separate effect to handle itineraryData changes - with itinerary.length removed from deps
   useEffect(() => {
-    // Only run this if we have itineraryData and we don't already have an itinerary
-    if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0 && itinerary.length === 0) {
-      setItinerary(itineraryData);
+    // Only run this if we have itineraryData and tourData is fully loaded
+    if (itineraryData && Array.isArray(itineraryData) && itineraryData.length > 0 && tourData) {
+      // Check if we need to apply the itinerary (only if we don't have data yet)
+      if (itinerary.length === 0) {
+        setItinerary(itineraryData);
+      }
     }
-  }, [itineraryData, itinerary.length]);
+  }, [itineraryData, tourData]);
 
   // Transform itinerary data into visual timeline format when itinerary changes
+  // This useEffect will run once when itinerary is populated
   useEffect(() => {
-    if (itinerary.length > 0) {
-      // Enhanced transformation from itinerary to visual timeline data
-      const transformedData: TimelineDayData[] = itinerary.map(day => {
-        // Convert accommodation to string if it's an object
-        let accommodationString: string | undefined;
-        
-        if (typeof day.accommodation === 'object' && day.accommodation !== null) {
-          accommodationString = day.accommodation.name;
-        } else if (typeof day.accommodation === 'string') {
-          accommodationString = day.accommodation;
-        }
-        
-        // Build a richer description that includes activities if they exist
-        let enhancedDescription = day.description;
-        
-        if (day.activities && Array.isArray(day.activities) && day.activities.length > 0) {
-          enhancedDescription += '<br/><br/><strong>Today\'s Activities:</strong><ul>';
-          day.activities.forEach((activity: { 
-            title: string; 
-            description?: string;
-            time?: string;
-            imageUrl?: string;
-          }) => {
-            if (typeof activity === 'object' && activity !== null) {
-              enhancedDescription += `<li><strong>${activity.title}</strong>`;
-              if (activity.description) {
-                enhancedDescription += `: ${activity.description}`;
-              }
-              if (activity.time) {
-                enhancedDescription += ` (${activity.time})`;
-              }
-              enhancedDescription += '</li>';
-            }
-          });
-          enhancedDescription += '</ul>';
-        }
-        
-        // Include meal information
-        if (day.meals) {
-          enhancedDescription += '<br/><strong>Meals:</strong> ';
-          const mealsIncluded = [];
-          if (day.meals.breakfast) mealsIncluded.push('Breakfast');
-          if (day.meals.lunch) mealsIncluded.push('Lunch');
-          if (day.meals.dinner) mealsIncluded.push('Dinner');
-          
-          enhancedDescription += mealsIncluded.length > 0 
-            ? mealsIncluded.join(', ') 
-            : 'No meals included';
-        }
-        
-        return {
-          day: day.day,
-          title: day.title,
-          description: enhancedDescription,
-          accommodation: accommodationString,
-          // Use the image from the streamlined data structure
-          imageUrl: 
-            (day.image?.medium) || 
-            (day.image?.small) || 
-            (day.image?.baseUrl) || 
-            (day.imageUrl) || 
-            `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/itineraries/day-${day.day}.jpg`
-        };
-      });
+    // Skip if the itinerary is empty
+    if (!itinerary || itinerary.length === 0) return;
+    
+    // Enhanced transformation from itinerary to visual timeline data
+    const transformedData: TimelineDayData[] = itinerary.map(day => {
+      // Convert accommodation to string if it's an object
+      let accommodationString: string | undefined;
       
+      if (typeof day.accommodation === 'object' && day.accommodation !== null) {
+        accommodationString = day.accommodation.name;
+      } else if (typeof day.accommodation === 'string') {
+        accommodationString = day.accommodation;
+      }
+      
+      // Build a richer description that includes activities if they exist
+      let enhancedDescription = day.description;
+      
+      if (day.activities && Array.isArray(day.activities) && day.activities.length > 0) {
+        enhancedDescription += '<br/><br/><strong>Today\'s Activities:</strong><ul>';
+        day.activities.forEach((activity: { 
+          title: string; 
+          description?: string;
+          time?: string;
+          imageUrl?: string;
+        }) => {
+          if (typeof activity === 'object' && activity !== null) {
+            enhancedDescription += `<li><strong>${activity.title}</strong>`;
+            if (activity.description) {
+              enhancedDescription += `: ${activity.description}`;
+            }
+            if (activity.time) {
+              enhancedDescription += ` (${activity.time})`;
+            }
+            enhancedDescription += '</li>';
+          }
+        });
+        enhancedDescription += '</ul>';
+      }
+      
+      // Include meal information
+      if (day.meals) {
+        enhancedDescription += '<br/><strong>Meals:</strong> ';
+        const mealsIncluded = [];
+        if (day.meals.breakfast) mealsIncluded.push('Breakfast');
+        if (day.meals.lunch) mealsIncluded.push('Lunch');
+        if (day.meals.dinner) mealsIncluded.push('Dinner');
+        
+        enhancedDescription += mealsIncluded.length > 0 
+          ? mealsIncluded.join(', ') 
+          : 'No meals included';
+      }
+      
+      return {
+        day: day.day,
+        title: day.title,
+        description: enhancedDescription,
+        accommodation: accommodationString,
+        // Use the image from the streamlined data structure
+        imageUrl: 
+          (day.image?.medium) || 
+          (day.image?.small) || 
+          (day.image?.baseUrl) || 
+          (day.imageUrl) || 
+          `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/itineraries/day-${day.day}.jpg`
+      };
+    });
+    
+    // Only update if we have data to update with
+    if (transformedData.length > 0) {
       setTimelineData(transformedData);
     }
   }, [itinerary]);
