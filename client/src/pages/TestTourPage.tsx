@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'wouter';
 import { 
   Tabs, 
   TabsContent, 
@@ -17,6 +18,8 @@ import {
   Hotel,
   Phone,
   Heart,
+  Home,
+  ChevronRight
 } from 'lucide-react';
 import { AsymmetricalGallery, GalleryImage } from '@/components/AsymmetricalGallery';
 import Header from '@/components/Header';
@@ -156,22 +159,48 @@ const TestTourPage: React.FC = () => {
       <Header />
       
       {/* Hero Section */}
-      <div className="relative pt-24 z-0">
-        {tourData.heroImage && (
-          <div className="absolute inset-0">
-            <img 
-              src={tourData.heroImage.large || tourData.heroImage.medium || tourData.heroImage.baseUrl} 
-              alt={tourData.heroImage.alt || tourData.name}
-              className="w-full h-[70vh] object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent"></div>
-          </div>
-        )}
+      <section className="relative h-[600px]">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={tourData.heroImage?.large || tourData.heroImage?.medium || tourData.heroImage?.baseUrl || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"} 
+            alt={tourData.heroImage?.alt || tourData.name}
+            className="w-full h-full object-cover" 
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent"></div>
         
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex flex-col justify-end pb-16">
+          {/* Breadcrumb Navigation */}
+          <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
+                  <Home className="w-4 h-4 mr-2" />
+                  Home
+                </Link>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <ChevronRight className="w-5 h-5 text-white/60" />
+                  <Link href="/tours" className="ml-1 text-sm font-medium text-white/90 hover:text-white">
+                    Tours
+                  </Link>
+                </div>
+              </li>
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <ChevronRight className="w-5 h-5 text-white/60" />
+                  <span className="ml-1 text-sm font-medium text-white/80">
+                    {tourData.name}
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+          
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{tourData.name}</h1>
-            <p className="text-xl opacity-90 mb-6">{tourData.summary}</p>
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-4">{tourData.name}</h1>
+            <p className="text-xl text-white/90 mb-6">{tourData.summary}</p>
             
             <div className="flex flex-wrap gap-4 mb-8">
               <span className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm">
@@ -182,17 +211,22 @@ const TestTourPage: React.FC = () => {
                 <Heart className="w-4 h-4 mr-2" />
                 Private Tour
               </span>
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary text-white">
+              <span className="inline-flex items-center px-4 py-2 rounded-full bg-[#D4AF37] text-white">
                 From {tourData.currency} {tourData.startingFrom}
               </span>
             </div>
             
-            <button className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-md transition">
-              Book This Tour
-            </button>
+            <div className="flex flex-wrap gap-4">
+              <button className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
+                Book This Tour
+              </button>
+              <button className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-md transition">
+                View Itinerary
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 mt-24 relative z-10">
         <div className="bg-white shadow-xl rounded-lg p-6 mb-8">
