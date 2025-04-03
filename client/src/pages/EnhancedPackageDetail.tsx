@@ -395,7 +395,7 @@ const EnhancedPackageDetail = () => {
   const timelineData = useMemo((): TimelineDayData[] => {
     if (!itinerary || itinerary.length === 0) return [];
     
-    return itinerary.map(day => {
+    return itinerary.map((day, index) => {
       // Process accommodation
       let accommodationText: string | undefined;
       if (typeof day.accommodation === 'object' && day.accommodation !== null) {
@@ -644,13 +644,13 @@ const EnhancedPackageDetail = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28">
           <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
+              <li key="breadcrumb-home" className="inline-flex items-center">
                 <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
                   <Home className="w-4 h-4 mr-2" />
                   Home
                 </Link>
               </li>
-              <li>
+              <li key="breadcrumb-tours">
                 <div className="flex items-center">
                   <ChevronRight className="w-5 h-5 text-white/60" />
                   <Link href="/tours" className="ml-1 text-sm font-medium hover:text-white">
@@ -658,7 +658,7 @@ const EnhancedPackageDetail = () => {
                   </Link>
                 </div>
               </li>
-              <li aria-current="page">
+              <li key="breadcrumb-current" aria-current="page">
                 <div className="flex items-center">
                   <ChevronRight className="w-5 h-5 text-white/60" />
                   <span className="ml-1 text-sm font-medium text-white/80">
