@@ -16,7 +16,12 @@ const contactFormSchema = insertInquirySchema.extend({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
-const ContactForm = () => {
+interface ContactFormProps {
+  tourName?: string;
+  prefilledMessage?: string;
+}
+
+const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   
@@ -28,8 +33,8 @@ const ContactForm = () => {
       email: '',
       phone: '',
       travelDates: '',
-      packageInterest: '',
-      message: '',
+      packageInterest: tourName || '',
+      message: prefilledMessage || '',
       subscribed: false,
     }
   });
@@ -130,6 +135,7 @@ const ContactForm = () => {
             className="block w-full border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-[#0F4C81] focus:border-[#0F4C81] bg-gray-50"
           >
             <option value="">Select a Package or Experience</option>
+            {tourName && <option value={tourName}>{tourName}</option>}
             <option value="cultural">Cultural Triangle Tour</option>
             <option value="coastal">Coastal Serenity Escape</option>
             <option value="tea">Hill Country Tea Trails</option>

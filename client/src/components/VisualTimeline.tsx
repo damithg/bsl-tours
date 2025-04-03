@@ -14,7 +14,16 @@ interface VisualTimelineProps {
   className?: string;
 }
 
-const VisualTimeline: React.FC<VisualTimelineProps> = ({ data, className }) => {
+const VisualTimeline: React.FC<VisualTimelineProps> = ({ data = [], className }) => {
+  // Check if data is available and not empty
+  if (!data || data.length === 0) {
+    return (
+      <div className={`visual-timeline ${className || ''} p-8 text-center`}>
+        <p className="text-gray-500">No itinerary data available. Please contact us for more information.</p>
+      </div>
+    );
+  }
+
   return (
     <div className={`visual-timeline ${className || ''}`}>
       {data.map((day, dayIndex) => {

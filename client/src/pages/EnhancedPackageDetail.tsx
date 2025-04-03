@@ -782,7 +782,7 @@ const EnhancedPackageDetail = () => {
               {/* Itinerary Tab Content */}
               <TabsContent value="itinerary" className="mt-0">
                 {timelineData.length > 0 ? (
-                  <VisualTimeline days={timelineData} />
+                  <VisualTimeline data={timelineData} />
                 ) : (
                   <div className="text-center py-8 text-muted-foreground">
                     <p>Detailed itinerary information is not available for this tour.</p>
@@ -832,7 +832,7 @@ const EnhancedPackageDetail = () => {
               <TabsContent value="map" className="mt-0">
                 {destinations.length > 0 ? (
                   <div className="rounded-lg overflow-hidden">
-                    <TourRouteMap destinations={destinations} />
+                    <TourRouteMap destinations={destinations} itinerary={timelineData} />
                   </div>
                 ) : (
                   <div className="text-center py-8 text-muted-foreground">
