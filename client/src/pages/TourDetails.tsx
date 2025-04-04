@@ -571,7 +571,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                             <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
                             
                             {/* Tab bar container */}
-                            <div className="border-b border-gray-200">
+                            <div className="mb-4">
                               {/* Hide scrollbar for Chrome, Safari and Opera */}
                               <style dangerouslySetInnerHTML={{
                                 __html: `
@@ -582,22 +582,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                     -ms-overflow-style: none;
                                     scrollbar-width: none;
                                   }
-                                  .day-tab::after {
-                                    content: '';
-                                    position: absolute;
-                                    bottom: 0;
-                                    left: 0;
-                                    right: 0;
-                                    height: 3px;
-                                    border-top-left-radius: 3px;
-                                    border-top-right-radius: 3px;
-                                    transform: scaleX(0);
-                                    transition: transform 0.2s ease-in-out;
-                                  }
-                                  .day-tab.active::after {
-                                    transform: scaleX(1);
-                                    background-color: #0F4C81;
-                                  }
+
                                 `
                               }} />
                               
@@ -651,8 +636,10 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       onClick={() => setActiveDay(day.day)}
                                       className={`
                                         day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-6 py-3 text-sm font-semibold focus:outline-none min-w-[90px]
-                                        ${activeDay === day.day ? 'text-[#0F4C81] active' : 'text-gray-500 hover:text-gray-700'}
+                                        px-5 py-2 mx-1 text-sm font-medium rounded-full focus:outline-none
+                                        ${activeDay === day.day 
+                                          ? 'bg-[#0F7173] text-white' 
+                                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
                                       `}
                                     >
                                       Day {day.day}
@@ -689,16 +676,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 </button>
                               </div>
                               
-                              {/* Active indicator line that follows the selected tab */}
-                              <div className="h-0.5 relative">
-                                <div 
-                                  className={`absolute h-0.5 bg-[#0F4C81] transition-all duration-300 bottom-0`}
-                                  style={{
-                                    left: `${((activeDay || 1) - 1) * (100 / tourData.itinerary.length)}%`,
-                                    width: `${100 / tourData.itinerary.length}%`
-                                  }}
-                                ></div>
-                              </div>
+
                             </div>
                           </div>
                         </div>
@@ -836,7 +814,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                               <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
                               
                               {/* Tab bar container */}
-                              <div className="border-b border-gray-200 relative">
+                              <div className="mb-4">
                                 {/* Left navigation arrow - ref is for checking visibility */}
                                 <button 
                                   onClick={() => {
@@ -885,8 +863,10 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       onClick={() => setActiveDay(day.day)}
                                       className={`
                                         day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-6 py-3 text-sm font-semibold focus:outline-none min-w-[90px]
-                                        ${activeDay === day.day ? 'text-blue-600 active' : 'text-gray-500 hover:text-gray-700'}
+                                        px-5 py-2 mx-1 text-sm font-medium rounded-full focus:outline-none
+                                        ${activeDay === day.day 
+                                          ? 'bg-[#0F7173] text-white' 
+                                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
                                       `}
                                     >
                                       Day {day.day}
@@ -922,16 +902,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   </svg>
                                 </button>
                                 
-                                {/* Active indicator line that follows the selected tab */}
-                                <div className="h-0.5 relative">
-                                  <div 
-                                    className={`absolute h-0.5 bg-blue-600 transition-all duration-300 bottom-0`}
-                                    style={{
-                                      left: `${((activeDay || 1) - 1) * (100 / tourData.itinerary.length)}%`,
-                                      width: `${100 / tourData.itinerary.length}%`
-                                    }}
-                                  ></div>
-                                </div>
+
                               </div>
                             </div>
                             <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">
