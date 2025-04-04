@@ -18,6 +18,10 @@ import {
   Hotel,
   Phone,
   Heart,
+  AlertTriangle,
+  Search,
+  ArrowLeft,
+  LayoutGrid,
   Info,
   Home,
   ChevronRight,
@@ -126,17 +130,139 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
     fetchTourData();
   }, [tourSlug]);
 
-  // Show loading state
+  // Show skeleton loading screen
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto p-6 pt-32 text-center min-h-screen">
-        <div className="animate-pulse flex flex-col items-center">
-          <div className="h-8 bg-gray-200 rounded w-1/2 mb-4"></div>
-          <div className="h-64 bg-gray-200 rounded w-full mb-4"></div>
-          <div className="h-24 bg-gray-200 rounded w-full mb-4"></div>
-          <div className="h-64 bg-gray-200 rounded w-full"></div>
+      <div className="min-h-screen">
+        {/* Skeleton Hero Section */}
+        <div className="relative h-[600px] bg-gray-200 animate-pulse">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-transparent"></div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex flex-col justify-end pb-16">
+            {/* Skeleton Breadcrumb */}
+            <div className="flex mb-6">
+              <div className="h-4 bg-white/30 rounded w-24 mr-4"></div>
+              <div className="h-4 bg-white/30 rounded w-20 mr-4"></div>
+              <div className="h-4 bg-white/30 rounded w-32"></div>
+            </div>
+            
+            {/* Skeleton Title */}
+            <div className="max-w-3xl">
+              <div className="h-12 bg-white/40 rounded w-3/4 mb-4"></div>
+              <div className="h-6 bg-white/30 rounded w-1/2 mb-6"></div>
+              
+              {/* Skeleton Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <div className="h-12 bg-white rounded-md w-36"></div>
+                <div className="h-12 bg-white/20 border-2 border-white/40 rounded-md w-36"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="mt-4 text-gray-600">Loading tour data...</p>
+        
+        {/* Skeleton Main Content */}
+        <main className="container mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative z-10">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Skeleton Left Column */}
+            <div className="lg:w-8/12">
+              <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
+                {/* Skeleton Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {[1, 2, 3, 4].map(i => (
+                    <div key={i} className="h-6 bg-blue-100 rounded-full w-24"></div>
+                  ))}
+                </div>
+                
+                {/* Skeleton Feature Icons */}
+                <div className="mb-16 relative">
+                  <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 p-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+                      {[1, 2, 3, 4].map(i => (
+                        <div key={i} className="bg-gray-50 p-5 rounded-lg flex flex-col items-center animate-pulse">
+                          <div className="bg-gray-200 rounded-full h-12 w-12 mb-3"></div>
+                          <div className="h-4 bg-gray-200 rounded w-16 mb-2"></div>
+                          <div className="h-3 bg-gray-200 rounded w-12"></div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {/* Skeleton Summary */}
+                    <div className="space-y-3 mb-8">
+                      <div className="h-4 bg-gray-200 rounded w-full"></div>
+                      <div className="h-4 bg-gray-200 rounded w-full"></div>
+                      <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                      <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+                    </div>
+                    
+                    {/* Skeleton 2-column layout */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="bg-blue-50 rounded-xl p-6 h-48 animate-pulse">
+                        <div className="h-6 bg-blue-200 rounded w-2/3 mb-4"></div>
+                        <div className="space-y-3">
+                          <div className="h-4 bg-blue-200/60 rounded w-full"></div>
+                          <div className="h-4 bg-blue-200/60 rounded w-full"></div>
+                          <div className="h-4 bg-blue-200/60 rounded w-3/4"></div>
+                        </div>
+                      </div>
+                      <div className="bg-gray-50 rounded-xl p-6 h-48 animate-pulse">
+                        <div className="h-6 bg-gray-200 rounded w-2/3 mb-4"></div>
+                        <div className="space-y-3">
+                          <div className="h-4 bg-gray-200 rounded w-full"></div>
+                          <div className="h-4 bg-gray-200 rounded w-full"></div>
+                          <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+                          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Skeleton Tabs */}
+                <div>
+                  <div className="border-b mb-6 flex space-x-6">
+                    {['Itinerary', 'Inclusions & Exclusions', 'Gallery', 'Map'].map((tab, i) => (
+                      <div key={i} className={`pb-3 pt-2 px-4 ${i === 0 ? 'border-b-2 border-primary' : ''}`}>
+                        <div className="h-5 bg-gray-200 rounded w-24"></div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Skeleton Itinerary */}
+                  <div className="mb-6 flex overflow-x-auto space-x-3 pb-3">
+                    {[1, 2, 3, 4, 5].map(i => (
+                      <div key={i} className="h-9 bg-gray-200 rounded-full w-24 flex-shrink-0"></div>
+                    ))}
+                  </div>
+                  
+                  <div className="mb-8 bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+                    <div className="flex flex-col md:flex-row">
+                      <div className="md:w-1/3 bg-gray-200 h-48"></div>
+                      <div className="p-6 md:w-2/3">
+                        <div className="h-6 bg-gray-200 rounded w-1/3 mb-3"></div>
+                        <div className="space-y-3">
+                          <div className="h-4 bg-gray-200 rounded w-full"></div>
+                          <div className="h-4 bg-gray-200 rounded w-full"></div>
+                          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Skeleton Right Column */}
+            <div className="lg:w-4/12">
+              <div className="bg-white rounded-lg shadow-lg p-6 mb-6 animate-pulse">
+                <div className="h-6 bg-gray-200 rounded w-1/2 mb-4"></div>
+                <div className="h-10 bg-gray-200 rounded w-full mb-4"></div>
+                <div className="h-10 bg-gray-200 rounded w-full mb-4"></div>
+                <div className="h-10 bg-gray-200 rounded w-full mb-4"></div>
+                <div className="h-24 bg-gray-200 rounded w-full mb-4"></div>
+                <div className="h-12 bg-primary/40 rounded-lg w-full"></div>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
@@ -144,13 +270,29 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   // Show error state
   if (error) {
     return (
-      <div className="max-w-6xl mx-auto p-6 pt-32 text-center min-h-screen">
-        <div className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-2">Error Loading Tour Data</h2>
-          <p>{error}</p>
-          <p className="mt-4">
-            Please try again later or contact support if the problem persists.
-          </p>
+      <div className="min-h-screen">
+        {/* Empty Hero Section */}
+        <div className="relative h-[300px] bg-red-50">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-transparent"></div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex flex-col justify-center items-center">
+            <AlertTriangle className="h-16 w-16 text-red-500 mb-4" />
+            <h1 className="text-3xl font-bold text-red-800 mb-2">Error Loading Tour Data</h1>
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-10">
+          <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8 border border-red-100">
+            <p className="text-red-700 mb-4">{error}</p>
+            <p className="text-gray-700">
+              Please try again later or contact support if the problem persists.
+            </p>
+            <div className="mt-6 flex justify-center">
+              <Link href="/tours" className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-md transition inline-flex items-center">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Return to Tours
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -159,10 +301,28 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   // If no data found
   if (!tourData) {
     return (
-      <div className="max-w-6xl mx-auto p-6 pt-32 text-center min-h-screen">
-        <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-2">No Tour Data Found</h2>
-          <p>The requested tour could not be found.</p>
+      <div className="min-h-screen">
+        {/* Empty Hero Section */}
+        <div className="relative h-[300px] bg-blue-50">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-transparent"></div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex flex-col justify-center items-center">
+            <Search className="h-16 w-16 text-blue-500 mb-4" />
+            <h1 className="text-3xl font-bold text-blue-800 mb-2">Tour Not Found</h1>
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-10">
+          <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8 border border-blue-100">
+            <p className="text-gray-700 mb-4">
+              Sorry, the requested tour could not be found. The tour may have been removed or the URL might be incorrect.
+            </p>
+            <div className="mt-6 flex justify-center">
+              <Link href="/tours" className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-md transition inline-flex items-center">
+                <LayoutGrid className="w-4 h-4 mr-2" />
+                Browse All Tours
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
