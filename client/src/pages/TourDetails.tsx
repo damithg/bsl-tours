@@ -560,24 +560,65 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   <TabsContent value="itinerary" className="mt-0">
                     {tourData.itinerary && tourData.itinerary.length > 0 ? (
                       <>
-                        {/* Day selector with grid layout for better display */}
+                        {/* Elegant day selector scroll UI */}
                         <div className="mb-8">
                           <h3 className="font-medium text-lg text-gray-800 mb-4">Tour Timeline</h3>
-                          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-                            {tourData.itinerary.map((day) => (
-                              <button
-                                key={`day-button-${day.day}`}
-                                onClick={() => setActiveDay(day.day)}
-                                className={`px-3 py-2 rounded-md transition-all text-sm font-medium flex flex-col items-center justify-center ${
-                                  activeDay === day.day
-                                    ? 'bg-[#0F4C81] text-white shadow-md'
-                                    : 'bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200'
-                                }`}
-                              >
-                                <span className="font-bold">Day {day.day}</span>
-                                <span className="text-xs truncate w-full text-center">{day.title}</span>
-                              </button>
-                            ))}
+                          <div className="relative">
+                            {/* Left shadow overlay for scroll indicator */}
+                            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                            
+                            {/* Right shadow overlay for scroll indicator */}
+                            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                            
+                            {/* Scrollable container with custom scrollbar styling */}
+                            <div className="flex overflow-x-auto pb-4 pt-1 space-x-3 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth" 
+                                style={{ 
+                                  scrollbarWidth: 'thin', 
+                                  msOverflowStyle: 'none'
+                                }}
+                            >
+                              {/* Hide scrollbar for Chrome, Safari and Opera */}
+                              <style dangerouslySetInnerHTML={{
+                                __html: `
+                                  .scrollbar-thin::-webkit-scrollbar {
+                                    height: 4px;
+                                  }
+                                  .scrollbar-thin::-webkit-scrollbar-track {
+                                    background: transparent;
+                                  }
+                                  .scrollbar-thin::-webkit-scrollbar-thumb {
+                                    background-color: rgba(203, 213, 225, 0.5);
+                                    border-radius: 20px;
+                                  }
+                                  .scrollbar-thin {
+                                    scrollbar-width: thin;
+                                    scrollbar-color: rgba(203, 213, 225, 0.5) transparent;
+                                  }
+                                `
+                              }} />
+                              {tourData.itinerary.map((day) => (
+                                <button
+                                  key={`day-button-${day.day}`}
+                                  onClick={() => setActiveDay(day.day)}
+                                  className={`
+                                    px-4 py-3 rounded-lg whitespace-nowrap transition-all duration-300 
+                                    flex flex-col items-center min-w-[120px] transform hover:scale-105
+                                    ${
+                                      activeDay === day.day
+                                        ? 'bg-[#0F4C81] text-white shadow-lg translate-y-[-2px]'
+                                        : 'bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 hover:shadow-md'
+                                    }
+                                  `}
+                                >
+                                  <span className={`text-lg font-bold ${activeDay === day.day ? 'text-white' : 'text-[#0F4C81]'}`}>
+                                    Day {day.day}
+                                  </span>
+                                  <span className={`text-xs mt-1 max-w-[100px] truncate ${activeDay === day.day ? 'text-white/90' : 'text-gray-500'}`}>
+                                    {day.title}
+                                  </span>
+                                </button>
+                              ))}
+                            </div>
                           </div>
                         </div>
                         
@@ -705,20 +746,33 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       <div className="p-6">
                         {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
                           <>
-                            <div className="mb-6 flex overflow-x-auto space-x-3 pb-3">
-                              {tourData.itinerary && tourData.itinerary.map((day) => (
-                                <button
-                                  key={`map-day-button-${day.day}`}
-                                  onClick={() => setActiveDay(day.day)}
-                                  className={`px-6 py-2.5 rounded-full whitespace-nowrap transition-all text-sm font-medium ${
-                                    activeDay === day.day
-                                      ? 'bg-primary text-white shadow-md shadow-primary/20 ring-2 ring-primary/30'
-                                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:shadow-sm'
-                                  }`}
-                                >
-                                  Day {day.day}
-                                </button>
-                              ))}
+                            <div className="mb-6 relative">
+                              {/* Left shadow overlay for scroll indicator */}
+                              <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                              
+                              {/* Right shadow overlay for scroll indicator */}
+                              <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                              
+                              {/* Scrollable day selector */}
+                              <div className="flex overflow-x-auto pb-4 pt-1 space-x-3 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth">
+                                {tourData.itinerary && tourData.itinerary.map((day) => (
+                                  <button
+                                    key={`map-day-button-${day.day}`}
+                                    onClick={() => setActiveDay(day.day)}
+                                    className={`
+                                      px-4 py-2 rounded-md whitespace-nowrap transition-all text-sm font-medium
+                                      min-w-[80px] transform hover:scale-105
+                                      ${
+                                        activeDay === day.day
+                                          ? 'bg-blue-600 text-white shadow-md translate-y-[-2px]'
+                                          : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:shadow-sm'
+                                      }
+                                    `}
+                                  >
+                                    Day {day.day}
+                                  </button>
+                                ))}
+                              </div>
                             </div>
                             <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">
                               <AnimatedRouteMap
