@@ -562,7 +562,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       <>
                         {/* Scrollable Tab Slider for Days */}
                         <div className="mb-8">
-                          <h3 className="font-medium text-lg text-gray-800 mb-4">Tour Timeline</h3>
                           <div className="relative">
                             {/* Left shadow overlay for scroll indicator */}
                             <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
@@ -618,15 +617,11 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 
                                 {/* Scrollable tabs container */}
                                 <div 
-                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container"
+                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container justify-end"
                                   ref={(el) => {
                                     if (el) {
-                                      // When the tabs aren't overflowing, center them
-                                      if (el.scrollWidth <= el.clientWidth) {
-                                        el.classList.add('justify-center');
-                                      } else {
-                                        el.classList.remove('justify-center');
-                                      }
+                                      // Always maintain right alignment
+                                      el.classList.remove('justify-center');
                                     }
                                   }}
                                 >
@@ -636,7 +631,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       onClick={() => setActiveDay(day.day)}
                                       className={`
                                         day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-5 py-2 mx-1 text-sm font-medium rounded-full focus:outline-none
+                                        px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
                                         ${activeDay === day.day 
                                           ? 'bg-[#0F7173] text-white' 
                                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
@@ -845,15 +840,11 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 
                                 {/* Scrollable tabs - simplified Material UI style */}
                                 <div 
-                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container"
+                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container justify-end"
                                   ref={(el) => {
                                     if (el) {
-                                      // When the tabs aren't overflowing, center them
-                                      if (el.scrollWidth <= el.clientWidth) {
-                                        el.classList.add('justify-center');
-                                      } else {
-                                        el.classList.remove('justify-center');
-                                      }
+                                      // Always maintain right alignment
+                                      el.classList.remove('justify-center');
                                     }
                                   }}
                                 >
@@ -863,7 +854,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       onClick={() => setActiveDay(day.day)}
                                       className={`
                                         day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-5 py-2 mx-1 text-sm font-medium rounded-full focus:outline-none
+                                        px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
                                         ${activeDay === day.day 
                                           ? 'bg-[#0F7173] text-white' 
                                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
