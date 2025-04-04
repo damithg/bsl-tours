@@ -562,7 +562,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       <>
                         {/* Scrollable Tab Slider for Days */}
                         <div className="mb-8">
-                          <h3 className="font-medium text-lg text-gray-800 mb-4">Tour Timeline</h3>
                           <div className="relative">
                             {/* Left shadow overlay for scroll indicator */}
                             <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
@@ -571,7 +570,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                             <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
                             
                             {/* Tab bar container */}
-                            <div className="border-b border-gray-200">
+                            <div className="mb-4">
                               {/* Hide scrollbar for Chrome, Safari and Opera */}
                               <style dangerouslySetInnerHTML={{
                                 __html: `
@@ -582,28 +581,13 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                     -ms-overflow-style: none;
                                     scrollbar-width: none;
                                   }
-                                  .day-tab::after {
-                                    content: '';
-                                    position: absolute;
-                                    bottom: 0;
-                                    left: 0;
-                                    right: 0;
-                                    height: 3px;
-                                    border-top-left-radius: 3px;
-                                    border-top-right-radius: 3px;
-                                    transform: scaleX(0);
-                                    transition: transform 0.2s ease-in-out;
-                                  }
-                                  .day-tab.active::after {
-                                    transform: scaleX(1);
-                                    background-color: #0F4C81;
-                                  }
+
                                 `
                               }} />
                               
                               {/* Scrollable tabs - simplified Material UI style with navigation arrows */}
                               <div className="relative">
-                                {/* Left navigation arrow */}
+                                {/* Left navigation arrow with conditional visibility */}
                                 <button 
                                   onClick={() => {
                                     const container = document.querySelector('.itinerary-tabs-container');
@@ -611,8 +595,29 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       container.scrollBy({ left: -200, behavior: 'smooth' });
                                     }
                                   }}
-                                  className="absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                                  className="itinerary-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
                                   aria-label="Scroll left"
+                                  ref={(el) => {
+                                    if (el) {
+                                      // Make sure arrows are visible when content overflows
+                                      const checkOverflow = () => {
+                                        const container = document.querySelector('.itinerary-tabs-container') as HTMLElement;
+                                        if (container) {
+                                          const isOverflowing = container.scrollWidth > container.clientWidth;
+                                          el.style.display = isOverflowing ? 'flex' : 'none';
+                                        }
+                                      };
+                                      
+                                      // Check multiple times to ensure it catches any layout changes
+                                      checkOverflow();
+                                      setTimeout(checkOverflow, 100);
+                                      setTimeout(checkOverflow, 500);
+                                      setTimeout(checkOverflow, 1000);
+                                      
+                                      // Add resize listener to recheck on window resize
+                                      window.addEventListener('resize', checkOverflow);
+                                    }
+                                  }}
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -620,15 +625,26 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 </button>
                                 
                                 {/* Scrollable tabs container */}
-                                <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container">
+                                <div 
+                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container"
+                                  ref={(el) => {
+                                    if (el) {
+                                      // Always maintain left alignment
+                                      el.classList.remove('justify-center');
+                                      el.classList.remove('justify-end');
+                                    }
+                                  }}
+                                >
                                   {tourData.itinerary.map((day) => (
                                     <button
                                       key={`day-tab-${day.day}`}
                                       onClick={() => setActiveDay(day.day)}
                                       className={`
                                         day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-6 py-3 text-sm font-semibold focus:outline-none min-w-[90px]
-                                        ${activeDay === day.day ? 'text-[#0F4C81] active' : 'text-gray-500 hover:text-gray-700'}
+                                        px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
+                                        ${activeDay === day.day 
+                                          ? 'bg-[#0F7173] text-white' 
+                                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
                                       `}
                                     >
                                       Day {day.day}
@@ -636,7 +652,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   ))}
                                 </div>
                                 
-                                {/* Right navigation arrow */}
+                                {/* Right navigation arrow with conditional visibility */}
                                 <button 
                                   onClick={() => {
                                     const container = document.querySelector('.itinerary-tabs-container');
@@ -644,8 +660,29 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       container.scrollBy({ left: 200, behavior: 'smooth' });
                                     }
                                   }}
-                                  className="absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                                  className="itinerary-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
                                   aria-label="Scroll right"
+                                  ref={(el) => {
+                                    if (el) {
+                                      // Make sure arrows are visible when content overflows
+                                      const checkOverflow = () => {
+                                        const container = document.querySelector('.itinerary-tabs-container') as HTMLElement;
+                                        if (container) {
+                                          const isOverflowing = container.scrollWidth > container.clientWidth;
+                                          el.style.display = isOverflowing ? 'flex' : 'none';
+                                        }
+                                      };
+                                      
+                                      // Check multiple times to ensure it catches any layout changes
+                                      checkOverflow();
+                                      setTimeout(checkOverflow, 100);
+                                      setTimeout(checkOverflow, 500);
+                                      setTimeout(checkOverflow, 1000);
+                                      
+                                      // Add resize listener to recheck on window resize
+                                      window.addEventListener('resize', checkOverflow);
+                                    }
+                                  }}
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -653,16 +690,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 </button>
                               </div>
                               
-                              {/* Active indicator line that follows the selected tab */}
-                              <div className="h-0.5 relative">
-                                <div 
-                                  className={`absolute h-0.5 bg-[#0F4C81] transition-all duration-300 bottom-0`}
-                                  style={{
-                                    left: `${((activeDay || 1) - 1) * (100 / tourData.itinerary.length)}%`,
-                                    width: `${100 / tourData.itinerary.length}%`
-                                  }}
-                                ></div>
-                              </div>
+
                             </div>
                           </div>
                         </div>
@@ -800,8 +828,8 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                               <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
                               
                               {/* Tab bar container */}
-                              <div className="border-b border-gray-200 relative">
-                                {/* Left navigation arrow */}
+                              <div className="mb-4">
+                                {/* Left navigation arrow - ref is for checking visibility */}
                                 <button 
                                   onClick={() => {
                                     const container = document.querySelector('.map-tabs-container');
@@ -809,8 +837,30 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       container.scrollBy({ left: -200, behavior: 'smooth' });
                                     }
                                   }}
-                                  className="absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                                  className="map-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
                                   aria-label="Scroll left"
+                                  aria-label="Scroll left"
+                                  ref={(el) => {
+                                    if (el) {
+                                      // Make sure arrows are visible when content overflows
+                                      const checkOverflow = () => {
+                                        const container = document.querySelector('.map-tabs-container') as HTMLElement;
+                                        if (container) {
+                                          const isOverflowing = container.scrollWidth > container.clientWidth;
+                                          el.style.display = isOverflowing ? 'flex' : 'none';
+                                        }
+                                      };
+                                      
+                                      // Check multiple times to ensure it catches any layout changes
+                                      checkOverflow();
+                                      setTimeout(checkOverflow, 100);
+                                      setTimeout(checkOverflow, 500);
+                                      setTimeout(checkOverflow, 1000);
+                                      
+                                      // Add resize listener to recheck on window resize
+                                      window.addEventListener('resize', checkOverflow);
+                                    }
+                                  }}
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -818,15 +868,26 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 </button>
                                 
                                 {/* Scrollable tabs - simplified Material UI style */}
-                                <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container">
+                                <div 
+                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container"
+                                  ref={(el) => {
+                                    if (el) {
+                                      // Always maintain left alignment
+                                      el.classList.remove('justify-center');
+                                      el.classList.remove('justify-end');
+                                    }
+                                  }}
+                                >
                                   {tourData.itinerary && tourData.itinerary.map((day) => (
                                     <button
                                       key={`map-day-tab-${day.day}`}
                                       onClick={() => setActiveDay(day.day)}
                                       className={`
                                         day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-6 py-3 text-sm font-semibold focus:outline-none min-w-[90px]
-                                        ${activeDay === day.day ? 'text-blue-600 active' : 'text-gray-500 hover:text-gray-700'}
+                                        px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
+                                        ${activeDay === day.day 
+                                          ? 'bg-[#0F7173] text-white' 
+                                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
                                       `}
                                     >
                                       Day {day.day}
@@ -834,32 +895,36 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   ))}
                                 </div>
                                 
-                                {/* Right navigation arrow */}
-                                <button 
-                                  onClick={() => {
-                                    const container = document.querySelector('.map-tabs-container');
-                                    if (container) {
-                                      container.scrollBy({ left: 200, behavior: 'smooth' });
+                                <button
+                                  aria-label="Scroll right"
+                                  ref={(el) => {
+                                    if (el) {
+                                      // Make sure arrows are visible when content overflows
+                                      const checkOverflow = () => {
+                                        const container = document.querySelector('.map-tabs-container') as HTMLElement;
+                                        if (container) {
+                                          const isOverflowing = container.scrollWidth > container.clientWidth;
+                                          el.style.display = isOverflowing ? 'flex' : 'none';
+                                        }
+                                      };
+                                      
+                                      // Check multiple times to ensure it catches any layout changes
+                                      checkOverflow();
+                                      setTimeout(checkOverflow, 100);
+                                      setTimeout(checkOverflow, 500);
+                                      setTimeout(checkOverflow, 1000);
+                                      
+                                      // Add resize listener to recheck on window resize
+                                      window.addEventListener('resize', checkOverflow);
                                     }
                                   }}
-                                  className="absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
-                                  aria-label="Scroll right"
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                   </svg>
                                 </button>
                                 
-                                {/* Active indicator line that follows the selected tab */}
-                                <div className="h-0.5 relative">
-                                  <div 
-                                    className={`absolute h-0.5 bg-blue-600 transition-all duration-300 bottom-0`}
-                                    style={{
-                                      left: `${((activeDay || 1) - 1) * (100 / tourData.itinerary.length)}%`,
-                                      width: `${100 / tourData.itinerary.length}%`
-                                    }}
-                                  ></div>
-                                </div>
+
                               </div>
                             </div>
                             <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">

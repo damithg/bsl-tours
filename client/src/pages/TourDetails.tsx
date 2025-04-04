@@ -599,14 +599,23 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   aria-label="Scroll left"
                                   ref={(el) => {
                                     if (el) {
-                                      // Check if content is overflowing
-                                      setTimeout(() => {
+                                      // Make sure arrows are visible when content overflows
+                                      const checkOverflow = () => {
                                         const container = document.querySelector('.itinerary-tabs-container') as HTMLElement;
                                         if (container) {
                                           const isOverflowing = container.scrollWidth > container.clientWidth;
                                           el.style.display = isOverflowing ? 'flex' : 'none';
                                         }
-                                      }, 500);
+                                      };
+                                      
+                                      // Check multiple times to ensure it catches any layout changes
+                                      checkOverflow();
+                                      setTimeout(checkOverflow, 100);
+                                      setTimeout(checkOverflow, 500);
+                                      setTimeout(checkOverflow, 1000);
+                                      
+                                      // Add resize listener to recheck on window resize
+                                      window.addEventListener('resize', checkOverflow);
                                     }
                                   }}
                                 >
@@ -617,11 +626,12 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 
                                 {/* Scrollable tabs container */}
                                 <div 
-                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container justify-end"
+                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container"
                                   ref={(el) => {
                                     if (el) {
-                                      // Always maintain right alignment
+                                      // Always maintain left alignment
                                       el.classList.remove('justify-center');
+                                      el.classList.remove('justify-end');
                                     }
                                   }}
                                 >
@@ -654,14 +664,23 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   aria-label="Scroll right"
                                   ref={(el) => {
                                     if (el) {
-                                      // Check if content is overflowing
-                                      setTimeout(() => {
+                                      // Make sure arrows are visible when content overflows
+                                      const checkOverflow = () => {
                                         const container = document.querySelector('.itinerary-tabs-container') as HTMLElement;
                                         if (container) {
                                           const isOverflowing = container.scrollWidth > container.clientWidth;
                                           el.style.display = isOverflowing ? 'flex' : 'none';
                                         }
-                                      }, 500);
+                                      };
+                                      
+                                      // Check multiple times to ensure it catches any layout changes
+                                      checkOverflow();
+                                      setTimeout(checkOverflow, 100);
+                                      setTimeout(checkOverflow, 500);
+                                      setTimeout(checkOverflow, 1000);
+                                      
+                                      // Add resize listener to recheck on window resize
+                                      window.addEventListener('resize', checkOverflow);
                                     }
                                   }}
                                 >
@@ -822,14 +841,23 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   aria-label="Scroll left"
                                   ref={(el) => {
                                     if (el) {
-                                      // Check if content is overflowing
-                                      setTimeout(() => {
+                                      // Make sure arrows are visible when content overflows
+                                      const checkOverflow = () => {
                                         const container = document.querySelector('.map-tabs-container') as HTMLElement;
                                         if (container) {
                                           const isOverflowing = container.scrollWidth > container.clientWidth;
                                           el.style.display = isOverflowing ? 'flex' : 'none';
                                         }
-                                      }, 500);
+                                      };
+                                      
+                                      // Check multiple times to ensure it catches any layout changes
+                                      checkOverflow();
+                                      setTimeout(checkOverflow, 100);
+                                      setTimeout(checkOverflow, 500);
+                                      setTimeout(checkOverflow, 1000);
+                                      
+                                      // Add resize listener to recheck on window resize
+                                      window.addEventListener('resize', checkOverflow);
                                     }
                                   }}
                                 >
@@ -840,11 +868,12 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 
                                 {/* Scrollable tabs - simplified Material UI style */}
                                 <div 
-                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container justify-end"
+                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container"
                                   ref={(el) => {
                                     if (el) {
-                                      // Always maintain right alignment
+                                      // Always maintain left alignment
                                       el.classList.remove('justify-center');
+                                      el.classList.remove('justify-end');
                                     }
                                   }}
                                 >
@@ -865,26 +894,34 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   ))}
                                 </div>
                                 
-                                {/* Right navigation arrow - ref is for checking visibility */}
-                                <button 
+                                <button
+                                  className="map-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
                                   onClick={() => {
-                                    const container = document.querySelector('.map-tabs-container');
+                                    const container = document.querySelector('.map-tabs-container') as HTMLElement;
                                     if (container) {
                                       container.scrollBy({ left: 200, behavior: 'smooth' });
                                     }
                                   }}
-                                  className="map-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
                                   aria-label="Scroll right"
                                   ref={(el) => {
                                     if (el) {
-                                      // Check if content is overflowing
-                                      setTimeout(() => {
+                                      // Make sure arrows are visible when content overflows
+                                      const checkOverflow = () => {
                                         const container = document.querySelector('.map-tabs-container') as HTMLElement;
                                         if (container) {
                                           const isOverflowing = container.scrollWidth > container.clientWidth;
                                           el.style.display = isOverflowing ? 'flex' : 'none';
                                         }
-                                      }, 500);
+                                      };
+                                      
+                                      // Check multiple times to ensure it catches any layout changes
+                                      checkOverflow();
+                                      setTimeout(checkOverflow, 100);
+                                      setTimeout(checkOverflow, 500);
+                                      setTimeout(checkOverflow, 1000);
+                                      
+                                      // Add resize listener to recheck on window resize
+                                      window.addEventListener('resize', checkOverflow);
                                     }
                                   }}
                                 >
