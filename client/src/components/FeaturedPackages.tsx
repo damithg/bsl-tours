@@ -5,6 +5,7 @@ import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-r
 import { queryClient } from "@/lib/queryClient";
 import { AdaptiveImage } from "./ui/adaptive-image";
 import { determineFocalPoint } from "@/lib/image-utils";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 // Strapi API Tour interface
 interface StrapiTour {
@@ -93,6 +94,9 @@ const FeaturedPackages = () => {
   const { data: strapiResponse, isLoading, error, refetch } = useQuery<StrapiResponse>({
     queryKey,
   });
+  
+  // Get the formatPrice function from the CurrencyContext
+  const { formatPrice } = useCurrency();
   
   // The API response is the array of tours directly
   const tours = strapiResponse || [];
@@ -341,7 +345,7 @@ const FeaturedPackages = () => {
                         <div>
                           <span className="text-sm text-gray-500">From</span>
                           <span className="text-[#0F4C81] text-xl font-semibold">
-                            ${tour.startingFrom?.toLocaleString() || 0}
+                            {formatPrice(tour.startingFrom || 0, tour.currency || 'USD')}
                           </span>
                           <span className="text-gray-500 text-sm">per person</span>
                         </div>
