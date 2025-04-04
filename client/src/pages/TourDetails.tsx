@@ -560,64 +560,78 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   <TabsContent value="itinerary" className="mt-0">
                     {tourData.itinerary && tourData.itinerary.length > 0 ? (
                       <>
-                        {/* Elegant day selector scroll UI */}
+                        {/* Scrollable Tab Slider for Days */}
                         <div className="mb-8">
                           <h3 className="font-medium text-lg text-gray-800 mb-4">Tour Timeline</h3>
                           <div className="relative">
                             {/* Left shadow overlay for scroll indicator */}
-                            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                            <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
                             
                             {/* Right shadow overlay for scroll indicator */}
-                            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                            <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
                             
-                            {/* Scrollable container with custom scrollbar styling */}
-                            <div className="flex overflow-x-auto pb-4 pt-1 space-x-3 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth" 
-                                style={{ 
-                                  scrollbarWidth: 'thin', 
-                                  msOverflowStyle: 'none'
-                                }}
-                            >
+                            {/* Tab bar container */}
+                            <div className="border-b border-gray-200">
                               {/* Hide scrollbar for Chrome, Safari and Opera */}
                               <style dangerouslySetInnerHTML={{
                                 __html: `
-                                  .scrollbar-thin::-webkit-scrollbar {
-                                    height: 4px;
+                                  .scrollbar-none::-webkit-scrollbar {
+                                    display: none;
                                   }
-                                  .scrollbar-thin::-webkit-scrollbar-track {
-                                    background: transparent;
+                                  .scrollbar-none {
+                                    -ms-overflow-style: none;
+                                    scrollbar-width: none;
                                   }
-                                  .scrollbar-thin::-webkit-scrollbar-thumb {
-                                    background-color: rgba(203, 213, 225, 0.5);
-                                    border-radius: 20px;
+                                  .day-tab::after {
+                                    content: '';
+                                    position: absolute;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
+                                    height: 3px;
+                                    border-top-left-radius: 3px;
+                                    border-top-right-radius: 3px;
+                                    transform: scaleX(0);
+                                    transition: transform 0.2s ease-in-out;
                                   }
-                                  .scrollbar-thin {
-                                    scrollbar-width: thin;
-                                    scrollbar-color: rgba(203, 213, 225, 0.5) transparent;
+                                  .day-tab.active::after {
+                                    transform: scaleX(1);
+                                    background-color: #0F4C81;
                                   }
                                 `
                               }} />
-                              {tourData.itinerary.map((day) => (
-                                <button
-                                  key={`day-button-${day.day}`}
-                                  onClick={() => setActiveDay(day.day)}
-                                  className={`
-                                    px-4 py-3 rounded-lg whitespace-nowrap transition-all duration-300 
-                                    flex flex-col items-center min-w-[120px] transform hover:scale-105
-                                    ${
-                                      activeDay === day.day
-                                        ? 'bg-[#0F4C81] text-white shadow-lg translate-y-[-2px]'
-                                        : 'bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 hover:shadow-md'
-                                    }
-                                  `}
-                                >
-                                  <span className={`text-lg font-bold ${activeDay === day.day ? 'text-white' : 'text-[#0F4C81]'}`}>
-                                    Day {day.day}
-                                  </span>
-                                  <span className={`text-xs mt-1 max-w-[100px] truncate ${activeDay === day.day ? 'text-white/90' : 'text-gray-500'}`}>
-                                    {day.title}
-                                  </span>
-                                </button>
-                              ))}
+                              
+                              {/* Scrollable tabs */}
+                              <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth">
+                                {tourData.itinerary.map((day) => (
+                                  <button
+                                    key={`day-tab-${day.day}`}
+                                    onClick={() => setActiveDay(day.day)}
+                                    className={`
+                                      day-tab relative whitespace-nowrap transition-all duration-200
+                                      px-6 py-3 text-sm font-medium focus:outline-none
+                                      ${activeDay === day.day ? 'text-[#0F4C81] active' : 'text-gray-500 hover:text-gray-700'}
+                                    `}
+                                  >
+                                    <div className="flex items-center space-x-1.5">
+                                      <span className="font-bold">Day {day.day}</span>
+                                      <span className="hidden sm:inline">•</span>
+                                      <span className="hidden sm:inline max-w-[120px] truncate">{day.title}</span>
+                                    </div>
+                                  </button>
+                                ))}
+                              </div>
+                              
+                              {/* Active indicator line that follows the selected tab */}
+                              <div className="h-0.5 relative">
+                                <div 
+                                  className={`absolute h-0.5 bg-[#0F4C81] transition-all duration-300 bottom-0`}
+                                  style={{
+                                    left: `${((activeDay || 1) - 1) * (100 / tourData.itinerary.length)}%`,
+                                    width: `${100 / tourData.itinerary.length}%`
+                                  }}
+                                ></div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -746,32 +760,47 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       <div className="p-6">
                         {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
                           <>
+                            {/* Map Day Slider Tabs */}
                             <div className="mb-6 relative">
                               {/* Left shadow overlay for scroll indicator */}
-                              <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                              <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
                               
                               {/* Right shadow overlay for scroll indicator */}
-                              <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                              <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
                               
-                              {/* Scrollable day selector */}
-                              <div className="flex overflow-x-auto pb-4 pt-1 space-x-3 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth">
-                                {tourData.itinerary && tourData.itinerary.map((day) => (
-                                  <button
-                                    key={`map-day-button-${day.day}`}
-                                    onClick={() => setActiveDay(day.day)}
-                                    className={`
-                                      px-4 py-2 rounded-md whitespace-nowrap transition-all text-sm font-medium
-                                      min-w-[80px] transform hover:scale-105
-                                      ${
-                                        activeDay === day.day
-                                          ? 'bg-blue-600 text-white shadow-md translate-y-[-2px]'
-                                          : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:shadow-sm'
-                                      }
-                                    `}
-                                  >
-                                    Day {day.day}
-                                  </button>
-                                ))}
+                              {/* Tab bar container */}
+                              <div className="border-b border-gray-200">
+                                {/* Scrollable tabs */}
+                                <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth">
+                                  {tourData.itinerary && tourData.itinerary.map((day) => (
+                                    <button
+                                      key={`map-day-tab-${day.day}`}
+                                      onClick={() => setActiveDay(day.day)}
+                                      className={`
+                                        day-tab relative whitespace-nowrap transition-all duration-200
+                                        px-6 py-3 text-sm font-medium focus:outline-none
+                                        ${activeDay === day.day ? 'text-blue-600 active' : 'text-gray-500 hover:text-gray-700'}
+                                      `}
+                                    >
+                                      <div className="flex items-center space-x-1.5">
+                                        <span className="font-bold">Day {day.day}</span>
+                                        <span className="hidden sm:inline">•</span>
+                                        <span className="hidden sm:inline max-w-[120px] truncate">{day.title}</span>
+                                      </div>
+                                    </button>
+                                  ))}
+                                </div>
+                                
+                                {/* Active indicator line that follows the selected tab */}
+                                <div className="h-0.5 relative">
+                                  <div 
+                                    className={`absolute h-0.5 bg-blue-600 transition-all duration-300 bottom-0`}
+                                    style={{
+                                      left: `${((activeDay || 1) - 1) * (100 / tourData.itinerary.length)}%`,
+                                      width: `${100 / tourData.itinerary.length}%`
+                                    }}
+                                  ></div>
+                                </div>
                               </div>
                             </div>
                             <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">
