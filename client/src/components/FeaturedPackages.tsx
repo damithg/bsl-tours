@@ -289,9 +289,9 @@ const FeaturedPackages = () => {
                 // Get the image URL from cardImage or heroImage, with fallbacks
                 const getImageUrl = () => {
                   if (tour.cardImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,h_400,w_600,q_auto/${tour.cardImage.publicId}`;
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,h_600,w_800,q_auto/${tour.cardImage.publicId}`;
                   } else if (tour.heroImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,h_400,w_600,q_auto/${tour.heroImage.publicId}`;
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,h_600,w_800,q_auto/${tour.heroImage.publicId}`;
                   } else {
                     // For now use a fallback, but ideally this should never happen as all tours should have images
                     return "/images/tours/scenic-sri-lanka-hero.jpg";
