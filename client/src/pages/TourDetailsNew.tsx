@@ -531,107 +531,143 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
             
             {/* Itinerary Section - ModTour Style */}
             <section ref={itineraryRef} id="itinerary" className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+              <h2 className="text-2xl font-bold text-gray-800 mb-8 flex items-center">
                 <List className="w-6 h-6 mr-3 text-primary" />
                 Tour Itinerary
               </h2>
               
               {tourData.itinerary && tourData.itinerary.length > 0 ? (
-                <div className="relative">
+                <div className="relative pl-0 sm:pl-14">
                   {/* Timeline track - vertical line connecting all days */}
-                  <div className="absolute left-3 md:left-7 top-0 bottom-0 w-[2px] bg-gray-200 z-0"></div>
+                  <div className="absolute left-6 sm:left-6 top-[60px] bottom-10 w-[3px] bg-gray-200 z-0 hidden sm:block"></div>
                   
                   {/* Itinerary days as connected timeline items */}
-                  <div className="space-y-6">
+                  <div className="space-y-10">
                     {tourData.itinerary.map((day, index) => (
                       <div key={`day-${day.day}`} className="relative z-10">
                         {/* Day container with left circle indicator */}
-                        <div className="flex items-stretch">
+                        <div className="flex flex-col sm:flex-row">
                           {/* Left day indicator */}
-                          <div className="flex flex-col items-center mr-4 md:mr-8">
+                          <div className="hidden sm:flex flex-col items-center mr-10">
                             <div 
                               className={`
-                                w-6 h-6 md:w-14 md:h-14 rounded-full flex items-center justify-center
-                                ${index === activeDay - 1 ? 'bg-primary text-white shadow-lg ring-4 ring-primary/20' : 'bg-white text-primary border-2 border-primary'}
-                                z-10 font-semibold text-xs md:text-base
+                                w-12 h-12 rounded-full flex items-center justify-center
+                                text-lg font-bold border-[3px] mb-3
+                                ${index === activeDay - 1 
+                                  ? 'border-primary bg-primary text-white' 
+                                  : 'border-gray-300 bg-white text-gray-700'}
                               `}
                             >
                               {day.day}
                             </div>
                           </div>
                           
-                          {/* Right content area */}
-                          <div className={`
-                            flex-1 bg-white rounded-lg overflow-hidden border transition-all duration-300
-                            ${index === activeDay - 1 ? 'border-primary shadow-md' : 'border-gray-200'}
-                          `}>
-                            {/* Day header with title and expand/collapse control */}
-                            <div 
-                              className={`
-                                p-4 cursor-pointer flex justify-between items-center
-                                ${index === activeDay - 1 ? 'bg-primary text-white' : 'bg-gray-50 text-gray-800 hover:bg-gray-100'}
-                              `}
-                              onClick={() => setActiveDay(day.day)}
-                            >
-                              <h3 className="font-semibold">{day.title}</h3>
-                              <div className={`transition-transform ${index === activeDay - 1 ? 'rotate-180' : 'rotate-0'}`}>
-                                <ChevronDown className="w-5 h-5" />
+                          {/* Right content area - Full width on mobile */}
+                          <div className="flex-1">
+                            {/* Mobile day indicator (shown only on small screens) */}
+                            <div className="flex items-center sm:hidden mb-4">
+                              <div 
+                                className={`
+                                  w-10 h-10 rounded-full flex items-center justify-center mr-3
+                                  text-base font-bold border-[3px]
+                                  ${index === activeDay - 1 
+                                    ? 'border-primary bg-primary text-white' 
+                                    : 'border-gray-300 bg-white text-gray-700'}
+                                `}
+                              >
+                                {day.day}
                               </div>
+                              <h3 className="font-bold text-lg text-gray-800">{day.title}</h3>
                             </div>
                             
-                            {/* Expandable content area */}
-                            <div className={`
-                              transition-all duration-300 overflow-hidden
-                              ${index === activeDay - 1 ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}
-                            `}>
-                              <div className="p-4 md:p-6">
-                                {/* Two-column layout on larger screens */}
-                                <div className="flex flex-col md:flex-row gap-6">
-                                  {/* Description column */}
-                                  <div className="md:w-3/5">
-                                    <div className="prose prose-sm max-w-none text-gray-700">
-                                      {/* Convert description to paragraphs based on new lines */}
-                                      {day.description.split('\n').filter(para => para.trim() !== '').map((paragraph, idx) => (
-                                        <p key={`para-${idx}`}>{paragraph}</p>
-                                      ))}
+                            {/* Desktop title (hidden on mobile) */}
+                            <h3 className="hidden sm:block font-bold text-lg text-gray-800 mb-4">{day.title}</h3>
+                          
+                            {/* Collapsible content card */}
+                            <div 
+                              className={`
+                                border rounded-xl overflow-hidden bg-white
+                                ${index === activeDay - 1 ? 'border-primary shadow-md' : 'border-gray-200'}
+                                transition-all duration-300
+                              `}
+                            >
+                              {/* Header bar (clickable to expand/collapse) */}
+                              <div 
+                                className={`
+                                  p-4 cursor-pointer flex justify-between items-center
+                                  border-b transition-colors
+                                  ${index === activeDay - 1 
+                                    ? 'bg-primary/5 border-primary' 
+                                    : 'bg-gray-50 border-gray-200 hover:bg-gray-100'}
+                                `}
+                                onClick={() => setActiveDay(day.day)}
+                              >
+                                <div className="flex items-center">
+                                  <span className="text-primary font-medium">
+                                    {index === activeDay - 1 ? 'Hide Details' : 'View Details'}
+                                  </span>
+                                </div>
+                                <div className={`transition-transform ${index === activeDay - 1 ? 'rotate-180' : 'rotate-0'}`}>
+                                  <ChevronDown className={`w-5 h-5 ${index === activeDay - 1 ? 'text-primary' : 'text-gray-500'}`} />
+                                </div>
+                              </div>
+                              
+                              {/* Expandable content area */}
+                              <div 
+                                className={`
+                                  transition-all duration-300 overflow-hidden
+                                  ${index === activeDay - 1 ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}
+                                `}
+                              >
+                                <div className="p-6">
+                                  {/* Two-column layout on larger screens */}
+                                  <div className="flex flex-col lg:flex-row gap-8">
+                                    {/* Description column */}
+                                    <div className="lg:w-3/5 order-2 lg:order-1">
+                                      <div className="prose prose-sm md:prose max-w-none text-gray-700">
+                                        {/* Convert description to paragraphs based on new lines */}
+                                        {day.description.split('\n').filter(para => para.trim() !== '').map((paragraph, idx) => (
+                                          <p key={`para-${idx}`}>{paragraph}</p>
+                                        ))}
+                                      </div>
+                                      
+                                      {/* Accommodation and meals section */}
+                                      <div className="mt-6 flex flex-wrap gap-3 items-center">
+                                        <div className="flex items-center bg-gray-100 py-2 px-4 rounded-full text-sm">
+                                          <Hotel className="w-4 h-4 mr-2 text-primary" />
+                                          <span>5-Star Hotel</span>
+                                        </div>
+                                        
+                                        <div className="flex items-center bg-blue-50 py-2 px-4 rounded-full text-sm">
+                                          <Coffee className="w-4 h-4 mr-2 text-blue-600" />
+                                          <span>Breakfast</span>
+                                        </div>
+                                        
+                                        <div className="flex items-center bg-green-50 py-2 px-4 rounded-full text-sm">
+                                          <UtensilsCrossed className="w-4 h-4 mr-2 text-green-600" />
+                                          <span>Lunch</span>
+                                        </div>
+                                        
+                                        <div className="flex items-center bg-purple-50 py-2 px-4 rounded-full text-sm">
+                                          <UtensilsCrossed className="w-4 h-4 mr-2 text-purple-600" />
+                                          <span>Dinner</span>
+                                        </div>
+                                      </div>
                                     </div>
                                     
-                                    {/* Accommodation and meals section */}
-                                    <div className="mt-4 flex flex-wrap gap-3 items-center">
-                                      <div className="flex items-center bg-gray-100 py-1.5 px-3 rounded-full text-sm">
-                                        <Hotel className="w-4 h-4 mr-1.5 text-primary" />
-                                        <span>Luxury Hotel</span>
+                                    {/* Image column */}
+                                    {day.image && (day.image.large || day.image.medium || day.image.small || day.image.baseUrl) && (
+                                      <div className="lg:w-2/5 order-1 lg:order-2 mb-6 lg:mb-0">
+                                        <div className="rounded-xl overflow-hidden shadow-md h-60 lg:h-full">
+                                          <img 
+                                            src={day.image.large || day.image.medium || day.image.small || day.image.baseUrl}
+                                            alt={day.image.alt || `Day ${day.day}: ${day.title}`}
+                                            className="w-full h-full object-cover"
+                                          />
+                                        </div>
                                       </div>
-                                      
-                                      <div className="flex items-center bg-blue-50 py-1.5 px-3 rounded-full text-sm">
-                                        <Coffee className="w-4 h-4 mr-1.5 text-blue-600" />
-                                        <span>Breakfast</span>
-                                      </div>
-                                      
-                                      <div className="flex items-center bg-green-50 py-1.5 px-3 rounded-full text-sm">
-                                        <UtensilsCrossed className="w-4 h-4 mr-1.5 text-green-600" />
-                                        <span>Lunch</span>
-                                      </div>
-                                      
-                                      <div className="flex items-center bg-purple-50 py-1.5 px-3 rounded-full text-sm">
-                                        <UtensilsCrossed className="w-4 h-4 mr-1.5 text-purple-600" />
-                                        <span>Dinner</span>
-                                      </div>
-                                    </div>
+                                    )}
                                   </div>
-                                  
-                                  {/* Image column */}
-                                  {day.image && (day.image.large || day.image.medium || day.image.small || day.image.baseUrl) && (
-                                    <div className="md:w-2/5 mt-4 md:mt-0">
-                                      <div className="rounded-lg overflow-hidden h-56 md:h-full">
-                                        <img 
-                                          src={day.image.large || day.image.medium || day.image.small || day.image.baseUrl}
-                                          alt={day.image.alt || `Day ${day.day}: ${day.title}`}
-                                          className="w-full h-full object-cover"
-                                        />
-                                      </div>
-                                    </div>
-                                  )}
                                 </div>
                               </div>
                             </div>
