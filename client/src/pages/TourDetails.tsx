@@ -538,8 +538,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                 <Tabs defaultValue="itinerary" className="w-full">
                   <TabsList className="mb-6 border-b w-full justify-start rounded-none h-auto p-0">
                     {[
-                      { id: 'itinerary', icon: <List className="w-5 h-5 mr-2" />, label: 'Itinerary' },
-                      { id: 'map', icon: <Map className="w-5 h-5 mr-2" />, label: 'Map' }
+                      { id: 'itinerary', icon: <List className="w-5 h-5 mr-2" />, label: 'Itinerary' }
                     ].map(tab => (
                       <TabsTrigger 
                         key={tab.id}
@@ -718,166 +717,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       </div>
                     )}
                   </TabsContent>
-                  
-                  {/* Map Tab Content */}
-                  <TabsContent value="map" className="mt-0">
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                      <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
-                        <h2 className="text-xl font-bold flex items-center">
-                          <Map className="w-5 h-5 mr-3" />
-                          Tour Route Map
-                        </h2>
-                        <p className="text-white/80 mt-1 text-sm">Follow the journey through Sri Lanka's most beautiful destinations</p>
-                      </div>
-                      
-                      <div className="p-6">
-                        {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
-                          <>
-                            {/* Map Day Slider Tabs */}
-                            <div className="mb-6 relative">
-                              {/* Left shadow overlay for scroll indicator */}
-                              <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                              
-                              {/* Right shadow overlay for scroll indicator */}
-                              <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-                              
-                              {/* Tab bar container */}
-                              <div className="mb-4">
-                                {/* Left navigation arrow - ref is for checking visibility */}
-                                <button 
-                                  onClick={() => {
-                                    const container = document.querySelector('.map-tabs-container');
-                                    if (container) {
-                                      container.scrollBy({ left: -200, behavior: 'smooth' });
-                                    }
-                                  }}
-                                  className="map-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
-                                  aria-label="Scroll left"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Make sure arrows are visible when content overflows
-                                      const checkOverflow = () => {
-                                        const container = document.querySelector('.map-tabs-container') as HTMLElement;
-                                        if (container) {
-                                          const isOverflowing = container.scrollWidth > container.clientWidth;
-                                          el.style.display = isOverflowing ? 'flex' : 'none';
-                                        }
-                                      };
-                                      
-                                      // Check multiple times to ensure it catches any layout changes
-                                      checkOverflow();
-                                      setTimeout(checkOverflow, 100);
-                                      setTimeout(checkOverflow, 500);
-                                      setTimeout(checkOverflow, 1000);
-                                      
-                                      // Add resize listener to recheck on window resize
-                                      window.addEventListener('resize', checkOverflow);
-                                    }
-                                  }}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                  </svg>
-                                </button>
-                                
-                                {/* Scrollable tabs - simplified Material UI style */}
-                                <div 
-                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Always maintain left alignment
-                                      el.classList.remove('justify-center');
-                                      el.classList.remove('justify-end');
-                                    }
-                                  }}
-                                >
-                                  {tourData.itinerary && tourData.itinerary.map((day) => (
-                                    <button
-                                      key={`map-day-tab-${day.day}`}
-                                      onClick={() => setActiveDay(day.day)}
-                                      className={`
-                                        day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
-                                        ${activeDay === day.day 
-                                          ? 'bg-[#0F7173] text-white' 
-                                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
-                                      `}
-                                    >
-                                      Day {day.day}
-                                    </button>
-                                  ))}
-                                </div>
-                                
-                                <button
-                                  className="map-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
-                                  onClick={() => {
-                                    const container = document.querySelector('.map-tabs-container') as HTMLElement;
-                                    if (container) {
-                                      container.scrollBy({ left: 200, behavior: 'smooth' });
-                                    }
-                                  }}
-                                  aria-label="Scroll right"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Make sure arrows are visible when content overflows
-                                      const checkOverflow = () => {
-                                        const container = document.querySelector('.map-tabs-container') as HTMLElement;
-                                        if (container) {
-                                          const isOverflowing = container.scrollWidth > container.clientWidth;
-                                          el.style.display = isOverflowing ? 'flex' : 'none';
-                                        }
-                                      };
-                                      
-                                      // Check multiple times to ensure it catches any layout changes
-                                      checkOverflow();
-                                      setTimeout(checkOverflow, 100);
-                                      setTimeout(checkOverflow, 500);
-                                      setTimeout(checkOverflow, 1000);
-                                      
-                                      // Add resize listener to recheck on window resize
-                                      window.addEventListener('resize', checkOverflow);
-                                    }
-                                  }}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                  </svg>
-                                </button>
-                                
-
-                              </div>
-                            </div>
-                            <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">
-                              <AnimatedRouteMap
-                                mapImage={tourData.mapImage || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"}
-                                points={(tourData.mapPoints || []).map(point => ({
-                                  ...point,
-                                  isActive: point.day === activeDay
-                                }))}
-                                activeDay={activeDay}
-                                className="w-full h-full"
-                                onPointClick={(pointId) => {
-                                  const point = tourData.mapPoints ? tourData.mapPoints.find(p => p.id === pointId) : undefined;
-                                  if (point && point.day) {
-                                    setActiveDay(point.day);
-                                  }
-                                }}
-                              />
-                            </div>
-                            <div className="mt-4 text-center text-sm text-gray-500">
-                              Click on a day number to see the route or click map locations to navigate
-                            </div>
-                          </>
-                        ) : (
-                          <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
-                            <Map className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                            <p className="text-gray-500">No map data available for this tour.</p>
-                            <p className="text-xs text-gray-400 mt-2">Interactive map coming soon</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </TabsContent>
                 </Tabs>
               </div>
               
@@ -959,6 +798,164 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
                         <ImageIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
                         <p className="text-gray-500">No gallery images available for this tour.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Map Section */}
+              <div className="mt-10 mb-8">
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+                    <h2 className="text-xl font-bold flex items-center">
+                      <Map className="w-5 h-5 mr-3" />
+                      Tour Route Map
+                    </h2>
+                    <p className="text-white/80 mt-1 text-sm">Follow the journey through Sri Lanka's most beautiful destinations</p>
+                  </div>
+                  
+                  <div className="p-6">
+                    {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
+                      <>
+                        {/* Map Day Slider Tabs */}
+                        <div className="mb-6 relative">
+                          {/* Left shadow overlay for scroll indicator */}
+                          <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                          
+                          {/* Right shadow overlay for scroll indicator */}
+                          <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                          
+                          {/* Tab bar container */}
+                          <div className="mb-4">
+                            {/* Left navigation arrow - ref is for checking visibility */}
+                            <button 
+                              onClick={() => {
+                                const container = document.querySelector('.map-tabs-container');
+                                if (container) {
+                                  container.scrollBy({ left: -200, behavior: 'smooth' });
+                                }
+                              }}
+                              className="map-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                              aria-label="Scroll left"
+                              ref={(el) => {
+                                if (el) {
+                                  // Make sure arrows are visible when content overflows
+                                  const checkOverflow = () => {
+                                    const container = document.querySelector('.map-tabs-container') as HTMLElement;
+                                    if (container) {
+                                      const isOverflowing = container.scrollWidth > container.clientWidth;
+                                      el.style.display = isOverflowing ? 'flex' : 'none';
+                                    }
+                                  };
+                                  
+                                  // Check multiple times to ensure it catches any layout changes
+                                  checkOverflow();
+                                  setTimeout(checkOverflow, 100);
+                                  setTimeout(checkOverflow, 500);
+                                  setTimeout(checkOverflow, 1000);
+                                  
+                                  // Add resize listener to recheck on window resize
+                                  window.addEventListener('resize', checkOverflow);
+                                }
+                              }}
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                              </svg>
+                            </button>
+                            
+                            {/* Scrollable tabs - simplified Material UI style */}
+                            <div 
+                              className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container"
+                              ref={(el) => {
+                                if (el) {
+                                  // Always maintain left alignment
+                                  el.classList.remove('justify-center');
+                                  el.classList.remove('justify-end');
+                                }
+                              }}
+                            >
+                              {tourData.itinerary && tourData.itinerary.map((day) => (
+                                <button
+                                  key={`map-day-tab-${day.day}`}
+                                  onClick={() => setActiveDay(day.day)}
+                                  className={`
+                                    day-tab relative whitespace-nowrap transition-all duration-200
+                                    px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
+                                    ${activeDay === day.day 
+                                      ? 'bg-[#0F7173] text-white' 
+                                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
+                                  `}
+                                >
+                                  Day {day.day}
+                                </button>
+                              ))}
+                            </div>
+                            
+                            <button
+                              className="map-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                              onClick={() => {
+                                const container = document.querySelector('.map-tabs-container') as HTMLElement;
+                                if (container) {
+                                  container.scrollBy({ left: 200, behavior: 'smooth' });
+                                }
+                              }}
+                              aria-label="Scroll right"
+                              ref={(el) => {
+                                if (el) {
+                                  // Make sure arrows are visible when content overflows
+                                  const checkOverflow = () => {
+                                    const container = document.querySelector('.map-tabs-container') as HTMLElement;
+                                    if (container) {
+                                      const isOverflowing = container.scrollWidth > container.clientWidth;
+                                      el.style.display = isOverflowing ? 'flex' : 'none';
+                                    }
+                                  };
+                                  
+                                  // Check multiple times to ensure it catches any layout changes
+                                  checkOverflow();
+                                  setTimeout(checkOverflow, 100);
+                                  setTimeout(checkOverflow, 500);
+                                  setTimeout(checkOverflow, 1000);
+                                  
+                                  // Add resize listener to recheck on window resize
+                                  window.addEventListener('resize', checkOverflow);
+                                }
+                              }}
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">
+                          <AnimatedRouteMap
+                            mapImage={tourData.mapImage || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"}
+                            points={(tourData.mapPoints || []).map(point => ({
+                              ...point,
+                              isActive: point.day === activeDay
+                            }))}
+                            activeDay={activeDay}
+                            className="w-full h-full"
+                            onPointClick={(pointId) => {
+                              const point = tourData.mapPoints ? tourData.mapPoints.find(p => p.id === pointId) : undefined;
+                              if (point && point.day) {
+                                setActiveDay(point.day);
+                              }
+                            }}
+                          />
+                        </div>
+                        <div className="mt-4 text-center text-sm text-gray-500">
+                          Click on a day number to see the route or click map locations to navigate
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                        <Map className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                        <p className="text-gray-500">No map data available for this tour.</p>
+                        <p className="text-xs text-gray-400 mt-2">Interactive map coming soon</p>
                       </div>
                     )}
                   </div>
