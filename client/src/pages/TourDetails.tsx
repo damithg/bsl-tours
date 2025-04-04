@@ -632,7 +632,19 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 </button>
                                 
                                 {/* Scrollable tabs container */}
-                                <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container">
+                                <div 
+                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container"
+                                  ref={(el) => {
+                                    if (el) {
+                                      // When the tabs aren't overflowing, center them
+                                      if (el.scrollWidth <= el.clientWidth) {
+                                        el.classList.add('justify-center');
+                                      } else {
+                                        el.classList.remove('justify-center');
+                                      }
+                                    }
+                                  }}
+                                >
                                   {tourData.itinerary.map((day) => (
                                     <button
                                       key={`day-tab-${day.day}`}
@@ -854,7 +866,19 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 </button>
                                 
                                 {/* Scrollable tabs - simplified Material UI style */}
-                                <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container">
+                                <div 
+                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container"
+                                  ref={(el) => {
+                                    if (el) {
+                                      // When the tabs aren't overflowing, center them
+                                      if (el.scrollWidth <= el.clientWidth) {
+                                        el.classList.add('justify-center');
+                                      } else {
+                                        el.classList.remove('justify-center');
+                                      }
+                                    }
+                                  }}
+                                >
                                   {tourData.itinerary && tourData.itinerary.map((day) => (
                                     <button
                                       key={`map-day-tab-${day.day}`}
