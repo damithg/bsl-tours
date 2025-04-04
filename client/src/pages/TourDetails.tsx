@@ -1,31 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { 
-  Tabs, 
-  TabsContent, 
-  TabsList, 
-  TabsTrigger 
-} from '@/components/ui/tabs';
-import { 
   Calendar, 
   List,
   Check, 
   X,
   Map, 
-  LayoutList,
   Image as ImageIcon,
-  BookOpenText,
-  Hotel,
-  Phone,
-  Heart,
   AlertTriangle,
   Search,
   ArrowLeft,
   LayoutGrid,
-  Info,
   Home,
   ChevronRight,
-  MapPin
+  Heart,
+  Hotel,
+  Phone
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
@@ -444,7 +434,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       </div>
                       <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
                         <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
-                          <BookOpenText className="w-6 h-6" />
+                          <ArrowLeft className="w-6 h-6" />
                         </div>
                         <h4 className="font-semibold mb-1">Starting Price</h4>
                         <p>{formatPrice(tourData.startingFrom, { currency: tourData.currency })}</p>
@@ -533,28 +523,18 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                 </div>
               </div>
               
-              {/* Tabbed Content Section */}
-              <div>
-                <Tabs defaultValue="itinerary" className="w-full">
-                  <TabsList className="mb-6 border-b w-full justify-start rounded-none h-auto p-0">
-                    {[
-                      { id: 'itinerary', icon: <List className="w-5 h-5 mr-2" />, label: 'Itinerary' }
-                    ].map(tab => (
-                      <TabsTrigger 
-                        key={tab.id}
-                        value={tab.id}
-                        className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none border-b-2 border-transparent pb-3 pt-2 px-4 font-medium"
-                      >
-                        <div className="flex items-center">
-                          {tab.icon}
-                          {tab.label}
-                        </div>
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
+              {/* Itinerary Section */}
+              <div className="mt-10 mb-8">
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div className="bg-gradient-to-r from-primary/80 to-primary p-6 text-white">
+                    <h2 className="text-xl font-bold flex items-center">
+                      <List className="w-5 h-5 mr-3" />
+                      Tour Itinerary
+                    </h2>
+                    <p className="text-white/80 mt-1 text-sm">Daily activities and experiences for your journey</p>
+                  </div>
                   
-                  {/* Itinerary Tab Content */}
-                  <TabsContent value="itinerary" className="mt-0">
+                  <div className="p-6">
                     {tourData.itinerary && tourData.itinerary.length > 0 ? (
                       <>
                         {/* Scrollable Tab Slider for Days */}
@@ -686,8 +666,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   </svg>
                                 </button>
                               </div>
-                              
-
                             </div>
                           </div>
                         </div>
@@ -716,8 +694,8 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                         <p className="text-gray-500">No itinerary available for this tour.</p>
                       </div>
                     )}
-                  </TabsContent>
-                </Tabs>
+                  </div>
+                </div>
               </div>
               
               {/* Inclusions & Exclusions Section */}
