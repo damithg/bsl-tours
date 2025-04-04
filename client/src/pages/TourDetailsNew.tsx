@@ -1,7 +1,10 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Calendar, Check, Heart, Hotel, Map, Phone, Flag, List, X, Star, Globe, Clock, Users, PiggyBank, Compass, Camera, Info, Mail } from "lucide-react";
+import { 
+  Calendar, Check, Heart, Hotel, Map, Phone, Flag, List, X, Star, Globe, Clock, 
+  Users, PiggyBank, Compass, Camera, Info, Mail, ChevronDown, Coffee, UtensilsCrossed 
+} from "lucide-react";
 import { AsymmetricalGallery, GalleryImage } from "../components/AsymmetricalGallery";
 import EnhancedItineraryItem from "../components/EnhancedItineraryItem";
 import { useCurrency } from "../contexts/CurrencyContext";
@@ -526,7 +529,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               </div>
             </section>
             
-            {/* Itinerary Section */}
+            {/* Itinerary Section - ModTour Style */}
             <section ref={itineraryRef} id="itinerary" className="bg-white rounded-lg shadow-sm p-6 mb-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                 <List className="w-6 h-6 mr-3 text-primary" />
@@ -534,108 +537,110 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               </h2>
               
               {tourData.itinerary && tourData.itinerary.length > 0 ? (
-                <>
-                  {/* Scrollable Tab Slider for Days */}
-                  <div className="mb-8">
-                    <div className="relative">
-                      {/* Left shadow overlay for scroll indicator */}
-                      <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                      
-                      {/* Right shadow overlay for scroll indicator */}
-                      <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-                      
-                      {/* Tab bar container */}
-                      <div className="mb-4">
-                        {/* Hide scrollbar for Chrome, Safari and Opera */}
-                        <style dangerouslySetInnerHTML={{
-                          __html: `
-                            .scrollbar-none::-webkit-scrollbar {
-                              display: none;
-                            }
-                            .scrollbar-none {
-                              -ms-overflow-style: none;
-                              scrollbar-width: none;
-                            }
-                          `
-                        }} />
-                        
-                        {/* Scrollable tabs */}
-                        <div className="relative">
-                          {/* Left navigation arrow */}
-                          <button 
-                            onClick={() => {
-                              const container = document.querySelector('.itinerary-tabs-container');
-                              if (container) {
-                                container.scrollBy({ left: -200, behavior: 'smooth' });
-                              }
-                            }}
-                            className="itinerary-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
-                            aria-label="Scroll left"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                          </button>
-                          
-                          {/* Scrollable tabs container */}
-                          <div 
-                            className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container"
-                          >
-                            {tourData.itinerary.map((day) => (
-                              <button
-                                key={`day-tab-${day.day}`}
-                                onClick={() => setActiveDay(day.day)}
-                                className={`
-                                  day-tab relative whitespace-nowrap transition-all duration-200
-                                  px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
-                                  ${activeDay === day.day 
-                                    ? 'bg-primary text-white' 
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
-                                `}
-                              >
-                                Day {day.day}
-                              </button>
-                            ))}
+                <div className="relative">
+                  {/* Timeline track - vertical line connecting all days */}
+                  <div className="absolute left-3 md:left-7 top-0 bottom-0 w-[2px] bg-gray-200 z-0"></div>
+                  
+                  {/* Itinerary days as connected timeline items */}
+                  <div className="space-y-6">
+                    {tourData.itinerary.map((day, index) => (
+                      <div key={`day-${day.day}`} className="relative z-10">
+                        {/* Day container with left circle indicator */}
+                        <div className="flex items-stretch">
+                          {/* Left day indicator */}
+                          <div className="flex flex-col items-center mr-4 md:mr-8">
+                            <div 
+                              className={`
+                                w-6 h-6 md:w-14 md:h-14 rounded-full flex items-center justify-center
+                                ${index === activeDay - 1 ? 'bg-primary text-white shadow-lg ring-4 ring-primary/20' : 'bg-white text-primary border-2 border-primary'}
+                                z-10 font-semibold text-xs md:text-base
+                              `}
+                            >
+                              {day.day}
+                            </div>
                           </div>
                           
-                          {/* Right navigation arrow */}
-                          <button 
-                            onClick={() => {
-                              const container = document.querySelector('.itinerary-tabs-container');
-                              if (container) {
-                                container.scrollBy({ left: 200, behavior: 'smooth' });
-                              }
-                            }}
-                            className="itinerary-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
-                            aria-label="Scroll right"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </button>
+                          {/* Right content area */}
+                          <div className={`
+                            flex-1 bg-white rounded-lg overflow-hidden border transition-all duration-300
+                            ${index === activeDay - 1 ? 'border-primary shadow-md' : 'border-gray-200'}
+                          `}>
+                            {/* Day header with title and expand/collapse control */}
+                            <div 
+                              className={`
+                                p-4 cursor-pointer flex justify-between items-center
+                                ${index === activeDay - 1 ? 'bg-primary text-white' : 'bg-gray-50 text-gray-800 hover:bg-gray-100'}
+                              `}
+                              onClick={() => setActiveDay(day.day)}
+                            >
+                              <h3 className="font-semibold">{day.title}</h3>
+                              <div className={`transition-transform ${index === activeDay - 1 ? 'rotate-180' : 'rotate-0'}`}>
+                                <ChevronDown className="w-5 h-5" />
+                              </div>
+                            </div>
+                            
+                            {/* Expandable content area */}
+                            <div className={`
+                              transition-all duration-300 overflow-hidden
+                              ${index === activeDay - 1 ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}
+                            `}>
+                              <div className="p-4 md:p-6">
+                                {/* Two-column layout on larger screens */}
+                                <div className="flex flex-col md:flex-row gap-6">
+                                  {/* Description column */}
+                                  <div className="md:w-3/5">
+                                    <div className="prose prose-sm max-w-none text-gray-700">
+                                      {/* Convert description to paragraphs based on new lines */}
+                                      {day.description.split('\n').filter(para => para.trim() !== '').map((paragraph, idx) => (
+                                        <p key={`para-${idx}`}>{paragraph}</p>
+                                      ))}
+                                    </div>
+                                    
+                                    {/* Accommodation and meals section */}
+                                    <div className="mt-4 flex flex-wrap gap-3 items-center">
+                                      <div className="flex items-center bg-gray-100 py-1.5 px-3 rounded-full text-sm">
+                                        <Hotel className="w-4 h-4 mr-1.5 text-primary" />
+                                        <span>Luxury Hotel</span>
+                                      </div>
+                                      
+                                      <div className="flex items-center bg-blue-50 py-1.5 px-3 rounded-full text-sm">
+                                        <Coffee className="w-4 h-4 mr-1.5 text-blue-600" />
+                                        <span>Breakfast</span>
+                                      </div>
+                                      
+                                      <div className="flex items-center bg-green-50 py-1.5 px-3 rounded-full text-sm">
+                                        <UtensilsCrossed className="w-4 h-4 mr-1.5 text-green-600" />
+                                        <span>Lunch</span>
+                                      </div>
+                                      
+                                      <div className="flex items-center bg-purple-50 py-1.5 px-3 rounded-full text-sm">
+                                        <UtensilsCrossed className="w-4 h-4 mr-1.5 text-purple-600" />
+                                        <span>Dinner</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  {/* Image column */}
+                                  {day.image && (day.image.large || day.image.medium || day.image.small || day.image.baseUrl) && (
+                                    <div className="md:w-2/5 mt-4 md:mt-0">
+                                      <div className="rounded-lg overflow-hidden h-56 md:h-full">
+                                        <img 
+                                          src={day.image.large || day.image.medium || day.image.small || day.image.baseUrl}
+                                          alt={day.image.alt || `Day ${day.day}: ${day.title}`}
+                                          className="w-full h-full object-cover"
+                                        />
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                  
-                  {/* Render selected day's itinerary with accommodation and meals */}
-                  {tourData.itinerary.map((day) => (
-                    <EnhancedItineraryItem
-                      key={day.day}
-                      day={day.day}
-                      title={day.title}
-                      description={day.description}
-                      image={day.image}
-                      isActive={activeDay === day.day}
-                      accommodation="Luxury Hotel"
-                      meals={{
-                        breakfast: true,
-                        lunch: true,
-                        dinner: true
-                      }}
-                    />
-                  ))}
-                </>
+                </div>
               ) : (
                 <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
                   <p className="text-gray-500">No itinerary available for this tour.</p>
