@@ -539,7 +539,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   <TabsList className="mb-6 border-b w-full justify-start rounded-none h-auto p-0">
                     {[
                       { id: 'itinerary', icon: <List className="w-5 h-5 mr-2" />, label: 'Itinerary' },
-                      { id: 'gallery', icon: <ImageIcon className="w-5 h-5 mr-2" />, label: 'Gallery' },
                       { id: 'map', icon: <Map className="w-5 h-5 mr-2" />, label: 'Map' }
                     ].map(tab => (
                       <TabsTrigger 
@@ -718,35 +717,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                         <p className="text-gray-500">No itinerary available for this tour.</p>
                       </div>
                     )}
-                  </TabsContent>
-                  
-                  {/* Gallery Tab Content */}
-                  <TabsContent value="gallery" className="mt-0">
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                      <div className="bg-gradient-to-r from-primary/80 to-primary p-6 text-white">
-                        <h2 className="text-xl font-bold flex items-center">
-                          <ImageIcon className="w-5 h-5 mr-3" />
-                          Tour Photo Gallery
-                        </h2>
-                        <p className="text-white/80 mt-1 text-sm">Explore the visual journey of this luxury tour</p>
-                      </div>
-                      
-                      <div className="p-6">
-                        {tourData.galleryImages && tourData.galleryImages.length > 0 ? (
-                          <AsymmetricalGallery 
-                            images={tourData.galleryImages.map(img => ({
-                              ...img,
-                              alt: img.alt || 'Tour image'
-                            }))} 
-                          />
-                        ) : (
-                          <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
-                            <ImageIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                            <p className="text-gray-500">No gallery images available for this tour.</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
                   </TabsContent>
                   
                   {/* Map Tab Content */}
@@ -962,6 +932,35 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                         )}
                       </ul>
                     </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Gallery Section */}
+              <div className="mt-10 mb-8">
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div className="bg-gradient-to-r from-primary/80 to-primary p-6 text-white">
+                    <h2 className="text-xl font-bold flex items-center">
+                      <ImageIcon className="w-5 h-5 mr-3" />
+                      Tour Photo Gallery
+                    </h2>
+                    <p className="text-white/80 mt-1 text-sm">Explore the visual journey of this luxury tour</p>
+                  </div>
+                  
+                  <div className="p-6">
+                    {tourData.galleryImages && tourData.galleryImages.length > 0 ? (
+                      <AsymmetricalGallery 
+                        images={tourData.galleryImages.map(img => ({
+                          ...img,
+                          alt: img.alt || 'Tour image'
+                        }))} 
+                      />
+                    ) : (
+                      <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                        <ImageIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                        <p className="text-gray-500">No gallery images available for this tour.</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
