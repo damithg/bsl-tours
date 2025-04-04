@@ -21,7 +21,8 @@ import {
   Info,
   Home,
   ChevronRight,
-  MapPin
+  MapPin,
+  CalendarDays
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
@@ -398,32 +399,41 @@ const TestTourPage: React.FC<TestTourPageProps> = ({ params }) => {
                   
                   {/* Itinerary Tab Content */}
                   <TabsContent value="itinerary" className="mt-0">
-                    <div className="mb-6 flex overflow-x-auto space-x-3 pb-3">
-                      {tourData.itinerary.map((day) => (
-                        <button
-                          key={`day-button-${day.day}`}
-                          onClick={() => setActiveDay(day.day)}
-                          className={`px-6 py-2.5 rounded-full whitespace-nowrap transition-all text-sm font-medium ${
-                            activeDay === day.day
-                              ? 'bg-primary text-white shadow-md shadow-primary/20 ring-2 ring-primary/30'
-                              : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:shadow-sm'
-                          }`}
-                        >
-                          Day {day.day}
-                        </button>
-                      ))}
-                    </div>
-                    
-                    {tourData.itinerary.map((day) => (
-                      <EnhancedItineraryItem
-                        key={day.day}
-                        day={day.day}
-                        title={day.title}
-                        description={day.description}
-                        image={day.image}
-                        isActive={activeDay === day.day}
-                      />
-                    ))}
+                    {tourData.itinerary && tourData.itinerary.length > 0 ? (
+                      <>
+                        <div className="mb-6 flex overflow-x-auto space-x-3 pb-3">
+                          {tourData.itinerary.map((day) => (
+                            <button
+                              key={`day-button-${day.day}`}
+                              onClick={() => setActiveDay(day.day)}
+                              className={`px-6 py-2.5 rounded-full whitespace-nowrap transition-all text-sm font-medium ${
+                                activeDay === day.day
+                                  ? 'bg-primary text-white shadow-md shadow-primary/20 ring-2 ring-primary/30'
+                                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:shadow-sm'
+                              }`}
+                            >
+                              Day {day.day}
+                            </button>
+                          ))}
+                        </div>
+                        
+                        {tourData.itinerary.map((day) => (
+                          <EnhancedItineraryItem
+                            key={day.day}
+                            day={day.day}
+                            title={day.title}
+                            description={day.description}
+                            image={day.image}
+                            isActive={activeDay === day.day}
+                          />
+                        ))}
+                      </>
+                    ) : (
+                      <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                        <Calendar className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                        <p className="text-gray-500">No itinerary available for this tour.</p>
+                      </div>
+                    )}
                   </TabsContent>
                   
                   {/* Inclusions/Exclusions Tab Content */}
@@ -438,14 +448,18 @@ const TestTourPage: React.FC<TestTourPageProps> = ({ params }) => {
                         </div>
                         <div className="p-6">
                           <ul className="space-y-3">
-                            {tourData.inclusions.map((item, index) => (
-                              <li key={`inclusion-${index}`} className="flex items-start group">
-                                <div className="bg-green-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-green-200 transition-colors">
-                                  <Check className="w-4 h-4 text-green-600" />
-                                </div>
-                                <span className="text-gray-700">{item}</span>
-                              </li>
-                            ))}
+                            {tourData.inclusions && tourData.inclusions.length > 0 ? (
+                              tourData.inclusions.map((item, index) => (
+                                <li key={`inclusion-${index}`} className="flex items-start group">
+                                  <div className="bg-green-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-green-200 transition-colors">
+                                    <Check className="w-4 h-4 text-green-600" />
+                                  </div>
+                                  <span className="text-gray-700">{item}</span>
+                                </li>
+                              ))
+                            ) : (
+                              <li className="text-gray-500 italic">No inclusions specified for this tour.</li>
+                            )}
                           </ul>
                         </div>
                       </div>
@@ -459,14 +473,18 @@ const TestTourPage: React.FC<TestTourPageProps> = ({ params }) => {
                         </div>
                         <div className="p-6">
                           <ul className="space-y-3">
-                            {tourData.exclusions.map((item, index) => (
-                              <li key={`exclusion-${index}`} className="flex items-start group">
-                                <div className="bg-red-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-red-200 transition-colors">
-                                  <X className="w-4 h-4 text-red-500" />
-                                </div>
-                                <span className="text-gray-700">{item}</span>
-                              </li>
-                            ))}
+                            {tourData.exclusions && tourData.exclusions.length > 0 ? (
+                              tourData.exclusions.map((item, index) => (
+                                <li key={`exclusion-${index}`} className="flex items-start group">
+                                  <div className="bg-red-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-red-200 transition-colors">
+                                    <X className="w-4 h-4 text-red-500" />
+                                  </div>
+                                  <span className="text-gray-700">{item}</span>
+                                </li>
+                              ))
+                            ) : (
+                              <li className="text-gray-500 italic">No exclusions specified for this tour.</li>
+                            )}
                           </ul>
                         </div>
                       </div>
@@ -517,7 +535,7 @@ const TestTourPage: React.FC<TestTourPageProps> = ({ params }) => {
                         {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
                           <>
                             <div className="mb-6 flex overflow-x-auto space-x-3 pb-3">
-                              {tourData.itinerary.map((day) => (
+                              {tourData.itinerary && tourData.itinerary.map((day) => (
                                 <button
                                   key={`map-day-button-${day.day}`}
                                   onClick={() => setActiveDay(day.day)}
