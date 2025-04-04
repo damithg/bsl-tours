@@ -8,6 +8,7 @@ import TourPackages from "@/pages/TourPackages";
 import PackageDetail from "@/pages/PackageDetail";
 import EnhancedPackageDetail from "@/pages/EnhancedPackageDetail";
 import TourDetails from "@/pages/TourDetails";
+import TourDetailsNew from "@/pages/TourDetailsNew";
 import Destinations from "@/pages/Destinations";
 import DestinationDetail from "@/pages/DestinationDetail";
 import DestinationMap from "@/pages/DestinationMap";
@@ -52,6 +53,11 @@ function Router() {
         {/* Test page for development */}
         <Route path="/test-tour">
           {() => <TourDetails />}
+        </Route>
+        
+        {/* New ModTour style design */}
+        <Route path="/tour-new/:slug">
+          {(params) => <TourDetailsNew params={params} />}
         </Route>
         
         {/* Destination routes */}
