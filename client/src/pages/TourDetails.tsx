@@ -129,7 +129,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   // Show loading state
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto p-6 text-center">
+      <div className="max-w-6xl mx-auto p-6 pt-32 text-center min-h-screen">
         <div className="animate-pulse flex flex-col items-center">
           <div className="h-8 bg-gray-200 rounded w-1/2 mb-4"></div>
           <div className="h-64 bg-gray-200 rounded w-full mb-4"></div>
@@ -144,7 +144,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   // Show error state
   if (error) {
     return (
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="max-w-6xl mx-auto p-6 pt-32 text-center min-h-screen">
         <div className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-6">
           <h2 className="text-xl font-bold mb-2">Error Loading Tour Data</h2>
           <p>{error}</p>
@@ -159,7 +159,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   // If no data found
   if (!tourData) {
     return (
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="max-w-6xl mx-auto p-6 pt-32 text-center min-h-screen">
         <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-6">
           <h2 className="text-xl font-bold mb-2">No Tour Data Found</h2>
           <p>The requested tour could not be found.</p>
