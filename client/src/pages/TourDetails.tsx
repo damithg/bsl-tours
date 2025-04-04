@@ -529,59 +529,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                         </div>
                       </div>
                     </div>
-                    
-                    {/* Inclusions & Exclusions Section */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 mt-8">
-                      <div className="bg-gradient-to-b from-green-50 to-white shadow-md rounded-lg overflow-hidden">
-                        <div className="bg-green-600 py-4 px-6">
-                          <h2 className="text-lg font-bold text-white flex items-center">
-                            <Check className="w-5 h-5 mr-2" />
-                            What's Included
-                          </h2>
-                        </div>
-                        <div className="p-6">
-                          <ul className="space-y-3">
-                            {tourData.inclusions && tourData.inclusions.length > 0 ? (
-                              tourData.inclusions.map((item, index) => (
-                                <li key={`inclusion-${index}`} className="flex items-start group">
-                                  <div className="bg-green-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-green-200 transition-colors">
-                                    <Check className="w-4 h-4 text-green-600" />
-                                  </div>
-                                  <span className="text-gray-700">{item}</span>
-                                </li>
-                              ))
-                            ) : (
-                              <li className="text-gray-500 italic">No inclusions specified for this tour.</li>
-                            )}
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-gradient-to-b from-red-50 to-white shadow-md rounded-lg overflow-hidden">
-                        <div className="bg-red-500 py-4 px-6">
-                          <h2 className="text-lg font-bold text-white flex items-center">
-                            <X className="w-5 h-5 mr-2" />
-                            What's Not Included
-                          </h2>
-                        </div>
-                        <div className="p-6">
-                          <ul className="space-y-3">
-                            {tourData.exclusions && tourData.exclusions.length > 0 ? (
-                              tourData.exclusions.map((item, index) => (
-                                <li key={`exclusion-${index}`} className="flex items-start group">
-                                  <div className="bg-red-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-red-200 transition-colors">
-                                    <X className="w-4 h-4 text-red-500" />
-                                  </div>
-                                  <span className="text-gray-700">{item}</span>
-                                </li>
-                              ))
-                            ) : (
-                              <li className="text-gray-500 italic">No exclusions specified for this tour.</li>
-                            )}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -962,6 +909,61 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                     </div>
                   </TabsContent>
                 </Tabs>
+              </div>
+              
+              {/* Inclusions & Exclusions Section */}
+              <div className="mt-10 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gradient-to-b from-green-50 to-white shadow-md rounded-lg overflow-hidden">
+                    <div className="bg-green-600 py-4 px-6">
+                      <h2 className="text-lg font-bold text-white flex items-center">
+                        <Check className="w-5 h-5 mr-2" />
+                        What's Included
+                      </h2>
+                    </div>
+                    <div className="p-6">
+                      <ul className="space-y-3">
+                        {tourData.inclusions && tourData.inclusions.length > 0 ? (
+                          tourData.inclusions.map((item, index) => (
+                            <li key={`inclusion-${index}`} className="flex items-start group">
+                              <div className="bg-green-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-green-200 transition-colors">
+                                <Check className="w-4 h-4 text-green-600" />
+                              </div>
+                              <span className="text-gray-700">{item}</span>
+                            </li>
+                          ))
+                        ) : (
+                          <li className="text-gray-500 italic">No inclusions specified for this tour.</li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-b from-red-50 to-white shadow-md rounded-lg overflow-hidden">
+                    <div className="bg-red-500 py-4 px-6">
+                      <h2 className="text-lg font-bold text-white flex items-center">
+                        <X className="w-5 h-5 mr-2" />
+                        What's Not Included
+                      </h2>
+                    </div>
+                    <div className="p-6">
+                      <ul className="space-y-3">
+                        {tourData.exclusions && tourData.exclusions.length > 0 ? (
+                          tourData.exclusions.map((item, index) => (
+                            <li key={`exclusion-${index}`} className="flex items-start group">
+                              <div className="bg-red-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-red-200 transition-colors">
+                                <X className="w-4 h-4 text-red-500" />
+                              </div>
+                              <span className="text-gray-700">{item}</span>
+                            </li>
+                          ))
+                        ) : (
+                          <li className="text-gray-500 italic">No exclusions specified for this tour.</li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
               
               {/* Contact Form Section */}
