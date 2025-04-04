@@ -23,6 +23,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
+import ScrollToTop from "@/components/ScrollToTop";
 
 function Router() {
   return (
@@ -78,6 +79,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <CurrencyProvider>
+        <ScrollToTop />
         <Router />
         <ThemeSwitcher />
         <Toaster />
