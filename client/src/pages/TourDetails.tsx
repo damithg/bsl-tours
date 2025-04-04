@@ -560,22 +560,28 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   <TabsContent value="itinerary" className="mt-0">
                     {tourData.itinerary && tourData.itinerary.length > 0 ? (
                       <>
-                        <div className="mb-6 flex overflow-x-auto space-x-3 pb-3">
-                          {tourData.itinerary.map((day) => (
-                            <button
-                              key={`day-button-${day.day}`}
-                              onClick={() => setActiveDay(day.day)}
-                              className={`px-6 py-2.5 rounded-full whitespace-nowrap transition-all text-sm font-medium ${
-                                activeDay === day.day
-                                  ? 'bg-primary text-white shadow-md shadow-primary/20 ring-2 ring-primary/30'
-                                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:shadow-sm'
-                              }`}
-                            >
-                              Day {day.day}
-                            </button>
-                          ))}
+                        {/* Day selector with grid layout for better display */}
+                        <div className="mb-8">
+                          <h3 className="font-medium text-lg text-gray-800 mb-4">Tour Timeline</h3>
+                          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                            {tourData.itinerary.map((day) => (
+                              <button
+                                key={`day-button-${day.day}`}
+                                onClick={() => setActiveDay(day.day)}
+                                className={`px-3 py-2 rounded-md transition-all text-sm font-medium flex flex-col items-center justify-center ${
+                                  activeDay === day.day
+                                    ? 'bg-[#0F4C81] text-white shadow-md'
+                                    : 'bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200'
+                                }`}
+                              >
+                                <span className="font-bold">Day {day.day}</span>
+                                <span className="text-xs truncate w-full text-center">{day.title}</span>
+                              </button>
+                            ))}
+                          </div>
                         </div>
                         
+                        {/* Render selected day's itinerary with accommodation and meals */}
                         {tourData.itinerary.map((day) => (
                           <EnhancedItineraryItem
                             key={day.day}
@@ -584,6 +590,12 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                             description={day.description}
                             image={day.image}
                             isActive={activeDay === day.day}
+                            accommodation="Luxury Hotel"
+                            meals={{
+                              breakfast: true,
+                              lunch: true,
+                              dinner: true
+                            }}
                           />
                         ))}
                       </>
