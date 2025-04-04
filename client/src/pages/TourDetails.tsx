@@ -601,7 +601,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 `
                               }} />
                               
-                              {/* Scrollable tabs */}
+                              {/* Scrollable tabs - simplified Material UI style */}
                               <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth">
                                 {tourData.itinerary.map((day) => (
                                   <button
@@ -609,15 +609,11 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                     onClick={() => setActiveDay(day.day)}
                                     className={`
                                       day-tab relative whitespace-nowrap transition-all duration-200
-                                      px-6 py-3 text-sm font-medium focus:outline-none
+                                      px-6 py-3 text-sm font-semibold focus:outline-none min-w-[90px]
                                       ${activeDay === day.day ? 'text-[#0F4C81] active' : 'text-gray-500 hover:text-gray-700'}
                                     `}
                                   >
-                                    <div className="flex items-center space-x-1.5">
-                                      <span className="font-bold">Day {day.day}</span>
-                                      <span className="hidden sm:inline">•</span>
-                                      <span className="hidden sm:inline max-w-[120px] truncate">{day.title}</span>
-                                    </div>
+                                    Day {day.day}
                                   </button>
                                 ))}
                               </div>
@@ -770,7 +766,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                               
                               {/* Tab bar container */}
                               <div className="border-b border-gray-200">
-                                {/* Scrollable tabs */}
+                                {/* Scrollable tabs - simplified Material UI style */}
                                 <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth">
                                   {tourData.itinerary && tourData.itinerary.map((day) => (
                                     <button
@@ -778,15 +774,11 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       onClick={() => setActiveDay(day.day)}
                                       className={`
                                         day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-6 py-3 text-sm font-medium focus:outline-none
+                                        px-6 py-3 text-sm font-semibold focus:outline-none min-w-[90px]
                                         ${activeDay === day.day ? 'text-blue-600 active' : 'text-gray-500 hover:text-gray-700'}
                                       `}
                                     >
-                                      <div className="flex items-center space-x-1.5">
-                                        <span className="font-bold">Day {day.day}</span>
-                                        <span className="hidden sm:inline">•</span>
-                                        <span className="hidden sm:inline max-w-[120px] truncate">{day.title}</span>
-                                      </div>
+                                      Day {day.day}
                                     </button>
                                   ))}
                                 </div>
