@@ -112,24 +112,15 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
   
   // Get optimal image source based on screen size, context, and layout position
   const getOptimalImageSrc = (image: GalleryImageType, context: 'grid' | 'lightbox', index?: number): string => {
-    // Use the appropriate URL (handle both API formats)
-    const imageUrl = image.url || image.baseUrl || '';
+    // IMPROVED VERSION: Prioritize pre-generated optimized URLs from the API
     
-    // If we don't have a URL at all
-    if (!imageUrl) {
-      return image.medium || image.small || image.banner || image.large || '';
+    // For lightbox (full-screen view), we want the highest quality image
+    if (context === 'lightbox') {
+      // Prioritize pre-generated URLs in order of preference: large → medium → banner → small → baseUrl/url
+      return image.large || image.medium || image.banner || image.small || image.baseUrl || image.url || '';
     }
     
-    // First check if we have pre-optimized images from the API
-    if (context === 'lightbox' && image.large) {
-      return image.large;
-    }
-    
-    if (context === 'lightbox' && image.medium) {
-      return image.medium;
-    }
-    
-    // For grid view, check the layout position to determine optimal image size
+    // For grid view, we choose based on the tile size and position
     if (context === 'grid') {
       // Calculate if this is a featured tile that spans multiple cells
       const isSpanningTile = index !== undefined && (
@@ -138,70 +129,43 @@ export function ResponsivePhotoGallery({ images, className = '' }: ResponsivePho
         (image.orientation === 'square' && index === 0) // Featured square
       );
       
-      // Use medium size for featured/spanning tiles to avoid stretching
-      if (isSpanningTile && image.medium) {
-        return image.medium;
-      }
+      // For spanning/featured tiles, we want medium-sized images
+      if (isSpanningTile) {
+        // Priority: medium → large → small → banner → baseUrl/url
+        return image.medium || image.large || image.small || image.banner || image.baseUrl || image.url || '';
+      } 
       
-      // Use small size for regular tiles
-      if (image.small) {
-        return image.small;
-      }
+      // For regular grid tiles, we want smaller images for better performance
+      // Priority: small → medium → banner → large → baseUrl/url
+      return image.small || image.medium || image.banner || image.large || image.baseUrl || image.url || '';
     }
     
-    // If it's a Cloudinary URL, we can add transformations
-    const isCloudinary = imageUrl.includes && imageUrl.includes('cloudinary.com');
-    
-    if (isCloudinary) {
-      // For Cloudinary images, we can use their transformation API
-      const baseUrl = imageUrl.split('/upload/')[0] + '/upload/';
-      const imagePath = imageUrl.split('/upload/')[1];
-      
-      if (context === 'grid') {
-        // Calculate if this is a featured tile that spans multiple cells
-        const isSpanningTile = index !== undefined && (
-          index === 0 || // First image always spans
-          (image.orientation === 'landscape' && (index === 4 || index === 8)) || // Landscape images in these positions span horizontally
-          (image.orientation === 'square' && index === 0) // Featured square
-        );
+    // If we don't have any pre-generated URLs, but we have a publicId or base URL, 
+    // we can fallback to constructing a Cloudinary URL
+    const imageUrl = image.baseUrl || image.url || '';
+    if (imageUrl && imageUrl.includes && imageUrl.includes('cloudinary.com')) {
+      // This is already a Cloudinary URL
+      const parts = imageUrl.split('/upload/');
+      if (parts.length === 2) {
+        const baseUrl = parts[0] + '/upload/';
+        const imagePath = parts[1];
         
-        // Different sizes based on layout position and orientation
-        if (isSpanningTile) {
-          // For larger tiles, use larger images
-          if (image.orientation === 'portrait') {
-            return `${baseUrl}c_fill,g_auto,h_800,w_600,q_auto:good/${imagePath}`;
-          } else if (image.orientation === 'square') {
-            return `${baseUrl}c_fill,g_auto,h_700,w_700,q_auto:good/${imagePath}`;
-          } else { // landscape
-            return `${baseUrl}c_fill,g_auto,h_600,w_800,q_auto:good/${imagePath}`;
-          }
+        // Generate appropriate size based on context and orientation
+        if (context === 'lightbox') {
+          // For lightbox, use higher quality
+          return `${baseUrl}q_auto:best/${imagePath}`;
         } else {
-          // Regular tiles
-          if (image.orientation === 'portrait') {
-            return `${baseUrl}c_fill,g_auto,h_400,w_300,q_auto:good/${imagePath}`;
-          } else if (image.orientation === 'square') {
-            return `${baseUrl}c_fill,g_auto,h_350,w_350,q_auto:good/${imagePath}`;
-          } else { // landscape
-            return `${baseUrl}c_fill,g_auto,h_300,w_400,q_auto:good/${imagePath}`;
-          }
-        }
-      } else {
-        // Higher quality, responsive images for the lightbox
-        // Preserve original orientation for lightbox viewing
-        if (image.orientation === 'portrait') {
-          return `${baseUrl}c_limit,h_1600,w_1000,q_auto:best/${imagePath}`;
-        } else {
-          return `${baseUrl}c_limit,h_1200,w_1600,q_auto:best/${imagePath}`;
+          // For grid, use more efficient sizes
+          return `${baseUrl}c_fill,g_auto,w_600,h_450,q_auto:good/${imagePath}`;
         }
       }
+    } else if (image.publicId) {
+      // We have a publicId but no pre-generated URLs, generate a basic one
+      return `https://res.cloudinary.com/drsjp6bqz/image/upload/${context === 'lightbox' ? 'q_auto:best' : 'c_fill,w_600,h_450,q_auto:good'}/${image.publicId}`;
     }
     
-    // For non-Cloudinary images, use the provided variants
-    if (context === 'grid') {
-      return image.small || image.medium || imageUrl || '';
-    } else {
-      return image.banner || image.large || image.medium || imageUrl || '';
-    }
+    // Default fallback
+    return image.baseUrl || image.url || '';
   };
   
   // Determine if an image should have a special layout

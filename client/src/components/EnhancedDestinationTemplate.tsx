@@ -337,17 +337,36 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
       alt: string;
       caption?: string;
       orientation?: string;
+      baseUrl?: string;
+      small?: string;
+      medium?: string;
+      large?: string;
     }) => {
-      apiGalleryImages.push({
+      // Check if pre-generated URLs exist in the API response
+      const galleryItem: GalleryImage = {
         publicId: img.publicId,
         alt: img.alt,
         caption: img.caption,
         orientation: img.orientation || 'landscape',
-        baseUrl: `https://res.cloudinary.com/drsjp6bqz/image/upload/${img.publicId}`,
-        small: `https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/${img.publicId}`,
-        medium: `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/${img.publicId}`, 
-        large: `https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/${img.publicId}`
-      });
+      };
+
+      // Use pre-generated URLs if they exist in the API response
+      if (img.baseUrl) galleryItem.baseUrl = img.baseUrl;
+      if (img.small) galleryItem.small = img.small;
+      if (img.medium) galleryItem.medium = img.medium;
+      if (img.large) galleryItem.large = img.large;
+      
+      // Fall back to generating URLs only if pre-generated ones don't exist
+      if (!galleryItem.baseUrl) 
+        galleryItem.baseUrl = `https://res.cloudinary.com/drsjp6bqz/image/upload/${img.publicId}`;
+      if (!galleryItem.small) 
+        galleryItem.small = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/${img.publicId}`;
+      if (!galleryItem.medium) 
+        galleryItem.medium = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/${img.publicId}`;
+      if (!galleryItem.large) 
+        galleryItem.large = `https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/${img.publicId}`;
+      
+      apiGalleryImages.push(galleryItem);
     });
   }
   
@@ -1039,11 +1058,11 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       <h4 className="font-semibold text-gray-900 mb-2">Getting Here</h4>
                       <ul className="list-disc list-inside text-gray-600 space-y-1">
                         {typeof essentialInfo.gettingThere === 'string'
-                          ? essentialInfo.gettingThere.split('\n').filter(line => line.trim()).map((info, index) => (
+                          ? (essentialInfo.gettingThere as string).split('\n').filter(line => line.trim()).map((info: string, index: number) => (
                               <li key={`getting-${index}`}>{info.trim()}</li>
                             ))
                           : Array.isArray(essentialInfo.gettingThere)
-                            ? essentialInfo.gettingThere.map((info, index) => (
+                            ? (essentialInfo.gettingThere as string[]).map((info: string, index: number) => (
                                 <li key={`getting-${index}`}>{info}</li>
                               ))
                             : <li>{String(essentialInfo.gettingThere)}</li>
@@ -1058,13 +1077,13 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
                       <div className="flex flex-wrap gap-2">
                         {typeof essentialInfo.highlights === 'string'
-                          ? essentialInfo.highlights.split('\n').filter(line => line.trim()).map((highlight, index) => (
+                          ? (essentialInfo.highlights as string).split('\n').filter(line => line.trim()).map((highlight: string, index: number) => (
                               <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
                                 {highlight.trim()}
                               </span>
                             ))
                           : Array.isArray(essentialInfo.highlights)
-                            ? essentialInfo.highlights.map((highlight, index) => (
+                            ? (essentialInfo.highlights as string[]).map((highlight: string, index: number) => (
                                 <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
                                   {highlight}
                                 </span>
@@ -1083,11 +1102,11 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       <h4 className="font-semibold text-gray-900 mb-2">Travel Tips</h4>
                       <ul className="list-disc list-inside text-gray-600 space-y-1">
                         {typeof essentialInfo.travelTips === 'string'
-                          ? essentialInfo.travelTips.split('\n').filter(line => line.trim()).map((tip, index) => (
+                          ? (essentialInfo.travelTips as string).split('\n').filter(line => line.trim()).map((tip: string, index: number) => (
                               <li key={`tip-${index}`}>{tip.trim()}</li>
                             ))
                           : Array.isArray(essentialInfo.travelTips)
-                            ? essentialInfo.travelTips.map((tip, index) => (
+                            ? (essentialInfo.travelTips as string[]).map((tip: string, index: number) => (
                                 <li key={`tip-${index}`}>{tip}</li>
                               ))
                             : <li>{String(essentialInfo.travelTips)}</li>
@@ -1102,11 +1121,11 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       <h4 className="font-semibold text-gray-900 mb-2">Accessibility</h4>
                       <ul className="list-disc list-inside text-gray-600 space-y-1">
                         {typeof essentialInfo.accessibility === 'string'
-                          ? essentialInfo.accessibility.split('\n').filter(line => line.trim()).map((access, index) => (
+                          ? (essentialInfo.accessibility as string).split('\n').filter(line => line.trim()).map((access: string, index: number) => (
                               <li key={`access-${index}`}>{access.trim()}</li>
                             ))
                           : Array.isArray(essentialInfo.accessibility)
-                            ? essentialInfo.accessibility.map((access, index) => (
+                            ? (essentialInfo.accessibility as string[]).map((access: string, index: number) => (
                                 <li key={`access-${index}`}>{access}</li>
                               ))
                             : <li>{String(essentialInfo.accessibility)}</li>

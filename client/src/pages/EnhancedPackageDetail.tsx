@@ -433,16 +433,10 @@ const EnhancedPackageDetail = () => {
       // Process image URL - specifically extract medium from image object 
       let imageUrl: string | undefined;
       
-      // First priority: Extract from image object structure following your exact itinerary example
+      // First priority: Extract from image object structure following the updated API image prioritization
       if (day.image && typeof day.image === 'object' && day.image !== null) {
-        // Get the medium URL as the preferred size
-        imageUrl = day.image.medium;
-        // If medium is not available, fall back to other sizes
-        if (!imageUrl) {
-          imageUrl = day.image.large || day.image.small || day.image.baseUrl;
-        }
-        
-        console.log(`Day ${day.day} image found:`, imageUrl);
+        // Updated image prioritization: medium -> large -> small -> baseUrl
+        imageUrl = day.image.medium || day.image.large || day.image.small || day.image.baseUrl;
       } 
       // Second priority: If image is a direct string
       else if (day.image && typeof day.image === 'string') {

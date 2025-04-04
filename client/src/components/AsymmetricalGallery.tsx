@@ -94,58 +94,31 @@ export function AsymmetricalGallery({ images, className = '' }: AsymmetricalGall
 
   // Get optimized image URL based on context
   const getOptimizedImageUrl = (image: GalleryImage, size: 'small' | 'medium' | 'large'): string => {
-    // Skip null checks for image properties by using optional chaining and nullish coalescing
+    // IMPORTANT: First prioritize pre-generated optimized URLs from the API
+    // This approach avoids unnecessary transformations when the API already provides optimized images
     
-    // Use the specified size if available
-    if (size === 'small' && image?.small) return image.small;
-    if (size === 'medium' && image?.medium) return image.medium;
-    if (size === 'large' && image?.large) return image.large;
-    
-    // Otherwise fall back to the original URL
-    const baseUrl = image?.baseUrl ?? image?.url ?? '';
-    
-    // If we have a direct URL, use it
-    if (baseUrl) {
-      // For larger tiles (featured image), use a higher quality transformation if it's a Cloudinary URL
-      if (baseUrl.includes && baseUrl.includes('cloudinary.com')) {
-        // Extract the components for transformation
-        const parts = baseUrl.split('/upload/');
-        if (parts.length === 2) {
-          const cloudinaryBase = parts[0] + '/upload/';
-          const imagePath = parts[1];
-          
-          // Apply different transformations based on size and image position
-          if (size === 'small') {
-            // Small images for secondary tiles - wider dimensions for bottom row
-            return `${cloudinaryBase}c_fill,g_auto,h_500,w_800,q_auto:good/${imagePath}`;
-          } else if (size === 'medium') {
-            // Medium images for normal featured content
-            return `${cloudinaryBase}c_fill,g_auto,h_600,w_900,q_auto:good/${imagePath}`;
-          } else { // large
-            // Large images for hero sections and main featured content
-            // Using a higher quality, larger image for the featured tile to prevent stretching
-            return `${cloudinaryBase}c_fill,g_auto,h_900,w_1600,q_auto:best/${imagePath}`;
-          }
-        }
-      }
-      
-      // Return the unmodified URL if not Cloudinary or couldn't parse
-      return baseUrl;
+    // For large size, try large -> medium -> small -> baseUrl
+    if (size === 'large') {
+      return image?.large || image?.medium || image?.small || image?.baseUrl || image?.url || '';
     }
     
-    // Fallback to construct URL from publicId if no direct URLs provided
+    // For medium size, try medium -> large -> small -> baseUrl
+    if (size === 'medium') {
+      return image?.medium || image?.large || image?.small || image?.baseUrl || image?.url || '';
+    }
+    
+    // For small size, try small -> medium -> large -> baseUrl
+    if (size === 'small') {
+      return image?.small || image?.medium || image?.large || image?.baseUrl || image?.url || '';
+    }
+    
+    // If we reach here, use baseUrl or url as fallback
+    const baseUrl = image?.baseUrl || image?.url || '';
+    if (baseUrl) return baseUrl;
+    
+    // Last resort fallback if we have a publicId but no pre-optimized URLs
     if (image?.publicId) {
-      // Include transformations based on requested size
-      if (size === 'small') {
-        // Small images for secondary tiles - wider dimensions for bottom row
-        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_500,w_800,q_auto:good/${image.publicId}`;
-      } else if (size === 'medium') {
-        // Medium images for normal featured content
-        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_600,w_900,q_auto:good/${image.publicId}`;
-      } else { // large
-        // Large images for hero sections and main featured content
-        return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_900,w_1600,q_auto:best/${image.publicId}`;
-      }
+      return `https://res.cloudinary.com/drsjp6bqz/image/upload/c_fill,g_auto,h_800,w_1200,q_auto:good/${image.publicId}`;
     }
     
     // Absolute fallback to avoid breaking rendering
