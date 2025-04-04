@@ -6,6 +6,7 @@ import {
   TabsList, 
   TabsTrigger 
 } from '@/components/ui/tabs';
+import ScrollableTabNavigation from '@/components/ScrollableTabNavigation';
 import { 
   Calendar, 
   List,
@@ -601,81 +602,22 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                 `
                               }} />
                               
-                              {/* Scrollable tabs - simplified Material UI style with navigation arrows */}
-                              <div className="relative">
-                                {/* Left navigation arrow with conditional visibility */}
-                                <button 
-                                  onClick={() => {
-                                    const container = document.querySelector('.itinerary-tabs-container');
-                                    if (container) {
-                                      container.scrollBy({ left: -200, behavior: 'smooth' });
-                                    }
-                                  }}
-                                  className="itinerary-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
-                                  aria-label="Scroll left"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Check if content is overflowing
-                                      setTimeout(() => {
-                                        const container = document.querySelector('.itinerary-tabs-container') as HTMLElement;
-                                        if (container) {
-                                          const isOverflowing = container.scrollWidth > container.clientWidth;
-                                          el.style.display = isOverflowing ? 'flex' : 'none';
-                                        }
-                                      }, 500);
-                                    }
-                                  }}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                  </svg>
-                                </button>
-                                
-                                {/* Scrollable tabs container */}
-                                <div className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 itinerary-tabs-container">
-                                  {tourData.itinerary.map((day) => (
-                                    <button
-                                      key={`day-tab-${day.day}`}
-                                      onClick={() => setActiveDay(day.day)}
-                                      className={`
-                                        day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-6 py-3 text-sm font-semibold focus:outline-none min-w-[90px]
-                                        ${activeDay === day.day ? 'text-[#0F4C81] active' : 'text-gray-500 hover:text-gray-700'}
-                                      `}
-                                    >
-                                      Day {day.day}
-                                    </button>
-                                  ))}
-                                </div>
-                                
-                                {/* Right navigation arrow with conditional visibility */}
-                                <button 
-                                  onClick={() => {
-                                    const container = document.querySelector('.itinerary-tabs-container');
-                                    if (container) {
-                                      container.scrollBy({ left: 200, behavior: 'smooth' });
-                                    }
-                                  }}
-                                  className="itinerary-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
-                                  aria-label="Scroll right"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Check if content is overflowing
-                                      setTimeout(() => {
-                                        const container = document.querySelector('.itinerary-tabs-container') as HTMLElement;
-                                        if (container) {
-                                          const isOverflowing = container.scrollWidth > container.clientWidth;
-                                          el.style.display = isOverflowing ? 'flex' : 'none';
-                                        }
-                                      }, 500);
-                                    }
-                                  }}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                  </svg>
-                                </button>
-                              </div>
+                              {/* Scrollable tabs using ScrollableTabNavigation component */}
+                              <ScrollableTabNavigation containerClassName="itinerary-tabs-container">
+                                {tourData.itinerary.map((day) => (
+                                  <button
+                                    key={`day-tab-${day.day}`}
+                                    onClick={() => setActiveDay(day.day)}
+                                    className={`
+                                      day-tab relative whitespace-nowrap transition-all duration-200
+                                      px-6 py-3 text-sm font-semibold focus:outline-none min-w-[90px]
+                                      ${activeDay === day.day ? 'text-[#0F4C81] active' : 'text-gray-500 hover:text-gray-700'}
+                                    `}
+                                  >
+                                    Day {day.day}
+                                  </button>
+                                ))}
+                              </ScrollableTabNavigation>
                               
                               {/* Active indicator line that follows the selected tab */}
                               <div className="h-0.5 relative">
@@ -825,7 +767,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                               
                               {/* Tab bar container */}
                               <div className="border-b border-gray-200 relative">
-                                {/* Left navigation arrow - ref is for checking visibility */}
+                                {/* Left navigation arrow */}
                                 <button 
                                   onClick={() => {
                                     const container = document.querySelector('.map-tabs-container');
@@ -833,20 +775,8 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       container.scrollBy({ left: -200, behavior: 'smooth' });
                                     }
                                   }}
-                                  className="map-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                                  className="absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
                                   aria-label="Scroll left"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Check if content is overflowing
-                                      setTimeout(() => {
-                                        const container = document.querySelector('.map-tabs-container') as HTMLElement;
-                                        if (container) {
-                                          const isOverflowing = container.scrollWidth > container.clientWidth;
-                                          el.style.display = isOverflowing ? 'flex' : 'none';
-                                        }
-                                      }, 500);
-                                    }
-                                  }}
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -870,7 +800,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   ))}
                                 </div>
                                 
-                                {/* Right navigation arrow - ref is for checking visibility */}
+                                {/* Right navigation arrow */}
                                 <button 
                                   onClick={() => {
                                     const container = document.querySelector('.map-tabs-container');
@@ -878,20 +808,8 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                       container.scrollBy({ left: 200, behavior: 'smooth' });
                                     }
                                   }}
-                                  className="map-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                                  className="absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
                                   aria-label="Scroll right"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Check if content is overflowing
-                                      setTimeout(() => {
-                                        const container = document.querySelector('.map-tabs-container') as HTMLElement;
-                                        if (container) {
-                                          const isOverflowing = container.scrollWidth > container.clientWidth;
-                                          el.style.display = isOverflowing ? 'flex' : 'none';
-                                        }
-                                      }, 500);
-                                    }
-                                  }}
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
