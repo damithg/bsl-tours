@@ -1,31 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { 
-  Tabs, 
-  TabsContent, 
-  TabsList, 
-  TabsTrigger 
-} from '@/components/ui/tabs';
-import { 
   Calendar, 
   List,
   Check, 
   X,
   Map, 
-  LayoutList,
   Image as ImageIcon,
-  BookOpenText,
-  Hotel,
-  Phone,
-  Heart,
   AlertTriangle,
   Search,
   ArrowLeft,
   LayoutGrid,
-  Info,
   Home,
   ChevronRight,
-  MapPin
+  Heart,
+  Hotel,
+  Phone
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
@@ -392,8 +382,44 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         </div>
       </section>
       
+      {/* Feature Tiles - Positioned right beneath the hero image */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-20">
+        <div className="bg-white shadow-lg rounded-xl p-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
+              <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                <Calendar className="w-6 h-6" />
+              </div>
+              <h4 className="font-semibold mb-1">Duration</h4>
+              <p>{tourData.duration}</p>
+            </div>
+            <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
+              <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                <Heart className="w-6 h-6" />
+              </div>
+              <h4 className="font-semibold mb-1">Tour Type</h4>
+              <p>Private Luxury</p>
+            </div>
+            <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
+              <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                <Hotel className="w-6 h-6" />
+              </div>
+              <h4 className="font-semibold mb-1">Accommodation</h4>
+              <p>Luxury Hotels</p>
+            </div>
+            <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
+              <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
+                <ArrowLeft className="w-6 h-6" />
+              </div>
+              <h4 className="font-semibold mb-1">Starting Price</h4>
+              <p>{formatPrice(tourData.startingFrom, { currency: tourData.currency })}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/* Main Content */}
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative z-10">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Column - Main Content */}
           <div className="lg:w-8/12">
@@ -417,39 +443,8 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                 <div className="absolute hidden md:block h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-blue-400/30 left-0 top-0 rounded-full"></div>
                 
                 <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-                  {/* Feature icons section in a 4-column grid */}
+                  {/* Main content section */}
                   <div className="px-6 md:px-10 pt-6">
-                    {/* Visual features section in a 4-column grid - No borders */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
-                      <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
-                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
-                          <Calendar className="w-6 h-6" />
-                        </div>
-                        <h4 className="font-semibold mb-1">Duration</h4>
-                        <p>{tourData.duration}</p>
-                      </div>
-                      <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
-                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
-                          <Heart className="w-6 h-6" />
-                        </div>
-                        <h4 className="font-semibold mb-1">Tour Type</h4>
-                        <p>Private Luxury</p>
-                      </div>
-                      <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
-                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
-                          <Hotel className="w-6 h-6" />
-                        </div>
-                        <h4 className="font-semibold mb-1">Accommodation</h4>
-                        <p>Luxury Hotels</p>
-                      </div>
-                      <div className="bg-white shadow-sm p-5 flex flex-col items-center text-center rounded-lg">
-                        <div className="bg-primary/10 rounded-full p-3 mb-3 text-primary">
-                          <BookOpenText className="w-6 h-6" />
-                        </div>
-                        <h4 className="font-semibold mb-1">Starting Price</h4>
-                        <p>{formatPrice(tourData.startingFrom, { currency: tourData.currency })}</p>
-                      </div>
-                    </div>
                     
                     {/* Main summary section */}
                     <div className="prose prose-lg max-w-none mb-8">
@@ -533,31 +528,18 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                 </div>
               </div>
               
-              {/* Tabbed Content Section */}
-              <div>
-                <Tabs defaultValue="itinerary" className="w-full">
-                  <TabsList className="mb-6 border-b w-full justify-start rounded-none h-auto p-0">
-                    {[
-                      { id: 'itinerary', icon: <List className="w-5 h-5 mr-2" />, label: 'Itinerary' },
-                      { id: 'inclusions', icon: <Check className="w-5 h-5 mr-2" />, label: 'Inclusions & Exclusions' },
-                      { id: 'gallery', icon: <ImageIcon className="w-5 h-5 mr-2" />, label: 'Gallery' },
-                      { id: 'map', icon: <Map className="w-5 h-5 mr-2" />, label: 'Map' }
-                    ].map(tab => (
-                      <TabsTrigger 
-                        key={tab.id}
-                        value={tab.id}
-                        className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none border-b-2 border-transparent pb-3 pt-2 px-4 font-medium"
-                      >
-                        <div className="flex items-center">
-                          {tab.icon}
-                          {tab.label}
-                        </div>
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
+              {/* Itinerary Section */}
+              <div className="mt-10 mb-8">
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div className="bg-gradient-to-r from-primary/80 to-primary p-6 text-white">
+                    <h2 className="text-xl font-bold flex items-center">
+                      <List className="w-5 h-5 mr-3" />
+                      Tour Itinerary
+                    </h2>
+                    <p className="text-white/80 mt-1 text-sm">Daily activities and experiences for your journey</p>
+                  </div>
                   
-                  {/* Itinerary Tab Content */}
-                  <TabsContent value="itinerary" className="mt-0">
+                  <div className="p-6">
                     {tourData.itinerary && tourData.itinerary.length > 0 ? (
                       <>
                         {/* Scrollable Tab Slider for Days */}
@@ -689,8 +671,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                                   </svg>
                                 </button>
                               </div>
-                              
-
                             </div>
                           </div>
                         </div>
@@ -719,246 +699,250 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                         <p className="text-gray-500">No itinerary available for this tour.</p>
                       </div>
                     )}
-                  </TabsContent>
-                  
-                  {/* Inclusions/Exclusions Tab Content */}
-                  <TabsContent value="inclusions" className="mt-0">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="bg-gradient-to-b from-green-50 to-white shadow-md rounded-lg overflow-hidden">
-                        <div className="bg-green-600 py-4 px-6">
-                          <h2 className="text-lg font-bold text-white flex items-center">
-                            <Check className="w-5 h-5 mr-2" />
-                            What's Included
-                          </h2>
-                        </div>
-                        <div className="p-6">
-                          <ul className="space-y-3">
-                            {tourData.inclusions && tourData.inclusions.length > 0 ? (
-                              tourData.inclusions.map((item, index) => (
-                                <li key={`inclusion-${index}`} className="flex items-start group">
-                                  <div className="bg-green-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-green-200 transition-colors">
-                                    <Check className="w-4 h-4 text-green-600" />
-                                  </div>
-                                  <span className="text-gray-700">{item}</span>
-                                </li>
-                              ))
-                            ) : (
-                              <li className="text-gray-500 italic">No inclusions specified for this tour.</li>
-                            )}
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-gradient-to-b from-red-50 to-white shadow-md rounded-lg overflow-hidden">
-                        <div className="bg-red-500 py-4 px-6">
-                          <h2 className="text-lg font-bold text-white flex items-center">
-                            <X className="w-5 h-5 mr-2" />
-                            What's Not Included
-                          </h2>
-                        </div>
-                        <div className="p-6">
-                          <ul className="space-y-3">
-                            {tourData.exclusions && tourData.exclusions.length > 0 ? (
-                              tourData.exclusions.map((item, index) => (
-                                <li key={`exclusion-${index}`} className="flex items-start group">
-                                  <div className="bg-red-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-red-200 transition-colors">
-                                    <X className="w-4 h-4 text-red-500" />
-                                  </div>
-                                  <span className="text-gray-700">{item}</span>
-                                </li>
-                              ))
-                            ) : (
-                              <li className="text-gray-500 italic">No exclusions specified for this tour.</li>
-                            )}
-                          </ul>
-                        </div>
-                      </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Inclusions & Exclusions Section */}
+              <div className="mt-10 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gradient-to-b from-green-50 to-white shadow-md rounded-lg overflow-hidden">
+                    <div className="bg-green-600 py-4 px-6">
+                      <h2 className="text-lg font-bold text-white flex items-center">
+                        <Check className="w-5 h-5 mr-2" />
+                        What's Included
+                      </h2>
                     </div>
-                  </TabsContent>
-                  
-                  {/* Gallery Tab Content */}
-                  <TabsContent value="gallery" className="mt-0">
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                      <div className="bg-gradient-to-r from-primary/80 to-primary p-6 text-white">
-                        <h2 className="text-xl font-bold flex items-center">
-                          <ImageIcon className="w-5 h-5 mr-3" />
-                          Tour Photo Gallery
-                        </h2>
-                        <p className="text-white/80 mt-1 text-sm">Explore the visual journey of this luxury tour</p>
-                      </div>
-                      
-                      <div className="p-6">
-                        {tourData.galleryImages && tourData.galleryImages.length > 0 ? (
-                          <AsymmetricalGallery 
-                            images={tourData.galleryImages.map(img => ({
-                              ...img,
-                              alt: img.alt || 'Tour image'
-                            }))} 
-                          />
-                        ) : (
-                          <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
-                            <ImageIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                            <p className="text-gray-500">No gallery images available for this tour.</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </TabsContent>
-                  
-                  {/* Map Tab Content */}
-                  <TabsContent value="map" className="mt-0">
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                      <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
-                        <h2 className="text-xl font-bold flex items-center">
-                          <Map className="w-5 h-5 mr-3" />
-                          Tour Route Map
-                        </h2>
-                        <p className="text-white/80 mt-1 text-sm">Follow the journey through Sri Lanka's most beautiful destinations</p>
-                      </div>
-                      
-                      <div className="p-6">
-                        {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
-                          <>
-                            {/* Map Day Slider Tabs */}
-                            <div className="mb-6 relative">
-                              {/* Left shadow overlay for scroll indicator */}
-                              <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                              
-                              {/* Right shadow overlay for scroll indicator */}
-                              <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-                              
-                              {/* Tab bar container */}
-                              <div className="mb-4">
-                                {/* Left navigation arrow - ref is for checking visibility */}
-                                <button 
-                                  onClick={() => {
-                                    const container = document.querySelector('.map-tabs-container');
-                                    if (container) {
-                                      container.scrollBy({ left: -200, behavior: 'smooth' });
-                                    }
-                                  }}
-                                  className="map-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
-                                  aria-label="Scroll left"
-                                  aria-label="Scroll left"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Make sure arrows are visible when content overflows
-                                      const checkOverflow = () => {
-                                        const container = document.querySelector('.map-tabs-container') as HTMLElement;
-                                        if (container) {
-                                          const isOverflowing = container.scrollWidth > container.clientWidth;
-                                          el.style.display = isOverflowing ? 'flex' : 'none';
-                                        }
-                                      };
-                                      
-                                      // Check multiple times to ensure it catches any layout changes
-                                      checkOverflow();
-                                      setTimeout(checkOverflow, 100);
-                                      setTimeout(checkOverflow, 500);
-                                      setTimeout(checkOverflow, 1000);
-                                      
-                                      // Add resize listener to recheck on window resize
-                                      window.addEventListener('resize', checkOverflow);
-                                    }
-                                  }}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                  </svg>
-                                </button>
-                                
-                                {/* Scrollable tabs - simplified Material UI style */}
-                                <div 
-                                  className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Always maintain left alignment
-                                      el.classList.remove('justify-center');
-                                      el.classList.remove('justify-end');
-                                    }
-                                  }}
-                                >
-                                  {tourData.itinerary && tourData.itinerary.map((day) => (
-                                    <button
-                                      key={`map-day-tab-${day.day}`}
-                                      onClick={() => setActiveDay(day.day)}
-                                      className={`
-                                        day-tab relative whitespace-nowrap transition-all duration-200
-                                        px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
-                                        ${activeDay === day.day 
-                                          ? 'bg-[#0F7173] text-white' 
-                                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
-                                      `}
-                                    >
-                                      Day {day.day}
-                                    </button>
-                                  ))}
-                                </div>
-                                
-                                <button
-                                  aria-label="Scroll right"
-                                  ref={(el) => {
-                                    if (el) {
-                                      // Make sure arrows are visible when content overflows
-                                      const checkOverflow = () => {
-                                        const container = document.querySelector('.map-tabs-container') as HTMLElement;
-                                        if (container) {
-                                          const isOverflowing = container.scrollWidth > container.clientWidth;
-                                          el.style.display = isOverflowing ? 'flex' : 'none';
-                                        }
-                                      };
-                                      
-                                      // Check multiple times to ensure it catches any layout changes
-                                      checkOverflow();
-                                      setTimeout(checkOverflow, 100);
-                                      setTimeout(checkOverflow, 500);
-                                      setTimeout(checkOverflow, 1000);
-                                      
-                                      // Add resize listener to recheck on window resize
-                                      window.addEventListener('resize', checkOverflow);
-                                    }
-                                  }}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                  </svg>
-                                </button>
-                                
-
+                    <div className="p-6">
+                      <ul className="space-y-3">
+                        {tourData.inclusions && tourData.inclusions.length > 0 ? (
+                          tourData.inclusions.map((item, index) => (
+                            <li key={`inclusion-${index}`} className="flex items-start group">
+                              <div className="bg-green-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-green-200 transition-colors">
+                                <Check className="w-4 h-4 text-green-600" />
                               </div>
-                            </div>
-                            <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">
-                              <AnimatedRouteMap
-                                mapImage={tourData.mapImage || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"}
-                                points={(tourData.mapPoints || []).map(point => ({
-                                  ...point,
-                                  isActive: point.day === activeDay
-                                }))}
-                                activeDay={activeDay}
-                                className="w-full h-full"
-                                onPointClick={(pointId) => {
-                                  const point = tourData.mapPoints ? tourData.mapPoints.find(p => p.id === pointId) : undefined;
-                                  if (point && point.day) {
-                                    setActiveDay(point.day);
-                                  }
-                                }}
-                              />
-                            </div>
-                            <div className="mt-4 text-center text-sm text-gray-500">
-                              Click on a day number to see the route or click map locations to navigate
-                            </div>
-                          </>
+                              <span className="text-gray-700">{item}</span>
+                            </li>
+                          ))
                         ) : (
-                          <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
-                            <Map className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                            <p className="text-gray-500">No map data available for this tour.</p>
-                            <p className="text-xs text-gray-400 mt-2">Interactive map coming soon</p>
-                          </div>
+                          <li className="text-gray-500 italic">No inclusions specified for this tour.</li>
                         )}
-                      </div>
+                      </ul>
                     </div>
-                  </TabsContent>
-                </Tabs>
+                  </div>
+                  
+                  <div className="bg-gradient-to-b from-red-50 to-white shadow-md rounded-lg overflow-hidden">
+                    <div className="bg-red-500 py-4 px-6">
+                      <h2 className="text-lg font-bold text-white flex items-center">
+                        <X className="w-5 h-5 mr-2" />
+                        What's Not Included
+                      </h2>
+                    </div>
+                    <div className="p-6">
+                      <ul className="space-y-3">
+                        {tourData.exclusions && tourData.exclusions.length > 0 ? (
+                          tourData.exclusions.map((item, index) => (
+                            <li key={`exclusion-${index}`} className="flex items-start group">
+                              <div className="bg-red-100 rounded-full p-1 mt-0.5 mr-3 group-hover:bg-red-200 transition-colors">
+                                <X className="w-4 h-4 text-red-500" />
+                              </div>
+                              <span className="text-gray-700">{item}</span>
+                            </li>
+                          ))
+                        ) : (
+                          <li className="text-gray-500 italic">No exclusions specified for this tour.</li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Gallery Section */}
+              <div className="mt-10 mb-8">
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div className="bg-gradient-to-r from-primary/80 to-primary p-6 text-white">
+                    <h2 className="text-xl font-bold flex items-center">
+                      <ImageIcon className="w-5 h-5 mr-3" />
+                      Tour Photo Gallery
+                    </h2>
+                    <p className="text-white/80 mt-1 text-sm">Explore the visual journey of this luxury tour</p>
+                  </div>
+                  
+                  <div className="p-6">
+                    {tourData.galleryImages && tourData.galleryImages.length > 0 ? (
+                      <AsymmetricalGallery 
+                        images={tourData.galleryImages.map(img => ({
+                          ...img,
+                          alt: img.alt || 'Tour image'
+                        }))} 
+                      />
+                    ) : (
+                      <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                        <ImageIcon className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                        <p className="text-gray-500">No gallery images available for this tour.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Map Section */}
+              <div className="mt-10 mb-8">
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+                    <h2 className="text-xl font-bold flex items-center">
+                      <Map className="w-5 h-5 mr-3" />
+                      Tour Route Map
+                    </h2>
+                    <p className="text-white/80 mt-1 text-sm">Follow the journey through Sri Lanka's most beautiful destinations</p>
+                  </div>
+                  
+                  <div className="p-6">
+                    {tourData.mapPoints && tourData.mapPoints.length > 0 ? (
+                      <>
+                        {/* Map Day Slider Tabs */}
+                        <div className="mb-6 relative">
+                          {/* Left shadow overlay for scroll indicator */}
+                          <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                          
+                          {/* Right shadow overlay for scroll indicator */}
+                          <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                          
+                          {/* Tab bar container */}
+                          <div className="mb-4">
+                            {/* Left navigation arrow - ref is for checking visibility */}
+                            <button 
+                              onClick={() => {
+                                const container = document.querySelector('.map-tabs-container');
+                                if (container) {
+                                  container.scrollBy({ left: -200, behavior: 'smooth' });
+                                }
+                              }}
+                              className="map-left-arrow absolute left-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                              aria-label="Scroll left"
+                              ref={(el) => {
+                                if (el) {
+                                  // Make sure arrows are visible when content overflows
+                                  const checkOverflow = () => {
+                                    const container = document.querySelector('.map-tabs-container') as HTMLElement;
+                                    if (container) {
+                                      const isOverflowing = container.scrollWidth > container.clientWidth;
+                                      el.style.display = isOverflowing ? 'flex' : 'none';
+                                    }
+                                  };
+                                  
+                                  // Check multiple times to ensure it catches any layout changes
+                                  checkOverflow();
+                                  setTimeout(checkOverflow, 100);
+                                  setTimeout(checkOverflow, 500);
+                                  setTimeout(checkOverflow, 1000);
+                                  
+                                  // Add resize listener to recheck on window resize
+                                  window.addEventListener('resize', checkOverflow);
+                                }
+                              }}
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                              </svg>
+                            </button>
+                            
+                            {/* Scrollable tabs - simplified Material UI style */}
+                            <div 
+                              className="flex overflow-x-auto scrollbar-none pb-0 scroll-smooth px-10 map-tabs-container"
+                              ref={(el) => {
+                                if (el) {
+                                  // Always maintain left alignment
+                                  el.classList.remove('justify-center');
+                                  el.classList.remove('justify-end');
+                                }
+                              }}
+                            >
+                              {tourData.itinerary && tourData.itinerary.map((day) => (
+                                <button
+                                  key={`map-day-tab-${day.day}`}
+                                  onClick={() => setActiveDay(day.day)}
+                                  className={`
+                                    day-tab relative whitespace-nowrap transition-all duration-200
+                                    px-6 py-3 mx-1.5 text-sm font-medium rounded-full focus:outline-none
+                                    ${activeDay === day.day 
+                                      ? 'bg-[#0F7173] text-white' 
+                                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
+                                  `}
+                                >
+                                  Day {day.day}
+                                </button>
+                              ))}
+                            </div>
+                            
+                            <button
+                              className="map-right-arrow absolute right-0 top-1/2 -translate-y-1/2 z-20 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white transition-all"
+                              onClick={() => {
+                                const container = document.querySelector('.map-tabs-container') as HTMLElement;
+                                if (container) {
+                                  container.scrollBy({ left: 200, behavior: 'smooth' });
+                                }
+                              }}
+                              aria-label="Scroll right"
+                              ref={(el) => {
+                                if (el) {
+                                  // Make sure arrows are visible when content overflows
+                                  const checkOverflow = () => {
+                                    const container = document.querySelector('.map-tabs-container') as HTMLElement;
+                                    if (container) {
+                                      const isOverflowing = container.scrollWidth > container.clientWidth;
+                                      el.style.display = isOverflowing ? 'flex' : 'none';
+                                    }
+                                  };
+                                  
+                                  // Check multiple times to ensure it catches any layout changes
+                                  checkOverflow();
+                                  setTimeout(checkOverflow, 100);
+                                  setTimeout(checkOverflow, 500);
+                                  setTimeout(checkOverflow, 1000);
+                                  
+                                  // Add resize listener to recheck on window resize
+                                  window.addEventListener('resize', checkOverflow);
+                                }
+                              }}
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div className="aspect-[4/3] relative border border-gray-100 rounded-lg shadow-sm overflow-hidden">
+                          <AnimatedRouteMap
+                            mapImage={tourData.mapImage || "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743155638/maps/sri-lanka-base-map_kczjir.jpg"}
+                            points={(tourData.mapPoints || []).map(point => ({
+                              ...point,
+                              isActive: point.day === activeDay
+                            }))}
+                            activeDay={activeDay}
+                            className="w-full h-full"
+                            onPointClick={(pointId) => {
+                              const point = tourData.mapPoints ? tourData.mapPoints.find(p => p.id === pointId) : undefined;
+                              if (point && point.day) {
+                                setActiveDay(point.day);
+                              }
+                            }}
+                          />
+                        </div>
+                        <div className="mt-4 text-center text-sm text-gray-500">
+                          Click on a day number to see the route or click map locations to navigate
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+                        <Map className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                        <p className="text-gray-500">No map data available for this tour.</p>
+                        <p className="text-xs text-gray-400 mt-2">Interactive map coming soon</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
               
               {/* Contact Form Section */}
