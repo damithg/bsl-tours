@@ -36,25 +36,34 @@ interface StrapiTour {
     description: string;
   }>;
   heroImage?: {
-    id: number;
-    publicId: string;
-    alt: string;
-    caption: string;
-    orientation: string;
+    publicId?: string;
+    alt?: string;
+    caption?: string;
+    orientation?: string;
+    baseUrl?: string;
+    small?: string;
+    medium?: string;
+    large?: string;
   };
   cardImage?: {
-    id: number;
-    publicId: string;
-    alt: string;
-    caption: string;
-    orientation: string;
+    publicId?: string;
+    alt?: string;
+    caption?: string;
+    orientation?: string;
+    baseUrl?: string;
+    small?: string;
+    medium?: string;
+    large?: string;
   };
   galleryImages?: Array<{
-    id: number;
-    publicId: string;
-    alt: string;
-    caption: string;
-    orientation: string;
+    publicId?: string;
+    alt?: string;
+    caption?: string;
+    orientation?: string;
+    baseUrl?: string;
+    small?: string;
+    medium?: string;
+    large?: string;
   }>;
   pricingTiers?: Array<{
     label: string;
@@ -286,16 +295,26 @@ const FeaturedPackages = () => {
             onScroll={checkScrollable}
           >
             {tours.map((tour: StrapiTour) => {
-                // Get the image URL from cardImage or heroImage, with fallbacks
+                // Get the image URL from cardImage or heroImage, prioritizing medium size (800x600)
                 const getImageUrl = () => {
-                  if (tour.cardImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,h_600,w_800,q_auto/${tour.cardImage.publicId}`;
-                  } else if (tour.heroImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/c_fill,g_auto,h_600,w_800,q_auto/${tour.heroImage.publicId}`;
-                  } else {
-                    // For now use a fallback, but ideally this should never happen as all tours should have images
-                    return "/images/tours/scenic-sri-lanka-hero.jpg";
+                  // Try cardImage first with prioritized sizes
+                  if (tour.cardImage) {
+                    if (tour.cardImage.medium) return tour.cardImage.medium;
+                    if (tour.cardImage.large) return tour.cardImage.large;
+                    if (tour.cardImage.small) return tour.cardImage.small;
+                    if (tour.cardImage.baseUrl) return tour.cardImage.baseUrl;
                   }
+                  
+                  // Try heroImage as fallback with prioritized sizes
+                  if (tour.heroImage) {
+                    if (tour.heroImage.medium) return tour.heroImage.medium;
+                    if (tour.heroImage.large) return tour.heroImage.large;
+                    if (tour.heroImage.small) return tour.heroImage.small;
+                    if (tour.heroImage.baseUrl) return tour.heroImage.baseUrl;
+                  }
+                  
+                  // Last resort fallback
+                  return "/images/tours/scenic-sri-lanka-hero.jpg";
                 };
                 
                 // Extract average rating from reviews
@@ -345,7 +364,7 @@ const FeaturedPackages = () => {
                         <div>
                           <span className="text-sm text-gray-500">From</span>
                           <span className="text-[#0F4C81] text-xl font-semibold">
-                            {formatPrice(tour.startingFrom || 0, tour.currency || 'USD')}
+                            {formatPrice(tour.startingFrom || 0, { currency: tour.currency || 'USD' })}
                           </span>
                           <span className="text-gray-500 text-sm">per person</span>
                         </div>
