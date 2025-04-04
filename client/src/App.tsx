@@ -7,7 +7,7 @@ import Home from "@/pages/Home";
 import TourPackages from "@/pages/TourPackages";
 import PackageDetail from "@/pages/PackageDetail";
 import EnhancedPackageDetail from "@/pages/EnhancedPackageDetail";
-import TestTourPage from "@/pages/TestTourPage";
+import TourDetails from "@/pages/TourDetails";
 import Destinations from "@/pages/Destinations";
 import DestinationDetail from "@/pages/DestinationDetail";
 import DestinationMap from "@/pages/DestinationMap";
@@ -34,7 +34,7 @@ function Router() {
         {/* Tour routes */}
         <Route path="/tours" component={TourPackages} />
         <Route path="/tours/:slug">
-          {(params) => <TestTourPage params={params} />}
+          {(params) => <TourDetails params={params} />}
         </Route>
         
         {/* Legacy routes (to be eventually removed) */}
@@ -45,12 +45,12 @@ function Router() {
         
         {/* Slug-based route for tours (older structure) */}
         <Route path="/tour/:slug">
-          {(params) => <TestTourPage params={params} />}
+          {(params) => <TourDetails params={params} />}
         </Route>
         
         {/* Test page for development */}
         <Route path="/test-tour">
-          {() => <TestTourPage />}
+          {() => <TourDetails />}
         </Route>
         
         {/* Destination routes */}
