@@ -76,42 +76,135 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
     setIsGenerating(true);
     try {
       console.log("Starting PDF generation process...");
-      // Generate PDF using html2canvas and jsPDF
-      const element = contentRef.current;
-      console.log("Element to render:", element);
       
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        logging: true, // Enable logging for debugging
-        allowTaint: true,
-        onclone: (document) => {
-          console.log("Document cloned for rendering");
-          // Make hidden elements visible in the cloned document
-          const hiddenElement = document.querySelector('.hidden');
-          if (hiddenElement) {
-            console.log("Unhiding elements for PDF generation");
-            hiddenElement.classList.remove('hidden');
-            hiddenElement.classList.add('block');
-          }
-        }
-      });
-      
-      console.log("Canvas created successfully", canvas);
-      const imgData = canvas.toDataURL('image/png');
-      console.log("Image data created");
-      
+      // Create new PDF document directly without using images
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4'
       });
       
-      const imgWidth = 210; // A4 width in mm
-      const imgHeight = canvas.height * imgWidth / canvas.width;
+      // Get content for PDF
+      const tourName = tourData.name;
+      const duration = tourData.duration;
+      const price = formatPrice(tourData.startingFrom, { currency: tourData.currency });
+      const summary = tourData.summary;
       
-      console.log("Adding image to PDF", { imgWidth, imgHeight });
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      // Add content to PDF directly
+      // Title
+      pdf.setFontSize(20);
+      pdf.text(tourName, 15, 20);
+      
+      // Duration
+      pdf.setFontSize(12);
+      pdf.text(`${duration} • Private Luxury Tour`, 15, 30);
+      
+      // Price
+      pdf.setFontSize(14);
+      pdf.text(`Starting from ${price} per person`, 15, 40);
+      
+      // Summary
+      pdf.setFontSize(12);
+      pdf.text("Overview:", 15, 55);
+      
+      // Handle multiline text
+      const splitSummary = pdf.splitTextToSize(summary, 180);
+      pdf.text(splitSummary, 15, 65);
+      
+      let currentY = 65 + splitSummary.length * 7;
+      
+      // Tour Highlights
+      if (tourData.highlights && tourData.highlights.length > 0) {
+        currentY += 10;
+        pdf.setFontSize(12);
+        pdf.text("Tour Highlights:", 15, currentY);
+        currentY += 10;
+        
+        tourData.highlights.forEach((highlight, index) => {
+          pdf.text(`• ${highlight}`, 15, currentY);
+          currentY += 7;
+        });
+      }
+      
+      // Itinerary
+      currentY += 10;
+      pdf.setFontSize(14);
+      pdf.text("Itinerary", 15, currentY);
+      currentY += 10;
+      
+      tourData.itinerary.forEach((day, index) => {
+        pdf.setFontSize(12);
+        pdf.text(`Day ${day.day}: ${day.title}`, 15, currentY);
+        currentY += 7;
+        
+        const splitDesc = pdf.splitTextToSize(day.description, 180);
+        pdf.setFontSize(10);
+        pdf.text(splitDesc, 15, currentY);
+        currentY += splitDesc.length * 6 + 5;
+        
+        // Check if we need a new page
+        if (currentY > 270) {
+          pdf.addPage();
+          currentY = 20;
+        }
+      });
+      
+      // Inclusions & Exclusions
+      if (currentY > 220) {
+        pdf.addPage();
+        currentY = 20;
+      }
+      
+      // Inclusions
+      pdf.setFontSize(14);
+      pdf.text("Inclusions", 15, currentY);
+      currentY += 10;
+      
+      tourData.inclusions.forEach((item, index) => {
+        pdf.setFontSize(10);
+        pdf.text(`• ${item}`, 15, currentY);
+        currentY += 7;
+        
+        // Check if we need a new page
+        if (currentY > 270) {
+          pdf.addPage();
+          currentY = 20;
+        }
+      });
+      
+      // Add some space
+      currentY += 10;
+      
+      // Exclusions
+      if (currentY > 230) {
+        pdf.addPage();
+        currentY = 20;
+      }
+      
+      pdf.setFontSize(14);
+      pdf.text("Exclusions", 15, currentY);
+      currentY += 10;
+      
+      tourData.exclusions.forEach((item, index) => {
+        pdf.setFontSize(10);
+        pdf.text(`• ${item}`, 15, currentY);
+        currentY += 7;
+      });
+      
+      // Contact Information
+      pdf.addPage();
+      pdf.setFontSize(14);
+      pdf.text("Contact Us", 15, 20);
+      pdf.setFontSize(10);
+      pdf.text("For bookings and inquiries, please contact:", 15, 30);
+      pdf.text("Best Sri Lanka Tours", 15, 40);
+      pdf.text("Email: info@bestsrilankatours.com", 15, 50);
+      pdf.text("Phone: +94 77 123 4567", 15, 60);
+      pdf.text("Website: www.bestsrilankatours.com", 15, 70);
+      
+      // Footer
+      pdf.text(`Generated on ${new Date().toLocaleDateString()}`, 15, 250);
+      pdf.text(`© ${new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.`, 15, 260);
       
       // Save the PDF
       console.log("Saving PDF...");
@@ -127,42 +220,137 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
   };
   
   const generatePdfContent = async (): Promise<string | null> => {
-    if (!contentRef.current) {
-      console.error("Content ref is null or undefined");
-      return null;
-    }
-    
     try {
       console.log("Generating PDF content for email...");
-      const element = contentRef.current;
       
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        allowTaint: true,
-        onclone: (document) => {
-          // Make hidden elements visible in the cloned document
-          const hiddenElement = document.querySelector('.hidden');
-          if (hiddenElement) {
-            hiddenElement.classList.remove('hidden');
-            hiddenElement.classList.add('block');
-          }
-        }
-      });
-      
-      // Create PDF
-      const imgData = canvas.toDataURL('image/png');
+      // Create new PDF document directly without using images
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4'
       });
       
-      const imgWidth = 210; // A4 width in mm
-      const imgHeight = canvas.height * imgWidth / canvas.width;
+      // Get content for PDF
+      const tourName = tourData.name;
+      const duration = tourData.duration;
+      const price = formatPrice(tourData.startingFrom, { currency: tourData.currency });
+      const summary = tourData.summary;
       
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      // Add content to PDF directly
+      // Title
+      pdf.setFontSize(20);
+      pdf.text(tourName, 15, 20);
+      
+      // Duration
+      pdf.setFontSize(12);
+      pdf.text(`${duration} • Private Luxury Tour`, 15, 30);
+      
+      // Price
+      pdf.setFontSize(14);
+      pdf.text(`Starting from ${price} per person`, 15, 40);
+      
+      // Summary
+      pdf.setFontSize(12);
+      pdf.text("Overview:", 15, 55);
+      
+      // Handle multiline text
+      const splitSummary = pdf.splitTextToSize(summary, 180);
+      pdf.text(splitSummary, 15, 65);
+      
+      let currentY = 65 + splitSummary.length * 7;
+      
+      // Tour Highlights
+      if (tourData.highlights && tourData.highlights.length > 0) {
+        currentY += 10;
+        pdf.setFontSize(12);
+        pdf.text("Tour Highlights:", 15, currentY);
+        currentY += 10;
+        
+        tourData.highlights.forEach((highlight, index) => {
+          pdf.text(`• ${highlight}`, 15, currentY);
+          currentY += 7;
+        });
+      }
+      
+      // Itinerary
+      currentY += 10;
+      pdf.setFontSize(14);
+      pdf.text("Itinerary", 15, currentY);
+      currentY += 10;
+      
+      tourData.itinerary.forEach((day, index) => {
+        pdf.setFontSize(12);
+        pdf.text(`Day ${day.day}: ${day.title}`, 15, currentY);
+        currentY += 7;
+        
+        const splitDesc = pdf.splitTextToSize(day.description, 180);
+        pdf.setFontSize(10);
+        pdf.text(splitDesc, 15, currentY);
+        currentY += splitDesc.length * 6 + 5;
+        
+        // Check if we need a new page
+        if (currentY > 270) {
+          pdf.addPage();
+          currentY = 20;
+        }
+      });
+      
+      // Inclusions & Exclusions
+      if (currentY > 220) {
+        pdf.addPage();
+        currentY = 20;
+      }
+      
+      // Inclusions
+      pdf.setFontSize(14);
+      pdf.text("Inclusions", 15, currentY);
+      currentY += 10;
+      
+      tourData.inclusions.forEach((item, index) => {
+        pdf.setFontSize(10);
+        pdf.text(`• ${item}`, 15, currentY);
+        currentY += 7;
+        
+        // Check if we need a new page
+        if (currentY > 270) {
+          pdf.addPage();
+          currentY = 20;
+        }
+      });
+      
+      // Add some space
+      currentY += 10;
+      
+      // Exclusions
+      if (currentY > 230) {
+        pdf.addPage();
+        currentY = 20;
+      }
+      
+      pdf.setFontSize(14);
+      pdf.text("Exclusions", 15, currentY);
+      currentY += 10;
+      
+      tourData.exclusions.forEach((item, index) => {
+        pdf.setFontSize(10);
+        pdf.text(`• ${item}`, 15, currentY);
+        currentY += 7;
+      });
+      
+      // Contact Information
+      pdf.addPage();
+      pdf.setFontSize(14);
+      pdf.text("Contact Us", 15, 20);
+      pdf.setFontSize(10);
+      pdf.text("For bookings and inquiries, please contact:", 15, 30);
+      pdf.text("Best Sri Lanka Tours", 15, 40);
+      pdf.text("Email: info@bestsrilankatours.com", 15, 50);
+      pdf.text("Phone: +94 77 123 4567", 15, 60);
+      pdf.text("Website: www.bestsrilankatours.com", 15, 70);
+      
+      // Footer
+      pdf.text(`Generated on ${new Date().toLocaleDateString()}`, 15, 250);
+      pdf.text(`© ${new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.`, 15, 260);
       
       // Get PDF as base64 string
       const pdfContent = pdf.output('datauristring');
