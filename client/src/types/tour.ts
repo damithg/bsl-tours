@@ -22,7 +22,6 @@ export interface MapPoint {
   x: number;
   y: number;
   day?: number;
-  isActive?: boolean;
 }
 
 export interface TourData {
@@ -43,10 +42,4 @@ export interface TourData {
   highlights?: string[];
   mapImage?: string;
   mapPoints?: MapPoint[];
-}
-
-export interface TourProps {
-  params?: {
-    slug?: string;
-  };
 }

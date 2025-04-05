@@ -6,28 +6,28 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Mail, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
+import type { TourData } from '@/types/tour';
 
 interface EmailPdfDialogProps {
-  tourName: string;
-  onSendEmail: (recipientEmail: string) => Promise<void>;
-  buttonLabel?: string;
-  buttonVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  tourData: TourData;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  generatePdfContent: () => Promise<string | null>;
 }
 
 const EmailPdfDialog: React.FC<EmailPdfDialogProps> = ({
-  tourName,
-  onSendEmail,
-  buttonLabel = "Email",
-  buttonVariant = "outline"
+  tourData,
+  isOpen,
+  setIsOpen,
+  generatePdfContent
 }) => {
   const [email, setEmail] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   
@@ -58,13 +58,56 @@ const EmailPdfDialog: React.FC<EmailPdfDialogProps> = ({
     setIsSending(true);
     
     try {
-      await onSendEmail(email);
-      // Only close if successful
+      // Show a toast to indicate we're generating the PDF
+      toast({
+        title: "Preparing PDF",
+        description: "Generating tour PDF document...",
+      });
+      
+      // Generate PDF content
+      const pdfContent = await generatePdfContent();
+      
+      if (!pdfContent) {
+        throw new Error("Failed to generate PDF content");
+      }
+      
+      // Send to server
+      const response = await fetch('/api/tours/email-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          tourName: tourData.name,
+          pdfContent,
+          filename: `${tourData.name.replace(/\s+/g, '-').toLowerCase()}.pdf`,
+        }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send email');
+      }
+      
+      // Success
+      toast({
+        title: "Email Sent",
+        description: `Tour details have been sent to ${email}`,
+      });
+      
+      // Close dialog and reset state
       setIsOpen(false);
       setEmail("");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending email:", error);
-      setErrorMessage("Failed to send email. Please try again.");
+      setErrorMessage(error.message || "Failed to send email. Please try again.");
+      
+      toast({
+        title: "Email Failed",
+        description: "There was a problem sending the email. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSending(false);
     }
@@ -72,20 +115,11 @@ const EmailPdfDialog: React.FC<EmailPdfDialogProps> = ({
   
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button 
-          variant={buttonVariant as any}
-          className="w-full flex items-center justify-center"
-        >
-          <Mail className="mr-2 h-4 w-4" />
-          {buttonLabel}
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Email Tour Information</DialogTitle>
           <DialogDescription>
-            Enter your email to receive details about {tourName}.
+            Enter your email to receive details about {tourData.name}.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
