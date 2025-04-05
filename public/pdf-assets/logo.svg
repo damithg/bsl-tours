@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180" height="60" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="180" height="60" rx="8" fill="#f8f9fa" opacity="0.9"/>
+  
+  <!-- Main Text -->
+  <text x="10" y="32" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#336699">
+    BEST SRI LANKA
+  </text>
+  <text x="10" y="50" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#902923">
+    TOURS
+  </text>
+  
+  <!-- Decorative Elements -->
+  <path d="M160,15 C170,15 170,45 160,45" stroke="#902923" stroke-width="2" fill="none"/>
+  <path d="M165,10 C180,10 180,50 165,50" stroke="#336699" stroke-width="2" fill="none"/>
+  
+  <!-- Small icon representing Sri Lanka -->
+  <path d="M142,30 C142,22 146,15 153,18 C160,21 158,33 152,35 C146,37 145,24 142,30 Z" fill="#90be6d" stroke="#336699" stroke-width="1"/>
+</svg>

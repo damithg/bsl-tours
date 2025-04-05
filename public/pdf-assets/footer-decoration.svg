@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="595" height="30" viewBox="0 0 595 30" xmlns="http://www.w3.org/2000/svg">
+  <!-- Footer decorative element -->
+  <path d="M100,5 C250,30 350,30 500,5" stroke="#336699" stroke-width="1" fill="none"/>
+  <path d="M100,10 C250,35 350,35 500,10" stroke="#902923" stroke-width="0.5" fill="none"/>
+  
+  <!-- Small lotus symbol -->
+  <path d="M297.5,20 C295,15 292.5,10 290,15 C287.5,20 295,25 297.5,20" fill="#90be6d" stroke="#336699" stroke-width="0.5"/>
+  <path d="M297.5,20 C300,15 302.5,10 305,15 C307.5,20 300,25 297.5,20" fill="#90be6d" stroke="#336699" stroke-width="0.5"/>
+  <circle cx="297.5" cy="17.5" r="2.5" fill="#902923" stroke="none"/>
+</svg>

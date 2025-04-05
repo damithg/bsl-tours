@@ -66,42 +66,6 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
   const { formatPrice } = useCurrency();
   const [isGenerating, setIsGenerating] = useState(initialIsGenerating);
   
-  // Function to create page template with borders, logo, etc.
-  const createPageTemplate = (pdf: jsPDF, pageNum: number = 1) => {
-    // Load logo image
-    const imgData = `/pdf-assets/logo.svg`;
-    
-    // Draw borders
-    pdf.setDrawColor(51, 102, 153); // #336699 - primary blue
-    pdf.setLineWidth(0.5);
-    pdf.rect(10, 10, 190, 277, 'S'); // Outer border
-    
-    pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-    pdf.setLineWidth(0.3);
-    pdf.roundedRect(13, 13, 184, 271, 1, 1, 'S'); // Inner border
-    
-    // Add logo
-    pdf.addImage(imgData, 'SVG', 15, 15, 50, 20);
-    
-    // Add divider
-    pdf.setDrawColor(51, 102, 153); // #336699 - primary blue
-    pdf.setLineWidth(0.5);
-    pdf.line(15, 40, 195, 40);
-    
-    // Add page number (except for first page)
-    if (pageNum > 1) {
-      pdf.setFontSize(8);
-      pdf.setTextColor(102, 102, 102);
-      pdf.text(`Page ${pageNum}`, 190, 285, { align: 'right' });
-    }
-    
-    // Add footer
-    pdf.setFontSize(8);
-    pdf.setTextColor(102, 102, 102);
-    pdf.text('Best Sri Lanka Tours | info@bestsrilankatours.com | +94 77 123 4567 | www.bestsrilankatours.com', 105, 280, { align: 'center' });
-    pdf.text(`Generated on ${new Date().toLocaleDateString()} | © ${new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.`, 105, 285, { align: 'center' });
-  };
-  
   const handleDownloadPDF = async () => {
     console.log("Download PDF button clicked");
     if (!contentRef.current) {
@@ -113,12 +77,15 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
     try {
       console.log("Starting PDF generation process...");
       
-      // Create new PDF document
+      // Create new PDF document directly without using images
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4'
       });
+      
+      // Load logo SVG
+      const imgData = `/pdf-assets/logo.svg`;
       
       // Get content for PDF
       const tourName = tourData.name;
@@ -126,11 +93,34 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
       const price = formatPrice(tourData.startingFrom, { currency: tourData.currency });
       const summary = tourData.summary;
       
-      // Set up first page
-      let pageNum = 1;
-      createPageTemplate(pdf, pageNum);
+      // Add border template to all pages
+      const addPageBorderAndHeader = (pdf: jsPDF) => {
+        // Add border
+        pdf.rect(10, 10, 190, 277, 'S'); // Outer border
+        pdf.setDrawColor(144, 41, 35); // #902923 - accent color
+        pdf.setLineWidth(0.5);
+        pdf.roundedRect(13, 13, 184, 271, 1, 1, 'S'); // Inner border
+        
+        // Add logo
+        pdf.addImage(imgData, 'SVG', 15, 15, 50, 20);
+        
+        // Add divider
+        pdf.setDrawColor(51, 102, 153); // #336699 - primary blue
+        pdf.setLineWidth(0.5);
+        pdf.line(15, 40, 195, 40);
+        
+        // Add footer
+        pdf.setFontSize(8);
+        pdf.setTextColor(102, 102, 102);
+        pdf.text('Best Sri Lanka Tours | info@bestsrilankatours.com | +94 77 123 4567 | www.bestsrilankatours.com', 105, 280, { align: 'center' });
+        pdf.text(`Generated on ${new Date().toLocaleDateString()} | © ${new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.`, 105, 285, { align: 'center' });
+      };
       
-      // Add title and header content
+      // Add border and logo to first page
+      addPageBorderAndHeader(pdf);
+      
+      // Add content to PDF directly
+      // Title
       pdf.setTextColor(51, 102, 153); // #336699 - primary blue
       pdf.setFontSize(22);
       pdf.text(tourName, 105, 55, { align: 'center' });
@@ -162,176 +152,98 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
       
       let currentY = 100 + splitSummary.length * 5;
       
-      // Function to add new page
-      const addNewPage = () => {
-        pageNum++;
-        pdf.addPage();
-        createPageTemplate(pdf, pageNum);
-        return 50; // Return new Y position after header
-      };
-      
       // Tour Highlights
       if (tourData.highlights && tourData.highlights.length > 0) {
-        // Check if we need a new page
-        if (currentY > 240) {
-          currentY = addNewPage();
-        } else {
-          currentY += 10;
-        }
-        
-        pdf.setTextColor(51, 102, 153); // Primary color for headings
+        currentY += 10;
         pdf.setFontSize(12);
-        pdf.text("Tour Highlights", 15, currentY);
-        
-        // Add decorative line below heading
-        pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-        pdf.setLineWidth(0.5);
-        pdf.line(15, currentY + 2, 50, currentY + 2);
-        
+        pdf.text("Tour Highlights:", 15, currentY);
         currentY += 10;
         
-        pdf.setTextColor(0); // Back to black for content
         tourData.highlights.forEach((highlight, index) => {
-          // Check if we need a new page
-          if (currentY > 270) {
-            currentY = addNewPage();
-          }
-          
-          pdf.setFontSize(10);
-          const splitHighlight = pdf.splitTextToSize(`• ${highlight}`, 180);
-          pdf.text(splitHighlight, 15, currentY);
-          currentY += splitHighlight.length * 5 + 2;
+          pdf.text(`• ${highlight}`, 15, currentY);
+          currentY += 7;
         });
       }
       
       // Itinerary
-      // Check if we need a new page
-      if (currentY > 240) {
-        currentY = addNewPage();
-      } else {
-        currentY += 10;
-      }
-      
-      pdf.setTextColor(51, 102, 153); // Primary color for headings
+      currentY += 10;
       pdf.setFontSize(14);
       pdf.text("Itinerary", 15, currentY);
-      
-      // Add decorative line below heading
-      pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY + 2, 40, currentY + 2);
-      
       currentY += 10;
       
-      pdf.setTextColor(0); // Back to black for content
       tourData.itinerary.forEach((day, index) => {
-        // Check if we need a new page
-        if (currentY > 250) {
-          currentY = addNewPage();
-        }
-        
-        pdf.setFontSize(11);
-        pdf.setTextColor(144, 41, 35); // Accent color for day titles
+        pdf.setFontSize(12);
         pdf.text(`Day ${day.day}: ${day.title}`, 15, currentY);
         currentY += 7;
         
-        pdf.setTextColor(0); // Back to black for description
-        pdf.setFontSize(10);
         const splitDesc = pdf.splitTextToSize(day.description, 180);
+        pdf.setFontSize(10);
         pdf.text(splitDesc, 15, currentY);
-        currentY += splitDesc.length * 5 + 5;
+        currentY += splitDesc.length * 6 + 5;
+        
+        // Check if we need a new page
+        if (currentY > 270) {
+          pdf.addPage();
+          currentY = 20;
+        }
       });
       
       // Inclusions & Exclusions
-      // Check if we need a new page for Inclusions
-      if (currentY > 240) {
-        currentY = addNewPage();
-      } else {
-        currentY += 10;
+      if (currentY > 220) {
+        pdf.addPage();
+        currentY = 20;
       }
       
       // Inclusions
-      pdf.setTextColor(51, 102, 153); // Primary color for headings
-      pdf.setFontSize(12);
+      pdf.setFontSize(14);
       pdf.text("Inclusions", 15, currentY);
-      
-      // Add decorative line below heading
-      pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY + 2, 40, currentY + 2);
-      
       currentY += 10;
       
-      pdf.setTextColor(0); // Back to black for content
-      tourData.inclusions.forEach((item) => {
+      tourData.inclusions.forEach((item, index) => {
+        pdf.setFontSize(10);
+        pdf.text(`• ${item}`, 15, currentY);
+        currentY += 7;
+        
         // Check if we need a new page
         if (currentY > 270) {
-          currentY = addNewPage();
+          pdf.addPage();
+          currentY = 20;
         }
-        
-        pdf.setFontSize(10);
-        const splitInclusion = pdf.splitTextToSize(`• ${item}`, 180);
-        pdf.text(splitInclusion, 15, currentY);
-        currentY += splitInclusion.length * 5 + 2;
       });
       
-      // Check if we need a new page for Exclusions
-      if (currentY > 240) {
-        currentY = addNewPage();
-      } else {
-        currentY += 10;
-      }
+      // Add some space
+      currentY += 10;
       
       // Exclusions
-      pdf.setTextColor(51, 102, 153); // Primary color for headings
-      pdf.setFontSize(12);
+      if (currentY > 230) {
+        pdf.addPage();
+        currentY = 20;
+      }
+      
+      pdf.setFontSize(14);
       pdf.text("Exclusions", 15, currentY);
-      
-      // Add decorative line below heading
-      pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY + 2, 40, currentY + 2);
-      
       currentY += 10;
       
-      pdf.setTextColor(0); // Back to black for content
-      tourData.exclusions.forEach((item) => {
-        // Check if we need a new page
-        if (currentY > 270) {
-          currentY = addNewPage();
-        }
-        
+      tourData.exclusions.forEach((item, index) => {
         pdf.setFontSize(10);
-        const splitExclusion = pdf.splitTextToSize(`• ${item}`, 180);
-        pdf.text(splitExclusion, 15, currentY);
-        currentY += splitExclusion.length * 5 + 2;
+        pdf.text(`• ${item}`, 15, currentY);
+        currentY += 7;
       });
       
-      // Contact Information - always on a new page
-      currentY = addNewPage();
-      
-      pdf.setTextColor(51, 102, 153); // Primary color for headings
+      // Contact Information
+      pdf.addPage();
       pdf.setFontSize(14);
-      pdf.text("Contact Us", 15, currentY);
-      
-      // Add decorative line below heading
-      pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY + 2, 40, currentY + 2);
-      
-      currentY += 10;
-      
-      pdf.setTextColor(0); // Back to black
+      pdf.text("Contact Us", 15, 20);
       pdf.setFontSize(10);
-      pdf.text("For bookings and inquiries, please contact:", 15, currentY);
-      currentY += 10;
+      pdf.text("For bookings and inquiries, please contact:", 15, 30);
+      pdf.text("Best Sri Lanka Tours", 15, 40);
+      pdf.text("Email: info@bestsrilankatours.com", 15, 50);
+      pdf.text("Phone: +94 77 123 4567", 15, 60);
+      pdf.text("Website: www.bestsrilankatours.com", 15, 70);
       
-      pdf.setFontSize(10);
-      pdf.setTextColor(0);
-      pdf.text("Best Sri Lanka Tours", 15, currentY); currentY += 5;
-      pdf.text("Email: info@bestsrilankatours.com", 15, currentY); currentY += 5;
-      pdf.text("Phone: +94 77 123 4567", 15, currentY); currentY += 5;
-      pdf.text("Website: www.bestsrilankatours.com", 15, currentY);
+      // Footer
+      pdf.text(`Generated on ${new Date().toLocaleDateString()}`, 15, 250);
+      pdf.text(`© ${new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.`, 15, 260);
       
       // Save the PDF
       console.log("Saving PDF...");
@@ -350,12 +262,15 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
     try {
       console.log("Generating PDF content for email...");
       
-      // Create new PDF document
+      // Create new PDF document directly without using images
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4'
       });
+      
+      // Load logo SVG
+      const imgData = `/pdf-assets/logo.svg`;
       
       // Get content for PDF
       const tourName = tourData.name;
@@ -363,11 +278,34 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
       const price = formatPrice(tourData.startingFrom, { currency: tourData.currency });
       const summary = tourData.summary;
       
-      // Set up first page
-      let pageNum = 1;
-      createPageTemplate(pdf, pageNum);
+      // Add border template to all pages
+      const addPageBorderAndHeader = (pdf: jsPDF) => {
+        // Add border
+        pdf.rect(10, 10, 190, 277, 'S'); // Outer border
+        pdf.setDrawColor(144, 41, 35); // #902923 - accent color
+        pdf.setLineWidth(0.5);
+        pdf.roundedRect(13, 13, 184, 271, 1, 1, 'S'); // Inner border
+        
+        // Add logo
+        pdf.addImage(imgData, 'SVG', 15, 15, 50, 20);
+        
+        // Add divider
+        pdf.setDrawColor(51, 102, 153); // #336699 - primary blue
+        pdf.setLineWidth(0.5);
+        pdf.line(15, 40, 195, 40);
+        
+        // Add footer
+        pdf.setFontSize(8);
+        pdf.setTextColor(102, 102, 102);
+        pdf.text('Best Sri Lanka Tours | info@bestsrilankatours.com | +94 77 123 4567 | www.bestsrilankatours.com', 105, 280, { align: 'center' });
+        pdf.text(`Generated on ${new Date().toLocaleDateString()} | © ${new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.`, 105, 285, { align: 'center' });
+      };
       
-      // Add title and header content
+      // Add border and logo to first page
+      addPageBorderAndHeader(pdf);
+      
+      // Add content to PDF directly
+      // Title
       pdf.setTextColor(51, 102, 153); // #336699 - primary blue
       pdf.setFontSize(22);
       pdf.text(tourName, 105, 55, { align: 'center' });
@@ -399,176 +337,98 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
       
       let currentY = 100 + splitSummary.length * 5;
       
-      // Function to add new page
-      const addNewPage = () => {
-        pageNum++;
-        pdf.addPage();
-        createPageTemplate(pdf, pageNum);
-        return 50; // Return new Y position after header
-      };
-      
       // Tour Highlights
       if (tourData.highlights && tourData.highlights.length > 0) {
-        // Check if we need a new page
-        if (currentY > 240) {
-          currentY = addNewPage();
-        } else {
-          currentY += 10;
-        }
-        
-        pdf.setTextColor(51, 102, 153); // Primary color for headings
+        currentY += 10;
         pdf.setFontSize(12);
-        pdf.text("Tour Highlights", 15, currentY);
-        
-        // Add decorative line below heading
-        pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-        pdf.setLineWidth(0.5);
-        pdf.line(15, currentY + 2, 50, currentY + 2);
-        
+        pdf.text("Tour Highlights:", 15, currentY);
         currentY += 10;
         
-        pdf.setTextColor(0); // Back to black for content
         tourData.highlights.forEach((highlight, index) => {
-          // Check if we need a new page
-          if (currentY > 270) {
-            currentY = addNewPage();
-          }
-          
-          pdf.setFontSize(10);
-          const splitHighlight = pdf.splitTextToSize(`• ${highlight}`, 180);
-          pdf.text(splitHighlight, 15, currentY);
-          currentY += splitHighlight.length * 5 + 2;
+          pdf.text(`• ${highlight}`, 15, currentY);
+          currentY += 7;
         });
       }
       
       // Itinerary
-      // Check if we need a new page
-      if (currentY > 240) {
-        currentY = addNewPage();
-      } else {
-        currentY += 10;
-      }
-      
-      pdf.setTextColor(51, 102, 153); // Primary color for headings
+      currentY += 10;
       pdf.setFontSize(14);
       pdf.text("Itinerary", 15, currentY);
-      
-      // Add decorative line below heading
-      pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY + 2, 40, currentY + 2);
-      
       currentY += 10;
       
-      pdf.setTextColor(0); // Back to black for content
       tourData.itinerary.forEach((day, index) => {
-        // Check if we need a new page
-        if (currentY > 250) {
-          currentY = addNewPage();
-        }
-        
-        pdf.setFontSize(11);
-        pdf.setTextColor(144, 41, 35); // Accent color for day titles
+        pdf.setFontSize(12);
         pdf.text(`Day ${day.day}: ${day.title}`, 15, currentY);
         currentY += 7;
         
-        pdf.setTextColor(0); // Back to black for description
-        pdf.setFontSize(10);
         const splitDesc = pdf.splitTextToSize(day.description, 180);
+        pdf.setFontSize(10);
         pdf.text(splitDesc, 15, currentY);
-        currentY += splitDesc.length * 5 + 5;
+        currentY += splitDesc.length * 6 + 5;
+        
+        // Check if we need a new page
+        if (currentY > 270) {
+          pdf.addPage();
+          currentY = 20;
+        }
       });
       
       // Inclusions & Exclusions
-      // Check if we need a new page for Inclusions
-      if (currentY > 240) {
-        currentY = addNewPage();
-      } else {
-        currentY += 10;
+      if (currentY > 220) {
+        pdf.addPage();
+        currentY = 20;
       }
       
       // Inclusions
-      pdf.setTextColor(51, 102, 153); // Primary color for headings
-      pdf.setFontSize(12);
+      pdf.setFontSize(14);
       pdf.text("Inclusions", 15, currentY);
-      
-      // Add decorative line below heading
-      pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY + 2, 40, currentY + 2);
-      
       currentY += 10;
       
-      pdf.setTextColor(0); // Back to black for content
-      tourData.inclusions.forEach((item) => {
+      tourData.inclusions.forEach((item, index) => {
+        pdf.setFontSize(10);
+        pdf.text(`• ${item}`, 15, currentY);
+        currentY += 7;
+        
         // Check if we need a new page
         if (currentY > 270) {
-          currentY = addNewPage();
+          pdf.addPage();
+          currentY = 20;
         }
-        
-        pdf.setFontSize(10);
-        const splitInclusion = pdf.splitTextToSize(`• ${item}`, 180);
-        pdf.text(splitInclusion, 15, currentY);
-        currentY += splitInclusion.length * 5 + 2;
       });
       
-      // Check if we need a new page for Exclusions
-      if (currentY > 240) {
-        currentY = addNewPage();
-      } else {
-        currentY += 10;
-      }
+      // Add some space
+      currentY += 10;
       
       // Exclusions
-      pdf.setTextColor(51, 102, 153); // Primary color for headings
-      pdf.setFontSize(12);
+      if (currentY > 230) {
+        pdf.addPage();
+        currentY = 20;
+      }
+      
+      pdf.setFontSize(14);
       pdf.text("Exclusions", 15, currentY);
-      
-      // Add decorative line below heading
-      pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY + 2, 40, currentY + 2);
-      
       currentY += 10;
       
-      pdf.setTextColor(0); // Back to black for content
-      tourData.exclusions.forEach((item) => {
-        // Check if we need a new page
-        if (currentY > 270) {
-          currentY = addNewPage();
-        }
-        
+      tourData.exclusions.forEach((item, index) => {
         pdf.setFontSize(10);
-        const splitExclusion = pdf.splitTextToSize(`• ${item}`, 180);
-        pdf.text(splitExclusion, 15, currentY);
-        currentY += splitExclusion.length * 5 + 2;
+        pdf.text(`• ${item}`, 15, currentY);
+        currentY += 7;
       });
       
-      // Contact Information - always on a new page
-      currentY = addNewPage();
-      
-      pdf.setTextColor(51, 102, 153); // Primary color for headings
+      // Contact Information
+      pdf.addPage();
       pdf.setFontSize(14);
-      pdf.text("Contact Us", 15, currentY);
-      
-      // Add decorative line below heading
-      pdf.setDrawColor(144, 41, 35); // #902923 - accent color
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY + 2, 40, currentY + 2);
-      
-      currentY += 10;
-      
-      pdf.setTextColor(0); // Back to black
+      pdf.text("Contact Us", 15, 20);
       pdf.setFontSize(10);
-      pdf.text("For bookings and inquiries, please contact:", 15, currentY);
-      currentY += 10;
+      pdf.text("For bookings and inquiries, please contact:", 15, 30);
+      pdf.text("Best Sri Lanka Tours", 15, 40);
+      pdf.text("Email: info@bestsrilankatours.com", 15, 50);
+      pdf.text("Phone: +94 77 123 4567", 15, 60);
+      pdf.text("Website: www.bestsrilankatours.com", 15, 70);
       
-      pdf.setFontSize(10);
-      pdf.setTextColor(0);
-      pdf.text("Best Sri Lanka Tours", 15, currentY); currentY += 5;
-      pdf.text("Email: info@bestsrilankatours.com", 15, currentY); currentY += 5;
-      pdf.text("Phone: +94 77 123 4567", 15, currentY); currentY += 5;
-      pdf.text("Website: www.bestsrilankatours.com", 15, currentY);
+      // Footer
+      pdf.text(`Generated on ${new Date().toLocaleDateString()}`, 15, 250);
+      pdf.text(`© ${new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.`, 15, 260);
       
       // Get PDF as base64 string
       const pdfContent = pdf.output('datauristring');
@@ -578,7 +438,7 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
       return null;
     }
   };
-
+  
   const handleSendEmail = async (recipientEmail: string): Promise<void> => {
     setIsGenerating(true);
     try {
