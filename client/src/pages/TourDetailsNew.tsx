@@ -71,7 +71,7 @@ interface TourDetailsProps {
   };
 }
 
-const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
+const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
   const [activeDay, setActiveDay] = useState(1);
   const [activeSection, setActiveSection] = useState('overview');
   const { formatPrice } = useCurrency();
@@ -443,88 +443,47 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               {tourData.highlights && tourData.highlights.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-6">
                   {tourData.highlights.map((highlight, index) => (
-                    <span key={`highlight-${index}`} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
+                    <div 
+                      key={`highlight-${index}`} 
+                      className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium"
+                    >
                       {highlight}
-                    </span>
+                    </div>
                   ))}
                 </div>
               )}
               
-              <div className="prose prose-lg max-w-none text-gray-700 mb-8">
-                <p className="leading-relaxed">{tourData.summary}</p>
+              {/* Main description with paragraphs */}
+              <div className="prose prose-sm md:prose max-w-none text-gray-700 mb-6">
+                {tourData.summary.split('\n').filter(para => para.trim() !== '').map((paragraph, idx) => (
+                  <p key={`para-${idx}`}>{paragraph}</p>
+                ))}
               </div>
               
-              {/* Two-column layout for Why Choose and Highlights */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                {/* Why Choose section with improved design */}
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-l-4 border-blue-500 shadow-sm h-full flex flex-col">
-                  <h3 className="text-xl font-semibold text-blue-900 mb-3 flex items-center">
-                    <Heart className="w-5 h-5 mr-2 text-blue-600" />
-                    Why Choose This Tour
-                  </h3>
-                  <p className="text-blue-800 leading-relaxed">
-                    Experience the perfect blend of ancient culture and natural beauty in Sri Lanka with our expert guides and personalized service.
-                  </p>
-                  <div className="mt-auto pt-4">
-                    <button 
-                      onClick={() => handleNavClick('contact')}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition flex items-center justify-center"
-                    >
-                      <Phone className="w-5 h-5 mr-2" />
-                      Contact Us
-                    </button>
+              {/* Quick Facts - Bottom of overview section */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-4 mt-6 border-t border-gray-100">
+                <div>
+                  <div className="flex items-center mb-2">
+                    <Calendar className="w-5 h-5 text-primary mr-2" />
+                    <h3 className="font-medium text-gray-800">Best Time to Visit</h3>
                   </div>
+                  <p className="text-sm text-gray-600 pl-7">November to April</p>
                 </div>
                 
-                {/* Tour Highlights Section */}
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                  <h3 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200 flex items-center">
-                    <Check className="w-5 h-5 text-primary mr-2" />
-                    Tour Highlights
-                  </h3>
-                  
-                  <div className="space-y-3">
-                    {tourData.highlights && tourData.highlights.length > 0 ? (
-                      // If highlights exist, map through them
-                      tourData.highlights.map((highlight, index) => (
-                        <div 
-                          key={`highlight-premium-${index}`} 
-                          className="flex items-start group"
-                        >
-                          <div className="bg-primary/10 rounded-full p-1.5 mr-3 group-hover:bg-primary/20 transition-all duration-300 mt-0.5">
-                            <Check className="w-3 h-3 text-primary flex-shrink-0" />
-                          </div>
-                          <span className="text-gray-700">{highlight}</span>
-                        </div>
-                      ))
-                    ) : (
-                      // If no highlights, show some default ones
-                      <>
-                        {["Expert local guides", "Luxury accommodations", "Private transportation", "Cultural experiences"].map((highlight, index) => (
-                          <div 
-                            key={`default-highlight-${index}`} 
-                            className="flex items-start group"
-                          >
-                            <div className="bg-primary/10 rounded-full p-1.5 mr-3 group-hover:bg-primary/20 transition-all duration-300 mt-0.5">
-                              <Check className="w-3 h-3 text-primary flex-shrink-0" />
-                            </div>
-                            <span className="text-gray-700">{highlight}</span>
-                          </div>
-                        ))}
-                      </>
-                    )}
+                <div>
+                  <div className="flex items-center mb-2">
+                    <Flag className="w-5 h-5 text-primary mr-2" />
+                    <h3 className="font-medium text-gray-800">Visa Requirements</h3>
                   </div>
-                  
-                  {/* CTA button */}
-                  <div className="mt-6 pt-4 border-t border-gray-200">
-                    <button 
-                      onClick={() => handleNavClick('contact')}
-                      className="w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded-lg font-medium transition flex items-center justify-center"
-                    >
-                      <Calendar className="w-5 h-5 mr-2" />
-                      Book This Experience
-                    </button>
+                  <p className="text-sm text-gray-600 pl-7">Electronic Travel Authorization (ETA)</p>
+                </div>
+                
+                <div>
+                  <div className="flex items-center mb-2">
+                    <Star className="w-5 h-5 text-primary mr-2" />
+                    <h3 className="font-medium text-gray-800">Highlights</h3>
                   </div>
+                  <p className="text-sm text-gray-600 pl-7">Cultural sites, beaches, wildlife, cuisine</p>
                 </div>
               </div>
             </section>
@@ -644,117 +603,9 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                 </div>
               )}
             </section>
-            
-            {/* Gallery Section */}
-            <section ref={galleryRef} id="gallery" className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <Camera className="w-6 h-6 mr-3 text-primary" />
-                Tour Gallery
-              </h2>
-              
-              {galleryImages && galleryImages.length > 0 ? (
-                <AsymmetricalGallery images={galleryImages} />
-              ) : (
-                <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
-                  <p className="text-gray-500">No gallery images available for this tour.</p>
-                </div>
-              )}
-            </section>
-            
-            {/* Map Section - Conditional Rendering */}
-            {tourData.mapImage && tourData.mapPoints && tourData.mapPoints.length > 0 && (
-              <section ref={mapRef} id="map" className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <Map className="w-6 h-6 mr-3 text-primary" />
-                  Tour Route Map
-                </h2>
-                
-                <AnimatedRouteMap
-                  mapImage={tourData.mapImage}
-                  points={getActiveMapPoints()}
-                  activeDay={activeDay}
-                  onPointClick={(pointId) => {
-                    const point = tourData.mapPoints?.find(p => p.id === pointId);
-                    if (point && point.day) {
-                      setActiveDay(point.day);
-                      handleNavClick('itinerary');
-                    }
-                  }}
-                />
-              </section>
-            )}
-            
-            {/* Inclusions and Exclusions Section */}
-            <section ref={inclusionsRef} id="inclusions" className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <Info className="w-6 h-6 mr-3 text-primary" />
-                Tour Details
-              </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Inclusions */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-4 flex items-center text-gray-800">
-                    <Check className="w-5 h-5 mr-2 text-green-600" />
-                    What's Included
-                  </h3>
-                  
-                  <ul className="space-y-3">
-                    {tourData.inclusions && tourData.inclusions.length > 0 ? (
-                      tourData.inclusions.map((item, index) => (
-                        <li key={`inclusion-${index}`} className="flex items-start">
-                          <div className="bg-green-100 rounded-full p-1 mr-3 mt-0.5">
-                            <Check className="w-3.5 h-3.5 text-green-600" />
-                          </div>
-                          <span className="text-gray-700">{item}</span>
-                        </li>
-                      ))
-                    ) : (
-                      <li className="text-gray-500">No inclusions specified for this tour.</li>
-                    )}
-                  </ul>
-                </div>
-                
-                {/* Exclusions */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-4 flex items-center text-gray-800">
-                    <X className="w-5 h-5 mr-2 text-red-600" />
-                    What's Not Included
-                  </h3>
-                  
-                  <ul className="space-y-3">
-                    {tourData.exclusions && tourData.exclusions.length > 0 ? (
-                      tourData.exclusions.map((item, index) => (
-                        <li key={`exclusion-${index}`} className="flex items-start">
-                          <div className="bg-red-100 rounded-full p-1 mr-3 mt-0.5">
-                            <X className="w-3.5 h-3.5 text-red-600" />
-                          </div>
-                          <span className="text-gray-700">{item}</span>
-                        </li>
-                      ))
-                    ) : (
-                      <li className="text-gray-500">No exclusions specified for this tour.</li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </section>
-            
-            {/* Contact Form Section */}
-            <section ref={contactRef} id="contact" className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <Phone className="w-6 h-6 mr-3 text-primary" />
-                Book This Tour
-              </h2>
-              
-              <ContactForm 
-                tourName={tourData.name} 
-                prefilledMessage={`I'm interested in the ${tourData.name} tour and would like more information.`} 
-              />
-            </section>
           </div>
           
-          {/* Sidebar Column */}
+          {/* Sidebar Column - Ends right after itinerary section */}
           <div className="lg:w-4/12">
             <div className="sticky top-[85px]">
               {/* Price Card */}
@@ -869,8 +720,119 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
           </div>
         </div>
       </div>
+      
+      {/* Full-width sections below itinerary and sidebar */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        {/* Gallery Section - Full Width */}
+        <section ref={galleryRef} id="gallery" className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+            <Camera className="w-6 h-6 mr-3 text-primary" />
+            Tour Gallery
+          </h2>
+          
+          {galleryImages && galleryImages.length > 0 ? (
+            <AsymmetricalGallery images={galleryImages} />
+          ) : (
+            <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
+              <p className="text-gray-500">No gallery images available for this tour.</p>
+            </div>
+          )}
+        </section>
+        
+        {/* Map Section - Conditional Rendering - Full Width */}
+        {tourData.mapImage && tourData.mapPoints && tourData.mapPoints.length > 0 && (
+          <section ref={mapRef} id="map" className="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+              <Map className="w-6 h-6 mr-3 text-primary" />
+              Tour Route Map
+            </h2>
+            
+            <AnimatedRouteMap
+              mapImage={tourData.mapImage}
+              points={getActiveMapPoints()}
+              activeDay={activeDay}
+              onPointClick={(pointId) => {
+                const point = tourData.mapPoints?.find(p => p.id === pointId);
+                if (point && point.day) {
+                  setActiveDay(point.day);
+                  handleNavClick('itinerary');
+                }
+              }}
+            />
+          </section>
+        )}
+        
+        {/* Inclusions and Exclusions Section - Full Width */}
+        <section ref={inclusionsRef} id="inclusions" className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+            <Info className="w-6 h-6 mr-3 text-primary" />
+            Tour Details
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Inclusions */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4 flex items-center text-gray-800">
+                <Check className="w-5 h-5 mr-2 text-green-600" />
+                What's Included
+              </h3>
+              
+              <ul className="space-y-3">
+                {tourData.inclusions && tourData.inclusions.length > 0 ? (
+                  tourData.inclusions.map((item, index) => (
+                    <li key={`inclusion-${index}`} className="flex items-start">
+                      <div className="bg-green-100 rounded-full p-1 mr-3 mt-0.5">
+                        <Check className="w-3.5 h-3.5 text-green-600" />
+                      </div>
+                      <span className="text-gray-700">{item}</span>
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-gray-500">No inclusions specified for this tour.</li>
+                )}
+              </ul>
+            </div>
+            
+            {/* Exclusions */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4 flex items-center text-gray-800">
+                <X className="w-5 h-5 mr-2 text-red-600" />
+                What's Not Included
+              </h3>
+              
+              <ul className="space-y-3">
+                {tourData.exclusions && tourData.exclusions.length > 0 ? (
+                  tourData.exclusions.map((item, index) => (
+                    <li key={`exclusion-${index}`} className="flex items-start">
+                      <div className="bg-red-100 rounded-full p-1 mr-3 mt-0.5">
+                        <X className="w-3.5 h-3.5 text-red-600" />
+                      </div>
+                      <span className="text-gray-700">{item}</span>
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-gray-500">No exclusions specified for this tour.</li>
+                )}
+              </ul>
+            </div>
+          </div>
+        </section>
+        
+        {/* Contact Form Section - Full Width */}
+        <section ref={contactRef} id="contact" className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+            <Phone className="w-6 h-6 mr-3 text-primary" />
+            Book This Tour
+          </h2>
+          
+          <ContactForm 
+            tourName={tourData.name} 
+            prefilledMessage={`I'm interested in the ${tourData.name} tour and would like more information.`} 
+          />
+        </section>
+      </div>
     </div>
   );
 };
 
-export default TourDetails;
+export default TourDetailsNew;
