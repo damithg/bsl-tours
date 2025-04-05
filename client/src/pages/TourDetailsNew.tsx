@@ -666,53 +666,6 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
                 </div>
               </div>
               
-              {/* Tour Features Card */}
-              <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-100">
-                <h3 className="font-semibold text-gray-800 mb-4">Tour Features</h3>
-                
-                <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <Clock className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium block">Duration</span>
-                      <span className="text-sm text-gray-600">{tourData.duration}</span>
-                    </div>
-                  </li>
-                  
-                  <li className="flex items-start">
-                    <Compass className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium block">Tour Type</span>
-                      <span className="text-sm text-gray-600">Private Luxury Tour</span>
-                    </div>
-                  </li>
-                  
-                  <li className="flex items-start">
-                    <Users className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium block">Group Size</span>
-                      <span className="text-sm text-gray-600">Private Tour</span>
-                    </div>
-                  </li>
-                  
-                  <li className="flex items-start">
-                    <Globe className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium block">Languages</span>
-                      <span className="text-sm text-gray-600">English</span>
-                    </div>
-                  </li>
-                  
-                  <li className="flex items-start">
-                    <Hotel className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium block">Accommodation</span>
-                      <span className="text-sm text-gray-600">Luxury Hotels</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              
               {/* Need Help Card */}
               <div className="bg-gray-50 rounded-lg shadow-sm p-6 border border-gray-100">
                 <h3 className="font-semibold text-gray-800 mb-4">Need Help?</h3>
