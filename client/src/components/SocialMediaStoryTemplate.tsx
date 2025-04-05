@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import { MapPin } from 'lucide-react';
 import type { ColorPalette } from '@/components/ColorPaletteGenerator';
+import BSLLogo from '@/components/BSLLogo';
 
 type StoryFormat = 'instagram' | 'facebook' | 'tiktok';
 
@@ -106,14 +107,13 @@ const SocialMediaStoryTemplate = forwardRef<HTMLDivElement, SocialMediaStoryTemp
             className="absolute"
             style={{
               ...getLogoStyles(),
-              color: 'white',
-              fontWeight: 'bold',
-              fontSize: '48px',
-              textTransform: 'uppercase',
-              textShadow: '0 2px 4px rgba(0,0,0,0.5)',
             }}
           >
-            BSL Tours
+            <BSLLogo 
+              color="white" 
+              fontSize="48px" 
+              letterSpacing="0.15em"
+            />
           </div>
           
           {/* Location Tag */}
