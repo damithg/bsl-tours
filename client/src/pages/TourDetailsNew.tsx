@@ -536,14 +536,13 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
                         <div className="flex items-center">
                           <div 
                             className={`
-                              w-10 h-10 rounded-full flex items-center justify-center mr-4
-                              text-base font-bold border-2
-                              ${index === activeDay - 1 
-                                ? 'bg-white text-primary border-white' 
-                                : 'bg-primary text-white border-primary'}
+                              w-auto px-3 py-1 rounded-md flex items-center justify-center mr-4
+                              text-sm font-medium ${index === activeDay - 1 
+                                ? 'bg-white text-primary' 
+                                : 'bg-primary/10 text-primary'}
                             `}
                           >
-                            {day.day}
+                            Day {day.day}
                           </div>
                           <h3 className="font-bold text-lg">{day.title}</h3>
                         </div>
@@ -575,23 +574,23 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
                               
                               {/* Accommodation and meals section */}
                               <div className="mt-6 flex flex-wrap gap-3 items-center">
-                                <div className="flex items-center bg-gray-100 py-2 px-4 rounded-full text-sm">
+                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-md text-sm">
                                   <Hotel className="w-4 h-4 mr-2 text-primary" />
                                   <span>5-Star Hotel</span>
                                 </div>
                                 
-                                <div className="flex items-center bg-blue-50 py-2 px-4 rounded-full text-sm">
-                                  <Coffee className="w-4 h-4 mr-2 text-blue-600" />
+                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-md text-sm">
+                                  <Coffee className="w-4 h-4 mr-2 text-primary" />
                                   <span>Breakfast</span>
                                 </div>
                                 
-                                <div className="flex items-center bg-green-50 py-2 px-4 rounded-full text-sm">
-                                  <UtensilsCrossed className="w-4 h-4 mr-2 text-green-600" />
+                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-md text-sm">
+                                  <UtensilsCrossed className="w-4 h-4 mr-2 text-primary" />
                                   <span>Lunch</span>
                                 </div>
                                 
-                                <div className="flex items-center bg-purple-50 py-2 px-4 rounded-full text-sm">
-                                  <UtensilsCrossed className="w-4 h-4 mr-2 text-purple-600" />
+                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-md text-sm">
+                                  <UtensilsCrossed className="w-4 h-4 mr-2 text-primary" />
                                   <span>Dinner</span>
                                 </div>
                               </div>
