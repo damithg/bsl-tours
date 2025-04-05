@@ -530,7 +530,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
             </section>
             
             {/* Itinerary Section - ModTour Style */}
-            <section ref={itineraryRef} id="itinerary" className="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <section ref={itineraryRef} id="itinerary" className="bg-transparent p-6 mb-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-8 flex items-center">
                 <List className="w-6 h-6 mr-3 text-primary" />
                 Tour Itinerary
@@ -542,7 +542,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                     <div 
                       key={`day-${day.day}`} 
                       className={`
-                        border rounded-xl overflow-hidden bg-white
+                        border rounded-xl overflow-hidden bg-transparent
                         ${index === activeDay - 1 ? 'border-primary shadow-md' : 'border-gray-200'}
                         transition-all duration-300
                       `}
@@ -584,7 +584,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                           ${index === activeDay - 1 ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}
                         `}
                       >
-                        <div className="p-6 border-t border-gray-200">
+                        <div className="p-6 border-t border-gray-200 bg-white">
                           {/* Two-column layout on larger screens */}
                           <div className="flex flex-col lg:flex-row gap-8">
                             {/* Description column */}
