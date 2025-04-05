@@ -747,6 +747,18 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         </section>
         
         {/* Contact Form Section - Full Width */}
+        <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+            <Camera className="w-6 h-6 mr-3 text-primary" />
+            Share This Tour
+          </h2>
+          
+          <TourPDFGenerator 
+            tourData={tourData}
+            isGenerating={false}
+          />
+        </section>
+
         <section ref={contactRef} id="contact" className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
             <Phone className="w-6 h-6 mr-3 text-primary" />
