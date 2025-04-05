@@ -537,9 +537,9 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
                           <div 
                             className={`
                               w-auto px-3 py-1 rounded-md flex items-center justify-center mr-4
-                              text-sm font-medium ${index === activeDay - 1 
-                                ? 'bg-white text-primary' 
-                                : 'bg-primary/10 text-primary'}
+                              text-sm font-medium border ${index === activeDay - 1 
+                                ? 'bg-white text-primary border-primary' 
+                                : 'bg-primary/10 text-primary border-primary/20'}
                             `}
                           >
                             Day {day.day}
