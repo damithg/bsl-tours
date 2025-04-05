@@ -4,6 +4,7 @@ import { Download, Mail, Loader2 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import EmailPdfDialog from './EmailPdfDialog';
 
 // Define TourData interface here in case of module import issues
 interface TourImage {
@@ -66,19 +67,91 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
   const [isGenerating, setIsGenerating] = useState(initialIsGenerating);
   
   const handleDownloadPDF = async () => {
-    if (!contentRef.current) return;
+    console.log("Download PDF button clicked");
+    if (!contentRef.current) {
+      console.error("Content ref is null or undefined");
+      return;
+    }
     
     setIsGenerating(true);
     try {
+      console.log("Starting PDF generation process...");
       // Generate PDF using html2canvas and jsPDF
       const element = contentRef.current;
+      console.log("Element to render:", element);
+      
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: true, // Enable logging for debugging
+        allowTaint: true,
+        onclone: (document) => {
+          console.log("Document cloned for rendering");
+          // Make hidden elements visible in the cloned document
+          const hiddenElement = document.querySelector('.hidden');
+          if (hiddenElement) {
+            console.log("Unhiding elements for PDF generation");
+            hiddenElement.classList.remove('hidden');
+            hiddenElement.classList.add('block');
+          }
+        }
+      });
+      
+      console.log("Canvas created successfully", canvas);
+      const imgData = canvas.toDataURL('image/png');
+      console.log("Image data created");
+      
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      const imgWidth = 210; // A4 width in mm
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      
+      console.log("Adding image to PDF", { imgWidth, imgHeight });
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      
+      // Save the PDF
+      console.log("Saving PDF...");
+      const filename = `${tourData.name.replace(/\s+/g, '-').toLowerCase()}.pdf`;
+      pdf.save(filename);
+      console.log("PDF saved successfully as", filename);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('There was an error generating the PDF. Please try again.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+  
+  const generatePdfContent = async (): Promise<string | null> => {
+    if (!contentRef.current) {
+      console.error("Content ref is null or undefined");
+      return null;
+    }
+    
+    try {
+      console.log("Generating PDF content for email...");
+      const element = contentRef.current;
+      
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
         logging: false,
-        allowTaint: true
+        allowTaint: true,
+        onclone: (document) => {
+          // Make hidden elements visible in the cloned document
+          const hiddenElement = document.querySelector('.hidden');
+          if (hiddenElement) {
+            hiddenElement.classList.remove('hidden');
+            hiddenElement.classList.add('block');
+          }
+        }
       });
       
+      // Create PDF
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({
         orientation: 'portrait',
@@ -91,22 +164,63 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
       
       pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
       
-      // Save the PDF
-      pdf.save(`${tourData.name.replace(/\s+/g, '-').toLowerCase()}.pdf`);
+      // Get PDF as base64 string
+      const pdfContent = pdf.output('datauristring');
+      return pdfContent;
     } catch (error) {
-      console.error('Error generating PDF:', error);
-    } finally {
-      setIsGenerating(false);
+      console.error('Error generating PDF content:', error);
+      return null;
     }
   };
   
-  const handleEmailPDF = () => {
-    // Prepare email subject and body
-    const subject = `Explore ${tourData.name} with Best Sri Lanka Tours`;
-    const body = `I found this amazing ${tourData.duration} tour in Sri Lanka that I thought you might be interested in!\n\n${window.location.href}\n\nCheck it out!`;
-    
-    // Create email link
-    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const handleSendEmail = async (recipientEmail: string): Promise<void> => {
+    setIsGenerating(true);
+    try {
+      // Generate the PDF content
+      const pdfContent = await generatePdfContent();
+      
+      if (!pdfContent) {
+        throw new Error('Failed to generate PDF content');
+      }
+      
+      // Extract base64 data part only
+      const base64Data = pdfContent.split(',')[1];
+      
+      // Call API to send email with PDF
+      const response = await fetch('/api/tours/email-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: recipientEmail,
+          tourName: tourData.name,
+          pdfContent: base64Data
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to send email');
+      }
+      
+      // Show success message
+      alert('Tour information has been sent to your email successfully!');
+    } catch (error) {
+      console.error('Error sending email:', error);
+      
+      let errorMessage = 'There was an error sending the email.';
+      const err = error as Error;
+      if (err.message?.includes('Email service is not configured')) {
+        errorMessage = 'Email service is temporarily unavailable. Please try again later or contact support.';
+      }
+      
+      alert(errorMessage);
+      throw err; // Re-throw to be handled by the Dialog component
+    } finally {
+      setIsGenerating(false);
+    }
   };
   
   return (
@@ -129,14 +243,12 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
             Download PDF
           </Button>
           
-          <Button 
-            onClick={handleEmailPDF}
-            variant="outline"
-            className="w-full flex items-center justify-center"
-          >
-            <Mail className="mr-2 h-4 w-4" />
-            Email
-          </Button>
+          <EmailPdfDialog 
+            tourName={tourData.name}
+            onSendEmail={handleSendEmail}
+            buttonLabel="Email"
+            buttonVariant="outline"
+          />
         </div>
       </div>
       

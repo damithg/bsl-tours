@@ -178,6 +178,48 @@ app.get('/api/tour-packages/:id', async (req, res) => {
   }
 
   // Get port from environment variable or use 5000 as default
+  // Email Tour PDF endpoint
+  app.post('/api/tours/email-pdf', async (req: Request, res: Response) => {
+    // Import sendTourPdfEmail here to avoid circular dependencies
+    try {
+      const { sendTourPdfEmail } = await import('./emailService');
+      
+      const { email, tourName, pdfContent } = req.body;
+      
+      if (!email || !tourName || !pdfContent) {
+        return res.status(400).json({ 
+          error: 'Missing required fields',
+          details: {
+            email: !email ? 'Email is required' : null,
+            tourName: !tourName ? 'Tour name is required' : null,
+            pdfContent: !pdfContent ? 'PDF content is required' : null
+          }
+        });
+      }
+      
+      // Send the email with PDF attachment
+      await sendTourPdfEmail(email, tourName, pdfContent);
+      
+      res.status(200).json({ success: true, message: 'Email sent successfully' });
+    } catch (error) {
+      console.error('Error sending tour PDF email:', error);
+      
+      // Check if it's a SendGrid API key error
+      const err = error as Error;
+      if (err.message === 'Email service is not configured') {
+        return res.status(503).json({ 
+          error: 'Email service unavailable', 
+          message: 'Email service is not configured. Please contact the administrator.'
+        });
+      }
+      
+      res.status(500).json({ 
+        error: 'Failed to send email', 
+        message: err.message || 'An unexpected error occurred'
+      });
+    }
+  });
+
   const port = parseInt(process.env.PORT || "5000", 10);
   server.listen(port, "0.0.0.0", () => {
     log(`serving frontend on port ${port}`);
