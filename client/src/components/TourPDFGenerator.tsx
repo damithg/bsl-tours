@@ -69,7 +69,7 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
   // Function to create page template with borders, logo, etc.
   const createPageTemplate = (pdf: jsPDF, pageNum: number = 1) => {
     // Load logo image
-    const imgData = `/pdf-assets/logo.svg`;
+    const imgData = `/pdf-assets/logo.png`;
     
     // Draw borders
     pdf.setDrawColor(51, 102, 153); // #336699 - primary blue
@@ -81,7 +81,7 @@ const TourPDFGenerator: React.FC<TourPDFGeneratorProps> = ({
     pdf.roundedRect(13, 13, 184, 271, 1, 1, 'S'); // Inner border
     
     // Add logo
-    pdf.addImage(imgData, 'SVG', 15, 15, 50, 20);
+    pdf.addImage(imgData, 'PNG', 15, 15, 50, 20);
     
     // Add divider
     pdf.setDrawColor(51, 102, 153); // #336699 - primary blue
