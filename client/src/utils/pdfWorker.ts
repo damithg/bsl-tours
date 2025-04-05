@@ -105,7 +105,7 @@ export function generatePdfAsync(
       };
       
       // Tour Highlights
-      if (tourData.highlights && tourData.highlights.length > 0) {
+      if (tourData.highlights && Array.isArray(tourData.highlights) && tourData.highlights.length > 0) {
         // Check if we need a new page
         if (currentY > 240) {
           currentY = addNewPage();
@@ -158,23 +158,25 @@ export function generatePdfAsync(
       currentY += 10;
       
       pdf.setTextColor(0); // Back to black for content
-      tourData.itinerary.forEach((day, index) => {
-        // Check if we need a new page
-        if (currentY > 250) {
-          currentY = addNewPage();
-        }
-        
-        pdf.setFontSize(11);
-        pdf.setTextColor(144, 41, 35); // Accent color for day titles
-        pdf.text(`Day ${day.day}: ${day.title}`, 15, currentY);
-        currentY += 7;
-        
-        pdf.setTextColor(0); // Back to black for description
-        pdf.setFontSize(10);
-        const splitDesc = pdf.splitTextToSize(day.description, 180);
-        pdf.text(splitDesc, 15, currentY);
-        currentY += splitDesc.length * 5 + 5;
-      });
+      if (tourData.itinerary && Array.isArray(tourData.itinerary)) {
+        tourData.itinerary.forEach((day, index) => {
+          // Check if we need a new page
+          if (currentY > 250) {
+            currentY = addNewPage();
+          }
+          
+          pdf.setFontSize(11);
+          pdf.setTextColor(144, 41, 35); // Accent color for day titles
+          pdf.text(`Day ${day.day}: ${day.title}`, 15, currentY);
+          currentY += 7;
+          
+          pdf.setTextColor(0); // Back to black for description
+          pdf.setFontSize(10);
+          const splitDesc = pdf.splitTextToSize(day.description, 180);
+          pdf.text(splitDesc, 15, currentY);
+          currentY += splitDesc.length * 5 + 5;
+        });
+      }
       
       // Inclusions & Exclusions
       // Check if we need a new page for Inclusions
@@ -197,17 +199,19 @@ export function generatePdfAsync(
       currentY += 10;
       
       pdf.setTextColor(0); // Back to black for content
-      tourData.inclusions.forEach((item) => {
-        // Check if we need a new page
-        if (currentY > 270) {
-          currentY = addNewPage();
-        }
-        
-        pdf.setFontSize(10);
-        const splitInclusion = pdf.splitTextToSize(`• ${item}`, 180);
-        pdf.text(splitInclusion, 15, currentY);
-        currentY += splitInclusion.length * 5 + 2;
-      });
+      if (tourData.inclusions && Array.isArray(tourData.inclusions)) {
+        tourData.inclusions.forEach((item) => {
+          // Check if we need a new page
+          if (currentY > 270) {
+            currentY = addNewPage();
+          }
+          
+          pdf.setFontSize(10);
+          const splitInclusion = pdf.splitTextToSize(`• ${item}`, 180);
+          pdf.text(splitInclusion, 15, currentY);
+          currentY += splitInclusion.length * 5 + 2;
+        });
+      }
       
       // Check if we need a new page for Exclusions
       if (currentY > 240) {
@@ -229,17 +233,19 @@ export function generatePdfAsync(
       currentY += 10;
       
       pdf.setTextColor(0); // Back to black for content
-      tourData.exclusions.forEach((item) => {
-        // Check if we need a new page
-        if (currentY > 270) {
-          currentY = addNewPage();
-        }
-        
-        pdf.setFontSize(10);
-        const splitExclusion = pdf.splitTextToSize(`• ${item}`, 180);
-        pdf.text(splitExclusion, 15, currentY);
-        currentY += splitExclusion.length * 5 + 2;
-      });
+      if (tourData.exclusions && Array.isArray(tourData.exclusions)) {
+        tourData.exclusions.forEach((item) => {
+          // Check if we need a new page
+          if (currentY > 270) {
+            currentY = addNewPage();
+          }
+          
+          pdf.setFontSize(10);
+          const splitExclusion = pdf.splitTextToSize(`• ${item}`, 180);
+          pdf.text(splitExclusion, 15, currentY);
+          currentY += splitExclusion.length * 5 + 2;
+        });
+      }
       
       // Contact Information - always on a new page
       currentY = addNewPage();
