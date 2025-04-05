@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
 import { Color, ColorPalette } from '@/components/ColorPaletteGenerator';
+import { applyPaletteToTheme } from '@/utils/colorPalette';
 
 // Default colors that match the existing theme
 const defaultPalette: ColorPalette = {
@@ -32,34 +33,13 @@ export function ColorPaletteProvider({ children }: { children: ReactNode }) {
 
   // Apply the palette to CSS variables
   const applyPalette = useCallback((newPalette: ColorPalette) => {
-    const root = document.documentElement;
+    // Use our utility function to apply the palette to CSS variables
+    applyPaletteToTheme(newPalette);
 
-    // Set CSS variables
-    root.style.setProperty('--primary', newPalette.primary.hex);
-    root.style.setProperty('--primary-foreground', newPalette.primary.isLight ? '#000000' : '#ffffff');
-    
-    root.style.setProperty('--secondary', newPalette.secondary.hex);
-    root.style.setProperty('--secondary-foreground', newPalette.secondary.isLight ? '#000000' : '#ffffff');
-    
-    root.style.setProperty('--accent', newPalette.accent.hex);
-    root.style.setProperty('--accent-foreground', newPalette.accent.isLight ? '#000000' : '#ffffff');
-    
-    root.style.setProperty('--background', newPalette.background.hex);
-    root.style.setProperty('--foreground', newPalette.text.hex);
-    
-    root.style.setProperty('--muted', newPalette.muted.hex);
-    root.style.setProperty('--muted-foreground', `${newPalette.text.hex}88`); // 88 for opacity
-    
-    root.style.setProperty('--border', newPalette.border.hex);
-    
-    if (newPalette.destructive) {
-      root.style.setProperty('--destructive', newPalette.destructive.hex);
-      root.style.setProperty('--destructive-foreground', '#ffffff');
-    }
-
+    // Update our state
     setPalette(newPalette);
     
-    // You could also save to localStorage here if you want persistence
+    // Save to localStorage for persistence
     localStorage.setItem('colorPalette', JSON.stringify(newPalette));
   }, []);
 

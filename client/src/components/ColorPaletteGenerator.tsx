@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useColorPalette } from '@/contexts/ColorPaletteContext';
+import { extractPaletteFromImage } from '@/utils/colorPalette';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -34,44 +36,8 @@ interface ColorPaletteGeneratorProps {
   onPaletteGenerated?: (palette: ColorPalette) => void;
 }
 
-// This is a placeholder function to simulate extracting colors from an image
-// In a real app, this would use a library like color-thief-node as implemented in utils/colorPalette.ts
-// For now, we'll use a mock implementation to avoid typescript errors
-async function extractColorsFromImage(imageUrl: string): Promise<Color[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // Return some sample colors
-      resolve([
-        { hex: '#2b6cb0', rgb: 'rgb(43, 108, 176)', name: 'Royal Blue', isLight: false },
-        { hex: '#4299e1', rgb: 'rgb(66, 153, 225)', name: 'Sky Blue', isLight: false },
-        { hex: '#63b3ed', rgb: 'rgb(99, 179, 237)', name: 'Light Blue', isLight: true },
-        { hex: '#f6e05e', rgb: 'rgb(246, 224, 94)', name: 'Yellow', isLight: true },
-        { hex: '#f3f4f6', rgb: 'rgb(243, 244, 246)', name: 'Light Gray', isLight: true },
-        { hex: '#1a202c', rgb: 'rgb(26, 32, 44)', name: 'Dark Gray', isLight: false },
-        { hex: '#e5e7eb', rgb: 'rgb(229, 231, 235)', name: 'Border Gray', isLight: true },
-        { hex: '#e53e3e', rgb: 'rgb(229, 62, 62)', name: 'Red', isLight: false },
-      ]);
-    }, 1500);
-  });
-}
-
-function createPaletteFromColors(colors: Color[]): ColorPalette {
-  // A smart algorithm would go here to detect appropriate colors for each role
-  // This is simplified for the demo
-  return {
-    primary: colors[0],
-    secondary: colors[1],
-    accent: colors[3],
-    background: colors[4],
-    text: colors[5],
-    muted: colors[2],
-    border: colors[6],
-    destructive: colors[7],
-    success: { hex: '#0D9488', rgb: 'rgb(13, 148, 136)', name: 'Teal', isLight: false },
-    warning: { hex: '#F59E0B', rgb: 'rgb(245, 158, 11)', name: 'Amber', isLight: true },
-    info: { hex: '#3B82F6', rgb: 'rgb(59, 130, 246)', name: 'Blue', isLight: false },
-  };
-}
+// We now use extractPaletteFromImage from our utils/colorPalette.ts
+// which handles both color extraction and palette creation
 
 export function ColorPaletteGenerator({
   imageUrl,
@@ -97,10 +63,13 @@ export function ColorPaletteGenerator({
     
     setLoading(true);
     try {
-      const extractedColors = await extractColorsFromImage(customImageUrl);
-      setColors(extractedColors);
-      const newPalette = createPaletteFromColors(extractedColors);
+      // Use the utility from colorPalette.ts to extract colors directly into a palette
+      const newPalette = await extractPaletteFromImage(customImageUrl);
       setPalette(newPalette);
+      
+      // Get colors from the palette for the "All Colors" tab
+      const extractedColors = Object.values(newPalette).filter(c => c !== undefined);
+      setColors(extractedColors);
       
       if (onPaletteGenerated) {
         onPaletteGenerated(newPalette);
@@ -112,10 +81,13 @@ export function ColorPaletteGenerator({
     }
   };
 
+  // Get the color palette context
+  const { applyPalette: applyGlobalPalette } = useColorPalette();
+
   const handleApplyPalette = (palette: ColorPalette) => {
-    // This is where you would apply the palette to the app's theme
-    console.log('Applying palette:', palette);
-    // In a real implementation, you would update your theme context or similar
+    // Apply the palette to the app's theme using our context
+    console.log('Applying palette globally:', palette);
+    applyGlobalPalette(palette);
   };
 
   const handleCopyColor = (color: Color) => {
