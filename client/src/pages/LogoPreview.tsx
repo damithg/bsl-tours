@@ -10,9 +10,10 @@ import { Switch } from '@/components/ui/switch';
 const LogoPreview: React.FC = () => {
   const [backgroundColor, setBackgroundColor] = useState('#111111');
   const [logoColor, setLogoColor] = useState('#ffffff');
+  const [accentColor, setAccentColor] = useState('#C4A052');
   const [fontSize, setFontSize] = useState(48);
   const [letterSpacing, setLetterSpacing] = useState(0.15);
-  const [variant, setVariant] = useState<'standard' | 'compact' | 'stacked' | 'legacy'>('standard');
+  const [variant, setVariant] = useState<'standard' | 'compact' | 'stacked' | 'legacy' | 'premium'>('standard');
   const [showTagline, setShowTagline] = useState(false);
   const [showMap, setShowMap] = useState(true);
   
@@ -42,6 +43,7 @@ const LogoPreview: React.FC = () => {
                       variant={variant}
                       showTagline={showTagline}
                       showMap={showMap}
+                      accentColor={variant === 'premium' ? accentColor : undefined}
                     />
                   </div>
                 </CardContent>
@@ -61,6 +63,7 @@ const LogoPreview: React.FC = () => {
                       variant={variant}
                       showTagline={showTagline}
                       showMap={showMap}
+                      accentColor={variant === 'premium' ? accentColor : undefined}
                     />
                   </div>
                 </CardContent>
@@ -72,7 +75,7 @@ const LogoPreview: React.FC = () => {
             <CardHeader>
               <CardTitle className="text-lg">All Variants</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <CardContent className="grid grid-cols-2 md:grid-cols-5 gap-4">
               <div className="p-6 border rounded-md bg-gray-900 flex flex-col items-center">
                 <p className="text-white text-xs mb-2">Standard</p>
                 <BSLLogo 
@@ -110,6 +113,17 @@ const LogoPreview: React.FC = () => {
                   showMap={true}
                 />
               </div>
+              <div className="p-6 border rounded-md bg-gray-900 flex flex-col items-center">
+                <p className="text-white text-xs mb-2">Premium</p>
+                <BSLLogo 
+                  color="white" 
+                  fontSize="30px"
+                  letterSpacing="0.2em"
+                  variant="premium"
+                  showMap={true}
+                  accentColor="#C4A052"
+                />
+              </div>
             </CardContent>
           </Card>
           
@@ -131,6 +145,7 @@ const LogoPreview: React.FC = () => {
                   variant={variant}
                   showTagline={showTagline}
                   showMap={showMap}
+                  accentColor={variant === 'premium' ? accentColor : undefined}
                 />
               </div>
             </CardContent>
@@ -173,6 +188,12 @@ const LogoPreview: React.FC = () => {
                       >
                         Legacy
                       </button>
+                      <button
+                        className={`p-2 border rounded-md text-xs text-center ${variant === 'premium' ? 'bg-primary text-white' : 'bg-gray-100'}`}
+                        onClick={() => setVariant('premium')}
+                      >
+                        Premium
+                      </button>
                     </div>
                   </CardContent>
                 </Card>
@@ -188,7 +209,7 @@ const LogoPreview: React.FC = () => {
                       />
                     </div>
                     
-                    {variant === 'legacy' && (
+                    {(variant === 'legacy' || variant === 'premium') && (
                       <div className="flex items-center justify-between mt-4">
                         <Label htmlFor="show-map" className="text-sm font-medium">Show Sri Lanka Map</Label>
                         <Switch
@@ -225,6 +246,31 @@ const LogoPreview: React.FC = () => {
                     />
                   </div>
                 </div>
+
+                {variant === 'premium' && (
+                  <div>
+                    <Label htmlFor="accent-color">Accent Color (Gold)</Label>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <div 
+                        className="w-10 h-10 rounded-md border"
+                        style={{ backgroundColor: accentColor }}
+                      />
+                      <Input 
+                        id="accent-color"
+                        type="text" 
+                        value={accentColor}
+                        onChange={(e) => setAccentColor(e.target.value)}
+                        className="w-32"
+                      />
+                      <Input
+                        type="color"
+                        value={accentColor}
+                        onChange={(e) => setAccentColor(e.target.value)}
+                        className="w-10 h-10 p-1"
+                      />
+                    </div>
+                  </div>
+                )}
                 
                 <div>
                   <Label htmlFor="font-size">Font Size: {fontSize}px</Label>
@@ -272,7 +318,8 @@ import BSLLogo from '@/components/BSLLogo';
   letterSpacing="${letterSpacing}em"
   variant="${variant}"
   showTagline={${showTagline}}
-  ${variant === 'legacy' ? `showMap={${showMap}}` : ''}
+  ${(variant === 'legacy' || variant === 'premium') ? `showMap={${showMap}}` : ''}
+  ${variant === 'premium' ? `accentColor="${accentColor}"` : ''}
 />
 `}
                 </pre>
@@ -290,9 +337,10 @@ import BSLLogo from '@/components/BSLLogo';
                 <li><strong>Compact:</strong> Just "BSL" for small spaces or icons</li>
                 <li><strong>Stacked:</strong> "BSL" above "TOURS" - ideal for square spaces</li>
                 <li><strong>Legacy:</strong> Boxed logo with Sri Lanka map outline, based on the original website design</li>
+                <li><strong>Premium:</strong> Modern, minimalist logo with refined typography and subtle Sri Lanka map accent - inspired by luxury travel brands</li>
               </ul>
               <p className="mt-4 text-sm text-gray-600">
-                All variants can show the "BEST SRI LANKA TOURS" tagline. The legacy variant also has an option to show/hide the Sri Lanka map shape.
+                All variants can show the "BEST SRI LANKA TOURS" tagline. The legacy and premium variants also have an option to show/hide the Sri Lanka map shape.
               </p>
             </CardContent>
           </Card>
