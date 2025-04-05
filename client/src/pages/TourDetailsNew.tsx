@@ -489,7 +489,7 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
             </section>
             
             {/* Itinerary Section - ModTour Style */}
-            <section ref={itineraryRef} id="itinerary" className="bg-transparent p-6 mb-8">
+            <section ref={itineraryRef} id="itinerary" className="bg-white rounded-lg shadow-sm p-6 mb-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-8 flex items-center">
                 <List className="w-6 h-6 mr-3 text-primary" />
                 Tour Itinerary
