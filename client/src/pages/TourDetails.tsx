@@ -12,6 +12,7 @@ import { StarRating } from "@/components/StarRating";
 import ContactForm from "@/components/ContactForm";
 import AnimatedRouteMap from "@/components/AnimatedRouteMap";
 import TourPDFGenerator from "@/components/TourPDFGenerator";
+import { SocialMediaStoryGenerator } from "@/components/SocialMediaStoryGenerator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   Accordion, 
@@ -21,7 +22,7 @@ import {
 } from "@/components/ui/accordion";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
-import { TourData, TourProps, TourImage, ItineraryDay } from "@/types/tour";
+import { TourData, TourImage, ItineraryDay } from "@/types/tour";
 
 interface TourDetailsProps {
   params?: {
@@ -753,10 +754,17 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
             Share This Tour
           </h2>
           
-          <TourPDFGenerator 
-            tourData={tourData}
-            isGenerating={false}
-          />
+          <div className="space-y-4">
+            <TourPDFGenerator 
+              tourData={tourData}
+              isGenerating={false}
+            />
+            
+            <SocialMediaStoryGenerator
+              tourData={tourData}
+              className="w-full"
+            />
+          </div>
         </section>
 
         <section ref={contactRef} id="contact" className="bg-white rounded-lg shadow-sm p-6 mb-8">
