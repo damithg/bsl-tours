@@ -264,18 +264,7 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
     <div className="bg-gray-50 min-h-screen pb-20">
       <ScrollToTop />
       
-      {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <nav className="flex text-sm">
-            <a href="/" className="text-gray-500 hover:text-primary">Home</a>
-            <span className="mx-2 text-gray-400">/</span>
-            <a href="/tours" className="text-gray-500 hover:text-primary">Tours</a>
-            <span className="mx-2 text-gray-400">/</span>
-            <span className="text-primary font-medium">{tourData.name}</span>
-          </nav>
-        </div>
-      </div>
+      {/* We're replacing the separate breadcrumb with the one in the hero image */}
       
       {/* Hero Section with Full-Width Image */}
       <section className="relative">
@@ -294,19 +283,23 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
           {/* Text Overlay */}
           <div className="absolute inset-0 flex flex-col justify-end items-start text-white z-20 container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <div className="max-w-3xl">
-              <div className="bg-primary/80 text-white px-3 py-1 rounded-md inline-block mb-4">
-                Private Luxury Tour
+              <div className="flex items-center mb-4">
+                <a href="/" className="text-white/90 hover:text-white mr-2">Home</a>
+                <span className="text-white/70 mx-1">/</span>
+                <a href="/tours" className="text-white/90 hover:text-white mr-2">Tours</a>
+                <span className="text-white/70 mx-1">/</span>
+                <span className="text-white font-medium">{tourData.name}</span>
               </div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-md">
                 {tourData.name}
               </h1>
-              <div className="flex items-center mb-4">
+              <p className="text-white/90 text-lg max-w-2xl drop-shadow-sm mb-4 hidden md:block">
+                {tourData.summary.length > 160 ? tourData.summary.substring(0, 160) + '...' : tourData.summary}
+              </p>
+              <div className="flex items-center bg-black/30 px-3 py-1.5 rounded-md inline-block">
                 <StarRating rating={4.8} size="md" />
                 <span className="ml-2 text-white/90">4.8 (48 reviews)</span>
               </div>
-              <p className="text-white/90 text-lg max-w-2xl drop-shadow-sm hidden md:block">
-                {tourData.summary.length > 160 ? tourData.summary.substring(0, 160) + '...' : tourData.summary}
-              </p>
             </div>
           </div>
         </div>
