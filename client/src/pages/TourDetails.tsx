@@ -11,6 +11,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import { StarRating } from "@/components/StarRating";
 import ContactForm from "@/components/ContactForm";
 import AnimatedRouteMap from "@/components/AnimatedRouteMap";
+import TourPDFGenerator from "@/components/TourPDFGenerator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   Accordion, 
@@ -20,50 +21,7 @@ import {
 } from "@/components/ui/accordion";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
-
-interface TourImage {
-  publicId?: string;
-  alt?: string;
-  caption?: string;
-  orientation?: string;
-  baseUrl?: string;
-  small?: string;
-  medium?: string;
-  large?: string;
-}
-
-interface ItineraryDay {
-  day: number;
-  title: string;
-  description: string;
-  image?: TourImage;
-}
-
-interface TourData {
-  id: number;
-  name: string;
-  slug: string;
-  featured: boolean;
-  summary: string;
-  duration: string;
-  startingFrom: number;
-  currency: string;
-  heroImage?: TourImage;
-  cardImage?: TourImage;
-  galleryImages?: TourImage[];
-  itinerary: ItineraryDay[];
-  inclusions: string[];
-  exclusions: string[];
-  highlights?: string[];
-  mapImage?: string;
-  mapPoints?: {
-    id: number | string;
-    name: string;
-    x: number;
-    y: number;
-    day?: number;
-  }[];
-}
+import { TourData, TourProps, TourImage, ItineraryDay } from "@/types/tour";
 
 interface TourDetailsProps {
   params?: {
