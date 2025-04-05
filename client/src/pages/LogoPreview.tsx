@@ -12,8 +12,9 @@ const LogoPreview: React.FC = () => {
   const [logoColor, setLogoColor] = useState('#ffffff');
   const [fontSize, setFontSize] = useState(48);
   const [letterSpacing, setLetterSpacing] = useState(0.15);
-  const [variant, setVariant] = useState<'standard' | 'compact' | 'stacked'>('standard');
+  const [variant, setVariant] = useState<'standard' | 'compact' | 'stacked' | 'legacy'>('standard');
   const [showTagline, setShowTagline] = useState(false);
+  const [showMap, setShowMap] = useState(true);
   
   return (
     <div className="container mx-auto px-4 py-12">
@@ -40,6 +41,7 @@ const LogoPreview: React.FC = () => {
                       letterSpacing={`${letterSpacing}em`}
                       variant={variant}
                       showTagline={showTagline}
+                      showMap={showMap}
                     />
                   </div>
                 </CardContent>
@@ -58,6 +60,7 @@ const LogoPreview: React.FC = () => {
                       letterSpacing={`${letterSpacing}em`}
                       variant={variant}
                       showTagline={showTagline}
+                      showMap={showMap}
                     />
                   </div>
                 </CardContent>
@@ -69,7 +72,7 @@ const LogoPreview: React.FC = () => {
             <CardHeader>
               <CardTitle className="text-lg">All Variants</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-3 gap-4">
+            <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="p-6 border rounded-md bg-gray-900 flex flex-col items-center">
                 <p className="text-white text-xs mb-2">Standard</p>
                 <BSLLogo 
@@ -97,6 +100,16 @@ const LogoPreview: React.FC = () => {
                   variant="stacked"
                 />
               </div>
+              <div className="p-6 border rounded-md bg-gray-900 flex flex-col items-center">
+                <p className="text-white text-xs mb-2">Legacy</p>
+                <BSLLogo 
+                  color="white" 
+                  fontSize="24px"
+                  letterSpacing="0.15em"
+                  variant="legacy"
+                  showMap={true}
+                />
+              </div>
             </CardContent>
           </Card>
           
@@ -117,6 +130,7 @@ const LogoPreview: React.FC = () => {
                   letterSpacing={`${letterSpacing}em`}
                   variant={variant}
                   showTagline={showTagline}
+                  showMap={showMap}
                 />
               </div>
             </CardContent>
@@ -134,7 +148,7 @@ const LogoPreview: React.FC = () => {
                 <Card className="border border-gray-200">
                   <CardContent className="p-4">
                     <Label htmlFor="variant" className="text-sm font-medium">Logo Variant</Label>
-                    <div className="grid grid-cols-3 gap-2 mt-2">
+                    <div className="grid grid-cols-2 gap-2 mt-2">
                       <button
                         className={`p-2 border rounded-md text-xs text-center ${variant === 'standard' ? 'bg-primary text-white' : 'bg-gray-100'}`}
                         onClick={() => setVariant('standard')}
@@ -153,12 +167,18 @@ const LogoPreview: React.FC = () => {
                       >
                         Stacked
                       </button>
+                      <button
+                        className={`p-2 border rounded-md text-xs text-center ${variant === 'legacy' ? 'bg-primary text-white' : 'bg-gray-100'}`}
+                        onClick={() => setVariant('legacy')}
+                      >
+                        Legacy
+                      </button>
                     </div>
                   </CardContent>
                 </Card>
                 
                 <Card className="border border-gray-200">
-                  <CardContent className="p-4">
+                  <CardContent className="p-4 space-y-4">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="show-tagline" className="text-sm font-medium">Show Tagline</Label>
                       <Switch
@@ -167,6 +187,17 @@ const LogoPreview: React.FC = () => {
                         onCheckedChange={setShowTagline}
                       />
                     </div>
+                    
+                    {variant === 'legacy' && (
+                      <div className="flex items-center justify-between mt-4">
+                        <Label htmlFor="show-map" className="text-sm font-medium">Show Sri Lanka Map</Label>
+                        <Switch
+                          id="show-map"
+                          checked={showMap}
+                          onCheckedChange={setShowMap}
+                        />
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </div>
@@ -241,6 +272,7 @@ import BSLLogo from '@/components/BSLLogo';
   letterSpacing="${letterSpacing}em"
   variant="${variant}"
   showTagline={${showTagline}}
+  ${variant === 'legacy' ? `showMap={${showMap}}` : ''}
 />
 `}
                 </pre>
@@ -257,9 +289,10 @@ import BSLLogo from '@/components/BSLLogo';
                 <li><strong>Standard:</strong> Horizontal "BSL TOURS" with properly aligned letterforms</li>
                 <li><strong>Compact:</strong> Just "BSL" for small spaces or icons</li>
                 <li><strong>Stacked:</strong> "BSL" above "TOURS" - ideal for square spaces</li>
+                <li><strong>Legacy:</strong> Boxed logo with Sri Lanka map outline, based on the original website design</li>
               </ul>
               <p className="mt-4 text-sm text-gray-600">
-                Each variant can optionally show the full "BEST SRI LANKA TOURS" tagline.
+                All variants can show the "BEST SRI LANKA TOURS" tagline. The legacy variant also has an option to show/hide the Sri Lanka map shape.
               </p>
             </CardContent>
           </Card>

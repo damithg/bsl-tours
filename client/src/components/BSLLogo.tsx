@@ -5,9 +5,36 @@ interface BSLLogoProps {
   className?: string;
   fontSize?: string;
   letterSpacing?: string;
-  variant?: 'standard' | 'compact' | 'stacked';
+  variant?: 'standard' | 'compact' | 'stacked' | 'legacy';
   showTagline?: boolean;
+  showMap?: boolean;
 }
+
+/**
+ * SVG path for Sri Lanka map outline
+ */
+const SriLankaMapPath = () => (
+  <svg
+    viewBox="0 0 100 160" 
+    width="45" 
+    height="70" 
+    style={{ 
+      position: 'absolute',
+      left: '45%',
+      top: '15%',
+      zIndex: 1,
+      fill: 'currentColor',
+      opacity: 0.7
+    }}
+  >
+    <path d="M49.8,2c0,0,4.2,4.4,5.6,8.1c1.4,3.7,3.7,8.6,3.7,12.7c0,4.1-2.1,13.9-2.1,18
+      c0,4.1,0.7,7.6,1.7,11.5c1,3.9,4.3,9.8,4.3,13.5c0,3.7-2.7,11.1-2.7,15c0,3.9,2.1,17.2,2.1,21.1
+      c0,3.9-4.3,12.5-4.3,17.2c0,4.6,2.3,20.2,2.3,20.2s-5.4,7.4-8.1,7.4c-2.7,0-8.4-6.4-9.6-10.3
+      c-1.2-3.9-4.5-30.5-4.5-34.5c0-4.1,0.6-16.2,0.6-20.4c0-4.1-5.9-16.4-7.4-20.2c-1.6-3.8-4.8-11.1-6.2-15.2
+      c-1.4-4.1-2.1-10.5-2.1-14.8c0-4.3,8.1-16,8.1-19.9c0-3.9-6.6-11.7-5.6-15.4c1-3.7,7.1-10.3,10.1-13.5
+      C38.7,8.8,46.6,2,49.8,2z" />
+  </svg>
+);
 
 /**
  * BSL Tours logo component with proper spacing and styling
@@ -18,7 +45,8 @@ const BSLLogo: React.FC<BSLLogoProps> = ({
   fontSize = '48px',
   letterSpacing = '0.15em',
   variant = 'standard',
-  showTagline = false
+  showTagline = false,
+  showMap = true
 }) => {
   const baseStyle = {
     color,
@@ -30,6 +58,47 @@ const BSLLogo: React.FC<BSLLogoProps> = ({
   };
   
   const getLogoContent = () => {
+    // Legacy variant (like the original WordPress site)
+    if (variant === 'legacy') {
+      return (
+        <div 
+          className={`font-serif relative ${className}`}
+          style={{
+            ...baseStyle,
+            fontFamily: 'serif',
+            lineHeight: 1,
+          }}
+        >
+          <div 
+            className="relative pt-6 pb-4 px-8"
+            style={{
+              border: `3px solid ${color}`,
+              borderRadius: '2px'
+            }}
+          >
+            {showMap && <SriLankaMapPath />}
+            <div className="flex items-center justify-center gap-[0.1em] relative z-10">
+              <span style={{ fontSize: '1.1em' }}>B</span>
+              <span style={{ position: 'relative', top: '-0.04em' }}>S</span>
+              <span>L</span>
+            </div>
+            <div className="flex items-center justify-center gap-[0.05em] text-[0.7em] mt-1">
+              <span>T</span>
+              <span>O</span>
+              <span>U</span>
+              <span>R</span>
+              <span>S</span>
+            </div>
+            {showTagline && (
+              <div className="text-[0.3em] mt-2 tracking-widest font-light text-center">
+                BEST SRI LANKA TOURS
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+    
     // Compact variant (BSL only)
     if (variant === 'compact') {
       return (
