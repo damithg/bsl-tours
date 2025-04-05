@@ -19,10 +19,12 @@ import GalleryTest from "@/pages/GalleryTest";
 import AsymmetricalGalleryTest from "@/pages/AsymmetricalGalleryTest";
 import ApiGalleryTest from "@/pages/ApiGalleryTest";
 import SigiriyaTemplate from "@/pages/SigiriyaTemplate";
+import ColorPaletteTest from "@/pages/ColorPaletteTest";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
+import { ColorPaletteProvider } from "./contexts/ColorPaletteContext";
 import ScrollToTop from "@/components/ScrollToTop";
 
 function Router() {
@@ -73,6 +75,7 @@ function Router() {
         <Route path="/asymmetrical-gallery" component={AsymmetricalGalleryTest} />
         <Route path="/api-gallery-test" component={ApiGalleryTest} />
         <Route path="/sigiriya-template" component={SigiriyaTemplate} />
+        <Route path="/color-palette" component={ColorPaletteTest} />
         <Route component={NotFound} />
       </Switch>
       <Footer />
@@ -84,10 +87,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <CurrencyProvider>
-        <ScrollToTop />
-        <Router />
-        <ThemeSwitcher />
-        <Toaster />
+        <ColorPaletteProvider>
+          <ScrollToTop />
+          <Router />
+          <ThemeSwitcher />
+          <Toaster />
+        </ColorPaletteProvider>
       </CurrencyProvider>
     </QueryClientProvider>
   );
