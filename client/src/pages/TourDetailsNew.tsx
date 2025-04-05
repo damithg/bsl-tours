@@ -290,12 +290,14 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
                 <span className="text-white/70 mx-1">/</span>
                 <span className="text-white font-medium">{tourData.name}</span>
               </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-md">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-md text-white">
                 {tourData.name}
               </h1>
-              <p className="text-white/90 text-lg max-w-2xl drop-shadow-sm mb-4 hidden md:block">
-                {tourData.summary.length > 160 ? tourData.summary.substring(0, 160) + '...' : tourData.summary}
-              </p>
+              {tourData.heroImage && tourData.heroImage.caption && (
+                <p className="text-white/90 text-lg max-w-2xl drop-shadow-sm mb-4 hidden md:block">
+                  {tourData.heroImage.caption}
+                </p>
+              )}
               <div className="flex items-center bg-black/30 px-3 py-1.5 rounded-md inline-block">
                 <StarRating rating={4.8} size="md" />
                 <span className="ml-2 text-white/90">4.8 (48 reviews)</span>
