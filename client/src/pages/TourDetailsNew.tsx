@@ -264,6 +264,19 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
     <div className="bg-gray-50 min-h-screen pb-20">
       <ScrollToTop />
       
+      {/* Breadcrumb */}
+      <div className="bg-white border-b">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <nav className="flex text-sm">
+            <a href="/" className="text-gray-500 hover:text-primary">Home</a>
+            <span className="mx-2 text-gray-400">/</span>
+            <a href="/tours" className="text-gray-500 hover:text-primary">Tours</a>
+            <span className="mx-2 text-gray-400">/</span>
+            <span className="text-primary font-medium">{tourData.name}</span>
+          </nav>
+        </div>
+      </div>
+      
       {/* Hero Section with Full-Width Image */}
       <section className="relative">
         <div className="aspect-[21/9] lg:aspect-[3/1] w-full overflow-hidden relative">
@@ -291,10 +304,20 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
                 <StarRating rating={4.8} size="md" />
                 <span className="ml-2 text-white/90">4.8 (48 reviews)</span>
               </div>
+              <p className="text-white/90 text-lg max-w-2xl drop-shadow-sm hidden md:block">
+                {tourData.summary.length > 160 ? tourData.summary.substring(0, 160) + '...' : tourData.summary}
+              </p>
             </div>
           </div>
         </div>
       </section>
+      
+      {/* Mobile Summary (only visible on mobile) */}
+      <div className="md:hidden bg-white p-4 border-b">
+        <p className="text-gray-700 text-base">
+          {tourData.summary.length > 120 ? tourData.summary.substring(0, 120) + '...' : tourData.summary}
+        </p>
+      </div>
       
       {/* Info Cards Section - Similar to ModTour */}
       <section className="bg-white border-b">
