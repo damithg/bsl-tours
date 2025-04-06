@@ -23,19 +23,45 @@ interface StrapiTour {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  // New card structure
+  card?: {
+    image?: {
+      publicId?: string;
+      alt?: string;
+      caption?: string;
+      orientation?: string;
+      baseUrl?: string;
+      small?: string;
+      medium?: string;
+      large?: string;
+    };
+    header?: string;
+    heading?: string;
+    body?: string;
+    tags?: string[];
+  };
+  // Legacy structure
   heroImage?: {
-    id: number;
-    publicId: string;
-    alt: string;
-    caption: string;
-    orientation: string;
+    id?: number;
+    publicId?: string;
+    alt?: string;
+    caption?: string;
+    orientation?: string;
+    baseUrl?: string;
+    small?: string;
+    medium?: string;
+    large?: string;
   };
   cardImage?: {
-    id: number;
-    publicId: string;
-    alt: string;
-    caption: string;
-    orientation: string;
+    id?: number;
+    publicId?: string;
+    alt?: string;
+    caption?: string;
+    orientation?: string;
+    baseUrl?: string;
+    small?: string;
+    medium?: string;
+    large?: string;
   };
   reviews?: {
     id: number;
@@ -154,13 +180,45 @@ const TourPackages = () => {
               {tours.map((tour) => {
                 // Get the image URL from cardImage or heroImage, with fallbacks
                 const getImageUrl = () => {
+                  // First try the new card structure
+                  if (tour.card?.image) {
+                    if (tour.card.image.medium) return tour.card.image.medium;
+                    if (tour.card.image.large) return tour.card.image.large;
+                    if (tour.card.image.small) return tour.card.image.small;
+                    if (tour.card.image.baseUrl) return tour.card.image.baseUrl;
+                    if (tour.card.image.publicId) {
+                      return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.card.image.publicId}`;
+                    }
+                  }
+                  
+                  // Try legacy cardImage structure
                   if (tour.cardImage?.publicId) {
                     return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.cardImage.publicId}`;
-                  } else if (tour.heroImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.heroImage.publicId}`;
-                  } else {
-                    return "https://images.unsplash.com/photo-1571983823232-07c155b4b685?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80";
+                  } else if (tour.cardImage?.medium) {
+                    return tour.cardImage.medium;
+                  } else if (tour.cardImage?.large) {
+                    return tour.cardImage.large;
+                  } else if (tour.cardImage?.small) {
+                    return tour.cardImage.small;
+                  } else if (tour.cardImage?.baseUrl) {
+                    return tour.cardImage.baseUrl;
                   }
+                  
+                  // Try heroImage as last fallback
+                  if (tour.heroImage?.publicId) {
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.heroImage.publicId}`;
+                  } else if (tour.heroImage?.medium) {
+                    return tour.heroImage.medium;
+                  } else if (tour.heroImage?.large) {
+                    return tour.heroImage.large;
+                  } else if (tour.heroImage?.small) {
+                    return tour.heroImage.small;
+                  } else if (tour.heroImage?.baseUrl) {
+                    return tour.heroImage.baseUrl;
+                  }
+                  
+                  // Last resort fallback
+                  return "https://images.unsplash.com/photo-1571983823232-07c155b4b685?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80";
                 };
                 
                 // Extract average rating from reviews
@@ -174,18 +232,19 @@ const TourPackages = () => {
                     <div className="relative h-64 flex items-center justify-center overflow-hidden">
                       <img 
                         src={getImageUrl()} 
-                        alt={tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
+                        alt={tour.card?.image?.alt || tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
                         className="w-full h-full object-cover object-center" 
                       />
                       <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
                         {tour.duration}
                       </div>
-                      {tour.tags && tour.tags.length > 0 && (
+                      {/* Use card.tags first, then fallback to tour.tags */}
+                      {((tour.card?.tags && tour.card.tags.length > 0) || (tour.tags && tour.tags.length > 0)) && (
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                          {tour.tags.slice(0, 2).map((tag, i) => (
+                          {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag, i) => (
                             <span 
                               key={i}
-                              className="bg-black/50 backdrop-blur-sm text-white text-xs py-1 px-2 rounded-full"
+                              className="bg-black/50 backdrop-blur-sm text-white text-[0.9rem] py-0.5 px-3 rounded-md leading-6"
                             >
                               {tag}
                             </span>
@@ -194,7 +253,9 @@ const TourPackages = () => {
                       )}
                     </div>
                     <div className="p-6">
-                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{tour.name}</h3>
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">
+                        {tour.card?.heading || tour.card?.header || tour.name}
+                      </h3>
                       <div className="flex items-center mb-4">
                         {formatRating(averageRating)}
                         <span className="text-sm text-gray-500 ml-2">
@@ -202,7 +263,9 @@ const TourPackages = () => {
                           ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
                         </span>
                       </div>
-                      <p className="text-[#333333]/70 mb-4">{tour.cardImage?.caption || tour.summary}</p>
+                      <p className="text-[#333333]/70 mb-4">
+                        {tour.card?.body || tour.cardImage?.caption || tour.summary}
+                      </p>
                       <div className="flex justify-between items-center">
                         <div>
                           <span className="text-sm text-gray-500">From</span>

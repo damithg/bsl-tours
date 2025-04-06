@@ -35,6 +35,24 @@ interface StrapiTour {
     title: string;
     description: string;
   }>;
+  // New card structure
+  card?: {
+    image?: {
+      publicId?: string;
+      alt?: string;
+      caption?: string;
+      orientation?: string;
+      baseUrl?: string;
+      small?: string;
+      medium?: string;
+      large?: string;
+    };
+    header?: string;
+    heading?: string;
+    body?: string;
+    tags?: string[];
+  };
+  // Legacy structure
   heroImage?: {
     publicId?: string;
     alt?: string;
@@ -297,7 +315,15 @@ const FeaturedPackages = () => {
             {tours.map((tour: StrapiTour) => {
                 // Get the image URL from cardImage or heroImage, prioritizing medium size (800x600)
                 const getImageUrl = () => {
-                  // Try cardImage first with prioritized sizes
+                  // First try the new card structure
+                  if (tour.card?.image) {
+                    if (tour.card.image.medium) return tour.card.image.medium;
+                    if (tour.card.image.large) return tour.card.image.large;
+                    if (tour.card.image.small) return tour.card.image.small;
+                    if (tour.card.image.baseUrl) return tour.card.image.baseUrl;
+                  }
+                  
+                  // Try legacy cardImage as fallback
                   if (tour.cardImage) {
                     if (tour.cardImage.medium) return tour.cardImage.medium;
                     if (tour.cardImage.large) return tour.cardImage.large;
@@ -305,7 +331,7 @@ const FeaturedPackages = () => {
                     if (tour.cardImage.baseUrl) return tour.cardImage.baseUrl;
                   }
                   
-                  // Try heroImage as fallback with prioritized sizes
+                  // Try heroImage as last fallback
                   if (tour.heroImage) {
                     if (tour.heroImage.medium) return tour.heroImage.medium;
                     if (tour.heroImage.large) return tour.heroImage.large;
@@ -331,18 +357,19 @@ const FeaturedPackages = () => {
                     <div className="relative h-64 flex items-center justify-center overflow-hidden">
                       <img 
                         src={getImageUrl()} 
-                        alt={tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
+                        alt={tour.card?.image?.alt || tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
                         className="w-full h-full object-cover object-center" 
                       />
                       <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
                         {tour.duration}
                       </div>
-                      {tour.tags && tour.tags.length > 0 && (
+                      {/* Use card.tags first, then fallback to tour.tags */}
+                      {((tour.card?.tags && tour.card.tags.length > 0) || (tour.tags && tour.tags.length > 0)) && (
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                          {tour.tags.slice(0, 1).map((tag: string, i: number) => (
+                          {(tour.card?.tags || tour.tags || []).slice(0, 1).map((tag: string, i: number) => (
                             <span 
                               key={i}
-                              className="bg-black/50 backdrop-blur-sm text-white text-xs py-1 px-2 rounded-full"
+                              className="bg-black/50 backdrop-blur-sm text-white text-[0.9rem] py-0.5 px-3 rounded-md leading-6"
                             >
                               {tag}
                             </span>
@@ -351,7 +378,9 @@ const FeaturedPackages = () => {
                       )}
                     </div>
                     <div className="p-6">
-                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{tour.name}</h3>
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">
+                        {tour.card?.heading || tour.card?.header || tour.name}
+                      </h3>
                       <div className="flex items-center mb-4">
                         {formatRating(averageRating || 5)}
                         <span className="text-sm text-gray-500 ml-2">
@@ -359,7 +388,9 @@ const FeaturedPackages = () => {
                           ({reviews.length || 0} {reviews.length === 1 ? 'review' : 'reviews'})
                         </span>
                       </div>
-                      <p className="text-[#333333]/70 mb-4">{tour.cardImage?.caption || tour.summary}</p>
+                      <p className="text-[#333333]/70 mb-4">
+                        {tour.card?.body || tour.cardImage?.caption || tour.summary}
+                      </p>
                       <div className="flex justify-between items-center">
                         <div>
                           <span className="text-sm text-gray-500">From</span>
