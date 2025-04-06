@@ -74,37 +74,73 @@ export function SocialMediaStoryGenerator({ tourData, className = '' }: SocialMe
         throw new Error('Story reference not found');
       }
 
-      // Use html2canvas to create an image of the story
-      const html2canvas = (await import('html2canvas')).default;
-      
-      // Give a little time for any rendering to complete
-      setTimeout(async () => {
-        try {
-          const canvas = await html2canvas(storyRef.current!, {
-            scale: 2, // Higher quality
-            useCORS: true, // Allow cross-origin images
-            allowTaint: true,
-            backgroundColor: null,
-          });
+      try {
+        // Attempt to dynamically import html2canvas
+        const html2canvasModule = await import('html2canvas').catch(e => {
+          console.warn('html2canvas module not available:', e);
+          return null;
+        });
+        
+        // Check if import was successful
+        if (!html2canvasModule) {
+          // Fallback for local development without html2canvas
+          console.log('html2canvas not available - using fallback for local development');
           
-          const dataUrl = canvas.toDataURL('image/png');
-          setGeneratedStoryUrl(dataUrl);
-          setIsGenerating(false);
+          // Create a simulated delay and use a placeholder image
+          setTimeout(() => {
+            // Create a placeholder data URL (transparent 1x1 pixel)
+            const placeholderDataUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+            setGeneratedStoryUrl(placeholderDataUrl);
+            setIsGenerating(false);
+            
+            toast({
+              title: 'Development Mode',
+              description: 'Story generation simulation complete. Full functionality available in production.',
+            });
+          }, 1500);
           
-          toast({
-            title: 'Story Generated!',
-            description: 'Your social media story is ready to download and share.',
-          });
-        } catch (error) {
-          console.error('Error generating canvas:', error);
-          setIsGenerating(false);
-          toast({
-            title: 'Generation Failed',
-            description: 'There was a problem creating your story. Please try again.',
-            variant: 'destructive',
-          });
+          return;
         }
-      }, 100);
+        
+        const html2canvas = html2canvasModule.default;
+        
+        // Give a little time for any rendering to complete
+        setTimeout(async () => {
+          try {
+            const canvas = await html2canvas(storyRef.current!, {
+              scale: 2, // Higher quality
+              useCORS: true, // Allow cross-origin images
+              allowTaint: true,
+              backgroundColor: null,
+            });
+            
+            const dataUrl = canvas.toDataURL('image/png');
+            setGeneratedStoryUrl(dataUrl);
+            setIsGenerating(false);
+            
+            toast({
+              title: 'Story Generated!',
+              description: 'Your social media story is ready to download and share.',
+            });
+          } catch (error) {
+            console.error('Error generating canvas:', error);
+            setIsGenerating(false);
+            toast({
+              title: 'Generation Failed',
+              description: 'There was a problem creating your story. Please try again.',
+              variant: 'destructive',
+            });
+          }
+        }, 100);
+      } catch (error) {
+        console.error('Error importing html2canvas:', error);
+        setIsGenerating(false);
+        toast({
+          title: 'Feature Unavailable',
+          description: 'Story generation requires additional dependencies. Full functionality available in production.',
+          variant: 'destructive',
+        });
+      }
     } catch (error) {
       console.error('Error in generate story:', error);
       setIsGenerating(false);
@@ -119,6 +155,16 @@ export function SocialMediaStoryGenerator({ tourData, className = '' }: SocialMe
   const downloadStory = () => {
     if (!generatedStoryUrl) return;
     
+    // Check if we have the placeholder (1x1 transparent image)
+    const isPlaceholder = generatedStoryUrl.length < 150;
+    
+    if (isPlaceholder) {
+      toast({
+        title: 'Development Mode',
+        description: 'In local development, a blank placeholder image is downloaded. Full functionality available in production.',
+      });
+    }
+    
     const link = document.createElement('a');
     link.href = generatedStoryUrl;
     link.download = `${tourData.name.replace(/\s+/g, '-').toLowerCase()}-story.png`;
@@ -126,14 +172,27 @@ export function SocialMediaStoryGenerator({ tourData, className = '' }: SocialMe
     link.click();
     document.body.removeChild(link);
     
-    toast({
-      title: 'Story Downloaded',
-      description: 'Your social media story has been downloaded.',
-    });
+    if (!isPlaceholder) {
+      toast({
+        title: 'Story Downloaded',
+        description: 'Your social media story has been downloaded.',
+      });
+    }
   };
 
   const shareStory = async () => {
     if (!generatedStoryUrl) return;
+    
+    // Check if we have the placeholder (1x1 transparent image)
+    const isPlaceholder = generatedStoryUrl.length < 150;
+    
+    if (isPlaceholder) {
+      toast({
+        title: 'Development Mode',
+        description: 'In local development, sharing is simulated. Full functionality available in production.',
+      });
+      return;
+    }
     
     try {
       // Convert data URL to blob
