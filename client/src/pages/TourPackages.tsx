@@ -72,24 +72,16 @@ interface StrapiTour {
   }[];
 }
 
-interface StrapiResponse {
-  data: StrapiTour[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
-}
+// The API returns the tour data directly as an array, not wrapped in a data property
+type StrapiResponse = StrapiTour[];
 
 const TourPackages = () => {
   const { data: strapiResponse, isLoading, error } = useQuery<StrapiResponse>({
-    queryKey: ['https://graceful-happiness-10e3a700b4.strapiapp.com/api/tours?populate=*'],
+    queryKey: ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours'],
   });
   
-  const tours = strapiResponse?.data || [];
+  // The API returns the tour data directly as an array, not wrapped in a data property
+  const tours = strapiResponse || [];
   const { formatPrice } = useCurrency();
 
   // Format rating to display as stars (5 = 5 stars)

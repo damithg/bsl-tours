@@ -116,8 +116,8 @@ interface StrapiTour {
 type StrapiResponse = StrapiTour[];
 
 const FeaturedPackages = () => {
-  // Use the correct API endpoint for featured tours
-  const queryKey = ['/api/tours/featured'];
+  // Use the correct API endpoint for featured tours with the Azure API base URL
+  const queryKey = ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours/featured'];
   const { data: strapiResponse, isLoading, error, refetch } = useQuery<StrapiResponse>({
     queryKey,
   });
