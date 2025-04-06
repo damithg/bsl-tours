@@ -315,27 +315,29 @@ const FeaturedPackages = () => {
             {tours.map((tour: StrapiTour) => {
                 // Get the image URL from cardImage or heroImage, prioritizing medium size (800x600)
                 const getImageUrl = () => {
-                  // First try the new card structure
+                  // First try the new card structure, prioritizing medium size
                   if (tour.card?.image) {
+                    // For cards, medium size is ideal (800x600)
                     if (tour.card.image.medium) return tour.card.image.medium;
-                    if (tour.card.image.large) return tour.card.image.large;
+                    // Fallback order if medium is not available
                     if (tour.card.image.small) return tour.card.image.small;
+                    if (tour.card.image.large) return tour.card.image.large;
                     if (tour.card.image.baseUrl) return tour.card.image.baseUrl;
                   }
                   
-                  // Try legacy cardImage as fallback
+                  // Try legacy cardImage as fallback, also prioritizing medium size
                   if (tour.cardImage) {
                     if (tour.cardImage.medium) return tour.cardImage.medium;
-                    if (tour.cardImage.large) return tour.cardImage.large;
                     if (tour.cardImage.small) return tour.cardImage.small;
+                    if (tour.cardImage.large) return tour.cardImage.large;
                     if (tour.cardImage.baseUrl) return tour.cardImage.baseUrl;
                   }
                   
                   // Try heroImage as last fallback
                   if (tour.heroImage) {
                     if (tour.heroImage.medium) return tour.heroImage.medium;
-                    if (tour.heroImage.large) return tour.heroImage.large;
                     if (tour.heroImage.small) return tour.heroImage.small;
+                    if (tour.heroImage.large) return tour.heroImage.large;
                     if (tour.heroImage.baseUrl) return tour.heroImage.baseUrl;
                   }
                   

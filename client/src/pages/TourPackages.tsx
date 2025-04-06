@@ -180,41 +180,43 @@ const TourPackages = () => {
               {tours.map((tour) => {
                 // Get the image URL from cardImage or heroImage, with fallbacks
                 const getImageUrl = () => {
-                  // First try the new card structure
+                  // First try the new card structure, prioritizing medium size for cards
                   if (tour.card?.image) {
+                    // For cards, medium size is ideal (800x600)
                     if (tour.card.image.medium) return tour.card.image.medium;
-                    if (tour.card.image.large) return tour.card.image.large;
+                    // Fallback order if medium is not available
                     if (tour.card.image.small) return tour.card.image.small;
+                    if (tour.card.image.large) return tour.card.image.large;
                     if (tour.card.image.baseUrl) return tour.card.image.baseUrl;
                     if (tour.card.image.publicId) {
-                      return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.card.image.publicId}`;
+                      return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/w_800,h_600,c_fill/${tour.card.image.publicId}`;
                     }
                   }
                   
                   // Try legacy cardImage structure
-                  if (tour.cardImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.cardImage.publicId}`;
-                  } else if (tour.cardImage?.medium) {
+                  if (tour.cardImage?.medium) {
                     return tour.cardImage.medium;
-                  } else if (tour.cardImage?.large) {
-                    return tour.cardImage.large;
                   } else if (tour.cardImage?.small) {
                     return tour.cardImage.small;
+                  } else if (tour.cardImage?.large) {
+                    return tour.cardImage.large;
                   } else if (tour.cardImage?.baseUrl) {
                     return tour.cardImage.baseUrl;
+                  } else if (tour.cardImage?.publicId) {
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/w_800,h_600,c_fill/${tour.cardImage.publicId}`;
                   }
                   
                   // Try heroImage as last fallback
-                  if (tour.heroImage?.publicId) {
-                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/${tour.heroImage.publicId}`;
-                  } else if (tour.heroImage?.medium) {
+                  if (tour.heroImage?.medium) {
                     return tour.heroImage.medium;
-                  } else if (tour.heroImage?.large) {
-                    return tour.heroImage.large;
                   } else if (tour.heroImage?.small) {
                     return tour.heroImage.small;
+                  } else if (tour.heroImage?.large) {
+                    return tour.heroImage.large;
                   } else if (tour.heroImage?.baseUrl) {
                     return tour.heroImage.baseUrl;
+                  } else if (tour.heroImage?.publicId) {
+                    return `https://res.cloudinary.com/best-sri-lanka-tours/image/upload/w_800,h_600,c_fill/${tour.heroImage.publicId}`;
                   }
                   
                   // Last resort fallback
