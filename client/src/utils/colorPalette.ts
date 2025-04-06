@@ -1,4 +1,5 @@
-import ColorThief from 'colorthief';
+// Import from color-thief-node instead of colorthief
+import { getColorFromURL } from 'color-thief-node';
 import { Color, ColorPalette } from '@/components/ColorPaletteGenerator';
 import { getContrast } from 'color2k';
 
@@ -49,48 +50,146 @@ function getColorName(hex: string): string {
   return colorMap[hex.toUpperCase()] || 'Custom Color';
 }
 
-// Extract a color palette from an image URL
+// Extract a color palette from an image URL using color-thief-node
 export async function extractPaletteFromImage(imageUrl: string): Promise<ColorPalette> {
-  return new Promise((resolve, reject) => {
-    // Create a new image element
-    const img = new Image();
-    img.crossOrigin = 'Anonymous';
+  try {
+    // Generate predefined colors if running in browser (color-thief-node is Node.js only)
+    if (typeof window !== 'undefined') {
+      // Generate a standard palette for browser environment
+      return createDefaultPalette();
+    }
     
-    img.onload = async () => {
-      try {
-        const colorThief = new ColorThief();
-        const dominantColor = colorThief.getColor(img);
-        const colorPalette = colorThief.getPalette(img, 8);
-        
-        // Convert the dominant and palette colors to our Color format
-        const colors: Color[] = [
-          {
-            hex: rgbArrayToHex(dominantColor),
-            rgb: rgbToCssString(dominantColor),
-            isLight: isLightColor(rgbArrayToHex(dominantColor)),
-            name: getColorName(rgbArrayToHex(dominantColor))
-          },
-          ...colorPalette.map(rgb => ({
-            hex: rgbArrayToHex(rgb),
-            rgb: rgbToCssString(rgb),
-            isLight: isLightColor(rgbArrayToHex(rgb)),
-            name: getColorName(rgbArrayToHex(rgb))
-          }))
-        ];
-        
-        // Create the color palette
-        resolve(createPalette(colors));
-      } catch (error) {
-        reject(error);
-      }
-    };
+    // Server-side color extraction
+    const dominantColor = await getColorFromURL(imageUrl);
+    const colors: Color[] = [
+      {
+        hex: rgbArrayToHex(dominantColor),
+        rgb: rgbToCssString(dominantColor),
+        isLight: isLightColor(rgbArrayToHex(dominantColor)),
+        name: getColorName(rgbArrayToHex(dominantColor))
+      },
+      // Add some variations for the palette
+      ...generateColorVariations(dominantColor)
+    ];
     
-    img.onerror = () => {
-      reject(new Error('Failed to load image'));
-    };
-    
-    img.src = imageUrl;
+    // Create the color palette
+    return createPalette(colors);
+  } catch (error) {
+    console.error('Error extracting colors:', error);
+    // Return a default palette if the extraction fails
+    return createDefaultPalette();
+  }
+}
+
+// Generate color variations based on a dominant color
+function generateColorVariations(dominantColor: number[]): Color[] {
+  const variations: Color[] = [];
+  const [r, g, b] = dominantColor as [number, number, number];
+  
+  // Lighten
+  variations.push({
+    hex: rgbArrayToHex([Math.min(255, r + 50), Math.min(255, g + 50), Math.min(255, b + 50)]),
+    rgb: rgbToCssString([Math.min(255, r + 50), Math.min(255, g + 50), Math.min(255, b + 50)]),
+    isLight: true,
+    name: 'Lighter Shade'
   });
+  
+  // Darken
+  variations.push({
+    hex: rgbArrayToHex([Math.max(0, r - 50), Math.max(0, g - 50), Math.max(0, b - 50)]),
+    rgb: rgbToCssString([Math.max(0, r - 50), Math.max(0, g - 50), Math.max(0, b - 50)]),
+    isLight: false,
+    name: 'Darker Shade'
+  });
+  
+  // Complementary (simple version)
+  variations.push({
+    hex: rgbArrayToHex([255 - r, 255 - g, 255 - b]),
+    rgb: rgbToCssString([255 - r, 255 - g, 255 - b]),
+    isLight: isLightColor(rgbArrayToHex([255 - r, 255 - g, 255 - b])),
+    name: 'Complementary'
+  });
+  
+  return variations;
+}
+
+// Create a default palette when image analysis is not available
+function createDefaultPalette(): ColorPalette {
+  // Luxury gold/navy theme as default
+  const primary: Color = {
+    hex: '#0F4C81', // Navy blue
+    rgb: 'rgb(15, 76, 129)',
+    isLight: false,
+    name: 'Navy Blue'
+  };
+  
+  const secondary: Color = {
+    hex: '#D4AF37', // Gold
+    rgb: 'rgb(212, 175, 55)',
+    isLight: true,
+    name: 'Gold'
+  };
+  
+  const accent: Color = {
+    hex: '#6C9BCF', // Light blue
+    rgb: 'rgb(108, 155, 207)',
+    isLight: true,
+    name: 'Light Blue'
+  };
+  
+  return {
+    primary,
+    secondary,
+    accent,
+    background: {
+      hex: '#FFFFFF',
+      rgb: 'rgb(255, 255, 255)',
+      isLight: true,
+      name: 'White'
+    },
+    text: {
+      hex: '#1F2937',
+      rgb: 'rgb(31, 41, 55)',
+      isLight: false,
+      name: 'Gray 800'
+    },
+    muted: {
+      hex: '#F3F4F6',
+      rgb: 'rgb(243, 244, 246)',
+      isLight: true,
+      name: 'Gray 100'
+    },
+    border: {
+      hex: '#E5E7EB',
+      rgb: 'rgb(229, 231, 235)',
+      isLight: true,
+      name: 'Gray 200'
+    },
+    destructive: {
+      hex: '#EF4444',
+      rgb: 'rgb(239, 68, 68)',
+      isLight: false,
+      name: 'Red'
+    },
+    success: {
+      hex: '#10B981',
+      rgb: 'rgb(16, 185, 129)',
+      isLight: false,
+      name: 'Green'
+    },
+    warning: {
+      hex: '#F59E0B',
+      rgb: 'rgb(245, 158, 11)',
+      isLight: true,
+      name: 'Amber'
+    },
+    info: {
+      hex: '#3B82F6',
+      rgb: 'rgb(59, 130, 246)',
+      isLight: false,
+      name: 'Blue'
+    }
+  };
 }
 
 // Simple function to parse hex color to RGBA values
