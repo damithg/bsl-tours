@@ -19,6 +19,22 @@ interface Destination {
     social?: string;
     original?: string;
   };
+  card?: {
+    image?: {
+      publicId?: string;
+      alt?: string;
+      caption?: string;
+      orientation?: string;
+      baseUrl?: string;
+      small?: string;
+      medium?: string;
+      large?: string;
+    };
+    header?: string;
+    heading?: string;
+    body?: string;
+    tags?: string[];
+  };
   highlights: string[];
 }
 
@@ -41,8 +57,13 @@ const DestinationCard = ({ destination, index, isActive, onClick }: DestinationC
       <div className="relative w-full h-full aspect-[4/5] overflow-hidden group">
         {/* Image */}
         <img 
-          src={destination.images?.card || destination.imageUrl} 
-          alt={destination.name} 
+          src={
+            destination.card?.image?.medium || 
+            destination.card?.image?.baseUrl || 
+            destination.images?.card || 
+            destination.imageUrl
+          } 
+          alt={destination.card?.image?.alt || destination.name} 
           className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105
                     ${isActive ? 'brightness-90' : 'brightness-75 hover:brightness-90'}`}
         />
@@ -52,19 +73,23 @@ const DestinationCard = ({ destination, index, isActive, onClick }: DestinationC
           <div className={`transition-all duration-500 ${isActive ? 'mb-8' : 'mb-4'}`}>
             <h3 className={`font-['Playfair_Display'] font-bold leading-tight mb-2
                           ${isActive ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'}`}>
-              {destination.name}
+              {destination.card?.heading || destination.card?.header || destination.name}
             </h3>
             
             {isActive && (
               <div className="mt-3 space-y-4">
                 <p className="text-white/90 max-w-md">
-                  {destination.excerpt || destination.shortDescription || destination.description}
+                  {destination.card?.body || destination.excerpt || destination.shortDescription || destination.description}
                 </p>
                 
                 <div className="flex flex-wrap gap-2 mt-3">
-                  {highlightItems.slice(0, 3).map((highlight: string, idx: number) => (
+                  {/* Use card tags if available, otherwise fall back to highlights */}
+                  {(destination.card?.tags && destination.card.tags.length > 0 
+                    ? destination.card.tags 
+                    : highlightItems
+                  ).slice(0, 3).map((tag: string, idx: number) => (
                     <span key={idx} className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
-                      {highlight}
+                      {tag}
                     </span>
                   ))}
                 </div>

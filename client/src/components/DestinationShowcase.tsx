@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
 import { useState, useRef, useEffect } from "react";
-import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-react";
+import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw, ChevronRight } from "lucide-react";
 import { queryClient, getQueryFn } from "@/lib/queryClient";
 import { AdaptiveImage } from "./ui/adaptive-image";
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
@@ -172,19 +172,39 @@ const DestinationShowcase = () => {
                   {((destination as any).card?.image?.publicId || (destination as any).images?.card || destination.imageUrl || ((destination as any).heroImage && (destination as any).heroImage.publicId)) ? (
                     <div className="w-full h-full transition duration-700 group-hover:scale-110">
                       <AdaptiveImage
-                        src={(destination as any).card?.image?.publicId ? 
-                             `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).card.image.publicId}` :
-                             (destination as any).images?.card || 
-                             destination.imageUrl || 
-                             ((destination as any).heroImage && (destination as any).heroImage.publicId ? 
-                               `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).heroImage.publicId}` : 
-                               '')}
+                        src={
+                          // New card image structure with optimized URLs
+                          (destination as any).card?.image?.medium || 
+                          (destination as any).card?.image?.small || 
+                          (destination as any).card?.image?.baseUrl ||
+                          // Legacy image structure with publicId
+                          ((destination as any).card?.image?.publicId ? 
+                            `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).card.image.publicId}` :
+                            // Legacy images object or direct URL
+                            (destination as any).images?.card || 
+                            destination.imageUrl || 
+                            // Hero image as fallback
+                            ((destination as any).heroImage && (destination as any).heroImage.medium) ||
+                            ((destination as any).heroImage && (destination as any).heroImage.baseUrl) ||
+                            ((destination as any).heroImage && (destination as any).heroImage.publicId ? 
+                              `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).heroImage.publicId}` : 
+                              ''))
+                        }
                         alt={(destination as any).card?.image?.alt || destination.name}
                         focalPoint={DESTINATION_FOCAL_POINTS[destination.name] || determineFocalPoint(
-                          (destination as any).card?.image?.publicId ? 
-                          `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).card.image.publicId}` :
-                          (destination as any).images?.card || destination.imageUrl || 
-                          ((destination as any).heroImage ? `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).heroImage.publicId}` : ''), 
+                          // Use the same URL source order as above for consistency
+                          (destination as any).card?.image?.medium || 
+                          (destination as any).card?.image?.small || 
+                          (destination as any).card?.image?.baseUrl ||
+                          ((destination as any).card?.image?.publicId ? 
+                            `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).card.image.publicId}` :
+                            (destination as any).images?.card || 
+                            destination.imageUrl || 
+                            ((destination as any).heroImage && (destination as any).heroImage.medium) ||
+                            ((destination as any).heroImage && (destination as any).heroImage.baseUrl) ||
+                            ((destination as any).heroImage && (destination as any).heroImage.publicId ? 
+                              `https://res.cloudinary.com/drsjp6bqz/image/upload/${(destination as any).heroImage.publicId}` : 
+                              '')), 
                           destination.name
                         )}
                         imageClassName="transition duration-700 group-hover:scale-110"
@@ -199,17 +219,26 @@ const DestinationShowcase = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 p-6">
                     <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2">
-                      {(destination as any).card?.title || destination.name || 'Destination'}
+                      {(destination as any).card?.heading || (destination as any).card?.header || (destination as any).card?.title || destination.name || 'Destination'}
                     </h3>
                     <p className="text-white/80 mb-4 max-w-xs">
-                      {(destination as any).card?.subtitle || 
+                      {(destination as any).card?.body || (destination as any).card?.subtitle || 
                        destination.excerpt || 
                        destination.shortDescription || 
                        destination.description || 
                        'Description not available'}
                     </p>
-                    <a href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-white hover:text-[#D4AF37] transition">
-                      Explore <i className="fas fa-arrow-right ml-2"></i>
+                    {(destination as any).card?.tags && (destination as any).card.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {(destination as any).card.tags.slice(0, 3).map((tag: string, index: number) => (
+                          <span key={index} className="bg-white/20 text-white text-xs px-2 py-1 rounded-full">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <a href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-white hover:text-[#D4AF37] transition group">
+                      Explore <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                     </a>
                   </div>
                 </div>

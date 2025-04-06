@@ -200,14 +200,25 @@ const Destinations = () => {
                     </div>
                     <div className="p-6">
                       <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">
-                        {(destination as any).card?.title || destination.name}
+                        {(destination as any).card?.heading || (destination as any).card?.header || (destination as any).card?.title || destination.name}
                       </h3>
                       <p className="text-[#333333]/70 mb-4">
-                        {(destination as any).card?.subtitle || 
+                        {(destination as any).card?.body || (destination as any).card?.subtitle || 
                          destination.excerpt || 
                          destination.shortDescription || 
                          destination.description}
                       </p>
+                      
+                      {/* Display tags if available */}
+                      {(destination as any).card?.tags && (destination as any).card.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {(destination as any).card.tags.slice(0, 4).map((tag: string, index: number) => (
+                            <span key={index} className="bg-[#0F4C81]/10 text-[#0F4C81] text-xs px-2 py-1 rounded-full">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                       
                       <Link href={`/destination/${destination.slug || destination.id}`} className="inline-flex items-center text-[#0F4C81] font-medium hover:text-[#D4AF37] transition">
                         Explore Experiences
