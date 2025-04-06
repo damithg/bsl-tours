@@ -12,7 +12,6 @@ import { StarRating } from "@/components/StarRating";
 import ContactForm from "@/components/ContactForm";
 import AnimatedRouteMap from "@/components/AnimatedRouteMap";
 import TourPDFGenerator from "@/components/TourPDFGenerator";
-import { SocialMediaStoryGenerator } from "@/components/SocialMediaStoryGenerator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   Accordion, 
@@ -758,11 +757,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
             <TourPDFGenerator 
               tourData={tourData}
               isGenerating={false}
-            />
-            
-            <SocialMediaStoryGenerator
-              tourData={tourData}
-              className="w-full"
             />
           </div>
         </section>
