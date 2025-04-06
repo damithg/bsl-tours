@@ -127,8 +127,8 @@ const FeaturedPackages = () => {
   
   // The API response is the array of tours directly
   const tours = strapiResponse || [];
-  // Debug code (temporarily hidden)
-  // console.log("Featured tours data:", tours);
+  // Debug code to verify data from Azure API
+  console.log("Featured tours data:", strapiResponse);
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
