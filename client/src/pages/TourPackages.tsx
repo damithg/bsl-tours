@@ -234,11 +234,11 @@ const TourPackages = () => {
                       </div>
                       {/* Use card.tags first, then fallback to tour.tags */}
                       {((tour.card?.tags && tour.card.tags.length > 0) || (tour.tags && tour.tags.length > 0)) && (
-                        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                        <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag, i) => (
                             <span 
                               key={i}
-                              className="bg-black/50 backdrop-blur-sm text-white text-[0.9rem] py-0.5 px-3 rounded-md leading-6"
+                              className="bg-white/15 text-white/90 text-[0.9rem] px-3 py-0.5 rounded-md leading-6"
                             >
                               {tag}
                             </span>
