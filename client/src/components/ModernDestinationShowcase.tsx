@@ -88,7 +88,7 @@ const DestinationCard = ({ destination, index, isActive, onClick }: DestinationC
                     ? destination.card.tags 
                     : highlightItems
                   ).slice(0, 3).map((tag: string, idx: number) => (
-                    <span key={idx} className="bg-white/30 backdrop-blur-sm text-white font-medium text-sm px-3 py-1.5 rounded-full shadow-sm border border-white/20">
+                    <span key={idx} className="bg-white/15 text-white/90 text-sm px-3 py-1 rounded-md">
                       {tag}
                     </span>
                   ))}

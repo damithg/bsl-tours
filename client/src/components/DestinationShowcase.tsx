@@ -231,7 +231,7 @@ const DestinationShowcase = () => {
                     {(destination as any).card?.tags && (destination as any).card.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-4">
                         {(destination as any).card.tags.slice(0, 3).map((tag: string, index: number) => (
-                          <span key={index} className="bg-white/30 backdrop-blur-sm text-white font-medium text-xs px-3 py-1.5 rounded-full shadow-sm border border-white/20">
+                          <span key={index} className="bg-white/15 text-white/90 text-xs px-3 py-1 rounded-md">
                             {tag}
                           </span>
                         ))}
