@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ArrowRight } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
 // Define the type for destination data
@@ -88,7 +88,7 @@ const DestinationCard = ({ destination, index, isActive, onClick }: DestinationC
                     ? destination.card.tags 
                     : highlightItems
                   ).slice(0, 3).map((tag: string, idx: number) => (
-                    <span key={idx} className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+                    <span key={idx} className="bg-white/30 backdrop-blur-sm text-white font-medium text-sm px-3 py-1.5 rounded-full shadow-sm border border-white/20">
                       {tag}
                     </span>
                   ))}
@@ -96,19 +96,19 @@ const DestinationCard = ({ destination, index, isActive, onClick }: DestinationC
 
                 <Link 
                   href={`/destination/${destination.slug}`} 
-                  className="inline-flex items-center mt-4 bg-white/20 backdrop-blur-sm hover:bg-white/30 
-                           text-white font-medium py-2 px-5 rounded-full transition group"
+                  className="inline-flex items-center mt-4 bg-white/30 backdrop-blur-sm hover:bg-white/40 
+                           text-white font-medium py-2.5 px-6 rounded-full transition group border border-white/20 shadow-md"
                 >
                   Explore Destination
-                  <ChevronRight className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" />
+                  <ChevronRight className="w-5 h-5 ml-1.5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             )}
           </div>
           
           {/* Numbered index badge */}
-          <div className="absolute top-6 left-6 w-10 h-10 flex items-center justify-center 
-                        bg-white/20 backdrop-blur-sm rounded-full text-white font-medium">
+          <div className="absolute top-6 left-6 w-11 h-11 flex items-center justify-center 
+                       bg-white/30 backdrop-blur-sm rounded-full text-white font-medium border border-white/20 shadow-md">
             {String(index+1).padStart(2, '0')}
           </div>
         </div>
@@ -231,8 +231,12 @@ export function ModernDestinationShowcase() {
         
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <Link href="/contact" className="inline-block bg-white text-black hover:bg-white/90 font-medium py-4 px-10 rounded-full transition">
+          <Link 
+            href="/contact" 
+            className="inline-flex items-center bg-white text-black hover:bg-white/90 font-medium py-4 px-12 rounded-full transition shadow-lg group"
+          >
             Book Your Journey
+            <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>
