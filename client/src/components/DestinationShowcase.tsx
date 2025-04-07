@@ -105,17 +105,17 @@ const DestinationShowcase = () => {
   }
 
   return (
-    <section id="destinations" className="py-20 bg-gradient-to-b from-[#0F4C81]/5 to-[#0F4C81]/10">
+    <section id="destinations" className="py-20 bg-gradient-to-b from-[#FAF9F6] to-[#0077B6]/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="flex items-center justify-center">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Stunning Destinations</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">Stunning Destinations</h2>
             <button 
               onClick={() => {
                 // This will force a fresh fetch from the server
                 queryClient.invalidateQueries({ queryKey });
               }}
-              className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
+              className="ml-3 mb-4 p-2 text-[#0077B6] hover:text-[#005f92] transition-colors rounded-full"
               aria-label="Refresh destinations"
               title="Refresh destinations"
             >
@@ -129,7 +129,7 @@ const DestinationShowcase = () => {
           {/* Navigation buttons */}
           <button
             onClick={scrollLeft}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F4C81] rounded-full p-2 shadow-md -ml-4 transition ${
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0077B6] rounded-full p-2 shadow-md -ml-4 transition ${
               !canScrollLeft ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
             }`}
             disabled={!canScrollLeft}
@@ -140,7 +140,7 @@ const DestinationShowcase = () => {
           
           <button
             onClick={scrollRight}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F4C81] rounded-full p-2 shadow-md -mr-4 transition ${
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0077B6] rounded-full p-2 shadow-md -mr-4 transition ${
               !canScrollRight ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
             }`}
             disabled={!canScrollRight}
@@ -162,7 +162,7 @@ const DestinationShowcase = () => {
               return (
                 <div
                   key={destination.id}
-                  className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start group relative overflow-hidden rounded-lg shadow-lg h-80"
+                  className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start group relative overflow-hidden rounded-lg shadow-lg h-80 transition-transform duration-300 hover:translate-y-[-5px] hover:shadow-xl"
                 >
                   {((destination as any).card?.image?.publicId || (destination as any).images?.card || destination.imageUrl || ((destination as any).heroImage && (destination as any).heroImage.publicId)) ? (
                     <div className="w-full h-full transition duration-700 group-hover:scale-110">
@@ -211,12 +211,12 @@ const DestinationShowcase = () => {
                       No Image Available
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/90 via-[#004E64]/40 to-transparent transition-opacity duration-300 group-hover:opacity-90"></div>
                   <div className="absolute bottom-0 left-0 p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2">
+                    <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2 group-hover:text-[#F6E27F] transition-colors duration-300">
                       {(destination as any).card?.heading || (destination as any).card?.header || (destination as any).card?.title || destination.name || 'Destination'}
                     </h3>
-                    <p className="text-white/80 mb-4 max-w-xs">
+                    <p className="text-white/90 mb-4 max-w-xs line-clamp-2 group-hover:line-clamp-3 transition-all duration-300">
                       {(destination as any).card?.body || (destination as any).card?.subtitle || 
                        destination.excerpt || 
                        destination.shortDescription || 
@@ -224,9 +224,9 @@ const DestinationShowcase = () => {
                        'Description not available'}
                     </p>
                     {(destination as any).card?.tags && (destination as any).card.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-1.5 mb-4 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
                         {(destination as any).card.tags.slice(0, 3).map((tag: string, index: number) => (
-                          <span key={index} className="bg-white/15 text-white/90 text-[0.9rem] px-3 py-0.5 rounded-md leading-6">
+                          <span key={index} className="bg-[#F6E27F]/20 text-white/95 text-[0.9rem] px-3 py-0.5 rounded-md leading-6 backdrop-blur-sm">
                             {tag}
                           </span>
                         ))}
@@ -234,8 +234,8 @@ const DestinationShowcase = () => {
                     )}
                     <a href={`/destination/${destination.slug || destination.id}`} 
                       className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] 
-                                text-white font-medium py-1.5 px-4 rounded-full transition group shadow-sm">
-                      Explore <LucideChevronRightArrow className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                                text-white font-medium py-2 px-5 rounded-full transition group shadow-md">
+                      Explore <LucideChevronRightArrow className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
                     </a>
                   </div>
                 </div>
