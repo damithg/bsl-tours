@@ -261,18 +261,18 @@ const TourPackages = () => {
                         {tour.card?.body || tour.cardImage?.caption || tour.summary}
                       </p>
                       <div className="flex justify-between items-center">
-                        <div>
+                        <div className="flex flex-col">
                           <span className="text-sm text-gray-500">From</span>
-                          <span className="text-[#0F4C81] text-xl font-semibold">
+                          <span className="text-[#0077B6] text-xl font-semibold block">
                             {formatPrice(tour.startingFrom, { currency: tour.currency })}
                           </span>
-                          <span className="text-gray-500 text-sm">per person</span>
+                          <span className="text-gray-500 text-sm block">per person</span>
                         </div>
                         <Link 
                           href={`/tours/${tour.slug}`} 
-                          className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-md transition"
+                          className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
                         >
-                          View Details
+                          Explore <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1"><path d="m9 18 6-6-6-6"/></svg>
                         </Link>
                       </div>
                     </div>
@@ -289,8 +289,8 @@ const TourPackages = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-6">Customize Your Journey</h2>
             <p className="text-lg text-[#333333]/80 mb-8">Don't see exactly what you're looking for? Our travel experts can create a completely customized itinerary tailored to your preferences.</p>
-            <Link href="/contact" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-md transition">
-              Contact Us to Customize
+            <Link href="/contact" className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-3 px-8 rounded-full transition shadow-md hover:shadow-lg">
+              Contact Us to Customize <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 ml-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
             </Link>
           </div>
         </div>

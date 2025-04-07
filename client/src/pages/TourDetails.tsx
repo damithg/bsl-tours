@@ -327,9 +327,10 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               </div>
               <div>
                 <div className="text-sm text-gray-500">From</div>
-                <div className="font-medium text-primary">
+                <div className="font-semibold text-[#0077B6] text-lg">
                   {formatPrice(tourData.startingFrom, { currency: tourData.currency })}
                 </div>
+                <div className="text-gray-500 text-xs">per person</div>
               </div>
             </div>
           </div>
@@ -593,53 +594,59 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   </div>
                 </div>
                 
-                <div className="flex items-baseline mb-6">
-                  <span className="text-3xl font-bold text-gray-900">
+                <div className="flex flex-col mb-6">
+                  <span className="text-3xl font-bold text-[#0077B6]">
                     {formatPrice(tourData.startingFrom, { currency: tourData.currency })}
                   </span>
-                  <span className="text-gray-500 ml-2">per person</span>
+                  <span className="text-gray-500 text-sm mt-1">per person</span>
                 </div>
                 
                 <div className="space-y-6">
                   <button
                     onClick={() => handleNavClick('contact')}
-                    className="w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded-md font-medium transition flex items-center justify-center"
+                    className="w-full bg-[#0077B6] hover:bg-[#005f92] text-white py-3 px-4 rounded-full font-medium transition flex items-center justify-center shadow-md hover:shadow-lg"
                   >
-                    Book Now
+                    Book Now <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-1.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                   </button>
                   
                   <button
                     onClick={() => handleNavClick('contact')}
-                    className="w-full bg-white hover:bg-gray-50 text-primary border border-primary py-3 px-4 rounded-md font-medium transition flex items-center justify-center"
+                    className="w-full bg-white hover:bg-gray-50 text-[#0077B6] border border-[#0077B6] py-3 px-4 rounded-full font-medium transition flex items-center justify-center shadow-sm hover:shadow-md"
                   >
                     Request Custom Quote
                   </button>
                 </div>
                 
                 <div className="mt-6 pt-6 border-t border-gray-200">
-                  <div className="bg-yellow-50 border border-yellow-100 rounded-md p-4">
-                    <h3 className="font-medium text-yellow-800 mb-1">Special Offer</h3>
-                    <p className="text-sm text-yellow-700">Book now and receive a complimentary airport transfer!</p>
+                  <div className="bg-[#F8F3E2] border border-[#F6E27F]/30 rounded-xl p-4 shadow-sm">
+                    <h3 className="font-medium text-[#8B7727] mb-1 flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                      Special Offer
+                    </h3>
+                    <p className="text-sm text-[#6B5900] ml-7">Book now and receive a complimentary airport transfer!</p>
                   </div>
                 </div>
               </div>
               
               {/* Need Help Card */}
-              <div className="bg-gray-50 rounded-lg shadow-sm p-6 border border-gray-100">
-                <h3 className="font-semibold text-gray-800 mb-4">Need Help?</h3>
+              <div className="bg-[#EFF8FC] rounded-xl shadow-sm p-6 border border-[#0077B6]/10">
+                <h3 className="font-semibold text-[#0077B6] mb-4 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                  Need Help?
+                </h3>
                 
-                <p className="text-gray-600 text-sm mb-4">
+                <p className="text-gray-600 text-sm mb-5 ml-7">
                   Our travel experts are here to assist you with planning your perfect Sri Lanka experience.
                 </p>
                 
-                <div className="space-y-3">
+                <div className="space-y-4 ml-7">
                   <div className="flex items-center">
-                    <Phone className="w-4 h-4 text-primary mr-2" />
+                    <Phone className="w-4 h-4 text-[#0077B6] mr-3" />
                     <span className="text-gray-800 font-medium">+94 77 123 4567</span>
                   </div>
                   
                   <div className="flex items-center">
-                    <Mail className="w-4 h-4 text-primary mr-2" />
+                    <Mail className="w-4 h-4 text-[#0077B6] mr-3" />
                     <span className="text-gray-800 font-medium">info@bestsrilankatours.com</span>
                   </div>
                 </div>

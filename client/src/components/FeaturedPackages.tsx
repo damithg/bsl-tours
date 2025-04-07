@@ -394,18 +394,18 @@ const FeaturedPackages = () => {
                         {tour.card?.body || tour.cardImage?.caption || tour.summary}
                       </p>
                       <div className="flex justify-between items-center">
-                        <div>
+                        <div className="flex flex-col">
                           <span className="text-sm text-gray-500">From</span>
-                          <span className="text-[#0F4C81] text-xl font-semibold">
+                          <span className="text-[#0077B6] text-xl font-semibold block">
                             {formatPrice(tour.startingFrom || 0, { currency: tour.currency || 'USD' })}
                           </span>
-                          <span className="text-gray-500 text-sm">per person</span>
+                          <span className="text-gray-500 text-sm block">per person</span>
                         </div>
                         <Link 
                           href={`/tours/${tour.slug}`} 
-                          className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-1.5 px-4 rounded-full transition group shadow-sm"
+                          className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
                         >
-                          Explore <LucideChevronRightArrow className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                          Explore <LucideChevronRightArrow className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
                         </Link>
                       </div>
                     </div>
