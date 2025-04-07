@@ -296,15 +296,12 @@ const Experiences = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative h-full flex flex-col justify-center">
           <div className="max-w-4xl">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-              <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-5xl font-bold text-white md:mb-0 mb-4">
-                Curated Luxury Experiences
-              </h1>
-              <p className="text-xl text-white/90 md:ml-8 md:text-right">
-                Handcrafted Sri Lankan luxury
-              </p>
-            </div>
-            <div className="h-8"></div> {/* Spacer */}
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-3 text-center md:text-left">
+              Curated Luxury Experiences
+            </h1>
+            <p className="text-xl text-white/90 mb-6 text-center md:text-left">
+              Handcrafted Sri Lankan luxury
+            </p>
             <div className="relative max-w-xl">
               <div className="flex rounded-lg overflow-hidden shadow-lg">
                 <div className="flex-grow relative bg-white">
