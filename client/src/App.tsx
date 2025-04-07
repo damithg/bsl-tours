@@ -14,6 +14,7 @@ import DestinationMap from "@/pages/DestinationMap";
 import TravelPlanner from "@/pages/TravelPlanner";
 import CustomTourRequest from "@/pages/CustomTourRequest";
 import Experiences from "@/pages/Experiences";
+import ExperiencesAlternative from "@/pages/ExperiencesAlternative";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import GalleryTest from "@/pages/GalleryTest";
@@ -72,6 +73,7 @@ function Router() {
           {(params) => <CustomTourRequest {...params} />}
         </Route>
         <Route path="/experiences" component={Experiences} />
+        <Route path="/experiences-premium" component={ExperiencesAlternative} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="/gallery-test" component={GalleryTest} />

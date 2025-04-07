@@ -353,6 +353,11 @@ const Experiences = () => {
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-4">Experience Categories</h2>
             <p className="text-lg text-[#333333]/80">Browse our diverse range of experiences by category</p>
+            <p className="mt-2 text-sm text-[#0077B6]">
+              <Link href="/experiences-premium" className="inline-flex items-center underline hover:text-[#005f92]">
+                Try our premium design <ChevronRight className="w-4 h-4 ml-1" />
+              </Link>
+            </p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
