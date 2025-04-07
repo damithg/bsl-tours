@@ -123,15 +123,6 @@ const DestinationShowcase = () => {
             </button>
           </div>
           <p className="text-lg text-[#333333]/80">Discover Sri Lanka's most breathtaking locations, where luxury and natural beauty combine for unforgettable experiences.</p>
-          <div className="mt-6">
-            <a 
-              href="/destinations" 
-              className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
-            >
-              View All Destinations
-              <LucideChevronRightArrow className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-            </a>
-          </div>
         </div>
         
         <div className="relative">
@@ -252,6 +243,16 @@ const DestinationShowcase = () => {
             })}
 
           </div>
+        </div>
+        
+        <div className="text-center mt-12">
+          <a 
+            href="/destinations" 
+            className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+          >
+            View All Destinations
+            <LucideChevronRightArrow className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+          </a>
         </div>
       </div>
     </section>
