@@ -475,41 +475,48 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               </h2>
               
               {tourData.itinerary && tourData.itinerary.length > 0 ? (
-                <div className="grid gap-6">
+                <div className="grid gap-4">
                   {tourData.itinerary.map((day, index) => (
                     <div 
                       key={`day-${day.day}`} 
                       className={`
-                        border rounded-xl overflow-hidden bg-transparent
-                        ${index === activeDay - 1 ? 'border-primary shadow-md' : 'border-gray-200'}
+                        border border-gray-200 overflow-hidden rounded-xl
+                        ${index === activeDay - 1 ? 'ring-2 ring-primary shadow-sm' : ''}
                         transition-all duration-300
                       `}
                     >
                       {/* Expandable header with day number and title */}
                       <div 
                         className={`
-                          p-5 cursor-pointer flex items-center justify-between
-                          ${index === activeDay - 1 ? 'bg-primary text-white' : 'bg-gray-50 text-gray-800'}
+                          py-5 px-6 cursor-pointer flex items-center justify-between
+                          transition-all duration-300
+                          ${index === activeDay - 1 ? 'bg-primary/5' : 'bg-white'}
                         `}
                         onClick={() => setActiveDay(day.day)}
                       >
                         {/* Left side with day number and title */}
                         <div className="flex items-center">
-                          <div 
-                            className={`
-                              w-auto px-3 py-1 rounded-md flex items-center justify-center mr-4
-                              text-sm font-medium border ${index === activeDay - 1 
-                                ? 'bg-white text-primary border-primary' 
-                                : 'bg-primary/10 text-primary border-primary/20'}
-                            `}
-                          >
-                            Day {day.day}
+                          <div className="flex flex-col items-center justify-center mr-5 relative">
+                            <div className="font-['Playfair_Display'] text-3xl font-bold text-primary">{day.day}</div>
+                            <div className="text-xs uppercase tracking-wider text-gray-500 -mt-1">Day</div>
+                            
+                            {/* Vertical line for connected days */}
+                            {index < tourData.itinerary.length - 1 && (
+                              <div className="absolute w-px h-16 bg-gray-200 top-full left-1/2 transform -translate-x-1/2"></div>
+                            )}
                           </div>
-                          <h3 className="font-bold text-lg">{day.title}</h3>
+                          
+                          <h3 className="font-bold text-lg text-gray-800">{day.title}</h3>
                         </div>
                         
                         {/* Expand/collapse indicator */}
-                        <div className={`transition-transform ${index === activeDay - 1 ? 'rotate-180' : 'rotate-0'}`}>
+                        <div 
+                          className={`
+                            transition-all duration-300 flex items-center justify-center
+                            w-8 h-8 rounded-full border border-gray-200
+                            ${index === activeDay - 1 ? 'bg-primary text-white rotate-180' : 'bg-white text-primary rotate-0'}
+                          `}
+                        >
                           <ChevronDown className="w-5 h-5" />
                         </div>
                       </div>
@@ -517,42 +524,42 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       {/* Expandable content */}
                       <div 
                         className={`
-                          transition-all duration-300 overflow-hidden
-                          ${index === activeDay - 1 ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}
+                          transition-all duration-300 overflow-hidden bg-white
+                          ${index === activeDay - 1 ? 'max-h-[2000px] opacity-100 border-t border-gray-100' : 'max-h-0 opacity-0 border-t-0'}
                         `}
                       >
-                        <div className="p-6 border-t border-gray-200 bg-white">
+                        <div className="p-6">
                           {/* Two-column layout on larger screens */}
                           <div className="flex flex-col lg:flex-row gap-8">
                             {/* Description column */}
                             <div className="lg:w-3/5 order-2 lg:order-1">
-                              <div className="prose prose-sm md:prose max-w-none text-gray-700">
+                              <div className="prose prose-sm md:prose max-w-none text-gray-600">
                                 {/* Convert description to paragraphs based on new lines */}
                                 {day.description.split('\n').filter(para => para.trim() !== '').map((paragraph, idx) => (
-                                  <p key={`para-${idx}`}>{paragraph}</p>
+                                  <p key={`para-${idx}`} className="mb-4">{paragraph}</p>
                                 ))}
                               </div>
                               
                               {/* Accommodation and meals section */}
                               <div className="mt-6 flex flex-wrap gap-3 items-center">
-                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-md text-sm">
+                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-full text-sm bg-gray-50">
                                   <Hotel className="w-4 h-4 mr-2 text-primary" />
-                                  <span>5-Star Hotel</span>
+                                  <span className="text-gray-700">5-Star Hotel</span>
                                 </div>
                                 
-                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-md text-sm">
-                                  <Coffee className="w-4 h-4 mr-2 text-primary" />
-                                  <span>Breakfast</span>
+                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-full text-sm bg-blue-50">
+                                  <Coffee className="w-4 h-4 mr-2 text-blue-600" />
+                                  <span className="text-gray-700">Breakfast</span>
                                 </div>
                                 
-                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-md text-sm">
-                                  <UtensilsCrossed className="w-4 h-4 mr-2 text-primary" />
-                                  <span>Lunch</span>
+                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-full text-sm bg-amber-50">
+                                  <UtensilsCrossed className="w-4 h-4 mr-2 text-amber-600" />
+                                  <span className="text-gray-700">Lunch</span>
                                 </div>
                                 
-                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-md text-sm">
-                                  <UtensilsCrossed className="w-4 h-4 mr-2 text-primary" />
-                                  <span>Dinner</span>
+                                <div className="flex items-center border border-gray-200 py-2 px-4 rounded-full text-sm bg-green-50">
+                                  <UtensilsCrossed className="w-4 h-4 mr-2 text-green-600" />
+                                  <span className="text-gray-700">Dinner</span>
                                 </div>
                               </div>
                             </div>
@@ -560,11 +567,11 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                             {/* Image column */}
                             {day.image && (day.image.large || day.image.medium || day.image.small || day.image.baseUrl) && (
                               <div className="lg:w-2/5 order-1 lg:order-2 mb-6 lg:mb-0">
-                                <div className="rounded-xl overflow-hidden shadow-md h-60 lg:h-full">
+                                <div className="rounded-xl overflow-hidden shadow-sm h-60 lg:h-full border border-gray-100">
                                   <img 
                                     src={day.image.large || day.image.medium || day.image.small || day.image.baseUrl}
                                     alt={day.image.alt || `Day ${day.day}: ${day.title}`}
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                   />
                                 </div>
                               </div>
