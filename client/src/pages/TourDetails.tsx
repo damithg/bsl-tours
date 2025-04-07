@@ -225,7 +225,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
       {/* We're replacing the separate breadcrumb with the one in the hero image */}
       
       {/* Hero Section with Full-Width Image */}
-      <section className="relative">
+      <section className="relative pt-[65px] md:pt-0">
         <div className="aspect-[21/9] lg:aspect-[3/1] w-full overflow-hidden relative">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           {tourData.heroImage ? (
