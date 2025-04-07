@@ -29,6 +29,7 @@ interface Category {
   description: string;
   icon: string;
   color: string;
+  imageUrl: string;
 }
 
 const Experiences = () => {
@@ -44,42 +45,48 @@ const Experiences = () => {
       name: 'Cultural',
       description: 'Authentic cultural encounters and heritage sites',
       icon: 'fa-landmark',
-      color: 'bg-[#88B04B]/10 text-[#88B04B]'
+      color: 'bg-[#88B04B]/10 text-[#88B04B]',
+      imageUrl: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'adventure',
       name: 'Adventure',
       description: 'Thrilling outdoor activities and expeditions',
       icon: 'fa-mountain',
-      color: 'bg-[#0077B6]/10 text-[#0077B6]'
+      color: 'bg-[#0077B6]/10 text-[#0077B6]',
+      imageUrl: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'wellness',
       name: 'Wellness',
       description: 'Rejuvenating spa treatments and wellness rituals',
       icon: 'fa-spa',
-      color: 'bg-[#F26B6B]/10 text-[#F26B6B]'
+      color: 'bg-[#F26B6B]/10 text-[#F26B6B]',
+      imageUrl: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'culinary',
       name: 'Culinary',
       description: 'Exquisite dining and gastronomic adventures',
       icon: 'fa-utensils',
-      color: 'bg-[#D4AF37]/10 text-[#D4AF37]'
+      color: 'bg-[#D4AF37]/10 text-[#D4AF37]',
+      imageUrl: 'https://images.unsplash.com/photo-1564671165093-20688ff1fffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'romantic',
       name: 'Romantic',
       description: 'Special moments for couples and honeymooners',
       icon: 'fa-heart',
-      color: 'bg-[#F26B6B]/10 text-[#F26B6B]'
+      color: 'bg-[#F26B6B]/10 text-[#F26B6B]',
+      imageUrl: 'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'family',
       name: 'Family',
       description: 'Kid-friendly activities for memorable family vacations',
       icon: 'fa-users',
-      color: 'bg-[#0077B6]/10 text-[#0077B6]'
+      color: 'bg-[#0077B6]/10 text-[#0077B6]',
+      imageUrl: 'https://images.unsplash.com/photo-1625456381035-d7e0ea18eaa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     }
   ];
   
@@ -364,15 +371,29 @@ const Experiences = () => {
             {categories.map((category) => (
               <button
                 key={category.id}
-                className={`bg-white p-6 rounded-xl shadow-sm border transition-all hover:shadow-md 
-                  ${selectedCategory === category.id ? 'border-[#0077B6] ring-2 ring-[#0077B6]/20' : 'border-gray-100'}`}
+                className={`group relative overflow-hidden rounded-xl shadow-md transition-all hover:shadow-lg 
+                  ${selectedCategory === category.id ? 'ring-4 ring-[#0077B6]' : ''}`}
                 onClick={() => setSelectedCategory(selectedCategory === category.id ? null : category.id)}
               >
-                <div className={`w-16 h-16 mx-auto rounded-full ${category.color} flex items-center justify-center mb-4`}>
-                  <i className={`fas ${category.icon} text-2xl`}></i>
+                {/* Background Image */}
+                <div className="aspect-[4/3] w-full">
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                    style={{ backgroundImage: `url('${category.imageUrl}')` }}
+                  ></div>
+                  
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20"></div>
+                  
+                  {/* Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
+                    <div className={`w-10 h-10 rounded-full ${category.color} mb-2 flex items-center justify-center`}>
+                      <i className={`fas ${category.icon}`}></i>
+                    </div>
+                    <h3 className="font-['Playfair_Display'] text-lg font-semibold text-white mb-1">{category.name}</h3>
+                    <p className="text-xs text-white/80 line-clamp-2">{category.description}</p>
+                  </div>
                 </div>
-                <h3 className="font-['Playfair_Display'] font-semibold text-gray-800 mb-2">{category.name}</h3>
-                <p className="text-sm text-gray-500 line-clamp-2">{category.description}</p>
               </button>
             ))}
           </div>
