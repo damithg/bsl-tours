@@ -15,7 +15,7 @@ interface AnimatedRouteMapProps {
   title?: string;
   mapImage?: string;
   points: MapPoint[];
-  activeDay?: number;
+  activeDay?: number | null;
   className?: string;
   onPointClick?: (pointId: number | string) => void;
 }

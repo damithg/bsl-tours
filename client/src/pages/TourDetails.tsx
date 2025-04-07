@@ -30,7 +30,7 @@ interface TourDetailsProps {
 }
 
 const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
-  const [activeDay, setActiveDay] = useState(1);
+  const [activeDay, setActiveDay] = useState<number | null>(1);
   const [activeSection, setActiveSection] = useState('overview');
   const { formatPrice } = useCurrency();
   
@@ -479,44 +479,30 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   {tourData.itinerary.map((day, index) => (
                     <div 
                       key={`day-${day.day}`} 
-                      className={`
-                        border border-gray-200 overflow-hidden rounded-xl
-                        ${index === activeDay - 1 ? 'ring-2 ring-primary shadow-sm' : ''}
-                        transition-all duration-300
-                      `}
+                      className="border border-gray-200 overflow-hidden rounded-xl transition-all duration-300"
                     >
                       {/* Expandable header with day number and title */}
                       <div 
-                        className={`
-                          py-5 px-6 cursor-pointer flex items-center justify-between
-                          transition-all duration-300
-                          ${index === activeDay - 1 ? 'bg-primary/5' : 'bg-white'}
-                        `}
-                        onClick={() => setActiveDay(day.day)}
+                        className="py-4 px-6 cursor-pointer flex items-center justify-between bg-white"
+                        onClick={() => setActiveDay(activeDay === day.day ? null : day.day)}
                       >
                         {/* Left side with day number and title */}
                         <div className="flex items-center">
-                          <div className="flex flex-col items-center justify-center mr-5 relative">
-                            <div className="font-['Playfair_Display'] text-3xl font-bold text-primary">{day.day}</div>
-                            <div className="text-xs uppercase tracking-wider text-gray-500 -mt-1">Day</div>
-                            
-                            {/* Vertical line for connected days */}
-                            {index < tourData.itinerary.length - 1 && (
-                              <div className="absolute w-px h-16 bg-gray-200 top-full left-1/2 transform -translate-x-1/2"></div>
-                            )}
+                          <div className="flex items-center justify-center mr-4">
+                            <div className="px-3 py-1 rounded-md border border-gray-300 text-gray-700 text-sm font-medium">
+                              Day {day.day}
+                            </div>
                           </div>
                           
                           <h3 className="font-bold text-lg text-gray-800">{day.title}</h3>
                         </div>
                         
                         {/* Expand/collapse indicator */}
-                        <div 
-                          className={`
-                            transition-all duration-300 flex items-center justify-center
-                            w-8 h-8 rounded-full border border-gray-200
-                            ${index === activeDay - 1 ? 'bg-primary text-white rotate-180' : 'bg-white text-primary rotate-0'}
-                          `}
-                        >
+                        <div className={`
+                          w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center
+                          ${activeDay === day.day ? 'text-primary rotate-180' : 'text-gray-500 rotate-0'}
+                          transition-all duration-300
+                        `}>
                           <ChevronDown className="w-5 h-5" />
                         </div>
                       </div>
@@ -525,7 +511,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                       <div 
                         className={`
                           transition-all duration-300 overflow-hidden bg-white
-                          ${index === activeDay - 1 ? 'max-h-[2000px] opacity-100 border-t border-gray-100' : 'max-h-0 opacity-0 border-t-0'}
+                          ${activeDay === day.day ? 'max-h-[2000px] opacity-100 border-t border-gray-100' : 'max-h-0 opacity-0 border-t-0'}
                         `}
                       >
                         <div className="p-6">
