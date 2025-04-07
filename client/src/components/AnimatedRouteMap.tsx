@@ -42,12 +42,15 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
 
   // Effect to handle day change and trigger animation
   useEffect(() => {
-    if (activeDay !== undefined) {
+    if (activeDay !== undefined && activeDay !== null) {
       // Find the point for this day
       const pointForDay = points.find(p => p.day === activeDay);
       if (pointForDay) {
         setSelectedPoint(pointForDay.id);
       }
+    } else {
+      // When activeDay is null or undefined, clear the selection
+      setSelectedPoint(null);
     }
   }, [activeDay, points]);
 
@@ -247,7 +250,7 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
               {/* Destination markers */}
               {points.map((point) => {
                 const isActivePoint = point.id === selectedPoint || point.isActive;
-                const isCurrentDayPoint = point.day === activeDay;
+                const isCurrentDayPoint = activeDay !== null && point.day === activeDay;
                 
                 return (
                   <g key={`marker-${point.id}`}>

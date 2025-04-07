@@ -1,9 +1,11 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
+import useEmblaCarousel from 'embla-carousel-react';
 import { 
   Calendar, Check, Heart, Hotel, Map, Phone, Flag, List, X, Star, Globe, Clock, 
-  Users, PiggyBank, Compass, Camera, Info, Mail, ChevronDown, Coffee, UtensilsCrossed 
+  Users, PiggyBank, Compass, Camera, Info, Mail, ChevronDown, Coffee, UtensilsCrossed,
+  ChevronLeft, ChevronRight
 } from "lucide-react";
 import { AsymmetricalGallery, GalleryImage } from "@/components/AsymmetricalGallery";
 import EnhancedItineraryItem from "@/components/EnhancedItineraryItem";
@@ -33,6 +35,37 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   const [activeDay, setActiveDay] = useState<number | null>(1);
   const [activeSection, setActiveSection] = useState('overview');
   const { formatPrice } = useCurrency();
+  
+  // Set up Embla carousel for mobile gallery
+  const [emblaGalleryRef, emblaGalleryApi] = useEmblaCarousel({ loop: true });
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  
+  // Gallery carousel controls
+  const onSelectGallery = useCallback(() => {
+    if (!emblaGalleryApi) return;
+    setGalleryIndex(emblaGalleryApi.selectedScrollSnap());
+  }, [emblaGalleryApi]);
+
+  const scrollPrevGallery = useCallback(() => {
+    if (emblaGalleryApi) emblaGalleryApi.scrollPrev();
+  }, [emblaGalleryApi]);
+
+  const scrollNextGallery = useCallback(() => {
+    if (emblaGalleryApi) emblaGalleryApi.scrollNext();
+  }, [emblaGalleryApi]);
+  
+  // Initialize Gallery Carousel
+  useEffect(() => {
+    if (!emblaGalleryApi) return;
+    
+    // Add event listeners
+    emblaGalleryApi.on('select', onSelectGallery);
+    onSelectGallery();
+    
+    return () => {
+      emblaGalleryApi.off('select', onSelectGallery);
+    };
+  }, [emblaGalleryApi, onSelectGallery]);
   
   // References to each section for scroll behavior
   const overviewRef = useRef<HTMLDivElement>(null);
@@ -658,7 +691,68 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
           </h2>
           
           {galleryImages && galleryImages.length > 0 ? (
-            <AsymmetricalGallery images={galleryImages} />
+            <>
+              {/* Desktop Gallery */}
+              <div className="hidden md:block">
+                <AsymmetricalGallery images={galleryImages} />
+              </div>
+              
+              {/* Mobile Carousel */}
+              <div className="md:hidden relative">
+                <div className="overflow-hidden" ref={emblaGalleryRef as React.RefObject<HTMLDivElement>}>
+                  <div className="flex">
+                    {galleryImages.map((image, index) => (
+                      <div key={`carousel-${index}`} className="flex-[0_0_100%] min-w-0 relative">
+                        <div className="h-64 relative">
+                          <img 
+                            src={image.medium || image.url || image.baseUrl}
+                            alt={image.alt}
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                          {image.caption && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
+                              <p className="text-sm">{image.caption}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Navigation buttons */}
+                <button 
+                  onClick={scrollPrevGallery} 
+                  className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full p-2 text-[#0077B6] shadow-md z-10"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={scrollNextGallery} 
+                  className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/70 hover:bg-white/90 rounded-full p-2 text-[#0077B6] shadow-md z-10"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                
+                {/* Pagination dots */}
+                <div className="flex justify-center gap-1 mt-3">
+                  {galleryImages.map((_, index) => (
+                    <button
+                      key={`dot-${index}`}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        galleryIndex === index
+                          ? "bg-primary w-4"
+                          : "bg-gray-300"
+                      }`}
+                      onClick={() => emblaGalleryApi?.scrollTo(index)}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
           ) : (
             <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-lg">
               <p className="text-gray-500">No gallery images available for this tour.</p>
