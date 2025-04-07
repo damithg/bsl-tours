@@ -1,5 +1,4 @@
-// Import from color-thief-node instead of colorthief
-import { getColorFromURL } from 'color-thief-node';
+// No longer using color-thief-node or colorthief
 import { Color, ColorPalette } from '@/components/ColorPaletteGenerator';
 import { getContrast } from 'color2k';
 
@@ -50,35 +49,11 @@ function getColorName(hex: string): string {
   return colorMap[hex.toUpperCase()] || 'Custom Color';
 }
 
-// Extract a color palette from an image URL using color-thief-node
+// Extract a color palette from an image URL - now always returns the default palette
+// since we removed the color-thief-node dependency
 export async function extractPaletteFromImage(imageUrl: string): Promise<ColorPalette> {
-  try {
-    // Generate predefined colors if running in browser (color-thief-node is Node.js only)
-    if (typeof window !== 'undefined') {
-      // Generate a standard palette for browser environment
-      return createDefaultPalette();
-    }
-    
-    // Server-side color extraction
-    const dominantColor = await getColorFromURL(imageUrl);
-    const colors: Color[] = [
-      {
-        hex: rgbArrayToHex(dominantColor),
-        rgb: rgbToCssString(dominantColor),
-        isLight: isLightColor(rgbArrayToHex(dominantColor)),
-        name: getColorName(rgbArrayToHex(dominantColor))
-      },
-      // Add some variations for the palette
-      ...generateColorVariations(dominantColor)
-    ];
-    
-    // Create the color palette
-    return createPalette(colors);
-  } catch (error) {
-    console.error('Error extracting colors:', error);
-    // Return a default palette if the extraction fails
-    return createDefaultPalette();
-  }
+  // With color-thief-node removed, we always return the default palette
+  return createDefaultPalette();
 }
 
 // Generate color variations based on a dominant color
