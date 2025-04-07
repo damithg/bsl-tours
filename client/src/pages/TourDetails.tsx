@@ -484,7 +484,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                         {/* Left side with day number and title */}
                         <div className="flex items-center">
                           <div className="flex items-center justify-center mr-4">
-                            <div className="px-4 py-1 rounded-md border border-gray-300 text-gray-700 text-sm font-medium whitespace-nowrap">
+                            <div className="px-5 py-1.5 rounded-md border border-gray-300 text-gray-700 text-sm font-semibold whitespace-nowrap">
                               Day {day.day}
                             </div>
                           </div>
