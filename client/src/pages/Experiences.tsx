@@ -306,60 +306,66 @@ const Experiences = () => {
             </div>
             <div className="h-8"></div> {/* Spacer */}
             <div className="relative max-w-xl">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
+              <div className="flex rounded-lg overflow-hidden shadow-lg">
+                <div className="flex-grow relative bg-white">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search experiences..."
+                    className="block w-full bg-white py-3 pl-10 pr-4 text-gray-900 focus:outline-none"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                <button
+                  className="px-4 flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white transition"
+                  onClick={() => setShowFilters(!showFilters)}
+                >
+                  <Filter className="h-5 w-5 mr-2" />
+                  <span>Filters</span>
+                </button>
               </div>
-              <input
-                type="text"
-                placeholder="Search experiences..."
-                className="block w-full bg-white/90 backdrop-blur-sm py-3 pl-10 pr-12 rounded-l-md rounded-r-none shadow-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0077B6]"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button
-                className="absolute inset-y-0 right-0 px-4 flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white rounded-r-md transition"
-                onClick={() => setShowFilters(!showFilters)}
-              >
-                <Filter className="h-5 w-5 mr-2" />
-                <span>Filters</span>
-              </button>
             </div>
             
             {/* Advanced Filters (conditionally shown) */}
             {showFilters && (
-              <div className="mt-4 p-6 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg max-w-xl transition-all">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-gray-700 font-medium mb-2">Duration</label>
-                    <select className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#0077B6]">
-                      <option value="">Any Duration</option>
-                      <option value="half">Half Day</option>
-                      <option value="full">Full Day</option>
-                      <option value="multi">Multi-Day</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-medium mb-2">Price Range</label>
-                    <select className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#0077B6]">
-                      <option value="">Any Price</option>
-                      <option value="budget">Under $100</option>
-                      <option value="mid">$100 - $200</option>
-                      <option value="premium">$200+</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-medium mb-2">Activity Level</label>
-                    <select className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#0077B6]">
-                      <option value="">Any Level</option>
-                      <option value="easy">Easy</option>
-                      <option value="moderate">Moderate</option>
-                      <option value="challenging">Challenging</option>
-                    </select>
+              <div className="mt-4 bg-white rounded-lg shadow-lg max-w-xl transition-all overflow-hidden">
+                <div className="p-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-gray-700 font-medium mb-2">Duration</label>
+                      <select className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-[#0077B6]">
+                        <option value="">Any Duration</option>
+                        <option value="half">Half Day</option>
+                        <option value="full">Full Day</option>
+                        <option value="multi">Multi-Day</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-medium mb-2">Price Range</label>
+                      <select className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-[#0077B6]">
+                        <option value="">Any Price</option>
+                        <option value="budget">Under $100</option>
+                        <option value="mid">$100 - $200</option>
+                        <option value="premium">$200+</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-medium mb-2">Activity Level</label>
+                      <select className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-[#0077B6]">
+                        <option value="">Any Level</option>
+                        <option value="easy">Easy</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="challenging">Challenging</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
-                <div className="mt-4 flex justify-end">
+                <div className="flex justify-end bg-gray-50 py-3 px-6 border-t border-gray-100">
                   <button 
-                    className="bg-[#0077B6] hover:bg-[#005f92] text-white px-4 py-2 rounded-md transition"
+                    className="bg-[#0077B6] hover:bg-[#005f92] text-white px-4 py-2 rounded-lg transition"
                   >
                     Apply Filters
                   </button>
