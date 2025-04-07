@@ -124,8 +124,11 @@ const DestinationShowcase = () => {
           </div>
           <p className="text-lg text-[#333333]/80">Discover Sri Lanka's most breathtaking locations, where luxury and natural beauty combine for unforgettable experiences.</p>
           <div className="mt-6">
-            <a href="/destinations" className="inline-block bg-[#0F4C81] hover:bg-[#0a325a] text-white font-medium py-2 px-6 rounded-full transition">
+            <a href="/destinations" className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-3 px-8 rounded-md shadow-md hover:shadow-lg transition-all duration-300">
               View All Destinations
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
             </a>
           </div>
         </div>

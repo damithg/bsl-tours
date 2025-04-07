@@ -317,17 +317,25 @@ export function applyPaletteToTheme(palette: ColorPalette): void {
   root.style.setProperty('--ring', palette.primary.hex);
   
   // Status colors
-  root.style.setProperty('--destructive', palette.destructive.hex); // Warm Coral
-  root.style.setProperty('--destructive-foreground', '#ffffff');
+  if (palette.destructive) {
+    root.style.setProperty('--destructive', palette.destructive.hex); // Warm Coral
+    root.style.setProperty('--destructive-foreground', '#ffffff');
+  }
   
-  root.style.setProperty('--success', palette.success.hex); // Palm Green
-  root.style.setProperty('--success-foreground', '#ffffff');
+  if (palette.success) {
+    root.style.setProperty('--success', palette.success.hex); // Palm Green
+    root.style.setProperty('--success-foreground', '#ffffff');
+  }
   
-  root.style.setProperty('--warning', palette.warning.hex); // Golden Sand
-  root.style.setProperty('--warning-foreground', '#000000');
+  if (palette.warning) {
+    root.style.setProperty('--warning', palette.warning.hex); // Golden Sand
+    root.style.setProperty('--warning-foreground', '#000000');
+  }
   
-  root.style.setProperty('--info', palette.info.hex); // Sunset Peach
-  root.style.setProperty('--info-foreground', '#000000');
+  if (palette.info) {
+    root.style.setProperty('--info', palette.info.hex); // Sunset Peach
+    root.style.setProperty('--info-foreground', '#000000');
+  }
   
   // Card styles 
   root.style.setProperty('--card', palette.background.hex); // Soft Ivory
