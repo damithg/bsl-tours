@@ -295,13 +295,16 @@ const Experiences = () => {
       <section className="relative h-[50vh] md:h-[60vh] bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1551211645-75a7e04c6c67?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')" }}>
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative h-full flex flex-col justify-center">
-          <div className="max-w-3xl">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              Curated Luxury Experiences
-            </h1>
-            <p className="text-xl text-white/90 mb-8">
-              Discover the essence of Sri Lankan luxury through our handcrafted experiences
-            </p>
+          <div className="max-w-4xl">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+              <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-5xl font-bold text-white md:mb-0 mb-4">
+                Curated Luxury Experiences
+              </h1>
+              <p className="text-xl text-white/90 md:ml-8 md:text-right">
+                Handcrafted Sri Lankan luxury
+              </p>
+            </div>
+            <div className="h-8"></div> {/* Spacer */}
             <div className="relative max-w-xl">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-gray-400" />
@@ -309,12 +312,12 @@ const Experiences = () => {
               <input
                 type="text"
                 placeholder="Search experiences..."
-                className="block w-full bg-white/90 backdrop-blur-sm py-3 pl-10 pr-12 rounded-full shadow-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0077B6]"
+                className="block w-full bg-white/90 backdrop-blur-sm py-3 pl-10 pr-12 rounded-l-md rounded-r-none shadow-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0077B6]"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button
-                className="absolute inset-y-0 right-0 px-4 flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white rounded-r-full transition"
+                className="absolute inset-y-0 right-0 px-4 flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white rounded-r-md transition"
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <Filter className="h-5 w-5 mr-2" />
@@ -356,7 +359,7 @@ const Experiences = () => {
                 </div>
                 <div className="mt-4 flex justify-end">
                   <button 
-                    className="bg-[#0077B6] hover:bg-[#005f92] text-white px-4 py-2 rounded-full transition"
+                    className="bg-[#0077B6] hover:bg-[#005f92] text-white px-4 py-2 rounded-md transition"
                   >
                     Apply Filters
                   </button>
