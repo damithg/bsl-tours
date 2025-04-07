@@ -246,15 +246,7 @@ const FeaturedPackages = () => {
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Sri Lanka Tours</h2>
             <p className="text-lg text-[#333333]/80 mb-4">Currently configuring our tours. Please check back soon!</p>
-            <button 
-              onClick={() => {
-                // Force a refresh
-                queryClient.invalidateQueries({ queryKey });
-              }}
-              className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition flex items-center mx-auto"
-            >
-              <LucideRefreshCw size={18} className="mr-2" /> Refresh Tours
-            </button>
+
           </div>
         </div>
       </section>
@@ -265,20 +257,7 @@ const FeaturedPackages = () => {
     <section id="packages" className="py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="flex items-center justify-center">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Sri Lanka Tours</h2>
-            <button 
-              onClick={() => {
-                // This will force a fresh fetch from the server
-                queryClient.invalidateQueries({ queryKey });
-              }}
-              className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
-              aria-label="Refresh tours"
-              title="Refresh tours"
-            >
-              <LucideRefreshCw size={20} />
-            </button>
-          </div>
+          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Sri Lanka Tours</h2>
           <p className="text-lg text-[#333333]/80">Each journey is tailor-made to reflect your preferences, with private guides, luxury accommodations, and unforgettable experiences.</p>
         </div>
         
