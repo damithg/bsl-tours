@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { useState, useRef } from "react";
-import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw } from "lucide-react";
+import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw, ChevronRight as LucideChevronRightArrow } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 import { AdaptiveImage } from "./ui/adaptive-image";
 import { determineFocalPoint } from "@/lib/image-utils";
@@ -401,7 +401,12 @@ const FeaturedPackages = () => {
                           </span>
                           <span className="text-gray-500 text-sm">per person</span>
                         </div>
-                        <Link href={`/tours/${tour.slug}`} className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-md transition">View Details</Link>
+                        <Link 
+                          href={`/tours/${tour.slug}`} 
+                          className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-1.5 px-4 rounded-full transition group shadow-sm"
+                        >
+                          Explore <LucideChevronRightArrow className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -411,11 +416,12 @@ const FeaturedPackages = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Link href="/tours" className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-3 px-8 rounded-md shadow-md hover:shadow-lg transition-all duration-300">
+          <Link 
+            href="/tours" 
+            className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+          >
             View All Tours
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-            </svg>
+            <LucideChevronRightArrow className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>

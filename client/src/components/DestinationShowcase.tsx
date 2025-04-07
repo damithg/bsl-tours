@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
 import { useState, useRef, useEffect } from "react";
-import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw, ChevronRight } from "lucide-react";
+import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw, ChevronRight as LucideChevronRightArrow } from "lucide-react";
 import { queryClient, getQueryFn } from "@/lib/queryClient";
 import { AdaptiveImage } from "./ui/adaptive-image";
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
@@ -124,11 +124,12 @@ const DestinationShowcase = () => {
           </div>
           <p className="text-lg text-[#333333]/80">Discover Sri Lanka's most breathtaking locations, where luxury and natural beauty combine for unforgettable experiences.</p>
           <div className="mt-6">
-            <a href="/destinations" className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-3 px-8 rounded-md shadow-md hover:shadow-lg transition-all duration-300">
+            <a 
+              href="/destinations" 
+              className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            >
               View All Destinations
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
+              <LucideChevronRightArrow className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         </div>
@@ -243,7 +244,7 @@ const DestinationShowcase = () => {
                     <a href={`/destination/${destination.slug || destination.id}`} 
                       className="inline-flex items-center bg-white/30 backdrop-blur-sm hover:bg-white/40 
                                 text-white font-medium py-1.5 px-4 rounded-full transition group border border-white/20 shadow-sm">
-                      Explore <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                      Explore <LucideChevronRightArrow className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                     </a>
                   </div>
                 </div>
