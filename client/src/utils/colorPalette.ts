@@ -90,26 +90,26 @@ function generateColorVariations(dominantColor: number[]): Color[] {
 
 // Create a default palette when image analysis is not available
 function createDefaultPalette(): ColorPalette {
-  // Luxury gold/navy theme as default
+  // Beach + Ocean Inspired Luxury theme
   const primary: Color = {
-    hex: '#0F4C81', // Navy blue
-    rgb: 'rgb(15, 76, 129)',
+    hex: '#0077B6', // Ocean Blue
+    rgb: 'rgb(0, 119, 182)',
     isLight: false,
-    name: 'Navy Blue'
+    name: 'Ocean Blue'
   };
   
   const secondary: Color = {
-    hex: '#D4AF37', // Gold
-    rgb: 'rgb(212, 175, 55)',
+    hex: '#F6E27F', // Golden Sand
+    rgb: 'rgb(246, 226, 127)',
     isLight: true,
-    name: 'Gold'
+    name: 'Golden Sand'
   };
   
   const accent: Color = {
-    hex: '#6C9BCF', // Light blue
-    rgb: 'rgb(108, 155, 207)',
+    hex: '#F26B6B', // Warm Coral
+    rgb: 'rgb(242, 107, 107)',
     isLight: true,
-    name: 'Light Blue'
+    name: 'Warm Coral'
   };
   
   return {
@@ -117,52 +117,52 @@ function createDefaultPalette(): ColorPalette {
     secondary,
     accent,
     background: {
-      hex: '#FFFFFF',
-      rgb: 'rgb(255, 255, 255)',
+      hex: '#FAF9F6',
+      rgb: 'rgb(250, 249, 246)',
       isLight: true,
-      name: 'White'
+      name: 'Soft Ivory'
     },
     text: {
-      hex: '#1F2937',
-      rgb: 'rgb(31, 41, 55)',
+      hex: '#004E64',
+      rgb: 'rgb(0, 78, 100)',
       isLight: false,
-      name: 'Gray 800'
+      name: 'Deep Teal'
     },
     muted: {
-      hex: '#F3F4F6',
-      rgb: 'rgb(243, 244, 246)',
+      hex: '#A9A9A9',
+      rgb: 'rgb(169, 169, 169)',
       isLight: true,
-      name: 'Gray 100'
+      name: 'Driftwood Gray'
     },
     border: {
-      hex: '#E5E7EB',
-      rgb: 'rgb(229, 231, 235)',
+      hex: '#88B04B',
+      rgb: 'rgb(136, 176, 75)',
       isLight: true,
-      name: 'Gray 200'
+      name: 'Palm Green'
     },
     destructive: {
-      hex: '#EF4444',
-      rgb: 'rgb(239, 68, 68)',
+      hex: '#F26B6B',
+      rgb: 'rgb(242, 107, 107)',
       isLight: false,
-      name: 'Red'
+      name: 'Warm Coral'
     },
     success: {
-      hex: '#10B981',
-      rgb: 'rgb(16, 185, 129)',
+      hex: '#88B04B',
+      rgb: 'rgb(136, 176, 75)',
       isLight: false,
-      name: 'Green'
+      name: 'Palm Green'
     },
     warning: {
-      hex: '#F59E0B',
-      rgb: 'rgb(245, 158, 11)',
+      hex: '#F6E27F',
+      rgb: 'rgb(246, 226, 127)',
       isLight: true,
-      name: 'Amber'
+      name: 'Golden Sand'
     },
     info: {
-      hex: '#3B82F6',
-      rgb: 'rgb(59, 130, 246)',
-      isLight: false,
-      name: 'Blue'
+      hex: '#F8C8DC',
+      rgb: 'rgb(248, 200, 220)',
+      isLight: true,
+      name: 'Sunset Peach'
     }
   };
 }
