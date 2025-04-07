@@ -327,10 +327,12 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               </div>
               <div>
                 <div className="text-sm text-gray-500">Starting from</div>
-                <div className="font-semibold text-[#0077B6] text-lg">
-                  {formatPrice(tourData.startingFrom, { currency: tourData.currency })}
+                <div className="flex items-baseline">
+                  <div className="font-semibold text-[#0077B6] text-lg">
+                    {formatPrice(tourData.startingFrom, { currency: tourData.currency })}
+                  </div>
+                  <div className="text-gray-500 text-xs ml-1.5">/ per person</div>
                 </div>
-                <div className="text-gray-500 text-xs">per person</div>
               </div>
             </div>
           </div>
@@ -594,11 +596,13 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   </div>
                 </div>
                 
-                <div className="flex flex-col mb-6">
-                  <span className="text-3xl font-bold text-[#0077B6]">
-                    {formatPrice(tourData.startingFrom, { currency: tourData.currency })}
-                  </span>
-                  <span className="text-gray-500 text-sm mt-1">per person</span>
+                <div className="mb-6">
+                  <div className="flex items-baseline">
+                    <span className="text-3xl font-bold text-[#0077B6]">
+                      {formatPrice(tourData.startingFrom, { currency: tourData.currency })}
+                    </span>
+                    <span className="text-gray-500 text-sm ml-2">/ per person</span>
+                  </div>
                 </div>
                 
                 <div className="space-y-6">
