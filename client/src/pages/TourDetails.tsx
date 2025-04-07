@@ -326,7 +326,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                 <PiggyBank className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <div className="text-sm text-gray-500">From</div>
+                <div className="text-sm text-gray-500">Starting from</div>
                 <div className="font-semibold text-[#0077B6] text-lg">
                   {formatPrice(tourData.startingFrom, { currency: tourData.currency })}
                 </div>
@@ -587,7 +587,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               {/* Price Card */}
               <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-100">
                 <div className="flex justify-between items-center mb-4">
-                  <div className="text-sm text-gray-500">From</div>
+                  <div className="text-sm text-gray-500">Starting from</div>
                   <div className="flex items-center">
                     <StarRating rating={4.8} size="sm" />
                     <span className="text-gray-500 text-sm ml-1">(48)</span>

@@ -395,7 +395,7 @@ const FeaturedPackages = () => {
                       </p>
                       <div className="flex justify-between items-center">
                         <div className="flex flex-col">
-                          <span className="text-sm text-gray-500">From</span>
+                          <span className="text-sm text-gray-500">Starting from</span>
                           <span className="text-[#0077B6] text-xl font-semibold block">
                             {formatPrice(tour.startingFrom || 0, { currency: tour.currency || 'USD' })}
                           </span>
