@@ -1,3 +1,5 @@
+import { ChevronRight } from "lucide-react";
+
 const ExperienceShowcase = () => {
   const experiences = [
     {
@@ -21,52 +23,107 @@ const ExperienceShowcase = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-b from-white to-[#F8F5F0]/50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center">
-          <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">Curated Luxury Experiences</h2>
-            <p className="text-lg text-[#333333]/80 mb-8">Each journey is crafted with meticulous attention to detail, offering you exclusive access to Sri Lanka's hidden treasures and authentic cultural encounters.</p>
-            
-            <div className="space-y-6">
-              {experiences.map((experience, index) => (
-                <div key={index} className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className={`w-12 h-12 rounded-full ${experience.color === 'ocean-blue' ? 'bg-[#0F4C81]/10' : experience.color === 'tropical-green' ? 'bg-[#2E8B57]/10' : 'bg-[#D4AF37]/10'} flex items-center justify-center`}>
-                      <i className={`fas ${experience.icon} ${experience.color === 'ocean-blue' ? 'text-[#0F4C81]' : experience.color === 'tropical-green' ? 'text-[#2E8B57]' : 'text-[#D4AF37]'}`}></i>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{experience.title}</h3>
-                    <p className="text-[#333333]/70">{experience.description}</p>
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">
+            Curated Luxury Experiences
+          </h2>
+          <p className="text-lg text-[#333333]/80">
+            Each journey is crafted with meticulous attention to detail, offering you exclusive access to Sri Lanka's hidden treasures and authentic cultural encounters.
+          </p>
+        </div>
+        
+        <div className="flex flex-col lg:flex-row items-stretch gap-8 mt-12">
+          {/* Left side - Card grid */}
+          <div className="lg:w-1/2 grid grid-cols-2 gap-5 order-2 lg:order-1">
+            <div className="space-y-5">
+              <div className="rounded-xl overflow-hidden shadow-md h-48 md:h-64 group relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1631631480669-535cc43f2327?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                  alt="Private dining experience" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 text-white">
+                    <p className="font-medium">Private Dining</p>
                   </div>
                 </div>
-              ))}
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-md h-64 md:h-80 group relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1622037022824-0c71d511ef3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                  alt="Luxury spa treatment" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 text-white">
+                    <p className="font-medium">Luxury Spa</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            
-            <a href="#" className="inline-flex items-center text-[#0F4C81] border-b-2 border-[#0F4C81] font-medium hover:text-[#2E8B57] hover:border-[#2E8B57] transition mt-8">
-              Discover All Experiences
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
-            </a>
+            <div className="space-y-5 mt-5 lg:mt-8">
+              <div className="rounded-xl overflow-hidden shadow-md h-64 md:h-80 group relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1623053807566-3da809d5d556?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                  alt="Private yacht experience" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 text-white">
+                    <p className="font-medium">Private Yacht</p>
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-md h-48 md:h-64 group relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1620977861760-f36307a4fb01?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                  alt="Cultural dance performance" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 text-white">
+                    <p className="font-medium">Cultural Performance</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           
-          <div className="lg:w-1/2 grid grid-cols-2 gap-4">
-            <div className="space-y-4">
-              <div className="rounded-lg overflow-hidden shadow-lg h-48 md:h-64">
-                <img src="https://images.unsplash.com/photo-1631631480669-535cc43f2327?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Private dining experience" className="w-full h-full object-cover" />
+          {/* Right side - Experience cards */}
+          <div className="lg:w-1/2 order-1 lg:order-2">
+            <div className="bg-white rounded-xl shadow-sm p-8 h-full">
+              <div className="space-y-8">
+                {experiences.map((experience, index) => (
+                  <div key={index} className="flex items-start">
+                    <div className="flex-shrink-0 mr-5">
+                      <div className={`w-14 h-14 rounded-full flex items-center justify-center
+                        ${experience.color === 'ocean-blue' 
+                          ? 'bg-[#0077B6]/10 text-[#0077B6]' 
+                          : experience.color === 'tropical-green' 
+                            ? 'bg-[#88B04B]/10 text-[#88B04B]' 
+                            : 'bg-[#F6E27F]/20 text-[#D4AF37]'}`}
+                      >
+                        <i className={`fas ${experience.icon} text-xl`}></i>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3 text-gray-800">{experience.title}</h3>
+                      <p className="text-[#333333]/70 text-base">{experience.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="rounded-lg overflow-hidden shadow-lg h-64 md:h-80">
-                <img src="https://images.unsplash.com/photo-1622037022824-0c71d511ef3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Luxury spa treatment" className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div className="space-y-4 mt-8">
-              <div className="rounded-lg overflow-hidden shadow-lg h-64 md:h-80">
-                <img src="https://images.unsplash.com/photo-1623053807566-3da809d5d556?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Private yacht experience" className="w-full h-full object-cover" />
-              </div>
-              <div className="rounded-lg overflow-hidden shadow-lg h-48 md:h-64">
-                <img src="https://images.unsplash.com/photo-1620977861760-f36307a4fb01?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cultural dance performance" className="w-full h-full object-cover" />
+              
+              <div className="mt-10">
+                <a 
+                  href="/experiences" 
+                  className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+                >
+                  Discover All Experiences
+                  <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                </a>
               </div>
             </div>
           </div>
