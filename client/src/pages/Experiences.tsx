@@ -422,88 +422,6 @@ const Experiences = () => {
         </div>
       </section>
       
-      {/* Featured Experiences Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-[#F8F5F0]/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-4">Featured Experiences</h2>
-            <p className="text-lg text-[#333333]/80">Our most popular and unique luxury experiences</p>
-          </div>
-          
-          <div className="space-y-12">
-            {featuredExperiences.map((experience) => (
-              <div key={experience.id} className="flex flex-col lg:flex-row bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg">
-                <div className="lg:w-1/2 h-64 lg:h-auto relative">
-                  <img 
-                    src={experience.imageUrl} 
-                    alt={experience.title} 
-                    className="w-full h-full object-cover" 
-                  />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-sm font-medium text-[#0077B6]">
-                    {experience.category.charAt(0).toUpperCase() + experience.category.slice(1)}
-                  </div>
-                </div>
-                <div className="lg:w-1/2 p-6 lg:p-8 flex flex-col">
-                  <div className="mb-auto">
-                    <h3 className="font-['Playfair_Display'] text-2xl font-bold text-gray-800 mb-2">{experience.title}</h3>
-                    <div className="flex items-center mb-4">
-                      <div className="flex mr-2">
-                        {renderStars(experience.rating)}
-                      </div>
-                      <span className="text-gray-600 text-sm">
-                        {experience.rating.toFixed(1)} ({experience.reviewCount} reviews)
-                      </span>
-                    </div>
-                    <p className="text-gray-600 mb-6">{experience.shortDescription}</p>
-                    
-                    <div className="flex flex-wrap gap-3 mb-6">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Clock className="w-4 h-4 mr-1" />
-                        <span>{experience.duration}</span>
-                      </div>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        <span>{experience.location}</span>
-                      </div>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Tag className="w-4 h-4 mr-1" />
-                        <span>{experience.activityLevel.charAt(0).toUpperCase() + experience.activityLevel.slice(1)}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {experience.tags.map((tag, index) => (
-                        <span 
-                          key={index} 
-                          className="inline-block bg-[#F8F5F0] text-[#0077B6] px-3 py-1 rounded-full text-xs font-medium"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-end justify-between mt-4">
-                    <div>
-                      <p className="text-sm text-gray-500">Starting from</p>
-                      <div className="flex items-baseline">
-                        <span className="text-[#0077B6] text-2xl font-semibold">
-                          {formatPrice(experience.price, experience.currency)}
-                        </span>
-                        <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
-                      </div>
-                    </div>
-                    <Link href={`/experiences/${experience.id}`} className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white py-2.5 px-5 rounded-full transition group shadow-md">
-                      View Details <ChevronRight className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
       {/* All Experiences Section */}
       <section className="py-16 bg-[#F8F5F0]/50" ref={filteredResultsRef}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -654,6 +572,88 @@ const Experiences = () => {
                 <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Featured Experiences Section */}
+      <section className="py-16 bg-gradient-to-b from-white to-[#F8F5F0]/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-4">Featured Experiences</h2>
+            <p className="text-lg text-[#333333]/80">Our most popular and unique luxury experiences</p>
+          </div>
+          
+          <div className="space-y-12">
+            {featuredExperiences.map((experience) => (
+              <div key={experience.id} className="flex flex-col lg:flex-row bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg">
+                <div className="lg:w-1/2 h-64 lg:h-auto relative">
+                  <img 
+                    src={experience.imageUrl} 
+                    alt={experience.title} 
+                    className="w-full h-full object-cover" 
+                  />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-sm font-medium text-[#0077B6]">
+                    {experience.category.charAt(0).toUpperCase() + experience.category.slice(1)}
+                  </div>
+                </div>
+                <div className="lg:w-1/2 p-6 lg:p-8 flex flex-col">
+                  <div className="mb-auto">
+                    <h3 className="font-['Playfair_Display'] text-2xl font-bold text-gray-800 mb-2">{experience.title}</h3>
+                    <div className="flex items-center mb-4">
+                      <div className="flex mr-2">
+                        {renderStars(experience.rating)}
+                      </div>
+                      <span className="text-gray-600 text-sm">
+                        {experience.rating.toFixed(1)} ({experience.reviewCount} reviews)
+                      </span>
+                    </div>
+                    <p className="text-gray-600 mb-6">{experience.shortDescription}</p>
+                    
+                    <div className="flex flex-wrap gap-3 mb-6">
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Clock className="w-4 h-4 mr-1" />
+                        <span>{experience.duration}</span>
+                      </div>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <MapPin className="w-4 h-4 mr-1" />
+                        <span>{experience.location}</span>
+                      </div>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Tag className="w-4 h-4 mr-1" />
+                        <span>{experience.activityLevel.charAt(0).toUpperCase() + experience.activityLevel.slice(1)}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {experience.tags.map((tag, index) => (
+                        <span 
+                          key={index} 
+                          className="inline-block bg-[#F8F5F0] text-[#0077B6] px-3 py-1 rounded-full text-xs font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-end justify-between mt-4">
+                    <div>
+                      <p className="text-sm text-gray-500">Starting from</p>
+                      <div className="flex items-baseline">
+                        <span className="text-[#0077B6] text-2xl font-semibold">
+                          {formatPrice(experience.price, experience.currency)}
+                        </span>
+                        <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
+                      </div>
+                    </div>
+                    <Link href={`/experiences/${experience.id}`} className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white py-2.5 px-5 rounded-full transition group shadow-md">
+                      View Details <ChevronRight className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
