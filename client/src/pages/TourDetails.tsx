@@ -468,12 +468,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
             </section>
             
             {/* Itinerary Section - ModTour Style */}
-            <section ref={itineraryRef} id="itinerary" className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-8 flex items-center">
-                <List className="w-6 h-6 mr-3 text-primary" />
-                Tour Itinerary
-              </h2>
-              
+            <section ref={itineraryRef} id="itinerary" className="mb-8">              
               {tourData.itinerary && tourData.itinerary.length > 0 ? (
                 <div className="grid gap-4">
                   {tourData.itinerary.map((day, index) => (
