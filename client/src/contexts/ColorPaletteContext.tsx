@@ -2,19 +2,19 @@ import { createContext, useContext, useState, ReactNode, useEffect, useCallback 
 import { Color, ColorPalette } from '@/components/ColorPaletteGenerator';
 import { applyPaletteToTheme } from '@/utils/colorPalette';
 
-// Default colors that match the existing theme
+// Beach + Ocean Inspired Luxury theme
 const defaultPalette: ColorPalette = {
-  primary: { hex: '#0F766E', rgb: 'rgb(15, 118, 110)', name: 'Teal', isLight: false }, // Teal
-  secondary: { hex: '#E5B45A', rgb: 'rgb(229, 180, 90)', name: 'Gold', isLight: true }, // Gold accent
-  accent: { hex: '#F59E0B', rgb: 'rgb(245, 158, 11)', name: 'Amber', isLight: true },
-  background: { hex: '#FFFFFF', rgb: 'rgb(255, 255, 255)', name: 'White', isLight: true },
-  text: { hex: '#1F2937', rgb: 'rgb(31, 41, 55)', name: 'Gray 800', isLight: false },
-  muted: { hex: '#F3F4F6', rgb: 'rgb(243, 244, 246)', name: 'Gray 100', isLight: true },
-  border: { hex: '#E5E7EB', rgb: 'rgb(229, 231, 235)', name: 'Gray 200', isLight: true },
-  destructive: { hex: '#EF4444', rgb: 'rgb(239, 68, 68)', name: 'Red', isLight: false },
-  success: { hex: '#10B981', rgb: 'rgb(16, 185, 129)', name: 'Green', isLight: false },
-  warning: { hex: '#F59E0B', rgb: 'rgb(245, 158, 11)', name: 'Amber', isLight: true },
-  info: { hex: '#3B82F6', rgb: 'rgb(59, 130, 246)', name: 'Blue', isLight: false },
+  primary: { hex: '#0077B6', rgb: 'rgb(0, 119, 182)', name: 'Ocean Blue', isLight: false },
+  secondary: { hex: '#F6E27F', rgb: 'rgb(246, 226, 127)', name: 'Golden Sand', isLight: true },
+  accent: { hex: '#F26B6B', rgb: 'rgb(242, 107, 107)', name: 'Warm Coral', isLight: true },
+  background: { hex: '#FAF9F6', rgb: 'rgb(250, 249, 246)', name: 'Soft Ivory', isLight: true },
+  text: { hex: '#004E64', rgb: 'rgb(0, 78, 100)', name: 'Deep Teal', isLight: false },
+  muted: { hex: '#A9A9A9', rgb: 'rgb(169, 169, 169)', name: 'Driftwood Gray', isLight: true },
+  border: { hex: '#88B04B', rgb: 'rgb(136, 176, 75)', name: 'Palm Green', isLight: true },
+  destructive: { hex: '#F26B6B', rgb: 'rgb(242, 107, 107)', name: 'Warm Coral', isLight: false },
+  success: { hex: '#88B04B', rgb: 'rgb(136, 176, 75)', name: 'Palm Green', isLight: false },
+  warning: { hex: '#F6E27F', rgb: 'rgb(246, 226, 127)', name: 'Golden Sand', isLight: true },
+  info: { hex: '#F8C8DC', rgb: 'rgb(248, 200, 220)', name: 'Sunset Peach', isLight: true },
 };
 
 type ColorPaletteContextType = {
@@ -88,22 +88,17 @@ export function ColorPaletteProvider({ children }: { children: ReactNode }) {
     applyPalette(selectedPalette);
   }, [applyPalette]);
 
-  // Initialize with stored palette or default
+  // Initialize with our beach theme palette
   useEffect(() => {
-    const storedPalette = localStorage.getItem('colorPalette');
-    if (storedPalette) {
-      try {
-        const parsedPalette = JSON.parse(storedPalette) as ColorPalette;
-        applyPalette(parsedPalette);
-      } catch (error) {
-        console.error('Failed to parse stored color palette:', error);
-        resetPalette();
-      }
-    } else {
-      // Apply default palette on first load
-      applyPalette(defaultPalette);
-    }
-  }, [applyPalette, resetPalette]);
+    // Clear previous stored palette to ensure our new beach theme is applied
+    localStorage.removeItem('colorPalette');
+    
+    // Apply our beach-inspired default palette
+    applyPalette(defaultPalette);
+    
+    // Log that we're applying the beach theme
+    console.log('Applied beach-inspired luxury theme palette');
+  }, [applyPalette]);
 
   return (
     <ColorPaletteContext.Provider value={{ 

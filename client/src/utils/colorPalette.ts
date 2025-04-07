@@ -296,26 +296,53 @@ function createPalette(colors: Color[]): ColorPalette {
 export function applyPaletteToTheme(palette: ColorPalette): void {
   const root = document.documentElement;
 
-  // Set CSS variables
-  root.style.setProperty('--primary', palette.primary.hex);
+  // Core UI colors
+  root.style.setProperty('--primary', palette.primary.hex); // Ocean Blue
   root.style.setProperty('--primary-foreground', palette.primary.isLight ? '#000000' : '#ffffff');
   
-  root.style.setProperty('--secondary', palette.secondary.hex);
+  root.style.setProperty('--secondary', palette.secondary.hex); // Golden Sand
   root.style.setProperty('--secondary-foreground', palette.secondary.isLight ? '#000000' : '#ffffff');
   
-  root.style.setProperty('--accent', palette.accent.hex);
+  root.style.setProperty('--accent', palette.accent.hex); // Warm Coral
   root.style.setProperty('--accent-foreground', palette.accent.isLight ? '#000000' : '#ffffff');
   
-  root.style.setProperty('--background', palette.background.hex);
-  root.style.setProperty('--foreground', palette.text.hex);
+  root.style.setProperty('--background', palette.background.hex); // Soft Ivory
+  root.style.setProperty('--foreground', palette.text.hex); // Deep Teal
   
-  root.style.setProperty('--muted', palette.muted.hex);
-  root.style.setProperty('--muted-foreground', `${palette.text.hex}88`); // 88 for opacity
+  root.style.setProperty('--muted', palette.muted.hex); // Driftwood Gray
+  root.style.setProperty('--muted-foreground', `${palette.text.hex}88`); // Deep Teal with opacity
   
-  root.style.setProperty('--border', palette.border.hex);
+  root.style.setProperty('--border', palette.border.hex); // Palm Green
+  root.style.setProperty('--input', palette.background.hex);
+  root.style.setProperty('--ring', palette.primary.hex);
   
-  if (palette.destructive) {
-    root.style.setProperty('--destructive', palette.destructive.hex);
-    root.style.setProperty('--destructive-foreground', '#ffffff');
-  }
+  // Status colors
+  root.style.setProperty('--destructive', palette.destructive.hex); // Warm Coral
+  root.style.setProperty('--destructive-foreground', '#ffffff');
+  
+  root.style.setProperty('--success', palette.success.hex); // Palm Green
+  root.style.setProperty('--success-foreground', '#ffffff');
+  
+  root.style.setProperty('--warning', palette.warning.hex); // Golden Sand
+  root.style.setProperty('--warning-foreground', '#000000');
+  
+  root.style.setProperty('--info', palette.info.hex); // Sunset Peach
+  root.style.setProperty('--info-foreground', '#000000');
+  
+  // Card styles 
+  root.style.setProperty('--card', palette.background.hex); // Soft Ivory
+  root.style.setProperty('--card-foreground', palette.text.hex); // Deep Teal
+  
+  // Popover styles
+  root.style.setProperty('--popover', palette.background.hex); // Soft Ivory
+  root.style.setProperty('--popover-foreground', palette.text.hex); // Deep Teal
+  
+  // Log the applied color palette
+  console.log('Beach theme applied with colors:', {
+    primary: palette.primary.name,
+    secondary: palette.secondary.name,
+    accent: palette.accent.name,
+    background: palette.background.name,
+    text: palette.text.name
+  });
 }
