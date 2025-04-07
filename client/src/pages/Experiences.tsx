@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronRight, Search, Filter, Star, Clock, MapPin, Tag, ChevronDown } from 'lucide-react';
 import { Link } from 'wouter';
 
@@ -37,6 +37,9 @@ const Experiences = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  
+  // Reference for the filtered results section
+  const filteredResultsRef = useRef<HTMLDivElement>(null);
   
   // Define experience categories
   const categories: Category[] = [
@@ -252,6 +255,16 @@ const Experiences = () => {
   // Get featured experiences
   const featuredExperiences = experiencesData.filter(exp => exp.featured);
   
+  // Effect to scroll to results when category is selected
+  useEffect(() => {
+    if (selectedCategory !== null && filteredResultsRef.current) {
+      // Scroll to filtered results with a small delay for smooth transition
+      setTimeout(() => {
+        filteredResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [selectedCategory]);
+  
   // Format price with currency
   const formatPrice = (price: number, currency: string) => {
     return new Intl.NumberFormat('en-US', {
@@ -373,7 +386,16 @@ const Experiences = () => {
                 key={category.id}
                 className={`group relative overflow-hidden rounded-xl shadow-md transition-all hover:shadow-lg 
                   ${selectedCategory === category.id ? 'ring-4 ring-[#0077B6]' : ''}`}
-                onClick={() => setSelectedCategory(selectedCategory === category.id ? null : category.id)}
+                onClick={() => {
+                  const newCategory = selectedCategory === category.id ? null : category.id;
+                  setSelectedCategory(newCategory);
+                  // If we're clearing the filter, don't scroll
+                  if (newCategory && filteredResultsRef.current) {
+                    setTimeout(() => {
+                      filteredResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                  }
+                }}
               >
                 {/* Background Image */}
                 <div className="aspect-[4/3] w-full">
@@ -483,7 +505,7 @@ const Experiences = () => {
       </section>
       
       {/* All Experiences Section */}
-      <section className="py-16 bg-[#F8F5F0]/50">
+      <section className="py-16 bg-[#F8F5F0]/50" ref={filteredResultsRef}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
             <div>
@@ -575,6 +597,8 @@ const Experiences = () => {
                 onClick={() => {
                   setSearchQuery('');
                   setSelectedCategory(null);
+                  // Scroll back to the top of the results
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
                 Clear All Filters
