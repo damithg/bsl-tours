@@ -242,8 +242,8 @@ const DestinationShowcase = () => {
                       </div>
                     )}
                     <a href={`/destination/${destination.slug || destination.id}`} 
-                      className="inline-flex items-center bg-white/30 backdrop-blur-sm hover:bg-white/40 
-                                text-white font-medium py-1.5 px-4 rounded-full transition group border border-white/20 shadow-sm">
+                      className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] 
+                                text-white font-medium py-1.5 px-4 rounded-full transition group shadow-sm">
                       Explore <LucideChevronRightArrow className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                     </a>
                   </div>
