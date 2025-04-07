@@ -13,6 +13,7 @@ import DestinationDetail from "@/pages/DestinationDetail";
 import DestinationMap from "@/pages/DestinationMap";
 import TravelPlanner from "@/pages/TravelPlanner";
 import CustomTourRequest from "@/pages/CustomTourRequest";
+import Experiences from "@/pages/Experiences";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import GalleryTest from "@/pages/GalleryTest";
@@ -70,6 +71,7 @@ function Router() {
         <Route path="/custom-tour-request">
           {(params) => <CustomTourRequest {...params} />}
         </Route>
+        <Route path="/experiences" component={Experiences} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="/gallery-test" component={GalleryTest} />
