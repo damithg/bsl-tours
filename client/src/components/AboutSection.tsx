@@ -26,8 +26,8 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-20 bg-white" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Mobile version - Text first, then map */}
-        <div className="lg:hidden mb-10">
+        {/* Mobile version - Text first, then map - now top-aligned */}
+        <div className="lg:hidden mb-10 mt-0 pt-0">
           <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-6 text-center">About Best Sri Lanka Tours</h2>
           <p className="text-lg text-[#333333]/80 mb-6">
             Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
@@ -46,9 +46,9 @@ const AboutSection = () => {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center">
-          {/* Desktop version - left column */}
-          <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0 hidden lg:block">
+        <div className="flex flex-col lg:flex-row items-start">
+          {/* Desktop version - left column - now top-aligned */}
+          <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0 hidden lg:block pt-0">
             <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-6">About Best Sri Lanka Tours</h2>
             <p className="text-lg text-[#333333]/80 mb-6">
               Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
