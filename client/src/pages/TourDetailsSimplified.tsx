@@ -65,8 +65,13 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   useEffect(() => {
     if (!emblaGalleryApi) return;
     
+    // Update to reset the gallery index
+    setGalleryIndex(0);
+    
     // Add event listeners
     emblaGalleryApi.on('select', onSelectGallery);
+    
+    // Initial selection
     onSelectGallery();
     
     return () => {
@@ -731,7 +736,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               
               {/* Mobile Carousel */}
               <div className="md:hidden relative">
-                <div className="overflow-hidden" ref={containerRef}>
+                <div className="overflow-hidden" ref={emblaGalleryRef}>
                   <div className="flex">
                     {galleryImages.map((image, index) => (
                       <div key={`carousel-${index}`} className="flex-[0_0_100%] min-w-0 relative">
