@@ -157,11 +157,68 @@ const AboutSection = () => {
           
           <div className="lg:w-1/2 order-1 lg:order-2 mb-10 lg:mb-0">
             <div className="relative">
-              <img 
-                src="https://bestsrilankatours.com/wp-content/uploads/2020/02/tea-plantation-about-us.jpg" 
-                alt="Best Sri Lanka Tours Team" 
-                className="rounded-lg shadow-xl" 
-              />
+              {/* Mini Sri Lanka Map with Destinations */}
+              <div className="rounded-lg shadow-xl overflow-hidden bg-[#f8f9fa] p-4 border border-gray-100">
+                <div className="relative">
+                  {/* Map background */}
+                  <img 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744127782/map-sri-lanka_vb7cpr.png" 
+                    alt="Sri Lanka Map" 
+                    className="w-full h-auto rounded"
+                  />
+                  
+                  {/* Destination Pins */}
+                  {/* Sigiriya */}
+                  <div className="absolute" style={{ top: '25%', left: '55%' }}>
+                    <div className="relative">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743450370/destinations/sigiriya-rock-fortress-pidurangala.jpg" 
+                        alt="Sigiriya Rock Fortress" 
+                        className="w-16 h-16 object-cover rounded-lg shadow-md border-2 border-white"
+                      />
+                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                        <span className="bg-white/90 text-[#0077B6] text-xs px-2 py-1 rounded-full shadow-sm">
+                          Sigiriya
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Kandy */}
+                  <div className="absolute" style={{ top: '45%', left: '43%' }}>
+                    <div className="relative">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743585928/destinations/kandy-overview.jpg" 
+                        alt="Kandy" 
+                        className="w-16 h-16 object-cover rounded-lg shadow-md border-2 border-white"
+                      />
+                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                        <span className="bg-white/90 text-[#0077B6] text-xs px-2 py-1 rounded-full shadow-sm">
+                          Kandy
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Galle */}
+                  <div className="absolute" style={{ bottom: '30%', left: '20%' }}>
+                    <div className="relative">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1681234567/destinations/colonial/galle-fort_wq4fvs.jpg" 
+                        alt="Galle Fort" 
+                        className="w-16 h-16 object-cover rounded-lg shadow-md border-2 border-white"
+                      />
+                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                        <span className="bg-white/90 text-[#0077B6] text-xs px-2 py-1 rounded-full shadow-sm">
+                          Galle
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Floating card */}
               <div className="absolute -bottom-10 -left-10 p-6 bg-white rounded-lg shadow-lg max-w-xs hidden md:block">
                 <div className="flex items-center mb-4">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-amber-500 mr-4">
@@ -171,6 +228,19 @@ const AboutSection = () => {
                   <h3 className="font-['Playfair_Display'] text-lg font-semibold">Award-Winning Service</h3>
                 </div>
                 <p className="text-[#333333]/70">Recognized for excellence in personalized Sri Lankan travel experiences.</p>
+              </div>
+              
+              {/* Explore CTA overlay */}
+              <div className="absolute bottom-4 right-4">
+                <a 
+                  href="/destination-map" 
+                  className="bg-[#0077B6] hover:bg-[#0077B6]/90 text-white text-sm font-medium py-2 px-4 rounded-full shadow-md hover:shadow-lg transition-all flex items-center"
+                >
+                  Explore Map
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
