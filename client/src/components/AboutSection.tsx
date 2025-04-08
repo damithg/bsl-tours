@@ -149,59 +149,53 @@ const AboutSection = () => {
 
                   </div>
                   
-                  {/* Mobile optimized view inspired by Backpack Traveler theme */}
+                  {/* Mobile optimized view - correct positioning */}
                   <div className="sm:hidden mt-8">
-                    {/* Simplified mobile approach - Use the images in a stylish layout */}
-                    <div className="mx-auto px-6 py-4 relative mb-12">
-                      <div className="flex justify-center mx-auto relative mb-4">
-                        {/* Sri Lanka Map as Background */}
-                        <div className="absolute inset-0 -z-10 opacity-20">
+                    <div className="mx-auto relative h-[450px]">
+                      {/* Sri Lanka Map for Mobile - explicitly positioned */}
+                      <div className="absolute inset-0 top-0 left-0 w-full">
+                        <img 
+                          src="/images/sri-lanka-map.svg" 
+                          alt="Sri Lanka Map" 
+                          className="w-full h-auto object-contain opacity-50"
+                        />
+                      </div>
+                    
+                      {/* First Image - Positioned on Map */}
+                      <div className="absolute top-[120px] left-1/2 -translate-x-1/2 z-10 w-3/4">
+                        <div className="p-0 bg-white rounded-md shadow-md">
                           <img 
-                            src="/images/sri-lanka-map.svg" 
-                            alt="Sri Lanka Map" 
-                            className="w-full h-full object-contain"
+                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
+                            alt="Backpack Traveler" 
+                            className="w-full h-auto object-contain rounded-sm"
+                          />
+                        </div>
+                        {/* Pin below this image */}
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
+                          <img 
+                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
+                            alt="Map Pin" 
+                            className="w-6 h-6 object-contain"
                           />
                         </div>
                       </div>
                       
-                      {/* Image Layout - Staggered */}
-                      <div className="flex flex-col items-center gap-8">
-                        {/* First Image */}
-                        <div className="w-2/3 ml-auto transform rotate-2 relative z-10">
-                          <div className="p-0 bg-white rounded-md shadow-md">
-                            <img 
-                              src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
-                              alt="Backpack Traveler" 
-                              className="w-full h-auto object-contain rounded-sm"
-                            />
-                          </div>
-                          {/* Pin below this image */}
-                          <div className="absolute -bottom-6 left-1/3 -translate-x-1/2">
-                            <img 
-                              src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
-                              alt="Map Pin" 
-                              className="w-6 h-6 object-contain"
-                            />
-                          </div>
+                      {/* Second Image - Positioned on Map */}
+                      <div className="absolute top-[260px] left-1/2 -translate-x-1/2 z-10 w-3/4">
+                        <div className="p-0 bg-white rounded-md shadow-md">
+                          <img 
+                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
+                            alt="Backpack Traveler" 
+                            className="w-full h-auto object-contain rounded-sm"
+                          />
                         </div>
-                        
-                        {/* Second Image */}
-                        <div className="w-2/3 mr-auto transform -rotate-3 relative z-10">
-                          <div className="p-0 bg-white rounded-md shadow-md">
-                            <img 
-                              src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
-                              alt="Backpack Traveler" 
-                              className="w-full h-auto object-contain rounded-sm"
-                            />
-                          </div>
-                          {/* Pin below this image */}
-                          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
-                            <img 
-                              src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
-                              alt="Map Pin" 
-                              className="w-6 h-6 object-contain"
-                            />
-                          </div>
+                        {/* Pin below this image */}
+                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
+                          <img 
+                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
+                            alt="Map Pin" 
+                            className="w-6 h-6 object-contain"
+                          />
                         </div>
                       </div>
                     </div>
