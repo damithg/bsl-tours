@@ -119,130 +119,111 @@ const AboutSection = () => {
     };
   }, [isVisible, stats]);
 
-  // Expertise sections with icons
-  const expertiseAreas = [
-    {
-      title: "Local Expertise",
-      description: "Our team consists of native Sri Lankans with extensive knowledge of hidden gems and cultural insights.",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-[#0077B6]">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="2" y1="12" x2="22" y2="12"></line>
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-        </svg>
-      )
-    },
-    {
-      title: "Luxury Experiences",
-      description: "Crafting high-end journeys with premium accommodations and exclusive activities.",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-[#0077B6]">
-          <path d="M12 2v20"></path>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-      )
-    }
-  ];
-
   return (
-    <section id="about" className="py-24 bg-gradient-to-b from-white to-[#f0f9ff]" ref={sectionRef}>
+    <section id="about" className="py-20 bg-white" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section heading with animated underline */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            About <span className="text-[#0077B6]">Best Sri Lanka Tours</span>
-          </h2>
-          <div className={`h-1 w-24 bg-[#0077B6] mx-auto rounded-full transition-all duration-1000 ease-out ${isVisible ? 'w-24 opacity-100' : 'w-0 opacity-0'}`}></div>
-        </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left side with images */}
-          <div className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-            <div className="relative">
-              {/* Main image with parallax effect */}
-              <div className="rounded-lg overflow-hidden shadow-xl transform -rotate-2 transition hover:rotate-0 duration-500">
-                <img 
-                  src="https://bestsrilankatours.com/wp-content/uploads/2020/02/tea-plantation-about-us.jpg" 
-                  alt="Tea plantations in Sri Lanka" 
-                  className="w-full h-auto object-cover hover:scale-105 transition duration-700" 
-                />
-              </div>
-              
-              {/* Floating accent elements */}
-              <div className="absolute -bottom-12 -right-8 p-6 bg-white rounded-lg shadow-xl max-w-xs hidden md:block transform rotate-3 transition hover:rotate-0 duration-500">
-                <div className="flex items-center mb-3">
-                  <div className="p-2 rounded-full bg-amber-100 mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-amber-600">
-                      <circle cx="12" cy="8" r="7"></circle>
-                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-800">Award-Winning Service</h3>
-                </div>
-                <p className="text-gray-600 leading-relaxed ml-12">Recognized for excellence in personalized Sri Lankan travel experiences.</p>
-              </div>
-              
-              {/* Small decorative element */}
-              <div className="absolute -top-10 -left-10 w-20 h-20 bg-[#0077B6]/10 rounded-full hidden lg:block"></div>
-            </div>
-          </div>
-          
-          {/* Right side with content */}
-          <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+        <div className="flex flex-col lg:flex-row gap-16 items-center">
+          {/* Left Side: About Content */}
+          <div className={`lg:w-1/2 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              About <span className="text-[#0077B6]">Best Sri Lanka Tours</span>
+            </h2>
+            
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Founded by travel enthusiasts with deep knowledge of Sri Lanka, we specialize in creating 
-              <span className="text-[#0077B6] font-semibold"> bespoke luxury journeys</span> that showcase the island's extraordinary beauty and culture.
+              Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
             </p>
             
-            <p className="text-lg text-gray-700 mb-10 leading-relaxed">
+            <p className="text-lg text-gray-700 mb-8 leading-relaxed">
               Our team of expert travel designers, local guides, and hospitality professionals work together to craft unforgettable experiences tailored to your preferences and interests.
             </p>
             
-            {/* Expertise areas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-              {expertiseAreas.map((area, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border border-gray-100">
-                  <div className="mb-4">
-                    {area.icon}
+            <div className="grid grid-cols-2 gap-8 mb-8">
+              {stats.map((stat, index) => (
+                <div key={index} className="flex flex-col items-center transition-all duration-700 delay-300">
+                  <div className="flex items-center justify-center w-14 h-14 rounded-full bg-[#0077B6]/10 mb-3">
+                    <div className="text-[#0077B6]">{stat.icon}</div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{area.title}</h3>
-                  <p className="text-gray-600">{area.description}</p>
+                  <span className="text-[#0077B6] text-4xl font-bold mb-1 flex items-center">
+                    <span className="counter-value">{counters[index]}</span>
+                    <span>{stat.suffix}</span>
+                  </span>
+                  <p className="text-gray-600 text-center font-medium">{stat.label}</p>
                 </div>
               ))}
             </div>
             
-            {/* Call to action button */}
             <a 
               href="/about" 
-              className="inline-flex items-center gap-2 bg-[#0077B6] hover:bg-[#0077B6]/90 text-white font-medium py-3.5 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+              className="inline-block mt-2 px-8 py-3 border border-[#0077B6] text-[#0077B6] hover:bg-[#0077B6] hover:text-white font-medium rounded-md transition-colors duration-300"
             >
-              Learn More About Us
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
+              EXPLORE
             </a>
           </div>
-        </div>
-        
-        {/* Stats with animated counters */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <div 
-              key={index} 
-              className={`bg-white rounded-lg p-6 shadow-md border border-gray-100 transform transition-all duration-700 ease-out delay-${index * 100} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-            >
-              <div className="flex items-center justify-center mb-2 text-[#0077B6]">
-                {stat.icon}
-              </div>
-              <div className="text-center">
-                <h3 className="text-4xl font-bold text-[#0077B6] flex items-center justify-center">
-                  <span className="counter-value">{counters[index]}</span>
-                  <span>{stat.suffix}</span>
-                </h3>
-                <p className="text-gray-600 font-medium mt-2">{stat.label}</p>
+          
+          {/* Right Side: Map with Destinations Image */}
+          <div className={`lg:w-1/2 relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+            <div className="relative">
+              {/* Map Background */}
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <img 
+                  src="/images/sri-lanka-map-outline.svg" 
+                  alt="Sri Lanka Map" 
+                  className="w-full h-auto opacity-20"
+                />
+                
+                {/* Destination Illustrations */}
+                <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
+                  <img 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_150,c_fill,g_auto,q_auto/v1634567890/destinations/sigiriya.jpg" 
+                    alt="Beautiful city of London" 
+                    className="w-32 h-24 object-cover rounded-lg shadow-md"
+                  />
+                  <div className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <p className="mt-2 text-center text-sm font-script text-gray-800">Beautiful Sigiriya</p>
+                </div>
+                
+                <div className="absolute bottom-1/3 right-1/4 transform translate-x-1/2 translate-y-1/2">
+                  <img 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/w_150,c_fill,g_auto,q_auto/v1634567890/destinations/galle.jpg" 
+                    alt="Tower Bridge" 
+                    className="w-36 h-24 object-cover rounded-lg shadow-md"
+                  />
+                  <div className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* "Discover Destinations" Text Overlay */}
+                <div className="absolute bottom-4 right-4">
+                  <div className="bg-white/70 backdrop-blur-sm px-3 py-2 rounded-md shadow-sm">
+                    <p className="text-sm font-bold text-gray-800 uppercase tracking-wider">DISCOVER DESTINATIONS</p>
+                    <p className="text-xl font-script text-[#0077B6]">Sri Lanka</p>
+                  </div>
+                </div>
+                
+                {/* Little decorative tuk-tuk icon */}
+                <div className="absolute bottom-1/2 left-1/2 transform -translate-x-1/2 translate-y-1/2">
+                  <img 
+                    src="/images/tuk-tuk-icon.svg" 
+                    alt="Tuk Tuk" 
+                    className="w-16 h-16 object-contain"
+                  />
+                </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
