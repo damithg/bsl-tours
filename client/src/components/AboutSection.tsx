@@ -90,11 +90,11 @@ const AboutSection = () => {
                     {/* First image with pin - Top Right */}
                     <div className="absolute top-[15%] right-[25%]">
                       <div className="relative rotate-3 transform transition-transform">
-                        <div className="p-2 bg-white rounded-md shadow-lg">
+                        <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[180px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -116,11 +116,11 @@ const AboutSection = () => {
                     {/* Second image - Center */}
                     <div className="absolute top-[35%] left-[20%]">
                       <div className="relative -rotate-2 transform transition-transform">
-                        <div className="p-2 bg-white rounded-md shadow-lg">
+                        <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[180px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -142,11 +142,11 @@ const AboutSection = () => {
                     {/* Third image - Bottom Center */}
                     <div className="absolute bottom-[18%] right-[35%]">
                       <div className="relative rotate-1 transform transition-transform">
-                        <div className="p-2 bg-white rounded-md shadow-lg">
+                        <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[180px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -173,11 +173,11 @@ const AboutSection = () => {
                   <div className="sm:hidden mt-4">
                     <div className="grid grid-cols-3 gap-2 px-4 py-2">
                       <div className="relative">
-                        <div className="p-1 bg-white rounded-md shadow-md rotate-3">
+                        <div className="p-0 bg-white rounded-md shadow-md rotate-3">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-20 object-contain rounded-sm"
+                            className="w-auto h-24 object-contain rounded-sm"
                           />
                         </div>
                         <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 scale-50">
@@ -189,11 +189,11 @@ const AboutSection = () => {
                         </div>
                       </div>
                       <div className="relative">
-                        <div className="p-1 bg-white rounded-md shadow-md -rotate-2">
+                        <div className="p-0 bg-white rounded-md shadow-md -rotate-2">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-20 object-contain rounded-sm"
+                            className="w-auto h-24 object-contain rounded-sm"
                           />
                         </div>
                         <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 scale-50">
@@ -205,11 +205,11 @@ const AboutSection = () => {
                         </div>
                       </div>
                       <div className="relative">
-                        <div className="p-1 bg-white rounded-md shadow-md rotate-2">
+                        <div className="p-0 bg-white rounded-md shadow-md rotate-2">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-20 object-contain rounded-sm"
+                            className="w-auto h-24 object-contain rounded-sm"
                           />
                         </div>
                         <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 scale-50">
