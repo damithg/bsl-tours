@@ -88,13 +88,13 @@ const AboutSection = () => {
                   {/* Desktop & tablet images - hidden on small mobile */}
                   <div className="hidden sm:block">
                     {/* First image with pin - North */}
-                    <div className="absolute top-[5%] right-[25%]">
+                    <div className="absolute top-[14%] right-[10%]">
                       <div className="relative rotate-3 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
+                            className="w-auto h-auto object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -114,13 +114,13 @@ const AboutSection = () => {
                     </div>
                     
                     {/* Second image - West Coast */}
-                    <div className="absolute top-[30%] left-[15%]">
+                    <div className="absolute top-[40%] left-[-10%]">
                       <div className="relative -rotate-2 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
+                            className="w-auto h-auto object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -146,7 +146,7 @@ const AboutSection = () => {
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
+                            className="w-auto h-auto object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
