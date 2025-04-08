@@ -196,13 +196,13 @@ const AboutSection = () => {
                     <div className="relative -rotate-2 transform transition-transform">
                       <div className="p-2 bg-white rounded-md shadow-lg">
                         <img 
-                          src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743585928/destinations/kandy-overview.jpg" 
-                          alt="Kandy" 
+                          src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743664436/destinations/kalpitiya-lagoon.jpg" 
+                          alt="Kalpitiya Lagoon" 
                           className="w-32 h-32 md:w-40 md:h-28 object-cover rounded-sm"
                         />
                         <div className="absolute bottom-4 left-4 right-4">
                           <p className="text-white font-['Playfair_Display'] text-sm italic drop-shadow-md">
-                            Cultural Kandy
+                            Serene Kalpitiya
                           </p>
                         </div>
                       </div>
@@ -220,8 +220,8 @@ const AboutSection = () => {
                     <div className="relative rotate-1 transform transition-transform">
                       <div className="p-2 bg-white rounded-md shadow-lg">
                         <img 
-                          src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1681234567/destinations/colonial/galle-fort_wq4fvs.jpg" 
-                          alt="Galle Fort" 
+                          src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743583056/destinations/galle-lighthouse.jpg" 
+                          alt="Galle Lighthouse" 
                           className="w-32 h-32 md:w-40 md:h-28 object-cover rounded-sm"
                         />
                         <div className="absolute bottom-4 left-4 right-4">
@@ -258,18 +258,7 @@ const AboutSection = () => {
                   </div>
                 </div>
               </div>
-              
-              {/* Floating card */}
-              <div className="absolute -bottom-10 -left-10 p-6 bg-white rounded-lg shadow-lg max-w-xs hidden md:block">
-                <div className="flex items-center mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-amber-500 mr-4">
-                    <circle cx="12" cy="8" r="7"></circle>
-                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                  </svg>
-                  <h3 className="font-['Playfair_Display'] text-lg font-semibold">Award-Winning Service</h3>
-                </div>
-                <p className="text-[#333333]/70">Recognized for excellence in personalized Sri Lankan travel experiences.</p>
-              </div>
+
             </div>
           </div>
         </div>
