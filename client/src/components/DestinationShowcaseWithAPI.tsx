@@ -8,45 +8,43 @@ interface Destination {
   image?: string;
   imageUrl?: string;
   slug?: string;
-  position: {
+  position?: {
     x: number;
     y: number;
   };
+  // Additional API fields
+  shortDescription?: string;
+  highlights?: string[];
+  galleryImages?: any[];
 }
 
-const DestinationShowcase = () => {
-  const queryKey = ['/api/destinations'];
-  // Debug code (temporarily hidden)
-  // console.log("DestinationShowcase mounted");
-  const { data: apiDestinations, isLoading, error, refetch } = useQuery<Destination[]>({
-    queryKey,
+const DestinationShowcaseWithAPI = () => {
+  // Set up the API call to get destinations data
+  const { data: apiDestinations, isLoading, error } = useQuery<Destination[]>({
+    queryKey: ['/api/destinations'],
     queryFn: async ({ queryKey }) => {
       try {
         const baseUrl = 'https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net';
         const url = `${baseUrl}${queryKey[0]}`;
-        console.log('Fetching from:', url);
-        
         const response = await fetch(url);
         
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
         }
         
-        const data = await response.json();
-        console.log('Destinations data:', data);
-        return data;
+        return response.json();
       } catch (err) {
         console.error('Error fetching destinations:', err);
-        throw err;
+        return null; // Return null to use fallback data
       }
     },
   });
-
+  
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   
-  // Sample destinations with coordinates relative to the map
-  const destinations: Destination[] = [
+  // Fallback destinations with coordinates relative to the map
+  const fallbackDestinations: Destination[] = [
     {
       id: 1,
       name: "Sigiriya",
@@ -83,6 +81,9 @@ const DestinationShowcase = () => {
       position: { x: 75, y: 28 }
     }
   ];
+  
+  // Use API destinations if available, otherwise use fallback
+  const destinations = apiDestinations || fallbackDestinations;
 
   // Intersection Observer to trigger animations when section is in view
   useEffect(() => {
@@ -333,4 +334,4 @@ const DestinationShowcase = () => {
   );
 };
 
-export default DestinationShowcase;
+export default DestinationShowcaseWithAPI;
