@@ -424,7 +424,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               </div>
               
               {/* Quick Facts - Bottom of overview section */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-4 mt-6 border-t border-gray-100">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-4 mt-6 border-t border-gray-100">
                 <div>
                   <div className="flex items-center mb-2">
                     <Clock className="w-5 h-5 text-primary mr-2" />
@@ -439,14 +439,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                     <h3 className="font-medium text-gray-800">Best Time to Visit</h3>
                   </div>
                   <p className="text-sm text-gray-600 pl-7">November to April</p>
-                </div>
-                
-                <div>
-                  <div className="flex items-center mb-2">
-                    <Flag className="w-5 h-5 text-primary mr-2" />
-                    <h3 className="font-medium text-gray-800">Visa Requirements</h3>
-                  </div>
-                  <p className="text-sm text-gray-600 pl-7">Electronic Travel Authorization (ETA)</p>
                 </div>
                 
                 <div>
