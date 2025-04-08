@@ -69,13 +69,13 @@ const AboutSection = () => {
           <div className="lg:w-1/2 w-full">
             <div className="relative">
               {/* Stylized Decorative Map - Visual Element Only */}
-              <div className="relative max-w-[92%] mx-auto mt-8 md:mt-0">
-                {/* Map background with light opacity */}
-                <div className="relative py-4">
+              <div className="relative max-w-[70%] mx-auto mt-8 md:mt-0">
+                {/* Map background with light opacity - showing only top half */}
+                <div className="relative py-4 max-h-[350px] overflow-hidden">
                   <img 
                     src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744127782/map-sri-lanka_vb7cpr.png" 
                     alt="Sri Lanka Map" 
-                    className="w-full h-auto opacity-[0.35]"
+                    className="w-full h-auto opacity-[0.35] object-cover object-top"
                   />
                   
                   {/* Mobile adjustments for image positioning */}
@@ -88,13 +88,13 @@ const AboutSection = () => {
                   {/* Desktop & tablet images - hidden on small mobile */}
                   <div className="hidden sm:block">
                     {/* First image with pin - Top Right */}
-                    <div className="absolute top-[15%] right-[25%]">
+                    <div className="absolute top-[15%] right-[15%]">
                       <div className="relative rotate-3 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[180px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[140px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -113,14 +113,14 @@ const AboutSection = () => {
                       </div>
                     </div>
                     
-                    {/* Second image - Center */}
-                    <div className="absolute top-[35%] left-[20%]">
+                    {/* Second image - Left */}
+                    <div className="absolute top-[40%] left-[10%]">
                       <div className="relative -rotate-2 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[180px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[140px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -140,13 +140,13 @@ const AboutSection = () => {
                     </div>
                     
                     {/* Third image - Bottom Center */}
-                    <div className="absolute bottom-[18%] right-[35%]">
+                    <div className="absolute bottom-[10%] right-[40%]">
                       <div className="relative rotate-1 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[180px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[140px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
