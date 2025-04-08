@@ -69,7 +69,7 @@ const AboutSection = () => {
           <div className="lg:w-1/2 w-full">
             <div className="relative">
               {/* Stylized Decorative Map - Visual Element Only */}
-              <div className="relative max-w-[60%] mx-auto mt-8 md:mt-0">
+              <div className="relative max-w-[50%] mx-auto mt-8 md:mt-0">
                 {/* Map background with light opacity - full map but smaller size */}
                 <div className="relative py-4">
                   <img 
@@ -94,7 +94,7 @@ const AboutSection = () => {
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[120px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -120,7 +120,7 @@ const AboutSection = () => {
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[120px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -146,7 +146,7 @@ const AboutSection = () => {
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-auto md:max-w-[120px] object-contain rounded-sm"
+                            className="w-auto h-auto md:max-w-[150px] object-contain rounded-sm"
                           />
                           <div className="absolute bottom-4 left-4 right-4">
                             <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
@@ -177,7 +177,7 @@ const AboutSection = () => {
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-24 object-contain rounded-sm"
+                            className="w-auto h-28 object-contain rounded-sm"
                           />
                         </div>
                         <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 scale-50">
@@ -193,7 +193,7 @@ const AboutSection = () => {
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-24 object-contain rounded-sm"
+                            className="w-auto h-28 object-contain rounded-sm"
                           />
                         </div>
                         <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 scale-50">
@@ -209,7 +209,7 @@ const AboutSection = () => {
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
                             alt="Backpack Traveler" 
-                            className="w-auto h-24 object-contain rounded-sm"
+                            className="w-auto h-28 object-contain rounded-sm"
                           />
                         </div>
                         <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 scale-50">
