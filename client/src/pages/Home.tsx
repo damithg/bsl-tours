@@ -24,7 +24,7 @@ const Home = () => {
       <ExperienceShowcase />
       <TestimonialSection />
       <AboutSection />
-      <DestinationMap />
+      {/* <DestinationMap /> */}
       <CTASection />
       
       <section id="contact" className="py-20 bg-[#F8F5F0]">
