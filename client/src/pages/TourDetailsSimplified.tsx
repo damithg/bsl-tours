@@ -604,27 +604,108 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                 </div>
               </div>
               
+              {/* What to Pack Card */}
+              <div className="bg-gradient-to-br from-[#F9FCFF] to-[#EFF8FC] rounded-xl shadow-sm p-6 border border-[#0077B6]/10 mb-6">
+                <h3 className="font-semibold text-[#0077B6] mb-4 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                    <path d="M20.91 8.84 8.56 2.23a1.93 1.93 0 0 0-1.81 0L3.1 4.13a2.12 2.12 0 0 0-.05 3.69l12.22 6.93a2 2 0 0 0 1.94 0L21 12.51a2.12 2.12 0 0 0-.09-3.67Z"></path>
+                    <path d="m3.09 8.84 12.35-6.61a1.93 1.93 0 0 1 1.81 0l3.65 1.9a2.12 2.12 0 0 1 .1 3.69L8.73 14.75a2 2 0 0 1-1.94 0L3 12.51a2.12 2.12 0 0 1 .09-3.67Z"></path>
+                    <line x1="12" y1="22" x2="12" y2="13"></line>
+                    <path d="M20 13.5v3.37a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13.5"></path>
+                  </svg>
+                  What to Pack
+                </h3>
+                
+                <div className="space-y-2.5 mb-3">
+                  <div className="flex items-start">
+                    <div className="bg-white rounded-full p-1 mr-3 mt-0.5 border border-[#0077B6]/20">
+                      <Check className="w-3 h-3 text-[#0077B6]" />
+                    </div>
+                    <p className="text-gray-700 text-sm">Lightweight, breathable clothing</p>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-white rounded-full p-1 mr-3 mt-0.5 border border-[#0077B6]/20">
+                      <Check className="w-3 h-3 text-[#0077B6]" />
+                    </div>
+                    <p className="text-gray-700 text-sm">Sun protection (hat, sunglasses, sunscreen)</p>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-white rounded-full p-1 mr-3 mt-0.5 border border-[#0077B6]/20">
+                      <Check className="w-3 h-3 text-[#0077B6]" />
+                    </div>
+                    <p className="text-gray-700 text-sm">Comfortable walking shoes</p>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-white rounded-full p-1 mr-3 mt-0.5 border border-[#0077B6]/20">
+                      <Check className="w-3 h-3 text-[#0077B6]" />
+                    </div>
+                    <p className="text-gray-700 text-sm">Insect repellent</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Weather Card */}
+              <div className="bg-gradient-to-br from-[#FFFDF9] to-[#FFF9EA] rounded-xl shadow-sm p-6 border border-amber-100 mb-6">
+                <h3 className="font-semibold text-amber-700 mb-4 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                    <path d="M12 9a4 4 0 0 0-2 7.5"></path>
+                    <path d="M12 3v2"></path>
+                    <path d="m6.6 18.4-1.4 1.4"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="M6.6 5.6 5.2 4.2"></path>
+                    <path d="M18 12a6 6 0 0 1-12 0"></path>
+                    <path d="M12 18v2"></path>
+                    <path d="m18.4 18.4 1.4 1.4"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="m17.4 5.6 1.4-1.4"></path>
+                  </svg>
+                  Weather
+                </h3>
+                
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <p className="text-gray-500 text-xs">Average High</p>
+                    <p className="text-gray-800 font-semibold">29°C / 84°F</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-xs">Average Low</p>
+                    <p className="text-gray-800 font-semibold">23°C / 73°F</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-xs">Rainfall</p>
+                    <p className="text-gray-800 font-semibold">Low</p>
+                  </div>
+                </div>
+                
+                <div className="text-xs text-gray-600 italic">
+                  *Weather data shown for peak season (November-April)
+                </div>
+              </div>
+              
               {/* Need Help Card */}
-              <div className="bg-[#EFF8FC] rounded-xl shadow-sm p-6 border border-[#0077B6]/10">
+              <div className="bg-gradient-to-br from-[#EFF8FC] to-[#E6F4FC] rounded-xl shadow-sm p-6 border border-[#0077B6]/10">
                 <h3 className="font-semibold text-[#0077B6] mb-4 flex items-center">
                   <Info className="w-5 h-5 mr-2" />
                   Need Help?
                 </h3>
                 
-                <p className="text-gray-600 text-sm mb-5 ml-7">
+                <p className="text-gray-600 text-sm mb-5">
                   Our travel experts are here to assist you with planning your perfect Sri Lanka experience.
                 </p>
                 
-                <div className="space-y-4 ml-7">
-                  <div className="flex items-center">
-                    <Phone className="w-4 h-4 text-[#0077B6] mr-3" />
-                    <span className="text-gray-800 font-medium">+94 77 123 4567</span>
-                  </div>
+                <div className="space-y-4">
+                  <button className="flex items-center justify-center w-full gap-2 bg-white hover:bg-gray-50 text-[#0077B6] border border-[#0077B6]/30 py-2.5 px-4 rounded-full font-medium transition shadow-sm">
+                    <Phone className="w-4 h-4" />
+                    <span>Call Now</span>
+                  </button>
                   
-                  <div className="flex items-center">
-                    <Mail className="w-4 h-4 text-[#0077B6] mr-3" />
-                    <span className="text-gray-800 font-medium">info@bestsrilankatours.com</span>
-                  </div>
+                  <button 
+                    onClick={() => handleNavClick('contact')}
+                    className="flex items-center justify-center w-full gap-2 bg-white hover:bg-gray-50 text-[#0077B6] border border-[#0077B6]/30 py-2.5 px-4 rounded-full font-medium transition shadow-sm"
+                  >
+                    <Mail className="w-4 h-4" />
+                    <span>Email Us</span>
+                  </button>
                 </div>
               </div>
             </div>
