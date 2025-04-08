@@ -371,97 +371,85 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         </div>
       </section>
       
-      {/* Sleek Modern Navigation Menu */}
-      <div className="bg-white/95 backdrop-blur-sm sticky top-0 z-40 border-b shadow-sm">
+      {/* Elegant Navigation Menu */}
+      <div className="bg-white sticky top-0 z-40 border-b shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center overflow-x-auto scrollbar-none whitespace-nowrap py-3 gap-2 md:gap-5">
+            <div className="flex items-center overflow-x-auto scrollbar-none whitespace-nowrap py-3 gap-1 md:gap-0">
               <button 
                 onClick={() => handleNavClick('overview')}
-                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+                className={`relative text-sm font-medium px-5 py-2 transition-all duration-300 
+                  border-b-2 ${
                   activeSection === 'overview' 
-                    ? 'bg-primary/10 text-primary' 
-                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent text-gray-600 hover:text-primary/80'
                 }`}
               >
                 Overview
-                {activeSection === 'overview' && (
-                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
-                )}
               </button>
               <button 
                 onClick={() => handleNavClick('itinerary')}
-                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+                className={`relative text-sm font-medium px-5 py-2 transition-all duration-300 
+                  border-b-2 ${
                   activeSection === 'itinerary' 
-                    ? 'bg-primary/10 text-primary' 
-                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent text-gray-600 hover:text-primary/80'
                 }`}
               >
                 Itinerary
-                {activeSection === 'itinerary' && (
-                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
-                )}
               </button>
               <button 
                 onClick={() => handleNavClick('gallery')}
-                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+                className={`relative text-sm font-medium px-5 py-2 transition-all duration-300 
+                  border-b-2 ${
                   activeSection === 'gallery' 
-                    ? 'bg-primary/10 text-primary' 
-                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent text-gray-600 hover:text-primary/80'
                 }`}
               >
                 Gallery
-                {activeSection === 'gallery' && (
-                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
-                )}
               </button>
               {tourData.mapImage && tourData.mapPoints && tourData.mapPoints.length > 0 && (
                 <button 
                   onClick={() => handleNavClick('map')}
-                  className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+                  className={`relative text-sm font-medium px-5 py-2 transition-all duration-300 
+                    border-b-2 ${
                     activeSection === 'map' 
-                      ? 'bg-primary/10 text-primary' 
-                      : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
+                      ? 'border-primary text-primary' 
+                      : 'border-transparent text-gray-600 hover:text-primary/80'
                   }`}
                 >
                   Map
-                  {activeSection === 'map' && (
-                    <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
-                  )}
                 </button>
               )}
               <button 
                 onClick={() => handleNavClick('inclusions')}
-                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+                className={`relative text-sm font-medium px-5 py-2 transition-all duration-300 
+                  border-b-2 ${
                   activeSection === 'inclusions' 
-                    ? 'bg-primary/10 text-primary' 
-                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent text-gray-600 hover:text-primary/80'
                 }`}
               >
                 Details
-                {activeSection === 'inclusions' && (
-                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
-                )}
               </button>
               <button 
                 onClick={() => handleNavClick('contact')}
-                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-                  activeSection === 'contact' 
-                    ? 'bg-primary/10 text-primary font-semibold' 
-                    : 'bg-primary/5 hover:bg-primary/10 text-primary'
-                }`}
+                className={`relative text-sm font-medium px-5 py-2 transition-all duration-300 ml-1 md:ml-3 
+                  ${activeSection === 'contact' 
+                    ? 'text-primary bg-primary/5 border-b-2 border-primary' 
+                    : 'text-primary border-b-2 border-transparent hover:bg-primary/5'
+                  }
+                `}
               >
                 Book Now
-                {activeSection === 'contact' && (
-                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
-                )}
               </button>
             </div>
             
             {/* Elegantly styled Back to Top button */}
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="hidden md:flex items-center gap-1 text-primary/70 hover:text-primary transition-colors px-3 py-2 rounded-full hover:bg-primary/5"
+              className="hidden md:flex items-center gap-1 text-primary/80 hover:text-primary transition-colors"
             >
               <ChevronUp className="w-4 h-4" />
               <span className="text-xs font-medium">Top</span>
