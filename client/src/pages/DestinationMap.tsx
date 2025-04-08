@@ -11,7 +11,7 @@ const DestinationMap = () => {
       id: 1,
       name: "Sigiriya Rock Fortress",
       description: "Ancient rock fortress with frescoes and stunning views.",
-      imageUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1681234567/destinations/cultural/sigiriya_nmbzuf.jpg",
+      imageUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743450370/destinations/sigiriya-rock-fortress-pidurangala.jpg",
       position: { top: '25%', left: '55%' },
       featured: true
     },
@@ -19,7 +19,7 @@ const DestinationMap = () => {
       id: 2,
       name: "Kandy Temple",
       description: "Temple of the Sacred Tooth Relic - Sri Lanka's most important Buddhist shrine.",
-      imageUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1681234567/destinations/cultural/kandy-temple_tphwsc.jpg",
+      imageUrl: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743585928/destinations/kandy-overview.jpg",
       position: { top: '45%', left: '43%' },
       featured: true
     },
