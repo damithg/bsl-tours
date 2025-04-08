@@ -180,31 +180,57 @@ const DestinationMap = () => {
           </div>
         )}
         
-        {/* Mobile View - Scrollable Card Layout */}
+        {/* Mobile View - Interactive Map with Markers + Scrollable Cards */}
         <div className="md:hidden">
-          <div className="relative mb-8">
-            <img 
-              src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744127782/map-sri-lanka_vb7cpr.png" 
-              alt="Sri Lanka Map" 
-              className="w-full h-auto opacity-25"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <p className="text-[#0077B6] font-medium bg-white/90 px-4 py-2 rounded-full">
-                Scroll to explore destinations
+          {/* Mobile Interactive Map */}
+          <div className="relative mb-12 mx-auto max-w-md">
+            {/* Map container with fixed height for mobile */}
+            <div className="relative rounded-xl shadow-lg overflow-hidden" style={{ height: "450px" }}>
+              <img 
+                src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744127782/map-sri-lanka_vb7cpr.png" 
+                alt="Sri Lanka Map" 
+                className="w-full h-full object-contain"
+              />
+              
+              {/* Mobile map markers - simplified version */}
+              {destinations.map(destination => (
+                <div 
+                  key={destination.id}
+                  className="absolute"
+                  style={{ ...destination.position }}
+                >
+                  <a 
+                    href={`#destination-${destination.id}`}
+                    className={`w-6 h-6 bg-[#F26B6B] rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform ${
+                      destination.featured ? 'ring-2 ring-white' : ''
+                    }`}
+                  >
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F26B6B] opacity-75"></span>
+                    <span className="w-2 h-2 bg-white rounded-full"></span>
+                  </a>
+                </div>
+              ))}
+            </div>
+            
+            {/* Mobile map instructions */}
+            <div className="absolute top-4 left-0 right-0 flex justify-center">
+              <p className="text-[#0077B6] font-medium bg-white/90 px-4 py-2 rounded-full text-sm shadow-md">
+                Tap markers or scroll to explore
               </p>
             </div>
           </div>
           
-          {/* Mobile cards */}
-          <div className="space-y-6">
+          {/* Mobile destination cards */}
+          <div className="space-y-8">
             {[...destinations]
               .sort((a, b) => a.mobileOrder - b.mobileOrder)
               .map(destination => (
                 <div 
+                  id={`destination-${destination.id}`}
                   key={destination.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden"
+                  className="bg-white rounded-xl shadow-lg overflow-hidden scroll-mt-4"
                 >
-                  <div className="relative h-56">
+                  <div className="relative h-64">
                     <img 
                       src={destination.imageUrl} 
                       alt={destination.name} 
@@ -217,9 +243,12 @@ const DestinationMap = () => {
                         </span>
                       </div>
                     )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="font-bold text-2xl text-white">{destination.name}</h3>
+                    </div>
                   </div>
                   <div className="p-5">
-                    <h3 className="font-bold text-xl text-[#0077B6] mb-2">{destination.name}</h3>
                     <p className="text-gray-600 mb-4">{destination.description}</p>
                     <a 
                       href={`/destinations/${destination.name.toLowerCase().replace(/\s+/g, '-')}`}
