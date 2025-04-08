@@ -88,7 +88,7 @@ const AboutSection = () => {
                   {/* Desktop & tablet images - hidden on small mobile */}
                   <div className="hidden sm:block">
                     {/* First image with pin - North */}
-                    <div className="absolute top-[40%] left-[-10%]">
+                    <div className="absolute top-[45%] left-[-20%]">
                       <div className="relative rotate-3 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
@@ -96,11 +96,6 @@ const AboutSection = () => {
                             alt="Backpack Traveler" 
                             className="w-auto h-auto object-contain rounded-sm"
                           />
-                          <div className="absolute bottom-4 left-4 right-4">
-                            <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
-                              Sri Lanka Travels
-                            </p>
-                          </div>
                         </div>
                         {/* Map Pin */}
                         <div className="absolute -bottom-10 md:-bottom-12 left-1/2 -translate-x-1/2 scale-75 md:scale-100">
@@ -114,7 +109,7 @@ const AboutSection = () => {
                     </div>
                     
                     {/* Second image - West Coast */}
-                    <div className="absolute top-[14%] right-[10%]">
+                    <div className="absolute top-[4%] right-[-32%]">
                       <div className="relative -rotate-2 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
@@ -122,11 +117,6 @@ const AboutSection = () => {
                             alt="Backpack Traveler" 
                             className="w-auto h-auto object-contain rounded-sm"
                           />
-                          <div className="absolute bottom-4 left-4 right-4">
-                            <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
-                              Island Paradise
-                            </p>
-                          </div>
                         </div>
                         {/* Map Pin */}
                         <div className="absolute -bottom-10 md:-bottom-12 left-1/2 -translate-x-1/2 scale-75 md:scale-100">
@@ -148,11 +138,6 @@ const AboutSection = () => {
                             alt="Backpack Traveler" 
                             className="w-auto h-auto object-contain rounded-sm"
                           />
-                          <div className="absolute bottom-4 left-4 right-4">
-                            <p className="text-white font-['Playfair_Display'] text-xs md:text-sm italic drop-shadow-md">
-                              Tropical Haven
-                            </p>
-                          </div>
                         </div>
                         {/* Map Pin */}
                         <div className="absolute -bottom-10 md:-bottom-12 left-1/2 -translate-x-1/2 scale-75 md:scale-100">
