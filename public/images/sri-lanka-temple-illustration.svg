@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Temple Base -->
+  <rect x="40" y="150" width="120" height="20" fill="#D2B48C" />
+  
+  <!-- Temple Base Steps -->
+  <rect x="30" y="170" width="140" height="10" fill="#C19A6B" />
+  <rect x="20" y="180" width="160" height="10" fill="#A67B5B" />
+  <rect x="10" y="190" width="180" height="10" fill="#8B5A2B" />
+  
+  <!-- Main Temple Structure -->
+  <rect x="50" y="80" width="100" height="70" fill="#F5DEB3" />
+  
+  <!-- Temple Entrance -->
+  <rect x="85" y="120" width="30" height="30" fill="#8B4513" />
+  <circle cx="100" cy="135" r="2" fill="#D4AF37" /> <!-- Door Handle -->
+  
+  <!-- Temple Windows -->
+  <rect x="60" y="100" width="20" height="30" fill="#8B4513" />
+  <rect x="120" y="100" width="20" height="30" fill="#8B4513" />
+  
+  <!-- Temple Pillars -->
+  <rect x="55" y="80" width="10" height="70" fill="#DEB887" />
+  <rect x="135" y="80" width="10" height="70" fill="#DEB887" />
+  
+  <!-- Temple Dome -->
+  <path d="M50,80 C50,40 150,40 150,80" fill="#FFD700" />
+  
+  <!-- Ornate Temple Top -->
+  <path d="M90,40 L100,20 L110,40 Z" fill="#FFD700" />
+  <circle cx="100" cy="40" r="8" fill="#FFD700" />
+  
+  <!-- Decorative Elements -->
+  <rect x="60" y="70" width="80" height="10" fill="#D4AF37" />
+  
+  <!-- Temple Flags -->
+  <line x1="50" y1="40" x2="50" y2="20" stroke="#FF6347" stroke-width="2" />
+  <path d="M50,20 L65,25 L50,30" fill="#FF6347" />
+  
+  <line x1="150" y1="40" x2="150" y2="20" stroke="#FF6347" stroke-width="2" />
+  <path d="M150,20 L135,25 L150,30" fill="#FF6347" />
+</svg>

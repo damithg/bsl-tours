@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="100" viewBox="0 0 150 100">
+  <!-- Bus Body -->
+  <rect x="10" y="30" width="130" height="60" rx="5" ry="5" fill="#D91D1D" />
+  
+  <!-- Top Deck -->
+  <rect x="10" y="5" width="130" height="25" rx="5" ry="5" fill="#D91D1D" />
+  
+  <!-- Windows - Top Deck -->
+  <rect x="20" y="10" width="15" height="15" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="40" y="10" width="15" height="15" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="60" y="10" width="15" height="15" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="80" y="10" width="15" height="15" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="100" y="10" width="15" height="15" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="120" y="10" width="15" height="15" rx="2" ry="2" fill="#B7E3FF" />
+  
+  <!-- Windows - Bottom Deck -->
+  <rect x="20" y="40" width="15" height="20" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="40" y="40" width="15" height="20" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="60" y="40" width="15" height="20" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="80" y="40" width="15" height="20" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="100" y="40" width="15" height="20" rx="2" ry="2" fill="#B7E3FF" />
+  <rect x="120" y="40" width="30" height="40" rx="2" ry="2" fill="#B7E3FF" />
+  
+  <!-- Driver's Window -->
+  <rect x="10" y="40" width="10" height="20" rx="2" ry="2" fill="#B7E3FF" />
+  
+  <!-- Wheels -->
+  <circle cx="35" cy="90" r="10" fill="#333333" />
+  <circle cx="35" cy="90" r="5" fill="#666666" />
+  <circle cx="115" cy="90" r="10" fill="#333333" />
+  <circle cx="115" cy="90" r="5" fill="#666666" />
+  
+  <!-- Headlights -->
+  <rect x="10" y="70" width="5" height="5" rx="2" ry="2" fill="#FFFF99" />
+  <rect x="135" y="70" width="5" height="5" rx="2" ry="2" fill="#FFFF99" />
+  
+  <!-- Door -->
+  <rect x="125" y="65" width="10" height="25" rx="2" ry="2" fill="#B7E3FF" stroke="#333333" />
+  
+  <!-- "LONDON" text -->
+  <text x="50" y="80" font-family="Arial" font-size="12" font-weight="bold" fill="white">LONDON</text>
+</svg>

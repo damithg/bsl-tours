@@ -6,6 +6,7 @@ import MapDestinationShowcase from '@/components/MapDestinationShowcase';
 import ExperienceShowcase from '@/components/ExperienceShowcase';
 import TestimonialSection from '@/components/TestimonialSection';
 import AboutSection from '@/components/AboutSection';
+import DestinationMap from '@/components/DestinationMap';
 import CTASection from '@/components/CTASection';
 import ContactForm from '@/components/ContactForm';
 
@@ -23,6 +24,7 @@ const Home = () => {
       <ExperienceShowcase />
       <TestimonialSection />
       <AboutSection />
+      <DestinationMap />
       <CTASection />
       
       <section id="contact" className="py-20 bg-[#F8F5F0]">
