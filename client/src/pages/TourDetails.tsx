@@ -296,7 +296,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   {tourData.heroImage.caption}
                 </p>
               )}
-              <div className="flex items-center bg-gradient-to-r from-black/20 to-black/10 backdrop-blur-sm px-3 py-1.5 rounded-md inline-block border border-white/20 shadow-sm">
+              <div className="flex items-center px-3 py-1.5 inline-block">
                 <StarRating rating={4.8} size="md" />
                 <span className="ml-2 text-white font-medium drop-shadow-sm">4.8 (48 reviews)</span>
               </div>
