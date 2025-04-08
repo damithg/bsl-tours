@@ -304,72 +304,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         </div>
       </section>
       
-      {/* Info Cards Section */}
-      <section className="bg-white border-b">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
-            {/* Duration Card */}
-            <div className="flex items-center space-x-3">
-              <div className="bg-primary/10 p-3 rounded-full">
-                <Clock className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <div className="text-sm text-gray-500">Duration</div>
-                <div className="font-medium">{tourData.duration}</div>
-              </div>
-            </div>
-            
-            {/* Tour Type Card */}
-            <div className="flex items-center space-x-3">
-              <div className="bg-primary/10 p-3 rounded-full">
-                <Compass className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <div className="text-sm text-gray-500">Tour Type</div>
-                <div className="font-medium">Private Luxury</div>
-              </div>
-            </div>
-            
-            {/* Group Size Card */}
-            <div className="flex items-center space-x-3">
-              <div className="bg-primary/10 p-3 rounded-full">
-                <Users className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <div className="text-sm text-gray-500">Group Size</div>
-                <div className="font-medium">Private Tour</div>
-              </div>
-            </div>
-            
-            {/* Languages Card */}
-            <div className="flex items-center space-x-3">
-              <div className="bg-primary/10 p-3 rounded-full">
-                <Globe className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <div className="text-sm text-gray-500">Languages</div>
-                <div className="font-medium">English</div>
-              </div>
-            </div>
-            
-            {/* Price Card */}
-            <div className="hidden xl:flex items-center space-x-3 col-span-1">
-              <div className="bg-primary/10 p-3 rounded-full">
-                <PiggyBank className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <div className="text-sm text-gray-500">Starting from</div>
-                <div className="flex items-baseline">
-                  <div className="font-semibold text-[#0077B6] text-lg">
-                    {formatPrice(tourData.startingFrom, { currency: tourData.currency })}
-                  </div>
-                  <div className="text-gray-500 text-xs ml-1.5">/ per person</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       
       {/* Elegant Navigation Menu */}
       <div className="bg-white sticky top-0 z-40 border-b shadow-sm">
@@ -489,7 +424,15 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               </div>
               
               {/* Quick Facts - Bottom of overview section */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-4 mt-6 border-t border-gray-100">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-4 mt-6 border-t border-gray-100">
+                <div>
+                  <div className="flex items-center mb-2">
+                    <Clock className="w-5 h-5 text-primary mr-2" />
+                    <h3 className="font-medium text-gray-800">Duration</h3>
+                  </div>
+                  <p className="text-sm text-gray-600 pl-7">{tourData.duration}</p>
+                </div>
+                
                 <div>
                   <div className="flex items-center mb-2">
                     <Calendar className="w-5 h-5 text-primary mr-2" />
