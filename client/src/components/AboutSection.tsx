@@ -165,23 +165,8 @@ const AboutSection = () => {
                       </div>
                     </div>
                     
-                    {/* Decorative element - "Discover Sri Lanka" text */}
-                    <div className="absolute bottom-8 left-[5%]">
-                      <div className="bg-white/90 px-4 py-2 rounded-lg shadow-md transform rotate-3">
-                        <p className="font-['Playfair_Display'] text-xl text-[#0077B6] italic">
-                          Discover Sri Lanka
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Decorative element - Sri Lankan Elephant */}
-                    <div className="absolute top-[60%] left-[55%]">
-                      <img 
-                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1681234567/icons/sri-lankan-elephant_dzc3ph.png" 
-                        alt="Sri Lankan Elephant" 
-                        className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-80"
-                      />
-                    </div>
+
+
                   </div>
                   
                   {/* Mobile optimized view - alternative to the detailed map above */}
