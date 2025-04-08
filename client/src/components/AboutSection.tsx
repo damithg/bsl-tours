@@ -88,7 +88,7 @@ const AboutSection = () => {
                   {/* Desktop & tablet images - hidden on small mobile */}
                   <div className="hidden sm:block">
                     {/* First image with pin - North */}
-                    <div className="absolute top-[14%] right-[10%]">
+                    <div className="absolute top-[40%] left-[-10%]">
                       <div className="relative rotate-3 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
@@ -114,7 +114,7 @@ const AboutSection = () => {
                     </div>
                     
                     {/* Second image - West Coast */}
-                    <div className="absolute top-[40%] left-[-10%]">
+                    <div className="absolute top-[14%] right-[10%]">
                       <div className="relative -rotate-2 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
