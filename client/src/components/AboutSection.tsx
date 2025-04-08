@@ -88,7 +88,7 @@ const AboutSection = () => {
                   {/* Desktop & tablet images - hidden on small mobile */}
                   <div className="hidden sm:block">
                     {/* First image with pin - Top Right */}
-                    <div className="absolute top-[15%] right-[15%]">
+                    <div className="absolute top-[15%] right-[25%]">
                       <div className="relative rotate-3 transform transition-transform">
                         <div className="p-2 bg-white rounded-md shadow-lg">
                           <img 
@@ -114,7 +114,7 @@ const AboutSection = () => {
                     </div>
                     
                     {/* Second image - Center */}
-                    <div className="absolute top-[35%] left-[10%]">
+                    <div className="absolute top-[35%] left-[20%]">
                       <div className="relative -rotate-2 transform transition-transform">
                         <div className="p-2 bg-white rounded-md shadow-lg">
                           <img 
@@ -139,8 +139,8 @@ const AboutSection = () => {
                       </div>
                     </div>
                     
-                    {/* Third image - Bottom Left */}
-                    <div className="absolute bottom-[12%] right-[25%]">
+                    {/* Third image - Bottom Center */}
+                    <div className="absolute bottom-[18%] right-[35%]">
                       <div className="relative rotate-1 transform transition-transform">
                         <div className="p-2 bg-white rounded-md shadow-lg">
                           <img 
