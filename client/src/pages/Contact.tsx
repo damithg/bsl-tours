@@ -1,4 +1,4 @@
-import ContactForm from "@/components/ContactForm";
+import SimpleContactForm from "@/components/SimpleContactForm";
 
 const Contact = () => {
   const contactInfo = [
@@ -94,7 +94,7 @@ const Contact = () => {
               <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-[#0F4C81] mb-6">Send Us a Message</h2>
               <p className="text-[#333333]/80 mb-8">Fill out the form below, and one of our luxury travel consultants will contact you within 24 hours.</p>
               
-              <ContactForm />
+              <SimpleContactForm />
             </div>
             
             <div className="lg:w-1/2 relative">

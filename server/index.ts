@@ -133,6 +133,151 @@ app.get('/api/tour-packages/:id', async (req, res) => {
   }
 });
 
+// Handle contact form submissions
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, phone, message } = req.body;
+    
+    if (!name || !email || !message) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        details: {
+          name: !name ? 'Name is required' : null,
+          email: !email ? 'Email is required' : null,
+          message: !message ? 'Message is required' : null
+        }
+      });
+    }
+    
+    // Import sendContactFormEmail avoiding circular dependencies
+    const { sendContactFormEmail } = await import('./emailService');
+    
+    // Send the email notification
+    await sendContactFormEmail(name, email, phone || '', message);
+    
+    res.status(200).json({ success: true, message: 'Your message has been sent successfully!' });
+  } catch (error) {
+    console.error('Error sending contact form email:', error);
+    
+    // Check if it's a SendGrid API key error
+    const err = error as Error;
+    if (err.message === 'Email service is not configured') {
+      return res.status(503).json({ 
+        error: 'Email service unavailable', 
+        message: 'Email service is not configured. Please contact the administrator.'
+      });
+    }
+    
+    res.status(500).json({ 
+      error: 'Failed to send message', 
+      message: err.message || 'An unexpected error occurred'
+    });
+  }
+});
+
+// Handle tour inquiry submissions
+app.post('/api/inquiries', async (req, res) => {
+  try {
+    const { firstName, lastName, email, phone, travelDates, packageInterest, message, subscribed } = req.body;
+    
+    if (!firstName || !lastName || !email || !message) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        details: {
+          firstName: !firstName ? 'First name is required' : null,
+          lastName: !lastName ? 'Last name is required' : null,
+          email: !email ? 'Email is required' : null,
+          message: !message ? 'Message is required' : null
+        }
+      });
+    }
+    
+    // Store the inquiry in the database
+    const inquiry = await storage.createInquiry({
+      firstName,
+      lastName,
+      email,
+      phone: phone || null,
+      travelDates: travelDates || null,
+      packageInterest: packageInterest || null,
+      message,
+      subscribed: subscribed || false
+    });
+    
+    // Import sendTourInquiryEmail avoiding circular dependencies
+    const { sendTourInquiryEmail } = await import('./emailService');
+    
+    // Send the email notification
+    await sendTourInquiryEmail(
+      firstName,
+      lastName,
+      email,
+      phone || '',
+      travelDates || '',
+      packageInterest || '',
+      message,
+      subscribed || false
+    );
+    
+    res.status(201).json({ 
+      success: true, 
+      message: 'Your inquiry has been submitted successfully!',
+      inquiry
+    });
+  } catch (error) {
+    console.error('Error processing tour inquiry:', error);
+    
+    // Check if it's a SendGrid API key error
+    const err = error as Error;
+    if (err.message === 'Email service is not configured') {
+      return res.status(503).json({ 
+        error: 'Email service unavailable', 
+        message: 'Email service is not configured. Please contact the administrator.'
+      });
+    }
+    
+    res.status(500).json({ 
+      error: 'Failed to submit inquiry', 
+      message: err.message || 'An unexpected error occurred'
+    });
+  }
+});
+
+// Handle newsletter subscriptions
+app.post('/api/subscribe', async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+    
+    // Check if subscriber already exists
+    const existingSubscriber = await storage.getSubscriberByEmail(email);
+    if (existingSubscriber) {
+      return res.status(200).json({ 
+        success: true, 
+        message: 'You are already subscribed to our newsletter!'
+      });
+    }
+    
+    // Store the new subscriber
+    const subscriber = await storage.addSubscriber({ email });
+    
+    res.status(201).json({ 
+      success: true, 
+      message: 'Thank you for subscribing to our newsletter!',
+      subscriber
+    });
+  } catch (error) {
+    console.error('Error processing newsletter subscription:', error);
+    res.status(500).json({ 
+      error: 'Failed to process subscription', 
+      message: (error as Error).message || 'An unexpected error occurred'
+    });
+  }
+});
+
 (async () => {
   // Create a basic HTTP server
   const server = createServer(app);
