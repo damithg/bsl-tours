@@ -40,7 +40,10 @@ export const BackToTopButton = ({
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 p-3 bg-primary text-white rounded-full shadow-lg opacity-0 transition-all duration-300 z-50 hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${isVisible ? 'opacity-90 translate-y-0' : 'translate-y-10'} ${className}`}
+      className={`fixed bottom-8 right-8 p-3 bg-white text-primary border border-gray-100 rounded-full shadow-lg opacity-0 backdrop-blur-sm transition-all duration-300 z-50 
+        hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 
+        ${isVisible ? 'opacity-95 translate-y-0 scale-100' : 'translate-y-10 scale-90'} 
+        ${className}`}
       aria-label="Back to top"
     >
       <ChevronUp className="w-5 h-5" />

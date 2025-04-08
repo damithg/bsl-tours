@@ -371,82 +371,100 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         </div>
       </section>
       
-      {/* Sticky Navigation Menu with Scroll To Top button */}
-      <div className="bg-white sticky top-0 z-40 border-b shadow-md">
+      {/* Sleek Modern Navigation Menu */}
+      <div className="bg-white/95 backdrop-blur-sm sticky top-0 z-40 border-b shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center overflow-x-auto scrollbar-none whitespace-nowrap py-4 gap-6">
+            <div className="flex items-center overflow-x-auto scrollbar-none whitespace-nowrap py-3 gap-2 md:gap-5">
               <button 
                 onClick={() => handleNavClick('overview')}
-                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                   activeSection === 'overview' 
-                    ? 'border-primary text-primary' 
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    ? 'bg-primary/10 text-primary' 
+                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
                 }`}
               >
                 Overview
+                {activeSection === 'overview' && (
+                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
+                )}
               </button>
               <button 
                 onClick={() => handleNavClick('itinerary')}
-                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                   activeSection === 'itinerary' 
-                    ? 'border-primary text-primary' 
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    ? 'bg-primary/10 text-primary' 
+                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
                 }`}
               >
                 Itinerary
+                {activeSection === 'itinerary' && (
+                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
+                )}
               </button>
               <button 
                 onClick={() => handleNavClick('gallery')}
-                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                   activeSection === 'gallery' 
-                    ? 'border-primary text-primary' 
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    ? 'bg-primary/10 text-primary' 
+                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
                 }`}
               >
                 Gallery
+                {activeSection === 'gallery' && (
+                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
+                )}
               </button>
               {tourData.mapImage && tourData.mapPoints && tourData.mapPoints.length > 0 && (
                 <button 
                   onClick={() => handleNavClick('map')}
-                  className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                  className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                     activeSection === 'map' 
-                      ? 'border-primary text-primary' 
-                      : 'border-transparent text-gray-600 hover:text-gray-900'
+                      ? 'bg-primary/10 text-primary' 
+                      : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
                   }`}
                 >
                   Map
+                  {activeSection === 'map' && (
+                    <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
+                  )}
                 </button>
               )}
               <button 
                 onClick={() => handleNavClick('inclusions')}
-                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                   activeSection === 'inclusions' 
-                    ? 'border-primary text-primary' 
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    ? 'bg-primary/10 text-primary' 
+                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
                 }`}
               >
                 Details
+                {activeSection === 'inclusions' && (
+                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
+                )}
               </button>
               <button 
                 onClick={() => handleNavClick('contact')}
-                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                className={`relative px-4 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
                   activeSection === 'contact' 
-                    ? 'border-primary text-primary' 
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    ? 'bg-primary/10 text-primary font-semibold' 
+                    : 'bg-primary/5 hover:bg-primary/10 text-primary'
                 }`}
               >
                 Book Now
+                {activeSection === 'contact' && (
+                  <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></span>
+                )}
               </button>
             </div>
             
-            {/* Back to top button */}
+            {/* Elegantly styled Back to Top button */}
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="hidden md:flex items-center text-primary hover:text-primary/80 transition-colors py-2"
+              className="hidden md:flex items-center gap-1 text-primary/70 hover:text-primary transition-colors px-3 py-2 rounded-full hover:bg-primary/5"
             >
-              <span className="mr-1 text-sm">Top</span>
               <ChevronUp className="w-4 h-4" />
+              <span className="text-xs font-medium">Top</span>
             </button>
           </div>
         </div>
