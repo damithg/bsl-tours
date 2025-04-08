@@ -1,22 +1,50 @@
 import { useState, useEffect, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface Destination {
   id: number;
   name: string;
   description: string;
-  image: string;
-  position: {
+  image?: string;
+  imageUrl?: string;
+  slug?: string;
+  position?: {
     x: number;
     y: number;
   };
+  // Additional API fields
+  shortDescription?: string;
+  highlights?: string[];
+  galleryImages?: any[];
 }
 
 const DestinationShowcase = () => {
+  // Set up the API call to get destinations data
+  const { data: apiDestinations, isLoading, error } = useQuery<Destination[]>({
+    queryKey: ['/api/destinations'],
+    queryFn: async ({ queryKey }) => {
+      try {
+        const baseUrl = 'https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net';
+        const url = `${baseUrl}${queryKey[0]}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
+        
+        return response.json();
+      } catch (err) {
+        console.error('Error fetching destinations:', err);
+        return null; // Return null to use fallback data
+      }
+    },
+  });
+  
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   
-  // Sample destinations with coordinates relative to the map
-  const destinations: Destination[] = [
+  // Fallback destinations with coordinates relative to the map
+  const fallbackDestinations: Destination[] = [
     {
       id: 1,
       name: "Sigiriya",
@@ -53,6 +81,9 @@ const DestinationShowcase = () => {
       position: { x: 75, y: 28 }
     }
   ];
+  
+  // Use API destinations if available, otherwise use fallback
+  const destinations = apiDestinations || fallbackDestinations;
 
   // Intersection Observer to trigger animations when section is in view
   useEffect(() => {
@@ -176,8 +207,8 @@ const DestinationShowcase = () => {
                     href={`/destinations/${destination.name.toLowerCase()}`}
                     className="absolute transition-transform hover:scale-110 duration-300"
                     style={{ 
-                      left: `${destination.position.x}%`, 
-                      top: `${destination.position.y}%`,
+                      left: `${destination.position?.x || 50}%`, 
+                      top: `${destination.position?.y || 50}%`,
                       transform: "translate(-50%, -50%)" 
                     }}
                   >
@@ -194,7 +225,7 @@ const DestinationShowcase = () => {
                       <div className="absolute hidden group-hover:block bottom-full left-1/2 transform -translate-x-1/2 -translate-y-2 w-48 bg-white shadow-xl rounded-md p-3 text-left z-20">
                         <div className="relative">
                           <img 
-                            src={destination.image} 
+                            src={destination.image || destination.imageUrl || `https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/destinations/${destination.name.toLowerCase()}.jpg`} 
                             alt={destination.name} 
                             className="w-full h-24 object-cover rounded-md mb-2"
                           />
@@ -285,7 +316,7 @@ const DestinationShowcase = () => {
                   className="group block relative rounded-lg overflow-hidden shadow-md hover:shadow-lg transition"
                 >
                   <img 
-                    src={destination.image} 
+                    src={destination.image || destination.imageUrl || `https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/destinations/${destination.name.toLowerCase()}.jpg`} 
                     alt={destination.name} 
                     className="w-full h-32 object-cover group-hover:scale-105 transition duration-300" 
                   />
