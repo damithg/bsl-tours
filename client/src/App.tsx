@@ -7,7 +7,7 @@ import Home from "@/pages/Home";
 import TourPackages from "@/pages/TourPackages";
 import PackageDetail from "@/pages/PackageDetail";
 import EnhancedPackageDetail from "@/pages/EnhancedPackageDetail";
-import TourDetails from "@/pages/TourDetails";
+import TourDetails from "@/pages/TourDetailsSimplified";
 import Destinations from "@/pages/Destinations";
 import DestinationDetail from "@/pages/DestinationDetail";
 import DestinationMap from "@/pages/DestinationMap";

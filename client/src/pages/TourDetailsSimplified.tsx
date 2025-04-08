@@ -22,8 +22,8 @@ import {
   AccordionTrigger 
 } from "@/components/ui/accordion";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import { Button } from "@/components/ui/button";
 import { BackToTopButton } from "@/components/BackToTopButton";
+import { Button } from "@/components/ui/button";
 import { TourData, TourImage, ItineraryDay } from "@/types/tour";
 
 interface TourDetailsProps {
@@ -39,7 +39,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   
   // Set up Embla carousel for mobile gallery
   const [emblaGalleryRef, emblaGalleryApi] = useEmblaCarousel({ loop: true });
-  // Create a ref that TypeScript understands
   const containerRef = useCallback((node: HTMLDivElement | null) => {
     if (node) {
       // @ts-ignore - the emblaGalleryRef.current is correctly handled by Embla internally
@@ -244,7 +243,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
       large: img.large,
     })) || [];
     
-  // If we have a hero image and it's not already in the gallery, add it first
+  // If we have a hero image and it's not already in the gallery, add it
   if (tourData.heroImage && !galleryImages.some(img => img.publicId === tourData.heroImage?.publicId)) {
     galleryImages.unshift({
       publicId: tourData.heroImage.publicId,
@@ -264,9 +263,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
       <ScrollToTop />
       <BackToTopButton />
       
-      {/* We're replacing the separate breadcrumb with the one in the hero image */}
-      
-      {/* Hero Section with Full-Width Image */}
+      {/* Hero Section */}
       <section className="relative pt-[65px] md:pt-0">
         <div className="aspect-[21/9] lg:aspect-[3/1] w-full overflow-hidden relative">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
@@ -307,14 +304,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         </div>
       </section>
       
-      {/* Mobile Summary (only visible on mobile) */}
-      <div className="md:hidden bg-white p-4 border-b">
-        <p className="text-gray-700 text-base">
-          {tourData.summary.length > 120 ? tourData.summary.substring(0, 120) + '...' : tourData.summary}
-        </p>
-      </div>
-      
-      {/* Info Cards Section - Similar to ModTour */}
+      {/* Info Cards Section */}
       <section className="bg-white border-b">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -381,81 +371,91 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         </div>
       </section>
       
-      {/* Sticky Navigation Menu with Top Button */}
+      {/* Sticky Navigation Menu with Scroll To Top button */}
       <div className="bg-white sticky top-0 z-40 border-b shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center overflow-x-auto scrollbar-none whitespace-nowrap py-4 gap-6">
-            <button 
-              onClick={() => handleNavClick('overview')}
-              className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
-                activeSection === 'overview' 
-                  ? 'border-primary text-primary' 
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Overview
-            </button>
-            <button 
-              onClick={() => handleNavClick('itinerary')}
-              className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
-                activeSection === 'itinerary' 
-                  ? 'border-primary text-primary' 
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Itinerary
-            </button>
-            <button 
-              onClick={() => handleNavClick('gallery')}
-              className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
-                activeSection === 'gallery' 
-                  ? 'border-primary text-primary' 
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Gallery
-            </button>
-            {tourData.mapImage && tourData.mapPoints && tourData.mapPoints.length > 0 && (
               <button 
-                onClick={() => handleNavClick('map')}
+                onClick={() => handleNavClick('overview')}
                 className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
-                  activeSection === 'map' 
+                  activeSection === 'overview' 
                     ? 'border-primary text-primary' 
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
-                Map
+                Overview
               </button>
-            )}
+              <button 
+                onClick={() => handleNavClick('itinerary')}
+                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                  activeSection === 'itinerary' 
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Itinerary
+              </button>
+              <button 
+                onClick={() => handleNavClick('gallery')}
+                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                  activeSection === 'gallery' 
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Gallery
+              </button>
+              {tourData.mapImage && tourData.mapPoints && tourData.mapPoints.length > 0 && (
+                <button 
+                  onClick={() => handleNavClick('map')}
+                  className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                    activeSection === 'map' 
+                      ? 'border-primary text-primary' 
+                      : 'border-transparent text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  Map
+                </button>
+              )}
+              <button 
+                onClick={() => handleNavClick('inclusions')}
+                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                  activeSection === 'inclusions' 
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Details
+              </button>
+              <button 
+                onClick={() => handleNavClick('contact')}
+                className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
+                  activeSection === 'contact' 
+                    ? 'border-primary text-primary' 
+                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Book Now
+              </button>
+            </div>
+            
+            {/* Back to top button */}
             <button 
-              onClick={() => handleNavClick('inclusions')}
-              className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
-                activeSection === 'inclusions' 
-                  ? 'border-primary text-primary' 
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="hidden md:flex items-center text-primary hover:text-primary/80 transition-colors py-2"
             >
-              Details
-            </button>
-            <button 
-              onClick={() => handleNavClick('contact')}
-              className={`text-sm font-medium px-3 py-2 border-b-2 transition-colors ${
-                activeSection === 'contact' 
-                  ? 'border-primary text-primary' 
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Book Now
+              <span className="mr-1 text-sm">Top</span>
+              <ChevronUp className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
       
-      {/* Main Content + Sidebar Layout */}
+      {/* Main Content Area */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Main Content Column */}
+          {/* Main Content */}
           <div className="lg:w-8/12">
             {/* Overview Section */}
             <section ref={overviewRef} id="overview" className="bg-white rounded-lg shadow-sm p-6 mb-8">
@@ -510,7 +510,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               </div>
             </section>
             
-            {/* Itinerary Section - ModTour Style */}
+            {/* Itinerary Section */}
             <section ref={itineraryRef} id="itinerary" className="mb-8">              
               {tourData.itinerary && tourData.itinerary.length > 0 ? (
                 <div className="grid gap-4">
@@ -614,7 +614,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
             </section>
           </div>
           
-          {/* Sidebar Column - Ends right after itinerary section */}
+          {/* Sidebar Column */}
           <div className="lg:w-4/12">
             <div className="sticky top-[70px]">
               {/* Price Card */}
@@ -641,7 +641,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                     onClick={() => handleNavClick('contact')}
                     className="w-full bg-[#0077B6] hover:bg-[#005f92] text-white py-3 px-4 rounded-full font-medium transition flex items-center justify-center shadow-md hover:shadow-lg"
                   >
-                    Book Now <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-1.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    Book Now <ChevronRight className="w-4 h-4 ml-1.5" />
                   </button>
                   
                   <button
@@ -655,7 +655,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <div className="bg-[#F8F3E2] border border-[#F6E27F]/30 rounded-xl p-4 shadow-sm">
                     <h3 className="font-medium text-[#8B7727] mb-1 flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                      <Star className="w-5 h-5 mr-2" />
                       Special Offer
                     </h3>
                     <p className="text-sm text-[#6B5900] ml-7">Book now and receive a complimentary airport transfer!</p>
@@ -666,7 +666,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               {/* Need Help Card */}
               <div className="bg-[#EFF8FC] rounded-xl shadow-sm p-6 border border-[#0077B6]/10">
                 <h3 className="font-semibold text-[#0077B6] mb-4 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                  <Info className="w-5 h-5 mr-2" />
                   Need Help?
                 </h3>
                 
@@ -691,9 +691,9 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         </div>
       </div>
       
-      {/* Full-width sections below itinerary and sidebar */}
+      {/* Full-width sections below main content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        {/* Gallery Section - Full Width */}
+        {/* Gallery Section */}
         <section ref={galleryRef} id="gallery" className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
             <Camera className="w-6 h-6 mr-3 text-primary" />
@@ -770,7 +770,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
           )}
         </section>
         
-        {/* Map Section - Conditional Rendering - Full Width */}
+        {/* Map Section - Conditional Rendering */}
         {tourData.mapImage && tourData.mapPoints && tourData.mapPoints.length > 0 && (
           <section ref={mapRef} id="map" className="bg-white rounded-lg shadow-sm p-6 mb-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
@@ -793,7 +793,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
           </section>
         )}
         
-        {/* Inclusions and Exclusions Section - Full Width */}
+        {/* Inclusions and Exclusions Section */}
         <section ref={inclusionsRef} id="inclusions" className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
             <Info className="w-6 h-6 mr-3 text-primary" />
@@ -849,7 +849,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
           </div>
         </section>
         
-        {/* Contact Form Section - Full Width */}
+        {/* PDF Generator Section */}
         <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
             <Camera className="w-6 h-6 mr-3 text-primary" />
@@ -864,6 +864,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
           </div>
         </section>
 
+        {/* Contact Form Section */}
         <section ref={contactRef} id="contact" className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
             <Phone className="w-6 h-6 mr-3 text-primary" />
