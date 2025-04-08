@@ -113,8 +113,8 @@ const AboutSection = () => {
                       </div>
                     </div>
                     
-                    {/* Third image */}
-                    <div className="absolute bottom-[15%] right-[35%]">
+                    {/* Third image - Hidden for now */}
+                    <div className="absolute bottom-[15%] right-[35%] hidden">
                       <div className="relative rotate-1 transform transition-transform">
                         <div className="p-0 bg-white rounded-md shadow-lg">
                           <img 
@@ -128,7 +128,7 @@ const AboutSection = () => {
                     
                     {/* Map Pins - Now positioned independently */}
                     {/* Pin 1 */}
-                    <div className="absolute top-[55%] left-[15%]">
+                    <div className="absolute top-[55%] left-[30%]">
                       <img 
                         src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
                         alt="Map Pin" 
@@ -137,16 +137,7 @@ const AboutSection = () => {
                     </div>
                     
                     {/* Pin 2 */}
-                    <div className="absolute top-[25%] right-[40%]">
-                      <img 
-                        src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
-                        alt="Map Pin" 
-                        className="w-8 h-8 object-contain"
-                      />
-                    </div>
-                    
-                    {/* Pin 3 */}
-                    <div className="absolute bottom-[30%] right-[55%]">
+                    <div className="absolute top-[35%] left-[45%]">
                       <img 
                         src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
                         alt="Map Pin" 
@@ -160,7 +151,7 @@ const AboutSection = () => {
                   
                   {/* Mobile optimized view - alternative to the detailed map above */}
                   <div className="sm:hidden mt-4">
-                    <div className="grid grid-cols-3 gap-2 px-4 py-2">
+                    <div className="grid grid-cols-2 gap-2 px-4 py-2">
                       <div className="relative">
                         <div className="p-0 bg-white rounded-md shadow-md rotate-3">
                           <img 
@@ -179,34 +170,18 @@ const AboutSection = () => {
                           />
                         </div>
                       </div>
-                      <div className="relative">
-                        <div className="p-0 bg-white rounded-md shadow-md rotate-2">
-                          <img 
-                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
-                            alt="Backpack Traveler" 
-                            className="w-auto h-28 object-contain rounded-sm"
-                          />
-                        </div>
-                      </div>
                     </div>
                     
                     {/* Mobile Map Pins */}
                     <div className="relative mt-2">
-                      <div className="absolute top-1/3 left-1/4">
+                      <div className="absolute top-1/2 left-[30%]">
                         <img 
                           src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
                           alt="Map Pin" 
                           className="w-6 h-6 object-contain"
                         />
                       </div>
-                      <div className="absolute top-1/4 right-1/3">
-                        <img 
-                          src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
-                          alt="Map Pin" 
-                          className="w-6 h-6 object-contain"
-                        />
-                      </div>
-                      <div className="absolute bottom-0 right-1/4">
+                      <div className="absolute top-1/3 left-[45%]">
                         <img 
                           src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
                           alt="Map Pin" 
