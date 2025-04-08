@@ -38,6 +38,13 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   
   // Set up Embla carousel for mobile gallery
   const [emblaGalleryRef, emblaGalleryApi] = useEmblaCarousel({ loop: true });
+  // Create a ref that TypeScript understands
+  const containerRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) {
+      // @ts-ignore - the emblaGalleryRef.current is correctly handled by Embla internally
+      emblaGalleryRef.current = node;
+    }
+  }, [emblaGalleryRef]);
   const [galleryIndex, setGalleryIndex] = useState(0);
   
   // Gallery carousel controls
@@ -289,9 +296,9 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
                   {tourData.heroImage.caption}
                 </p>
               )}
-              <div className="flex items-center bg-black/30 px-3 py-1.5 rounded-md inline-block">
+              <div className="flex items-center bg-gradient-to-r from-black/20 to-black/10 backdrop-blur-sm px-3 py-1.5 rounded-md inline-block border border-white/20 shadow-sm">
                 <StarRating rating={4.8} size="md" />
-                <span className="ml-2 text-white/90">4.8 (48 reviews)</span>
+                <span className="ml-2 text-white font-medium drop-shadow-sm">4.8 (48 reviews)</span>
               </div>
             </div>
           </div>
@@ -699,7 +706,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
               
               {/* Mobile Carousel */}
               <div className="md:hidden relative">
-                <div className="overflow-hidden" ref={emblaGalleryRef as React.RefObject<HTMLDivElement>}>
+                <div className="overflow-hidden" ref={containerRef}>
                   <div className="flex">
                     {galleryImages.map((image, index) => (
                       <div key={`carousel-${index}`} className="flex-[0_0_100%] min-w-0 relative">
