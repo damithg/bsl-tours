@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 /**
  * DestinationMap page with photo overlays on a Sri Lanka map
@@ -66,6 +67,11 @@ const DestinationMap = () => {
   // Track the selected destination for the expanded view
   const [selectedDestination, setSelectedDestination] = useState<number | null>(null);
   
+  // For mobile carousel
+  const [activeSlide, setActiveSlide] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const sortedDestinations = [...destinations].sort((a, b) => a.mobileOrder - b.mobileOrder);
+  
   // Track viewport width for responsive layouts
   const [isMobile, setIsMobile] = useState(false);
   
@@ -84,6 +90,33 @@ const DestinationMap = () => {
     // Clean up
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Carousel navigation functions
+  const goToNextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % sortedDestinations.length);
+  };
+  
+  const goToPrevSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + sortedDestinations.length) % sortedDestinations.length);
+  };
+  
+  // When a marker is clicked, update the carousel position
+  const handleMarkerClick = (id: number) => {
+    const index = sortedDestinations.findIndex(d => d.id === id);
+    if (index !== -1) {
+      setActiveSlide(index);
+    }
+  };
+  
+  // Sync the carousel scroll when activeSlide changes
+  useEffect(() => {
+    if (carouselRef.current && isMobile) {
+      carouselRef.current.scrollTo({
+        left: activeSlide * carouselRef.current.offsetWidth,
+        behavior: 'smooth'
+      });
+    }
+  }, [activeSlide, isMobile]);
 
   return (
     <>
@@ -180,89 +213,147 @@ const DestinationMap = () => {
           </div>
         )}
         
-        {/* Mobile View - Interactive Map with Markers + Scrollable Cards */}
+        {/* Mobile View - Interactive Map with Markers + Carousel */}
         <div className="md:hidden">
           {/* Mobile Interactive Map */}
-          <div className="relative mb-12 mx-auto max-w-md">
+          <div className="relative mb-8 mx-auto max-w-md">
             {/* Map container with fixed height for mobile */}
-            <div className="relative rounded-xl shadow-lg overflow-hidden" style={{ height: "450px" }}>
+            <div className="relative rounded-xl shadow-lg overflow-hidden" style={{ height: "400px" }}>
               <img 
                 src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744127782/map-sri-lanka_vb7cpr.png" 
                 alt="Sri Lanka Map" 
                 className="w-full h-full object-contain"
               />
               
-              {/* Mobile map markers - simplified version */}
-              {destinations.map(destination => (
-                <div 
-                  key={destination.id}
-                  className="absolute"
-                  style={{ ...destination.position }}
-                >
-                  <a 
-                    href={`#destination-${destination.id}`}
-                    className={`w-6 h-6 bg-[#F26B6B] rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform ${
-                      destination.featured ? 'ring-2 ring-white' : ''
-                    }`}
+              {/* Mobile map markers */}
+              {destinations.map(destination => {
+                const isActive = sortedDestinations[activeSlide].id === destination.id;
+                return (
+                  <div 
+                    key={destination.id}
+                    className="absolute"
+                    style={{ ...destination.position }}
                   >
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F26B6B] opacity-75"></span>
-                    <span className="w-2 h-2 bg-white rounded-full"></span>
-                  </a>
-                </div>
-              ))}
+                    <button 
+                      onClick={() => handleMarkerClick(destination.id)}
+                      className={`w-8 h-8 bg-[#F26B6B] rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 ${
+                        isActive ? 'scale-125 ring-4 ring-white z-20' : 'hover:scale-110 z-10'
+                      }`}
+                    >
+                      {isActive && (
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F26B6B] opacity-75"></span>
+                      )}
+                      <span className="w-3 h-3 bg-white rounded-full"></span>
+                    </button>
+                    
+                    {/* Show label for active marker */}
+                    {isActive && (
+                      <div className="absolute whitespace-nowrap left-1/2 -translate-x-1/2 -bottom-8">
+                        <span className="bg-white text-[#0077B6] font-medium text-sm px-3 py-1 rounded-full shadow-md">
+                          {destination.name}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
             
-            {/* Mobile map instructions */}
+            {/* Map instruction */}
             <div className="absolute top-4 left-0 right-0 flex justify-center">
               <p className="text-[#0077B6] font-medium bg-white/90 px-4 py-2 rounded-full text-sm shadow-md">
-                Tap markers or scroll to explore
+                Tap markers to explore destinations
               </p>
             </div>
           </div>
           
-          {/* Mobile destination cards */}
-          <div className="space-y-8">
-            {[...destinations]
-              .sort((a, b) => a.mobileOrder - b.mobileOrder)
-              .map(destination => (
-                <div 
-                  id={`destination-${destination.id}`}
-                  key={destination.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden scroll-mt-4"
-                >
-                  <div className="relative h-64">
-                    <img 
-                      src={destination.imageUrl} 
-                      alt={destination.name} 
-                      className="w-full h-full object-cover"
-                    />
-                    {destination.featured && (
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-[#F26B6B] text-white text-xs px-3 py-1 rounded-full shadow-md">
-                          Featured
-                        </span>
+          {/* Mobile Carousel */}
+          <div className="relative mt-12 mb-6">
+            {/* Carousel container */}
+            <div className="relative">
+              {/* Carousel viewport */}
+              <div 
+                ref={carouselRef}
+                className="flex overflow-x-scroll snap-x snap-mandatory scrollbar-hide -mx-4 px-4"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {/* Carousel slides */}
+                {sortedDestinations.map((destination, index) => (
+                  <div 
+                    key={destination.id}
+                    className={`flex-shrink-0 w-full snap-center transition-opacity duration-300 ${
+                      activeSlide === index ? 'opacity-100' : 'opacity-50'
+                    }`}
+                  >
+                    <div className="bg-white rounded-xl shadow-lg overflow-hidden mx-1">
+                      <div className="relative h-64">
+                        <img 
+                          src={destination.imageUrl} 
+                          alt={destination.name} 
+                          className="w-full h-full object-cover"
+                        />
+                        {destination.featured && (
+                          <div className="absolute top-4 right-4">
+                            <span className="bg-[#F26B6B] text-white text-xs px-3 py-1 rounded-full shadow-md">
+                              Featured
+                            </span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-4">
+                          <h3 className="font-bold text-2xl text-white">{destination.name}</h3>
+                        </div>
                       </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="font-bold text-2xl text-white">{destination.name}</h3>
+                      <div className="p-5">
+                        <p className="text-gray-600 mb-4">{destination.description}</p>
+                        <a 
+                          href={`/destinations/${destination.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          className="inline-flex items-center bg-[#0077B6] hover:bg-[#0077B6]/90 text-white font-medium py-2 px-5 rounded-full"
+                        >
+                          Learn More 
+                          <svg className="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                          </svg>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-5">
-                    <p className="text-gray-600 mb-4">{destination.description}</p>
-                    <a 
-                      href={`/destinations/${destination.name.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="inline-flex items-center bg-[#0077B6] hover:bg-[#0077B6]/90 text-white font-medium py-2 px-5 rounded-full"
-                    >
-                      Learn More 
-                      <svg className="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              ))
-            }
+                ))}
+              </div>
+              
+              {/* Carousel controls */}
+              <div className="absolute inset-y-0 left-0 flex items-center">
+                <button 
+                  onClick={goToPrevSlide}
+                  className="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-lg -ml-3 focus:outline-none"
+                >
+                  <ChevronLeft className="h-6 w-6 text-[#0077B6]" />
+                </button>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center">
+                <button 
+                  onClick={goToNextSlide}
+                  className="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-lg -mr-3 focus:outline-none"
+                >
+                  <ChevronRight className="h-6 w-6 text-[#0077B6]" />
+                </button>
+              </div>
+            </div>
+            
+            {/* Carousel indicators */}
+            <div className="flex justify-center mt-4 space-x-2">
+              {sortedDestinations.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    activeSlide === index
+                      ? 'bg-[#0077B6] w-6'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
         
