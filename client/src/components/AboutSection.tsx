@@ -157,63 +157,104 @@ const AboutSection = () => {
           
           <div className="lg:w-1/2 order-1 lg:order-2 mb-10 lg:mb-0">
             <div className="relative">
-              {/* Mini Sri Lanka Map with Destinations - Purely Decorative */}
-              <div className="relative max-w-[85%] mx-auto mt-8 md:mt-0">
-                {/* Map background - no border, seamless integration */}
+              {/* Stylized Decorative Map - Visual Element Only */}
+              <div className="relative max-w-[90%] mx-auto mt-8 md:mt-0">
+                {/* Map background with light opacity */}
                 <div className="relative">
                   <img 
                     src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744127782/map-sri-lanka_vb7cpr.png" 
                     alt="Sri Lanka Map" 
-                    className="w-full h-auto rounded-lg shadow-md"
+                    className="w-full h-auto opacity-[0.35]"
                   />
                   
-                  {/* Destination Pins - smaller size for decorative purposes */}
-                  {/* Sigiriya */}
-                  <div className="absolute" style={{ top: '25%', left: '55%' }}>
-                    <div className="relative">
-                      <img 
-                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743450370/destinations/sigiriya-rock-fortress-pidurangala.jpg" 
-                        alt="Sigiriya Rock Fortress" 
-                        className="w-14 h-14 object-cover rounded-lg shadow-md border-2 border-white"
-                      />
-                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                        <span className="bg-white/90 text-[#0077B6] text-[10px] px-1.5 py-0.5 rounded-full shadow-sm">
-                          Sigiriya
-                        </span>
+                  {/* Sigiriya Featured Image Box - Top Right */}
+                  <div className="absolute top-[15%] right-[20%]">
+                    <div className="relative rotate-3 transform transition-transform">
+                      <div className="p-2 bg-white rounded-md shadow-lg">
+                        <img 
+                          src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743450370/destinations/sigiriya-rock-fortress-pidurangala.jpg" 
+                          alt="Sigiriya Rock Fortress" 
+                          className="w-32 h-32 md:w-40 md:h-28 object-cover rounded-sm"
+                        />
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <p className="text-white font-['Playfair_Display'] text-sm italic drop-shadow-md">
+                            Majestic Sigiriya
+                          </p>
+                        </div>
+                      </div>
+                      {/* Map Pin */}
+                      <div className="absolute -bottom-12 left-1/2 -translate-x-1/2">
+                        <svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M16 0C7.16 0 0 7.16 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.16 24.84 0 16 0ZM16 22C12.68 22 10 19.32 10 16C10 12.68 12.68 10 16 10C19.32 10 22 12.68 22 16C22 19.32 19.32 22 16 22Z" fill="#F26B6B"/>
+                        </svg>
                       </div>
                     </div>
                   </div>
                   
-                  {/* Kandy */}
-                  <div className="absolute" style={{ top: '45%', left: '43%' }}>
-                    <div className="relative">
-                      <img 
-                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743585928/destinations/kandy-overview.jpg" 
-                        alt="Kandy" 
-                        className="w-14 h-14 object-cover rounded-lg shadow-md border-2 border-white"
-                      />
-                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                        <span className="bg-white/90 text-[#0077B6] text-[10px] px-1.5 py-0.5 rounded-full shadow-sm">
-                          Kandy
-                        </span>
+                  {/* Kandy Featured Image Box - Center */}
+                  <div className="absolute top-[35%] left-[22%]">
+                    <div className="relative -rotate-2 transform transition-transform">
+                      <div className="p-2 bg-white rounded-md shadow-lg">
+                        <img 
+                          src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743585928/destinations/kandy-overview.jpg" 
+                          alt="Kandy" 
+                          className="w-32 h-32 md:w-40 md:h-28 object-cover rounded-sm"
+                        />
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <p className="text-white font-['Playfair_Display'] text-sm italic drop-shadow-md">
+                            Cultural Kandy
+                          </p>
+                        </div>
+                      </div>
+                      {/* Map Pin */}
+                      <div className="absolute -bottom-12 left-1/2 -translate-x-1/2">
+                        <svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M16 0C7.16 0 0 7.16 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.16 24.84 0 16 0ZM16 22C12.68 22 10 19.32 10 16C10 12.68 12.68 10 16 10C19.32 10 22 12.68 22 16C22 19.32 19.32 22 16 22Z" fill="#F26B6B"/>
+                        </svg>
                       </div>
                     </div>
                   </div>
                   
-                  {/* Galle */}
-                  <div className="absolute" style={{ bottom: '30%', left: '20%' }}>
-                    <div className="relative">
-                      <img 
-                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1681234567/destinations/colonial/galle-fort_wq4fvs.jpg" 
-                        alt="Galle Fort" 
-                        className="w-14 h-14 object-cover rounded-lg shadow-md border-2 border-white"
-                      />
-                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                        <span className="bg-white/90 text-[#0077B6] text-[10px] px-1.5 py-0.5 rounded-full shadow-sm">
-                          Galle
-                        </span>
+                  {/* Galle Featured Image Box - Bottom Left */}
+                  <div className="absolute bottom-[15%] right-[30%]">
+                    <div className="relative rotate-1 transform transition-transform">
+                      <div className="p-2 bg-white rounded-md shadow-lg">
+                        <img 
+                          src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1681234567/destinations/colonial/galle-fort_wq4fvs.jpg" 
+                          alt="Galle Fort" 
+                          className="w-32 h-32 md:w-40 md:h-28 object-cover rounded-sm"
+                        />
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <p className="text-white font-['Playfair_Display'] text-sm italic drop-shadow-md">
+                            Historic Galle
+                          </p>
+                        </div>
+                      </div>
+                      {/* Map Pin */}
+                      <div className="absolute -bottom-12 left-1/2 -translate-x-1/2">
+                        <svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M16 0C7.16 0 0 7.16 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.16 24.84 0 16 0ZM16 22C12.68 22 10 19.32 10 16C10 12.68 12.68 10 16 10C19.32 10 22 12.68 22 16C22 19.32 19.32 22 16 22Z" fill="#F26B6B"/>
+                        </svg>
                       </div>
                     </div>
+                  </div>
+                  
+                  {/* Decorative element - "Discover Sri Lanka" text */}
+                  <div className="absolute bottom-8 left-[5%]">
+                    <div className="bg-white/90 px-4 py-2 rounded-lg shadow-md transform rotate-3">
+                      <p className="font-['Playfair_Display'] text-xl text-[#0077B6] italic">
+                        Discover Sri Lanka
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Decorative element - Sri Lankan Elephant */}
+                  <div className="absolute top-[60%] left-[55%]">
+                    <img 
+                      src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1681234567/icons/sri-lankan-elephant_dzc3ph.png" 
+                      alt="Sri Lankan Elephant" 
+                      className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-80"
+                    />
                   </div>
                 </div>
               </div>
