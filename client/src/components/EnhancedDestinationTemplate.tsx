@@ -73,6 +73,7 @@ interface TourFeature {
   price: number;
   isBestSeller?: boolean;
   slug?: string;
+  link?: string;
 }
 
 interface FAQ {
@@ -181,7 +182,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
     // Setup scrollsnaps for pagination
     setTourSnaps(emblaTourApi.scrollSnapList());
     
-    // Add event listeners
+    // Add event listenersp
     emblaTourApi.on('select', onSelectTour);
     onSelectTour();
     
@@ -288,6 +289,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
       slug: string;
       duration: string;
       startingFrom: number;
+      link?: string;
       image?: {
         id?: number;
         publicId?: string;
@@ -322,6 +324,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
         duration: tour.duration,
         maxPeople: 12,  // Default value
         price: tour.startingFrom,
+        link: tour.link, // Add the link property from API
         isBestSeller: tour.slug === 'cultural-triangle-explorer' // Mark this popular tour as best seller
       });
     });
@@ -834,7 +837,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                     <h2 className="font-['Playfair_Display'] text-2xl font-bold text-[#0F4C81]">
                       Tours Featuring {destination.name}
                     </h2>
-                    <Link href="/tour-packages" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
+                    <Link href="/tours" className="text-[#0F4C81] hover:text-[#D4AF37] flex items-center gap-1 font-medium">
                       View All <ChevronRight className="w-4 h-4" />
                     </Link>
                   </div>
@@ -872,7 +875,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                               From ${tour.price}
                             </span>
                             <Link 
-                              href={`/packages/${tour.slug || tour.id}`}
+                              href={tour.link || `/tours/${tour.slug || tour.id}`}
                               className="text-sm font-medium bg-[#F9F7F4] text-[#0F4C81] px-3 py-1.5 rounded-full hover:bg-[#0F4C81] hover:text-white transition-colors"
                             >
                               View Details
@@ -920,7 +923,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                                       From ${tour.price}
                                     </span>
                                     <Link 
-                                      href={`/packages/${tour.slug || tour.id}`}
+                                      href={tour.link || `/tours/${tour.slug || tour.id}`}
                                       className="text-sm font-medium bg-[#F9F7F4] text-[#0F4C81] px-3 py-1.5 rounded-full"
                                     >
                                       View Details
@@ -1289,7 +1292,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
               Let us create your perfect Sri Lankan adventure with {destination.name} as part of your journey.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/packages" className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
+              <Link href="/tours" className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
                 View Luxury Packages
               </Link>
               <Link href="/contact" className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-md transition">
