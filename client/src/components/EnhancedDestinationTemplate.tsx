@@ -6,6 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { parseJsonSafely } from "@/lib/utils";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { Destination as ApiDestination } from "@/lib/queryClient";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 // We'll use the ApiDestination interface directly, but add a new interface for our component props
 // This avoids type conflicts between the backend and frontend interfaces
@@ -86,6 +87,9 @@ interface EnhancedDestinationTemplateProps {
 }
 
 export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplateProps> = ({ destination }) => {
+  // Get currency conversion functionality
+  const { formatPrice } = useCurrency();
+  
   // Set up Embla carousel for mobile gallery
   const [emblaGalleryRef, emblaGalleryApi] = useEmblaCarousel({ loop: true });
   const [galleryIndex, setGalleryIndex] = useState(0);
@@ -872,7 +876,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                           </div>
                           <div className="flex justify-between items-center">
                             <span className="font-bold text-[#0F4C81] text-lg">
-                              From ${tour.price}
+                              From {formatPrice(tour.price)}
                             </span>
                             <Link 
                               href={tour.link || `/tours/${tour.slug || tour.id}`}
@@ -920,7 +924,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                                   </div>
                                   <div className="flex justify-between items-center">
                                     <span className="font-bold text-[#0F4C81] text-lg">
-                                      From ${tour.price}
+                                      From {formatPrice(tour.price)}
                                     </span>
                                     <Link 
                                       href={tour.link || `/tours/${tour.slug || tour.id}`}
