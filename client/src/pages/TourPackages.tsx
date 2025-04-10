@@ -99,7 +99,7 @@ const TourPackages = () => {
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
     
     return (
-      <div className="text-[#D4AF37] flex">
+      <div className="text-[#F6E27F] flex">
         {Array.from({ length: fullStars }).map((_, i) => (
           <i key={`full-${i}`} className="fas fa-star"></i>
         ))}
@@ -113,7 +113,7 @@ const TourPackages = () => {
 
   return (
     <main>
-      <section className="relative pt-28 pb-20 bg-[#0F4C81]">
+      <section className="relative pt-28 pb-20 bg-[#0077B6]">
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
             src="https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
@@ -136,7 +136,7 @@ const TourPackages = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-4">Explore Our Packages</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-4">Explore Our Packages</h2>
             <p className="text-lg text-[#333333]/80">Each journey is tailor-made to reflect your preferences, with private guides, luxury accommodations, and unforgettable experiences.</p>
           </div>
 
@@ -229,7 +229,7 @@ const TourPackages = () => {
                         alt={tour.card?.image?.alt || tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
                         className="w-full h-full object-cover object-center" 
                       />
-                      <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-sm font-semibold py-1 px-3 rounded-full">
+                      <div className="absolute top-4 right-4 bg-[#F6E27F]/60 text-[#004E64] text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
                         {tour.duration}
                       </div>
                       {/* Use card.tags first, then fallback to tour.tags */}
@@ -238,7 +238,7 @@ const TourPackages = () => {
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag, i) => (
                             <span 
                               key={i}
-                              className="bg-white/15 text-white/90 text-[0.9rem] px-3 py-0.5 rounded-md leading-6"
+                              className="bg-[#F6E27F]/60 text-[#004E64] text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
                             >
                               {tag}
                             </span>
@@ -289,7 +289,7 @@ const TourPackages = () => {
       <section className="py-16 bg-[#F8F5F0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-6">Customize Your Journey</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-6">Customize Your Journey</h2>
             <p className="text-lg text-[#333333]/80 mb-8">Don't see exactly what you're looking for? Our travel experts can create a completely customized itinerary tailored to your preferences.</p>
             <Link href="/contact" className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-3 px-8 rounded-full transition shadow-md hover:shadow-lg">
               Contact Us to Customize <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 ml-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
