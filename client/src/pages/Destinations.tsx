@@ -88,7 +88,7 @@ const Destinations = () => {
   return (
     <main>
       {/* Hero Section with Breadcrumbs */}
-      <section className="relative h-[500px] bg-[#0F4C81]">
+      <section className="relative h-[500px] bg-[#0077B6]">
         <div className="absolute inset-0 z-0 opacity-30">
           <img 
             src={featuredDestinationContent.image} 
@@ -141,8 +141,8 @@ const Destinations = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {keyExperiences.map((experience, index) => (
               <div key={index} className="bg-[#F8F5F0] p-8 rounded-lg text-center">
-                <div className="w-16 h-16 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mx-auto mb-6">
-                  <i className={`fas ${experience.icon} text-2xl text-[#0F4C81]`}></i>
+                <div className="w-16 h-16 rounded-full bg-[#0077B6]/10 flex items-center justify-center mx-auto mb-6">
+                  <i className={`fas ${experience.icon} text-2xl text-[#0077B6]`}></i>
                 </div>
                 <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-3">{experience.title}</h3>
                 <p className="text-[#333333]/70">{experience.description}</p>
@@ -225,8 +225,8 @@ const Destinations = () => {
                       
                       <Link 
                         href={`/destination/${destination.slug || destination.id}`}
-                        className="inline-flex items-center bg-[#0F4C81]/10 hover:bg-[#0F4C81]/20 
-                                 text-[#0F4C81] font-medium py-2 px-5 rounded-full transition group border border-[#0F4C81]/10 shadow-sm"
+                        className="inline-flex items-center bg-[#0077B6]/10 hover:bg-[#0077B6]/20 
+                                 text-[#0077B6] font-medium py-2 px-5 rounded-full transition group border border-[#0077B6]/10 shadow-sm"
                       >
                         Explore Experiences
                         <svg className="w-5 h-5 ml-1.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -251,7 +251,7 @@ const Destinations = () => {
                   <div className="text-center py-8">
                     <p className="text-[#0F4C81]/80 font-medium">You've explored all our destinations!</p>
                     <p className="text-[#333333]/60 mt-2">Ready to plan your adventure?</p>
-                    <Link href="/contact" className="mt-4 inline-block bg-[#0F4C81] hover:bg-[#0a325a] text-white font-medium py-2 px-6 rounded-full transition">
+                    <Link href="/contact" className="mt-4 inline-block bg-[#0077B6] hover:bg-[#005a8c] text-white font-medium py-2 px-6 rounded-full transition">
                       Contact Our Experts
                     </Link>
                   </div>
@@ -294,7 +294,7 @@ const Destinations = () => {
                 </div>
               </div>
               
-              <Link href="/contact" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
+              <Link href="/contact" className="bg-[#0077B6] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-full transition inline-flex items-center">
                 Inquire About This Experience
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -328,7 +328,7 @@ const Destinations = () => {
       <section className="py-16 bg-[#F8F5F0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-4">Explore Sri Lanka</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-4">Explore Sri Lanka</h2>
             <p className="text-lg text-[#333333]/80">Discover the diverse regions of Sri Lanka and start planning your luxury journey.</p>
           </div>
           
@@ -340,7 +340,7 @@ const Destinations = () => {
             />
             {/* Map would normally have interactive elements - simplified for this demo */}
             <div className="mt-8 text-center">
-              <Link href="/contact" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition">
+              <Link href="/contact" className="bg-[#0077B6] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-full transition">
                 Plan Your Journey
               </Link>
             </div>
@@ -349,7 +349,7 @@ const Destinations = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-[#0F4C81] relative overflow-hidden">
+      <section className="py-16 bg-[#0077B6] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
             src="https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
