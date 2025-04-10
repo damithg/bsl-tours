@@ -203,7 +203,7 @@ const Destinations = () => {
                         <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
                           <div className="flex flex-wrap gap-1.5">
                             {(destination as any).card.tags.slice(0, 3).map((tag: string, index: number) => (
-                              <span key={index} className="bg-[#F6E27F]/60 text-[#004E64] text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
+                              <span key={index} className="bg-[#0077B6]/20 text-[#0077B6] text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
                                 {tag}
                               </span>
                             ))}
@@ -313,7 +313,7 @@ const Destinations = () => {
                 </Link>
                 <div className="absolute -bottom-10 -right-10 p-6 bg-white rounded-lg shadow-lg max-w-xs hidden md:block">
                   <div className="flex items-center mb-4">
-                    <i className="fas fa-star text-[#D4AF37] text-2xl mr-4"></i>
+                    <i className="fas fa-star text-[#0077B6] text-2xl mr-4"></i>
                     <h3 className="font-['Playfair_Display'] text-lg font-semibold">Exclusive Experience</h3>
                   </div>
                   <p className="text-[#333333]/70">Our guests enjoy private access to areas closed to regular visitors.</p>
@@ -367,7 +367,7 @@ const Destinations = () => {
               Let our experts craft a personalized journey through these stunning destinations, tailored to your preferences and travel style.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/tours" className="bg-white hover:bg-[#F6E27F] text-[#0077B6] hover:text-white font-medium py-3 px-8 rounded-full transition">
+              <Link href="/tours" className="bg-white hover:bg-[#0077B6]/10 text-[#0077B6] hover:text-[#0077B6] font-medium py-3 px-8 rounded-full transition">
                 View Luxury Packages
               </Link>
               <Link href="/contact" className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-full transition">
