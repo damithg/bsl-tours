@@ -242,14 +242,14 @@ const Destinations = () => {
               <div className="mt-12 text-center" ref={loaderRef}>
                 {isLoadingMore && (
                   <div className="flex flex-col items-center space-y-4">
-                    <div className="w-10 h-10 border-4 border-[#0F4C81] border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-[#0F4C81] font-medium">Loading more destinations...</p>
+                    <div className="w-10 h-10 border-4 border-[#0077B6] border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-[#0077B6] font-medium">Loading more destinations...</p>
                   </div>
                 )}
                 
                 {!hasMore && destinations && destinations.length > 0 && (
                   <div className="text-center py-8">
-                    <p className="text-[#0F4C81]/80 font-medium">You've explored all our destinations!</p>
+                    <p className="text-[#0077B6]/80 font-medium">You've explored all our destinations!</p>
                     <p className="text-[#333333]/60 mt-2">Ready to plan your adventure?</p>
                     <Link href="/contact" className="mt-4 inline-block bg-[#0077B6] hover:bg-[#005a8c] text-white font-medium py-2 px-6 rounded-full transition">
                       Contact Our Experts
@@ -275,20 +275,20 @@ const Destinations = () => {
               
               <div className="space-y-4 mb-8">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
-                    <i className="fas fa-check text-[#0F4C81]"></i>
+                  <div className="w-10 h-10 rounded-full bg-[#0077B6]/10 flex items-center justify-center mr-4">
+                    <i className="fas fa-check text-[#0077B6]"></i>
                   </div>
                   <p className="text-[#333333]/80">Private guided tour with archaeology specialist</p>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
-                    <i className="fas fa-check text-[#0F4C81]"></i>
+                  <div className="w-10 h-10 rounded-full bg-[#0077B6]/10 flex items-center justify-center mr-4">
+                    <i className="fas fa-check text-[#0077B6]"></i>
                   </div>
                   <p className="text-[#333333]/80">Luxury helicopter transfers available</p>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mr-4">
-                    <i className="fas fa-check text-[#0F4C81]"></i>
+                  <div className="w-10 h-10 rounded-full bg-[#0077B6]/10 flex items-center justify-center mr-4">
+                    <i className="fas fa-check text-[#0077B6]"></i>
                   </div>
                   <p className="text-[#333333]/80">Stay at the exclusive Water Garden Sigiriya luxury resort</p>
                 </div>
@@ -367,10 +367,10 @@ const Destinations = () => {
               Let our experts craft a personalized journey through these stunning destinations, tailored to your preferences and travel style.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/packages" className="bg-white hover:bg-[#D4AF37] text-[#0F4C81] hover:text-white font-medium py-3 px-8 rounded-md transition">
+              <Link href="/tours" className="bg-white hover:bg-[#F6E27F] text-[#0077B6] hover:text-white font-medium py-3 px-8 rounded-full transition">
                 View Luxury Packages
               </Link>
-              <Link href="/contact" className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-md transition">
+              <Link href="/contact" className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium py-3 px-8 rounded-full transition">
                 Contact Our Experts
               </Link>
             </div>
