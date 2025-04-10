@@ -203,7 +203,7 @@ const Destinations = () => {
                         <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
                           <div className="flex flex-wrap gap-1.5">
                             {(destination as any).card.tags.slice(0, 3).map((tag: string, index: number) => (
-                              <span key={index} className="bg-[#0077B6] text-white text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
+                              <span key={index} className="bg-[#0077B6]/50 text-white text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
                                 {tag}
                               </span>
                             ))}
