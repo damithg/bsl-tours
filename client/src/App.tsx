@@ -22,6 +22,7 @@ import AsymmetricalGalleryTest from "@/pages/AsymmetricalGalleryTest";
 import ApiGalleryTest from "@/pages/ApiGalleryTest";
 import SigiriyaTemplate from "@/pages/SigiriyaTemplate";
 import ColorPaletteTest from "@/pages/ColorPaletteTest";
+import AdminInquiries from "@/pages/AdminInquiries";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -81,6 +82,7 @@ function Router() {
         <Route path="/api-gallery-test" component={ApiGalleryTest} />
         <Route path="/sigiriya-template" component={SigiriyaTemplate} />
         <Route path="/color-palette" component={ColorPaletteTest} />
+        <Route path="/admin/inquiries" component={AdminInquiries} />
         <Route component={NotFound} />
       </Switch>
       <Footer />

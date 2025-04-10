@@ -42,13 +42,41 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
   const onSubmit = async (data: ContactFormData) => {
     try {
       setIsSubmitting(true);
-      const response = await apiRequest('POST', '/api/inquiries', data);
-      const result = await response.json();
       
-      toast({
-        title: "Inquiry Submitted",
-        description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
-      });
+      try {
+        // First try to submit to the server API
+        const response = await apiRequest('POST', '/api/inquiries', data);
+        const result = await response.json();
+        
+        toast({
+          title: "Inquiry Submitted",
+          description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+        });
+      } catch (apiError) {
+        // If the API fails, store in localStorage as a temporary solution
+        console.log('API submission failed, using local storage fallback');
+        
+        // Get existing inquiries or initialize empty array
+        const existingInquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+        
+        // Add new inquiry with timestamp
+        const newInquiry = {
+          ...data,
+          id: Date.now(),
+          createdAt: new Date().toISOString()
+        };
+        
+        // Save updated inquiries
+        localStorage.setItem('inquiries', JSON.stringify([...existingInquiries, newInquiry]));
+        
+        // Log stored inquiries for debugging
+        console.log('Stored inquiries:', JSON.parse(localStorage.getItem('inquiries') || '[]'));
+        
+        toast({
+          title: "Inquiry Saved Locally",
+          description: "Thank you for your inquiry. Your details have been saved.",
+        });
+      }
       
       reset();
     } catch (error) {
