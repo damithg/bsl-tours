@@ -272,13 +272,13 @@ const DestinationShowcase = () => {
                     </p>
                     {(destination as any).card?.tags &&
                       (destination as any).card.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mb-4 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="flex flex-wrap gap-2 mb-5 opacity-100 transition-all duration-300">
                           {(destination as any).card.tags
                             .slice(0, 3)
                             .map((tag: string, index: number) => (
                               <span
                                 key={index}
-                                className="bg-[#F6E27F]/20 text-white/95 text-[0.9rem] px-3 py-0.5 rounded-md leading-6 backdrop-blur-sm"
+                                className="bg-[#F6E27F] text-[#004E64] text-[0.9rem] font-medium px-3 py-0.5 rounded-full leading-6 shadow-sm"
                               >
                                 {tag}
                               </span>

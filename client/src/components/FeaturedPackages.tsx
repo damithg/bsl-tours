@@ -346,11 +346,11 @@ const FeaturedPackages = () => {
                       </div>
                       {/* Use card.tags first, then fallback to tour.tags */}
                       {((tour.card?.tags && tour.card.tags.length > 0) || (tour.tags && tour.tags.length > 0)) && (
-                        <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+                        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag: string, i: number) => (
                             <span 
                               key={i}
-                              className="bg-white/15 text-white/90 text-[0.9rem] px-3 py-0.5 rounded-md leading-6"
+                              className="bg-[#F6E27F] text-[#004E64] text-[0.9rem] font-medium px-3 py-0.5 rounded-full leading-6 shadow-sm"
                             >
                               {tag}
                             </span>
