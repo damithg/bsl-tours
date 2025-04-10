@@ -20,7 +20,7 @@ const Hero = () => {
           Tailor-made private journeys through Sri Lanka's most breathtaking landscapes and cultural treasures
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link href="/tour-packages" className="bg-[#0F4C81] hover:bg-opacity-90 text-white text-lg font-medium py-3 px-8 rounded-md transition transform hover:scale-105">
+          <Link href="/tours" className="bg-[#0077B6] hover:bg-opacity-90 text-white text-lg font-medium py-3 px-8 rounded-md transition transform hover:scale-105">
             Explore Packages
           </Link>
           <Link href="/tour/cultural-triangle-luxury-tour" className="bg-transparent border-2 border-white hover:bg-white/10 text-white text-lg font-medium py-3 px-8 rounded-md transition transform hover:scale-105">
