@@ -177,7 +177,7 @@ const FeaturedPackages = () => {
     const emptyStarsArray = emptyStars > 0 ? Array(emptyStars).fill(null) : [];
     
     return (
-      <div className="text-[#F6E27F] flex">
+      <div className="text-[#0077B6] flex">
         {fullStarsArray.map((_, i) => (
           <i key={`full-${i}`} className="fas fa-star"></i>
         ))}
@@ -341,7 +341,7 @@ const FeaturedPackages = () => {
                         alt={tour.card?.image?.alt || tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
                         className="w-full h-full object-cover object-center" 
                       />
-                      <div className="absolute top-4 right-4 bg-[#F6E27F]/60 text-[#004E64] text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
+                      <div className="absolute top-4 right-4 bg-[#0077B6] text-white text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
                         {tour.duration}
                       </div>
                       {/* Use card.tags first, then fallback to tour.tags */}
@@ -350,7 +350,7 @@ const FeaturedPackages = () => {
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag: string, i: number) => (
                             <span 
                               key={i}
-                              className="bg-[#F6E27F]/60 text-[#004E64] text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
+                              className="bg-[#0077B6] text-white text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
                             >
                               {tag}
                             </span>
