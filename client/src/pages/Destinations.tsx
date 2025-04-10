@@ -134,7 +134,7 @@ const Destinations = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Luxury Experiences</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">Luxury Experiences</h2>
             <p className="text-lg text-[#333333]/80">Discover Sri Lanka through our carefully curated experiences that combine luxury, authenticity, and exclusivity.</p>
           </div>
           
@@ -156,7 +156,7 @@ const Destinations = () => {
       <section className="py-16 bg-[#F8F5F0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">Stunning Destinations</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">Stunning Destinations</h2>
             <p className="text-lg text-[#333333]/80">Explore Sri Lanka's most captivating locations, each offering unique experiences and luxury accommodations.</p>
           </div>
           
@@ -203,7 +203,7 @@ const Destinations = () => {
                         <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
                           <div className="flex flex-wrap gap-1.5">
                             {(destination as any).card.tags.slice(0, 3).map((tag: string, index: number) => (
-                              <span key={index} className="bg-white/15 text-white/90 text-[0.9rem] px-2.5 py-0.5 rounded-md leading-6">
+                              <span key={index} className="bg-[#F6E27F]/60 text-[#004E64] text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
                                 {tag}
                               </span>
                             ))}
@@ -268,7 +268,7 @@ const Destinations = () => {
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0">
               <Link href="/destination/sigiriya-rock-fortress" className="block hover:text-[#2E8B57] transition">
-                <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-6">Sigiriya: The Ancient Wonder</h2>
+                <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-6">Sigiriya: The Ancient Wonder</h2>
               </Link>
               <p className="text-lg text-[#333333]/80 mb-6">Rising dramatically from the central plains, the iconic rocky outcrop of Sigiriya is perhaps Sri Lanka's most dramatic sight. Near-vertical walls soar to a flat-topped summit that contains the ruins of an ancient civilization, thought to be once the epicenter of the short-lived kingdom of Kassapa.</p>
               <p className="text-lg text-[#333333]/80 mb-8">Our luxury experience includes exclusive early morning access before other tourists arrive, a gourmet breakfast with panoramic views, and insights from an archaeology expert who will reveal the secrets of this UNESCO World Heritage Site.</p>
