@@ -341,7 +341,7 @@ const FeaturedPackages = () => {
                         alt={tour.card?.image?.alt || tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
                         className="w-full h-full object-cover object-center" 
                       />
-                      <div className="absolute top-4 right-4 bg-[#F6E27F]/60 text-[#004E64] text-xs font-semibold py-0.5 px-2.5 rounded-md">
+                      <div className="absolute top-4 right-4 bg-[#F6E27F]/60 text-[#004E64] text-[0.8rem] font-semibold px-3 py-1 rounded-md">
                         {tour.duration}
                       </div>
                       {/* Use card.tags first, then fallback to tour.tags */}
@@ -350,7 +350,7 @@ const FeaturedPackages = () => {
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag: string, i: number) => (
                             <span 
                               key={i}
-                              className="bg-[#F6E27F]/60 text-[#004E64] text-[0.75rem] font-medium px-2.5 py-0.5 rounded-md leading-5 shadow-sm"
+                              className="bg-[#F6E27F]/60 text-[#004E64] text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
                             >
                               {tag}
                             </span>
