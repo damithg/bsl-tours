@@ -44,17 +44,31 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
       setIsSubmitting(true);
       
       try {
-        // First try to submit to the server API
-        const response = await apiRequest('POST', '/api/inquiries', data);
+        // First try to submit directly to our Express server API
+        const response = await fetch('/api/inquiries', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
+        
         const result = await response.json();
         
         toast({
           title: "Inquiry Submitted",
           description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
         });
+        
+        console.log('Inquiry submitted successfully via Express server');
       } catch (apiError) {
-        // If the API fails, store in localStorage as a temporary solution
-        console.log('API submission failed, using local storage fallback');
+        // If the Express API fails, store in localStorage as a temporary solution
+        console.error('Express API submission failed:', apiError);
+        console.log('Using local storage fallback');
         
         // Get existing inquiries or initialize empty array
         const existingInquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
@@ -74,7 +88,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         
         toast({
           title: "Inquiry Saved Locally",
-          description: "Thank you for your inquiry. Your details have been saved.",
+          description: "Thank you for your inquiry. Your details have been saved locally.",
         });
       }
       
