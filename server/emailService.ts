@@ -1,10 +1,17 @@
-import sgMail from '@sendgrid/mail';
+import sgMail, { MailService } from '@sendgrid/mail';
 
 // Check if SendGrid API key is set
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 
 if (SENDGRID_API_KEY) {
+  // Try both approaches to set the API key
   sgMail.setApiKey(SENDGRID_API_KEY);
+  
+  // Also create a direct MailService instance as an alternative approach
+  const mailService = new MailService();
+  mailService.setApiKey(SENDGRID_API_KEY);
+  
+  console.log('SendGrid API Key configured:', SENDGRID_API_KEY ? 'Yes' : 'No');
 }
 
 export interface EmailOptions {
@@ -43,11 +50,23 @@ export const sendEmail = async (options: EmailOptions): Promise<boolean> => {
       attachments: options.attachments
     };
 
+    console.log('Attempting to send email with SendGrid:', {
+      to: options.to,
+      from: 'damithg@gmail.com',
+      subject: options.subject,
+      apiKey: SENDGRID_API_KEY ? `${SENDGRID_API_KEY.substring(0, 5)}...` : 'Not set'
+    });
+
     const response = await sgMail.send(msg as any);
     console.log('Email sent successfully', response);
     return true;
-  } catch (error) {
-    console.error('Error sending email via SendGrid:', error);
+  } catch (err: any) {
+    console.error('Error sending email via SendGrid:', err);
+    
+    // Get more details about the error
+    if (err.response && err.response.body && err.response.body.errors) {
+      console.error('SendGrid API error details:', JSON.stringify(err.response.body.errors));
+    }
     
     // Instead of failing completely, log the email and continue
     console.log('==== FALLBACK EMAIL (SendGrid Failed) ====');
