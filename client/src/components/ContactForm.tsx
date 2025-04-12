@@ -65,12 +65,30 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
           toast({
             title: "Inquiry Submitted",
             description: "Thank you for your inquiry. We've saved your information but email notification couldn't be sent. We'll still get back to you within 24 hours.",
+            variant: "default"
           });
         } else {
           toast({
             title: "Inquiry Submitted",
             description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+            variant: "default"
           });
+        }
+        
+        // Display a note about email status in development/testing
+        if (process.env.NODE_ENV !== 'production') {
+          // In development, add a second toast showing the email status
+          if (result.emailError) {
+            setTimeout(() => {
+              toast({
+                title: "Email Not Sent",
+                description: "Note: The email notification couldn't be sent due to " + 
+                  (result.emailError.includes('401') ? 'SendGrid API authentication issues.' : 'email service configuration issues.') +
+                  " The inquiry is still saved in our database.",
+                variant: "destructive"
+              });
+            }, 500);
+          }
         }
         
         console.log('Inquiry submitted successfully via Express server');
