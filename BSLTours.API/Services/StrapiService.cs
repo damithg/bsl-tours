@@ -5,8 +5,6 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BSLTours.API.Models;
-using System.Net.Http.Headers;
-using System.Text.Json;
 using System.Linq;
 
 
@@ -32,31 +30,68 @@ public class StrapiService :IStrapiService
 
     public async Task<List<DestinationDto>> GetDestinationsAsync()
     {
-        var query = StrapiQueryBuilder.GetAllDestinationsQuery();
+        var query = "/api/destinations?" + StrapiQueryBuilder.GetDestinationPopulateQuery().TrimStart('&');
 
         var response = await _httpClient.GetAsync(query);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync();
-        var strapiResponse = JsonSerializer.Deserialize<StrapiResponse<List<DestinationDto>>>(content, _jsonOptions);
+        var result = JsonSerializer.Deserialize<StrapiResponse<List<DestinationDto>>>(content, _jsonOptions);
 
-        return strapiResponse?.Data ?? new List<DestinationDto>();
+        return result?.Data ?? new List<DestinationDto>();
     }
+
 
     public async Task<DestinationDto?> GetDestinationBySlugAsync(string slug)
     {
-        var query = "/api/" + StrapiQueryBuilder.GetBySlugQuery(slug);
+        var query = $"/api/destinations?filters[slug][$eq]={Uri.EscapeDataString(slug)}" + StrapiQueryBuilder.GetDestinationPopulateQuery();
 
         var response = await _httpClient.GetAsync(query);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync();
-        var strapiResponse = JsonSerializer.Deserialize<StrapiResponse<List<DestinationDto>>>(content, _jsonOptions);
+        var result = JsonSerializer.Deserialize<StrapiResponse<List<DestinationDto>>>(content, _jsonOptions);
 
-        return strapiResponse?.Data?.FirstOrDefault();
+        return result?.Data?.FirstOrDefault();
     }
 
+    public async Task<List<TourDto>> GetToursAsync()
+    {
+        var query = "/api/tours?" + StrapiQueryBuilder.GetTourPopulateQuery().TrimStart('&');
 
+        var response = await _httpClient.GetAsync(query);
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<StrapiResponse<List<TourDto>>>(content, _jsonOptions);
+
+        return result?.Data ?? new List<TourDto>();
+    }
+
+    public async Task<TourDto?> GetTourBySlugAsync(string slug)
+    {
+        var query = $"/api/tours?filters[slug][$eq]={Uri.EscapeDataString(slug)}" + StrapiQueryBuilder.GetTourPopulateQuery();
+
+        var response = await _httpClient.GetAsync(query);
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<StrapiResponse<List<TourDto>>>(content, _jsonOptions);
+
+        return result?.Data?.FirstOrDefault();
+    }
+
+    public async Task<List<TourDto>> GetFeaturedToursAsync()
+    {
+        var query = "api/tours?filters[featured][$eq]=true&populate[card][populate]=image";
+        var response = await _httpClient.GetAsync(query);
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<StrapiResponse<List<TourDto>>>(content, _jsonOptions);
+
+        return result?.Data ?? new List<TourDto>();
+    }
 }
 
 public class StrapiResponse<T>
@@ -70,9 +105,8 @@ public static class StrapiQueryBuilder
 {
     public static string GetDestinationPopulateQuery()
     {
-        // Fully working hardcoded populate structure based on successful test
         return string.Join("",
-            "?populate[overview][populate][image]=true",
+            "&populate[overview][populate][image]=true",
             "&populate[subSections][populate][image]=true",
             "&populate[heroImage]=true",
             "&populate[featuresSection][populate][items][populate][image]=true",
@@ -87,6 +121,7 @@ public static class StrapiQueryBuilder
         );
     }
 
+
     public static string GetBySlugQuery(string slug)
     {
         return $"/api/destinations?filters[slug][$eq]={Uri.EscapeDataString(slug)}" + GetDestinationPopulateQuery();
@@ -96,4 +131,20 @@ public static class StrapiQueryBuilder
     {
         return "/api/destinations" + GetDestinationPopulateQuery();
     }
+
+    public static string GetTourPopulateQuery()
+    {
+        return string.Join("",
+            "&populate[heroImage]=true",
+            "&populate[galleryImages]=true",
+            "&populate[itinerary][populate][image]=true",
+            "&populate[relatedDestinations][populate][image]=true",
+            "&populate[faqs]=true",
+            "&populate[pricingTiers]=true",
+            "&populate[optionalAddOns]=true",
+            "&populate[card][populate][image]=true",
+            "&populate[reviews]=true"
+        );
+    }
+
 }

@@ -38,6 +38,12 @@ namespace BSLTours.API.Services
         Task<List<DestinationDto>> GetDestinationsAsync();
 
         Task<DestinationDto?> GetDestinationBySlugAsync(string slug);
+
+        Task<List<TourDto>> GetToursAsync();
+        Task<TourDto?> GetTourBySlugAsync(string slug);
+
+        Task<List<TourDto>> GetFeaturedToursAsync();
+
         // Optional: add by slug, etc. in future
     }
 }

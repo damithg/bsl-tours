@@ -43,4 +43,5 @@ namespace BSLTours.API.Models
         public List<string> IncludedDestinations { get; set; } = new List<string>();
         public List<ItineraryDay> ItineraryDays { get; set; } = new List<ItineraryDay>();
     }
+
 }

@@ -11,17 +11,14 @@ namespace BSLTours.API.Controllers
     [Route("api/destinations")]
     public class DestinationsController : ControllerBase
     {
-        //private readonly IDataService _dataService;
         private readonly IMapper _mapper;
         private readonly IStrapiService _strapiService;
 
         public DestinationsController(IMapper mapper, IStrapiService strapiService)
         {
-           // _dataService = dataService;
             _mapper = mapper;
             _strapiService = strapiService;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -30,19 +27,6 @@ namespace BSLTours.API.Controllers
             var mapped = _mapper.Map<List<DestinationDto>>(rawData);
             return Ok(mapped);
         }
-
-        //[HttpGet("{id:int}")]
-        //public async Task<ActionResult<Destination>> GetDestinationById(int id)
-        //{
-        //    var destination = await _dataService.GetDestinationByIdAsync(id);
-
-        //    if (destination == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(destination);
-        //}
 
         [HttpGet("{slug}")]
         public async Task<ActionResult<DestinationDto>> GetDestinationBySlug(string slug)
@@ -56,22 +40,5 @@ namespace BSLTours.API.Controllers
 
             return Ok(destination);
         }
-
-
-        //[HttpPost]
-        //public async Task<ActionResult<Destination>> CreateDestination(CreateDestinationDto createDestinationDto)
-        //{
-        //    if (createDestinationDto == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    var destination = await _dataService.CreateDestinationAsync(createDestinationDto);
-
-        //    return CreatedAtAction(
-        //        nameof(GetDestinationById), 
-        //        new { id = destination.Id }, 
-        //        destination);
-        //}
     }
 }
