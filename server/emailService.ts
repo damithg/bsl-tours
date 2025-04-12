@@ -36,7 +36,7 @@ export const sendEmail = async (options: EmailOptions): Promise<boolean> => {
   try {
     const msg = {
       to: options.to,
-      from: 'info@bestsrilankatours.com', // Use your verified sender
+      from: 'damithg@gmail.com', // Use your verified sender
       subject: options.subject,
       text: options.text || '',
       html: options.html || '',
@@ -112,7 +112,7 @@ export const sendContactFormEmail = async (
   `;
 
   const emailOptions: EmailOptions = {
-    to: 'info@bestsrilankatours.com', // Your business email
+    to: 'damithg@gmail.com', // Your business email
     subject,
     html: emailHtml,
     text: `
@@ -251,7 +251,7 @@ export const sendTourInquiryEmail = async (
   `;
 
   const emailOptions: EmailOptions = {
-    to: 'info@bestsrilankatours.com', // Your business email
+    to: 'damithg@gmail.com', // Your business email
     subject,
     html: emailHtml,
     text: `
@@ -349,7 +349,7 @@ export const sendTourPdfEmail = async (
     If you have any questions or would like to book this tour, please reply to this email or contact us at:
     
     Phone: +94 77 123 4567
-    Email: info@bestsrilankatours.com
+    Email: damithg@gmail.com
     
     We look forward to helping you plan your perfect Sri Lanka experience.
     
@@ -396,7 +396,7 @@ export const sendTourPdfEmail = async (
           </tr>
           <tr>
             <td style="padding: 15px; border-bottom: 1px solid #eeeeee;">
-              <strong style="color: #336699;">Email:</strong> <span style="color: #333333;">info@bestsrilankatours.com</span>
+              <strong style="color: #336699;">Email:</strong> <span style="color: #333333;">damithg@gmail.com</span>
             </td>
           </tr>
           <tr>
