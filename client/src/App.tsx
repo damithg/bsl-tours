@@ -23,6 +23,9 @@ import ApiGalleryTest from "@/pages/ApiGalleryTest";
 import SigiriyaTemplate from "@/pages/SigiriyaTemplate";
 import ColorPaletteTest from "@/pages/ColorPaletteTest";
 import AdminInquiries from "@/pages/AdminInquiries";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsConditions from "@/pages/TermsConditions";
+import CookiePolicy from "@/pages/CookiePolicy";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -83,6 +86,12 @@ function Router() {
         <Route path="/sigiriya-template" component={SigiriyaTemplate} />
         <Route path="/color-palette" component={ColorPaletteTest} />
         <Route path="/admin/inquiries" component={AdminInquiries} />
+        
+        {/* Legal Pages */}
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
+        <Route path="/terms-conditions" component={TermsConditions} />
+        <Route path="/cookie-policy" component={CookiePolicy} />
+        
         <Route component={NotFound} />
       </Switch>
       <Footer />

@@ -123,9 +123,9 @@ const Footer = () => {
         <div className="border-t border-white/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/60 text-sm mb-4 md:mb-0">© {new Date().getFullYear()} Best Sri Lanka Tours. All rights reserved.</p>
           <div className="flex space-x-6">
-            <a href="#" className="text-white/60 hover:text-white text-sm transition">Privacy Policy</a>
-            <a href="#" className="text-white/60 hover:text-white text-sm transition">Terms & Conditions</a>
-            <a href="#" className="text-white/60 hover:text-white text-sm transition">Cookie Policy</a>
+            <Link href="/privacy-policy" className="text-white/60 hover:text-white text-sm transition">Privacy Policy</Link>
+            <Link href="/terms-conditions" className="text-white/60 hover:text-white text-sm transition">Terms & Conditions</Link>
+            <Link href="/cookie-policy" className="text-white/60 hover:text-white text-sm transition">Cookie Policy</Link>
           </div>
         </div>
       </div>
