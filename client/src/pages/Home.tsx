@@ -9,6 +9,7 @@ import AboutSection from '@/components/AboutSection';
 import DestinationMap from '@/components/DestinationMap';
 import CTASection from '@/components/CTASection';
 import ContactForm from '@/components/ContactForm';
+import SeoHead from '@/components/SeoHead';
 
 const Home = () => {
   return (
