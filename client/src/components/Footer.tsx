@@ -45,19 +45,16 @@ const Footer = () => {
   return (
     <footer className="bg-[#004E64] text-white py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          <div>
-            <div className="mb-6">
-              <span className="text-2xl font-bold text-white">BSL<span className="text-[#F6E27F]">Tours</span></span>
-            </div>
-            <p className="text-white/80 mb-6">Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean.</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-2">
+            <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Company</h3>
             <ul className="space-y-3">
               <li><Link href="/about" className="text-white/80 hover:text-[#F6E27F] transition">About Us</Link></li>
               <li><Link href="/careers" className="text-white/80 hover:text-[#F6E27F] transition">Careers</Link></li>
             </ul>
           </div>
           
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Support</h3>
             <ul className="space-y-3">
               <li><Link href="/contact" className="text-white/80 hover:text-[#F6E27F] transition">Contact Us</Link></li>
@@ -68,7 +65,7 @@ const Footer = () => {
             </ul>
           </div>
           
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Community</h3>
             <ul className="space-y-3">
               <li><Link href="/blog" className="text-white/80 hover:text-[#F6E27F] transition">Blog</Link></li>
@@ -79,7 +76,7 @@ const Footer = () => {
             </ul>
           </div>
           
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Popular Destinations</h3>
             <ul className="space-y-3">
               <li><Link href="/destination/sigiriya" className="text-white/80 hover:text-[#F6E27F] transition">Sigiriya</Link></li>
@@ -91,7 +88,7 @@ const Footer = () => {
             </ul>
           </div>
           
-          <div>
+          <div className="lg:col-span-4">
             <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Our Social</h3>
             <div className="flex space-x-4 mb-6">
               <a href="#" className="w-10 h-10 rounded-full bg-[#0077B6]/30 flex items-center justify-center text-white hover:bg-[#0077B6] transition">
@@ -108,20 +105,21 @@ const Footer = () => {
               </a>
             </div>
             
-            <h4 className="text-md font-medium mb-3 text-white">Sign Up for Updates</h4>
+            <h4 className="text-md font-medium mb-4 text-white">Sign Up for Updates</h4>
+            <p className="text-white/80 mb-4">Subscribe to our newsletter for exclusive offers, travel tips, and the latest Sri Lanka travel inspiration.</p>
             <form className="mb-4" onSubmit={handleSubscribe}>
               <div className="flex">
                 <input 
                   type="email" 
                   placeholder="Your email address" 
-                  className="flex-grow bg-white/10 text-white placeholder-white/60 py-2 px-3 rounded-l-md focus:outline-none focus:bg-white/15 transition"
+                  className="flex-grow bg-white/10 text-white placeholder-white/60 py-3 px-4 rounded-l-md focus:outline-none focus:bg-white/15 transition"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
                 <button 
                   type="submit" 
-                  className="bg-[#0077B6] hover:bg-[#005f92] text-white py-2 px-3 rounded-r-md transition"
+                  className="bg-[#0077B6] hover:bg-[#005f92] text-white py-3 px-5 rounded-r-md transition"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
