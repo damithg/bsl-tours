@@ -48,97 +48,80 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
           <div>
             <div className="mb-6">
-              <span className="font-['Playfair_Display'] text-2xl font-bold text-white">BSL<span className="text-[#F6E27F]">Tours</span></span>
+              <span className="text-2xl font-bold text-white">BSL<span className="text-[#F6E27F]">Tours</span></span>
             </div>
             <p className="text-white/80 mb-6">Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean.</p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-white hover:text-[#F6E27F] transition">
+            <ul className="space-y-3">
+              <li><Link href="/about" className="text-white/80 hover:text-[#F6E27F] transition">About Us</Link></li>
+              <li><Link href="/careers" className="text-white/80 hover:text-[#F6E27F] transition">Careers</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Support</h3>
+            <ul className="space-y-3">
+              <li><Link href="/contact" className="text-white/80 hover:text-[#F6E27F] transition">Contact Us</Link></li>
+              <li><Link href="/support-center" className="text-white/80 hover:text-[#F6E27F] transition">Support Center</Link></li>
+              <li><Link href="/pre-departure-info" className="text-white/80 hover:text-[#F6E27F] transition">Pre-Departure Info</Link></li>
+              <li><Link href="/travel-resources" className="text-white/80 hover:text-[#F6E27F] transition">Travel Resources</Link></li>
+              <li><Link href="/safety-updates" className="text-white/80 hover:text-[#F6E27F] transition">Safety Updates</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Community</h3>
+            <ul className="space-y-3">
+              <li><Link href="/blog" className="text-white/80 hover:text-[#F6E27F] transition">Blog</Link></li>
+              <li><Link href="/newsletter" className="text-white/80 hover:text-[#F6E27F] transition">Newsletter</Link></li>
+              <li><Link href="/bsl-club" className="text-white/80 hover:text-[#F6E27F] transition">BSL Club</Link></li>
+              <li><Link href="/affiliates" className="text-white/80 hover:text-[#F6E27F] transition">Affiliates</Link></li>
+              <li><Link href="/brochures" className="text-white/80 hover:text-[#F6E27F] transition">Brochures</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Popular Destinations</h3>
+            <ul className="space-y-3">
+              <li><Link href="/destination/sigiriya" className="text-white/80 hover:text-[#F6E27F] transition">Sigiriya</Link></li>
+              <li><Link href="/destination/galle" className="text-white/80 hover:text-[#F6E27F] transition">Galle</Link></li>
+              <li><Link href="/destination/kandy" className="text-white/80 hover:text-[#F6E27F] transition">Kandy</Link></li>
+              <li><Link href="/destination/ella" className="text-white/80 hover:text-[#F6E27F] transition">Ella</Link></li>
+              <li><Link href="/destination/yala" className="text-white/80 hover:text-[#F6E27F] transition">Yala</Link></li>
+              <li><Link href="/destination/bentota" className="text-white/80 hover:text-[#F6E27F] transition">Bentota</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-semibold mb-6 text-[#F6E27F]">Our Social</h3>
+            <div className="flex space-x-4 mb-6">
+              <a href="#" className="w-10 h-10 rounded-full bg-[#0077B6]/30 flex items-center justify-center text-white hover:bg-[#0077B6] transition">
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="text-white hover:text-[#F6E27F] transition">
+              <a href="#" className="w-10 h-10 rounded-full bg-[#0077B6]/30 flex items-center justify-center text-white hover:bg-[#0077B6] transition">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="#" className="text-white hover:text-[#F6E27F] transition">
+              <a href="#" className="w-10 h-10 rounded-full bg-[#0077B6]/30 flex items-center justify-center text-white hover:bg-[#0077B6] transition">
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="#" className="text-white hover:text-[#F6E27F] transition">
+              <a href="#" className="w-10 h-10 rounded-full bg-[#0077B6]/30 flex items-center justify-center text-white hover:bg-[#0077B6] transition">
                 <i className="fab fa-pinterest"></i>
               </a>
             </div>
-          </div>
-          
-          <div>
-            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#F6E27F]">Quick Links</h3>
-            <ul className="space-y-3">
-              <li><Link href="/" className="text-white/80 hover:text-[#F6E27F] transition">Home</Link></li>
-              <li><Link href="/tours" className="text-white/80 hover:text-[#F6E27F] transition">Tour Packages</Link></li>
-              <li><Link href="/destinations" className="text-white/80 hover:text-[#F6E27F] transition">Destinations</Link></li>
-              <li><Link href="/about" className="text-white/80 hover:text-[#F6E27F] transition">About Us</Link></li>
-              <li><Link href="/contact" className="text-white/80 hover:text-[#F6E27F] transition">Contact</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#F6E27F]">Our Services</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Luxury Private Tours</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Family Holiday Packages</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Honeymoon Experiences</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Adventure Activities</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Wildlife Safari Tours</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#F6E27F]">Popular Destinations</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Sigiriya Rock Fortress</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Galle Fort</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Kandy</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Ella</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Yala National Park</a></li>
-              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Bentota Beach</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#F6E27F]">Contact Us</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <i className="fas fa-map-marker-alt text-[#F6E27F] mt-1 mr-3"></i>
-                <span className="text-white/80">42 Galle Face Terrace<br/>Colombo 03, Sri Lanka</span>
-              </li>
-              <li className="flex items-center">
-                <i className="fas fa-phone-alt text-[#F6E27F] mr-3"></i>
-                <span className="text-white/80">+94 11 234 5678</span>
-              </li>
-              <li className="flex items-center">
-                <i className="fas fa-envelope text-[#F6E27F] mr-3"></i>
-                <a href="mailto:damithg@gmail.com" className="text-white/80 hover:text-[#F6E27F] transition">damithg@gmail.com</a>
-              </li>
-              <li className="flex items-center">
-                <i className="fas fa-clock text-[#F6E27F] mr-3"></i>
-                <span className="text-white/80">Mon-Fri: 9:00 AM - 6:00 PM</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#F6E27F]">Newsletter</h3>
-            <p className="text-white/80 mb-4">Subscribe to receive exclusive offers and travel inspiration.</p>
+            
+            <h4 className="text-md font-medium mb-3 text-white">Sign Up for Updates</h4>
             <form className="mb-4" onSubmit={handleSubscribe}>
               <div className="flex">
                 <input 
                   type="email" 
                   placeholder="Your email address" 
-                  className="flex-grow bg-white/10 text-white placeholder-white/60 py-3 px-4 rounded-l-md focus:outline-none focus:bg-white/15 transition"
+                  className="flex-grow bg-white/10 text-white placeholder-white/60 py-2 px-3 rounded-l-md focus:outline-none focus:bg-white/15 transition"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
                 <button 
                   type="submit" 
-                  className="bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-3 px-4 rounded-r-md transition"
+                  className="bg-[#0077B6] hover:bg-[#005f92] text-white py-2 px-3 rounded-r-md transition"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
