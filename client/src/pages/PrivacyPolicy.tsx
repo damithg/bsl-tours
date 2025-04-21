@@ -1,12 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import SeoHead from '@/components/SeoHead';
 
 const PrivacyPolicy = () => {
-  useEffect(() => {
-    document.title = "Privacy Policy | Best Sri Lanka Tours";
-  }, []);
+  // SEO data for the Privacy Policy page
+  const seoData = {
+    metaTitle: "Privacy Policy | Best Sri Lanka Tours",
+    metaDescription: "Read our privacy policy to understand how Best Sri Lanka Tours collects, uses, and protects your personal information.",
+    canonicalURL: "https://bestsrilankatours.com/privacy-policy",
+    metaRobots: "noindex, follow", // Example of a legal page that should not be indexed
+    keywords: "privacy policy, data protection, personal information, sri lanka tours",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Privacy Policy",
+      "description": "Best Sri Lanka Tours privacy policy page.",
+      "url": "https://bestsrilankatours.com/privacy-policy"
+    }
+  };
   
   return (
     <div className="container mx-auto px-4 py-12 pt-32 max-w-4xl">
+      <SeoHead {...seoData} />
       
       <h1 className="text-3xl md:text-4xl font-bold mb-8 text-[#004E64] font-['Playfair_Display']">Privacy Policy</h1>
       

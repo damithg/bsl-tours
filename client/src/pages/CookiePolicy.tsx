@@ -1,12 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import SeoHead from '@/components/SeoHead';
 
 const CookiePolicy = () => {
-  useEffect(() => {
-    document.title = "Cookie Policy | Best Sri Lanka Tours";
-  }, []);
+  // SEO data for the Cookie Policy page
+  const seoData = {
+    metaTitle: "Cookie Policy | Best Sri Lanka Tours",
+    metaDescription: "Learn about how Best Sri Lanka Tours uses cookies and similar technologies on our website.",
+    canonicalURL: "https://bestsrilankatours.com/cookie-policy",
+    metaRobots: "noindex, follow", // Example of a legal page that should not be indexed
+    keywords: "cookie policy, cookies, privacy, data tracking, sri lanka tours",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Cookie Policy",
+      "description": "Best Sri Lanka Tours cookie policy page.",
+      "url": "https://bestsrilankatours.com/cookie-policy"
+    }
+  };
   
   return (
     <div className="container mx-auto px-4 py-12 pt-32 max-w-4xl">
+      <SeoHead {...seoData} />
       
       <h1 className="text-3xl md:text-4xl font-bold mb-8 text-[#004E64] font-['Playfair_Display']">Cookie Policy</h1>
       

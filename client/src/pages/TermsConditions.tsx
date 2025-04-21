@@ -1,12 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import SeoHead from '@/components/SeoHead';
 
 const TermsConditions = () => {
-  useEffect(() => {
-    document.title = "Terms and Conditions | Best Sri Lanka Tours";
-  }, []);
+  // SEO data for the Terms & Conditions page
+  const seoData = {
+    metaTitle: "Terms and Conditions | Best Sri Lanka Tours",
+    metaDescription: "Read the terms and conditions that govern your use of Best Sri Lanka Tours services and website.",
+    canonicalURL: "https://bestsrilankatours.com/terms-conditions",
+    metaRobots: "noindex, follow", // Example of a legal page that should not be indexed
+    keywords: "terms and conditions, legal terms, travel terms, sri lanka tours",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Terms and Conditions",
+      "description": "Best Sri Lanka Tours terms and conditions page.",
+      "url": "https://bestsrilankatours.com/terms-conditions"
+    }
+  };
   
   return (
     <div className="container mx-auto px-4 py-12 pt-32 max-w-4xl">
+      <SeoHead {...seoData} />
       
       <h1 className="text-3xl md:text-4xl font-bold mb-8 text-[#004E64] font-['Playfair_Display']">Terms and Conditions</h1>
       
