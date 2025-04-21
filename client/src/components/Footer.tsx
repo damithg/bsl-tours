@@ -45,7 +45,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#004E64] text-white py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
           <div>
             <div className="mb-6">
               <span className="font-['Playfair_Display'] text-2xl font-bold text-white">BSL<span className="text-[#F6E27F]">Tours</span></span>
@@ -79,6 +79,17 @@ const Footer = () => {
           </div>
           
           <div>
+            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#F6E27F]">Our Services</h3>
+            <ul className="space-y-3">
+              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Luxury Private Tours</a></li>
+              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Family Holiday Packages</a></li>
+              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Honeymoon Experiences</a></li>
+              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Adventure Activities</a></li>
+              <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Wildlife Safari Tours</a></li>
+            </ul>
+          </div>
+          
+          <div>
             <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#F6E27F]">Popular Destinations</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Sigiriya Rock Fortress</a></li>
@@ -87,6 +98,28 @@ const Footer = () => {
               <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Ella</a></li>
               <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Yala National Park</a></li>
               <li><a href="#" className="text-white/80 hover:text-[#F6E27F] transition">Bentota Beach</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-6 text-[#F6E27F]">Contact Us</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start">
+                <i className="fas fa-map-marker-alt text-[#F6E27F] mt-1 mr-3"></i>
+                <span className="text-white/80">42 Galle Face Terrace<br/>Colombo 03, Sri Lanka</span>
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-phone-alt text-[#F6E27F] mr-3"></i>
+                <span className="text-white/80">+94 11 234 5678</span>
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-envelope text-[#F6E27F] mr-3"></i>
+                <a href="mailto:damithg@gmail.com" className="text-white/80 hover:text-[#F6E27F] transition">damithg@gmail.com</a>
+              </li>
+              <li className="flex items-center">
+                <i className="fas fa-clock text-[#F6E27F] mr-3"></i>
+                <span className="text-white/80">Mon-Fri: 9:00 AM - 6:00 PM</span>
+              </li>
             </ul>
           </div>
           
