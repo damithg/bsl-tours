@@ -145,7 +145,7 @@ const DestinationDetail = () => {
   );
   
   // Log the API URL for debugging
-  console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations`);
+  console.log('Making API request to:', `${API_BASE_URL}/api/destinations`);
   
   // If we have destination data, log it for debugging
   if (destination) {
