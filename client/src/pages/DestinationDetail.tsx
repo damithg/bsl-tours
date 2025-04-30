@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { parseJsonSafely } from '@/lib/utils';
-import { Destination } from '@/lib/queryClient';
+import { Destination, API_BASE_URL } from '@/lib/queryClient';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 import { AdaptiveImage } from '@/components/ui/adaptive-image';
 import { 
