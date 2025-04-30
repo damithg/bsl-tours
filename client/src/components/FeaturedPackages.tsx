@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { useState, useRef } from "react";
 import { LucideChevronLeft, LucideChevronRight, LucideRefreshCw, ChevronRight as LucideChevronRightArrow } from "lucide-react";
-import { queryClient } from "@/lib/queryClient";
+import { queryClient, API_BASE_URL } from "@/lib/queryClient";
 import { AdaptiveImage } from "./ui/adaptive-image";
 import { determineFocalPoint } from "@/lib/image-utils";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -116,8 +116,8 @@ interface StrapiTour {
 type StrapiResponse = StrapiTour[];
 
 const FeaturedPackages = () => {
-  // Use the correct API endpoint for featured tours with the Azure API base URL
-  const queryKey = ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours/featured'];
+  // Use the API_BASE_URL constant for the featured tours endpoint
+  const queryKey = [`${API_BASE_URL}/api/tours/featured`];
   const { data: strapiResponse, isLoading, error, refetch } = useQuery<StrapiResponse>({
     queryKey,
   });

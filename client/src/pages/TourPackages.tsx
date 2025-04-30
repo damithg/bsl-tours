@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { useCurrency } from "../contexts/CurrencyContext";
+import { API_BASE_URL } from "../lib/queryClient";
 
 // Strapi API Tour interface
 interface StrapiTour {
@@ -77,7 +78,7 @@ type StrapiResponse = StrapiTour[];
 
 const TourPackages = () => {
   const { data: strapiResponse, isLoading, error } = useQuery<StrapiResponse>({
-    queryKey: ['https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours'],
+    queryKey: [`${API_BASE_URL}/api/tours`],
   });
   
   // The API returns the tour data directly as an array, not wrapped in a data property
