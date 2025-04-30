@@ -1,12 +1,12 @@
 import React from 'react';
 import StandardPageTemplate from '@/components/StandardPageTemplate';
 import { 
-  Passport, 
+  FileText, 
   Calendar, 
   CreditCard, 
   Pill, 
   Umbrella, 
-  Suitcase, 
+  Package, 
   Plug, 
   Phone, 
   AlertCircle, 
@@ -24,7 +24,7 @@ const PreDepartureInfo: React.FC = () => {
       <div className="mb-16">
         <div className="flex items-center mb-6">
           <div className="bg-[#0077B6]/10 p-3 rounded-full mr-4">
-            <Passport className="w-6 h-6 text-[#0077B6]" />
+            <FileText className="w-6 h-6 text-[#0077B6]" />
           </div>
           <h2 className="text-3xl font-semibold text-gray-800 font-['Playfair_Display']">
             Entry Requirements
@@ -213,7 +213,7 @@ const PreDepartureInfo: React.FC = () => {
       <div className="mb-16">
         <div className="flex items-center mb-6">
           <div className="bg-[#0077B6]/10 p-3 rounded-full mr-4">
-            <Suitcase className="w-6 h-6 text-[#0077B6]" />
+            <Package className="w-6 h-6 text-[#0077B6]" />
           </div>
           <h2 className="text-3xl font-semibold text-gray-800 font-['Playfair_Display']">
             Packing Essentials

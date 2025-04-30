@@ -27,6 +27,17 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsConditions from "@/pages/TermsConditions";
 import CookiePolicy from "@/pages/CookiePolicy";
 
+// Import new pages for footer links
+import Careers from "@/pages/Careers";
+import SupportCenter from "@/pages/SupportCenter";
+import PreDepartureInfo from "@/pages/PreDepartureInfo";
+import TravelResources from "@/pages/TravelResources";
+import SafetyUpdates from "@/pages/SafetyUpdates";
+import Affiliates from "@/pages/Affiliates";
+import BSLClub from "@/pages/BSLClub";
+import Newsletter from "@/pages/Newsletter";
+import Brochures from "@/pages/Brochures";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
@@ -91,6 +102,17 @@ function Router() {
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms-conditions" component={TermsConditions} />
         <Route path="/cookie-policy" component={CookiePolicy} />
+        
+        {/* Footer Pages */}
+        <Route path="/careers" component={Careers} />
+        <Route path="/support-center" component={SupportCenter} />
+        <Route path="/pre-departure-info" component={PreDepartureInfo} />
+        <Route path="/travel-resources" component={TravelResources} />
+        <Route path="/safety-updates" component={SafetyUpdates} />
+        <Route path="/affiliates" component={Affiliates} />
+        <Route path="/bsl-club" component={BSLClub} />
+        <Route path="/newsletter" component={Newsletter} />
+        <Route path="/brochures" component={Brochures} />
         
         <Route component={NotFound} />
       </Switch>
