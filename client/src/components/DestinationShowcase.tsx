@@ -135,7 +135,10 @@ const DestinationShowcase = () => {
   return (
     <section
       id="destinations"
-      className="py-20 bg-gradient-to-b from-[#FAF9F6] to-[#0077B6]/5"
+      style={{ 
+        background: `linear-gradient(to bottom, ${COLORS.background}, ${COLORS.primary}0d)`
+      }}
+      className="py-20"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
@@ -256,9 +259,13 @@ const DestinationShowcase = () => {
                       No Image Available
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/90 via-[#004E64]/40 to-transparent transition-opacity duration-300 group-hover:opacity-90"></div>
+                  <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-90" 
+                        style={{ 
+                          background: `linear-gradient(to top, ${COLORS.primary}e6, ${COLORS.primary}66, transparent)`
+                        }}>
+                  </div>
                   <div className="absolute bottom-0 left-0 p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2 group-hover:text-[#F6E27F] transition-colors duration-300">
+                    <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2 transition-colors duration-300 group-hover:text-[#F6E27F]">
                       {(destination as any).card?.heading ||
                         (destination as any).card?.header ||
                         (destination as any).card?.title ||
