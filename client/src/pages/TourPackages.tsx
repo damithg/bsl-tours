@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { API_BASE_URL } from "../lib/queryClient";
 import { COLORS } from "@/utils/colors";
+import { Tag } from "@/components/ui/tag";
 
 // Strapi API Tour interface
 interface StrapiTour {
@@ -231,22 +232,18 @@ const TourPackages = () => {
                         alt={tour.card?.image?.alt || tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
                         className="w-full h-full object-cover object-center" 
                       />
-                      <div className="absolute top-4 right-4" style={{ backgroundColor: `${COLORS.secondary}99`, color: COLORS.foreground }}>
-                        <div className="text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
+                      <div className="absolute top-4 right-4">
+                        <Tag variant="highlight">
                           {tour.duration}
-                        </div>
+                        </Tag>
                       </div>
                       {/* Use card.tags first, then fallback to tour.tags */}
                       {((tour.card?.tags && tour.card.tags.length > 0) || (tour.tags && tour.tags.length > 0)) && (
                         <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag, i) => (
-                            <span 
-                              key={i}
-                              style={{ backgroundColor: `${COLORS.secondary}99`, color: COLORS.foreground }}
-                              className="text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
-                            >
+                            <Tag key={i} variant="scenic">
                               {tag}
-                            </span>
+                            </Tag>
                           ))}
                         </div>
                       )}

@@ -345,34 +345,17 @@ const FeaturedPackages = () => {
                         className="w-full h-full object-cover object-center" 
                       />
                       <div className="absolute top-4 right-4">
-                        <div 
-                          style={{ 
-                            backgroundColor: `${COLORS.background}`, 
-                            color: `${COLORS.primary}`,
-                            fontWeight: 500,
-                            letterSpacing: '0.02em'
-                          }}
-                          className="text-[0.75rem] px-3 py-1 rounded-md leading-5"
-                        >
+                        <Tag>
                           {tour.duration}
-                        </div>
+                        </Tag>
                       </div>
                       {/* Use card.tags first, then fallback to tour.tags */}
                       {((tour.card?.tags && tour.card.tags.length > 0) || (tour.tags && tour.tags.length > 0)) && (
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag: string, i: number) => (
-                            <span 
-                              key={i}
-                              style={{ 
-                                backgroundColor: `${COLORS.background}`, 
-                                color: `${COLORS.primary}`,
-                                fontWeight: 500,
-                                letterSpacing: '0.02em'
-                              }}
-                              className="text-[0.75rem] px-3 py-1 rounded-md leading-5"
-                            >
+                            <Tag key={i}>
                               {tag}
-                            </span>
+                            </Tag>
                           ))}
                         </div>
                       )}
