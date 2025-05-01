@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { API_BASE_URL } from '../lib/queryClient';
 
 interface Destination {
   id: number;
@@ -24,8 +25,7 @@ const DestinationShowcaseWithAPI = () => {
     queryKey: ['/api/destinations'],
     queryFn: async ({ queryKey }) => {
       try {
-        const baseUrl = 'https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net';
-        const url = `${baseUrl}${queryKey[0]}`;
+        const url = `${API_BASE_URL}${queryKey[0]}`;
         const response = await fetch(url);
         
         if (!response.ok) {

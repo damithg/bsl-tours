@@ -5,6 +5,7 @@ import { AsymmetricalGallery, GalleryImage } from "@/components/AsymmetricalGall
 import useEmblaCarousel from 'embla-carousel-react';
 import { parseJsonSafely } from "@/lib/utils";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { Tag } from "@/components/ui/tag";
 import { Destination as ApiDestination } from "@/lib/queryClient";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
@@ -405,43 +406,43 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   // Legacy parsing for backward compatibility
   // Parse JSON data from the destination with better debugging
   const parsedPointsOfInterest = parseJsonSafely<PointOfInterest[]>(
-    destination.pointsOfInterest, 
+    typeof destination.pointsOfInterest === 'string' ? destination.pointsOfInterest : JSON.stringify(destination.pointsOfInterest || []), 
     [], 
     'template-pointsOfInterest'
   );
   
   const parsedDetailedSections = parseJsonSafely<DetailedSection[]>(
-    destination.detailedSections, 
+    typeof destination.detailedSections === 'string' ? destination.detailedSections : JSON.stringify(destination.detailedSections || []), 
     [], 
     'template-detailedSections'
   );
   
   const localExperiences = parseJsonSafely<LocalExperience[]>(
-    destination.localExperiences, 
+    typeof destination.localExperiences === 'string' ? destination.localExperiences : JSON.stringify(destination.localExperiences || []), 
     [], 
     'template-localExperiences'
   );
   
   const parsedNearbyAttractions = parseJsonSafely<NearbyAttraction[]>(
-    destination.nearbyAttractions, 
+    typeof destination.nearbyAttractions === 'string' ? destination.nearbyAttractions : JSON.stringify(destination.nearbyAttractions || []), 
     [], 
     'template-nearbyAttractions'
   );
   
   const parsedToursFeaturing = parseJsonSafely<TourFeature[]>(
-    destination.toursFeaturing, 
+    typeof destination.toursFeaturing === 'string' ? destination.toursFeaturing : JSON.stringify(destination.toursFeaturing || []), 
     [], 
     'template-toursFeaturing'
   );
   
   const parsedGalleryImages = parseJsonSafely<GalleryImage[]>(
-    destination.galleryImages, 
+    typeof destination.galleryImages === 'string' ? destination.galleryImages : JSON.stringify(destination.galleryImages || []), 
     [], 
     'template-galleryImages'
   );
   
   const parsedFaqs = parseJsonSafely<FAQ[]>(
-    destination.faqs, 
+    typeof destination.faqs === 'string' ? destination.faqs : JSON.stringify(destination.faqs || []), 
     [], 
     'template-faqs'
   );
@@ -458,7 +459,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   }
   
   const parsedEssentialInfo = parseJsonSafely<EssentialInfoType>(
-    destination.essentialInfo, 
+    typeof destination.essentialInfo === 'string' ? destination.essentialInfo : JSON.stringify(destination.essentialInfo || {}), 
     { 
       gettingThere: '',
       travelTips: '',
@@ -713,8 +714,10 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                               alt={poi.title} 
                               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
                             />
-                            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
-                              {poi.tag || 'Must See'}
+                            <div className="absolute top-4 left-4">
+                              <Tag variant={poi.tagType || 'highlight'}>
+                                {poi.tag || 'Must See'}
+                              </Tag>
                             </div>
                           </div>
                           <div className="p-6">
@@ -750,8 +753,10 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                                       alt={poi.title} 
                                       className="w-full h-full object-cover" 
                                     />
-                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
-                                      {poi.tag || 'Must See'}
+                                    <div className="absolute top-4 left-4">
+                                      <Tag variant={poi.tagType || 'highlight'}>
+                                        {poi.tag || 'Must See'}
+                                      </Tag>
                                     </div>
                                   </div>
                                   <div className="p-6">
@@ -860,8 +865,8 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                           />
                           {tour.isBestSeller && (
-                            <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full z-10">
-                              Best Seller
+                            <div className="absolute top-2 right-2 z-10">
+                              <Tag variant="special">Best Seller</Tag>
                             </div>
                           )}
                         </div>
@@ -908,8 +913,8 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                                     className="w-full h-full object-cover" 
                                   />
                                   {tour.isBestSeller && (
-                                    <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full">
-                                      Best Seller
+                                    <div className="absolute top-2 right-2">
+                                      <Tag variant="special">Best Seller</Tag>
                                     </div>
                                   )}
                                 </div>
@@ -1051,9 +1056,9 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
                       <div className="flex flex-wrap gap-2">
                         {parseJsonSafely<string[]>(destination.highlights, []).map((highlight, index) => (
-                          <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                          <Tag key={`highlight-${index}`} variant="scenic">
                             {highlight}
-                          </span>
+                          </Tag>
                         ))}
                       </div>
                     </div>
@@ -1085,19 +1090,19 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       <div className="flex flex-wrap gap-2">
                         {typeof essentialInfo.highlights === 'string'
                           ? (essentialInfo.highlights as string).split('\n').filter(line => line.trim()).map((highlight: string, index: number) => (
-                              <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                              <Tag key={`highlight-${index}`} variant="scenic">
                                 {highlight.trim()}
-                              </span>
+                              </Tag>
                             ))
                           : Array.isArray(essentialInfo.highlights)
                             ? (essentialInfo.highlights as string[]).map((highlight: string, index: number) => (
-                                <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                                <Tag key={`highlight-${index}`} variant="scenic">
                                   {highlight}
-                                </span>
+                                </Tag>
                               ))
-                            : <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                            : <Tag variant="scenic">
                                 {String(essentialInfo.highlights)}
-                              </span>
+                              </Tag>
                         }
                       </div>
                     </div>

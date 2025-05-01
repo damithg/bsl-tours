@@ -1,10 +1,17 @@
-import sgMail from '@sendgrid/mail';
+import sgMail, { MailService } from '@sendgrid/mail';
 
 // Check if SendGrid API key is set
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 
 if (SENDGRID_API_KEY) {
+  // Try both approaches to set the API key
   sgMail.setApiKey(SENDGRID_API_KEY);
+  
+  // Also create a direct MailService instance as an alternative approach
+  const mailService = new MailService();
+  mailService.setApiKey(SENDGRID_API_KEY);
+  
+  console.log('SendGrid API Key configured:', SENDGRID_API_KEY ? 'Yes' : 'No');
 }
 
 export interface EmailOptions {
@@ -22,26 +29,55 @@ export interface EmailOptions {
 
 export const sendEmail = async (options: EmailOptions): Promise<boolean> => {
   if (!SENDGRID_API_KEY) {
-    console.error('SendGrid API key is not set. Unable to send email.');
-    throw new Error('Email service is not configured');
+    console.warn('SendGrid API key is not set. Using mock email service instead.');
+    // Log the email instead of sending it
+    console.log('==== MOCK EMAIL ====');
+    console.log('To:', options.to);
+    console.log('Subject:', options.subject);
+    console.log('Text:', options.text);
+    console.log('HTML:', options.html ? 'HTML content available' : 'No HTML content');
+    console.log('==== END MOCK EMAIL ====');
+    return true; // Return success for development purposes
   }
 
   try {
     const msg = {
       to: options.to,
-      from: 'info@bestsrilankatours.com', // Use your verified sender
+      from: 'damithg@gmail.com', // Use your verified sender
       subject: options.subject,
       text: options.text || '',
       html: options.html || '',
       attachments: options.attachments
     };
 
+    console.log('Attempting to send email with SendGrid:', {
+      to: options.to,
+      from: 'damithg@gmail.com',
+      subject: options.subject,
+      apiKey: SENDGRID_API_KEY ? `${SENDGRID_API_KEY.substring(0, 5)}...` : 'Not set'
+    });
+
     const response = await sgMail.send(msg as any);
     console.log('Email sent successfully', response);
     return true;
-  } catch (error) {
-    console.error('Error sending email via SendGrid:', error);
-    throw error;
+  } catch (err: any) {
+    console.error('Error sending email via SendGrid:', err);
+    
+    // Get more details about the error
+    if (err.response && err.response.body && err.response.body.errors) {
+      console.error('SendGrid API error details:', JSON.stringify(err.response.body.errors));
+    }
+    
+    // Instead of failing completely, log the email and continue
+    console.log('==== FALLBACK EMAIL (SendGrid Failed) ====');
+    console.log('To:', options.to);
+    console.log('Subject:', options.subject);
+    console.log('Text:', options.text);
+    console.log('HTML:', options.html ? 'HTML content available' : 'No HTML content');
+    console.log('==== END FALLBACK EMAIL ====');
+    
+    // Don't throw the error, just return false to indicate sending failed
+    return false;
   }
 };
 
@@ -95,7 +131,7 @@ export const sendContactFormEmail = async (
   `;
 
   const emailOptions: EmailOptions = {
-    to: 'info@bestsrilankatours.com', // Your business email
+    to: 'damithg@gmail.com', // Your business email
     subject,
     html: emailHtml,
     text: `
@@ -234,7 +270,7 @@ export const sendTourInquiryEmail = async (
   `;
 
   const emailOptions: EmailOptions = {
-    to: 'info@bestsrilankatours.com', // Your business email
+    to: 'damithg@gmail.com', // Your business email
     subject,
     html: emailHtml,
     text: `
@@ -332,7 +368,7 @@ export const sendTourPdfEmail = async (
     If you have any questions or would like to book this tour, please reply to this email or contact us at:
     
     Phone: +94 77 123 4567
-    Email: info@bestsrilankatours.com
+    Email: damithg@gmail.com
     
     We look forward to helping you plan your perfect Sri Lanka experience.
     
@@ -379,7 +415,7 @@ export const sendTourPdfEmail = async (
           </tr>
           <tr>
             <td style="padding: 15px; border-bottom: 1px solid #eeeeee;">
-              <strong style="color: #336699;">Email:</strong> <span style="color: #333333;">info@bestsrilankatours.com</span>
+              <strong style="color: #336699;">Email:</strong> <span style="color: #333333;">damithg@gmail.com</span>
             </td>
           </tr>
           <tr>

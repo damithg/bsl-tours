@@ -177,6 +177,8 @@ app.post('/api/contact', async (req, res) => {
 
 // Handle tour inquiry submissions
 app.post('/api/inquiries', async (req, res) => {
+  let storedInquiry = null; // Declare this outside the try block so we can access it in the catch block
+  
   try {
     const { firstName, lastName, email, phone, travelDates, packageInterest, message, subscribed } = req.body;
     
@@ -193,7 +195,7 @@ app.post('/api/inquiries', async (req, res) => {
     }
     
     // Store the inquiry in the database
-    const inquiry = await storage.createInquiry({
+    storedInquiry = await storage.createInquiry({
       firstName,
       lastName,
       email,
@@ -222,24 +224,41 @@ app.post('/api/inquiries', async (req, res) => {
     res.status(201).json({ 
       success: true, 
       message: 'Your inquiry has been submitted successfully!',
-      inquiry
+      inquiry: storedInquiry
     });
   } catch (error) {
     console.error('Error processing tour inquiry:', error);
     
-    // Check if it's a SendGrid API key error
-    const err = error as Error;
-    if (err.message === 'Email service is not configured') {
-      return res.status(503).json({ 
-        error: 'Email service unavailable', 
-        message: 'Email service is not configured. Please contact the administrator.'
+    // Check if the inquiry was successfully stored
+    if (storedInquiry) {
+      // The inquiry was saved, but email sending failed
+      // Check if it's a SendGrid API key error
+      const err = error as Error;
+      if (err.message === 'Email service is not configured') {
+        console.warn('Email service not configured, but inquiry was stored successfully');
+        // Still consider this a success since the data was stored
+        return res.status(201).json({ 
+          success: true, 
+          message: 'Your inquiry has been submitted successfully! (Email notifications are currently disabled)',
+          inquiry: storedInquiry
+        });
+      }
+      
+      // Handle other email errors but still return a 201 if the inquiry was saved
+      res.status(201).json({ 
+        success: true, 
+        message: 'Your inquiry has been submitted successfully! (Email notification could not be sent)',
+        inquiry: storedInquiry,
+        emailError: err.message || 'Email service error'
+      });
+    } else {
+      // The inquiry couldn't be saved at all
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to submit inquiry', 
+        message: (error as Error).message || 'An unexpected error occurred'
       });
     }
-    
-    res.status(500).json({ 
-      error: 'Failed to submit inquiry', 
-      message: err.message || 'An unexpected error occurred'
-    });
   }
 });
 

@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { AsymmetricalGallery } from '@/components/AsymmetricalGallery';
+import { API_BASE_URL } from '@/lib/queryClient';
 import Header from '@/components/Header';
 import AnimatedRouteMap from '@/components/AnimatedRouteMap';
 import ContactForm from '@/components/ContactForm';
@@ -98,8 +99,8 @@ const TestTourPage: React.FC<TestTourPageProps> = ({ params }) => {
       try {
         setLoading(true);
         
-        // Call the API endpoint with the full Azure URL and CORS headers
-        const response = await fetch(`https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/tours/${tourSlug}`, {
+        // Call the API endpoint with the API_BASE_URL constant
+        const response = await fetch(`${API_BASE_URL}/api/tours/${tourSlug}`, {
           headers: {
             'Accept': 'application/json',
             'Origin': window.location.origin

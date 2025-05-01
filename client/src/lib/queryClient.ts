@@ -7,8 +7,11 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 // For local .NET Core API (uncomment when using local .NET Core API)
 // export const API_BASE_URL = "http://localhost:5001";
 
-// Production .NET API base URL
-export const API_BASE_URL = "https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net";
+// Previous Production .NET API base URL (Azure)
+// export const API_BASE_URL = "https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net";
+
+// Current Production API base URL (DigitalOcean)
+export const API_BASE_URL = "https://bsl-tours-api-yqmyn.ondigitalocean.app";
 
 // Type definitions for API responses
 export interface TourPackage {

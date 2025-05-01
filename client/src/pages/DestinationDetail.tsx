@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { parseJsonSafely } from '@/lib/utils';
-import { Destination } from '@/lib/queryClient';
+import { Destination, API_BASE_URL } from '@/lib/queryClient';
 import { determineFocalPoint, DESTINATION_FOCAL_POINTS } from "@/lib/image-utils";
 import { AdaptiveImage } from '@/components/ui/adaptive-image';
 import { 
@@ -145,7 +145,7 @@ const DestinationDetail = () => {
   );
   
   // Log the API URL for debugging
-  console.log('Making API request to:', `https://bsl-dg-adf2awanb4etgsap.uksouth-01.azurewebsites.net/api/destinations`);
+  console.log('Making API request to:', `${API_BASE_URL}/api/destinations`);
   
   // If we have destination data, log it for debugging
   if (destination) {
