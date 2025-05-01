@@ -97,8 +97,7 @@ const ContactSection = () => {
           
           {/* Right Column - Contact Form */}
           <div>
-            <div className="bg-white rounded-lg shadow-md p-8">
-              <h3 className="text-xl font-semibold text-primary mb-6">Send us a message</h3>
+            <div className="p-1">
               <ContactForm />
             </div>
           </div>
