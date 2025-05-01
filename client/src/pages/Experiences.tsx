@@ -308,25 +308,11 @@ const Experiences = () => {
       {/* All Experiences Section */}
       <section id="all-experiences" className="py-16 bg-[#F8F5F0]/50" ref={filteredResultsRef}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
-            <div>
-              <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-2">All Experiences</h2>
-              <p className="text-lg text-[#333333]/80">
-                {filteredExperiences.length} {filteredExperiences.length === 1 ? 'experience' : 'experiences'} found
-                {selectedCategory && ` in ${categories.find(c => c.id === selectedCategory)?.name}`}
-              </p>
-            </div>
-            <div className="mt-4 md:mt-0">
-              <div className="flex items-center border rounded-full overflow-hidden bg-white shadow-sm">
-                <span className="px-4 text-gray-600">Sort by:</span>
-                <select className="py-2 pr-8 pl-2 bg-transparent border-none focus:outline-none focus:ring-0 text-gray-600">
-                  <option value="popular">Most Popular</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Highest Rated</option>
-                </select>
-              </div>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-2">All Experiences</h2>
+            <p className="text-lg text-[#333333]/80 max-w-2xl mx-auto">
+              Discover authentic Sri Lankan moments, from cultural immersions to breathtaking adventures across this tropical paradise
+            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
