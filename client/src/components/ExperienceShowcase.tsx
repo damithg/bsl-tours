@@ -24,7 +24,7 @@ const ExperienceShowcase = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-[#F8F5F0]/60">
+    <section className="py-24 bg-gradient-to-b from-white to-background/60">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-5">
@@ -45,7 +45,7 @@ const ExperienceShowcase = () => {
                   alt="Private dining experience" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/80 via-[#004E64]/40 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300 flex items-end">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/40 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300 flex items-end">
                   <div className="p-5 text-white">
                     <p className="font-medium text-lg">Private Dining</p>
                   </div>
@@ -57,7 +57,7 @@ const ExperienceShowcase = () => {
                   alt="Luxury spa treatment" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/80 via-[#004E64]/40 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300 flex items-end">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/40 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300 flex items-end">
                   <div className="p-5 text-white">
                     <p className="font-medium text-lg">Luxury Spa</p>
                   </div>
@@ -71,7 +71,7 @@ const ExperienceShowcase = () => {
                   alt="Private yacht experience" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/80 via-[#004E64]/40 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300 flex items-end">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/40 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300 flex items-end">
                   <div className="p-5 text-white">
                     <p className="font-medium text-lg">Private Yacht</p>
                   </div>
@@ -83,7 +83,7 @@ const ExperienceShowcase = () => {
                   alt="Cultural dance performance" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/80 via-[#004E64]/40 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300 flex items-end">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/40 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300 flex items-end">
                   <div className="p-5 text-white">
                     <p className="font-medium text-lg">Cultural Performance</p>
                   </div>
@@ -94,7 +94,7 @@ const ExperienceShowcase = () => {
           
           {/* Right side - Experience cards */}
           <div className="lg:w-1/2 order-1 lg:order-2">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 h-full flex flex-col">
+            <div className="bg-card rounded-xl shadow-sm border border-border h-full flex flex-col">
               <div className="p-10 flex-grow">
                 <div className="space-y-10">
                   {experiences.map((experience, index) => (
@@ -119,7 +119,7 @@ const ExperienceShowcase = () => {
                 </div>
               </div>
               
-              <div className="mt-auto bg-muted/50 p-8 border-t border-gray-100 rounded-b-xl">
+              <div className="mt-auto bg-muted/50 p-8 border-t border-border rounded-b-xl">
                 <Link 
                   to="/experiences" 
                   className="inline-flex items-center bg-primary hover:bg-primary/80 text-white font-medium py-3 px-7 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
