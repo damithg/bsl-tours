@@ -2,74 +2,25 @@ import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Check, Palette } from 'lucide-react';
+import { themeDefinitions } from '@/utils/themeData';
 
-// Define standard theme color palettes
-const themes = [
-  { 
-    name: 'Beach Paradise', 
-    file: 'theme-beach.json', 
-    primary: 'hsl(199, 100%, 36%)', // Ocean Blue
-    secondary: '#F6E27F', // Golden Sand
-    accent: '#F26B6B',    // Warm Coral
-  },
-  { 
-    name: 'Teal Gold', 
-    file: 'theme.json', 
-    primary: 'hsl(174, 77%, 29%)',
-    secondary: '#D4AF37', // Gold
-    accent: '#103556',    // Dark blue
-  },
-  { 
-    name: 'Burgundy Gold', 
-    file: 'theme-burgundy.json', 
-    primary: 'hsl(345, 77%, 29%)',
-    secondary: '#D4AF37', // Gold
-    accent: '#2A1215',    // Dark burgundy
-  },
-  { 
-    name: 'Emerald Gold', 
-    file: 'theme-emerald.json', 
-    primary: 'hsl(152, 77%, 29%)',
-    secondary: '#D4AF37', // Gold
-    accent: '#0F3D30',    // Dark green
-  },
-  { 
-    name: 'Purple Gold', 
-    file: 'theme-purple.json', 
-    primary: 'hsl(270, 77%, 29%)',
-    secondary: '#D4AF37', // Gold
-    accent: '#2A1042',    // Dark purple
-  },
-  { 
-    name: 'Royal Blue Gold', 
-    file: 'theme-royal-blue.json', 
-    primary: 'hsl(214, 77%, 29%)',
-    secondary: '#D4AF37', // Gold
-    accent: '#0A2A4D',    // Dark blue
-  }
-];
+// Use the imported theme definitions
+const themes = themeDefinitions;
 
 export function ThemeSwitcher() {
   const [currentTheme, setCurrentTheme] = useState<string>('theme-beach.json');
   const [open, setOpen] = useState(false);
 
-  const changeTheme = async (themeFile: string) => {
+  const changeTheme = (themeFile: string) => {
     try {
-      // Fetch the theme JSON file
-      const response = await fetch(`/${themeFile}`);
-      if (!response.ok) {
-        // Debug code (temporarily hidden)
-        // console.error(`Failed to load theme: ${themeFile}`);
-        return;
-      }
+      // Get the theme object with complete data
+      const theme = themes.find(t => t.file === themeFile) || themes[0];
       
-      const themeData = await response.json();
+      // Get the imported theme data
+      const themeData = theme.data;
       
       // Apply theme to document root
       const rootElement = document.documentElement;
-      
-      // Get the theme object with complete color data
-      const theme = themes.find(t => t.file === themeFile) || themes[0];
       
       // Set CSS variables based on theme data and selected palette
       rootElement.style.setProperty('--primary', themeData.primary);
@@ -81,8 +32,7 @@ export function ThemeSwitcher() {
       rootElement.style.setProperty('--accent', theme.accent);
       rootElement.style.setProperty('--accent-foreground', '#ffffff');
       
-      // Debug code (temporarily hidden)
-      // console.log(`Applied theme: ${themeFile} with primary: ${themeData.primary}, secondary: ${theme.secondary}, accent: ${theme.accent}`);
+      console.log(`Applied theme: ${themeFile} with primary: ${themeData.primary}, secondary: ${theme.secondary}, accent: ${theme.accent}`);
       
       // Store the selected theme
       setCurrentTheme(themeFile);
@@ -91,8 +41,7 @@ export function ThemeSwitcher() {
       // Close the popover
       setOpen(false);
     } catch (error) {
-      // Debug code (temporarily hidden)
-      // console.error('Error applying theme:', error);
+      console.error('Error applying theme:', error);
     }
   };
   
