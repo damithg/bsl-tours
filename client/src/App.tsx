@@ -128,7 +128,7 @@ function App() {
         <ColorPaletteProvider>
           <ScrollToTop />
           <Router />
-          {/* Removed ThemeSwitcher to see the beach theme directly */}
+          <ThemeSwitcher />
           <Toaster />
         </ColorPaletteProvider>
       </CurrencyProvider>
