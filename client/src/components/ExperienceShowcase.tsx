@@ -1,103 +1,259 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import { Link } from "wouter";
+import { useState, useRef, useEffect } from "react";
+import { Tag } from "@/components/ui/tag";
+import { COLORS } from "@/utils/colors";
 
 const ExperienceShowcase = () => {
   const experiences = [
     {
+      id: 1,
       image: "https://images.unsplash.com/photo-1631631480669-535cc43f2327?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-utensils",
       title: "Private Dining",
-      description: "Intimate gourmet experiences in stunning locations with personal chefs"
+      description: "Intimate gourmet experiences in stunning locations with personal chefs",
+      duration: "3-4 hours",
+      rating: 4.9,
+      reviewCount: 24,
+      price: 180,
+      currency: "USD",
+      tags: ["Culinary", "Romantic"]
     },
     {
+      id: 2,
       image: "https://images.unsplash.com/photo-1622037022824-0c71d511ef3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-spa",
       title: "Luxury Spa",
-      description: "Indulgent wellness treatments using traditional Sri Lankan techniques"
+      description: "Indulgent wellness treatments using traditional Sri Lankan techniques",
+      duration: "Half Day",
+      rating: 4.8,
+      reviewCount: 36,
+      price: 120,
+      currency: "USD",
+      tags: ["Wellness", "Relaxation"]
     },
     {
+      id: 3,
       image: "https://images.unsplash.com/photo-1623053807566-3da809d5d556?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-ship",
       title: "Private Yacht",
-      description: "Exclusive ocean excursions along Sri Lanka's pristine coastline"
+      description: "Exclusive ocean excursions along Sri Lanka's pristine coastline",
+      duration: "Full Day",
+      rating: 4.9,
+      reviewCount: 18,
+      price: 350,
+      currency: "USD",
+      tags: ["Adventure", "Luxury"]
     },
     {
+      id: 4,
       image: "https://images.unsplash.com/photo-1620977861760-f36307a4fb01?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-masks-theater",
       title: "Cultural Performances",
-      description: "Authentic entertainment showcasing Sri Lanka's rich heritage"
+      description: "Authentic entertainment showcasing Sri Lanka's rich heritage",
+      duration: "2 hours",
+      rating: 4.7,
+      reviewCount: 42,
+      price: 65,
+      currency: "USD",
+      tags: ["Cultural", "Evening"]
     },
     {
+      id: 5,
       image: "https://images.unsplash.com/photo-1583309218688-db97f21e678a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-umbrella-beach",
       title: "Beach Escapes",
-      description: "Secluded coastal retreats with personalized service and amenities"
+      description: "Secluded coastal retreats with personalized service and amenities",
+      duration: "Full Day",
+      rating: 4.9,
+      reviewCount: 31,
+      price: 200,
+      currency: "USD",
+      tags: ["Relaxation", "Nature"]
     },
     {
+      id: 6,
       image: "https://images.unsplash.com/photo-1574857085264-7b851824eb88?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-camera-retro",
       title: "Photography Tours",
-      description: "Guided excursions to capture Sri Lanka's most picturesque scenery"
+      description: "Guided excursions to capture Sri Lanka's most picturesque scenery",
+      duration: "Full Day",
+      rating: 4.8,
+      reviewCount: 27,
+      price: 150,
+      currency: "USD",
+      tags: ["Photography", "Nature"]
     }
   ];
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollable = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(
+        container.scrollLeft < container.scrollWidth - container.clientWidth - 1
+      );
+    }
+  };
+
+  const scrollLeft = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: -container.clientWidth, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: container.clientWidth, behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    checkScrollable();
+    window.addEventListener('resize', checkScrollable);
+    return () => window.removeEventListener('resize', checkScrollable);
+  }, []);
+
+  // Format rating to display as stars
+  const formatRating = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    return (
+      <div className="flex" style={{ color: COLORS.secondary }}>
+        {Array(fullStars).fill(null).map((_, i) => (
+          <i key={`full-${i}`} className="fas fa-star"></i>
+        ))}
+        {hasHalfStar && <i className="fas fa-star-half-alt"></i>}
+        {Array(emptyStars).fill(null).map((_, i) => (
+          <i key={`empty-${i}`} className="far fa-star"></i>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Background with subtle wave pattern */}
-      <div className="absolute inset-0 bg-[#F8F5F0] opacity-50 z-0"></div>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1577127296859-34da7963e90a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-5 z-0"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-5">
+          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-5" style={{ color: COLORS.primary }}>
             Curated Luxury Experiences
           </h2>
-          <p className="text-lg text-foreground/80">
+          <p className="text-lg text-gray-700/80">
             Each journey is crafted with meticulous attention to detail, offering you exclusive access to Sri Lanka's hidden treasures and authentic cultural encounters.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {experiences.map((experience, index) => (
-            <div key={index} className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-[420px] flex flex-col">
-              <div className="absolute inset-0 z-0">
-                <img 
-                  src={experience.image} 
-                  alt={experience.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/95 via-[#004E64]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
-              </div>
-              
-              <div className="relative z-10 flex-grow flex flex-col justify-end p-8 text-white">
-                <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                  <i className={`fas ${experience.icon} text-white text-2xl`}></i>
+        <div className="relative">
+          {/* Navigation buttons */}
+          <button
+            onClick={scrollLeft}
+            style={{ color: COLORS.primary }}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md -ml-4 transition ${
+              !canScrollLeft ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
+            }`}
+            disabled={!canScrollLeft}
+            aria-label="Scroll left"
+          >
+            <LucideChevronLeft size={24} />
+          </button>
+          
+          <button
+            onClick={scrollRight}
+            style={{ color: COLORS.primary }}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md -mr-4 transition ${
+              !canScrollRight ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
+            }`}
+            disabled={!canScrollRight}
+            aria-label="Scroll right"
+          >
+            <LucideChevronRight size={24} />
+          </button>
+          
+          {/* Scroll container */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory hide-scrollbar"
+            onScroll={checkScrollable}
+          >
+            {experiences.map((experience) => (
+              <div 
+                key={experience.id} 
+                className="flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl"
+              >
+                <div className="relative h-64 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src={experience.image} 
+                    alt={experience.title} 
+                    className="w-full h-full object-cover object-center" 
+                  />
+                  <div className="absolute top-4 right-4">
+                    <Tag variant="duration">
+                      {experience.duration}
+                    </Tag>
+                  </div>
+                  {experience.tags && (
+                    <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                      {experience.tags.slice(0, 2).map((tag, i) => (
+                        <Tag key={i} variant="scenic">
+                          {tag}
+                        </Tag>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                
-                <h3 className="text-2xl font-bold mb-3 group-hover:translate-x-2 transition-transform duration-300">
-                  {experience.title}
-                </h3>
-                
-                <p className="text-white/80 mb-8 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
-                  {experience.description}
-                </p>
-                
-                <div className="absolute bottom-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                    <ChevronRight className="w-5 h-5 text-white" />
+                <div className="p-6">
+                  <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">
+                    {experience.title}
+                  </h3>
+                  <div className="flex items-center mb-4">
+                    {formatRating(experience.rating)}
+                    <span className="text-sm text-gray-500 ml-2">
+                      {experience.rating.toFixed(1)} 
+                      ({experience.reviewCount} {experience.reviewCount === 1 ? 'review' : 'reviews'})
+                    </span>
+                  </div>
+                  <p className="text-gray-700/70 mb-4 line-clamp-2">
+                    {experience.description}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <div className="flex flex-col">
+                      <span className="text-sm text-gray-500">From</span>
+                      <div className="flex items-baseline">
+                        <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
+                          ${experience.price}
+                        </span>
+                        <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
+                      </div>
+                    </div>
+                    <Link 
+                      href={`/experiences/${experience.id}`} 
+                      style={{ backgroundColor: COLORS.primary }}
+                      className="inline-flex items-center hover:bg-primary/90 text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
+                    >
+                      Explore <ChevronRight className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
+                    </Link>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <Link 
             to="/experiences" 
-            className="inline-flex items-center bg-primary hover:bg-primary/80 text-white font-medium py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            style={{ borderColor: COLORS.primary, color: COLORS.primary }}
+            className="inline-flex items-center bg-transparent border-2 hover:bg-primary/5 font-medium py-3 px-8 rounded-full shadow-sm hover:shadow-md transition-all duration-300 group"
           >
-            Discover All Experiences
+            View All Experiences
             <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
