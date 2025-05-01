@@ -290,23 +290,23 @@ const Experiences = () => {
   
   return (
     <main className="min-h-screen bg-[#FAF9F6]">
-      {/* Hero Section - Updated with no search filter */}
-      <section className="relative h-[50vh] md:h-[60vh] bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1551211645-75a7e04c6c67?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')" }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70"></div>
+      {/* Hero Section - Updated to match Tours page style */}
+      <section className="relative h-[60vh] md:h-[70vh] bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1595535373192-fc8536a9d0c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')" }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative h-full flex flex-col justify-center">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Curated Luxury Experiences
+              Extraordinary Sri Lankan Experiences
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-6 max-w-2xl mx-auto">
-              Discover handcrafted Sri Lankan experiences designed to create unforgettable memories
+            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Immerse yourself in authentic adventures and cultural treasures
             </p>
-            <div className="mt-6">
+            <div>
               <a 
-                href="#experience-categories" 
-                className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition shadow-lg"
+                href="#all-experiences" 
+                className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-full hover:bg-primary/90 transition shadow-lg"
               >
-                Explore Experiences
+                Browse All Experiences
                 <ChevronRight className="ml-2 h-5 w-5" />
               </a>
             </div>
@@ -314,63 +314,8 @@ const Experiences = () => {
         </div>
       </section>
       
-      {/* Categories Section */}
-      <section id="experience-categories" className="py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-4">Experience Categories</h2>
-            <p className="text-lg text-[#333333]/80">Browse our diverse range of experiences by category</p>
-            <p className="mt-2 text-sm text-[#0077B6]">
-              <Link href="/experiences-premium" className="inline-flex items-center underline hover:text-[#005f92]">
-                Try our premium design <ChevronRight className="w-4 h-4 ml-1" />
-              </Link>
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                className={`group relative overflow-hidden rounded-xl shadow-md transition-all hover:shadow-lg 
-                  ${selectedCategory === category.id ? 'ring-4 ring-[#0077B6]' : ''}`}
-                onClick={() => {
-                  const newCategory = selectedCategory === category.id ? null : category.id;
-                  setSelectedCategory(newCategory);
-                  // If we're clearing the filter, don't scroll
-                  if (newCategory && filteredResultsRef.current) {
-                    setTimeout(() => {
-                      filteredResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
-                  }
-                }}
-              >
-                {/* Background Image */}
-                <div className="aspect-[4/3] w-full">
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                    style={{ backgroundImage: `url('${category.imageUrl}')` }}
-                  ></div>
-                  
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20"></div>
-                  
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
-                    <div className={`w-10 h-10 rounded-full ${category.color} mb-2 flex items-center justify-center`}>
-                      <i className={`fas ${category.icon}`}></i>
-                    </div>
-                    <h3 className="font-['Playfair_Display'] text-lg font-semibold text-white mb-1">{category.name}</h3>
-                    <p className="text-xs text-white/80 line-clamp-2">{category.description}</p>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-      
       {/* All Experiences Section */}
-      <section className="py-16 bg-[#F8F5F0]/50" ref={filteredResultsRef}>
+      <section id="all-experiences" className="py-16 bg-[#F8F5F0]/50" ref={filteredResultsRef}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
             <div>
