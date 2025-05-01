@@ -714,16 +714,10 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                               alt={poi.title} 
                               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
                             />
-                            <div 
-                              className="absolute top-4 left-4 px-3 py-1 rounded-md text-[0.8rem] leading-5"
-                              style={{ 
-                                backgroundColor: 'var(--background)', 
-                                color: 'var(--primary)',
-                                fontWeight: 500,
-                                letterSpacing: '0.02em'
-                              }}
-                            >
-                              {poi.tag || 'Must See'}
+                            <div className="absolute top-4 left-4">
+                              <Tag variant={poi.tagType || 'highlight'}>
+                                {poi.tag || 'Must See'}
+                              </Tag>
                             </div>
                           </div>
                           <div className="p-6">
@@ -759,16 +753,10 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                                       alt={poi.title} 
                                       className="w-full h-full object-cover" 
                                     />
-                                    <div 
-                                      className="absolute top-4 left-4 px-3 py-1 rounded-md text-[0.8rem] leading-5"
-                                      style={{ 
-                                        backgroundColor: 'var(--background)', 
-                                        color: 'var(--primary)',
-                                        fontWeight: 500,
-                                        letterSpacing: '0.02em'
-                                      }}
-                                    >
-                                      {poi.tag || 'Must See'}
+                                    <div className="absolute top-4 left-4">
+                                      <Tag variant={poi.tagType || 'highlight'}>
+                                        {poi.tag || 'Must See'}
+                                      </Tag>
                                     </div>
                                   </div>
                                   <div className="p-6">
@@ -877,8 +865,8 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                           />
                           {tour.isBestSeller && (
-                            <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full z-10">
-                              Best Seller
+                            <div className="absolute top-2 right-2 z-10">
+                              <Tag variant="special">Best Seller</Tag>
                             </div>
                           )}
                         </div>
@@ -925,8 +913,8 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                                     className="w-full h-full object-cover" 
                                   />
                                   {tour.isBestSeller && (
-                                    <div className="absolute top-2 right-2 bg-[#D4AF37] text-white text-xs px-2 py-0.5 rounded-full">
-                                      Best Seller
+                                    <div className="absolute top-2 right-2">
+                                      <Tag variant="special">Best Seller</Tag>
                                     </div>
                                   )}
                                 </div>
@@ -1068,9 +1056,9 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       <h4 className="font-semibold text-gray-900 mb-2">Highlights</h4>
                       <div className="flex flex-wrap gap-2">
                         {parseJsonSafely<string[]>(destination.highlights, []).map((highlight, index) => (
-                          <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                          <Tag key={`highlight-${index}`} variant="scenic">
                             {highlight}
-                          </span>
+                          </Tag>
                         ))}
                       </div>
                     </div>
@@ -1102,19 +1090,19 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                       <div className="flex flex-wrap gap-2">
                         {typeof essentialInfo.highlights === 'string'
                           ? (essentialInfo.highlights as string).split('\n').filter(line => line.trim()).map((highlight: string, index: number) => (
-                              <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                              <Tag key={`highlight-${index}`} variant="scenic">
                                 {highlight.trim()}
-                              </span>
+                              </Tag>
                             ))
                           : Array.isArray(essentialInfo.highlights)
                             ? (essentialInfo.highlights as string[]).map((highlight: string, index: number) => (
-                                <span key={`highlight-${index}`} className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                                <Tag key={`highlight-${index}`} variant="scenic">
                                   {highlight}
-                                </span>
+                                </Tag>
                               ))
-                            : <span className="bg-white px-3 py-1 rounded-full text-sm text-gray-700">
+                            : <Tag variant="scenic">
                                 {String(essentialInfo.highlights)}
-                              </span>
+                              </Tag>
                         }
                       </div>
                     </div>

@@ -4,7 +4,7 @@ import { COLORS } from "@/utils/colors";
 interface TagProps {
   children: React.ReactNode;
   className?: string;
-  variant?: 'default' | 'highlight' | 'cultural' | 'scenic' | 'primary';
+  variant?: 'default' | 'highlight' | 'cultural' | 'scenic' | 'primary' | 'special';
 }
 
 export const Tag: React.FC<TagProps> = ({ 
@@ -46,6 +46,13 @@ export const Tag: React.FC<TagProps> = ({
       styles = {
         ...styles,
         backgroundColor: `${COLORS.primary}`,
+        color: 'white'
+      };
+      break;
+    case 'special':
+      styles = {
+        ...styles,
+        backgroundColor: '#D4AF37',
         color: 'white'
       };
       break;
