@@ -5,6 +5,7 @@ import { AsymmetricalGallery, GalleryImage } from "@/components/AsymmetricalGall
 import useEmblaCarousel from 'embla-carousel-react';
 import { parseJsonSafely } from "@/lib/utils";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { Tag } from "@/components/ui/tag";
 import { Destination as ApiDestination } from "@/lib/queryClient";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
@@ -405,43 +406,43 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   // Legacy parsing for backward compatibility
   // Parse JSON data from the destination with better debugging
   const parsedPointsOfInterest = parseJsonSafely<PointOfInterest[]>(
-    destination.pointsOfInterest, 
+    typeof destination.pointsOfInterest === 'string' ? destination.pointsOfInterest : JSON.stringify(destination.pointsOfInterest || []), 
     [], 
     'template-pointsOfInterest'
   );
   
   const parsedDetailedSections = parseJsonSafely<DetailedSection[]>(
-    destination.detailedSections, 
+    typeof destination.detailedSections === 'string' ? destination.detailedSections : JSON.stringify(destination.detailedSections || []), 
     [], 
     'template-detailedSections'
   );
   
   const localExperiences = parseJsonSafely<LocalExperience[]>(
-    destination.localExperiences, 
+    typeof destination.localExperiences === 'string' ? destination.localExperiences : JSON.stringify(destination.localExperiences || []), 
     [], 
     'template-localExperiences'
   );
   
   const parsedNearbyAttractions = parseJsonSafely<NearbyAttraction[]>(
-    destination.nearbyAttractions, 
+    typeof destination.nearbyAttractions === 'string' ? destination.nearbyAttractions : JSON.stringify(destination.nearbyAttractions || []), 
     [], 
     'template-nearbyAttractions'
   );
   
   const parsedToursFeaturing = parseJsonSafely<TourFeature[]>(
-    destination.toursFeaturing, 
+    typeof destination.toursFeaturing === 'string' ? destination.toursFeaturing : JSON.stringify(destination.toursFeaturing || []), 
     [], 
     'template-toursFeaturing'
   );
   
   const parsedGalleryImages = parseJsonSafely<GalleryImage[]>(
-    destination.galleryImages, 
+    typeof destination.galleryImages === 'string' ? destination.galleryImages : JSON.stringify(destination.galleryImages || []), 
     [], 
     'template-galleryImages'
   );
   
   const parsedFaqs = parseJsonSafely<FAQ[]>(
-    destination.faqs, 
+    typeof destination.faqs === 'string' ? destination.faqs : JSON.stringify(destination.faqs || []), 
     [], 
     'template-faqs'
   );
@@ -458,7 +459,7 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
   }
   
   const parsedEssentialInfo = parseJsonSafely<EssentialInfoType>(
-    destination.essentialInfo, 
+    typeof destination.essentialInfo === 'string' ? destination.essentialInfo : JSON.stringify(destination.essentialInfo || {}), 
     { 
       gettingThere: '',
       travelTips: '',
