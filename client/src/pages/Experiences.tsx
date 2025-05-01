@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronRight, Search, Star, Clock, MapPin, Tag } from 'lucide-react';
+import { ChevronRight, Search, Star, Clock, MapPin, Tag, Calendar, Users } from 'lucide-react';
 import { Link } from 'wouter';
 
 // Define experience type structure
@@ -395,51 +395,83 @@ const Experiences = () => {
         </div>
       </section>
       
-      {/* Custom Experience Section */}
-      <section className="py-16 bg-white">
+      {/* Custom Experience Section - Redesigned */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#0077B6]/10 rounded-xl p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 opacity-10">
+          <div className="bg-gradient-to-r from-[#004E64] to-[#0077B6] rounded-2xl overflow-hidden shadow-xl relative">
+            <div className="absolute top-0 right-0 w-96 h-96 opacity-10">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#0077B6" d="M46.5,-58.5C59.6,-47.8,69.3,-32.8,73.2,-16.2C77.1,0.5,75.1,18.8,66.3,31.5C57.5,44.2,41.9,51.3,26.2,57.4C10.5,63.5,-5.3,68.7,-19,65.4C-32.8,62.1,-44.5,50.2,-54.5,36.8C-64.6,23.3,-73,8.2,-73.1,-7.2C-73.3,-22.5,-65.2,-38.2,-52.8,-49C-40.4,-59.8,-23.7,-65.8,-4.9,-61.1C13.9,-56.5,33.3,-69.2,46.5,-58.5Z" transform="translate(100 100)" />
+                <path fill="#FFFFFF" d="M46.5,-58.5C59.6,-47.8,69.3,-32.8,73.2,-16.2C77.1,0.5,75.1,18.8,66.3,31.5C57.5,44.2,41.9,51.3,26.2,57.4C10.5,63.5,-5.3,68.7,-19,65.4C-32.8,62.1,-44.5,50.2,-54.5,36.8C-64.6,23.3,-73,8.2,-73.1,-7.2C-73.3,-22.5,-65.2,-38.2,-52.8,-49C-40.4,-59.8,-23.7,-65.8,-4.9,-61.1C13.9,-56.5,33.3,-69.2,46.5,-58.5Z" transform="translate(100 100)" />
               </svg>
             </div>
             
-            <div className="relative max-w-3xl">
-              <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-4">Create Your Custom Experience</h2>
-              <p className="text-lg text-[#333333]/80 mb-6">
-                Don't see exactly what you&apos;re looking for? Our travel experts can design a completely customized experience tailored to your preferences.
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-white rounded-lg p-5 shadow-sm border border-[#0077B6]/10">
-                  <div className="w-12 h-12 rounded-full bg-[#0077B6]/10 flex items-center justify-center mb-4">
-                    <i className="fas fa-calendar-alt text-[#0077B6]"></i>
-                  </div>
-                  <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2">Flexible Scheduling</h3>
-                  <p className="text-gray-600 text-sm">
-                    Choose dates and times that work for your itinerary, with options for sunrise, sunset, or nighttime experiences.
-                  </p>
+            <div className="flex flex-col md:flex-row">
+              {/* Image Side */}
+              <div className="md:w-2/5 relative">
+                <div className="absolute inset-0 bg-cover bg-center" style={{ 
+                  backgroundImage: "url('https://images.unsplash.com/photo-1560179406-1c6c60e0dc76?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80')",
+                }}>
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]"></div>
                 </div>
-                
-                <div className="bg-white rounded-lg p-5 shadow-sm border border-[#0077B6]/10">
-                  <div className="w-12 h-12 rounded-full bg-[#0077B6]/10 flex items-center justify-center mb-4">
-                    <i className="fas fa-users text-[#0077B6]"></i>
+                <div className="py-10 px-8 md:p-0 relative md:absolute inset-0 flex flex-col justify-center items-center text-center md:text-left">
+                  <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 shadow-lg max-w-xs">
+                    <h3 className="font-['Playfair_Display'] text-white text-xl font-bold mb-2">Crafted For You</h3>
+                    <p className="text-white/90 text-sm">
+                      "The custom tour arranged for us was the highlight of our Sri Lanka visit. Every detail was perfectly tailored to our interests."
+                    </p>
+                    <div className="mt-3 flex items-center justify-center">
+                      <div className="flex">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star key={star} className="w-4 h-4 text-[#F6E27F] fill-[#F6E27F]" />
+                        ))}
+                      </div>
+                      <span className="ml-2 text-white text-xs">– Sarah & David</span>
+                    </div>
                   </div>
-                  <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2">Private Arrangements</h3>
-                  <p className="text-gray-600 text-sm">
-                    Enjoy exclusive experiences designed just for you and your travel companions, with dedicated guides and personalized attention.
-                  </p>
                 </div>
               </div>
               
-              <Link 
-                href="/contact" 
-                className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
-              >
-                Request Custom Experience
-                <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-              </Link>
+              {/* Content Side */}
+              <div className="md:w-3/5 p-8 md:p-12 relative">
+                <div className="max-w-2xl">
+                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-white mb-4">
+                    Create Your Custom Experience
+                  </h2>
+                  <p className="text-white/90 mb-8">
+                    Our travel designers will craft a bespoke experience that reflects your interests, preferences, and travel style. From cultural immersions to adventure activities, your custom journey will be uniquely yours.
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
+                      <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-4">
+                        <Calendar className="w-6 h-6 text-[#F6E27F]" />
+                      </div>
+                      <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-white">Your Perfect Timing</h3>
+                      <p className="text-white/80 text-sm">
+                        Choose your ideal dates and pace, with experiences timed for magical moments like sunrise at Sigiriya or sunset at Galle Fort.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
+                      <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-4">
+                        <Users className="w-6 h-6 text-[#F6E27F]" />
+                      </div>
+                      <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-white">Private Journey</h3>
+                      <p className="text-white/80 text-sm">
+                        Enjoy the exclusivity of private guides, luxury transportation, and personalized attention throughout your Sri Lankan adventure.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <Link 
+                    href="/contact" 
+                    className="inline-flex items-center bg-[#F6E27F] hover:bg-[#f7e9a1] text-[#004E64] font-medium py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+                  >
+                    Begin Your Custom Journey
+                    <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
