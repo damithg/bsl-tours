@@ -13,6 +13,7 @@ import {
   determineFocalPoint,
   DESTINATION_FOCAL_POINTS,
 } from "@/lib/image-utils";
+import { COLORS } from "@/utils/colors";
 
 const DestinationShowcase = () => {
   const queryKey = ["/api/destinations"];
@@ -138,10 +139,10 @@ const DestinationShowcase = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">
+          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-4" style={{ color: COLORS.primary }}>
             Stunning Destinations
           </h2>
-          <p className="text-lg text-[#333333]/80">
+          <p className="text-lg text-gray-700/80">
             Discover Sri Lanka's most breathtaking locations, where luxury and
             natural beauty combine for unforgettable experiences.
           </p>
@@ -151,7 +152,8 @@ const DestinationShowcase = () => {
           {/* Navigation buttons */}
           <button
             onClick={scrollLeft}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0077B6] rounded-full p-2 shadow-md -ml-4 transition ${
+            style={{ color: COLORS.primary }}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md -ml-4 transition ${
               !canScrollLeft
                 ? "opacity-0 cursor-default"
                 : "opacity-100 cursor-pointer"
@@ -164,7 +166,8 @@ const DestinationShowcase = () => {
 
           <button
             onClick={scrollRight}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0077B6] rounded-full p-2 shadow-md -mr-4 transition ${
+            style={{ color: COLORS.primary }}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md -mr-4 transition ${
               !canScrollRight
                 ? "opacity-0 cursor-default"
                 : "opacity-100 cursor-pointer"
@@ -278,7 +281,8 @@ const DestinationShowcase = () => {
                             .map((tag: string, index: number) => (
                               <span
                                 key={index}
-                                className="bg-[#0077B6]/50 text-white text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
+                                style={{ backgroundColor: `${COLORS.primary}80`, color: 'white' }}
+                                className="text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
                               >
                                 {tag}
                               </span>
@@ -287,7 +291,8 @@ const DestinationShowcase = () => {
                       )}
                     <a
                       href={`/destination/${destination.slug || destination.id}`}
-                      className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] 
+                      style={{ backgroundColor: COLORS.primary }}
+                      className="inline-flex items-center hover:bg-primary/90 
                                 text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
                     >
                       Explore{" "}
@@ -303,7 +308,8 @@ const DestinationShowcase = () => {
         <div className="text-center mt-12">
           <a
             href="/destinations"
-            className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            style={{ backgroundColor: COLORS.primary }}
+            className="inline-flex items-center hover:bg-primary/90 text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
           >
             View All Destinations
             <LucideChevronRightArrow className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
