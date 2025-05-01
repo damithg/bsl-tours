@@ -64,14 +64,14 @@ const DestinationShowcase = () => {
     return (
       <section
         id="destinations"
-        className="py-20 bg-gradient-to-b from-[#0F4C81]/5 to-[#0F4C81]/10"
+        className="py-20 bg-gradient-to-b from-primary/5 to-primary/10"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-4">
               Stunning Destinations
             </h2>
-            <p className="text-lg text-[#333333]/80">
+            <p className="text-lg text-foreground/80">
               Discover Sri Lanka's most breathtaking locations, where luxury and
               natural beauty combine for unforgettable experiences.
             </p>
@@ -96,11 +96,11 @@ const DestinationShowcase = () => {
     return (
       <section
         id="destinations"
-        className="py-20 bg-gradient-to-b from-[#0F4C81]/5 to-[#0F4C81]/10"
+        className="py-20 bg-gradient-to-b from-primary/5 to-primary/10"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-4">
               Stunning Destinations
             </h2>
             <p className="text-red-500">
@@ -117,14 +117,14 @@ const DestinationShowcase = () => {
     return (
       <section
         id="destinations"
-        className="py-20 bg-gradient-to-b from-[#0F4C81]/5 to-[#0F4C81]/10"
+        className="py-20 bg-gradient-to-b from-primary/5 to-primary/10"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-4">
               Stunning Destinations
             </h2>
-            <p className="text-lg text-[#333333]/80 mb-4">
+            <p className="text-lg text-foreground/80 mb-4">
               Currently configuring our destinations. Please check back soon!
             </p>
           </div>
@@ -136,17 +136,14 @@ const DestinationShowcase = () => {
   return (
     <section
       id="destinations"
-      style={{ 
-        background: `linear-gradient(to bottom, ${COLORS.background}, ${COLORS.primary}0d)`
-      }}
-      className="py-20"
+      className="py-20 bg-gradient-to-b from-background to-primary/5"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-4" style={{ color: COLORS.primary }}>
+          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-4">
             Stunning Destinations
           </h2>
-          <p className="text-lg text-gray-700/80">
+          <p className="text-lg text-foreground/80">
             Discover Sri Lanka's most breathtaking locations, where luxury and
             natural beauty combine for unforgettable experiences.
           </p>
@@ -156,8 +153,7 @@ const DestinationShowcase = () => {
           {/* Navigation buttons */}
           <button
             onClick={scrollLeft}
-            style={{ color: COLORS.primary }}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md -ml-4 transition ${
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-primary rounded-full p-2 shadow-md -ml-4 transition ${
               !canScrollLeft
                 ? "opacity-0 cursor-default"
                 : "opacity-100 cursor-pointer"
@@ -170,8 +166,7 @@ const DestinationShowcase = () => {
 
           <button
             onClick={scrollRight}
-            style={{ color: COLORS.primary }}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md -mr-4 transition ${
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-primary rounded-full p-2 shadow-md -mr-4 transition ${
               !canScrollRight
                 ? "opacity-0 cursor-default"
                 : "opacity-100 cursor-pointer"
@@ -285,7 +280,7 @@ const DestinationShowcase = () => {
                         }}>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                    <h3 className="font-['Playfair_Display'] text-2xl md:text-3xl text-white font-bold mb-3 transition-colors duration-300 group-hover:text-[#F6E27F] text-shadow-sm">
+                    <h3 className="font-['Playfair_Display'] text-2xl md:text-3xl text-white font-bold mb-3 transition-colors duration-300 group-hover:text-secondary text-shadow-sm">
                       {(destination as any).card?.heading ||
                         (destination as any).card?.header ||
                         (destination as any).card?.title ||
@@ -302,8 +297,7 @@ const DestinationShowcase = () => {
                     </p>
                     <a
                       href={`/destination/${destination.slug || destination.id}`}
-                      style={{ backgroundColor: COLORS.primary }}
-                      className="inline-flex items-center hover:bg-primary/90 
+                      className="inline-flex items-center bg-primary hover:bg-primary/90 
                                 text-white font-medium py-2.5 px-6 rounded-full transition group shadow-md"
                     >
                       Explore{" "}
@@ -319,8 +313,7 @@ const DestinationShowcase = () => {
         <div className="text-center mt-12">
           <a
             href="/destinations"
-            style={{ backgroundColor: COLORS.primary }}
-            className="inline-flex items-center hover:bg-primary/90 text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            className="inline-flex items-center bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
           >
             View All Destinations
             <LucideChevronRightArrow className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
