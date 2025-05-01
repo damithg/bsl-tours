@@ -44,7 +44,7 @@ const Footer = () => {
   };
 
   return (
-    <footer style={{ backgroundColor: COLORS.foreground }} className="text-white py-16">
+    <footer style={{ backgroundColor: '#004E64' }} className="text-white py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-2">

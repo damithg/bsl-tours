@@ -6,6 +6,13 @@ import { Check, Palette } from 'lucide-react';
 // Define standard theme color palettes
 const themes = [
   { 
+    name: 'Beach Paradise', 
+    file: 'theme-beach.json', 
+    primary: 'hsl(199, 100%, 36%)', // Ocean Blue
+    secondary: '#F6E27F', // Golden Sand
+    accent: '#F26B6B',    // Warm Coral
+  },
+  { 
     name: 'Teal Gold', 
     file: 'theme.json', 
     primary: 'hsl(174, 77%, 29%)',
@@ -43,7 +50,7 @@ const themes = [
 ];
 
 export function ThemeSwitcher() {
-  const [currentTheme, setCurrentTheme] = useState<string>('theme.json');
+  const [currentTheme, setCurrentTheme] = useState<string>('theme-beach.json');
   const [open, setOpen] = useState(false);
 
   const changeTheme = async (themeFile: string) => {
@@ -95,8 +102,8 @@ export function ThemeSwitcher() {
     if (savedTheme) {
       changeTheme(savedTheme);
     } else {
-      // Set default theme if none found
-      changeTheme('theme.json');
+      // Set beach theme as default if none found
+      changeTheme('theme-beach.json');
     }
   }, []);
 
