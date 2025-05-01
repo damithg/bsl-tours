@@ -178,7 +178,7 @@ const FeaturedPackages = () => {
     const emptyStarsArray = emptyStars > 0 ? Array(emptyStars).fill(null) : [];
     
     return (
-      <div className="text-[#0077B6] flex">
+      <div className="flex" style={{ color: COLORS.secondary }}>
         {fullStarsArray.map((_, i) => (
           <i key={`full-${i}`} className="fas fa-star"></i>
         ))}
@@ -195,8 +195,8 @@ const FeaturedPackages = () => {
       <section id="packages" className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">Luxury Sri Lanka Tours</h2>
-            <p className="text-lg text-[#333333]/80">Each journey is tailor-made to reflect your preferences, with private guides, luxury accommodations, and unforgettable experiences.</p>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-4" style={{ color: COLORS.primary }}>Luxury Sri Lanka Tours</h2>
+            <p className="text-lg text-gray-700/80">Each journey is tailor-made to reflect your preferences, with private guides, luxury accommodations, and unforgettable experiences.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -231,7 +231,7 @@ const FeaturedPackages = () => {
       <section id="packages" className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">Luxury Sri Lanka Tours</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-4" style={{ color: COLORS.primary }}>Luxury Sri Lanka Tours</h2>
             <p className="text-red-500">Failed to load tours. Please try again later.</p>
           </div>
         </div>
@@ -245,9 +245,8 @@ const FeaturedPackages = () => {
       <section id="packages" className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">Luxury Sri Lanka Tours</h2>
-            <p className="text-lg text-[#333333]/80 mb-4">Currently configuring our tours. Please check back soon!</p>
-
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-4" style={{ color: COLORS.primary }}>Luxury Sri Lanka Tours</h2>
+            <p className="text-lg text-gray-700/80 mb-4">Currently configuring our tours. Please check back soon!</p>
           </div>
         </div>
       </section>
@@ -258,15 +257,16 @@ const FeaturedPackages = () => {
     <section id="packages" className="py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-4">Luxury Sri Lanka Tours</h2>
-          <p className="text-lg text-[#333333]/80">Each journey is tailor-made to reflect your preferences, with private guides, luxury accommodations, and unforgettable experiences.</p>
+          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-4" style={{ color: COLORS.primary }}>Luxury Sri Lanka Tours</h2>
+          <p className="text-lg text-gray-700/80">Each journey is tailor-made to reflect your preferences, with private guides, luxury accommodations, and unforgettable experiences.</p>
         </div>
         
         <div className="relative">
           {/* Navigation buttons */}
           <button
             onClick={scrollLeft}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0077B6] rounded-full p-2 shadow-md -ml-4 transition ${
+            style={{ color: COLORS.primary }}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md -ml-4 transition ${
               !canScrollLeft ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
             }`}
             disabled={!canScrollLeft}
@@ -277,7 +277,8 @@ const FeaturedPackages = () => {
           
           <button
             onClick={scrollRight}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0077B6] rounded-full p-2 shadow-md -mr-4 transition ${
+            style={{ color: COLORS.primary }}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-md -mr-4 transition ${
               !canScrollRight ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
             }`}
             disabled={!canScrollRight}
@@ -404,7 +405,8 @@ const FeaturedPackages = () => {
         <div className="text-center mt-12">
           <Link 
             href="/tours" 
-            className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            style={{ backgroundColor: COLORS.primary }}
+            className="inline-flex items-center hover:bg-primary/90 text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
           >
             View All Tours
             <LucideChevronRightArrow className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
