@@ -27,10 +27,10 @@ const ExperienceShowcase = () => {
     <section className="py-24 bg-gradient-to-b from-white to-[#F8F5F0]/60">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0077B6] mb-5">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-5">
             Curated Luxury Experiences
           </h2>
-          <p className="text-lg text-[#333333]/80">
+          <p className="text-lg text-foreground/80">
             Each journey is crafted with meticulous attention to detail, offering you exclusive access to Sri Lanka's hidden treasures and authentic cultural encounters.
           </p>
         </div>
@@ -102,27 +102,27 @@ const ExperienceShowcase = () => {
                       <div className="flex-shrink-0 mr-6">
                         <div className={`w-16 h-16 rounded-full flex items-center justify-center group-hover:shadow-md transition-all duration-300
                           ${experience.color === 'ocean-blue' 
-                            ? 'bg-[#0077B6]/10 text-[#0077B6] group-hover:bg-[#0077B6]/15' 
+                            ? 'bg-primary/10 text-primary group-hover:bg-primary/15' 
                             : experience.color === 'tropical-green' 
-                              ? 'bg-[#88B04B]/10 text-[#88B04B] group-hover:bg-[#88B04B]/15' 
-                              : 'bg-[#F6E27F]/20 text-[#D4AF37] group-hover:bg-[#F6E27F]/30'}`}
+                              ? 'bg-accent/10 text-accent group-hover:bg-accent/15' 
+                              : 'bg-secondary/20 text-secondary group-hover:bg-secondary/30'}`}
                         >
                           <i className={`fas ${experience.icon} text-2xl`}></i>
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold mb-3 text-gray-800">{experience.title}</h3>
-                        <p className="text-[#333333]/70 text-base leading-relaxed">{experience.description}</p>
+                        <h3 className="text-xl font-semibold mb-3 text-foreground">{experience.title}</h3>
+                        <p className="text-foreground/70 text-base leading-relaxed">{experience.description}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
               
-              <div className="mt-auto bg-[#F8F5F0]/50 p-8 border-t border-gray-100 rounded-b-xl">
+              <div className="mt-auto bg-muted/50 p-8 border-t border-gray-100 rounded-b-xl">
                 <Link 
                   to="/experiences" 
-                  className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-3 px-7 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+                  className="inline-flex items-center bg-primary hover:bg-primary/80 text-white font-medium py-3 px-7 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
                 >
                   Discover All Experiences
                   <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />

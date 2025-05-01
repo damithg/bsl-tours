@@ -79,11 +79,11 @@ const TestimonialSection = () => {
 
   if (isLoading) {
     return (
-      <section id="testimonials" className="py-20 bg-[#0F4C81]/5">
+      <section id="testimonials" className="py-20 bg-primary/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">What Our Guests Say</h2>
-            <p className="text-lg text-[#333333]/80">Discover why our guests keep coming back and recommending us to their friends and family.</p>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-4">What Our Guests Say</h2>
+            <p className="text-lg text-foreground/80">Discover why our guests keep coming back and recommending us to their friends and family.</p>
           </div>
           
           <div className="relative">
