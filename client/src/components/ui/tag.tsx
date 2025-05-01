@@ -50,9 +50,9 @@ export const Tag: React.FC<TagProps> = ({
       break;
     case 'duration':
       tagStyle = {
-        backgroundColor: `${COLORS.secondary}20`,
-        color: `${COLORS.foreground}`,
-        borderColor: `${COLORS.secondary}50`
+        backgroundColor: 'whitesmoke',
+        color: `${COLORS.primary}`,
+        borderColor: `${COLORS.primary}40`
       };
       tagClass = "border uppercase text-[0.8rem] tracking-wide font-medium shadow-sm";
       break;
