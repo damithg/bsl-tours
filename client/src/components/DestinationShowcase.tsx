@@ -288,8 +288,13 @@ const DestinationShowcase = () => {
                             .map((tag: string, index: number) => (
                               <span
                                 key={index}
-                                style={{ backgroundColor: `${COLORS.primary}80`, color: 'white' }}
-                                className="text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
+                                style={{ 
+                                  backgroundColor: `${COLORS.background}`, 
+                                  color: `${COLORS.primary}`,
+                                  fontWeight: 500,
+                                  letterSpacing: '0.02em'
+                                }}
+                                className="text-[0.75rem] px-3 py-1 rounded-md leading-5"
                               >
                                 {tag}
                               </span>

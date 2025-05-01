@@ -343,8 +343,16 @@ const FeaturedPackages = () => {
                         alt={tour.card?.image?.alt || tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
                         className="w-full h-full object-cover object-center" 
                       />
-                      <div className="absolute top-4 right-4" style={{ backgroundColor: `${COLORS.primary}80`, color: 'white' }}>
-                        <div className="text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
+                      <div className="absolute top-4 right-4">
+                        <div 
+                          style={{ 
+                            backgroundColor: `${COLORS.background}`, 
+                            color: `${COLORS.primary}`,
+                            fontWeight: 500,
+                            letterSpacing: '0.02em'
+                          }}
+                          className="text-[0.75rem] px-3 py-1 rounded-md leading-5"
+                        >
                           {tour.duration}
                         </div>
                       </div>
@@ -354,8 +362,13 @@ const FeaturedPackages = () => {
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag: string, i: number) => (
                             <span 
                               key={i}
-                              style={{ backgroundColor: `${COLORS.primary}80`, color: 'white' }}
-                              className="text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
+                              style={{ 
+                                backgroundColor: `${COLORS.background}`, 
+                                color: `${COLORS.primary}`,
+                                fontWeight: 500,
+                                letterSpacing: '0.02em'
+                              }}
+                              className="text-[0.75rem] px-3 py-1 rounded-md leading-5"
                             >
                               {tag}
                             </span>
