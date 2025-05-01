@@ -38,8 +38,13 @@ export const Tag: React.FC<TagProps> = ({
     case 'scenic':
       styles = {
         ...styles,
-        backgroundColor: `${COLORS.primary}20`,
-        color: `${COLORS.primary}`
+        backgroundColor: 'transparent',
+        color: `${COLORS.primary}`,
+        border: `1px solid ${COLORS.primary}40`,
+        fontWeight: 500,
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+        fontSize: '0.7rem'
       };
       break;
     case 'primary':
