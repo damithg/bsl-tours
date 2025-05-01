@@ -7,6 +7,7 @@ import { AdaptiveImage } from "./ui/adaptive-image";
 import { determineFocalPoint } from "@/lib/image-utils";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { COLORS } from "@/utils/colors";
+import { Tag } from "@/components/ui/tag";
 
 // Strapi API Tour interface
 interface StrapiTour {

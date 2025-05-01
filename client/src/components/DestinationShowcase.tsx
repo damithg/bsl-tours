@@ -14,6 +14,7 @@ import {
   DESTINATION_FOCAL_POINTS,
 } from "@/lib/image-utils";
 import { COLORS } from "@/utils/colors";
+import { Tag } from "@/components/ui/tag";
 
 const DestinationShowcase = () => {
   const queryKey = ["/api/destinations"];
@@ -266,18 +267,9 @@ const DestinationShowcase = () => {
                         {(destination as any).card.tags
                           .slice(0, 3)
                           .map((tag: string, index: number) => (
-                            <span
-                              key={index}
-                              style={{ 
-                                backgroundColor: `${COLORS.background}`, 
-                                color: `${COLORS.primary}`,
-                                fontWeight: 500,
-                                letterSpacing: '0.02em'
-                              }}
-                              className="text-[0.75rem] px-3 py-1 rounded-md leading-5"
-                            >
+                            <Tag key={index}>
                               {tag}
-                            </span>
+                            </Tag>
                           ))}
                       </div>
                     )}
