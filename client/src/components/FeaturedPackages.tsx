@@ -345,7 +345,7 @@ const FeaturedPackages = () => {
                         className="w-full h-full object-cover object-center" 
                       />
                       <div className="absolute top-4 right-4">
-                        <Tag>
+                        <Tag variant="highlight">
                           {tour.duration}
                         </Tag>
                       </div>
@@ -353,7 +353,7 @@ const FeaturedPackages = () => {
                       {((tour.card?.tags && tour.card.tags.length > 0) || (tour.tags && tour.tags.length > 0)) && (
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag: string, i: number) => (
-                            <Tag key={i}>
+                            <Tag key={i} variant="scenic">
                               {tag}
                             </Tag>
                           ))}
