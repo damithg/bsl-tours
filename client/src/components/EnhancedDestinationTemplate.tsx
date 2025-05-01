@@ -713,7 +713,15 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                               alt={poi.title} 
                               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
                             />
-                            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                            <div 
+                              className="absolute top-4 left-4 px-3 py-1 rounded-md text-[0.8rem] leading-5"
+                              style={{ 
+                                backgroundColor: 'var(--background)', 
+                                color: 'var(--primary)',
+                                fontWeight: 500,
+                                letterSpacing: '0.02em'
+                              }}
+                            >
                               {poi.tag || 'Must See'}
                             </div>
                           </div>
@@ -750,7 +758,15 @@ export const EnhancedDestinationTemplate: React.FC<EnhancedDestinationTemplatePr
                                       alt={poi.title} 
                                       className="w-full h-full object-cover" 
                                     />
-                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-[#0F4C81]">
+                                    <div 
+                                      className="absolute top-4 left-4 px-3 py-1 rounded-md text-[0.8rem] leading-5"
+                                      style={{ 
+                                        backgroundColor: 'var(--background)', 
+                                        color: 'var(--primary)',
+                                        fontWeight: 500,
+                                        letterSpacing: '0.02em'
+                                      }}
+                                    >
                                       {poi.tag || 'Must See'}
                                     </div>
                                   </div>
