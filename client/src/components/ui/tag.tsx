@@ -4,7 +4,7 @@ import { COLORS } from "@/utils/colors";
 interface TagProps {
   children: React.ReactNode;
   className?: string;
-  variant?: 'default' | 'highlight' | 'cultural' | 'scenic' | 'primary' | 'special';
+  variant?: 'default' | 'highlight' | 'cultural' | 'scenic' | 'primary' | 'special' | 'duration';
 }
 
 export const Tag: React.FC<TagProps> = ({ 
@@ -47,6 +47,14 @@ export const Tag: React.FC<TagProps> = ({
         backgroundColor: '#D4AF37',
         color: 'white'
       };
+      break;
+    case 'duration':
+      tagStyle = {
+        backgroundColor: `${COLORS.secondary}20`,
+        color: `${COLORS.foreground}`,
+        borderColor: `${COLORS.secondary}50`
+      };
+      tagClass = "border uppercase text-[0.8rem] tracking-wide font-medium shadow-sm";
       break;
     default:
       tagStyle = {

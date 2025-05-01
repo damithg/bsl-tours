@@ -345,7 +345,7 @@ const FeaturedPackages = () => {
                         className="w-full h-full object-cover object-center" 
                       />
                       <div className="absolute top-4 right-4">
-                        <Tag variant="highlight">
+                        <Tag variant="duration">
                           {tour.duration}
                         </Tag>
                       </div>
