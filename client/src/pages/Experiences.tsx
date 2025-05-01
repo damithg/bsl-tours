@@ -290,26 +290,17 @@ const Experiences = () => {
   
   return (
     <main className="min-h-screen bg-[#FAF9F6]">
-      {/* Hero Section - Updated to match Tours page style */}
-      <section className="relative h-[60vh] md:h-[70vh] bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1595535373192-fc8536a9d0c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')" }}>
+      {/* Hero Section - Updated to exactly match Tours page style */}
+      <section className="relative h-[40vh] md:h-[50vh] bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1595535373192-fc8536a9d0c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')" }}>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative h-full flex flex-col justify-center">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Extraordinary Sri Lankan Experiences
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-4">
+              Sri Lankan Experiences
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Immerse yourself in authentic adventures and cultural treasures
+            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+              Handcrafted adventures to immerse yourself in Sri Lanka's culture and natural beauty
             </p>
-            <div>
-              <a 
-                href="#all-experiences" 
-                className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-full hover:bg-primary/90 transition shadow-lg"
-              >
-                Browse All Experiences
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </a>
-            </div>
           </div>
         </div>
       </section>
