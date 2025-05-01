@@ -24,7 +24,7 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="py-20 bg-white" ref={sectionRef}>
+    <section id="about" className="py-20 bg-background" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile version - Text first, then map - now top-aligned */}
         <div className="lg:hidden mb-10 mt-0 pt-0">
@@ -80,7 +80,7 @@ const AboutSection = () => {
                   
                   {/* Mobile adjustments for image positioning */}
                   <div className="md:hidden absolute inset-0 flex items-center justify-center">
-                    <p className="font-['Playfair_Display'] text-lg text-primary font-medium bg-white/70 px-3 py-1 rounded-full">
+                    <p className="font-['Playfair_Display'] text-lg text-primary font-medium bg-background/70 px-3 py-1 rounded-full">
                       Discover Sri Lanka's Treasures
                     </p>
                   </div>
@@ -90,7 +90,7 @@ const AboutSection = () => {
                     {/* First image */}
                     <div className="absolute top-[45%] left-[-20%]">
                       <div className="relative rotate-3 transform transition-transform">
-                        <div className="p-0 bg-white rounded-md shadow-lg">
+                        <div className="p-0 bg-card rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
                             alt="Backpack Traveler" 
@@ -103,7 +103,7 @@ const AboutSection = () => {
                     {/* Second image */}
                     <div className="absolute top-[4%] right-[-32%]">
                       <div className="relative -rotate-2 transform transition-transform">
-                        <div className="p-0 bg-white rounded-md shadow-lg">
+                        <div className="p-0 bg-card rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
                             alt="Backpack Traveler" 
@@ -116,7 +116,7 @@ const AboutSection = () => {
                     {/* Third image - Hidden for now */}
                     <div className="absolute bottom-[15%] right-[35%] hidden">
                       <div className="relative rotate-1 transform transition-transform">
-                        <div className="p-0 bg-white rounded-md shadow-lg">
+                        <div className="p-0 bg-card rounded-md shadow-lg">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
                             alt="Backpack Traveler" 
@@ -163,7 +163,7 @@ const AboutSection = () => {
                     
                       {/* First Image - Positioned on Map */}
                       <div className="absolute top-[120px] left-1/2 -translate-x-1/2 z-10 w-3/4">
-                        <div className="p-0 bg-white rounded-md shadow-md">
+                        <div className="p-0 bg-card rounded-md shadow-md">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
                             alt="Backpack Traveler" 
@@ -182,7 +182,7 @@ const AboutSection = () => {
                       
                       {/* Second Image - Positioned on Map */}
                       <div className="absolute top-[260px] left-1/2 -translate-x-1/2 z-10 w-3/4">
-                        <div className="p-0 bg-white rounded-md shadow-md">
+                        <div className="p-0 bg-card rounded-md shadow-md">
                           <img 
                             src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
                             alt="Backpack Traveler" 
