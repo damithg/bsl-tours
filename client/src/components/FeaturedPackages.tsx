@@ -6,6 +6,7 @@ import { queryClient, API_BASE_URL } from "@/lib/queryClient";
 import { AdaptiveImage } from "./ui/adaptive-image";
 import { determineFocalPoint } from "@/lib/image-utils";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { COLORS } from "@/utils/colors";
 
 // Strapi API Tour interface
 interface StrapiTour {
@@ -341,8 +342,10 @@ const FeaturedPackages = () => {
                         alt={tour.card?.image?.alt || tour.cardImage?.alt || tour.heroImage?.alt || tour.name} 
                         className="w-full h-full object-cover object-center" 
                       />
-                      <div className="absolute top-4 right-4 bg-[#0077B6]/50 text-white text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
-                        {tour.duration}
+                      <div className="absolute top-4 right-4" style={{ backgroundColor: `${COLORS.primary}80`, color: 'white' }}>
+                        <div className="text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm">
+                          {tour.duration}
+                        </div>
                       </div>
                       {/* Use card.tags first, then fallback to tour.tags */}
                       {((tour.card?.tags && tour.card.tags.length > 0) || (tour.tags && tour.tags.length > 0)) && (
@@ -350,7 +353,8 @@ const FeaturedPackages = () => {
                           {(tour.card?.tags || tour.tags || []).slice(0, 2).map((tag: string, i: number) => (
                             <span 
                               key={i}
-                              className="bg-[#0077B6]/50 text-white text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
+                              style={{ backgroundColor: `${COLORS.primary}80`, color: 'white' }}
+                              className="text-[0.8rem] font-medium px-3 py-1 rounded-md leading-5 shadow-sm"
                             >
                               {tag}
                             </span>
@@ -369,14 +373,14 @@ const FeaturedPackages = () => {
                           ({reviews.length || 0} {reviews.length === 1 ? 'review' : 'reviews'})
                         </span>
                       </div>
-                      <p className="text-[#333333]/70 mb-4">
+                      <p className="text-gray-700/70 mb-4">
                         {tour.card?.body || tour.cardImage?.caption || tour.summary}
                       </p>
                       <div className="flex justify-between items-center">
                         <div className="flex flex-col">
                           <span className="text-sm text-gray-500">Starting from</span>
                           <div className="flex items-baseline">
-                            <span className="text-[#0077B6] text-xl font-semibold">
+                            <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
                               {formatPrice(tour.startingFrom || 0, { currency: tour.currency || 'USD' })}
                             </span>
                             <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
@@ -384,7 +388,8 @@ const FeaturedPackages = () => {
                         </div>
                         <Link 
                           href={`/tours/${tour.slug}`} 
-                          className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
+                          style={{ backgroundColor: COLORS.primary }}
+                          className="inline-flex items-center hover:bg-primary/90 text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
                         >
                           Explore <LucideChevronRightArrow className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
                         </Link>
