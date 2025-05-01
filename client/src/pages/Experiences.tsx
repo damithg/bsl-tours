@@ -290,15 +290,15 @@ const Experiences = () => {
   
   return (
     <main className="min-h-screen bg-[#FAF9F6]">
-      {/* Hero Section - Updated to exactly match Tours page style */}
-      <section className="relative h-[40vh] md:h-[50vh] bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1595535373192-fc8536a9d0c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')" }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"></div>
+      {/* Hero Section - Exactly matching Tours page style */}
+      <section className="relative h-[30vh] md:h-[35vh] bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1535162222970-f8ab279245f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')" }}>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative h-full flex flex-col justify-center">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-4">
+            <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
               Sri Lankan Experiences
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto">
               Handcrafted adventures to immerse yourself in Sri Lanka's culture and natural beauty
             </p>
           </div>
