@@ -259,6 +259,28 @@ const DestinationShowcase = () => {
                       No Image Available
                     </div>
                   )}
+                  {/* Tags at the top of the card, similar to FeaturedPackages */}
+                  {(destination as any).card?.tags &&
+                    (destination as any).card.tags.length > 0 && (
+                      <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
+                        {(destination as any).card.tags
+                          .slice(0, 3)
+                          .map((tag: string, index: number) => (
+                            <span
+                              key={index}
+                              style={{ 
+                                backgroundColor: `${COLORS.background}`, 
+                                color: `${COLORS.primary}`,
+                                fontWeight: 500,
+                                letterSpacing: '0.02em'
+                              }}
+                              className="text-[0.75rem] px-3 py-1 rounded-md leading-5"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                      </div>
+                    )}
                   <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-90" 
                         style={{ 
                           background: `linear-gradient(to top, ${COLORS.primary}e6, ${COLORS.primary}66, transparent)`
@@ -280,27 +302,6 @@ const DestinationShowcase = () => {
                         destination.description ||
                         "Description not available"}
                     </p>
-                    {(destination as any).card?.tags &&
-                      (destination as any).card.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-5 opacity-100 transition-all duration-300">
-                          {(destination as any).card.tags
-                            .slice(0, 3)
-                            .map((tag: string, index: number) => (
-                              <span
-                                key={index}
-                                style={{ 
-                                  backgroundColor: `${COLORS.background}`, 
-                                  color: `${COLORS.primary}`,
-                                  fontWeight: 500,
-                                  letterSpacing: '0.02em'
-                                }}
-                                className="text-[0.75rem] px-3 py-1 rounded-md leading-5"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                        </div>
-                      )}
                     <a
                       href={`/destination/${destination.slug || destination.id}`}
                       style={{ backgroundColor: COLORS.primary }}
