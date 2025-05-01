@@ -12,63 +12,57 @@ export const Tag: React.FC<TagProps> = ({
   className = "",
   variant = 'default'
 }) => {
-  let styles = {
-    backgroundColor: `${COLORS.background}`, 
-    color: `${COLORS.primary}`,
-    fontWeight: 500,
-    letterSpacing: '0.02em'
-  };
+  let tagStyle = {};
+  let tagClass = "";
   
-  // Variant styles could be added here if needed
   switch(variant) {
     case 'highlight':
-      styles = {
-        ...styles,
+      tagStyle = {
         backgroundColor: `${COLORS.secondary}40`,
         color: `${COLORS.primary}`
       };
       break;
     case 'cultural':
-      styles = {
-        ...styles,
+      tagStyle = {
         backgroundColor: `${COLORS.accent}20`,
         color: `${COLORS.accent}`
       };
       break;
     case 'scenic':
-      styles = {
-        ...styles,
-        backgroundColor: 'transparent',
+      tagStyle = {
+        backgroundColor: 'whitesmoke',
         color: `${COLORS.primary}`,
-        border: `1px solid ${COLORS.primary}40`,
-        fontWeight: 500,
-        textTransform: 'uppercase',
-        letterSpacing: '0.05em',
-        fontSize: '0.7rem'
+        borderColor: `${COLORS.primary}40`
       };
+      tagClass = "border uppercase text-[0.8rem] tracking-wider font-medium";
       break;
     case 'primary':
-      styles = {
-        ...styles,
+      tagStyle = {
         backgroundColor: `${COLORS.primary}`,
         color: 'white'
       };
       break;
     case 'special':
-      styles = {
-        ...styles,
+      tagStyle = {
         backgroundColor: '#D4AF37',
         color: 'white'
       };
       break;
     default:
+      tagStyle = {
+        backgroundColor: `${COLORS.background}`, 
+        color: `${COLORS.primary}`
+      };
       break;
   }
 
+  // Apply common styles unless overridden by the variant's tagClass
+  const defaultClass = !tagClass ? "text-[0.8rem] font-medium tracking-wide" : "";
+
   return (
     <span
-      className={`text-[0.8rem] px-3 py-1 rounded-md leading-5 inline-block ${className}`}
-      style={styles}
+      className={`px-3 py-1 rounded-md leading-5 inline-block ${defaultClass} ${tagClass} ${className}`}
+      style={tagStyle}
     >
       {children}
     </span>
