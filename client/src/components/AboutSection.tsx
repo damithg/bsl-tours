@@ -28,16 +28,16 @@ const AboutSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile version - Text first, then map - now top-aligned */}
         <div className="lg:hidden mb-10 mt-0 pt-0">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-6 text-center">About Best Sri Lanka Tours</h2>
-          <p className="text-lg text-[#333333]/80 mb-6">
+          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-6 text-center">About Best Sri Lanka Tours</h2>
+          <p className="text-lg text-foreground/80 mb-6">
             Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
           </p>
-          <p className="text-lg text-[#333333]/80 mb-8">
+          <p className="text-lg text-foreground/80 mb-8">
             Our team of expert travel designers, local guides, and hospitality professionals work together to craft unforgettable experiences tailored to your preferences and interests.
           </p>
           
           <div className="text-center mb-8">
-            <a href="/about" className="bg-[#0077B6] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
+            <a href="/about" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full transition inline-flex items-center">
               Learn More About Us
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -49,15 +49,15 @@ const AboutSection = () => {
         <div className="flex flex-col lg:flex-row items-start">
           {/* Desktop version - left column - now top-aligned */}
           <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0 hidden lg:block pt-0">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-6">About Best Sri Lanka Tours</h2>
-            <p className="text-lg text-[#333333]/80 mb-6">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-6">About Best Sri Lanka Tours</h2>
+            <p className="text-lg text-foreground/80 mb-6">
               Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
             </p>
-            <p className="text-lg text-[#333333]/80 mb-12">
+            <p className="text-lg text-foreground/80 mb-12">
               Our team of expert travel designers, local guides, and hospitality professionals work together to craft unforgettable experiences tailored to your preferences and interests.
             </p>
             
-            <a href="/about" className="bg-[#0077B6] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
+            <a href="/about" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full transition inline-flex items-center">
               Learn More About Us
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -80,7 +80,7 @@ const AboutSection = () => {
                   
                   {/* Mobile adjustments for image positioning */}
                   <div className="md:hidden absolute inset-0 flex items-center justify-center">
-                    <p className="font-['Playfair_Display'] text-lg text-[#0077B6] font-medium bg-white/70 px-3 py-1 rounded-full">
+                    <p className="font-['Playfair_Display'] text-lg text-primary font-medium bg-white/70 px-3 py-1 rounded-full">
                       Discover Sri Lanka's Treasures
                     </p>
                   </div>

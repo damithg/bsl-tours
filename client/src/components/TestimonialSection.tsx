@@ -114,17 +114,17 @@ const TestimonialSection = () => {
 
   if (error) {
     return (
-      <section id="testimonials" className="py-20 bg-[#0F4C81]/5">
+      <section id="testimonials" className="py-20 bg-primary/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <div className="flex items-center justify-center">
-              <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">What Our Guests Say</h2>
+              <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-4">What Our Guests Say</h2>
               <button 
                 onClick={() => {
                   // This will force a fresh fetch from the server
                   queryClient.invalidateQueries({ queryKey });
                 }}
-                className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
+                className="ml-3 mb-4 p-2 text-primary hover:text-primary/80 transition-colors rounded-full"
                 aria-label="Retry loading testimonials"
                 title="Retry loading testimonials"
               >
@@ -139,31 +139,31 @@ const TestimonialSection = () => {
   }
 
   return (
-    <section id="testimonials" className="py-20 bg-[#0F4C81]/5">
+    <section id="testimonials" className="py-20 bg-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="flex items-center justify-center">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0F4C81] mb-4">What Our Guests Say</h2>
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-4">What Our Guests Say</h2>
             <button 
               onClick={() => {
                 // This will force a fresh fetch from the server
                 queryClient.invalidateQueries({ queryKey });
               }}
-              className="ml-3 mb-4 p-2 text-[#0F4C81] hover:text-[#0a325a] transition-colors rounded-full"
+              className="ml-3 mb-4 p-2 text-primary hover:text-primary/80 transition-colors rounded-full"
               aria-label="Refresh testimonials"
               title="Refresh testimonials"
             >
               <LucideRefreshCw size={20} />
             </button>
           </div>
-          <p className="text-lg text-[#333333]/80">Discover why our guests keep coming back and recommending us to their friends and family.</p>
+          <p className="text-lg text-foreground/80">Discover why our guests keep coming back and recommending us to their friends and family.</p>
         </div>
         
         <div className="relative">
           {/* Navigation buttons */}
           <button
             onClick={scrollLeft}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F4C81] rounded-full p-2 shadow-md -ml-4 transition ${
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-primary rounded-full p-2 shadow-md -ml-4 transition ${
               !canScrollLeft ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
             }`}
             disabled={!canScrollLeft}
@@ -174,7 +174,7 @@ const TestimonialSection = () => {
           
           <button
             onClick={scrollRight}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F4C81] rounded-full p-2 shadow-md -mr-4 transition ${
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-primary rounded-full p-2 shadow-md -mr-4 transition ${
               !canScrollRight ? "opacity-0 cursor-default" : "opacity-100 cursor-pointer"
             }`}
             disabled={!canScrollRight}
@@ -191,16 +191,16 @@ const TestimonialSection = () => {
             {testimonials?.map((testimonial, index) => (
               <div key={testimonial.id} className="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3">
                 <div className="bg-white p-8 rounded-lg shadow-lg h-full">
-                  <div className="text-[#D4AF37] mb-4">
+                  <div className="text-secondary mb-4">
                     {[...Array(testimonial.rating || testimonial.Rating || 5)].map((_, i) => (
                       <i key={i} className="fas fa-star"></i>
                     ))}
                   </div>
-                  <p className="text-[#333333]/80 mb-6 italic">"{testimonial.content || testimonial.Content || testimonial.comment || 'Wonderful experience with Best Sri Lanka Tours!'}"</p>
+                  <p className="text-foreground/80 mb-6 italic">"{testimonial.content || testimonial.Content || testimonial.comment || 'Wonderful experience with Best Sri Lanka Tours!'}"</p>
                   <div className="flex items-center">
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-300 mr-4">
                       {/* Avatar placeholder - no actual image used */}
-                      <div className="w-full h-full bg-[#0F4C81]/30 flex items-center justify-center text-white">
+                      <div className="w-full h-full bg-primary/30 flex items-center justify-center text-white">
                         {getNameInitial(testimonial)}
                       </div>
                     </div>
@@ -218,7 +218,7 @@ const TestimonialSection = () => {
             {testimonials && testimonials.map((_, index) => (
               <button 
                 key={index}
-                className={`w-3 h-3 rounded-full ${activeIndex === index ? 'bg-[#0F4C81]' : 'bg-gray-300'}`}
+                className={`w-3 h-3 rounded-full ${activeIndex === index ? 'bg-primary' : 'bg-gray-300'}`}
                 onClick={() => setActiveIndex(index)}
                 aria-label={`Go to testimonial ${index + 1}`}
               ></button>
