@@ -24,7 +24,7 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="py-20 bg-background" ref={sectionRef}>
+    <section id="about" className="py-12 bg-background" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile version - Text first, then map - now top-aligned */}
         <div className="lg:hidden mb-10 mt-0 pt-0">
