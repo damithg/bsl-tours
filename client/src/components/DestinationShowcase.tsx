@@ -281,20 +281,26 @@ const DestinationShowcase = () => {
                           ))}
                       </div>
                     )}
-                  <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-90" 
+                  <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-95" 
                         style={{ 
-                          background: `linear-gradient(to top, ${COLORS.primary}e6, ${COLORS.primary}66, transparent)`
+                          background: `linear-gradient(to top, 
+                            rgba(0,0,0,0.9) 0%, 
+                            rgba(0,0,0,0.7) 20%, 
+                            rgba(0,0,0,0.4) 40%, 
+                            rgba(0,0,0,0.2) 65%, 
+                            rgba(0,0,0,0.1) 80%, 
+                            transparent 100%)`
                         }}>
                   </div>
-                  <div className="absolute bottom-0 left-0 p-6">
-                    <h3 className="font-['Playfair_Display'] text-xl text-white font-semibold mb-2 transition-colors duration-300 group-hover:text-[#F6E27F]">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                    <h3 className="font-['Playfair_Display'] text-2xl md:text-3xl text-white font-bold mb-3 transition-colors duration-300 group-hover:text-[#F6E27F] text-shadow-sm">
                       {(destination as any).card?.heading ||
                         (destination as any).card?.header ||
                         (destination as any).card?.title ||
                         destination.name ||
                         "Destination"}
                     </h3>
-                    <p className="text-white/90 mb-4 max-w-xs line-clamp-2 group-hover:line-clamp-3 transition-all duration-300">
+                    <p className="text-white/95 mb-5 max-w-md line-clamp-2 group-hover:line-clamp-3 transition-all duration-300 text-base">
                       {(destination as any).card?.body ||
                         (destination as any).card?.subtitle ||
                         destination.excerpt ||
@@ -306,7 +312,7 @@ const DestinationShowcase = () => {
                       href={`/destination/${destination.slug || destination.id}`}
                       style={{ backgroundColor: COLORS.primary }}
                       className="inline-flex items-center hover:bg-primary/90 
-                                text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
+                                text-white font-medium py-2.5 px-6 rounded-full transition group shadow-md"
                     >
                       Explore{" "}
                       <LucideChevronRightArrow className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
