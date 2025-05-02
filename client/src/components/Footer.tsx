@@ -47,15 +47,7 @@ const Footer = () => {
     <footer style={{ backgroundColor: '#004E64' }} className="text-white py-12 sm:py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-5 md:gap-6 lg:gap-8">
-          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
-            <h3 style={{ color: COLORS.secondary }} className="text-base lg:text-lg font-semibold mb-3 lg:mb-4">Company</h3>
-            <ul className="space-y-2">
-              <li><Link href="/about" style={{ color: 'rgba(255,255,255,0.8)' }} className="text-sm hover:text-secondary transition">About Us</Link></li>
-              <li><Link href="/careers" style={{ color: 'rgba(255,255,255,0.8)' }} className="text-sm hover:text-secondary transition">Careers</Link></li>
-            </ul>
-          </div>
-          
-          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
+          <div className="col-span-1 sm:col-span-1 lg:col-span-2 order-1">
             <h3 style={{ color: COLORS.secondary }} className="text-base lg:text-lg font-semibold mb-3 lg:mb-4">Support</h3>
             <ul className="space-y-2">
               <li><Link href="/contact" style={{ color: 'rgba(255,255,255,0.8)' }} className="text-sm hover:text-secondary transition">Contact Us</Link></li>
@@ -66,7 +58,7 @@ const Footer = () => {
             </ul>
           </div>
           
-          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
+          <div className="col-span-1 sm:col-span-1 lg:col-span-2 order-2">
             <h3 style={{ color: COLORS.secondary }} className="text-base lg:text-lg font-semibold mb-3 lg:mb-4">Community</h3>
             <ul className="space-y-2">
               <li><Link href="/blog" style={{ color: 'rgba(255,255,255,0.8)' }} className="text-sm hover:text-secondary transition">Blog</Link></li>
@@ -77,7 +69,7 @@ const Footer = () => {
             </ul>
           </div>
           
-          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
+          <div className="col-span-1 sm:col-span-1 lg:col-span-2 order-3">
             <h3 style={{ color: COLORS.secondary }} className="text-base lg:text-lg font-semibold mb-3 lg:mb-4">Popular Destinations</h3>
             <ul className="space-y-2">
               <li><Link href="/destination/sigiriya" style={{ color: 'rgba(255,255,255,0.8)' }} className="text-sm hover:text-secondary transition">Sigiriya</Link></li>
@@ -89,7 +81,15 @@ const Footer = () => {
             </ul>
           </div>
           
-          <div className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-4 mt-6 sm:mt-0">
+          <div className="col-span-1 sm:col-span-1 lg:col-span-2 order-4">
+            <h3 style={{ color: COLORS.secondary }} className="text-base lg:text-lg font-semibold mb-3 lg:mb-4">Company</h3>
+            <ul className="space-y-2">
+              <li><Link href="/about" style={{ color: 'rgba(255,255,255,0.8)' }} className="text-sm hover:text-secondary transition">About Us</Link></li>
+              <li><Link href="/careers" style={{ color: 'rgba(255,255,255,0.8)' }} className="text-sm hover:text-secondary transition">Careers</Link></li>
+            </ul>
+          </div>
+          
+          <div className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-4 mt-6 sm:mt-0 order-5">
             <h3 style={{ color: COLORS.secondary }} className="text-base lg:text-lg font-semibold mb-3 lg:mb-4">Our Social</h3>
             <div className="flex space-x-3 mb-4">
               <a href="#" style={{ backgroundColor: `${COLORS.primary}50` }} className="w-9 h-9 rounded-full flex items-center justify-center text-white hover:bg-primary transition">
