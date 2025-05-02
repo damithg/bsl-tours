@@ -35,7 +35,11 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <span className="font-['Playfair_Display'] text-[#0F4C81] text-2xl font-bold">BSL<span className="text-[#D4AF37]">Tours</span></span>
+              <img 
+                src="/images/bsl_logo.png" 
+                alt="Best Sri Lanka Tours Logo" 
+                className="h-12 md:h-14"
+              />
             </Link>
           </div>
           
