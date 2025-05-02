@@ -24,183 +24,67 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="py-12 bg-background" ref={sectionRef}>
+    <section id="about" className="py-16 bg-gradient-to-b from-white to-gray-50" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Mobile version - Text first, then map - now top-aligned */}
-        <div className="lg:hidden mb-10 mt-0 pt-0">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-6 text-center">About Best Sri Lanka Tours</h2>
-          <p className="text-lg text-foreground/80 mb-6">
-            Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
-          </p>
-          <p className="text-lg text-foreground/80 mb-8">
-            Our team of expert travel designers, local guides, and hospitality professionals work together to craft unforgettable experiences tailored to your preferences and interests.
-          </p>
-          
-          <div className="text-center mb-8">
-            <a href="/about" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full transition inline-flex items-center">
-              Learn More About Us
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
-            </a>
-          </div>
+        <div className="text-center mb-10">
+          <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#0077B6] mb-4">About Us</h2>
+          <div className="w-16 h-1 bg-[#F6E27F] mx-auto mb-5"></div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">Creating unforgettable luxury journeys through Sri Lanka since 2010</p>
         </div>
-
-        <div className="flex flex-col lg:flex-row items-start">
-          {/* Desktop version - left column - now top-aligned */}
-          <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0 hidden lg:block pt-0">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-primary mb-6">About Best Sri Lanka Tours</h2>
-            <p className="text-lg text-foreground/80 mb-6">
-              Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
-            </p>
-            <p className="text-lg text-foreground/80 mb-12">
-              Our team of expert travel designers, local guides, and hospitality professionals work together to craft unforgettable experiences tailored to your preferences and interests.
-            </p>
-            
-            <a href="/about" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full transition inline-flex items-center">
-              Learn More About Us
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
-            </a>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left column - Image */}
+          <div className="order-2 lg:order-1">
+            <div className="relative h-[400px] overflow-hidden rounded-xl shadow-xl">
+              <img 
+                src="https://images.unsplash.com/photo-1590064661010-d542a64da71f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                alt="Beautiful Sri Lankan beach" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/70 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <h3 className="font-['Playfair_Display'] text-2xl font-bold mb-1">Our Passion</h3>
+                <p className="text-white/90">Sharing the beauty and culture of Sri Lanka</p>
+              </div>
+            </div>
           </div>
           
-          {/* Map column - both mobile and desktop */}
-          <div className="lg:w-1/2 w-full">
-            <div className="relative">
-              {/* Stylized Decorative Map - Visual Element Only */}
-              <div className="relative max-w-[50%] mx-auto mt-8 md:mt-0">
-                {/* Map background with light opacity - full map but smaller size */}
-                <div className="relative py-4">
-                  <img 
-                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744127782/map-sri-lanka_vb7cpr.png" 
-                    alt="Sri Lanka Map" 
-                    className="w-full h-auto opacity-[0.35]"
-                  />
-                  
-                  {/* Mobile adjustments for image positioning */}
-                  <div className="md:hidden absolute inset-0 flex items-center justify-center">
-                    <p className="font-['Playfair_Display'] text-lg text-primary font-medium bg-background/70 px-3 py-1 rounded-full">
-                      Discover Sri Lanka's Treasures
-                    </p>
-                  </div>
-                  
-                  {/* Desktop & tablet images - hidden on small mobile */}
-                  <div className="hidden sm:block">
-                    {/* First image */}
-                    <div className="absolute top-[45%] left-[-20%]">
-                      <div className="relative rotate-3 transform transition-transform">
-                        <div className="p-0 bg-card rounded-md shadow-lg">
-                          <img 
-                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
-                            alt="Backpack Traveler" 
-                            className="w-auto h-auto object-contain rounded-sm"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Second image */}
-                    <div className="absolute top-[4%] right-[-32%]">
-                      <div className="relative -rotate-2 transform transition-transform">
-                        <div className="p-0 bg-card rounded-md shadow-lg">
-                          <img 
-                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
-                            alt="Backpack Traveler" 
-                            className="w-auto h-auto object-contain rounded-sm"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Third image - Hidden for now */}
-                    <div className="absolute bottom-[15%] right-[35%] hidden">
-                      <div className="relative rotate-1 transform transition-transform">
-                        <div className="p-0 bg-card rounded-md shadow-lg">
-                          <img 
-                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-5.png" 
-                            alt="Backpack Traveler" 
-                            className="w-auto h-auto object-contain rounded-sm"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Map Pins - Now positioned independently */}
-                    {/* Pin 1 */}
-                    <div className="absolute top-[55%] left-[30%]">
-                      <img 
-                        src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
-                        alt="Map Pin" 
-                        className="w-8 h-8 object-contain"
-                      />
-                    </div>
-                    
-                    {/* Pin 2 */}
-                    <div className="absolute top-[35%] left-[45%]">
-                      <img 
-                        src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
-                        alt="Map Pin" 
-                        className="w-8 h-8 object-contain"
-                      />
-                    </div>
-                    
-
-
-                  </div>
-                  
-                  {/* Mobile optimized view - correct positioning */}
-                  <div className="sm:hidden mt-8">
-                    <div className="mx-auto relative h-[450px]">
-                      {/* Sri Lanka Map for Mobile - explicitly positioned */}
-                      <div className="absolute inset-0 top-0 left-0 w-full">
-                        <img 
-                          src="/images/sri-lanka-map.svg" 
-                          alt="Sri Lanka Map" 
-                          className="w-full h-auto object-contain opacity-50"
-                        />
-                      </div>
-                    
-                      {/* First Image - Positioned on Map */}
-                      <div className="absolute top-[120px] left-1/2 -translate-x-1/2 z-10 w-3/4">
-                        <div className="p-0 bg-card rounded-md shadow-md">
-                          <img 
-                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-1.png" 
-                            alt="Backpack Traveler" 
-                            className="w-full h-auto object-contain rounded-sm"
-                          />
-                        </div>
-                        {/* Pin below this image */}
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
-                          <img 
-                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
-                            alt="Map Pin" 
-                            className="w-6 h-6 object-contain"
-                          />
-                        </div>
-                      </div>
-                      
-                      {/* Second Image - Positioned on Map */}
-                      <div className="absolute top-[260px] left-1/2 -translate-x-1/2 z-10 w-3/4">
-                        <div className="p-0 bg-card rounded-md shadow-md">
-                          <img 
-                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-3.png" 
-                            alt="Backpack Traveler" 
-                            className="w-full h-auto object-contain rounded-sm"
-                          />
-                        </div>
-                        {/* Pin below this image */}
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2">
-                          <img 
-                            src="https://backpacktraveler.qodeinteractive.com/wp-content/uploads/2018/09/landing-mini-slider-image-pin-1.png"
-                            alt="Map Pin" 
-                            className="w-6 h-6 object-contain"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+          {/* Right column - Content */}
+          <div className="order-1 lg:order-2">
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-3">Luxury Travel Experts</h3>
+                <p className="text-gray-700">
+                  Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-3">Personalized Experiences</h3>
+                <p className="text-gray-700">
+                  Our team of expert travel designers, local guides, and hospitality professionals work together to craft unforgettable experiences tailored to your preferences and interests.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                <div className="bg-white p-4 rounded-lg flex flex-col items-center shadow-sm">
+                  <span className="text-[#0077B6] text-3xl font-bold">10+</span>
+                  <p className="text-gray-600 text-center text-sm">Years of Excellence</p>
                 </div>
+                
+                <div className="bg-white p-4 rounded-lg flex flex-col items-center shadow-sm">
+                  <span className="text-[#0077B6] text-3xl font-bold">500+</span>
+                  <p className="text-gray-600 text-center text-sm">Happy Travelers</p>
+                </div>
+              </div>
+              
+              <div className="pt-4">
+                <a href="/about" className="inline-flex items-center px-6 py-3 bg-[#0077B6] text-white hover:bg-[#0077B6]/90 rounded-lg transition-colors duration-300 font-medium shadow-md hover:shadow-lg">
+                  Learn More About Us
+                  <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
