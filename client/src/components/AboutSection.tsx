@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { TAILWIND_CLASSES } from '@/utils/colors';
 
 const AboutSection = () => {
   // Animation hooks
@@ -24,7 +25,7 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="py-24 bg-white" ref={sectionRef}>
+    <section id="about" className="py-24 bg-background" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
@@ -41,39 +42,39 @@ const AboutSection = () => {
             {/* Right content column */}
             <div className="w-full lg:w-1/2">
               <div className="space-y-7">
-                <h2 className="font-['Playfair_Display'] text-2xl md:text-[2.25rem] font-bold text-[#48341c] mb-8 leading-[1.3]">
+                <h2 className="font-['Playfair_Display'] text-2xl md:text-[2.25rem] font-bold text-foreground mb-8 leading-[1.3]">
                   We Don't Sell Tours — We Craft Experiences
                 </h2>
                 
-                <p className="font-['Raleway'] text-[#48341c] text-lg leading-relaxed">
+                <p className="font-['Raleway'] text-foreground text-lg leading-relaxed">
                   At Best Sri Lanka Tours, we believe travel should be more than ticking off destinations — it should be about connection, culture, and unforgettable moments.
                 </p>
                 
-                <p className="font-['Raleway'] text-[#48341c] text-lg leading-relaxed">
+                <p className="font-['Raleway'] text-foreground text-lg leading-relaxed">
                   Our passionate local team curates immersive journeys that reveal the true essence of Sri Lanka — from ancient temples and lush jungles to golden beaches and vibrant village life. Every experience is crafted with care, tailored to your interests, and guided by people who call this island home.
                 </p>
                 
-                <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-5">
+                <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-primary mb-5">
                   Why Choose Us:
                 </h3>
                 
                 <ul className="space-y-4">
                   <li className="flex items-start">
-                    <span className="text-[#0077B6] mr-3 pt-1">🧭</span>
-                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Expert Local Guides – Sharing personal stories, hidden gems, and real insights.</span>
+                    <span className="text-primary mr-3 pt-1">🧭</span>
+                    <span className="font-['Raleway'] text-foreground text-lg font-medium">Expert Local Guides – Sharing personal stories, hidden gems, and real insights.</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-[#0077B6] mr-3 pt-1">📜</span>
-                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Handpicked Itineraries – Balanced blends of adventure, culture, and relaxation.</span>
+                    <span className="text-primary mr-3 pt-1">📜</span>
+                    <span className="font-['Raleway'] text-foreground text-lg font-medium">Handpicked Itineraries – Balanced blends of adventure, culture, and relaxation.</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-[#0077B6] mr-3 pt-1">🌴</span>
-                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Tailored Travel Planning – Custom journeys designed around you.</span>
+                    <span className="text-primary mr-3 pt-1">🌴</span>
+                    <span className="font-['Raleway'] text-foreground text-lg font-medium">Tailored Travel Planning – Custom journeys designed around you.</span>
                   </li>
                 </ul>
                 
                 <div className="pt-6">
-                  <a href="/tours" className="font-['Raleway'] inline-flex items-center px-8 py-3 bg-[#0077B6] text-white hover:bg-[#0077B6]/90 rounded-lg transition-colors duration-300 font-medium">
+                  <a href="/tours" className={`font-['Raleway'] inline-flex items-center px-8 py-3 ${TAILWIND_CLASSES.buttonPrimary} rounded-lg transition-colors duration-300 font-medium`}>
                     Browse Our Tour Packages
                     <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
