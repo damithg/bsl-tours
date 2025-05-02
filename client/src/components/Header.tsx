@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { CurrencySelector } from "./CurrencySelector";
+import { handleImageError } from "../utils/assetUtils";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,6 +40,10 @@ const Header = () => {
                 src="/images/bsl_logo.png" 
                 alt="Best Sri Lanka Tours Logo" 
                 className="h-12 md:h-14"
+                onError={handleImageError(
+                  "/images/bsl_logo.png", 
+                  "https://bestsrilankatours.com/wp-content/uploads/2020/08/bsl_logo.png"
+                )}
               />
             </Link>
           </div>
