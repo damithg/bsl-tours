@@ -42,7 +42,7 @@ const AboutSection = () => {
             <div className="w-full lg:w-1/2">
               <div className="space-y-7">
                 <h2 className="font-['Playfair_Display'] text-2xl md:text-[2.25rem] font-bold text-primary mb-8 leading-[1.3]">
-                  We Don't Sell Tours — We Craft Experiences
+                  Sri Lanka, Beyond the Guidebook
                 </h2>
                 
                 <p className="font-['Raleway'] text-muted-foreground text-lg leading-relaxed">
