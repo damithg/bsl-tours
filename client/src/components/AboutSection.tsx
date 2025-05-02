@@ -41,7 +41,7 @@ const AboutSection = () => {
             {/* Right content column */}
             <div className="w-full lg:w-1/2">
               <div className="space-y-7">
-                <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#48341c] mb-8 leading-tight">
+                <h2 className="font-['Playfair_Display'] text-2xl md:text-[2.25rem] font-bold text-[#48341c] mb-8 leading-[1.3]">
                   We Don't Sell Tours — We Craft Experiences
                 </h2>
                 
