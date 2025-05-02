@@ -24,16 +24,16 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="py-24 bg-background" ref={sectionRef}>
+    <section id="about" className="py-28 bg-background" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row gap-16 items-center">
             {/* Left image column */}
             <div className="w-full lg:w-1/2">
-              <div className="rounded-2xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1586861254912-511bfed4a46a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207764/shutterstock_203858371_1_kxf0jo.jpg" 
                   alt="Sigiriya Rock, Sri Lanka" 
-                  className="w-full h-auto object-cover aspect-[4/5]"
+                  className="w-full h-auto object-cover aspect-[4/5] transform scale-105 hover:scale-110 transition-transform duration-700"
                 />
               </div>
             </div>
