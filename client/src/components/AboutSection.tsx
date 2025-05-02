@@ -42,33 +42,33 @@ const AboutSection = () => {
             <div className="w-full lg:w-1/2">
               <div className="space-y-7">
                 <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#48341c] mb-8 leading-tight">
-                  Discover the Soul of Sri Lanka with Expertly Crafted Journeys
+                  We Don't Sell Tours — We Craft Experiences
                 </h2>
                 
                 <p className="font-['Raleway'] text-[#48341c] text-lg leading-relaxed">
-                  At Best Sri Lanka Tours, we specialize in creating unforgettable travel experiences across the island's most breathtaking destinations. Whether you're seeking ancient temples, golden beaches, lush tea plantations, or vibrant local culture, our guided tours are designed to immerse you in the authentic beauty of Sri Lanka.
+                  At Best Sri Lanka Tours, we believe travel should be more than ticking off destinations — it should be about connection, culture, and unforgettable moments.
                 </p>
                 
                 <p className="font-['Raleway'] text-[#48341c] text-lg leading-relaxed">
-                  Our passionate local team ensures every journey is personalized, seamless, and filled with meaningful moments that go beyond the ordinary.
+                  Our passionate local team curates immersive journeys that reveal the true essence of Sri Lanka — from ancient temples and lush jungles to golden beaches and vibrant village life. Every experience is crafted with care, tailored to your interests, and guided by people who call this island home.
                 </p>
                 
                 <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-5">
-                  Why Travel with Us:
+                  Why Choose Us:
                 </h3>
                 
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <span className="text-[#0077B6] mr-3 pt-1">🧭</span>
-                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Experienced Local Guides – Knowledgeable, friendly, and dedicated to sharing the heart of Sri Lanka.</span>
+                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Expert Local Guides – Sharing personal stories, hidden gems, and real insights.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#0077B6] mr-3 pt-1">📜</span>
-                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Curated Itineraries – Thoughtfully planned routes that balance adventure, relaxation, and cultural discovery.</span>
+                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Handpicked Itineraries – Balanced blends of adventure, culture, and relaxation.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#0077B6] mr-3 pt-1">🌴</span>
-                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Tailored Travel Experiences – Flexible and fully customizable tours based on your interests and pace.</span>
+                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Tailored Travel Planning – Custom journeys designed around you.</span>
                   </li>
                 </ul>
                 
