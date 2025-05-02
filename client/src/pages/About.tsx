@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import AboutSection from "../components/AboutSection";
 
 const About = () => {
   // Our values
@@ -69,8 +68,125 @@ const About = () => {
         </div>
       </section>
 
-      {/* Main About Section */}
-      <AboutSection />
+      {/* Main About Section - Modern Design */}
+      <section className="py-28 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            {/* Two column layout */}
+            <div className="flex flex-col lg:flex-row items-center gap-20">
+              {/* Left column with large image and overlap elements */}
+              <div className="w-full lg:w-1/2 relative">
+                <div className="relative">
+                  {/* Main image */}
+                  <div className="relative z-10 rounded-2xl overflow-hidden shadow-xl">
+                    <img 
+                      src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746208326/shutterstock_1068884744_1_fza0zi.jpg" 
+                      alt="Traditional Sri Lankan boats" 
+                      className="w-full object-cover h-[600px]"
+                    />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  </div>
+                  
+                  {/* Decorative element - small image */}
+                  <div className="absolute -bottom-12 -right-12 z-20 w-40 h-40 rounded-xl overflow-hidden shadow-xl hidden lg:block border-4 border-white">
+                    <img 
+                      src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746209493/shutterstock_422503523_1_cjhlbg.jpg" 
+                      alt="Sri Lankan Beach" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Stats card */}
+                  <div className="absolute -left-8 -bottom-8 bg-white rounded-xl shadow-xl p-6 z-20 hidden lg:block">
+                    <div className="grid grid-cols-2 gap-8 w-64">
+                      <div className="text-center">
+                        <span className="text-primary text-3xl font-bold block mb-1">10+</span>
+                        <span className="text-muted-foreground text-sm">Years of Excellence</span>
+                      </div>
+                      <div className="text-center">
+                        <span className="text-primary text-3xl font-bold block mb-1">500+</span>
+                        <span className="text-muted-foreground text-sm">Happy Travelers</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Mobile stats - only visible on mobile */}
+                <div className="grid grid-cols-2 gap-4 mt-10 lg:hidden">
+                  <div className="bg-white p-4 rounded-lg flex flex-col items-center shadow-sm border border-gray-100">
+                    <span className="text-primary text-3xl font-bold">10+</span>
+                    <p className="text-muted-foreground text-center text-sm">Years of Excellence</p>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg flex flex-col items-center shadow-sm border border-gray-100">
+                    <span className="text-primary text-3xl font-bold">500+</span>
+                    <p className="text-muted-foreground text-center text-sm">Happy Travelers</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Right column with content */}
+              <div className="w-full lg:w-1/2 lg:pt-12">
+                <div className="space-y-8">
+                  <div>
+                    <h4 className="text-secondary uppercase tracking-wider text-sm font-semibold mb-3 font-['Raleway']">Our Commitment</h4>
+                    <h2 className="font-['Playfair_Display'] text-3xl md:text-[2.5rem] font-bold text-primary mb-6 leading-[1.2]">
+                      Crafting Meaningful Sri Lankan Journeys Since 2010
+                    </h2>
+                    
+                    <div className="w-20 h-1 bg-secondary mb-8"></div>
+                    
+                    <p className="font-['Raleway'] text-muted-foreground text-lg leading-relaxed mb-6">
+                      At Best Sri Lanka Tours, we believe travel should transform you. Our handcrafted journeys reveal the true essence of Sri Lanka — connecting you with authentic experiences that can't be found in guidebooks.
+                    </p>
+                    
+                    <p className="font-['Raleway'] text-muted-foreground text-lg leading-relaxed">
+                      What sets us apart is our deep local knowledge combined with luxury service. Each itinerary is thoughtfully designed to balance iconic landmarks with hidden gems, cultural immersion with relaxation, all while maintaining the highest standards of comfort and personalization.
+                    </p>
+                  </div>
+                  
+                  {/* Feature boxes */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+                    <div className="bg-gray-50 p-6 rounded-xl hover:shadow-md transition duration-300">
+                      <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-primary mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M16.5 19a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"></path>
+                          <path d="M7.5 19a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"></path>
+                          <path d="M14 2c-1.047.552-1.5 1.71-1.5 3.5s.453 2.948 1.5 3.5c1.047-.552 1.5-1.71 1.5-3.5S15.047 2.552 14 2Z"></path>
+                          <path d="M5 8c0 8.334 5.667 14 12 14 0-8.334-5.667-14-12-14Z"></path>
+                        </svg>
+                      </div>
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-2">Local Expertise</h3>
+                      <p className="text-muted-foreground">Our guides offer insider knowledge and personal connections that transform good trips into unforgettable journeys.</p>
+                    </div>
+                    
+                    <div className="bg-gray-50 p-6 rounded-xl hover:shadow-md transition duration-300">
+                      <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-primary mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                          <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+                      </div>
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-2">Personalized Care</h3>
+                      <p className="text-muted-foreground">From meticulous planning to 24/7 support during your journey, we ensure every detail is perfectly handled.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-6">
+                    <a href="/tours" className="font-['Raleway'] inline-flex items-center px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition-colors duration-300 font-medium shadow-md">
+                      Explore Our Journeys
+                      <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Our Values */}
       <section className="py-20 bg-gray-50">
