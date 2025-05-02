@@ -40,34 +40,36 @@ const CookieConsent = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-lg border-t border-gray-200">
-      <div className="text-center px-4 sm:px-6 lg:px-8 py-2">
-        <div className="inline-flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto">
-          <p className="text-sm text-gray-600 mb-0 text-center mr-1">
-            This website uses cookies to improve your experience. We'll assume you're ok with this, but you can opt-out if you wish.{' '}
-            <Link href="/privacy-policy" className="text-[#0077B6] hover:underline">
-              Privacy Policy
-            </Link>
-          </p>
-          <div className="inline-flex items-center gap-1.5 whitespace-nowrap">
-            <button
-              onClick={handleDecline}
-              className="px-2.5 py-0.5 text-sm font-medium text-[#0F4C81] bg-gray-100 hover:bg-gray-200 rounded-md transition"
-            >
-              Decline
-            </button>
-            <button
-              onClick={handleAccept}
-              className="px-2.5 py-0.5 text-sm font-medium text-white bg-[#0077B6] hover:bg-[#0077B6]/90 rounded-md transition"
-            >
-              Accept
-            </button>
-            <button 
-              onClick={handleClose}
-              className="p-0.5 ml-0.5 text-gray-500 hover:text-gray-700 rounded-full transition"
-              aria-label="Close cookie consent"
-            >
-              <X size={16} />
-            </button>
+      <div className="px-4 sm:px-6 lg:px-8 py-2">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center justify-center">
+            <p className="text-sm text-gray-600 mb-0 max-w-[calc(100%-160px)]">
+              This website uses cookies to improve your experience. We'll assume you're ok with this, but you can opt-out if you wish.{' '}
+              <Link href="/privacy-policy" className="text-[#0077B6] hover:underline">
+                Privacy Policy
+              </Link>
+            </p>
+            <div className="flex items-center gap-1.5 whitespace-nowrap ml-4">
+              <button
+                onClick={handleDecline}
+                className="px-2.5 py-0.5 text-sm font-medium text-[#0F4C81] bg-gray-100 hover:bg-gray-200 rounded-md transition"
+              >
+                Decline
+              </button>
+              <button
+                onClick={handleAccept}
+                className="px-2.5 py-0.5 text-sm font-medium text-white bg-[#0077B6] hover:bg-[#0077B6]/90 rounded-md transition"
+              >
+                Accept
+              </button>
+              <button 
+                onClick={handleClose}
+                className="p-0.5 ml-0.5 text-gray-500 hover:text-gray-700 rounded-full transition"
+                aria-label="Close cookie consent"
+              >
+                <X size={16} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
