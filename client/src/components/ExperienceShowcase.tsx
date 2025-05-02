@@ -8,10 +8,10 @@ const ExperienceShowcase = () => {
   const experiences = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1631631480669-535cc43f2327?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      image: "https://d1bv4heaa2n05k.cloudfront.net/user-images/1447075722991/shutterstock-180137912small_main_1447075728204.jpeg?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-utensils",
-      title: "Private Dining",
-      description: "Intimate gourmet experiences in stunning locations with personal chefs",
+      title: "Nuwara Eliya Tea Estate & Tasting Experience",
+      description: "Stroll through misty tea plantations, pluck your own leaves, and savour freshly brewed Ceylon tea on the hills",
       duration: "3-4 hours",
       rating: 4.9,
       reviewCount: 24,
@@ -21,10 +21,10 @@ const ExperienceShowcase = () => {
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1622037022824-0c71d511ef3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      image: "https://res.cloudinary.com/enchanting/q_70,f_auto,c_lfill,g_auto/exodus-web/2021/12/39286_1-1.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-spa",
-      title: "Luxury Spa",
-      description: "Indulgent wellness treatments using traditional Sri Lankan techniques",
+      title: "Sunrise Pilgrimage to Adam’s Peak (Sri Pada)",
+      description: "Experience the magic of dawn atop Sri Lanka’s most sacred mountain, guided by stars, chants, and breathtaking views",
       duration: "Half Day",
       rating: 4.8,
       reviewCount: 36,
@@ -34,10 +34,10 @@ const ExperienceShowcase = () => {
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1623053807566-3da809d5d556?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/5f/12/9e/mahamevnawa-monastery.jpg?w=1200&h=-1&s=1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-ship",
-      title: "Private Yacht",
-      description: "Exclusive ocean excursions along Sri Lanka's pristine coastline",
+      title: "Mindful Morning at a Buddhist Monastery",
+      description: "Embrace stillness with guided meditation and quiet reflection in a peaceful forest monastery with local monks",
       duration: "Full Day",
       rating: 4.9,
       reviewCount: 18,
@@ -249,7 +249,7 @@ const ExperienceShowcase = () => {
         
         <div className="mt-12 text-center">
           <Link 
-            to="/experiences" 
+            href="/experiences" 
             style={{ borderColor: COLORS.primary, color: COLORS.primary }}
             className="inline-flex items-center bg-transparent border-2 hover:bg-primary/5 font-medium py-3 px-8 rounded-full shadow-sm hover:shadow-md transition-all duration-300 group"
           >
