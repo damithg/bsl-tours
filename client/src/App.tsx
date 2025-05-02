@@ -44,6 +44,7 @@ import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
 import { ColorPaletteProvider } from "./contexts/ColorPaletteContext";
 import ScrollToTop from "@/components/ScrollToTop";
+import CookieConsent from "@/components/CookieConsent";
 
 function Router() {
   return (
@@ -128,6 +129,7 @@ function App() {
         <ColorPaletteProvider>
           <ScrollToTop />
           <Router />
+          <CookieConsent />
           <ThemeSwitcher />
           <Toaster />
         </ColorPaletteProvider>
