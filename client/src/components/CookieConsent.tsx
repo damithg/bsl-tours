@@ -40,38 +40,35 @@ const CookieConsent = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-lg border-t border-gray-200">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="flex-1 pr-4">
-            <h3 className="text-lg font-semibold text-[#0F4C81] mb-1">We Value Your Privacy</h3>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex-1">
             <p className="text-sm text-gray-600">
-              This website uses cookies to enhance your browsing experience, analyze site traffic, and personalize content. 
-              By clicking "Accept All", you consent to our use of cookies. Visit our{' '}
+              This website uses cookies to improve your experience. We'll assume you're ok with this, but you can opt-out if you wish.{' '}
               <Link href="/privacy-policy" className="text-[#0077B6] hover:underline">
                 Privacy Policy
-              </Link>{' '}
-              to learn more.
+              </Link>
             </p>
           </div>
-          <div className="flex items-center gap-3 mt-2 md:mt-0">
+          <div className="flex items-center gap-2">
             <button
               onClick={handleDecline}
-              className="px-4 py-2 text-sm font-medium text-[#0F4C81] bg-gray-100 hover:bg-gray-200 rounded-md transition"
+              className="px-3 py-1.5 text-sm font-medium text-[#0F4C81] bg-gray-100 hover:bg-gray-200 rounded-md transition"
             >
               Decline
             </button>
             <button
               onClick={handleAccept}
-              className="px-4 py-2 text-sm font-medium text-white bg-[#0077B6] hover:bg-[#0077B6]/90 rounded-md transition"
+              className="px-3 py-1.5 text-sm font-medium text-white bg-[#0077B6] hover:bg-[#0077B6]/90 rounded-md transition"
             >
-              Accept All
+              Accept
             </button>
             <button 
               onClick={handleClose}
               className="p-1 text-gray-500 hover:text-gray-700 rounded-full transition"
               aria-label="Close cookie consent"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
         </div>
