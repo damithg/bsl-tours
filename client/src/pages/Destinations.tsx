@@ -89,17 +89,16 @@ const Destinations = () => {
   return (
     <main>
       {/* Hero Section with Breadcrumbs */}
-      <section className="relative h-[500px] bg-[#0077B6]">
-        <div className="absolute inset-0 z-0 opacity-30">
+      <section className="relative pt-28 pb-20 bg-[#0077B6]">
+        <div className="absolute inset-0 z-0 opacity-20">
           <img 
             src={featuredDestinationContent.image} 
             alt="Sri Lanka destinations" 
             className="w-full h-full object-cover" 
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent"></div>
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb Navigation */}
           <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -121,7 +120,7 @@ const Destinations = () => {
           </nav>
           
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6">
               {featuredDestinationContent.title}
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
