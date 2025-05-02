@@ -26,7 +26,8 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-20 bg-gray-50" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        {/* Mobile-only heading */}
+        <div className="text-center mb-12 lg:hidden">
           <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#0077B6] mb-4">About Us</h2>
           <div className="w-16 h-1 bg-[#F6E27F] mx-auto mb-5"></div>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">Creating unforgettable luxury journeys through Sri Lanka since 2010</p>
@@ -52,6 +53,14 @@ const AboutSection = () => {
             
             {/* Right column - Content */}
             <div className="lg:col-span-7 bg-white p-8 lg:p-12">
+              {/* Desktop heading - Only visible on larger screens */}
+              <div className="hidden lg:block mb-8">
+                <h2 className="font-['Playfair_Display'] text-4xl font-bold text-[#0077B6] mb-4">About Us</h2>
+                <div className="w-16 h-1 bg-[#F6E27F] mb-5"></div>
+                <p className="text-lg text-gray-700 mb-6">Creating unforgettable luxury journeys through Sri Lanka since 2010</p>
+              </div>
+              
+              {/* Mobile-only intro section */}
               <div className="lg:hidden mb-6">
                 <h3 className="font-['Playfair_Display'] text-2xl font-bold mb-2 text-[#0077B6]">Our Passion</h3>
                 <p className="text-gray-700">Sharing the beauty and culture of Sri Lanka</p>
