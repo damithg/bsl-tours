@@ -24,14 +24,14 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="py-24 bg-[#f9f3e5]" ref={sectionRef}>
+    <section id="about" className="py-24 bg-white" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             {/* Left image column */}
             <div className="w-full lg:w-1/2">
               <div className="rounded-2xl overflow-hidden">
-                <img                  src="https://media.istockphoto.com/id/505221662/photo/elephants-in-river.jpg?s=1024x1024&w=is&k=20&c=6H1PzDPfOlCwJQZ8XSUQlkNKBgILDmig7RVqD9utJEY=" 
+                <img src="https://images.unsplash.com/photo-1586861254912-511bfed4a46a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
                   alt="Sigiriya Rock, Sri Lanka" 
                   className="w-full h-auto object-cover aspect-[4/5]"
                 />
@@ -40,7 +40,7 @@ const AboutSection = () => {
             
             {/* Right content column */}
             <div className="w-full lg:w-1/2">
-              <div className="space-y-6">
+              <div className="space-y-5 -mt-4">
                 <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#48341c] mb-4">
                   Best Sri Lanka Tours
                 </h2>
