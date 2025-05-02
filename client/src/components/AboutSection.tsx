@@ -24,44 +24,39 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="py-20 relative" ref={sectionRef}>
-      {/* Full-width background for the section with overlay */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <img 
-          src="https://media.istockphoto.com/id/2164082654/photo/aerial-view-of-idyllic-beach-on-sri-lanka-at-golden-sunset.jpg?s=1024x1024&w=is&k=20&c=_6X2PZDf0QtVR31daZvvqfITcN5HBqQw0y3RBkGCKTk=" 
-          alt="Sri Lankan coastal landscape" 
-          className="w-full h-full object-cover opacity-25"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/90 to-white/80"></div>
-      </div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="about" className="py-20 bg-gray-50" ref={sectionRef}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#0077B6] mb-4">About Us</h2>
           <div className="w-16 h-1 bg-[#F6E27F] mx-auto mb-5"></div>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">Creating unforgettable luxury journeys through Sri Lanka since 2010</p>
         </div>
         
-        <div className="flex flex-col lg:flex-row items-center lg:items-stretch">
-          {/* Left column - Large featured image */}
-          <div className="lg:w-5/12 w-full mb-10 lg:mb-0">
-            <div className="relative h-[500px] rounded-xl shadow-xl overflow-hidden">
+        <div className="relative max-w-6xl mx-auto">
+          {/* Content container with card design */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 shadow-xl rounded-xl overflow-hidden">
+            {/* Left column - Large image */}
+            <div className="lg:col-span-5 h-[300px] sm:h-[400px] lg:h-[600px]">
               <img 
                 src="https://media.istockphoto.com/id/2164082654/photo/aerial-view-of-idyllic-beach-on-sri-lanka-at-golden-sunset.jpg?s=1024x1024&w=is&k=20&c=_6X2PZDf0QtVR31daZvvqfITcN5HBqQw0y3RBkGCKTk=" 
                 alt="Beautiful Sri Lankan beach" 
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/80 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+              <div className="absolute inset-y-0 left-0 lg:w-5/12 w-full bg-gradient-to-r from-[#004E64]/90 to-transparent lg:block hidden"></div>
+              <div className="absolute top-0 left-0 w-full h-full lg:hidden bg-gradient-to-t from-[#004E64]/90 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 p-8 text-white lg:max-w-xs w-full lg:block hidden">
                 <h3 className="font-['Playfair_Display'] text-2xl font-bold mb-2">Our Passion</h3>
                 <p className="text-white/90 text-lg">Sharing the beauty and culture of Sri Lanka</p>
               </div>
             </div>
-          </div>
-          
-          {/* Right column - Content in cards that overlap the image */}
-          <div className="lg:w-7/12 w-full lg:pl-16">
-            <div className="bg-white bg-opacity-95 rounded-xl shadow-lg p-8 -ml-0 lg:-ml-24 relative z-20">
+            
+            {/* Right column - Content */}
+            <div className="lg:col-span-7 bg-white p-8 lg:p-12">
+              <div className="lg:hidden mb-6">
+                <h3 className="font-['Playfair_Display'] text-2xl font-bold mb-2 text-[#0077B6]">Our Passion</h3>
+                <p className="text-gray-700">Sharing the beauty and culture of Sri Lanka</p>
+              </div>
+              
               <div className="space-y-8">
                 <div>
                   <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-3">Luxury Travel Experts</h3>
