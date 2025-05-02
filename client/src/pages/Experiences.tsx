@@ -294,6 +294,26 @@ const Experiences = () => {
       <section className="relative h-[30vh] md:h-[35vh] bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1535162222970-f8ab279245f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')" }}>
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative h-full flex flex-col justify-center">
+          {/* Breadcrumb Navigation */}
+          <nav className="flex text-white/90 mb-6 absolute top-28 left-4 sm:left-6 lg:left-8" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
+                  <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                  Home
+                </Link>
+              </li>
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <span className="text-sm font-medium text-white/80">
+                    Experiences
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+          
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
               Sri Lankan Experiences

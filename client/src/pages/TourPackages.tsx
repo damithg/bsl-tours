@@ -125,6 +125,26 @@ const TourPackages = () => {
           />
         </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Breadcrumb Navigation */}
+          <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
+                  <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                  Home
+                </Link>
+              </li>
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <span className="text-sm font-medium text-white/80">
+                    Tour Packages
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+          
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6">
               Luxury Sri Lanka Tour Packages
