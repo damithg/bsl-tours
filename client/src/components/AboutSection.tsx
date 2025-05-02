@@ -41,15 +41,15 @@ const AboutSection = () => {
             {/* Right content column */}
             <div className="w-full lg:w-1/2">
               <div className="space-y-7">
-                <h2 className="font-['Playfair_Display'] text-2xl md:text-[2.25rem] font-bold text-foreground mb-8 leading-[1.3]">
+                <h2 className="font-['Playfair_Display'] text-2xl md:text-[2.25rem] font-bold text-primary mb-8 leading-[1.3]">
                   We Don't Sell Tours — We Craft Experiences
                 </h2>
                 
-                <p className="font-['Raleway'] text-foreground text-lg leading-relaxed">
+                <p className="font-['Raleway'] text-muted-foreground text-lg leading-relaxed">
                   At Best Sri Lanka Tours, we believe travel should be more than ticking off destinations — it should be about connection, culture, and unforgettable moments.
                 </p>
                 
-                <p className="font-['Raleway'] text-foreground text-lg leading-relaxed">
+                <p className="font-['Raleway'] text-muted-foreground text-lg leading-relaxed">
                   Our passionate local team curates immersive journeys that reveal the true essence of Sri Lanka — from ancient temples and lush jungles to golden beaches and vibrant village life. Every experience is crafted with care, tailored to your interests, and guided by people who call this island home.
                 </p>
                 
@@ -60,15 +60,15 @@ const AboutSection = () => {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <span className="text-primary mr-3 pt-1">🧭</span>
-                    <span className="font-['Raleway'] text-foreground text-lg font-medium">Expert Local Guides – Sharing personal stories, hidden gems, and real insights.</span>
+                    <span className="font-['Raleway'] text-muted-foreground text-lg font-medium">Expert Local Guides – Sharing personal stories, hidden gems, and real insights.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-primary mr-3 pt-1">📜</span>
-                    <span className="font-['Raleway'] text-foreground text-lg font-medium">Handpicked Itineraries – Balanced blends of adventure, culture, and relaxation.</span>
+                    <span className="font-['Raleway'] text-muted-foreground text-lg font-medium">Handpicked Itineraries – Balanced blends of adventure, culture, and relaxation.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-primary mr-3 pt-1">🌴</span>
-                    <span className="font-['Raleway'] text-foreground text-lg font-medium">Tailored Travel Planning – Custom journeys designed around you.</span>
+                    <span className="font-['Raleway'] text-muted-foreground text-lg font-medium">Tailored Travel Planning – Custom journeys designed around you.</span>
                   </li>
                 </ul>
                 
