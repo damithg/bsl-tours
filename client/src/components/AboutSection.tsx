@@ -24,67 +24,79 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="py-16 bg-gradient-to-b from-white to-gray-50" ref={sectionRef}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
+    <section id="about" className="py-20 relative" ref={sectionRef}>
+      {/* Full-width background for the section with overlay */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <img 
+          src="https://media.istockphoto.com/id/2164082654/photo/aerial-view-of-idyllic-beach-on-sri-lanka-at-golden-sunset.jpg?s=1024x1024&w=is&k=20&c=_6X2PZDf0QtVR31daZvvqfITcN5HBqQw0y3RBkGCKTk=" 
+          alt="Sri Lankan coastal landscape" 
+          className="w-full h-full object-cover opacity-25"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/90 to-white/80"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-12">
           <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#0077B6] mb-4">About Us</h2>
           <div className="w-16 h-1 bg-[#F6E27F] mx-auto mb-5"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">Creating unforgettable luxury journeys through Sri Lanka since 2010</p>
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto">Creating unforgettable luxury journeys through Sri Lanka since 2010</p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left column - Image */}
-          <div className="order-2 lg:order-1">
-            <div className="relative h-[400px] overflow-hidden rounded-xl shadow-xl">
+        <div className="flex flex-col lg:flex-row items-center lg:items-stretch">
+          {/* Left column - Large featured image */}
+          <div className="lg:w-5/12 w-full mb-10 lg:mb-0">
+            <div className="relative h-[500px] rounded-xl shadow-xl overflow-hidden">
               <img 
-                src="https://images.unsplash.com/photo-1590064661010-d542a64da71f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                src="https://media.istockphoto.com/id/2164082654/photo/aerial-view-of-idyllic-beach-on-sri-lanka-at-golden-sunset.jpg?s=1024x1024&w=is&k=20&c=_6X2PZDf0QtVR31daZvvqfITcN5HBqQw0y3RBkGCKTk=" 
                 alt="Beautiful Sri Lankan beach" 
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/70 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#004E64]/80 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                <h3 className="font-['Playfair_Display'] text-2xl font-bold mb-1">Our Passion</h3>
-                <p className="text-white/90">Sharing the beauty and culture of Sri Lanka</p>
+                <h3 className="font-['Playfair_Display'] text-2xl font-bold mb-2">Our Passion</h3>
+                <p className="text-white/90 text-lg">Sharing the beauty and culture of Sri Lanka</p>
               </div>
             </div>
           </div>
           
-          {/* Right column - Content */}
-          <div className="order-1 lg:order-2">
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-3">Luxury Travel Experts</h3>
-                <p className="text-gray-700">
-                  Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-3">Personalized Experiences</h3>
-                <p className="text-gray-700">
-                  Our team of expert travel designers, local guides, and hospitality professionals work together to craft unforgettable experiences tailored to your preferences and interests.
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="bg-white p-4 rounded-lg flex flex-col items-center shadow-sm">
-                  <span className="text-[#0077B6] text-3xl font-bold">10+</span>
-                  <p className="text-gray-600 text-center text-sm">Years of Excellence</p>
+          {/* Right column - Content in cards that overlap the image */}
+          <div className="lg:w-7/12 w-full lg:pl-16">
+            <div className="bg-white bg-opacity-95 rounded-xl shadow-lg p-8 -ml-0 lg:-ml-24 relative z-20">
+              <div className="space-y-8">
+                <div>
+                  <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-3">Luxury Travel Experts</h3>
+                  <p className="text-gray-700 text-lg">
+                    Bundled with an awe-inspiring set of destination experiences, we provide you with ready-to-go and fully flexible ways to explore the island's extraordinary beauty and culture.
+                  </p>
                 </div>
                 
-                <div className="bg-white p-4 rounded-lg flex flex-col items-center shadow-sm">
-                  <span className="text-[#0077B6] text-3xl font-bold">500+</span>
-                  <p className="text-gray-600 text-center text-sm">Happy Travelers</p>
+                <div>
+                  <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-3">Personalized Experiences</h3>
+                  <p className="text-gray-700 text-lg">
+                    Our team of expert travel designers, local guides, and hospitality professionals work together to craft unforgettable experiences tailored to your preferences and interests.
+                  </p>
                 </div>
-              </div>
-              
-              <div className="pt-4">
-                <a href="/about" className="inline-flex items-center px-6 py-3 bg-[#0077B6] text-white hover:bg-[#0077B6]/90 rounded-lg transition-colors duration-300 font-medium shadow-md hover:shadow-lg">
-                  Learn More About Us
-                  <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
+                
+                <div className="grid grid-cols-2 gap-6 pt-2">
+                  <div className="bg-[#0077B6]/5 p-5 rounded-lg flex flex-col items-center">
+                    <span className="text-[#0077B6] text-4xl font-bold">10+</span>
+                    <p className="text-gray-700 text-center">Years of Excellence</p>
+                  </div>
+                  
+                  <div className="bg-[#0077B6]/5 p-5 rounded-lg flex flex-col items-center">
+                    <span className="text-[#0077B6] text-4xl font-bold">500+</span>
+                    <p className="text-gray-700 text-center">Happy Travelers</p>
+                  </div>
+                </div>
+                
+                <div className="pt-4">
+                  <a href="/about" className="inline-flex items-center px-8 py-3 bg-[#0077B6] text-white hover:bg-[#0077B6]/90 rounded-lg transition-colors duration-300 font-medium shadow-md hover:shadow-lg">
+                    Learn More About Us
+                    <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
