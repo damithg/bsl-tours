@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { TAILWIND_CLASSES } from '@/utils/colors';
 
 const AboutSection = () => {
   // Animation hooks
@@ -74,7 +73,7 @@ const AboutSection = () => {
                 </ul>
                 
                 <div className="pt-6">
-                  <a href="/tours" className={`font-['Raleway'] inline-flex items-center px-8 py-3 ${TAILWIND_CLASSES.buttonPrimary} rounded-lg transition-colors duration-300 font-medium`}>
+                  <a href="/tours" className="font-['Raleway'] inline-flex items-center px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition-colors duration-300 font-medium">
                     Browse Our Tour Packages
                     <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
