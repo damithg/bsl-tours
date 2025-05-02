@@ -31,8 +31,7 @@ const AboutSection = () => {
             {/* Left image column */}
             <div className="w-full lg:w-1/2">
               <div className="rounded-2xl overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1586861254912-511bfed4a46a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
+                <img                  src="https://media.istockphoto.com/id/505221662/photo/elephants-in-river.jpg?s=1024x1024&w=is&k=20&c=6H1PzDPfOlCwJQZ8XSUQlkNKBgILDmig7RVqD9utJEY=" 
                   alt="Sigiriya Rock, Sri Lanka" 
                   className="w-full h-auto object-cover aspect-[4/5]"
                 />
@@ -46,39 +45,39 @@ const AboutSection = () => {
                   Best Sri Lanka Tours
                 </h2>
                 
-                <p className="text-[#48341c] text-lg leading-relaxed">
+                <p className="font-['Raleway'] text-[#48341c] text-lg leading-relaxed">
                   Exceptional Sri Lankan tours tailored for you. We are dedicated to providing guided, local experiences that reveal the beauty and culture of our enchanting island.
                 </p>
                 
                 <ul className="space-y-3 pt-4">
                   <li className="flex items-start">
                     <span className="text-[#0077B6] mr-3 pt-1">•</span>
-                    <span className="text-[#48341c] text-lg font-medium">Experienced Guides</span>
+                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Experienced Guides</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#0077B6] mr-3 pt-1">•</span>
-                    <span className="text-[#48341c] text-lg font-medium">Curated Itineraries</span>
+                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Curated Itineraries</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-[#0077B6] mr-3 pt-1">•</span>
-                    <span className="text-[#48341c] text-lg font-medium">Personalized Service</span>
+                    <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Personalized Service</span>
                   </li>
                 </ul>
                 
                 <div className="flex gap-8 pt-4">
                   <div className="flex flex-col">
-                    <span className="text-[#0077B6] text-4xl font-bold">10+</span>
-                    <p className="text-[#48341c]">Years of Excellence</p>
+                    <span className="font-['Playfair_Display'] text-[#0077B6] text-4xl font-bold">10+</span>
+                    <p className="font-['Raleway'] text-[#48341c]">Years of Excellence</p>
                   </div>
                   
                   <div className="flex flex-col">
-                    <span className="text-[#0077B6] text-4xl font-bold">500+</span>
-                    <p className="text-[#48341c]">Happy Travelers</p>
+                    <span className="font-['Playfair_Display'] text-[#0077B6] text-4xl font-bold">500+</span>
+                    <p className="font-['Raleway'] text-[#48341c]">Happy Travelers</p>
                   </div>
                 </div>
                 
                 <div className="pt-8">
-                  <a href="/about" className="inline-flex items-center px-8 py-3 bg-[#0077B6] text-white hover:bg-[#0077B6]/90 rounded-lg transition-colors duration-300 font-medium">
+                  <a href="/about" className="font-['Raleway'] inline-flex items-center px-8 py-3 bg-[#0077B6] text-white hover:bg-[#0077B6]/90 rounded-lg transition-colors duration-300 font-medium">
                     Explore Our Tours
                     <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
