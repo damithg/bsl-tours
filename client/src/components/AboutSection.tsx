@@ -40,8 +40,8 @@ const AboutSection = () => {
             
             {/* Right content column */}
             <div className="w-full lg:w-1/2">
-              <div className="space-y-5 -mt-4">
-                <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#48341c] mb-4">
+              <div className="space-y-7">
+                <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-[#48341c] mb-8 leading-tight">
                   Discover the Soul of Sri Lanka with Expertly Crafted Journeys
                 </h2>
                 
@@ -49,15 +49,15 @@ const AboutSection = () => {
                   At Best Sri Lanka Tours, we specialize in creating unforgettable travel experiences across the island's most breathtaking destinations. Whether you're seeking ancient temples, golden beaches, lush tea plantations, or vibrant local culture, our guided tours are designed to immerse you in the authentic beauty of Sri Lanka.
                 </p>
                 
-                <p className="font-['Raleway'] text-[#48341c] text-lg leading-relaxed mt-3">
+                <p className="font-['Raleway'] text-[#48341c] text-lg leading-relaxed">
                   Our passionate local team ensures every journey is personalized, seamless, and filled with meaningful moments that go beyond the ordinary.
                 </p>
                 
-                <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mt-6 mb-3">
+                <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-[#0077B6] mb-5">
                   Why Travel with Us:
                 </h3>
                 
-                <ul className="space-y-4 pt-1">
+                <ul className="space-y-4">
                   <li className="flex items-start">
                     <span className="text-[#0077B6] mr-3 pt-1">🧭</span>
                     <span className="font-['Raleway'] text-[#48341c] text-lg font-medium">Experienced Local Guides – Knowledgeable, friendly, and dedicated to sharing the heart of Sri Lanka.</span>
