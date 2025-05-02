@@ -3,8 +3,12 @@ import { Link } from "wouter";
 import { useState, useRef, useEffect } from "react";
 import { Tag } from "@/components/ui/tag";
 import { COLORS } from "@/utils/colors";
+import { useCurrency } from "../contexts/CurrencyContext";
 
 const ExperienceShowcase = () => {
+  // Use currency context for formatting prices
+  const { formatPrice } = useCurrency();
+  
   const experiences = [
     {
       id: 1,
@@ -34,7 +38,7 @@ const ExperienceShowcase = () => {
     },
     {
       id: 3,
-      image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/5f/12/9e/mahamevnawa-monastery.jpg?w=1200&h=-1&s=1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      image: "https://mindfulspot.com/wp-content/uploads/2023/03/what-is-the-best-book-on-buddhist-mindfulness-meditation.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
       icon: "fa-ship",
       title: "Mindful Morning at a Buddhist Monastery",
       description: "Embrace stillness with guided meditation and quiet reflection in a peaceful forest monastery with local monks",
@@ -228,7 +232,7 @@ const ExperienceShowcase = () => {
                       <span className="text-sm text-gray-500">From</span>
                       <div className="flex items-baseline">
                         <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
-                          ${experience.price}
+                          {formatPrice(experience.price, { currency: experience.currency })}
                         </span>
                         <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
                       </div>
