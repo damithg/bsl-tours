@@ -172,47 +172,6 @@ const Careers: React.FC = () => {
         ))}
       </div>
       
-      {/* Application Process */}
-      <div className="mb-16">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-6 font-['Playfair_Display']">
-          Application Process
-        </h2>
-        
-        <ol className="relative border-l border-gray-200 pl-6 space-y-10">
-          <li className="relative">
-            <div className="absolute -left-[22px] bg-[#0077B6] rounded-full w-10 h-10 flex items-center justify-center text-white font-bold">1</div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Submit Your Application</h3>
-            <p className="text-gray-700 mb-2">
-              Send your resume, cover letter, and portfolio (if applicable) to <span className="text-[#0077B6] font-semibold">careers@bestsrilankatours.com</span> with the job title in the subject line.
-            </p>
-          </li>
-          
-          <li className="relative">
-            <div className="absolute -left-[22px] bg-[#0077B6] rounded-full w-10 h-10 flex items-center justify-center text-white font-bold">2</div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Initial Screening</h3>
-            <p className="text-gray-700 mb-2">
-              Our HR team will review your application and reach out to qualified candidates for a phone screening.
-            </p>
-          </li>
-          
-          <li className="relative">
-            <div className="absolute -left-[22px] bg-[#0077B6] rounded-full w-10 h-10 flex items-center justify-center text-white font-bold">3</div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Interview Process</h3>
-            <p className="text-gray-700 mb-2">
-              Successful candidates will be invited for 1-2 interviews, either in person or via video call, to discuss your experience and fit for the role.
-            </p>
-          </li>
-          
-          <li className="relative">
-            <div className="absolute -left-[22px] bg-[#0077B6] rounded-full w-10 h-10 flex items-center justify-center text-white font-bold">4</div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Job Offer</h3>
-            <p className="text-gray-700 mb-2">
-              Selected candidates will receive a formal offer outlining compensation, benefits, and start date.
-            </p>
-          </li>
-        </ol>
-      </div>
-      
       {/* Benefits */}
       <div>
         <h2 className="text-3xl font-semibold text-gray-800 mb-6 font-['Playfair_Display']">
