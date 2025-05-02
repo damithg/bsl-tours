@@ -69,47 +69,62 @@ const About = () => {
       </section>
 
       {/* Our Story */}
-      <section className="py-12 bg-white">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center">
-            <div className="lg:w-1/2 lg:pr-16 mb-10 lg:mb-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1">
               <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#0077B6] mb-6">Our Story</h2>
-              <p className="text-lg text-gray-700 mb-6">Founded by travel enthusiasts with deep knowledge of Sri Lanka, Best Sri Lanka Tours was born from a passion to share the extraordinary beauty and culture of this island nation with discerning travelers.</p>
-              <p className="text-lg text-gray-700 mb-6">What began as a boutique operation has grown into a renowned luxury travel company, yet we've maintained our founding principles: authentic experiences, personalized service, and attention to every detail.</p>
-              <p className="text-lg text-gray-700 mb-8">Our team combines international luxury travel expertise with local knowledge, creating journeys that go beyond typical tourist routes to reveal the true essence of Sri Lanka.</p>
               
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="flex flex-col items-center bg-gray-50 p-5 rounded-lg">
-                  <span className="text-[#0077B6] text-4xl font-bold mb-2">10+</span>
-                  <p className="text-gray-600 text-center">Years of Excellence</p>
+              <div className="prose prose-lg max-w-none text-gray-700">
+                <p className="mb-4">Founded by travel enthusiasts with deep knowledge of Sri Lanka, Best Sri Lanka Tours was born from a passion to share the extraordinary beauty and culture of this island nation with discerning travelers.</p>
+                
+                <p className="mb-4">What began as a boutique operation has grown into a renowned luxury travel company, yet we've maintained our founding principles: authentic experiences, personalized service, and attention to every detail.</p>
+                
+                <p>Our team combines international luxury travel expertise with local knowledge, creating journeys that go beyond typical tourist routes to reveal the true essence of Sri Lanka.</p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 mt-8">
+                <div className="bg-gray-50 p-4 rounded-lg flex flex-col items-center shadow-sm">
+                  <span className="text-[#0077B6] text-3xl lg:text-4xl font-bold">10+</span>
+                  <p className="text-gray-600 text-center text-sm lg:text-base">Years of Excellence</p>
                 </div>
                 
-                <div className="flex flex-col items-center bg-gray-50 p-5 rounded-lg">
-                  <span className="text-[#0077B6] text-4xl font-bold mb-2">500+</span>
-                  <p className="text-gray-600 text-center">Happy Travelers</p>
+                <div className="bg-gray-50 p-4 rounded-lg flex flex-col items-center shadow-sm">
+                  <span className="text-[#0077B6] text-3xl lg:text-4xl font-bold">500+</span>
+                  <p className="text-gray-600 text-center text-sm lg:text-base">Happy Travelers</p>
                 </div>
                 
-                <div className="flex flex-col items-center bg-gray-50 p-5 rounded-lg">
-                  <span className="text-[#0077B6] text-4xl font-bold mb-2">100%</span>
-                  <p className="text-gray-600 text-center">Tailor-Made</p>
+                <div className="bg-gray-50 p-4 rounded-lg flex flex-col items-center shadow-sm">
+                  <span className="text-[#0077B6] text-3xl lg:text-4xl font-bold">100%</span>
+                  <p className="text-gray-600 text-center text-sm lg:text-base">Tailor-Made</p>
                 </div>
                 
-                <div className="flex flex-col items-center bg-gray-50 p-5 rounded-lg">
-                  <span className="text-[#0077B6] text-4xl font-bold mb-2">24/7</span>
-                  <p className="text-gray-600 text-center">Concierge Support</p>
+                <div className="bg-gray-50 p-4 rounded-lg flex flex-col items-center shadow-sm">
+                  <span className="text-[#0077B6] text-3xl lg:text-4xl font-bold">24/7</span>
+                  <p className="text-gray-600 text-center text-sm lg:text-base">Concierge Support</p>
                 </div>
+              </div>
+              
+              <div className="mt-8">
+                <Link href="/tours" className="inline-flex items-center px-6 py-3 border border-[#0077B6] text-[#0077B6] bg-transparent hover:bg-[#0077B6] hover:text-white rounded-full transition-colors duration-300 font-medium">
+                  Explore Our Tours
+                  <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </Link>
               </div>
             </div>
             
-            <div className="lg:w-1/2">
-              <div className="relative">
+            <div className="order-1 lg:order-2">
+              <div className="relative h-[400px] lg:h-[600px] w-full">
                 <img 
-                  src="https://images.unsplash.com/photo-1619546952812-520e98064a52?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Best Sri Lanka Tours Team" 
-                  className="rounded-lg shadow-xl" 
+                  src="https://images.unsplash.com/photo-1551774465-37633a57a1d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                  alt="Scenic Sri Lanka coastline" 
+                  className="w-full h-full object-cover rounded-xl shadow-2xl"
                 />
-                <div className="absolute -bottom-6 -left-6 p-6 bg-white rounded-lg shadow-lg max-w-xs hidden md:block">
-                  <div className="flex items-center mb-4">
+                
+                <div className="absolute -bottom-6 -left-6 p-5 bg-white rounded-lg shadow-lg max-w-xs hidden md:block">
+                  <div className="flex items-center mb-3">
                     <div className="bg-[#F6E27F]/20 p-2 rounded-full mr-3 text-[#F6E27F]">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M6 9h12v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9Z"></path>
@@ -118,7 +133,7 @@ const About = () => {
                     </div>
                     <h3 className="font-['Playfair_Display'] text-lg font-semibold">Award-Winning Service</h3>
                   </div>
-                  <p className="text-gray-600">Recognized by Luxury Travel Awards for excellence in personalized travel experiences.</p>
+                  <p className="text-gray-600 text-sm">Recognized by Luxury Travel Awards for excellence in personalized travel experiences.</p>
                 </div>
               </div>
             </div>
