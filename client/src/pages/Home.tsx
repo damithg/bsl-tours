@@ -51,11 +51,11 @@ const Home = () => {
       {/* Alternate version kept in a separate component */}
       {/* <MapDestinationShowcase /> */}
       <ExperienceShowcase />
-      <TestimonialSection />
+      {/* <TestimonialSection /> */}
       <AboutSection />
       {/* <DestinationMap /> */}
       <CTASection />
-      <ContactSection />
+      {/* <ContactSection /> */}
     </main>
   );
 };
