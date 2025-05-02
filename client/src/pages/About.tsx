@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import AboutSection from "../components/AboutSection";
 
 const About = () => {
   // Our values
@@ -28,11 +29,11 @@ const About = () => {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative pt-28 pb-20 bg-[#0077B6]">
+      <section className="relative pt-28 pb-20 bg-primary">
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
-            src="https://images.unsplash.com/photo-1619546952812-520e98064a52?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-            alt="Best Sri Lanka Tours Team" 
+            src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746209324/shutterstock_1394315526_1_l2efle.jpg" 
+            alt="Sri Lanka Landscape" 
             className="w-full h-full object-cover" 
           />
         </div>
