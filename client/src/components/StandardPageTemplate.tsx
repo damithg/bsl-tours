@@ -60,15 +60,17 @@ const StandardPageTemplate: React.FC<StandardPageTemplateProps> = ({
             </ol>
           </nav>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-['Playfair_Display']">
-            {title}
-          </h1>
-          
-          {description && (
-            <p className="text-xl text-white/90 max-w-3xl">
-              {description}
-            </p>
-          )}
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-['Playfair_Display']">
+              {title}
+            </h1>
+            
+            {description && (
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                {description}
+              </p>
+            )}
+          </div>
         </div>
       </section>
       

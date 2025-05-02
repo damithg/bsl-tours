@@ -58,25 +58,25 @@ const TravelResources: React.FC = () => {
         {
           title: 'Pre-Departure Checklist',
           description: 'Everything you need to do before leaving for Sri Lanka, from documents to packing essentials.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/resources/pre-departure.jpg',
+          imageSrc: 'https://www.mummytravels.com/wp-content/uploads/2019/02/travel-checklist-planning-holiday-Depositphotos206940132s.jpg',
           link: '/pre-departure-info'
         },
         {
           title: 'Beach Holiday Packing List',
           description: 'Essential items for enjoying Sri Lanka\'s stunning beaches and coastal activities.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/resources/beach-packing.jpg',
+          imageSrc: 'https://www.mummytravels.com/wp-content/uploads/2019/02/travel-checklist-planning-holiday-Depositphotos120783666s.jpg',
           link: '/resources/beach-packing-list'
         },
         {
           title: 'Wildlife Safari Essentials',
           description: 'What to bring for optimal wildlife viewing experiences in Sri Lanka\'s national parks.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/resources/safari-essentials.jpg',
+          imageSrc: 'https://mademois-elle.com/img10/what-to-pack-maldives-01.jpg',
           link: '/resources/safari-essentials'
         },
         {
           title: 'Health & Medication Checklist',
           description: 'Recommended medications, vaccinations, and health preparations for your trip.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/resources/health-checklist.jpg',
+          imageSrc: 'https://www.safetyandhealthmagazine.com/ext/resources/images/news/drugs/medicine-bottle-label.jpg?t=1719438235&width=768',
           link: '/resources/health-checklist'
         }
       ]
