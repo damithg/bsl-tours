@@ -31,8 +31,8 @@ const AboutSection = () => {
             {/* Left image column */}
             <div className="w-full lg:w-1/2">
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207764/shutterstock_203858371_1_kxf0jo.jpg" 
-                  alt="Sigiriya Rock, Sri Lanka" 
+                <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746208326/shutterstock_1068884744_1_fza0zi.jpg" 
+                  alt="Sri Lanka Boat Tour" 
                   className="w-full h-auto object-cover aspect-[4/5] transform scale-105 hover:scale-110 transition-transform duration-700"
                 />
               </div>
