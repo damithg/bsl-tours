@@ -45,25 +45,12 @@ const Header = () => {
               <Link href="/tours" className={`font-['Raleway'] font-medium ${location === '/tours' || location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
                 Tour Packages
               </Link>
-              <div className="relative group">
-                <Link href="/destinations" className={`font-['Raleway'] font-medium flex items-center gap-1 ${location === '/destinations' || location === '/destination-map' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
-                  Destinations
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-down">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </Link>
-                <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden transform origin-top-left transition-all duration-200 scale-95 opacity-0 invisible group-hover:scale-100 group-hover:opacity-100 group-hover:visible z-50">
-                  <Link href="/destinations" className="block px-4 py-2 text-[#0F4C81] hover:bg-gray-50 hover:text-primary" onClick={handleNavClick}>
-                    All Destinations
-                  </Link>
-                  <Link href="/destination-map" className={`block px-4 py-2 ${location === '/destination-map' ? 'text-primary' : 'text-[#0F4C81]'} hover:bg-gray-50 hover:text-primary`} onClick={handleNavClick}>
-                    Interactive Map
-                  </Link>
-                  <Link href="/travel-planner" className={`block px-4 py-2 ${location === '/travel-planner' ? 'text-primary' : 'text-[#0F4C81]'} hover:bg-gray-50 hover:text-primary`} onClick={handleNavClick}>
-                    Travel Planner
-                  </Link>
-                </div>
-              </div>
+              <Link href="/destinations" className={`font-['Raleway'] font-medium ${location === '/destinations' || location === '/destination-map' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
+                Destinations
+              </Link>
+              <Link href="/experiences" className={`font-['Raleway'] font-medium ${location === '/experiences' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
+                Experiences
+              </Link>
               <Link href="/about" className={`font-['Raleway'] font-medium ${location === '/about' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
                 About
               </Link>
@@ -102,17 +89,12 @@ const Header = () => {
           <Link href="/tours" className={`block py-2 font-medium ${location === '/tours' || location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             Tour Packages
           </Link>
-          <div className="py-1">
-            <Link href="/destinations" className={`block py-2 font-medium ${location === '/destinations' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
-              Destinations
-            </Link>
-            <Link href="/destination-map" className={`block py-2 pl-4 text-sm font-medium ${location === '/destination-map' ? 'text-primary' : 'text-gray-600'} hover:text-primary`} onClick={handleNavClick}>
-              ↳ Interactive Map
-            </Link>
-            <Link href="/travel-planner" className={`block py-2 pl-4 text-sm font-medium ${location === '/travel-planner' ? 'text-primary' : 'text-gray-600'} hover:text-primary`} onClick={handleNavClick}>
-              ↳ Travel Planner
-            </Link>
-          </div>
+          <Link href="/destinations" className={`block py-2 font-medium ${location === '/destinations' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
+            Destinations
+          </Link>
+          <Link href="/experiences" className={`block py-2 font-medium ${location === '/experiences' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
+            Experiences
+          </Link>
           <Link href="/about" className={`block py-2 font-medium ${location === '/about' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             About
           </Link>
