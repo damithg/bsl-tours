@@ -72,19 +72,7 @@ const AboutSection = () => {
                   </li>
                 </ul>
                 
-                <div className="flex gap-8 pt-6">
-                  <div className="flex flex-col">
-                    <span className="font-['Playfair_Display'] text-[#0077B6] text-4xl font-bold">10+</span>
-                    <p className="font-['Raleway'] text-[#48341c]">Years of Excellence</p>
-                  </div>
-                  
-                  <div className="flex flex-col">
-                    <span className="font-['Playfair_Display'] text-[#0077B6] text-4xl font-bold">500+</span>
-                    <p className="font-['Raleway'] text-[#48341c]">Happy Travelers</p>
-                  </div>
-                </div>
-                
-                <div className="pt-8">
+                <div className="pt-6">
                   <a href="/tours" className="font-['Raleway'] inline-flex items-center px-8 py-3 bg-[#0077B6] text-white hover:bg-[#0077B6]/90 rounded-lg transition-colors duration-300 font-medium">
                     Browse Our Tour Packages
                     <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
