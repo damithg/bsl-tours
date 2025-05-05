@@ -28,14 +28,15 @@ const About = () => {
 
   return (
     <main>
-      {/* Hero Section using our new component with custom gradient overlay */}
+      {/* Hero Section with standard opacity (no custom overlay) */}
       <HeroSection
         title="About Best Sri Lanka Tours"
         description="Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean since 2010."
         backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207237/shutterstock_1070510330_ro5cyz.jpg"
         breadcrumbItems={[{ label: "About Us" }]}
         imageTransform="scale-105"
-        customOverlay="bg-gradient-to-r from-primary/90 via-primary/70 to-primary/80"
+        overlayOpacity={20}
+        overlayColor="bg-[#0077B6]"
       />
 
       {/* Main About Section - Modern Design */}
@@ -196,7 +197,7 @@ const About = () => {
 
       {/* CTA Section */}
       <section className="relative py-20 bg-primary">
-        <div className="absolute inset-0 z-0 opacity-10">
+        <div className="absolute inset-0 z-0" style={{ opacity: 0.2 }}>
           <img 
             src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746209493/shutterstock_422503523_1_cjhlbg.jpg" 
             alt="Sri Lanka Coastline" 
