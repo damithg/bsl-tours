@@ -40,20 +40,20 @@ const About = () => {
       />
 
       {/* Main About Section - Modern Design */}
-      <section className="py-28 bg-white">
+      <section className="py-16 md:py-20 lg:py-28 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             {/* Two column layout */}
-            <div className="flex flex-col lg:flex-row items-center gap-20">
+            <div className="flex flex-col lg:flex-row items-center gap-10 md:gap-16 lg:gap-20">
               {/* Left column with large image and overlap elements */}
-              <div className="w-full lg:w-1/2 relative">
+              <div className="w-full lg:w-1/2 relative mb-10 lg:mb-0">
                 <div className="relative">
-                  {/* Main image */}
+                  {/* Main image - responsive height adjustments */}
                   <div className="relative z-10 rounded-2xl overflow-hidden shadow-xl">
                     <img 
                       src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746208326/shutterstock_1068884744_1_fza0zi.jpg" 
                       alt="Traditional Sri Lankan boats" 
-                      className="w-full object-cover h-[600px]"
+                      className="w-full object-cover h-[350px] sm:h-[450px] md:h-[500px] lg:h-[600px]"
                     />
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -62,7 +62,7 @@ const About = () => {
                   {/* Decorative element - small image */}
                   <div className="absolute -bottom-12 -right-12 z-20 w-40 h-40 rounded-xl overflow-hidden shadow-xl hidden lg:block border-4 border-white">
                     <img 
-                      src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746209493/shutterstock_422503523_1_cjhlbg.jpg" 
+                      src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207764/shutterstock_203858371_1_kxf0jo.jpg" 
                       alt="Sri Lankan Beach" 
                       className="w-full h-full object-cover"
                     />
