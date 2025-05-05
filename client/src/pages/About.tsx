@@ -27,15 +27,23 @@ const About = () => {
 
   return (
     <main>
-      {/* Hero Section */}
-      <section className="relative pt-28 pb-20 bg-primary">
-        <div className="absolute inset-0 z-0 opacity-20">
+      {/* Hero Section - Enhanced with better image treatment */}
+      <section className="relative pt-32 pb-28 bg-primary overflow-hidden">
+        {/* Background image with parallax effect */}
+        <div className="absolute inset-0 z-0">
           <img 
-            src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746209324/shutterstock_1394315526_1_l2efle.jpg" 
-            alt="Sri Lanka Landscape" 
-            className="w-full h-full object-cover" 
+            src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746466910/shutterstock_1136691090_1_pclwtg.jpg" 
+            alt="Sri Lanka Ancient Temple" 
+            className="w-full h-full object-cover transform scale-110" 
           />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/80"></div>
         </div>
+        
+        {/* Decorative Elements */}
+        <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-secondary/20 rounded-full blur-3xl opacity-40"></div>
+        <div className="absolute top-10 -left-10 w-40 h-40 bg-secondary/30 rounded-full blur-3xl opacity-30"></div>
+        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb Navigation */}
           <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
@@ -58,9 +66,10 @@ const About = () => {
           </nav>
 
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6">
+            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
               About Best Sri Lanka Tours
             </h1>
+            <div className="w-24 h-1 bg-secondary mx-auto mb-8"></div>
             <p className="text-xl text-white/90 max-w-2xl mx-auto font-['Raleway']">
               Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean since 2010.
             </p>
