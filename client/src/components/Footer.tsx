@@ -92,7 +92,7 @@ const Footer = () => {
           <div className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-4 mt-6 sm:mt-0 order-5">
             <h3 style={{ color: COLORS.secondary }} className="font-['Playfair_Display'] text-xl font-bold mb-4">Our Social</h3>
             <div className="flex space-x-3 mb-5">
-              <a href="#" style={{ backgroundColor: `${COLORS.primary}50` }} className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-primary transition">
+              <a href="https://www.facebook.com/thebestsrilankatours" target="_blank" rel="noopener noreferrer" style={{ backgroundColor: `${COLORS.primary}50` }} className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-primary transition">
                 <i className="fab fa-facebook-f"></i>
               </a>
               <a href="#" style={{ backgroundColor: `${COLORS.primary}50` }} className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-primary transition">
@@ -100,9 +100,6 @@ const Footer = () => {
               </a>
               <a href="#" style={{ backgroundColor: `${COLORS.primary}50` }} className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-primary transition">
                 <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" style={{ backgroundColor: `${COLORS.primary}50` }} className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-primary transition">
-                <i className="fab fa-pinterest"></i>
               </a>
             </div>
             
