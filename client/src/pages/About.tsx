@@ -197,7 +197,7 @@ const About = () => {
 
       {/* CTA Section */}
       <section className="relative py-20 bg-primary">
-        <div className="absolute inset-0 z-0" style={{ opacity: 0.2 }}>
+        <div className="absolute inset-0 z-0" style={{ opacity: 0.8 }}>
           <img 
             src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746209493/shutterstock_422503523_1_cjhlbg.jpg" 
             alt="Sri Lanka Coastline" 
@@ -206,10 +206,10 @@ const About = () => {
         </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-white mb-6">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-white mb-6 drop-shadow-lg">
               Ready to Experience Sri Lanka?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto font-['Raleway']">
+            <p className="text-xl text-white font-medium mb-8 max-w-2xl mx-auto font-['Raleway'] drop-shadow-md">
               Let us craft your perfect journey through the Pearl of the Indian Ocean — tailor-made just for you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -41,7 +41,7 @@ const HeroSection = ({
           <div className={`absolute inset-0 z-0 ${customOverlay}`}></div>
         </>
       ) : (
-        <div className="absolute inset-0 z-0" style={{ opacity: overlayOpacity / 100 }}>
+        <div className="absolute inset-0 z-0" style={{ opacity: 0.8 }}>
           <img 
             src={backgroundImage} 
             alt={title} 
@@ -62,12 +62,12 @@ const HeroSection = ({
         />
         
         <div className="text-center max-w-3xl mx-auto">
-          <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+          <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
             {title}
           </h1>
           {showDivider && <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>}
           {description && (
-            <p className={`text-lg text-white/90 max-w-2xl mx-auto font-['Raleway'] ${!showDivider && description ? 'mt-2' : ''} mb-2`}>
+            <p className={`text-lg text-white font-medium max-w-2xl mx-auto font-['Raleway'] ${!showDivider && description ? 'mt-2' : ''} mb-2 drop-shadow-md`}>
               {description}
             </p>
           )}
