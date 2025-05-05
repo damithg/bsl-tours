@@ -11,6 +11,7 @@ interface HeroSectionProps {
   overlayOpacity?: number; // Optional overlay opacity
   customOverlay?: string; // Optional custom overlay class for gradients etc.
   imageTransform?: string; // Optional image transform class (e.g., scale-105)
+  showDivider?: boolean; // Optional flag to show/hide the divider (default false)
 }
 
 const HeroSection = ({
@@ -23,6 +24,7 @@ const HeroSection = ({
   overlayOpacity = 20,
   customOverlay,
   imageTransform,
+  showDivider = false,
 }: HeroSectionProps) => {
   return (
     <section className={`relative pt-28 pb-20 ${overlayColor} overflow-hidden`}>
@@ -56,9 +58,9 @@ const HeroSection = ({
           <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
             {title}
           </h1>
-          <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+          {showDivider && <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>}
           {description && (
-            <p className="text-lg text-white/90 max-w-2xl mx-auto font-['Raleway'] mb-2">
+            <p className={`text-lg text-white/90 max-w-2xl mx-auto font-['Raleway'] ${!showDivider && description ? 'mt-2' : ''} mb-2`}>
               {description}
             </p>
           )}

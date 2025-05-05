@@ -32,7 +32,7 @@ const About = () => {
       <HeroSection
         title="About Best Sri Lanka Tours"
         description="Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean since 2010."
-        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746466910/shutterstock_1136691090_1_pclwtg.jpg"
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207237/shutterstock_1070510330_ro5cyz.jpg"
         breadcrumbItems={[{ label: "About Us" }]}
         imageTransform="scale-105"
         customOverlay="bg-gradient-to-r from-primary/90 via-primary/70 to-primary/80"
