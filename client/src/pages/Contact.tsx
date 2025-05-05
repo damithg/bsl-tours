@@ -1,6 +1,14 @@
 import ContactForm from "@/components/ContactForm";
+import HeroSection from "@/components/HeroSection";
+import { BreadcrumbItem } from "@/components/Breadcrumb";
+import { COLORS } from "@/utils/colors";
 
 const Contact = () => {
+  // Breadcrumb setup
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { label: "About", path: "/about" },
+    { label: "Contact" } // No path for current page
+  ];
   const contactInfo = [
     {
       title: "Email Us",
@@ -48,43 +56,31 @@ const Contact = () => {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative pt-28 pb-20 bg-[#0F4C81]">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1596627116790-af6f96da30a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-            alt="Sri Lanka landscape" 
-            className="w-full h-full object-cover" 
-          />
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6">
-              Contact Us
-            </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Our luxury travel consultants are ready to help you create your perfect Sri Lankan journey.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroSection
+        title="Contact Us"
+        description="Our luxury travel consultants are ready to help you create your perfect Sri Lankan journey."
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744007986/activities/ella-nine-arch-train.jpg"
+        breadcrumbItems={breadcrumbItems}
+        showDivider={false}
+      />
 
       {/* Contact Information */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-4">Get in Touch</h2>
-            <p className="text-lg text-[#333333]/80">We're here to answer your questions and start planning your luxury Sri Lankan experience.</p>
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">Get in Touch</h2>
+            <p className="text-lg text-muted-foreground">We're here to answer your questions and start planning your luxury Sri Lankan experience.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {contactInfo.map((item, index) => (
-              <div key={index} className="bg-[#F8F5F0] p-8 rounded-lg text-center h-full flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full bg-[#0F4C81]/10 flex items-center justify-center mb-6">
-                  <i className={`fas ${item.icon} text-xl text-[#0F4C81]`}></i>
+              <div key={index} className="bg-muted p-8 rounded-lg text-center h-full flex flex-col items-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <i className={`fas ${item.icon} text-xl text-primary`}></i>
                 </div>
                 <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-[#0F4C81] font-medium mb-2">{item.details}</p>
-                <p className="text-[#333333]/70">{item.description}</p>
+                <p className="text-primary font-medium mb-2">{item.details}</p>
+                <p className="text-muted-foreground">{item.description}</p>
               </div>
             ))}
           </div>
@@ -192,19 +188,16 @@ const Contact = () => {
             <p className="text-lg text-[#333333]/80 mb-8">Follow us on social media for travel inspiration and behind-the-scenes glimpses of luxury Sri Lankan experiences.</p>
             
             <div className="flex justify-center space-x-6">
-              <a href="#" className="w-12 h-12 rounded-full bg-[#0F4C81] flex items-center justify-center text-white hover:bg-[#D4AF37] transition">
+              <a href="https://www.facebook.com/thebestsrilankatours" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="w-12 h-12 rounded-full bg-[#0F4C81] flex items-center justify-center text-white hover:bg-[#D4AF37] transition">
+              <a href="#" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="#" className="w-12 h-12 rounded-full bg-[#0F4C81] flex items-center justify-center text-white hover:bg-[#D4AF37] transition">
+              <a href="#" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="#" className="w-12 h-12 rounded-full bg-[#0F4C81] flex items-center justify-center text-white hover:bg-[#D4AF37] transition">
-                <i className="fab fa-pinterest"></i>
-              </a>
-              <a href="#" className="w-12 h-12 rounded-full bg-[#0F4C81] flex items-center justify-center text-white hover:bg-[#D4AF37] transition">
+              <a href="#" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
                 <i className="fab fa-youtube"></i>
               </a>
             </div>
