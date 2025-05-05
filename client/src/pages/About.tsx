@@ -27,22 +27,22 @@ const About = () => {
 
   return (
     <main>
-      {/* Hero Section - Sized to match Tours page */}
-      <section className="relative py-16 md:py-20 bg-primary overflow-hidden">
+      {/* Hero Section - Fixed to prevent cutoff */}
+      <section className="relative pt-20 pb-16 md:pt-24 md:pb-20 bg-primary overflow-hidden">
         {/* Background image with parallax effect */}
         <div className="absolute inset-0 z-0">
           <img 
             src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746466910/shutterstock_1136691090_1_pclwtg.jpg" 
             alt="Sri Lanka Ancient Temple" 
-            className="w-full h-full object-cover transform scale-110" 
+            className="w-full h-full object-cover transform scale-105" 
           />
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/80"></div>
         </div>
         
         {/* Decorative Elements */}
-        <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-secondary/20 rounded-full blur-3xl opacity-40"></div>
-        <div className="absolute top-10 -left-10 w-40 h-40 bg-secondary/30 rounded-full blur-3xl opacity-30"></div>
+        <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-secondary/20 rounded-full blur-3xl opacity-30"></div>
+        <div className="absolute top-10 -left-10 w-40 h-40 bg-secondary/30 rounded-full blur-3xl opacity-20"></div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb Navigation */}
@@ -70,7 +70,7 @@ const About = () => {
               About Best Sri Lanka Tours
             </h1>
             <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>
-            <p className="text-lg text-white/90 max-w-2xl mx-auto font-['Raleway']">
+            <p className="text-lg text-white/90 max-w-2xl mx-auto font-['Raleway'] mb-2">
               Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean since 2010.
             </p>
           </div>
