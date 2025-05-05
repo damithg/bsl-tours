@@ -35,7 +35,7 @@ const HeroSection = ({
             <img 
               src={backgroundImage} 
               alt={title} 
-              className={`w-full h-full object-cover ${imageTransform || ''}`} 
+              className={`w-full h-full object-cover object-center ${imageTransform || ''}`} 
             />
           </div>
           <div className={`absolute inset-0 z-0 ${customOverlay}`}></div>
@@ -45,7 +45,7 @@ const HeroSection = ({
           <img 
             src={backgroundImage} 
             alt={title} 
-            className={`w-full h-full object-cover ${imageTransform || ''}`} 
+            className={`w-full h-full object-cover object-center ${imageTransform || ''}`} 
           />
         </div>
       )}

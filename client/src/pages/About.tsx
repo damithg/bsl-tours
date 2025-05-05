@@ -53,7 +53,7 @@ const About = () => {
                     <img 
                       src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746208326/shutterstock_1068884744_1_fza0zi.jpg" 
                       alt="Traditional Sri Lankan boats" 
-                      className="w-full object-cover h-[350px] sm:h-[450px] md:h-[500px] lg:h-[600px]"
+                      className="w-full object-cover object-center h-[350px] sm:h-[450px] md:h-[500px] lg:h-[600px]"
                     />
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -64,7 +64,7 @@ const About = () => {
                     <img 
                       src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207764/shutterstock_203858371_1_kxf0jo.jpg" 
                       alt="Sri Lankan Beach" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                   </div>
                   
@@ -175,9 +175,9 @@ const About = () => {
       <section className="relative py-20 bg-primary">
         <div className="absolute inset-0 z-0" style={{ opacity: 0.8 }}>
           <img 
-            src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746209493/shutterstock_422503523_1_cjhlbg.jpg" 
+            src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744007986/activities/ella-nine-arch-train.jpg" 
             alt="Sri Lanka Coastline" 
-            className="w-full h-full object-cover" 
+            className="w-full h-full object-cover object-center" 
           />
         </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
