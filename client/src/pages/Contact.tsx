@@ -1,6 +1,6 @@
 import ContactForm from "@/components/ContactForm";
+import HeroSection from "@/components/HeroSection";
 import { BreadcrumbItem } from "@/components/Breadcrumb";
-import Breadcrumb from "@/components/Breadcrumb";
 
 const Contact = () => {
   const breadcrumbItems: BreadcrumbItem[] = [
@@ -33,17 +33,18 @@ const Contact = () => {
 
   return (
     <main className="bg-white">
-      {/* Hero Section (matching G Adventures) - Simple blue header with white text */}
-      <div className="bg-primary">
-        <div className="container mx-auto px-6 py-8">
-          <h1 className="text-white font-['Playfair_Display'] text-4xl font-bold mb-4">Contact Us</h1>
-          <div className="text-white/80">
-            <Breadcrumb items={breadcrumbItems} className="text-white/80" />
-          </div>
-        </div>
-      </div>
-
-      {/* Let's just get the hero section right for now */}
+      {/* Hero Section - Simple style similar to G Adventures */}
+      <HeroSection
+        title="Contact Us"
+        description="Get in touch with our team of Sri Lanka travel experts"
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744008175/activities/sigiriya-lion-rock.jpg"
+        breadcrumbItems={breadcrumbItems}
+        overlayColor="bg-primary"
+        overlayOpacity={80}
+        showDivider={false}
+      />
+      
+      {/* The rest of the content will be added section by section */}
     </main>
   );
 };
