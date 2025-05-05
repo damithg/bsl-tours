@@ -85,21 +85,21 @@ const Contact = () => {
             ))}
           </div>
           
-          <div className="flex flex-col lg:flex-row bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg">
+          <div className="flex flex-col lg:flex-row bg-muted rounded-lg overflow-hidden shadow-lg">
             <div className="lg:w-1/2 p-8 lg:p-12">
-              <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-[#0F4C81] mb-6">Send Us a Message</h2>
-              <p className="text-[#333333]/80 mb-8">Fill out the form below, and one of our luxury travel consultants will contact you within 24 hours.</p>
+              <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-primary mb-6">Send Us a Message</h2>
+              <p className="text-muted-foreground mb-8">Fill out the form below, and one of our luxury travel consultants will contact you within 24 hours.</p>
               
               <ContactForm />
             </div>
             
             <div className="lg:w-1/2 relative">
               <img 
-                src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744008175/activities/sigiriya-lion-rock.jpg" 
                 alt="Luxury Sri Lanka experience" 
-                className="w-full h-full object-cover" 
+                className="w-full h-full object-cover object-center" 
               />
-              <div className="absolute inset-0 bg-[#0F4C81]/30 flex items-center justify-center">
+              <div className="absolute inset-0 bg-primary/40 flex items-center justify-center">
                 <div className="text-center px-8">
                   <h3 className="font-['Playfair_Display'] text-2xl font-bold text-white mb-3">Ready for an unforgettable journey?</h3>
                   <p className="text-white/90 text-lg">Let us create your perfect Sri Lankan experience.</p>
@@ -111,39 +111,39 @@ const Contact = () => {
       </section>
 
       {/* Office Locations */}
-      <section className="py-16 bg-[#F8F5F0]">
+      <section className="py-16 bg-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-4">Our Offices</h2>
-            <p className="text-lg text-[#333333]/80">Visit us at our offices around the world for personalized travel planning.</p>
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">Our Offices</h2>
+            <p className="text-lg text-muted-foreground">Visit us at our offices around the world for personalized travel planning.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#0F4C81] mb-3">Colombo (Headquarters)</h3>
-              <p className="text-[#333333]/80 mb-1">42 Galle Face Terrace</p>
-              <p className="text-[#333333]/80 mb-1">Colombo 03</p>
-              <p className="text-[#333333]/80 mb-4">Sri Lanka</p>
-              <p className="text-[#333333]/80 mb-1"><strong>Phone:</strong> +94 11 234 5678</p>
-              <p className="text-[#333333]/80"><strong>Hours:</strong> Monday-Friday, 9AM-6PM</p>
+              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">Colombo (Headquarters)</h3>
+              <p className="text-muted-foreground mb-1">42 Galle Face Terrace</p>
+              <p className="text-muted-foreground mb-1">Colombo 03</p>
+              <p className="text-muted-foreground mb-4">Sri Lanka</p>
+              <p className="text-muted-foreground mb-1"><strong>Phone:</strong> +94 11 234 5678</p>
+              <p className="text-muted-foreground"><strong>Hours:</strong> Monday-Friday, 9AM-6PM</p>
             </div>
             
             <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#0F4C81] mb-3">London</h3>
-              <p className="text-[#333333]/80 mb-1">15 Berkeley Street</p>
-              <p className="text-[#333333]/80 mb-1">Mayfair, London W1J 8DY</p>
-              <p className="text-[#333333]/80 mb-4">United Kingdom</p>
-              <p className="text-[#333333]/80 mb-1"><strong>Phone:</strong> +44 20 7123 4567</p>
-              <p className="text-[#333333]/80"><strong>Hours:</strong> Monday-Friday, 9AM-5PM</p>
+              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">London</h3>
+              <p className="text-muted-foreground mb-1">15 Berkeley Street</p>
+              <p className="text-muted-foreground mb-1">Mayfair, London W1J 8DY</p>
+              <p className="text-muted-foreground mb-4">United Kingdom</p>
+              <p className="text-muted-foreground mb-1"><strong>Phone:</strong> +44 20 7123 4567</p>
+              <p className="text-muted-foreground"><strong>Hours:</strong> Monday-Friday, 9AM-5PM</p>
             </div>
             
             <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#0F4C81] mb-3">New York</h3>
-              <p className="text-[#333333]/80 mb-1">555 Madison Avenue</p>
-              <p className="text-[#333333]/80 mb-1">New York, NY 10022</p>
-              <p className="text-[#333333]/80 mb-4">United States</p>
-              <p className="text-[#333333]/80 mb-1"><strong>Phone:</strong> +1 212 555 1234</p>
-              <p className="text-[#333333]/80"><strong>Hours:</strong> Monday-Friday, 9AM-5PM</p>
+              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">New York</h3>
+              <p className="text-muted-foreground mb-1">555 Madison Avenue</p>
+              <p className="text-muted-foreground mb-1">New York, NY 10022</p>
+              <p className="text-muted-foreground mb-4">United States</p>
+              <p className="text-muted-foreground mb-1"><strong>Phone:</strong> +1 212 555 1234</p>
+              <p className="text-muted-foreground"><strong>Hours:</strong> Monday-Friday, 9AM-5PM</p>
             </div>
           </div>
         </div>
@@ -153,23 +153,23 @@ const Contact = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-4">Frequently Asked Questions</h2>
-            <p className="text-lg text-[#333333]/80">Find answers to common questions about planning your luxury journey to Sri Lanka.</p>
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
+            <p className="text-lg text-muted-foreground">Find answers to common questions about planning your luxury journey to Sri Lanka.</p>
           </div>
           
           <div className="max-w-4xl mx-auto">
             <div className="space-y-6">
               {faqItems.map((item, index) => (
-                <div key={index} className="bg-[#F8F5F0] rounded-lg p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-semibold text-[#0F4C81] mb-3">{item.question}</h3>
-                  <p className="text-[#333333]/80">{item.answer}</p>
+                <div key={index} className="bg-muted rounded-lg p-6">
+                  <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">{item.question}</h3>
+                  <p className="text-muted-foreground">{item.answer}</p>
                 </div>
               ))}
             </div>
             
             <div className="text-center mt-10">
-              <p className="text-lg text-[#333333]/80 mb-6">Still have questions? Our travel experts are here to help.</p>
-              <a href="mailto:info@bestsrilankatours.com" className="bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
+              <p className="text-lg text-muted-foreground mb-6">Still have questions? Our travel experts are here to help.</p>
+              <a href="mailto:info@bestsrilankatours.com" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
                 Email Us Directly
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -181,11 +181,11 @@ const Contact = () => {
       </section>
 
       {/* Social Media */}
-      <section className="py-16 bg-[#F8F5F0]">
+      <section className="py-16 bg-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0F4C81] mb-4">Connect With Us</h2>
-            <p className="text-lg text-[#333333]/80 mb-8">Follow us on social media for travel inspiration and behind-the-scenes glimpses of luxury Sri Lankan experiences.</p>
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">Connect With Us</h2>
+            <p className="text-lg text-muted-foreground mb-8">Follow us on social media for travel inspiration and behind-the-scenes glimpses of luxury Sri Lankan experiences.</p>
             
             <div className="flex justify-center space-x-6">
               <a href="https://www.facebook.com/thebestsrilankatours" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
