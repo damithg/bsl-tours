@@ -23,10 +23,10 @@ const Contact = () => {
       icon: "fa-phone-alt"
     },
     {
-      title: "Visit Us",
-      details: "42 Galle Face Terrace, Colombo 03, Sri Lanka",
-      description: "Our head office in the heart of Colombo",
-      icon: "fa-map-marker-alt"
+      title: "WhatsApp",
+      details: "+94 77 123 4567",
+      description: "Message us anytime for quick responses to your inquiries",
+      icon: "fa-whatsapp"
     }
   ];
 
@@ -57,11 +57,14 @@ const Contact = () => {
     <main>
       {/* Hero Section */}
       <HeroSection
-        title="Contact Us"
-        description="Our luxury travel consultants are ready to help you create your perfect Sri Lankan journey."
-        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744007986/activities/ella-nine-arch-train.jpg"
+        title="Contact Our Travel Experts"
+        description="Let our experts craft your perfect Sri Lankan journey tailored to your preferences."
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744007883/destinations/sigiriya-lion-rock-summit.jpg"
         breadcrumbItems={breadcrumbItems}
-        showDivider={false}
+        showDivider={true}
+        imageTransform="scale-105"
+        overlayOpacity={30}
+        customOverlay="bg-gradient-to-r from-primary/60 to-primary/20"
       />
 
       {/* Contact Information */}
@@ -86,11 +89,28 @@ const Contact = () => {
           </div>
           
           <div className="flex flex-col lg:flex-row bg-muted rounded-lg overflow-hidden shadow-lg">
-            <div className="lg:w-1/2 p-8 lg:p-12">
-              <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-primary mb-6">Send Us a Message</h2>
-              <p className="text-muted-foreground mb-8">Fill out the form below, and one of our luxury travel consultants will contact you within 24 hours.</p>
-              
-              <ContactForm />
+            <div className="lg:w-1/2 p-8 lg:p-12 relative">
+              <div className="absolute top-0 left-0 w-20 h-20 bg-secondary/30 rounded-br-full opacity-30"></div>
+              <div className="relative z-10">
+                <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-primary mb-6">Send Us a Message</h2>
+                <p className="text-muted-foreground mb-8">Fill out the form below, and one of our luxury travel consultants will contact you within 24 hours.</p>
+                
+                <ContactForm />
+                
+                <div className="mt-8 pt-6 border-t border-primary/10">
+                  <p className="text-center text-sm text-muted-foreground mb-4">Prefer a more immediate response?</p>
+                  <a 
+                    href="https://wa.me/94771234567" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5C] text-white font-medium py-3 px-4 rounded-md transition w-full"
+                  >
+                    <i className="fab fa-whatsapp text-xl"></i>
+                    <span>Contact Us on WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+              <div className="absolute bottom-0 right-0 w-16 h-16 bg-secondary/20 rounded-tl-full opacity-30"></div>
             </div>
             
             <div className="lg:w-1/2 relative">
@@ -99,10 +119,10 @@ const Contact = () => {
                 alt="Luxury Sri Lanka experience" 
                 className="w-full h-full object-cover object-center" 
               />
-              <div className="absolute inset-0 bg-primary/40 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/60 to-primary/30 flex items-center justify-center">
                 <div className="text-center px-8">
-                  <h3 className="font-['Playfair_Display'] text-2xl font-bold text-white mb-3">Ready for an unforgettable journey?</h3>
-                  <p className="text-white/90 text-lg">Let us create your perfect Sri Lankan experience.</p>
+                  <h3 className="font-['Playfair_Display'] text-2xl font-bold text-white drop-shadow-md mb-3">Ready for an unforgettable journey?</h3>
+                  <p className="text-white/90 text-lg drop-shadow-sm">Let us create your perfect Sri Lankan experience.</p>
                 </div>
               </div>
             </div>
@@ -118,9 +138,14 @@ const Contact = () => {
             <p className="text-lg text-muted-foreground">Visit us at our offices around the world for personalized travel planning.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">Colombo (Headquarters)</h3>
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                  <i className="fas fa-map-marker-alt text-primary"></i>
+                </div>
+                <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary">Colombo (Headquarters)</h3>
+              </div>
               <p className="text-muted-foreground mb-1">42 Galle Face Terrace</p>
               <p className="text-muted-foreground mb-1">Colombo 03</p>
               <p className="text-muted-foreground mb-4">Sri Lanka</p>
@@ -129,20 +154,16 @@ const Contact = () => {
             </div>
             
             <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">London</h3>
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                  <i className="fas fa-map-marker-alt text-primary"></i>
+                </div>
+                <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary">London</h3>
+              </div>
               <p className="text-muted-foreground mb-1">15 Berkeley Street</p>
               <p className="text-muted-foreground mb-1">Mayfair, London W1J 8DY</p>
               <p className="text-muted-foreground mb-4">United Kingdom</p>
               <p className="text-muted-foreground mb-1"><strong>Phone:</strong> +44 20 7123 4567</p>
-              <p className="text-muted-foreground"><strong>Hours:</strong> Monday-Friday, 9AM-5PM</p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">New York</h3>
-              <p className="text-muted-foreground mb-1">555 Madison Avenue</p>
-              <p className="text-muted-foreground mb-1">New York, NY 10022</p>
-              <p className="text-muted-foreground mb-4">United States</p>
-              <p className="text-muted-foreground mb-1"><strong>Phone:</strong> +1 212 555 1234</p>
               <p className="text-muted-foreground"><strong>Hours:</strong> Monday-Friday, 9AM-5PM</p>
             </div>
           </div>
@@ -181,26 +202,61 @@ const Contact = () => {
       </section>
 
       {/* Social Media */}
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/10 via-white to-secondary/10"></div>
+        <div className="absolute top-0 right-0 w-40 h-40 bg-secondary/20 rounded-bl-full opacity-20"></div>
+        <div className="absolute bottom-0 left-0 w-36 h-36 bg-primary/10 rounded-tr-full opacity-20"></div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-['Playfair_Display'] text-3xl font-bold text-primary mb-4">Connect With Us</h2>
             <p className="text-lg text-muted-foreground mb-8">Follow us on social media for travel inspiration and behind-the-scenes glimpses of luxury Sri Lankan experiences.</p>
             
-            <div className="flex justify-center space-x-6">
-              <a href="https://www.facebook.com/thebestsrilankatours" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
-                <i className="fab fa-facebook-f"></i>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-3xl mx-auto">
+              <a href="https://www.facebook.com/thebestsrilankatours" target="_blank" rel="noopener noreferrer" 
+                className="flex flex-col items-center gap-3 p-4 rounded-lg hover:bg-muted transition group">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white group-hover:bg-[#1877F2] transition">
+                  <i className="fab fa-facebook-f text-lg"></i>
+                </div>
+                <span className="text-sm font-medium text-muted-foreground">Facebook</span>
               </a>
-              <a href="#" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
-                <i className="fab fa-instagram"></i>
+              
+              <a href="#" target="_blank" rel="noopener noreferrer" 
+                className="flex flex-col items-center gap-3 p-4 rounded-lg hover:bg-muted transition group">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white group-hover:bg-[#E4405F] transition">
+                  <i className="fab fa-instagram text-lg"></i>
+                </div>
+                <span className="text-sm font-medium text-muted-foreground">Instagram</span>
               </a>
-              <a href="#" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
-                <i className="fab fa-twitter"></i>
+              
+              <a href="https://wa.me/94771234567" target="_blank" rel="noopener noreferrer" 
+                className="flex flex-col items-center gap-3 p-4 rounded-lg hover:bg-muted transition group">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white group-hover:bg-[#25D366] transition">
+                  <i className="fab fa-whatsapp text-lg"></i>
+                </div>
+                <span className="text-sm font-medium text-muted-foreground">WhatsApp</span>
               </a>
-              <a href="#" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition">
-                <i className="fab fa-youtube"></i>
+              
+              <a href="#" target="_blank" rel="noopener noreferrer" 
+                className="flex flex-col items-center gap-3 p-4 rounded-lg hover:bg-muted transition group">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white group-hover:bg-[#1DA1F2] transition">
+                  <i className="fab fa-twitter text-lg"></i>
+                </div>
+                <span className="text-sm font-medium text-muted-foreground">Twitter</span>
+              </a>
+              
+              <a href="#" target="_blank" rel="noopener noreferrer" 
+                className="flex flex-col items-center gap-3 p-4 rounded-lg hover:bg-muted transition group">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white group-hover:bg-[#FF0000] transition">
+                  <i className="fab fa-youtube text-lg"></i>
+                </div>
+                <span className="text-sm font-medium text-muted-foreground">YouTube</span>
               </a>
             </div>
+            
+            <p className="mt-10 text-center text-sm text-muted-foreground">
+              Follow us for updates on new tour packages, travel tips, and stunning photos of Sri Lanka's most beautiful destinations.
+            </p>
           </div>
         </div>
       </section>
