@@ -8,7 +8,7 @@ interface HeroSectionProps {
   breadcrumbItems: BreadcrumbItem[];
   children?: React.ReactNode;
   overlayColor?: string; // Optional overlay color (default to primary)
-  overlayOpacity?: number; // Optional overlay opacity
+  overlayOpacity?: number; // Optional overlay opacity (0-100 scale, default 20)
   customOverlay?: string; // Optional custom overlay class for gradients etc.
   imageTransform?: string; // Optional image transform class (e.g., scale-105)
   showDivider?: boolean; // Optional flag to show/hide the divider (default false)
@@ -21,7 +21,7 @@ const HeroSection = ({
   breadcrumbItems,
   children,
   overlayColor = "bg-primary",
-  overlayOpacity = 20,
+  overlayOpacity = 20, // 0-100 scale (will be divided by 100)
   customOverlay,
   imageTransform,
   showDivider = false,
@@ -39,7 +39,7 @@ const HeroSection = ({
         {customOverlay ? (
           <div className={`absolute inset-0 ${customOverlay}`}></div>
         ) : (
-          <div className={`absolute inset-0 bg-black opacity-${overlayOpacity || 20}`}></div>
+          <div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity / 100 }}></div>
         )}
       </div>
       
