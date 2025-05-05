@@ -27,8 +27,8 @@ const About = () => {
 
   return (
     <main>
-      {/* Hero Section - Enhanced with better image treatment */}
-      <section className="relative pt-32 pb-28 bg-primary overflow-hidden">
+      {/* Hero Section - Sized to match Tours page */}
+      <section className="relative py-16 md:py-20 bg-primary overflow-hidden">
         {/* Background image with parallax effect */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -46,7 +46,7 @@ const About = () => {
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb Navigation */}
-          <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
+          <nav className="flex text-white/90 mb-4" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
                 <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
@@ -66,11 +66,11 @@ const About = () => {
           </nav>
 
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
               About Best Sri Lanka Tours
             </h1>
-            <div className="w-24 h-1 bg-secondary mx-auto mb-8"></div>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto font-['Raleway']">
+            <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+            <p className="text-lg text-white/90 max-w-2xl mx-auto font-['Raleway']">
               Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean since 2010.
             </p>
           </div>
