@@ -1,11 +1,11 @@
 import ContactForm from "@/components/ContactForm";
-import HeroSection from "@/components/HeroSection";
 import { BreadcrumbItem } from "@/components/Breadcrumb";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const Contact = () => {
   const breadcrumbItems: BreadcrumbItem[] = [
     // Home will be automatically added by the Breadcrumb component
-    { label: "Contact" } // No path for current page as it's the current page
+    { label: "Contact" }
   ];
 
   const faqItems = [
@@ -33,179 +33,200 @@ const Contact = () => {
 
   return (
     <main className="bg-white">
-      {/* Hero Section - Simple and Clean */}
-      <HeroSection
-        title="Contact Us"
-        description="Our luxury travel experts are ready to design your perfect Sri Lankan journey"
-        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744008175/activities/sigiriya-lion-rock.jpg"
-        breadcrumbItems={breadcrumbItems}
-        showDivider={false}
-        imageTransform="scale-105"
-        overlayOpacity={60}
-        overlayColor="bg-black"
-        alignment="center"
-      />
+      {/* Simple Page Header with Breadcrumb */}
+      <section className="bg-primary py-8">
+        <div className="container mx-auto px-4">
+          <h1 className="text-white font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-2">Contact Us</h1>
+          <Breadcrumb items={breadcrumbItems} className="text-white/80" />
+        </div>
+      </section>
 
-      {/* Main Contact Section */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left Column - Contact Info */}
-            <div>
-              <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-primary mb-6">How to Reach Us</h2>
-              
-              <div className="grid gap-8">
-                {/* Email */}
-                <div className="flex">
-                  <div className="mr-5 mt-1">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <i className="fas fa-envelope text-primary"></i>
+      {/* Main Content */}
+      <section className="pt-8 pb-16">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row gap-8">
+            
+            {/* Left Side - Contact Tabs (similar to G Adventures) */}
+            <div className="w-full md:w-1/3">
+              <div className="border rounded-md overflow-hidden">
+                {/* Email Tab */}
+                <div className="border-b last:border-b-0">
+                  <div className="p-4 bg-white">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-primary/10 p-3 rounded-full">
+                        <i className="fas fa-envelope text-primary"></i>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg">Email</h3>
+                        <a href="mailto:info@bestsrilankatours.com" className="text-primary hover:underline">
+                          info@bestsrilankatours.com
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">Email</h3>
-                    <p className="mb-1"><a href="mailto:info@bestsrilankatours.com" className="text-primary hover:underline">info@bestsrilankatours.com</a></p>
-                    <p className="text-muted-foreground text-sm">For general inquiries and booking information</p>
                   </div>
                 </div>
                 
-                {/* Phone */}
-                <div className="flex">
-                  <div className="mr-5 mt-1">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <i className="fas fa-phone-alt text-primary"></i>
+                {/* Phone Tab */}
+                <div className="border-b last:border-b-0">
+                  <div className="p-4 bg-white">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-primary/10 p-3 rounded-full">
+                        <i className="fas fa-phone-alt text-primary"></i>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg">Call Us</h3>
+                        <a href="tel:+94112345678" className="text-primary hover:underline">
+                          +94 11 234 5678
+                        </a>
+                        <p className="text-sm text-gray-500">Mon-Fri, 9AM-6PM (Sri Lanka time)</p>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">Phone</h3>
-                    <p className="mb-1"><a href="tel:+94112345678" className="text-primary hover:underline">+94 11 234 5678</a></p>
-                    <p className="text-muted-foreground text-sm">Monday-Friday, 9AM-6PM (Sri Lanka time)</p>
                   </div>
                 </div>
                 
-                {/* WhatsApp */}
-                <div className="flex">
-                  <div className="mr-5 mt-1">
-                    <div className="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center">
-                      <i className="fab fa-whatsapp text-[#25D366]"></i>
+                {/* WhatsApp Tab */}
+                <div className="border-b last:border-b-0">
+                  <div className="p-4 bg-white">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-[#25D366]/10 p-3 rounded-full">
+                        <i className="fab fa-whatsapp text-[#25D366]"></i>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg">WhatsApp</h3>
+                        <a href="https://wa.me/94771234567" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:underline">
+                          +94 77 123 4567
+                        </a>
+                        <p className="text-sm text-gray-500">Available 24/7 for quick responses</p>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">WhatsApp</h3>
-                    <p className="mb-1"><a href="https://wa.me/94771234567" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:underline">+94 77 123 4567</a></p>
-                    <p className="text-muted-foreground text-sm">Available for quick responses anytime</p>
                   </div>
                 </div>
               </div>
               
-              {/* Office Locations */}
-              <h2 className="font-['Playfair_Display'] text-2xl font-bold text-primary mt-12 mb-6">Our Offices</h2>
+              {/* Office Locations - Same Tab Style */}
+              <h2 className="font-['Playfair_Display'] text-2xl font-bold text-gray-800 mt-8 mb-4">Our Offices</h2>
               
-              <div className="grid gap-8">
+              <div className="border rounded-md overflow-hidden">
                 {/* Colombo Office */}
-                <div className="flex">
-                  <div className="mr-5 mt-1">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <i className="fas fa-map-marker-alt text-primary"></i>
+                <div className="border-b last:border-b-0">
+                  <div className="p-4 bg-white">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-primary/10 p-3 rounded-full mt-1">
+                        <i className="fas fa-map-marker-alt text-primary"></i>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg">Colombo, Sri Lanka</h3>
+                        <p className="text-gray-600">
+                          42 Galle Face Terrace<br />
+                          Colombo 03<br />
+                          Sri Lanka
+                        </p>
+                        <p className="text-sm text-gray-500 mt-2">Monday-Friday, 9AM-6PM</p>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">Colombo (Headquarters)</h3>
-                    <p className="text-muted-foreground">42 Galle Face Terrace</p>
-                    <p className="text-muted-foreground">Colombo 03</p>
-                    <p className="text-muted-foreground">Sri Lanka</p>
-                    <p className="text-sm mt-2"><strong>Hours:</strong> Monday-Friday, 9AM-6PM</p>
                   </div>
                 </div>
                 
                 {/* London Office */}
-                <div className="flex">
-                  <div className="mr-5 mt-1">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <i className="fas fa-map-marker-alt text-primary"></i>
+                <div className="border-b last:border-b-0">
+                  <div className="p-4 bg-white">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-primary/10 p-3 rounded-full mt-1">
+                        <i className="fas fa-map-marker-alt text-primary"></i>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg">London, UK</h3>
+                        <p className="text-gray-600">
+                          15 Berkeley Street<br />
+                          Mayfair, London W1J 8DY<br />
+                          United Kingdom
+                        </p>
+                        <p className="text-sm text-gray-500 mt-2">Monday-Friday, 9AM-5PM</p>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">London</h3>
-                    <p className="text-muted-foreground">15 Berkeley Street</p>
-                    <p className="text-muted-foreground">Mayfair, London W1J 8DY</p>
-                    <p className="text-muted-foreground">United Kingdom</p>
-                    <p className="text-sm mt-2"><strong>Hours:</strong> Monday-Friday, 9AM-5PM</p>
                   </div>
                 </div>
               </div>
               
-              {/* Social Media Links */}
-              <h2 className="font-['Playfair_Display'] text-2xl font-bold text-primary mt-12 mb-6">Connect With Us</h2>
+              {/* Social Media */}
+              <h2 className="font-['Playfair_Display'] text-2xl font-bold text-gray-800 mt-8 mb-4">Connect With Us</h2>
               
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <a href="https://www.facebook.com/thebestsrilankatours" target="_blank" rel="noopener noreferrer" 
-                   className="w-12 h-12 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:opacity-90 transition">
+                   className="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:opacity-90 transition">
                   <i className="fab fa-facebook-f"></i>
                 </a>
-                <a href="#" className="w-12 h-12 rounded-full bg-[#E4405F] flex items-center justify-center text-white hover:opacity-90 transition">
+                <a href="#" className="w-10 h-10 rounded-full bg-[#E4405F] flex items-center justify-center text-white hover:opacity-90 transition">
                   <i className="fab fa-instagram"></i>
                 </a>
                 <a href="https://wa.me/94771234567" target="_blank" rel="noopener noreferrer"
-                   className="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center text-white hover:opacity-90 transition">
+                   className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center text-white hover:opacity-90 transition">
                   <i className="fab fa-whatsapp"></i>
                 </a>
-                <a href="#" className="w-12 h-12 rounded-full bg-[#1DA1F2] flex items-center justify-center text-white hover:opacity-90 transition">
+                <a href="#" className="w-10 h-10 rounded-full bg-[#1DA1F2] flex items-center justify-center text-white hover:opacity-90 transition">
                   <i className="fab fa-twitter"></i>
                 </a>
-                <a href="#" className="w-12 h-12 rounded-full bg-[#FF0000] flex items-center justify-center text-white hover:opacity-90 transition">
+                <a href="#" className="w-10 h-10 rounded-full bg-[#FF0000] flex items-center justify-center text-white hover:opacity-90 transition">
                   <i className="fab fa-youtube"></i>
                 </a>
               </div>
             </div>
             
-            {/* Right Column - Contact Form */}
-            <div className="bg-muted p-8 rounded-lg">
-              <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-primary mb-2">Send Us a Message</h2>
-              <p className="text-muted-foreground mb-6">Fill out the form below and we'll get back to you within 24 hours</p>
-              
-              <ContactForm />
-              
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <p className="text-center text-sm text-muted-foreground mb-4">Prefer a more immediate response?</p>
-                <a 
-                  href="https://wa.me/94771234567" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5C] text-white font-medium py-3 px-4 rounded-md transition w-full"
-                >
-                  <i className="fab fa-whatsapp text-xl"></i>
-                  <span>Contact Us on WhatsApp</span>
-                </a>
+            {/* Right Side - Contact Form */}
+            <div className="w-full md:w-2/3">
+              <div className="bg-white border rounded-md p-6">
+                <h2 className="font-['Playfair_Display'] text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+                <p className="text-gray-600 mb-6">
+                  Fill out the form below, and our travel experts will be in touch with you within 24 hours.
+                </p>
+                
+                <ContactForm />
+                
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <div className="bg-[#25D366]/10 rounded-md p-4 flex items-center gap-3">
+                    <div className="text-[#25D366] text-2xl">
+                      <i className="fab fa-whatsapp"></i>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-gray-700 font-medium">Need a quick response?</p>
+                      <p className="text-sm text-gray-600">Message us directly on WhatsApp for immediate assistance</p>
+                    </div>
+                    <a 
+                      href="https://wa.me/94771234567" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="bg-[#25D366] hover:bg-[#20BD5C] text-white font-medium py-2 px-4 rounded transition whitespace-nowrap"
+                    >
+                      <i className="fab fa-whatsapp mr-2"></i> Chat Now
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-12 bg-muted">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-primary mb-2 text-center">Frequently Asked Questions</h2>
-          <p className="text-muted-foreground mb-12 text-center max-w-3xl mx-auto">Find answers to common questions about planning your luxury journey to Sri Lanka.</p>
           
-          <div className="space-y-6">
-            {faqItems.map((item, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="font-['Playfair_Display'] text-xl font-semibold text-primary mb-3">{item.question}</h3>
-                <p className="text-muted-foreground">{item.answer}</p>
-              </div>
-            ))}
-          </div>
-          
-          <div className="text-center mt-10">
-            <p className="text-lg text-muted-foreground mb-6">Still have questions?</p>
-            <a href="mailto:info@bestsrilankatours.com" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-md transition inline-flex items-center">
-              Email Us Directly
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
-            </a>
+          {/* FAQ Section */}
+          <div className="mt-16">
+            <h2 className="font-['Playfair_Display'] text-2xl font-bold text-gray-800 mb-2 text-center">Frequently Asked Questions</h2>
+            <p className="text-gray-600 mb-8 text-center max-w-3xl mx-auto">Find answers to common questions about our luxury Sri Lanka tours</p>
+            
+            <div className="grid gap-4 max-w-4xl mx-auto">
+              {faqItems.map((item, index) => (
+                <div key={index} className="border rounded-md overflow-hidden">
+                  <div className="p-4 bg-white">
+                    <h3 className="font-bold text-lg text-gray-800 mb-2">{item.question}</h3>
+                    <p className="text-gray-600">{item.answer}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="text-center mt-8">
+              <p className="text-gray-600 mb-4">Still have questions about our luxury Sri Lanka tours?</p>
+              <a href="mailto:info@bestsrilankatours.com" className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded inline-flex items-center">
+                <i className="fas fa-envelope mr-2"></i> Email Us Directly
+              </a>
+            </div>
           </div>
         </div>
       </section>
