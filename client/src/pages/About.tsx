@@ -68,33 +68,9 @@ const About = () => {
                     />
                   </div>
                   
-                  {/* Stats card */}
-                  <div className="absolute -left-8 -bottom-8 bg-white rounded-xl shadow-xl p-6 z-20 hidden lg:block">
-                    <div className="grid grid-cols-2 gap-8 w-64">
-                      <div className="text-center">
-                        <span className="text-primary text-3xl font-bold block mb-1">10+</span>
-                        <span className="text-muted-foreground text-sm">Years of Excellence</span>
-                      </div>
-                      <div className="text-center">
-                        <span className="text-primary text-3xl font-bold block mb-1">500+</span>
-                        <span className="text-muted-foreground text-sm">Happy Travelers</span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 
-                {/* Mobile stats - only visible on mobile */}
-                <div className="grid grid-cols-2 gap-4 mt-10 lg:hidden">
-                  <div className="bg-white p-4 rounded-lg flex flex-col items-center shadow-sm border border-gray-100">
-                    <span className="text-primary text-3xl font-bold">10+</span>
-                    <p className="text-muted-foreground text-center text-sm">Years of Excellence</p>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-lg flex flex-col items-center shadow-sm border border-gray-100">
-                    <span className="text-primary text-3xl font-bold">500+</span>
-                    <p className="text-muted-foreground text-center text-sm">Happy Travelers</p>
-                  </div>
-                </div>
+                {/* Stats removed as requested */}
               </div>
               
               {/* Right column with content */}
