@@ -6,8 +6,8 @@ import { COLORS } from "@/utils/colors";
 const Contact = () => {
   // Breadcrumb setup
   const breadcrumbItems: BreadcrumbItem[] = [
-    { label: "About", path: "/about" },
-    { label: "Contact" } // No path for current page
+    // Home will be automatically added by the Breadcrumb component
+    { label: "Contact" } // No path for current page as it's the current page
   ];
   const contactInfo = [
     {
