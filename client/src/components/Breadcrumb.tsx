@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 
-type BreadcrumbItem = {
+export type BreadcrumbItem = {
   label: string;
   path?: string;  // Optional for the current/last item
 };

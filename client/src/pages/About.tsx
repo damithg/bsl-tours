@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import Breadcrumb from "../components/Breadcrumb";
+import HeroSection from "../components/HeroSection";
 
 const About = () => {
   // Our values
@@ -28,41 +28,15 @@ const About = () => {
 
   return (
     <main>
-      {/* Hero Section - Matched to Tours page */}
-      <section className="relative pt-28 pb-20 bg-primary overflow-hidden">
-        {/* Background image with parallax effect */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746466910/shutterstock_1136691090_1_pclwtg.jpg" 
-            alt="Sri Lanka Ancient Temple" 
-            className="w-full h-full object-cover transform scale-105" 
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/80"></div>
-        </div>
-        
-        {/* Decorative Elements */}
-        <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-secondary/20 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute top-10 -left-10 w-40 h-40 bg-secondary/30 rounded-full blur-3xl opacity-20"></div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb Navigation */}
-          <Breadcrumb 
-            items={[{ label: "About Us" }]} 
-            className="mb-6" 
-          />
-
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-              About Best Sri Lanka Tours
-            </h1>
-            <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>
-            <p className="text-lg text-white/90 max-w-2xl mx-auto font-['Raleway'] mb-2">
-              Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean since 2010.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section using our new component with custom gradient overlay */}
+      <HeroSection
+        title="About Best Sri Lanka Tours"
+        description="Crafting unforgettable luxury journeys through the Pearl of the Indian Ocean since 2010."
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746466910/shutterstock_1136691090_1_pclwtg.jpg"
+        breadcrumbItems={[{ label: "About Us" }]}
+        imageTransform="scale-105"
+        customOverlay="bg-gradient-to-r from-primary/90 via-primary/70 to-primary/80"
+      />
 
       {/* Main About Section - Modern Design */}
       <section className="py-28 bg-white">
