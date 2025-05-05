@@ -44,7 +44,57 @@ const Contact = () => {
         showDivider={false}
       />
       
-      {/* The rest of the content will be added section by section */}
+      {/* Contact Options Section - Similar to G Adventures cards */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2 className="text-4xl font-bold text-gray-800 mb-10">Contact us</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* WhatsApp Card */}
+            <div className="bg-gray-100 p-8 rounded-lg">
+              <div className="flex items-center mb-4">
+                <div className="bg-[#25D366] p-3 rounded-full mr-4">
+                  <i className="fab fa-whatsapp text-2xl text-white"></i>
+                </div>
+                <h3 className="text-xl font-bold">Let's chat!</h3>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Our team is ready to answer your questions on live chat - it's quick and easy.
+              </p>
+              <p className="font-medium text-gray-700 mb-6">24/7 Service</p>
+              <a 
+                href="https://wa.me/94771234567" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center justify-center bg-[#25D366] hover:bg-[#20BD5C] text-white font-medium py-2 px-4 rounded transition w-full"
+              >
+                <i className="fab fa-whatsapp mr-2"></i>
+                Start WhatsApp Chat
+              </a>
+            </div>
+            
+            {/* Phone Card */}
+            <div className="bg-gray-100 p-8 rounded-lg">
+              <div className="flex items-center mb-4">
+                <div className="bg-primary p-3 rounded-full mr-4">
+                  <i className="fas fa-phone-alt text-2xl text-white"></i>
+                </div>
+                <h3 className="text-xl font-bold">Let's talk!</h3>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Prefer to speak on the phone? Give us a ring so we can help plan your perfect Sri Lanka journey.
+              </p>
+              <p className="font-medium text-gray-700 mb-6">24/7 Service</p>
+              <a 
+                href="tel:+94112345678" 
+                className="text-xl font-bold text-primary hover:underline block"
+              >
+                +94 11 234 5678
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };
