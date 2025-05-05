@@ -50,61 +50,85 @@ const Contact = () => {
           <h2 className="text-4xl font-bold text-gray-800 mb-10">Contact us</h2>
           
           <div className="flex flex-col md:flex-row">
-            {/* Left Column - Large Image */}
+            {/* Left Column - Large Image with subtle styling */}
             <div className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0">
-              <div className="rounded-lg overflow-hidden h-full">
+              <div className="rounded-lg overflow-hidden h-full shadow-lg relative">
                 <img 
-                  src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744008175/activities/sigiriya-lion-rock.jpg" 
-                  alt="Sri Lanka Buddha statue" 
+                  src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744007883/destinations/sigiriya-lion-rock-summit.jpg" 
+                  alt="Sri Lanka scenic view" 
                   className="w-full h-full object-cover" 
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                <div className="absolute bottom-6 left-0 w-full text-center">
+                  <div className="bg-white/80 backdrop-blur-sm mx-8 py-3 px-4 rounded-lg shadow-sm">
+                    <p className="text-primary font-['Playfair_Display'] font-bold text-lg">Experience the beauty of Sri Lanka</p>
+                  </div>
+                </div>
               </div>
             </div>
             
-            {/* Right Column - Contact Cards */}
+            {/* Right Column - Contact Options */}
             <div className="w-full md:w-1/2">
-              <div className="space-y-6">
-                {/* WhatsApp Card */}
-                <div className="bg-gray-100 p-8 rounded-lg">
-                  <div className="flex items-center mb-4">
-                    <div className="bg-[#25D366] p-3 rounded-full mr-4">
-                      <i className="fab fa-whatsapp text-2xl text-white"></i>
-                    </div>
-                    <h3 className="text-xl font-bold">Let's chat!</h3>
-                  </div>
-                  <p className="text-gray-600 mb-4">
-                    Our team is ready to answer your questions on live chat - it's quick and easy.
-                  </p>
-                  <p className="font-medium text-gray-700 mb-6">24/7 Service</p>
-                  <a 
-                    href="https://wa.me/94771234567" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="inline-flex items-center justify-center bg-[#25D366] hover:bg-[#20BD5C] text-white font-medium py-2 px-4 rounded transition w-full"
-                  >
-                    <i className="fab fa-whatsapp mr-2"></i>
-                    Start WhatsApp Chat
-                  </a>
-                </div>
+              <div className="h-full flex flex-col justify-center">
+                <h3 className="text-2xl font-['Playfair_Display'] font-bold text-gray-800 mb-6">Get in touch with our experts</h3>
+                <p className="text-gray-600 mb-8">
+                  Our friendly travel specialists are here to help you create your perfect Sri Lankan journey. 
+                  Choose the way you prefer to connect with us.
+                </p>
                 
-                {/* Phone Card */}
-                <div className="bg-gray-100 p-8 rounded-lg">
-                  <div className="flex items-center mb-4">
-                    <div className="bg-primary p-3 rounded-full mr-4">
-                      <i className="fas fa-phone-alt text-2xl text-white"></i>
+                <div className="space-y-6">
+                  {/* Contact Option - WhatsApp */}
+                  <div className="flex items-center border-l-4 border-[#25D366] pl-6 py-3 hover:bg-gray-50 transition rounded-r">
+                    <div className="text-[#25D366] text-3xl mr-5">
+                      <i className="fab fa-whatsapp"></i>
                     </div>
-                    <h3 className="text-xl font-bold">Let's talk!</h3>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-lg text-gray-800">WhatsApp Chat</h4>
+                      <p className="text-gray-600 text-sm">Connect with us anytime, anywhere</p>
+                    </div>
+                    <a 
+                      href="https://wa.me/94771234567" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="bg-[#25D366] text-white py-2 px-4 rounded hover:bg-[#20BD5C] transition flex items-center space-x-2"
+                    >
+                      <span>Chat Now</span>
+                    </a>
                   </div>
-                  <p className="text-gray-600 mb-4">
-                    Prefer to speak on the phone? Give us a ring so we can help plan your perfect Sri Lanka journey.
-                  </p>
-                  <p className="font-medium text-gray-700 mb-6">24/7 Service</p>
-                  <a 
-                    href="tel:+94112345678" 
-                    className="text-xl font-bold text-primary hover:underline block"
-                  >
-                    +94 11 234 5678
-                  </a>
+                  
+                  {/* Contact Option - Phone */}
+                  <div className="flex items-center border-l-4 border-primary pl-6 py-3 hover:bg-gray-50 transition rounded-r">
+                    <div className="text-primary text-3xl mr-5">
+                      <i className="fas fa-phone-alt"></i>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-lg text-gray-800">Call Us</h4>
+                      <p className="text-gray-600 text-sm">Speak directly with our travel experts</p>
+                    </div>
+                    <a 
+                      href="tel:+94112345678" 
+                      className="bg-primary text-white py-2 px-4 rounded hover:bg-primary/90 transition flex items-center space-x-2"
+                    >
+                      <span>+94 11 234 5678</span>
+                    </a>
+                  </div>
+                  
+                  {/* Contact Option - Email */}
+                  <div className="flex items-center border-l-4 border-secondary pl-6 py-3 hover:bg-gray-50 transition rounded-r">
+                    <div className="text-secondary text-3xl mr-5">
+                      <i className="fas fa-envelope"></i>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-lg text-gray-800">Email Us</h4>
+                      <p className="text-gray-600 text-sm">We'll respond within 24 hours</p>
+                    </div>
+                    <a 
+                      href="mailto:info@bestsrilankatours.com" 
+                      className="bg-secondary text-gray-800 py-2 px-4 rounded hover:bg-secondary/90 transition flex items-center space-x-2"
+                    >
+                      <span>Send Email</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
