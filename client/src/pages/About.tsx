@@ -28,8 +28,8 @@ const About = () => {
 
   return (
     <main>
-      {/* Hero Section - Fixed to prevent cutoff */}
-      <section className="relative pt-20 pb-16 md:pt-24 md:pb-20 bg-primary overflow-hidden">
+      {/* Hero Section - Matched to Tours page */}
+      <section className="relative pt-28 pb-20 bg-primary overflow-hidden">
         {/* Background image with parallax effect */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -49,7 +49,7 @@ const About = () => {
           {/* Breadcrumb Navigation */}
           <Breadcrumb 
             items={[{ label: "About Us" }]} 
-            className="mb-4" 
+            className="mb-6" 
           />
 
           <div className="text-center max-w-3xl mx-auto">
