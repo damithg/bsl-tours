@@ -28,20 +28,27 @@ const HeroSection = ({
 }: HeroSectionProps) => {
   return (
     <section className={`relative pt-28 pb-20 ${overlayColor} overflow-hidden`}>
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={backgroundImage} 
-          alt={title} 
-          className={`w-full h-full object-cover ${imageTransform || ''}`} 
-        />
-        {/* Gradient overlay */}
-        {customOverlay ? (
-          <div className={`absolute inset-0 ${customOverlay}`}></div>
-        ) : (
-          <div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity / 100 }}></div>
-        )}
-      </div>
+      {/* Background image with opacity */}
+      {customOverlay ? (
+        <>
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={backgroundImage} 
+              alt={title} 
+              className={`w-full h-full object-cover ${imageTransform || ''}`} 
+            />
+          </div>
+          <div className={`absolute inset-0 z-0 ${customOverlay}`}></div>
+        </>
+      ) : (
+        <div className="absolute inset-0 z-0" style={{ opacity: overlayOpacity / 100 }}>
+          <img 
+            src={backgroundImage} 
+            alt={title} 
+            className={`w-full h-full object-cover ${imageTransform || ''}`} 
+          />
+        </div>
+      )}
       
       {/* Optional decorative elements */}
       <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-secondary/20 rounded-full blur-3xl opacity-30"></div>
