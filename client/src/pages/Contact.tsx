@@ -1,6 +1,7 @@
 import ContactForm from "@/components/ContactForm";
 import HeroSection from "@/components/HeroSection";
 import { BreadcrumbItem } from "@/components/Breadcrumb";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Contact = () => {
   const breadcrumbItems: BreadcrumbItem[] = [
@@ -119,20 +120,26 @@ const Contact = () => {
         <div className="container mx-auto px-4 max-w-6xl">
           <h2 className="text-3xl font-['Playfair_Display'] font-bold text-gray-800 mb-8">Frequently Asked Questions</h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {faqItems.map((item, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="border-l-4 border-primary p-6">
-                  <h3 className="font-bold text-lg text-gray-800 mb-2">{item.question}</h3>
-                  <p className="text-gray-600">{item.answer}</p>
-                </div>
-              </div>
-            ))}
+          <div className="bg-white rounded-lg shadow-sm p-2 md:p-6 mb-10">
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((item, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-200 last:border-b-0">
+                  <AccordionTrigger className="py-4 text-left font-['Playfair_Display'] font-semibold text-gray-800 hover:no-underline">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600">
+                    <div className="border-l-4 border-primary pl-4 py-2">
+                      {item.answer}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
 
-          <div className="text-center mt-10">
+          <div className="text-center">
             <p className="text-lg text-gray-600 mb-5">Have more questions?</p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-wrap justify-center gap-4">
               <a 
                 href="https://wa.me/94771234567" 
                 target="_blank" 

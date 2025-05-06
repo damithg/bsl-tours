@@ -1,19 +1,23 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
- 
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-export function parseJsonSafely<T>(json: string, fallback: T, source?: string): T {
+/**
+ * Safely parse JSON strings
+ * @param jsonString The JSON string to parse
+ * @param fallback Default value to return if parsing fails
+ * @returns Parsed object or fallback value
+ */
+export function parseJsonSafely<T>(jsonString: string | null | undefined, fallback: T): T {
+  if (!jsonString) return fallback;
+  
   try {
-    return JSON.parse(json) as T;
-  } catch (e) {
-    if (source) {
-      console.error(`Failed to parse JSON from ${source}:`, e);
-    } else {
-      console.error('Failed to parse JSON:', e);
-    }
+    return JSON.parse(jsonString) as T;
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
     return fallback;
   }
 }
