@@ -162,7 +162,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
               className={`block w-full border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-[#0F4C81] focus:border-[#0F4C81] bg-gray-50 ${errors.firstName ? 'border-red-500' : ''}`}
             />
             {errors.firstName && (
-              <p className="mt-1 text-sm text-red-600">{errors.firstName.message}</p>
+              <p className="mt-1 text-base font-['Raleway'] text-red-600">{errors.firstName.message}</p>
             )}
           </div>
           
@@ -175,7 +175,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
               className={`block w-full border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-[#0F4C81] focus:border-[#0F4C81] bg-gray-50 ${errors.lastName ? 'border-red-500' : ''}`}
             />
             {errors.lastName && (
-              <p className="mt-1 text-sm text-red-600">{errors.lastName.message}</p>
+              <p className="mt-1 text-base font-['Raleway'] text-red-600">{errors.lastName.message}</p>
             )}
           </div>
           
@@ -188,7 +188,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
               className={`block w-full border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-[#0F4C81] focus:border-[#0F4C81] bg-gray-50 ${errors.email ? 'border-red-500' : ''}`}
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+              <p className="mt-1 text-base font-['Raleway'] text-red-600">{errors.email.message}</p>
             )}
           </div>
           
@@ -215,7 +215,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         </div>
         
         <div className="mb-6">
-          <label htmlFor="packageInterest" className="block text-sm font-medium text-gray-700 mb-2">Interested In</label>
+          <label htmlFor="packageInterest" className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">Interested In</label>
           <select 
             id="packageInterest" 
             {...register('packageInterest')}
@@ -232,7 +232,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         </div>
         
         <div className="mb-6">
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Your Requirements *</label>
+          <label htmlFor="message" className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">Your Requirements *</label>
           <textarea 
             id="message" 
             {...register('message')}
@@ -240,7 +240,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
             className={`block w-full border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-[#0F4C81] focus:border-[#0F4C81] bg-gray-50 ${errors.message ? 'border-red-500' : ''}`}
           ></textarea>
           {errors.message && (
-            <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
+            <p className="mt-1 text-base font-['Raleway'] text-red-600">{errors.message.message}</p>
           )}
         </div>
         
@@ -251,13 +251,13 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
               {...register('subscribed')}
               className="rounded border-gray-300 text-[#0F4C81] focus:ring-[#0F4C81]"
             />
-            <span className="ml-2 text-sm text-gray-700">Subscribe to our newsletter for exclusive offers and travel inspiration</span>
+            <span className="ml-2 text-base font-['Raleway'] text-gray-700">Subscribe to our newsletter for exclusive offers and travel inspiration</span>
           </label>
         </div>
         
         <button 
           type="submit" 
-          className="w-full bg-[#0F4C81] hover:bg-opacity-90 text-white font-medium py-3 px-4 rounded-md transition flex items-center justify-center"
+          className="w-full bg-[#0F4C81] hover:bg-opacity-90 text-white text-lg font-medium py-3 px-4 rounded-md transition flex items-center justify-center"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
