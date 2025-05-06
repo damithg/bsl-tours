@@ -47,7 +47,7 @@ const Contact = () => {
       
       {/* Main Contact Section - Large image on left, contact details on right */}
       <section className="py-12 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-4 max-w-7xl">
           <h2 className="text-4xl font-bold text-gray-800 mb-10">Contact us</h2>
           
           <div className="flex flex-col md:flex-row">
@@ -117,7 +117,7 @@ const Contact = () => {
 
       {/* FAQ Section */}
       <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-4 max-w-7xl">
           <h2 className="text-3xl font-['Playfair_Display'] font-bold text-gray-800 mb-8">Frequently Asked Questions</h2>
           
           <div className="bg-white rounded-lg shadow-sm p-2 md:p-6 mb-10">
@@ -163,7 +163,7 @@ const Contact = () => {
 
       {/* Contact Form Section */}
       <section className="py-12 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-4 max-w-7xl">
           <h2 className="text-3xl font-['Playfair_Display'] font-bold text-gray-800 mb-8">Send Us a Message</h2>
           
           <div className="flex flex-col lg:flex-row gap-8">
