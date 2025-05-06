@@ -1,10 +1,29 @@
 import React, { useState } from 'react';
-import StandardPageTemplate from '@/components/StandardPageTemplate';
-import { Phone, Mail, Clock, Globe, MessageSquare, AlertCircle, FileText, Headphones, ChevronDown, ChevronRight, Search, MapPin, Calendar } from 'lucide-react';
+import HeroSection from '@/components/HeroSection';
+import { BreadcrumbItem } from '@/components/Breadcrumb';
+import { 
+  Phone, 
+  Mail, 
+  Clock, 
+  Globe, 
+  MessageSquare, 
+  AlertCircle, 
+  FileText, 
+  Headphones, 
+  ChevronDown, 
+  ChevronRight, 
+  Search, 
+  MapPin, 
+  Calendar 
+} from 'lucide-react';
 
 const SupportCenter: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { label: "Support Center" }
+  ];
 
   // Sample FAQs organized by category
   const faqCategories = [
@@ -118,251 +137,266 @@ const SupportCenter: React.FC = () => {
   };
 
   return (
-    <StandardPageTemplate
-      title="Support Center"
-      description="Find answers to common questions and get assistance with your travel plans."
-      breadcrumbs={[{ label: 'Help', path: '/help' }]}
-    >
-      {/* Contact Options */}
-      <div className="mb-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-[#0077B6] hover:shadow-lg transition-shadow duration-300">
-          <div className="bg-[#0077B6]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-            <Phone className="text-[#0077B6] w-6 h-6" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">Phone Support</h3>
-          <p className="text-gray-600 mb-4">Speak directly with our customer support team for immediate assistance.</p>
-          
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center">
-              <Phone className="w-4 h-4 mr-2 text-gray-600" />
-              <span>UK: +44 20 8123 4567</span>
-            </div>
-            <div className="flex items-center">
-              <Phone className="w-4 h-4 mr-2 text-gray-600" />
-              <span>Sri Lanka: +94 11 234 5678</span>
-            </div>
-            <div className="flex items-center">
-              <Clock className="w-4 h-4 mr-2 text-gray-600" />
-              <span>Mon-Sat: 9:00 AM - 6:00 PM</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-[#0077B6] hover:shadow-lg transition-shadow duration-300">
-          <div className="bg-[#0077B6]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-            <Mail className="text-[#0077B6] w-6 h-6" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">Email Support</h3>
-          <p className="text-gray-600 mb-4">Send us an email and we'll respond within 24 hours.</p>
-          
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center">
-              <Mail className="w-4 h-4 mr-2 text-gray-600" />
-              <span>General: info@bestsrilankatours.com</span>
-            </div>
-            <div className="flex items-center">
-              <Mail className="w-4 h-4 mr-2 text-gray-600" />
-              <span>Support: support@bestsrilankatours.com</span>
-            </div>
-            <div className="flex items-center">
-              <Clock className="w-4 h-4 mr-2 text-gray-600" />
-              <span>Response time: Within 24 hours</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-[#0077B6] hover:shadow-lg transition-shadow duration-300">
-          <div className="bg-[#0077B6]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-            <MessageSquare className="text-[#0077B6] w-6 h-6" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">Live Chat</h3>
-          <p className="text-gray-600 mb-4">Chat with our support team in real-time for quick answers.</p>
-          
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center">
-              <Globe className="w-4 h-4 mr-2 text-gray-600" />
-              <span>Available on our website</span>
-            </div>
-            <div className="flex items-center">
-              <Clock className="w-4 h-4 mr-2 text-gray-600" />
-              <span>Mon-Fri: 8:00 AM - 8:00 PM</span>
-            </div>
-            <div className="flex items-center">
-              <Clock className="w-4 h-4 mr-2 text-gray-600" />
-              <span>Sat-Sun: 9:00 AM - 5:00 PM</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <main>
+      {/* Hero Section using our standardized HeroSection component */}
+      <HeroSection
+        title="Support Center"
+        description="Find answers to common questions and get assistance with your travel plans."
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207237/shutterstock_1070510330_ro5cyz.jpg"
+        breadcrumbItems={breadcrumbItems}
+        overlayColor="bg-[#0077B6]"
+        overlayOpacity={20}
+        imageTransform="scale-105"
+      />
       
-      {/* FAQ Search */}
-      <div className="mb-12">
-        <div className="bg-gray-50 p-8 rounded-lg">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-            Frequently Asked Questions
-          </h2>
-          
-          <div className="relative max-w-xl mx-auto mb-8">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-gray-400" />
-            </div>
-            <input
-              type="text"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-[#0077B6] focus:border-[#0077B6] transition duration-150 ease-in-out"
-              placeholder="Search frequently asked questions..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          
-          {/* FAQ Accordion */}
-          {filteredFAQs.map((category) => (
-            <div 
-              key={category.id} 
-              className={`mb-6 border border-gray-200 rounded-lg overflow-hidden ${category.questions.length === 0 ? 'hidden' : ''}`}
-            >
-              <div 
-                className={`flex justify-between items-center p-4 cursor-pointer bg-white hover:bg-gray-50 ${activeCategory === category.id ? 'border-b border-gray-200' : ''}`}
-                onClick={() => handleCategoryToggle(category.id)}
-              >
-                <div className="flex items-center">
-                  <div className="bg-[#0077B6]/10 p-2 rounded-full mr-3">
-                    {category.icon}
-                  </div>
-                  <h3 className="font-semibold text-lg text-gray-800">{category.title}</h3>
+      {/* Main Content - Contact Options & FAQs */}
+      <section className="py-16 md:py-20 lg:py-28 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            {/* Contact Options */}
+            <div className="mb-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-[#0077B6] hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-[#0077B6]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                  <Phone className="text-[#0077B6] w-6 h-6" />
                 </div>
-                <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${activeCategory === category.id ? 'transform rotate-180' : ''}`} />
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 font-['Playfair_Display']">Phone Support</h3>
+                <p className="text-gray-600 mb-4 font-['Raleway']">Speak directly with our customer support team for immediate assistance.</p>
+                
+                <div className="space-y-2 text-sm font-['Raleway']">
+                  <div className="flex items-center">
+                    <Phone className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>UK: +44 20 8123 4567</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Phone className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>Sri Lanka: +94 11 234 5678</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>Mon-Sat: 9:00 AM - 6:00 PM</span>
+                  </div>
+                </div>
               </div>
               
-              {activeCategory === category.id && (
-                <div className="bg-white">
-                  {category.questions.map((item, index) => (
-                    <div 
-                      key={index} 
-                      className={`p-5 ${index !== category.questions.length - 1 ? 'border-b border-gray-100' : ''}`}
-                    >
-                      <h4 className="font-semibold text-gray-800 mb-2 flex items-start">
-                        <span className="text-[#0077B6] mr-2">Q:</span>
-                        {item.question}
-                      </h4>
-                      <p className="text-gray-600 pl-6">
-                        {item.answer}
-                      </p>
-                    </div>
-                  ))}
+              <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-[#0077B6] hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-[#0077B6]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                  <Mail className="text-[#0077B6] w-6 h-6" />
                 </div>
-              )}
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 font-['Playfair_Display']">Email Support</h3>
+                <p className="text-gray-600 mb-4 font-['Raleway']">Send us an email and we'll respond within 24 hours.</p>
+                
+                <div className="space-y-2 text-sm font-['Raleway']">
+                  <div className="flex items-center">
+                    <Mail className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>General: info@bestsrilankatours.com</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Mail className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>Support: support@bestsrilankatours.com</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>Response time: Within 24 hours</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-[#0077B6] hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-[#0077B6]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                  <MessageSquare className="text-[#0077B6] w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 font-['Playfair_Display']">Live Chat</h3>
+                <p className="text-gray-600 mb-4 font-['Raleway']">Chat with our support team in real-time for quick answers.</p>
+                
+                <div className="space-y-2 text-sm font-['Raleway']">
+                  <div className="flex items-center">
+                    <Globe className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>Available on our website</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>Mon-Fri: 8:00 AM - 8:00 PM</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-2 text-gray-600" />
+                    <span>Sat-Sun: 9:00 AM - 5:00 PM</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          ))}
-          
-          {/* No results message */}
-          {searchQuery.trim() !== '' && filteredFAQs.every(category => category.questions.length === 0) && (
-            <div className="text-center py-8">
-              <AlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">No matching questions found</h3>
-              <p className="text-gray-600">
-                Try adjusting your search or <a href="/contact" className="text-[#0077B6] hover:underline">contact us</a> for personalized assistance.
-              </p>
+            
+            {/* FAQ Search */}
+            <div className="mb-16">
+              <div className="bg-gray-50 p-8 rounded-lg">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center font-['Playfair_Display']">
+                  Frequently Asked Questions
+                </h2>
+                
+                <div className="relative max-w-xl mx-auto mb-8">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-[#0077B6] focus:border-[#0077B6] transition duration-150 ease-in-out font-['Raleway']"
+                    placeholder="Search frequently asked questions..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                
+                {/* FAQ Accordion */}
+                {filteredFAQs.map((category) => (
+                  <div 
+                    key={category.id} 
+                    className={`mb-6 border border-gray-200 rounded-lg overflow-hidden ${category.questions.length === 0 ? 'hidden' : ''}`}
+                  >
+                    <div 
+                      className={`flex justify-between items-center p-4 cursor-pointer bg-white hover:bg-gray-50 ${activeCategory === category.id ? 'border-b border-gray-200' : ''}`}
+                      onClick={() => handleCategoryToggle(category.id)}
+                    >
+                      <div className="flex items-center">
+                        <div className="bg-[#0077B6]/10 p-2 rounded-full mr-3">
+                          {category.icon}
+                        </div>
+                        <h3 className="font-semibold text-lg text-gray-800 font-['Playfair_Display']">{category.title}</h3>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${activeCategory === category.id ? 'transform rotate-180' : ''}`} />
+                    </div>
+                    
+                    {activeCategory === category.id && (
+                      <div className="bg-white">
+                        {category.questions.map((item, index) => (
+                          <div 
+                            key={index} 
+                            className={`p-5 ${index !== category.questions.length - 1 ? 'border-b border-gray-100' : ''}`}
+                          >
+                            <h4 className="font-semibold text-gray-800 mb-2 flex items-start font-['Playfair_Display'] text-lg">
+                              <span className="text-[#0077B6] mr-2">Q:</span>
+                              {item.question}
+                            </h4>
+                            <p className="text-gray-600 pl-6 font-['Raleway'] text-base">
+                              {item.answer}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                
+                {/* No results message */}
+                {searchQuery.trim() !== '' && filteredFAQs.every(category => category.questions.length === 0) && (
+                  <div className="text-center py-8">
+                    <AlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2 font-['Playfair_Display']">No matching questions found</h3>
+                    <p className="text-gray-600 font-['Raleway']">
+                      Try adjusting your search or <a href="/contact" className="text-[#0077B6] hover:underline">contact us</a> for personalized assistance.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+            
+            {/* Self-Service Options */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-gray-800 mb-8 font-['Playfair_Display']">
+                Self-Service Options
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white shadow-sm rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-[#0077B6]/10 p-2.5 rounded-full mr-4 text-[#0077B6]">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-semibold text-gray-800 text-lg font-['Playfair_Display']">Manage Your Booking</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4 font-['Raleway']">
+                    View, modify, or cancel your bookings online through your account dashboard.
+                  </p>
+                  <a href="/my-bookings" className="text-[#0077B6] font-medium hover:underline flex items-center font-['Raleway']">
+                    Go to My Bookings
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </a>
+                </div>
+                
+                <div className="bg-white shadow-sm rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-[#0077B6]/10 p-2.5 rounded-full mr-4 text-[#0077B6]">
+                      <Globe className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-semibold text-gray-800 text-lg font-['Playfair_Display']">Travel Resources</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4 font-['Raleway']">
+                    Access helpful resources including visa information, packing tips, and travel guides.
+                  </p>
+                  <a href="/resources" className="text-[#0077B6] font-medium hover:underline flex items-center font-['Raleway']">
+                    View Resources
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </a>
+                </div>
+                
+                <div className="bg-white shadow-sm rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-[#0077B6]/10 p-2.5 rounded-full mr-4 text-[#0077B6]">
+                      <AlertCircle className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-semibold text-gray-800 text-lg font-['Playfair_Display']">Safety Information</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4 font-['Raleway']">
+                    Find important safety tips and guidelines for traveling in Sri Lanka.
+                  </p>
+                  <a href="/safety" className="text-[#0077B6] font-medium hover:underline flex items-center font-['Raleway']">
+                    Safety Guidelines
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </a>
+                </div>
+                
+                <div className="bg-white shadow-sm rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-[#0077B6]/10 p-2.5 rounded-full mr-4 text-[#0077B6]">
+                      <Headphones className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-semibold text-gray-800 text-lg font-['Playfair_Display']">Submit a Request</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4 font-['Raleway']">
+                    Can't find what you're looking for? Submit a support request and we'll get back to you.
+                  </p>
+                  <a href="/contact" className="text-[#0077B6] font-medium hover:underline flex items-center font-['Raleway']">
+                    Contact Support
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            {/* Emergency Contact */}
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+              <div className="flex items-start mb-4">
+                <div className="bg-red-100 p-3 rounded-full mr-4">
+                  <Phone className="w-6 h-6 text-red-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2 font-['Playfair_Display']">24/7 Emergency Contact</h3>
+                  <p className="text-gray-700 mb-4 font-['Raleway']">
+                    If you're currently on a tour with us and experiencing an emergency situation, please contact our emergency support line.
+                  </p>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <a href="tel:+94777123456" className="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded transition-colors">
+                      <Phone className="w-4 h-4" />
+                      <span>+94 777 123 456</span>
+                    </a>
+                    <span className="text-gray-500 font-['Raleway']">Available 24 hours a day, 7 days a week</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      
-      {/* Self-Service Options */}
-      <div className="mb-16">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8 font-['Playfair_Display']">
-          Self-Service Options
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white shadow-sm rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center mb-4">
-              <div className="bg-[#0077B6]/10 p-2.5 rounded-full mr-4 text-[#0077B6]">
-                <FileText className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-gray-800 text-lg">Manage Your Booking</h3>
-            </div>
-            <p className="text-gray-600 mb-4">
-              View, modify, or cancel your bookings online through your account dashboard.
-            </p>
-            <a href="/my-bookings" className="text-[#0077B6] font-medium hover:underline flex items-center">
-              Go to My Bookings
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-          
-          <div className="bg-white shadow-sm rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center mb-4">
-              <div className="bg-[#0077B6]/10 p-2.5 rounded-full mr-4 text-[#0077B6]">
-                <Globe className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-gray-800 text-lg">Travel Resources</h3>
-            </div>
-            <p className="text-gray-600 mb-4">
-              Access our comprehensive travel guides, packing lists, and destination information.
-            </p>
-            <a href="/travel-resources" className="text-[#0077B6] font-medium hover:underline flex items-center">
-              Browse Resources
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-          
-          <div className="bg-white shadow-sm rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center mb-4">
-              <div className="bg-[#0077B6]/10 p-2.5 rounded-full mr-4 text-[#0077B6]">
-                <Headphones className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-gray-800 text-lg">Submit a Request</h3>
-            </div>
-            <p className="text-gray-600 mb-4">
-              File a support ticket for specific issues or questions requiring detailed assistance.
-            </p>
-            <a href="/contact" className="text-[#0077B6] font-medium hover:underline flex items-center">
-              Submit Request
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-          
-          <div className="bg-white shadow-sm rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center mb-4">
-              <div className="bg-[#0077B6]/10 p-2.5 rounded-full mr-4 text-[#0077B6]">
-                <AlertCircle className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-gray-800 text-lg">Travel Alerts</h3>
-            </div>
-            <p className="text-gray-600 mb-4">
-              Stay informed about weather events, travel advisories, or other important updates.
-            </p>
-            <a href="/safety-updates" className="text-[#0077B6] font-medium hover:underline flex items-center">
-              View Alerts
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      {/* Emergency Contact */}
-      <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg mb-16">
-        <div className="flex">
-          <div className="flex-shrink-0">
-            <AlertCircle className="h-6 w-6 text-red-500" />
-          </div>
-          <div className="ml-3">
-            <h3 className="text-lg font-semibold text-red-800">Emergency Contact</h3>
-            <div className="mt-2 text-red-700">
-              <p>For urgent assistance during your tour in Sri Lanka, please contact our 24/7 emergency line:</p>
-              <p className="font-semibold mt-2">+94 77 123 4567</p>
-              <p className="text-sm mt-1">
-                Please use this number only for genuine emergencies while traveling with us in Sri Lanka.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </StandardPageTemplate>
+      </section>
+    </main>
   );
 };
-
-
 
 export default SupportCenter;
