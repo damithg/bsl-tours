@@ -16,7 +16,7 @@ import {
 import { Link } from 'wouter';
 
 const TravelResources: React.FC = () => {
-  // Define breadcrumbs
+  // There are no additional breadcrumbs for this page as it's a top-level page
   const breadcrumbItems: BreadcrumbItem[] = [];
 
   // Resource Categories
