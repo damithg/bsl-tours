@@ -91,23 +91,6 @@ const Contact = () => {
                     </a>
                   </div>
                   
-                  {/* Contact Option - Phone */}
-                  <div className="flex items-center border-l-4 border-primary pl-6 py-3 hover:bg-gray-50 transition rounded-r">
-                    <div className="text-primary text-3xl mr-5">
-                      <i className="fas fa-phone-alt"></i>
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-bold text-lg text-gray-800">Call Us</h4>
-                      <p className="text-gray-600 text-sm">Speak directly with our travel experts</p>
-                    </div>
-                    <a 
-                      href="tel:+94112345678" 
-                      className="bg-primary text-white py-2 px-4 rounded hover:bg-primary/90 transition flex items-center space-x-2"
-                    >
-                      <span>+94 11 234 5678</span>
-                    </a>
-                  </div>
-                  
                   {/* Contact Option - Email */}
                   <div className="flex items-center border-l-4 border-secondary pl-6 py-3 hover:bg-gray-50 transition rounded-r">
                     <div className="text-secondary text-3xl mr-5">
