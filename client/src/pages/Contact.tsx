@@ -113,6 +113,46 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2 className="text-3xl font-['Playfair_Display'] font-bold text-gray-800 mb-8">Frequently Asked Questions</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {faqItems.map((item, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="border-l-4 border-primary p-6">
+                  <h3 className="font-bold text-lg text-gray-800 mb-2">{item.question}</h3>
+                  <p className="text-gray-600">{item.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <p className="text-lg text-gray-600 mb-5">Have more questions?</p>
+            <div className="flex justify-center space-x-4">
+              <a 
+                href="https://wa.me/94771234567" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-[#25D366] text-white py-3 px-6 rounded-md hover:bg-[#20BD5C] transition inline-flex items-center"
+              >
+                <i className="fab fa-whatsapp mr-2 text-lg"></i>
+                <span>Ask on WhatsApp</span>
+              </a>
+              <a 
+                href="mailto:info@bestsrilankatours.com" 
+                className="bg-primary text-white py-3 px-6 rounded-md hover:bg-primary/90 transition inline-flex items-center"
+              >
+                <i className="fas fa-envelope mr-2"></i>
+                <span>Email Us</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };
