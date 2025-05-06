@@ -16,8 +16,10 @@ import {
 import { Link } from 'wouter';
 
 const TravelResources: React.FC = () => {
-  // There are no additional breadcrumbs for this page as it's a top-level page
-  const breadcrumbItems: BreadcrumbItem[] = [];
+  // For a top-level page like this, we need to show the current page in breadcrumbs
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { label: "Travel Resources" }
+  ];
 
   // Resource Categories
   const resourceCategories = [
