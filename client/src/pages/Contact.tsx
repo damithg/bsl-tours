@@ -83,7 +83,7 @@ const Contact = () => {
                       <p className="text-gray-600 text-sm">Connect with us anytime, anywhere</p>
                     </div>
                     <a 
-                      href="https://wa.me/94771234567" 
+                      href="https://wa.me/447768787119" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="bg-[#25D366] text-white py-2 px-4 rounded hover:bg-[#20BD5C] transition flex items-center space-x-2"
@@ -141,7 +141,7 @@ const Contact = () => {
             <p className="text-lg text-gray-600 mb-5">Have more questions?</p>
             <div className="flex flex-wrap justify-center gap-4">
               <a 
-                href="https://wa.me/94771234567" 
+                href="https://wa.me/447768787119" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="bg-[#25D366] text-white py-3 px-6 rounded-md hover:bg-[#20BD5C] transition inline-flex items-center"
