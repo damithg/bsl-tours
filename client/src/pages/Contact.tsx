@@ -160,6 +160,42 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {/* Contact Form Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2 className="text-3xl font-['Playfair_Display'] font-bold text-gray-800 mb-8">Send Us a Message</h2>
+          
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Left Column - Contact Form */}
+            <div className="w-full lg:w-1/2">
+              <ContactForm />
+            </div>
+            
+            {/* Right Column - Image */}
+            <div className="w-full lg:w-1/2">
+              <div className="h-full rounded-lg overflow-hidden shadow-lg relative">
+                <img 
+                  src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743642543/destinations/mirissa-coast.jpg" 
+                  alt="Sri Lanka tropical beach" 
+                  className="w-full h-full object-cover object-center" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 w-full text-white p-6">
+                  <div className="max-w-md">
+                    <h3 className="text-2xl font-bold mb-2 font-['Playfair_Display'] drop-shadow-md">
+                      Your Sri Lankan journey begins here
+                    </h3>
+                    <p className="drop-shadow-md">
+                      Let our expert planners create your perfect custom experience
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };
