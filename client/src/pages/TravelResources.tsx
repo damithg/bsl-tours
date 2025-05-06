@@ -319,10 +319,9 @@ const TravelResources: React.FC = () => {
       <HeroSection
         title="Travel Resources"
         description="Comprehensive guides, tips, and tools to help you plan and enjoy your Sri Lankan adventure."
-        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207323/sri-lanka-4108336_1280_h15fhj.jpg"
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746551342/guide-books-and-map_zcmwtl.jpg"
         breadcrumbItems={breadcrumbItems}
-        overlayColor="bg-[#0077B6]"
-        overlayOpacity={20}
+        customOverlay="bg-gradient-to-r from-[#0077B6]/80 to-[#004E64]/70"
         imageTransform="scale-105"
       />
       
