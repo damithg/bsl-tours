@@ -154,7 +154,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+            <label htmlFor="firstName" className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">First Name *</label>
             <input 
               type="text" 
               id="firstName" 
@@ -167,7 +167,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
           </div>
           
           <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+            <label htmlFor="lastName" className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">Last Name *</label>
             <input 
               type="text" 
               id="lastName" 
@@ -180,7 +180,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
           </div>
           
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+            <label htmlFor="email" className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">Email Address *</label>
             <input 
               type="email" 
               id="email" 
@@ -193,7 +193,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
           </div>
           
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+            <label htmlFor="phone" className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">Phone Number</label>
             <input 
               type="tel" 
               id="phone" 
@@ -204,7 +204,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         </div>
         
         <div className="mb-6">
-          <label htmlFor="travelDates" className="block text-sm font-medium text-gray-700 mb-2">Preferred Travel Dates</label>
+          <label htmlFor="travelDates" className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">Preferred Travel Dates</label>
           <input 
             type="text" 
             id="travelDates" 

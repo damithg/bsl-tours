@@ -79,8 +79,8 @@ const Contact = () => {
                       <i className="fab fa-whatsapp"></i>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-['Playfair_Display'] font-bold text-lg text-gray-800">WhatsApp Chat</h4>
-                      <p className="font-['Raleway'] text-gray-600 text-sm">Connect with us anytime, anywhere</p>
+                      <h4 className="font-['Playfair_Display'] font-bold text-xl text-gray-800">WhatsApp Chat</h4>
+                      <p className="font-['Raleway'] text-gray-600 text-base">Connect with us anytime, anywhere</p>
                     </div>
                     <a 
                       href="https://wa.me/447768787119" 
@@ -98,8 +98,8 @@ const Contact = () => {
                       <i className="fas fa-envelope"></i>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-['Playfair_Display'] font-bold text-lg text-gray-800">Email Us</h4>
-                      <p className="font-['Raleway'] text-gray-600 text-sm">We'll respond within 24 hours</p>
+                      <h4 className="font-['Playfair_Display'] font-bold text-xl text-gray-800">Email Us</h4>
+                      <p className="font-['Raleway'] text-gray-600 text-base">We'll respond within 24 hours</p>
                     </div>
                     <a 
                       href="mailto:info@bestsrilankatours.com" 
@@ -124,10 +124,10 @@ const Contact = () => {
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map((item, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-200 last:border-b-0">
-                  <AccordionTrigger className="py-4 text-left font-['Playfair_Display'] font-semibold text-gray-800 hover:no-underline">
+                  <AccordionTrigger className="py-4 text-left font-['Playfair_Display'] font-semibold text-gray-800 text-lg hover:no-underline">
                     {item.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 font-['Raleway']">
+                  <AccordionContent className="text-gray-600 font-['Raleway'] text-base">
                     <div className="border-l-4 border-primary pl-4 py-2">
                       {item.answer}
                     </div>
@@ -186,7 +186,7 @@ const Contact = () => {
                     <h3 className="text-2xl font-['Playfair_Display'] font-bold mb-2 drop-shadow-md">
                       Your Sri Lankan journey begins here
                     </h3>
-                    <p className="font-['Raleway'] drop-shadow-md">
+                    <p className="font-['Raleway'] text-base drop-shadow-md">
                       Let our expert planners create your perfect custom experience
                     </p>
                   </div>
