@@ -54,16 +54,11 @@ const Contact = () => {
             <div className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0">
               <div className="rounded-lg overflow-hidden h-full shadow-lg relative">
                 <img 
-                  src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744007883/destinations/sigiriya-lion-rock-summit.jpg" 
+                  src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743642543/activities/unawatuna-stilt-fishing.jpg" 
                   alt="Sri Lanka scenic view" 
                   className="w-full h-full object-cover" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                <div className="absolute bottom-6 left-0 w-full text-center">
-                  <div className="bg-white/80 backdrop-blur-sm mx-8 py-3 px-4 rounded-lg shadow-sm">
-                    <p className="text-primary font-['Playfair_Display'] font-bold text-lg">Experience the beauty of Sri Lanka</p>
-                  </div>
-                </div>
               </div>
             </div>
             
