@@ -48,7 +48,7 @@ const Contact = () => {
       {/* Main Contact Section - Large image on left, contact details on right */}
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 max-w-7xl">
-          <h2 className="text-4xl font-bold text-gray-800 mb-10">Contact us</h2>
+          <h2 className="text-4xl font-['Playfair_Display'] font-bold text-gray-800 mb-10">Contact us</h2>
           
           <div className="flex flex-col md:flex-row">
             {/* Left Column - Large Image with subtle styling */}
@@ -67,7 +67,7 @@ const Contact = () => {
             <div className="w-full md:w-1/2">
               <div className="h-full flex flex-col justify-center">
                 <h3 className="text-2xl font-['Playfair_Display'] font-bold text-gray-800 mb-6">Get in touch with our experts</h3>
-                <p className="text-gray-600 mb-8">
+                <p className="font-['Raleway'] text-gray-600 mb-8">
                   Our friendly travel specialists are here to help you create your perfect Sri Lankan journey. 
                   Choose the way you prefer to connect with us.
                 </p>
@@ -79,8 +79,8 @@ const Contact = () => {
                       <i className="fab fa-whatsapp"></i>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-lg text-gray-800">WhatsApp Chat</h4>
-                      <p className="text-gray-600 text-sm">Connect with us anytime, anywhere</p>
+                      <h4 className="font-['Playfair_Display'] font-bold text-lg text-gray-800">WhatsApp Chat</h4>
+                      <p className="font-['Raleway'] text-gray-600 text-sm">Connect with us anytime, anywhere</p>
                     </div>
                     <a 
                       href="https://wa.me/447768787119" 
@@ -98,8 +98,8 @@ const Contact = () => {
                       <i className="fas fa-envelope"></i>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-lg text-gray-800">Email Us</h4>
-                      <p className="text-gray-600 text-sm">We'll respond within 24 hours</p>
+                      <h4 className="font-['Playfair_Display'] font-bold text-lg text-gray-800">Email Us</h4>
+                      <p className="font-['Raleway'] text-gray-600 text-sm">We'll respond within 24 hours</p>
                     </div>
                     <a 
                       href="mailto:info@bestsrilankatours.com" 
@@ -127,7 +127,7 @@ const Contact = () => {
                   <AccordionTrigger className="py-4 text-left font-['Playfair_Display'] font-semibold text-gray-800 hover:no-underline">
                     {item.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600">
+                  <AccordionContent className="text-gray-600 font-['Raleway']">
                     <div className="border-l-4 border-primary pl-4 py-2">
                       {item.answer}
                     </div>
@@ -138,7 +138,7 @@ const Contact = () => {
           </div>
 
           <div className="text-center">
-            <p className="text-lg text-gray-600 mb-5">Have more questions?</p>
+            <p className="text-lg font-['Raleway'] text-gray-600 mb-5">Have more questions?</p>
             <div className="flex flex-wrap justify-center gap-4">
               <a 
                 href="https://wa.me/447768787119" 
@@ -176,17 +176,17 @@ const Contact = () => {
             <div className="w-full lg:w-1/2">
               <div className="h-full rounded-lg overflow-hidden shadow-lg relative">
                 <img 
-                  src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743642543/destinations/mirissa-coast.jpg" 
+                  src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743295324/activities/sigiriya-frescoes.jpg" 
                   alt="Sri Lanka tropical beach" 
                   className="w-full h-full object-cover object-center" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 w-full text-white p-6">
                   <div className="max-w-md">
-                    <h3 className="text-2xl font-bold mb-2 font-['Playfair_Display'] drop-shadow-md">
+                    <h3 className="text-2xl font-['Playfair_Display'] font-bold mb-2 drop-shadow-md">
                       Your Sri Lankan journey begins here
                     </h3>
-                    <p className="drop-shadow-md">
+                    <p className="font-['Raleway'] drop-shadow-md">
                       Let our expert planners create your perfect custom experience
                     </p>
                   </div>
