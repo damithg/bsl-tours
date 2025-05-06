@@ -40,9 +40,9 @@ const Contact = () => {
         description="Get in touch with our team of Sri Lanka travel experts"
         backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744008175/activities/sigiriya-lion-rock.jpg"
         breadcrumbItems={breadcrumbItems}
-        overlayColor="bg-primary"
-        overlayOpacity={80}
-        showDivider={false}
+        overlayColor="bg-[#0077B6]"
+        overlayOpacity={20}
+        imageTransform="scale-105"
       />
       
       {/* Main Contact Section - Large image on left, contact details on right */}
