@@ -33,12 +33,12 @@ const Contact = () => {
   ];
 
   return (
-    <main className="bg-white">
+    <main>
       {/* Hero Section - Simple style similar to G Adventures */}
       <HeroSection
         title="Contact Us"
         description="Get in touch with our team of Sri Lanka travel experts"
-        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744008175/activities/sigiriya-lion-rock.jpg"
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1746207237/shutterstock_1070510330_ro5cyz.jpg"
         breadcrumbItems={breadcrumbItems}
         overlayColor="bg-[#0077B6]"
         overlayOpacity={20}
