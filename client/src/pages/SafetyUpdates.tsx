@@ -1,8 +1,15 @@
 import React from 'react';
-import StandardPageTemplate from '@/components/StandardPageTemplate';
+import HeroSection from '@/components/HeroSection';
+import { BreadcrumbItem } from '@/components/Breadcrumb';
 import { AlertTriangle, AlertCircle, Umbrella, Thermometer, GlobeLock, Phone, Shield, LifeBuoy } from 'lucide-react';
 
 const SafetyUpdates: React.FC = () => {
+  // Define breadcrumbs
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { label: "Travel Resources", path: "/travel-resources" },
+    { label: "Safety Updates" }
+  ];
+  
   // Sample travel alerts and safety updates
   const travelAlerts = [
     {
