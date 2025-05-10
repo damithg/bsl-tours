@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroSection from '@/components/HeroSection';
 import { BreadcrumbItem } from '@/components/Breadcrumb';
+import ScrollableResourcePanel from '@/components/ScrollableResourcePanel';
 import { 
   BookOpen, 
   FileText, 
@@ -345,7 +346,16 @@ const TravelResources: React.FC = () => {
                   {category.description}
                 </p>
                 
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Mobile View: Horizontal Scrollable Panel */}
+                <div className="block md:hidden">
+                  <ScrollableResourcePanel 
+                    resources={category.resources}
+                    categoryTitle=""
+                  />
+                </div>
+                
+                {/* Desktop View: Grid Layout */}
+                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {category.resources.map((resource, index) => (
                     <div 
                       key={index}
