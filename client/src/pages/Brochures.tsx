@@ -142,18 +142,19 @@ const Brochures: React.FC = () => {
     { label: "Brochures" }
   ];
   
-  // Refs for scrollable section
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  // Refs for scrollable sections
+  const brochuresScrollRef = useRef<HTMLDivElement>(null);
+  const guidesScrollRef = useRef<HTMLDivElement>(null);
   
   // Scroll function for mobile view
-  const scrollHorizontally = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
+  const scrollHorizontally = (direction: 'left' | 'right', containerRef: React.RefObject<HTMLDivElement>) => {
+    if (containerRef.current) {
       const scrollAmount = 300; // Adjust scroll amount as needed
       const newScrollLeft = direction === 'left' 
-        ? scrollContainerRef.current.scrollLeft - scrollAmount 
-        : scrollContainerRef.current.scrollLeft + scrollAmount;
+        ? containerRef.current.scrollLeft - scrollAmount 
+        : containerRef.current.scrollLeft + scrollAmount;
       
-      scrollContainerRef.current.scrollTo({
+      containerRef.current.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth'
       });
@@ -311,7 +312,7 @@ const Brochures: React.FC = () => {
               <div className="relative">
                 {/* Left scroll arrow - positioned at left middle */}
                 <button 
-                  onClick={() => scrollHorizontally('left')}
+                  onClick={() => scrollHorizontally('left', brochuresScrollRef)}
                   className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md -ml-3 transition md:hidden"
                   aria-label="Scroll left"
                 >
@@ -320,7 +321,7 @@ const Brochures: React.FC = () => {
                 
                 {/* Right scroll arrow - positioned at right middle */}
                 <button 
-                  onClick={() => scrollHorizontally('right')}
+                  onClick={() => scrollHorizontally('right', brochuresScrollRef)}
                   className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md -mr-3 transition md:hidden"
                   aria-label="Scroll right"
                 >
@@ -329,79 +330,72 @@ const Brochures: React.FC = () => {
                 
                 {/* Scrollable container for mobile */}
                 <div 
-                  ref={scrollContainerRef}
+                  ref={brochuresScrollRef}
                   className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto pb-4 md:overflow-visible scrollbar-hide"
                   style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                  onScroll={() => console.log('Scrolling')}
                 >
-                {brochures.filter(brochure => !brochure.featured).map(brochure => (
-                  <div 
-                    key={brochure.id}
-                    className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300 flex flex-col min-w-[280px] md:min-w-0"
-                  >
-                    <div className="relative">
-                      <img 
-                        src={brochure.coverImage} 
-                        alt={brochure.title} 
-                        className="w-full h-64 object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <button 
-                          onClick={() => handleViewBrochure(brochure.id)}
-                          className="bg-white text-gray-800 font-medium py-2 px-4 rounded-md mx-2 hover:bg-gray-100 transition-colors duration-300"
-                        >
-                          <Eye className="w-5 h-5" />
-                        </button>
-                        <button 
-                          onClick={() => handleDownloadBrochure(brochure.id)}
-                          className="bg-[#0077B6] text-white font-medium py-2 px-4 rounded-md mx-2 hover:bg-[#0077B6]/90 transition-colors duration-300"
-                        >
-                          <Download className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div className="p-5 flex-grow">
-                      <h3 className="font-semibold text-gray-800 text-lg mb-2">{brochure.title}</h3>
-                      <p className="text-gray-600 text-sm mb-4 flex-grow">{brochure.description}</p>
-                      <div className="flex justify-between text-sm text-gray-500">
-                        <div className="flex items-center">
-                          <FileText className="w-4 h-4 mr-1" />
-                          {brochure.pageCount} Pages
-                        </div>
-                        <div className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 mr-1">
-                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                            <polyline points="7 3 7 8 15 8"></polyline>
-                          </svg>
-                          {brochure.fileSize}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="p-4 border-t border-gray-200">
-                      <label className="flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="mr-2"
-                          checked={selectedBrochures.includes(brochure.id)}
-                          onChange={() => handleBrochureToggle(brochure.id)}
+                  {brochures.filter(brochure => !brochure.featured).map(brochure => (
+                    <div 
+                      key={brochure.id}
+                      className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300 flex flex-col min-w-[280px] md:min-w-0"
+                    >
+                      <div className="relative">
+                        <img 
+                          src={brochure.coverImage} 
+                          alt={brochure.title} 
+                          className="w-full h-64 object-cover"
                         />
-                        <span className="text-gray-700">Request Printed Copy</span>
-                      </label>
+                      </div>
+                      <div className="p-4 flex-1 flex flex-col">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-2">{brochure.title}</h3>
+                        <div className="flex gap-x-4 text-xs text-gray-500 mb-3">
+                          <div className="flex items-center">
+                            <FileText className="w-3.5 h-3.5 mr-1" />
+                            {brochure.pageCount}p
+                          </div>
+                          <div className="flex items-center">
+                            <Calendar className="w-3.5 h-3.5 mr-1" />
+                            2025
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-600 mb-4 flex-1">{brochure.description}</p>
+                        <div className="flex flex-wrap gap-2 mt-auto">
+                          <button 
+                            onClick={() => handleViewBrochure(brochure.id)}
+                            className="flex items-center gap-1 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-3 rounded-md transition-colors duration-300"
+                          >
+                            <Eye className="w-4 h-4" />
+                            View
+                          </button>
+                          <button 
+                            onClick={() => handleDownloadBrochure(brochure.id)}
+                            className="flex items-center gap-1 bg-[#0077B6] hover:bg-[#0077B6]/90 text-white text-sm font-medium py-1.5 px-3 rounded-md transition-colors duration-300"
+                          >
+                            <Download className="w-4 h-4" />
+                            Download
+                          </button>
+                          <label className="flex items-center gap-1 bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 text-sm font-medium py-1.5 px-3 rounded-md transition-colors duration-300 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              className="w-3.5 h-3.5"
+                              checked={selectedBrochures.includes(brochure.id)}
+                              onChange={() => handleBrochureToggle(brochure.id)}
+                            />
+                            Print
+                          </label>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Mobile scrolling instructions - only visible on mobile */}
-              <div className="mt-4 text-sm text-gray-500 md:hidden flex items-center justify-center">
-                <span>Swipe left or right to see more brochures</span>
-                <ChevronRight className="w-4 h-4 ml-1" />
+                  ))}
+                </div>
+                
+                {/* Mobile scrolling instructions - only visible on mobile */}
+                <div className="mt-4 text-sm text-gray-500 md:hidden flex items-center justify-center">
+                  <span>Swipe left or right to see more brochures</span>
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </div>
               </div>
             </div>
-          </div>
             
             {/* Specialized Guides */}
             <div className="mb-16">
@@ -409,76 +403,103 @@ const Brochures: React.FC = () => {
                 Specialized Travel Guides
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {specializedGuides.map((guide) => (
-                  <div 
-                    key={guide.id}
-                    className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300 flex"
-                  >
-                    <div className="w-1/3">
-                      <img 
-                        src={guide.coverImage} 
-                        alt={guide.title} 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="w-2/3 p-5">
-                      <h3 className="font-semibold text-gray-800 text-lg mb-2">{guide.title}</h3>
-                      <p className="text-gray-600 text-sm mb-4">{guide.description}</p>
-                      <div className="flex space-x-2">
-                        <button 
-                          onClick={() => handleViewBrochure(guide.id)}
-                          className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-1.5 px-3 text-sm rounded-md transition-colors duration-300 flex items-center"
-                        >
-                          <Eye className="w-4 h-4 mr-1" />
-                          View
-                        </button>
-                        <button 
-                          onClick={() => handleDownloadBrochure(guide.id)}
-                          className="bg-[#0077B6] hover:bg-[#0077B6]/90 text-white font-medium py-1.5 px-3 text-sm rounded-md transition-colors duration-300 flex items-center"
-                        >
-                          <Download className="w-4 h-4 mr-1" />
-                          Download
-                        </button>
+              {/* Scrollable container for mobile with positioned arrow controls */}
+              <div className="relative">
+                {/* Left scroll arrow - positioned at left middle */}
+                <button 
+                  onClick={() => scrollHorizontally('left', guidesScrollRef)}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md -ml-3 transition md:hidden"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="w-5 h-5 text-[#0077B6]" />
+                </button>
+                
+                {/* Right scroll arrow - positioned at right middle */}
+                <button 
+                  onClick={() => scrollHorizontally('right', guidesScrollRef)}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md -mr-3 transition md:hidden"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="w-5 h-5 text-[#0077B6]" />
+                </button>
+                
+                {/* Scrollable container for mobile, grid for desktop */}
+                <div 
+                  ref={guidesScrollRef}
+                  className="flex md:grid md:grid-cols-2 gap-6 overflow-x-auto pb-4 md:overflow-visible scrollbar-hide"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                  {specializedGuides.map((guide) => (
+                    <div 
+                      key={guide.id}
+                      className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300 flex min-w-[280px] md:min-w-0"
+                    >
+                      <div className="w-1/3">
+                        <img 
+                          src={guide.coverImage} 
+                          alt={guide.title} 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="w-2/3 p-4">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-2">{guide.title}</h3>
+                        <p className="text-sm text-gray-600 mb-4">{guide.description}</p>
+                        <div className="flex gap-2">
+                          <button 
+                            onClick={() => handleViewBrochure(guide.id)}
+                            className="flex items-center gap-1 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium py-1 px-2 rounded transition-colors duration-300"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            View
+                          </button>
+                          <button 
+                            onClick={() => handleDownloadBrochure(guide.id)}
+                            className="flex items-center gap-1 bg-[#0077B6] hover:bg-[#0077B6]/90 text-white text-sm font-medium py-1 px-2 rounded transition-colors duration-300"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            Download
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                
+                {/* Mobile scrolling instructions - only visible on mobile */}
+                <div className="mt-4 text-sm text-gray-500 md:hidden flex items-center justify-center">
+                  <span>Swipe left or right to see more guides</span>
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </div>
               </div>
             </div>
             
-            {/* Request Printed Brochures Form */}
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <h2 className="text-3xl font-semibold text-gray-800 mb-6 font-['Playfair_Display']">
+            {/* Request Printed Brochures */}
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4 font-['Playfair_Display']">
                 Request Printed Brochures
               </h2>
               
               {formSubmitted ? (
-                <div className="bg-green-50 border-l-4 border-green-500 p-5 rounded-r-lg">
+                <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded">
                   <div className="flex">
-                    <div className="flex-shrink-0">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
-                    </div>
-                    <div className="ml-3">
-                      <h3 className="text-lg font-semibold text-green-800">Request Submitted</h3>
-                      <div className="mt-2 text-green-700">
-                        <p>Thank you for your request! We'll send your selected brochures to the address provided within 5-7 business days.</p>
-                        <p className="mt-3">Meanwhile, you can access our digital brochures online for immediate reference.</p>
-                      </div>
+                    <CheckCircle className="h-6 w-6 text-green-500 mr-3" />
+                    <div>
+                      <p className="text-green-800 font-medium">Thank you for your request!</p>
+                      <p className="text-green-700 mt-1">We'll send your selected brochures to the address you provided within 3-5 business days.</p>
                     </div>
                   </div>
                 </div>
               ) : (
                 <>
                   <p className="text-gray-600 mb-6">
-                    Select the brochures you want to receive by mail. We'll send printed copies to your address anywhere in the world at no cost.
+                    If you'd prefer physical copies of our brochures, please complete the form below and we'll mail them to you free of charge.
                   </p>
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                          Your Name *
+                        <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
+                          Full Name *
                         </label>
                         <input
                           type="text"
@@ -486,12 +507,13 @@ const Brochures: React.FC = () => {
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           required
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-[#0077B6] focus:border-[#0077B6] transition"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-[#0077B6] focus:border-[#0077B6] text-gray-900"
+                          placeholder="Enter your full name"
                         />
                       </div>
                       
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
                           Email Address *
                         </label>
                         <input
@@ -500,12 +522,13 @@ const Brochures: React.FC = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-[#0077B6] focus:border-[#0077B6] transition"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-[#0077B6] focus:border-[#0077B6] text-gray-900"
+                          placeholder="Enter your email address"
                         />
                       </div>
                       
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">
                           Phone Number
                         </label>
                         <input
@@ -513,49 +536,29 @@ const Brochures: React.FC = () => {
                           id="phone"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-[#0077B6] focus:border-[#0077B6] transition"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-[#0077B6] focus:border-[#0077B6] text-gray-900"
+                          placeholder="Enter your phone number (optional)"
                         />
                       </div>
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-3">
-                          Mailing Address *
+                        <label className="block text-gray-700 font-medium mb-2">
+                          Select Brochures *
                         </label>
-                        <div className="flex items-center text-amber-600">
-                          <MapPin className="w-5 h-5 mr-2" />
-                          <span className="text-sm">You'll be asked for your mailing address after submission</span>
+                        <div className="space-y-2">
+                          {brochures.map((brochure) => (
+                            <label key={brochure.id} className="flex items-center">
+                              <input
+                                type="checkbox"
+                                className="w-4 h-4 text-[#0077B6] border-gray-300 rounded focus:ring-[#0077B6]"
+                                checked={selectedBrochures.includes(brochure.id)}
+                                onChange={() => handleBrochureToggle(brochure.id)}
+                              />
+                              <span className="ml-2 text-gray-700">{brochure.title}</span>
+                            </label>
+                          ))}
                         </div>
                       </div>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-800 mb-4">Selected Brochures</h3>
-                      
-                      {selectedBrochures.length === 0 ? (
-                        <div className="bg-amber-50 p-4 rounded-lg text-amber-800">
-                          Please select at least one brochure to request a printed copy.
-                        </div>
-                      ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                          {selectedBrochures.map((brochureId) => {
-                            const brochure = [...brochures, ...specializedGuides].find(b => b.id === brochureId);
-                            return brochure && (
-                              <div 
-                                key={brochureId} 
-                                className="flex items-start bg-white p-3 rounded-lg border border-gray-200"
-                              >
-                                <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                                <div>
-                                  <h4 className="font-medium text-gray-800">{brochure.title}</h4>
-                                  {'pageCount' in brochure && (
-                                    <p className="text-xs text-gray-500">{brochure.pageCount} pages</p>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
                     </div>
                     
                     <div className="pt-4">
