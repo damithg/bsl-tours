@@ -28,7 +28,7 @@ const HeroSection = ({
 }: HeroSectionProps) => {
   return (
     <section className={`relative pt-28 pb-20 ${overlayColor} overflow-hidden`}>
-      {/* Background image with opacity */}
+      {/* Background image with opacity - positioned below header */}
       {customOverlay ? (
         <>
           <div className="absolute inset-0 z-0">
@@ -50,11 +50,14 @@ const HeroSection = ({
         </div>
       )}
       
+      {/* Dark overlay to ensure text remains readable */}
+      <div className={`absolute inset-0 z-0 ${overlayColor}/[.${overlayOpacity}]`}></div>
+      
       {/* Optional decorative elements */}
       <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-secondary/20 rounded-full blur-3xl opacity-30"></div>
       <div className="absolute top-10 -left-10 w-40 h-40 bg-secondary/30 rounded-full blur-3xl opacity-20"></div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-12">
         {/* Breadcrumb Navigation */}
         <Breadcrumb 
           items={breadcrumbItems} 
