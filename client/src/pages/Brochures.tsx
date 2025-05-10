@@ -303,34 +303,37 @@ const Brochures: React.FC = () => {
             
             {/* All Brochures - Scrollable on Mobile */}
             <div className="mb-16">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-3xl font-semibold text-gray-800 font-['Playfair_Display']">
-                  Tour & Destination Brochures
-                </h2>
-                
-                {/* Scroll controls - visible only on mobile/tablet */}
-                <div className="flex md:hidden space-x-2">
-                  <button 
-                    onClick={() => scrollHorizontally('left')}
-                    className="bg-gray-100 hover:bg-gray-200 p-2 rounded-full"
-                  >
-                    <ChevronLeft className="w-5 h-5 text-gray-600" />
-                  </button>
-                  <button 
-                    onClick={() => scrollHorizontally('right')}
-                    className="bg-gray-100 hover:bg-gray-200 p-2 rounded-full"
-                  >
-                    <ChevronRight className="w-5 h-5 text-gray-600" />
-                  </button>
-                </div>
-              </div>
+              <h2 className="text-3xl font-semibold text-gray-800 font-['Playfair_Display'] mb-8">
+                Tour & Destination Brochures
+              </h2>
               
-              {/* Scrollable container for mobile */}
-              <div 
-                ref={scrollContainerRef}
-                className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto pb-4 md:overflow-visible scrollbar-hide"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              >
+              {/* Scrollable container for mobile with positioned arrow controls */}
+              <div className="relative">
+                {/* Left scroll arrow - positioned at left middle */}
+                <button 
+                  onClick={() => scrollHorizontally('left')}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md -ml-3 transition md:hidden"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="w-5 h-5 text-[#0077B6]" />
+                </button>
+                
+                {/* Right scroll arrow - positioned at right middle */}
+                <button 
+                  onClick={() => scrollHorizontally('right')}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md -mr-3 transition md:hidden"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="w-5 h-5 text-[#0077B6]" />
+                </button>
+                
+                {/* Scrollable container for mobile */}
+                <div 
+                  ref={scrollContainerRef}
+                  className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto pb-4 md:overflow-visible scrollbar-hide"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                  onScroll={() => console.log('Scrolling')}
+                >
                 {brochures.filter(brochure => !brochure.featured).map(brochure => (
                   <div 
                     key={brochure.id}
@@ -398,6 +401,7 @@ const Brochures: React.FC = () => {
                 <ChevronRight className="w-4 h-4 ml-1" />
               </div>
             </div>
+          </div>
             
             {/* Specialized Guides */}
             <div className="mb-16">
