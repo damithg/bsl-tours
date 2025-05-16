@@ -1,0 +1,184 @@
+21:39:19.312 index-CSkOXxzR.js:857 Applied theme: theme-beach.json with primary: hsl(199, 100%, 36%), secondary: #F6E27F, accent: #F26B6B
+21:39:19.312 index-CSkOXxzR.js:839 Beach theme applied with colors: Object
+21:39:19.313 index-CSkOXxzR.js:839 Applied beach-inspired luxury theme palette
+21:39:19.637 read.js:2530 READ - Host validation failed: Object
+21:39:19.663 content.js:2524 Host is not supported
+21:39:19.663 content.js:2526 Host is not valid or supported
+21:39:19.689 content.js:2526 Host is not in insights whitelist
+21:39:34.479 index-CSkOXxzR.js:415 Submitting form data to API: {formType: 'general-contact', name: 'Damith Gunawardana', email: 'damithg@gmail.com', fields: {…}}
+21:39:34.512 index-CSkOXxzR.js:415 
+            
+            
+           POST https://preview.bestsrilankatours.com/api/Contact/send 404 (Not Found)
+FE @ index-CSkOXxzR.js:415
+d @ index-CSkOXxzR.js:415
+(anonymous) @ index-CSkOXxzR.js:415
+await in (anonymous)
+MM @ index-CSkOXxzR.js:37
+BM @ index-CSkOXxzR.js:37
+qM @ index-CSkOXxzR.js:37
+BN @ index-CSkOXxzR.js:37
+aP @ index-CSkOXxzR.js:37
+(anonymous) @ index-CSkOXxzR.js:37
+Dw @ index-CSkOXxzR.js:40
+A8 @ index-CSkOXxzR.js:37
+Dy @ index-CSkOXxzR.js:37
+iw @ index-CSkOXxzR.js:37
+rO @ index-CSkOXxzR.js:37
+21:39:34.512 index-CSkOXxzR.js:415 API Response status: 404
+21:39:34.513 index-CSkOXxzR.js:415 API Response raw text: <!DOCTYPE html>
+<html lang="en">
+<head>
+  <style data-vite-theme="" data-inject-first="">:root {
+      --background: 0 0% 100%;
+--foreground: 20 14.3% 4.1%;
+--muted: 60 4.8% 95.9%;
+--muted-foreground: 25 5.3% 44.7%;
+--popover: 0 0% 100%;
+--popover-foreground: 20 14.3% 4.1%;
+--card: 0 0% 100%;
+--card-foreground: 20 14.3% 4.1%;
+--border: 20 5.9% 90%;
+--input: 20 5.9% 90%;
+--primary: 199 100% 36%;
+--primary-foreground: 205 54% 98%;
+--secondary: 60 4.8% 95.9%;
+--secondary-foreground: 24 9.8% 10%;
+--accent: 60 4.8% 95.9%;
+--accent-foreground: 24 9.8% 10%;
+--destructive: 0 84.2% 60.2%;
+--destructive-foreground: 60 9.1% 97.8%;
+--ring: 20 14.3% 4.1%;
+--radius: 0.5rem;
+  }
+  .dark {
+      --background: 240 10% 3.9%;
+--foreground: 0 0% 98%;
+--muted: 240 3.7% 15.9%;
+--muted-foreground: 240 5% 64.9%;
+--popover: 240 10% 3.9%;
+--popover-foreground: 0 0% 98%;
+--card: 240 10% 3.9%;
+--card-foreground: 0 0% 98%;
+--border: 240 3.7% 15.9%;
+--input: 240 3.7% 15.9%;
+--primary: 199 100% 36%;
+--primary-foreground: 205 54% 98%;
+--secondary: 240 3.7% 15.9%;
+--secondary-foreground: 0 0% 98%;
+--accent: 240 3.7% 15.9%;
+--accent-foreground: 0 0% 98%;
+--destructive: 0 62.8% 30.6%;
+--destructive-foreground: 0 0% 98%;
+--ring: 240 4.9% 83.9%;
+--radius: 0.5rem;
+  }</style>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Sri Lanka Tours | Luxury Sri Lanka Tours</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <style>
+    :root {
+      /* Custom colors */
+      --ocean-blue: #0F4C81;
+      --tropical-green: #2E8B57;
+      --golden-sand: #D4AF37;
+      --soft-ivory: #F8F5F0;
+      --rich-brown: #3D2C1F;
+      --text-dark: #333333;
+      --cream: #FFFAF0;
+      
+      /* Custom fonts */
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Raleway', sans-serif;
+    }
+    
+    /* Custom animations */
+    .hero-animation {
+      animation: fadeIn 1.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .scroll-animation {
+      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    }
+    
+    .testimonial-slider {
+      scroll-snap-type: x mandatory;
+    }
+    
+    .testimonial-slide {
+      scroll-snap-align: center;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-CSkOXxzR.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Cb8HUPdm.css">
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
+
+21:39:34.513 index-CSkOXxzR.js:415 Error submitting contact form: Error: API error: 404
+    at FE (index-CSkOXxzR.js:415:146743)
+    at async d (index-CSkOXxzR.js:415:148288)
+    at async index-CSkOXxzR.js:415:42320
+overrideMethod @ hook.js:608
+FE @ index-CSkOXxzR.js:415
+await in FE
+d @ index-CSkOXxzR.js:415
+(anonymous) @ index-CSkOXxzR.js:415
+await in (anonymous)
+MM @ index-CSkOXxzR.js:37
+BM @ index-CSkOXxzR.js:37
+qM @ index-CSkOXxzR.js:37
+BN @ index-CSkOXxzR.js:37
+aP @ index-CSkOXxzR.js:37
+(anonymous) @ index-CSkOXxzR.js:37
+Dw @ index-CSkOXxzR.js:40
+A8 @ index-CSkOXxzR.js:37
+Dy @ index-CSkOXxzR.js:37
+iw @ index-CSkOXxzR.js:37
+rO @ index-CSkOXxzR.js:37
+21:39:34.513 index-CSkOXxzR.js:415 API submission failed: Error: API error: 404
+    at FE (index-CSkOXxzR.js:415:146743)
+    at async d (index-CSkOXxzR.js:415:148288)
+    at async index-CSkOXxzR.js:415:42320
+overrideMethod @ hook.js:608
+d @ index-CSkOXxzR.js:415
+await in d
+(anonymous) @ index-CSkOXxzR.js:415
+await in (anonymous)
+MM @ index-CSkOXxzR.js:37
+BM @ index-CSkOXxzR.js:37
+qM @ index-CSkOXxzR.js:37
+BN @ index-CSkOXxzR.js:37
+aP @ index-CSkOXxzR.js:37
+(anonymous) @ index-CSkOXxzR.js:37
+Dw @ index-CSkOXxzR.js:40
+A8 @ index-CSkOXxzR.js:37
+Dy @ index-CSkOXxzR.js:37
+iw @ index-CSkOXxzR.js:37
+rO @ index-CSkOXxzR.js:37
+21:39:34.518 index-CSkOXxzR.js:415 Fetch failed loading: POST "https://preview.bestsrilankatours.com/api/Contact/send".
+FE @ index-CSkOXxzR.js:415
+d @ index-CSkOXxzR.js:415
+(anonymous) @ index-CSkOXxzR.js:415
+await in (anonymous)
+MM @ index-CSkOXxzR.js:37
+BM @ index-CSkOXxzR.js:37
+qM @ index-CSkOXxzR.js:37
+BN @ index-CSkOXxzR.js:37
+aP @ index-CSkOXxzR.js:37
+(anonymous) @ index-CSkOXxzR.js:37
+Dw @ index-CSkOXxzR.js:40
+A8 @ index-CSkOXxzR.js:37
+Dy @ index-CSkOXxzR.js:37
+iw @ index-CSkOXxzR.js:37
+rO @ index-CSkOXxzR.js:37

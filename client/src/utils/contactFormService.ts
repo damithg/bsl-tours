@@ -16,16 +16,36 @@ interface ContactFormResponse {
 }
 
 /**
+ * Get the appropriate API base URL depending on the environment
+ * @returns The base URL for API requests
+ */
+const getApiBaseUrl = (): string => {
+  // Check if we're in a production environment
+  if (window.location.hostname.includes('bestsrilankatours.com') || 
+      window.location.hostname.includes('preview.bestsrilankatours.com')) {
+    // Use absolute URL for production/preview
+    return `${window.location.origin}/api`;
+  }
+  
+  // Use relative URL for development
+  return '/api';
+};
+
+/**
  * Submit a contact form to the API
  * @param formData Contact form data to submit
  * @returns Promise with the API response
  * @throws Error if submission fails
  */
 export const submitContactForm = async (formData: ContactFormData): Promise<ContactFormResponse> => {
+  const apiBaseUrl = getApiBaseUrl();
+  const apiUrl = `${apiBaseUrl}/Contact/send`;
+  
   console.log('Submitting form data to API:', formData);
+  console.log('Using API URL:', apiUrl);
   
   try {
-    const response = await fetch('/api/Contact/send', {
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
