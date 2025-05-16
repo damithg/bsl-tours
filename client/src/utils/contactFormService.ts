@@ -34,46 +34,44 @@ export const submitContactForm = async (formData: ContactFormData): Promise<Cont
     });
 
     console.log('API Response status:', response.status);
-    console.log('API Response headers:', [...response.headers.entries()]);
     
     // Check for empty response
     const responseText = await response.text();
     console.log('API Response raw text:', responseText);
     
-    // Try to parse JSON only if we have a non-empty response
-    let data;
-    if (responseText && responseText.trim()) {
-      try {
-        data = JSON.parse(responseText);
-        console.log('API Response parsed data:', data);
-      } catch (parseError) {
-        console.error('Failed to parse API response as JSON:', parseError);
-        throw new Error(`Invalid JSON response: ${responseText.substring(0, 100)}${responseText.length > 100 ? '...' : ''}`);
-      }
-    } else {
-      // Empty response handling
-      if (response.ok) {
-        console.log('API returned empty response with OK status');
-        return {
-          success: true,
-          message: 'Form submitted successfully',
-        };
-      } else {
-        throw new Error(`API error: ${response.status} with empty response`);
-      }
+    // Handle non-200 responses
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
     }
     
-    // Handle API errors
-    if (!response.ok) {
-      console.error('API response error:', data);
-      throw new Error(data?.message || `API error: ${response.status}`);
-    }
+    // Even if the response is empty or can't be parsed, if status is 200 OK, we consider it successful
+    if (response.ok) {
+      // Try to parse any JSON if it exists
+      let data = null;
+      if (responseText && responseText.trim()) {
+        try {
+          data = JSON.parse(responseText);
+          console.log('API Response parsed data:', data);
+          
+          // The API returns { success: true } 
+          if (data?.success === false) {
+            throw new Error(data.message || 'API reported failure');
+          }
+        } catch (parseError) {
+          console.warn('Non-critical: Could not parse response as JSON:', responseText);
+          // We'll still return success since the status was OK
+        }
+      }
 
-    // Return success response
-    return {
-      success: true,
-      message: data?.message || 'Form submitted successfully',
-    };
+      // Return success response
+      return {
+        success: true,
+        message: data?.message || 'Form submitted successfully',
+      };
+    }
+    
+    // This should never execute due to the response.ok check above, but as a fallback
+    throw new Error('Unexpected error with form submission');
   } catch (error) {
     console.error('Error submitting contact form:', error);
     throw error; // Re-throw the error for the component to handle
