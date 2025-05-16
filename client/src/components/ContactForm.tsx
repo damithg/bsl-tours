@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { insertInquirySchema } from '@shared/schema';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
 
 // Extend the inquiry schema with additional validation
 const contactFormSchema = insertInquirySchema.extend({
@@ -43,58 +44,76 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
     try {
       setIsSubmitting(true);
       
-      try {
-        // First try to submit directly to our Express server API
-        const response = await fetch('/api/inquiries', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-        
-        const result = await response.json();
-        
-        if (!response.ok && !result.success) {
-          throw new Error(result.message || `API error: ${response.status}`);
+      // Prepare data for the new contact form API endpoint
+      const contactFormData = createContactFormData(
+        FormType.GENERAL_CONTACT,
+        `${data.firstName} ${data.lastName}`,
+        data.email,
+        {
+          phone: data.phone || '',
+          travelDates: data.travelDates || '',
+          packageInterest: data.packageInterest || '',
+          message: data.message,
+          subscribed: data.subscribed ? 'yes' : 'no'
         }
+      );
+      
+      // Try the new contact API endpoint
+      try {
+        const result = await submitContactForm(contactFormData);
         
-        // Check if there was an email error but inquiry was still saved
-        if (result.emailError) {
-          console.warn('Inquiry saved but email notification failed:', result.emailError);
-          toast({
-            title: "Inquiry Submitted",
-            description: "Thank you for your inquiry. We've saved your information but email notification couldn't be sent. We'll still get back to you within 24 hours.",
-            variant: "default"
-          });
-        } else {
+        if (result.success) {
           toast({
             title: "Inquiry Submitted",
             description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
             variant: "default"
           });
+          console.log('Contact form submitted successfully via new API endpoint');
+        } else {
+          throw new Error(result.message || 'Failed to submit contact form');
         }
+      } catch (apiError) {
+        console.error('New API submission failed:', apiError);
         
-        // Display a note about email status in development/testing
-        if (process.env.NODE_ENV !== 'production') {
-          // In development, add a second toast showing the email status
-          if (result.emailError) {
-            setTimeout(() => {
-              toast({
-                title: "Email Not Sent",
-                description: "Note: The email notification couldn't be sent due to " + 
-                  (result.emailError.includes('401') ? 'SendGrid API authentication issues.' : 'email service configuration issues.') +
-                  " The inquiry is still saved in our database.",
-                variant: "destructive"
-              });
-            }, 500);
-          }
-        }
-        
-        console.log('Inquiry submitted successfully via Express server');
-        
-        // Also save to localStorage as a backup (can be retrieved from /admin/inquiries)
+        // Fall back to the original Express API
         try {
+          console.log('Falling back to Express API...');
+          const response = await fetch('/api/inquiries', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+          
+          const result = await response.json();
+          
+          if (!response.ok && !result.success) {
+            throw new Error(result.message || `API error: ${response.status}`);
+          }
+          
+          // Check if there was an email error but inquiry was still saved
+          if (result.emailError) {
+            console.warn('Inquiry saved but email notification failed:', result.emailError);
+            toast({
+              title: "Inquiry Submitted",
+              description: "Thank you for your inquiry. We've saved your information but email notification couldn't be sent. We'll still get back to you within 24 hours.",
+              variant: "default"
+            });
+          } else {
+            toast({
+              title: "Inquiry Submitted",
+              description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+              variant: "default"
+            });
+          }
+          
+          console.log('Inquiry submitted successfully via Express server');
+        } catch (expressApiError) {
+          // If both APIs fail, store in localStorage as a temporary solution
+          console.error('Express API fallback failed:', expressApiError);
+          console.log('Using local storage fallback only');
+          
           // Get existing inquiries or initialize empty array
           const existingInquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
           
@@ -107,34 +126,27 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
           
           // Save updated inquiries
           localStorage.setItem('inquiries', JSON.stringify([...existingInquiries, newInquiry]));
-        } catch (localStorageError) {
-          console.warn('Failed to save to localStorage:', localStorageError);
+          
+          toast({
+            title: "Inquiry Saved Locally",
+            description: "Thank you for your inquiry. Your details have been saved locally for now.",
+          });
         }
-      } catch (apiError) {
-        // If the Express API fails completely, store in localStorage as a temporary solution
-        console.error('Express API submission failed:', apiError);
-        console.log('Using local storage fallback only');
-        
-        // Get existing inquiries or initialize empty array
+      }
+      
+      // Always store in localStorage as a backup (can be retrieved from /admin/inquiries)
+      try {
         const existingInquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
         
-        // Add new inquiry with timestamp
         const newInquiry = {
           ...data,
           id: Date.now(),
           createdAt: new Date().toISOString()
         };
         
-        // Save updated inquiries
         localStorage.setItem('inquiries', JSON.stringify([...existingInquiries, newInquiry]));
-        
-        // Log stored inquiries for debugging
-        console.log('Stored inquiries:', JSON.parse(localStorage.getItem('inquiries') || '[]'));
-        
-        toast({
-          title: "Inquiry Saved Locally",
-          description: "Thank you for your inquiry. Your details have been saved locally for now.",
-        });
+      } catch (localStorageError) {
+        console.warn('Failed to save to localStorage:', localStorageError);
       }
       
       reset();
