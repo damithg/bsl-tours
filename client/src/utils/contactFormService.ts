@@ -19,34 +19,39 @@ interface ContactFormResponse {
  * Submit a contact form to the API
  * @param formData Contact form data to submit
  * @returns Promise with the API response
+ * @throws Error if submission fails
  */
 export const submitContactForm = async (formData: ContactFormData): Promise<ContactFormResponse> => {
+  console.log('Submitting form data to API:', formData);
+  
+  const response = await fetch('/api/Contact/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  });
+
+  // Get the response data
+  let data;
   try {
-    const response = await fetch('/api/Contact/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to submit form');
-    }
-
-    const data = await response.json();
-    return {
-      success: true,
-      message: data.message || 'Form submitted successfully',
-    };
-  } catch (error) {
-    console.error('Error submitting contact form:', error);
-    return {
-      success: false,
-      message: error instanceof Error ? error.message : 'An unexpected error occurred',
-    };
+    data = await response.json();
+  } catch (e) {
+    console.error('Failed to parse API response:', e);
+    throw new Error('Failed to parse API response');
   }
+  
+  // Handle API errors
+  if (!response.ok) {
+    console.error('API response error:', data);
+    throw new Error(data?.message || `API error: ${response.status}`);
+  }
+
+  // Return success response
+  return {
+    success: true,
+    message: data.message || 'Form submitted successfully',
+  };
 };
 
 /**

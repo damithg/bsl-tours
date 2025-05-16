@@ -147,29 +147,23 @@ const Brochures: React.FC = () => {
       );
       
       // Submit using the shared service
-      const result = await submitContactForm(formData);
+      await submitContactForm(formData);
       
-      if (result.success) {
-        setFormSubmitted(true);
-        toast({
-          title: "Request Submitted",
-          description: "Your brochure request has been submitted successfully. Thank you!",
-          variant: "default"
-        });
-      } else {
-        throw new Error(result.message || "Failed to submit your brochure request");
-      }
+      setFormSubmitted(true);
+      toast({
+        title: "Request Submitted",
+        description: "Your brochure request has been submitted successfully. Thank you!",
+        variant: "default"
+      });
     } catch (error) {
       console.error("Error submitting brochure request:", error);
       toast({
         title: "Request Failed",
-        description: error instanceof Error ? error.message : "Failed to submit your request. Please try again later.",
+        description: error instanceof Error 
+          ? error.message 
+          : "Failed to submit your request. Please try again or contact us directly.",
         variant: "destructive"
       });
-      
-      // Since we're showing the error in a toast, we'll still simulate success for this demo
-      // In a production environment, you would remove this and let the user try again
-      setFormSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }

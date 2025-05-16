@@ -44,7 +44,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
     try {
       setIsSubmitting(true);
       
-      // Prepare data for the new contact form API endpoint
+      // Prepare data for the contact form API endpoint
       const contactFormData = createContactFormData(
         FormType.GENERAL_CONTACT,
         `${data.firstName} ${data.lastName}`,
@@ -58,104 +58,28 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         }
       );
       
-      // Try the new contact API endpoint
+      // Submit to the contact API endpoint
       try {
-        const result = await submitContactForm(contactFormData);
+        await submitContactForm(contactFormData);
         
-        if (result.success) {
-          toast({
-            title: "Inquiry Submitted",
-            description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
-            variant: "default"
-          });
-          console.log('Contact form submitted successfully via new API endpoint');
-        } else {
-          throw new Error(result.message || 'Failed to submit contact form');
-        }
+        toast({
+          title: "Inquiry Submitted",
+          description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+          variant: "default"
+        });
+        
+        console.log('Contact form submitted successfully via API endpoint');
+        reset();
       } catch (apiError) {
-        console.error('New API submission failed:', apiError);
-        
-        // Fall back to the original Express API
-        try {
-          console.log('Falling back to Express API...');
-          const response = await fetch('/api/inquiries', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          });
-          
-          const result = await response.json();
-          
-          if (!response.ok && !result.success) {
-            throw new Error(result.message || `API error: ${response.status}`);
-          }
-          
-          // Check if there was an email error but inquiry was still saved
-          if (result.emailError) {
-            console.warn('Inquiry saved but email notification failed:', result.emailError);
-            toast({
-              title: "Inquiry Submitted",
-              description: "Thank you for your inquiry. We've saved your information but email notification couldn't be sent. We'll still get back to you within 24 hours.",
-              variant: "default"
-            });
-          } else {
-            toast({
-              title: "Inquiry Submitted",
-              description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
-              variant: "default"
-            });
-          }
-          
-          console.log('Inquiry submitted successfully via Express server');
-        } catch (expressApiError) {
-          // If both APIs fail, store in localStorage as a temporary solution
-          console.error('Express API fallback failed:', expressApiError);
-          console.log('Using local storage fallback only');
-          
-          // Get existing inquiries or initialize empty array
-          const existingInquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
-          
-          // Add new inquiry with timestamp
-          const newInquiry = {
-            ...data,
-            id: Date.now(),
-            createdAt: new Date().toISOString()
-          };
-          
-          // Save updated inquiries
-          localStorage.setItem('inquiries', JSON.stringify([...existingInquiries, newInquiry]));
-          
-          toast({
-            title: "Inquiry Saved Locally",
-            description: "Thank you for your inquiry. Your details have been saved locally for now.",
-          });
-        }
+        console.error('API submission failed:', apiError);
+        toast({
+          title: "Submission Failed",
+          description: apiError instanceof Error 
+            ? apiError.message 
+            : "Failed to submit your inquiry. Please try again or contact us directly.",
+          variant: "destructive"
+        });
       }
-      
-      // Always store in localStorage as a backup (can be retrieved from /admin/inquiries)
-      try {
-        const existingInquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
-        
-        const newInquiry = {
-          ...data,
-          id: Date.now(),
-          createdAt: new Date().toISOString()
-        };
-        
-        localStorage.setItem('inquiries', JSON.stringify([...existingInquiries, newInquiry]));
-      } catch (localStorageError) {
-        console.warn('Failed to save to localStorage:', localStorageError);
-      }
-      
-      reset();
-    } catch (error) {
-      toast({
-        title: "Submission Failed",
-        description: error instanceof Error ? error.message : "Failed to submit inquiry. Please try again.",
-        variant: "destructive"
-      });
     } finally {
       setIsSubmitting(false);
     }
