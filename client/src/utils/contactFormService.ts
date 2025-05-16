@@ -15,14 +15,10 @@ interface ContactFormResponse {
   message: string;
 }
 
-/**
- * Get the API base URL for BSL Tours API
- * @returns The base URL for API requests
- */
-const getApiBaseUrl = (): string => {
-  // Always use the dedicated API URL
-  return 'https://bsl-tours-api-yqmyn.ondigitalocean.app/api';
-};
+import { API_BASE_URL } from '@/lib/queryClient';
+
+// Re-export API_BASE_URL to make it available to other components
+export { API_BASE_URL };
 
 /**
  * Submit a contact form to the API
@@ -31,8 +27,7 @@ const getApiBaseUrl = (): string => {
  * @throws Error if submission fails
  */
 export const submitContactForm = async (formData: ContactFormData): Promise<ContactFormResponse> => {
-  const apiBaseUrl = getApiBaseUrl();
-  const apiUrl = `${apiBaseUrl}/Contact/send`;
+  const apiUrl = `${API_BASE_URL}/api/Contact/send`;
   
   console.log('Submitting form data to API:', formData);
   console.log('Using API URL:', apiUrl);
