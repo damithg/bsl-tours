@@ -16,19 +16,12 @@ interface ContactFormResponse {
 }
 
 /**
- * Get the appropriate API base URL depending on the environment
+ * Get the API base URL for BSL Tours API
  * @returns The base URL for API requests
  */
 const getApiBaseUrl = (): string => {
-  // Check if we're in a production environment
-  if (window.location.hostname.includes('bestsrilankatours.com') || 
-      window.location.hostname.includes('preview.bestsrilankatours.com')) {
-    // Use absolute URL for production/preview
-    return `${window.location.origin}/api`;
-  }
-  
-  // Use relative URL for development
-  return '/api';
+  // Always use the dedicated API URL
+  return 'https://bsl-tours-api-yqmyn.ondigitalocean.app/api';
 };
 
 /**
