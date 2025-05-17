@@ -230,12 +230,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
                 <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-2" />
               )}
               <div>
-                <h3 className={`text-base font-medium ${
-                  submitStatus.type === 'success' ? 'text-green-800' : 'text-red-800'
-                }`}>
-                  {submitStatus.type === 'success' ? 'Success!' : 'Error'}
-                </h3>
-                <p className={`text-sm mt-1 ${
+                <p className={`text-base ${
                   submitStatus.type === 'success' ? 'text-green-700' : 'text-red-700'
                 }`}>
                   {submitStatus.message}
