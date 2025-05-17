@@ -4,8 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { insertInquirySchema } from '@shared/schema';
 import { apiRequest } from '@/lib/queryClient';
-import { useToast } from '@/hooks/use-toast';
 import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
+import { AlertCircle, CheckCircle } from 'lucide-react';
 
 // Extend the inquiry schema with additional validation
 const contactFormSchema = insertInquirySchema.extend({
@@ -24,7 +24,10 @@ interface ContactFormProps {
 
 const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
   
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -43,6 +46,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
   const onSubmit = async (data: ContactFormData) => {
     try {
       setIsSubmitting(true);
+      setSubmitStatus({ type: null, message: '' });
       
       // Prepare data for the contact form API endpoint
       const contactFormData = createContactFormData(
@@ -62,22 +66,25 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
       try {
         await submitContactForm(contactFormData);
         
-        toast({
-          title: "Inquiry Submitted",
-          description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
-          variant: "default"
+        setSubmitStatus({
+          type: 'success',
+          message: "Thank you for your inquiry. We'll get back to you within 24 hours."
         });
         
         console.log('Contact form submitted successfully via API endpoint');
         reset();
+        
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus({ type: null, message: '' });
+        }, 5000);
       } catch (apiError) {
         console.error('API submission failed:', apiError);
-        toast({
-          title: "Submission Failed",
-          description: apiError instanceof Error 
+        setSubmitStatus({
+          type: 'error',
+          message: apiError instanceof Error 
             ? apiError.message 
-            : "Failed to submit your inquiry. Please try again or contact us directly.",
-          variant: "destructive"
+            : "Failed to submit your inquiry. Please try again or contact us directly."
         });
       }
     } finally {
@@ -208,6 +215,35 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
             'Send Inquiry'
           )}
         </button>
+        
+        {/* Status message displayed below the form */}
+        {submitStatus.type && (
+          <div className={`mt-6 p-4 rounded-lg transition-opacity duration-300 ${
+            submitStatus.type === 'success' 
+              ? 'bg-green-50 border border-green-200' 
+              : 'bg-red-50 border border-red-200'
+          }`}>
+            <div className="flex items-start">
+              {submitStatus.type === 'success' ? (
+                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-2" />
+              ) : (
+                <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-2" />
+              )}
+              <div>
+                <h3 className={`text-base font-medium ${
+                  submitStatus.type === 'success' ? 'text-green-800' : 'text-red-800'
+                }`}>
+                  {submitStatus.type === 'success' ? 'Success!' : 'Error'}
+                </h3>
+                <p className={`text-sm mt-1 ${
+                  submitStatus.type === 'success' ? 'text-green-700' : 'text-red-700'
+                }`}>
+                  {submitStatus.message}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

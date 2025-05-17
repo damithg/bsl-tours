@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import HeroSection from '@/components/HeroSection';
 import { BreadcrumbItem } from '@/components/Breadcrumb';
-import { useToast } from '@/hooks/use-toast';
 import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
 import { 
   FileText, 
@@ -15,6 +14,7 @@ import {
   Eye,
   CheckCircle,
   ChevronLeft,
+  AlertCircle,
 } from 'lucide-react';
 
 const Brochures: React.FC = () => {
@@ -111,22 +111,25 @@ const Brochures: React.FC = () => {
     }
   };
   
-  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (selectedBrochures.length === 0 || !name || !email) {
-      toast({
-        title: "Missing Information",
-        description: "Please provide your name, email, and select at least one brochure.",
-        variant: "destructive"
+      setSubmitStatus({
+        type: 'error',
+        message: "Please provide your name, email, and select at least one brochure."
       });
       return;
     }
     
     setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
     
     try {
       // Format the selected brochures for submission
@@ -150,19 +153,24 @@ const Brochures: React.FC = () => {
       await submitContactForm(formData);
       
       setFormSubmitted(true);
-      toast({
-        title: "Request Submitted",
-        description: "Your brochure request has been submitted successfully. Thank you!",
-        variant: "default"
+      setSubmitStatus({
+        type: 'success',
+        message: "Your brochure request has been submitted successfully. Thank you!"
       });
+      
+      // Clear success message after 5 seconds if user stays on the form page
+      setTimeout(() => {
+        if (!formSubmitted) {
+          setSubmitStatus({ type: null, message: '' });
+        }
+      }, 5000);
     } catch (error) {
       console.error("Error submitting brochure request:", error);
-      toast({
-        title: "Request Failed",
-        description: error instanceof Error 
+      setSubmitStatus({
+        type: 'error',
+        message: error instanceof Error 
           ? error.message 
-          : "Failed to submit your request. Please try again or contact us directly.",
-        variant: "destructive"
+          : "Failed to submit your request. Please try again or contact us directly."
       });
     } finally {
       setIsSubmitting(false);
@@ -626,6 +634,35 @@ const Brochures: React.FC = () => {
                           'Request Printed Brochures'
                         )}
                       </button>
+                      
+                      {/* Status message displayed below the form */}
+                      {submitStatus.type && (
+                        <div className={`mt-6 p-4 rounded-lg transition-opacity duration-300 ${
+                          submitStatus.type === 'success' 
+                            ? 'bg-green-50 border border-green-200' 
+                            : 'bg-red-50 border border-red-200'
+                        }`}>
+                          <div className="flex items-start">
+                            {submitStatus.type === 'success' ? (
+                              <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-2" />
+                            ) : (
+                              <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-2" />
+                            )}
+                            <div>
+                              <h3 className={`text-base font-medium ${
+                                submitStatus.type === 'success' ? 'text-green-800' : 'text-red-800'
+                              }`}>
+                                {submitStatus.type === 'success' ? 'Success!' : 'Error'}
+                              </h3>
+                              <p className={`text-sm mt-1 ${
+                                submitStatus.type === 'success' ? 'text-green-700' : 'text-red-700'
+                              }`}>
+                                {submitStatus.message}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </form>
                 </>
