@@ -33,25 +33,25 @@ const TravelResources: React.FC = () => {
         {
           title: 'Ultimate Guide to Sigiriya',
           description: 'Explore the ancient rock fortress, its history, best times to visit, and lesser-known spots.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/destinations/sigiriya.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1743457928/destinations/ancient-frescoes.jpg',
           link: '/resources/sigiriya-guide'
         },
         {
           title: 'Exploring Colombo: A 2-Day Itinerary',
           description: 'Make the most of your time in Sri Lanka\'s vibrant capital with this curated city guide.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/destinations/colombo.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1743255113/colombo-arrival_nfnyz0.jpg',
           link: '/resources/colombo-guide'
         },
         {
           title: 'Galle Fort: History & Highlights',
           description: 'Discover the colonial charm and cultural richness of this UNESCO World Heritage site.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/destinations/galle.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1743212891/galle-fort_kqntzk.jpg',
           link: '/resources/galle-guide'
         },
         {
           title: 'Sri Lanka\'s Tea Country: Nuwara Eliya & Ella',
           description: 'Journey through misty mountains, tea plantations, and scenic train rides in Sri Lanka\'s highlands.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/destinations/tea-country.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1744108133/tours/epic-sri-lanka-train-hero.jpg',
           link: '/resources/tea-country-guide'
         }
       ]
@@ -147,7 +147,7 @@ const TravelResources: React.FC = () => {
         {
           title: 'Wildlife Spotting Seasons',
           description: 'Best times to visit national parks for wildlife viewing, including migration patterns.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/seasonal/wildlife.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1744097093/itineraries/yala-jeep.jpg',
           link: '/resources/wildlife-seasons'
         }
       ]
@@ -173,7 +173,7 @@ const TravelResources: React.FC = () => {
         {
           title: 'Wildlife Photography Tips',
           description: 'Specialized advice for photographing Sri Lanka\'s diverse wildlife in national parks.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/photography/wildlife.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1744008378/activities/udawalawe-elephants-on-path.jpg',
           link: '/resources/wildlife-photography'
         },
         {
