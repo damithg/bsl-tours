@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronRight, Search, Star, Clock, MapPin, Tag, Calendar, Users, AlertCircle } from 'lucide-react';
+import { ChevronRight, Search, Star, Clock, MapPin, Calendar, Users, AlertCircle } from 'lucide-react';
+import { Tag } from '@/components/ui/tag';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import HeroSection from '@/components/HeroSection';
@@ -41,6 +42,7 @@ interface ExperienceCard {
   header?: string;
   body?: string;
   tags?: string[];
+  duration?: string;
 }
 
 // Define experience type structure from API
@@ -49,11 +51,22 @@ interface APIExperience {
   title: string;
   slug: string;
   description: string;
+  // Card and content data
   highlights?: ExperienceHighlight[];
   inclusions?: ExperienceInclusion[];
   whatToBring?: ExperienceWhatToBring[];
   seo?: ExperienceSEO;
   card?: ExperienceCard;
+  // Additional properties from API
+  duration?: string;
+  location?: string;
+  price?: number;
+  currency?: string;
+  featured?: boolean;
+  rating?: number;
+  reviewCount?: number;
+  activityLevel?: string;
+  seasonality?: string[];
 }
 
 // Define UI Experience type (combined API data + UI display properties)
@@ -159,6 +172,13 @@ const Experiences = () => {
   
   // Function to adapt API experience to UI format
   const adaptExperienceForUI = (apiExperience: APIExperience): Experience => {
+    // Extract duration from API or use fallback
+    const duration = typeof apiExperience.duration === 'string' ? apiExperience.duration : 
+                     (apiExperience.card?.duration || 'Full Day');
+                     
+    // Extract tags from card or create default ones
+    const tags = apiExperience.card?.tags || [];
+    
     // Map API data to the format expected by the UI
     return {
       id: apiExperience.id,
@@ -170,18 +190,17 @@ const Experiences = () => {
       whatToBring: apiExperience.whatToBring,
       imageUrl: apiExperience.card?.image?.medium || apiExperience.card?.image?.baseUrl || 'https://images.unsplash.com/photo-1576675066965-5a3326f2be62?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
       shortDescription: apiExperience.card?.body || apiExperience.description,
-      category: apiExperience.card?.tags?.[0] || 'cultural',
-      featured: true, // Default to featured for now
-      rating: 4.8, // Default rating
-      reviewCount: 100, // Default review count
-      tags: apiExperience.card?.tags || [],
-      // Sample durations and locations until API provides these
-      duration: 'Full Day',
-      location: 'Sri Lanka',
-      price: 150,
-      currency: 'USD',
-      activityLevel: 'moderate' as const,
-      seasonality: ['Year-round']
+      category: tags[0] || 'cultural',
+      featured: apiExperience.featured || false,
+      rating: apiExperience.rating || 4.8, // Default rating if not provided
+      reviewCount: apiExperience.reviewCount || 100, // Default review count if not provided
+      tags: tags,
+      duration: duration,
+      location: apiExperience.location || 'Sri Lanka',
+      price: apiExperience.price || 150,
+      currency: apiExperience.currency || 'USD',
+      activityLevel: (apiExperience.activityLevel as 'easy' | 'moderate' | 'challenging') || 'moderate',
+      seasonality: apiExperience.seasonality || ['Year-round']
     };
   };
   
@@ -291,9 +310,20 @@ const Experiences = () => {
                         alt={experience.title} 
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
                       />
-                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-sm font-medium text-[#0077B6]">
-                        {experience.category.charAt(0).toUpperCase() + experience.category.slice(1)}
+                      <div className="absolute top-4 right-4">
+                        <Tag variant="duration">
+                          {experience.duration}
+                        </Tag>
                       </div>
+                      {experience.tags && experience.tags.length > 0 && (
+                        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                          {experience.tags.slice(0, 2).map((tag, i) => (
+                            <Tag key={i} variant="scenic">
+                              {tag}
+                            </Tag>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     <div className="p-6">
                       <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-800 mb-2 line-clamp-1">{experience.title}</h3>
