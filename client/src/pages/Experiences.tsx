@@ -311,16 +311,16 @@ const Experiences = () => {
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
                       />
                       <div className="absolute top-4 right-4">
-                        <Tag variant="duration">
+                        <div className="bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium uppercase tracking-wider text-primary">
                           {experience.duration}
-                        </Tag>
+                        </div>
                       </div>
                       {experience.tags && experience.tags.length > 0 && (
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                           {experience.tags.slice(0, 2).map((tag, i) => (
-                            <Tag key={i} variant="scenic">
+                            <div key={i} className="bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium uppercase tracking-wider text-primary">
                               {tag}
-                            </Tag>
+                            </div>
                           ))}
                         </div>
                       )}
