@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronRight, Search, Star, Clock, MapPin, Calendar, Users, AlertCircle } from 'lucide-react';
 import { Tag } from '@/components/ui/tag';
+import { COLORS } from '@/utils/colors';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import HeroSection from '@/components/HeroSection';
@@ -335,7 +336,7 @@ const Experiences = () => {
                           {experience.rating.toFixed(1)} ({experience.reviewCount})
                         </span>
                       </div>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{experience.shortDescription}</p>
+                      <p className="text-gray-700/70 mb-4 line-clamp-2">{experience.shortDescription}</p>
                       
                       <div className="flex flex-wrap gap-2 mb-4">
                         <div className="flex items-center text-xs text-gray-500">
@@ -349,14 +350,21 @@ const Experiences = () => {
                       </div>
                       
                       <div className="flex justify-between items-center">
-                        <div className="text-[#0077B6] font-semibold">
-                          {formatPrice(experience.price, experience.currency)}
+                        <div className="flex flex-col">
+                          <span className="text-sm text-gray-500">From</span>
+                          <div className="flex items-baseline">
+                            <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
+                              {formatPrice(experience.price, experience.currency)}
+                            </span>
+                            <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
+                          </div>
                         </div>
                         <Link 
                           href={`/experiences/${experience.slug}`}
-                          className="inline-flex items-center text-sm font-medium text-[#0077B6]"
+                          style={{ backgroundColor: COLORS.primary }}
+                          className="inline-flex items-center hover:bg-primary/90 text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
                         >
-                          View Details <ChevronRight className="w-4 h-4 ml-1" />
+                          Explore <ChevronRight className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
                         </Link>
                       </div>
                     </div>
