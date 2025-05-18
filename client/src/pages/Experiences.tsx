@@ -264,7 +264,7 @@ const Experiences = () => {
         backgroundImage="https://images.unsplash.com/photo-1535162222970-f8ab279245f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
         breadcrumbItems={[
           { label: 'Home', path: '/' },
-          { label: 'Experiences', path: '/experiences' }
+          { label: 'Experiences', path: '/experiences', active: true }
         ]}
         customOverlay="bg-gradient-to-t from-black/70 to-black/40"
         imageTransform="scale-105"
