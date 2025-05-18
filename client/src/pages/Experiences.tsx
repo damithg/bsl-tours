@@ -263,8 +263,7 @@ const Experiences = () => {
         description="Handcrafted adventures to immerse yourself in Sri Lanka's culture and natural beauty"
         backgroundImage="https://images.unsplash.com/photo-1535162222970-f8ab279245f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
         breadcrumbItems={[
-          { label: 'Home', path: '/' },
-          { label: 'Experiences', path: '/experiences', active: true }
+          { label: 'Experiences' }
         ]}
         customOverlay="bg-gradient-to-t from-black/70 to-black/40"
         imageTransform="scale-105"
