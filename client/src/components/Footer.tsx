@@ -23,7 +23,18 @@ const Footer = () => {
 
     try {
       setIsSubmitting(true);
-      const response = await apiRequest('POST', '/api/subscribe', { email });
+      // Use a direct fetch to the local Express endpoint rather than apiRequest
+      // This bypasses the API_BASE_URL in queryClient which points to the production API
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Subscription failed: ${response.statusText}`);
+      }
+      
       const data = await response.json();
       
       toast({
