@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { ChevronRight, Search, Star, Clock, MapPin, Calendar, Users, AlertCircle } from 'lucide-react';
 import { Tag } from '@/components/ui/tag';
 import { COLORS } from '@/utils/colors';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import HeroSection from '@/components/HeroSection';
@@ -106,6 +107,9 @@ interface Category {
 }
 
 const Experiences = () => {
+  // Get currency context for price formatting
+  const { formatPrice } = useCurrency();
+  
   // State for filters
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -234,14 +238,7 @@ const Experiences = () => {
     }
   }, [selectedCategory]);
   
-  // Format price with currency
-  const formatPrice = (price: number, currency: string) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-      minimumFractionDigits: 0
-    }).format(price);
-  };
+  // This function is now provided by the useCurrency hook
   
   // Render star rating
   const renderStars = (rating: number) => {
@@ -354,12 +351,7 @@ const Experiences = () => {
                           <span className="text-sm text-gray-500">From</span>
                           <div className="flex items-baseline">
                             <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
-                              {new Intl.NumberFormat('en-US', {
-                                style: 'currency',
-                                currency: 'USD',
-                                minimumFractionDigits: 0,
-                                maximumFractionDigits: 0
-                              }).format(experience.price)}
+                              {formatPrice(experience.price)}
                             </span>
                             <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
                           </div>
