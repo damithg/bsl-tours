@@ -64,8 +64,8 @@ const HeroSection = ({
           className="mb-6" 
         />
         
-        <div className="text-center max-w-3xl mx-auto">
-          <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-none drop-shadow-lg whitespace-nowrap">
             {title}
           </h1>
           {showDivider && <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>}
