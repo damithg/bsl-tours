@@ -150,17 +150,17 @@ const Experiences = () => {
   });
   
   // Function to adapt API experience to UI format
-  const adaptExperienceForUI = (experience: Experience): Experience => {
+  const adaptExperienceForUI = (apiExperience: APIExperience): Experience => {
     // Map API data to the format expected by the UI
     return {
-      ...experience,
-      imageUrl: experience.card?.image?.medium || experience.card?.image?.baseUrl || '',
-      shortDescription: experience.card?.body || experience.description,
-      category: experience.card?.tags?.[0] || 'cultural',
+      ...apiExperience,
+      imageUrl: apiExperience.card?.image?.medium || apiExperience.card?.image?.baseUrl || 'https://images.unsplash.com/photo-1576675066965-5a3326f2be62?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
+      shortDescription: apiExperience.card?.body || apiExperience.description,
+      category: apiExperience.card?.tags?.[0] || 'cultural',
       featured: true, // Default to featured for now
       rating: 4.8, // Default rating
       reviewCount: 100, // Default review count
-      tags: experience.card?.tags || [],
+      tags: apiExperience.card?.tags || [],
       // Sample durations and locations until API provides these
       duration: 'Full Day',
       location: 'Sri Lanka',
@@ -172,13 +172,15 @@ const Experiences = () => {
   };
   
   // Process experiences for UI display
-  const processedExperiences = (experiencesData as Experience[]).map(adaptExperienceForUI);
+  const processedExperiences: Experience[] = Array.isArray(experiencesData) 
+    ? (experiencesData as APIExperience[]).map(adaptExperienceForUI)
+    : [];
   
   // Filter experiences based on search and category
   const filteredExperiences = processedExperiences.filter(experience => {
-    const matchesSearch = (experience.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          experience.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          experience.location?.toLowerCase().includes(searchQuery.toLowerCase())) ?? false;
+    const matchesSearch = experience.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          experience.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          experience.location.toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesCategory = selectedCategory === null || experience.category === selectedCategory;
     
@@ -186,7 +188,7 @@ const Experiences = () => {
   });
   
   // Get featured experiences (in this case all from API for now)
-  const featuredExperiences = processedExperiences.filter(exp => exp.featured);
+  const featuredExperiences = processedExperiences.slice(0, 3); // Just take first 3 for featured section
   
   // Effect to scroll to results when category is selected
   useEffect(() => {
@@ -269,8 +271,28 @@ const Experiences = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredExperiences.map((experience) => (
+          {isLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#0077B6]"></div>
+            </div>
+          ) : error ? (
+            <div className="text-center py-16 bg-white rounded-xl shadow-sm">
+              <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-800 mb-2">Unable to Load Experiences</h3>
+              <p className="text-gray-600 max-w-md mx-auto">
+                We're having trouble connecting to our servers. Please try again later.
+              </p>
+              <button 
+                className="mt-6 inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white py-2.5 px-5 rounded-full transition shadow-md"
+                onClick={() => window.location.reload()}
+              >
+                Refresh Page
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredExperiences.length > 0 ? (
+                filteredExperiences.map((experience) => (
               <div key={experience.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
                 <div className="relative h-48 overflow-hidden">
                   <img 
