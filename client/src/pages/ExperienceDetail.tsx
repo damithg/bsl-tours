@@ -139,7 +139,7 @@ const ExperienceDetail = () => {
     <main className="min-h-screen bg-[#FAF9F6]">
       {/* Hero Section using shared component */}
       <HeroSection
-        title={experience.title}
+        title=""
         description={experience.card?.body || experience.description}
         backgroundImage={imageUrl}
         breadcrumbItems={[
