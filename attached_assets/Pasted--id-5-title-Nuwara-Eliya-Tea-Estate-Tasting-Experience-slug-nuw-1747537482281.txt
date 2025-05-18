@@ -1,0 +1,73 @@
+[
+  {
+    "id": 5,
+    "title": "Nuwara Eliya Tea Estate & Tasting Experience",
+    "slug": "nuwara-eliya-tea-estate-and-tasting-experience",
+    "description": "test tes ",
+    "highlights": [
+      {
+        "id": 13,
+        "text": "Tour a working tea estate and learn about the production process"
+      },
+      {
+        "id": 14,
+        "text": "Hands-on tea plucking experience"
+      },
+      {
+        "id": 15,
+        "text": "Guided tea tasting with panoramic views"
+      },
+      {
+        "id": 16,
+        "text": "Visit Nuwara Eliya’s colonial hill charm"
+      }
+    ],
+    "inclusions": [
+      {
+        "id": 13,
+        "text": "Guided estate & factory tour"
+      },
+      {
+        "id": 14,
+        "text": "Tea tasting session"
+      },
+      {
+        "id": 15,
+        "text": "Light refreshments"
+      },
+      {
+        "id": 16,
+        "text": "Transport from Nuwara Eliya hotels"
+      }
+    ],
+    "whatToBring": [
+      {
+        "id": 4,
+        "text": "Comfortable walking shoes, light jacket, water, camera"
+      }
+    ],
+    "seo": {
+      "metaTitle": "er ere rer",
+      "metaDescription": "ere r  ere",
+      "keywords": "erer"
+    },
+    "card": {
+      "image": {
+        "publicId": "destinations/kandy-card",
+        "alt": "View over Kandy and the Temple",
+        "caption": "Sri Lanka’s cultural soul",
+        "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/destinations/kandy-card.jpg",
+        "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/destinations/kandy-card.jpg",
+        "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/destinations/kandy-card.jpg",
+        "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/destinations/kandy-card.jpg"
+      },
+      "header": "Nuwara Eliya Tea Estate & Tasting Experience",
+      "body": "Stroll through misty tea plantations, pluck your own leaves, and savour freshly brewed Ceylon tea on the hills",
+      "tags": [
+        "tea",
+        "nuwara eliya",
+        "estate"
+      ]
+    }
+  }
+]

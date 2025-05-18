@@ -1,13 +1,64 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronRight, Search, Star, Clock, MapPin, Tag, Calendar, Users } from 'lucide-react';
+import { ChevronRight, Search, Star, Clock, MapPin, Tag, Calendar, Users, AlertCircle, CheckCircle } from 'lucide-react';
 import { Link } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
 
-// Define experience type structure
-interface Experience {
+// Define experience API response types
+interface ExperienceImage {
+  publicId?: string;
+  alt?: string;
+  caption?: string;
+  baseUrl?: string;
+  small?: string;
+  medium?: string;
+  large?: string;
+}
+
+interface ExperienceHighlight {
+  id: number;
+  text: string;
+}
+
+interface ExperienceInclusion {
+  id: number;
+  text: string;
+}
+
+interface ExperienceWhatToBring {
+  id: number;
+  text: string;
+}
+
+interface ExperienceSEO {
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
+}
+
+interface ExperienceCard {
+  image?: ExperienceImage;
+  header?: string;
+  body?: string;
+  tags?: string[];
+}
+
+// Define experience type structure from API
+interface APIExperience {
   id: number;
   title: string;
-  category: string;
+  slug: string;
   description: string;
+  highlights?: ExperienceHighlight[];
+  inclusions?: ExperienceInclusion[];
+  whatToBring?: ExperienceWhatToBring[];
+  seo?: ExperienceSEO;
+  card?: ExperienceCard;
+}
+
+// Define UI Experience type (combined API data + UI display properties)
+interface Experience extends APIExperience {
+  // UI display fields
+  category: string;
   shortDescription: string;
   duration: string;
   location: string;
@@ -92,167 +143,50 @@ const Experiences = () => {
     }
   ];
   
-  // Sample experiences data (would be fetched from API in a real implementation)
-  const experiencesData: Experience[] = [
-    {
-      id: 1,
-      title: 'Ancient Temples of Anuradhapura',
-      category: 'cultural',
-      description: 'Explore the ancient city of Anuradhapura, a UNESCO World Heritage Site with stunning stupas, monasteries, and royal gardens dating back over 2,000 years. Our expert guides will bring history to life as you walk through sacred spaces that once housed thousands of monks and served as the center of Sinhalese civilization.',
-      shortDescription: 'Tour the sacred ruins of Sri Lanka\'s ancient capital with expert guides.',
+  // Fetch experiences from API
+  const { data: experiencesData = [], isLoading, error } = useQuery({
+    queryKey: ['/api/experiences'],
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+  
+  // Function to adapt API experience to UI format
+  const adaptExperienceForUI = (experience: Experience): Experience => {
+    // Map API data to the format expected by the UI
+    return {
+      ...experience,
+      imageUrl: experience.card?.image?.medium || experience.card?.image?.baseUrl || '',
+      shortDescription: experience.card?.body || experience.description,
+      category: experience.card?.tags?.[0] || 'cultural',
+      featured: true, // Default to featured for now
+      rating: 4.8, // Default rating
+      reviewCount: 100, // Default review count
+      tags: experience.card?.tags || [],
+      // Sample durations and locations until API provides these
       duration: 'Full Day',
-      location: 'Anuradhapura',
-      price: 120,
-      currency: 'USD',
-      rating: 4.8,
-      reviewCount: 128,
-      imageUrl: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-      featured: true,
-      tags: ['UNESCO Heritage', 'Historical', 'Cultural'],
-      activityLevel: 'moderate',
-      seasonality: ['Year-round']
-    },
-    {
-      id: 2,
-      title: 'Yala Safari Experience',
-      category: 'adventure',
-      description: 'Embark on an unforgettable wildlife safari in Yala National Park, home to one of the highest leopard densities in the world. Accompanied by experienced naturalists, you\'ll traverse diverse ecosystems in search of elephants, sloth bears, crocodiles, and numerous bird species. The 4x4 jeep safari experience includes refreshments and a picnic lunch in the wilderness.',
-      shortDescription: 'Track leopards and wildlife in Sri Lanka\'s premier national park.',
-      duration: 'Full Day',
-      location: 'Yala National Park',
+      location: 'Sri Lanka',
       price: 150,
       currency: 'USD',
-      rating: 4.9,
-      reviewCount: 203,
-      imageUrl: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-      featured: true,
-      tags: ['Wildlife', 'Safari', 'Photography'],
-      activityLevel: 'easy',
-      seasonality: ['Feb-Jul']
-    },
-    {
-      id: 3,
-      title: 'Ayurvedic Spa Retreat',
-      category: 'wellness',
-      description: 'Immerse yourself in authentic Ayurvedic treatments at a luxury wellness center. This half-day experience includes a personalized consultation with an Ayurvedic doctor, a traditional oil massage, herbal steam bath, and organic herbal tea. All treatments use locally sourced ingredients prepared according to ancient recipes for optimal wellbeing.',
-      shortDescription: 'Rejuvenate with traditional Ayurvedic treatments and therapies.',
-      duration: 'Half Day',
-      location: 'Bentota',
-      price: 180,
-      currency: 'USD',
-      rating: 4.7,
-      reviewCount: 89,
-      imageUrl: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-      featured: false,
-      tags: ['Spa', 'Relaxation', 'Wellness'],
-      activityLevel: 'easy',
+      activityLevel: 'moderate' as const,
       seasonality: ['Year-round']
-    },
-    {
-      id: 4,
-      title: 'Sri Lankan Cooking Class',
-      category: 'culinary',
-      description: 'Learn the secrets of Sri Lankan cuisine in this hands-on cooking class. Visit a local market to select fresh ingredients, then prepare authentic dishes under the guidance of an experienced local chef. Master the art of spice blending, coconut milk extraction, and traditional cooking techniques. The experience concludes with a feast of your creations accompanied by local beverages.',
-      shortDescription: 'Master authentic Sri Lankan cuisine with local chefs.',
-      duration: 'Half Day',
-      location: 'Galle',
-      price: 85,
-      currency: 'USD',
-      rating: 4.9,
-      reviewCount: 156,
-      imageUrl: 'https://images.unsplash.com/photo-1564671165093-20688ff1fffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-      featured: false,
-      tags: ['Cooking', 'Food', 'Cultural'],
-      activityLevel: 'easy',
-      seasonality: ['Year-round']
-    },
-    {
-      id: 5,
-      title: 'Private Beach Dinner',
-      category: 'romantic',
-      description: 'Celebrate a special occasion with a private dinner on a secluded beach. Watch the sunset over the Indian Ocean as our dedicated staff prepares a gourmet four-course meal featuring the freshest seafood and local delicacies. Dine under the stars with the sound of waves as your backdrop, complemented by fine wines and personalized service.',
-      shortDescription: 'Enjoy an intimate candlelit dinner on a secluded beach.',
-      duration: 'Evening',
-      location: 'Bentota Beach',
-      price: 220,
-      currency: 'USD',
-      rating: 5.0,
-      reviewCount: 74,
-      imageUrl: 'https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-      featured: true,
-      tags: ['Romantic', 'Dining', 'Beach'],
-      activityLevel: 'easy',
-      seasonality: ['Dec-Apr']
-    },
-    {
-      id: 6,
-      title: 'Tea Plantation Tour',
-      category: 'cultural',
-      description: 'Discover the world of Ceylon tea with a visit to a historic tea plantation in the central highlands. Tour the lush tea gardens, learn about sustainable cultivation methods, and watch the fascinating production process from leaf to cup. Meet tea pickers and master blenders before enjoying a guided tasting of various premium tea varieties with traditional Sri Lankan sweets.',
-      shortDescription: 'Tour scenic tea estates and learn about Ceylon tea production.',
-      duration: 'Full Day',
-      location: 'Nuwara Eliya',
-      price: 110,
-      currency: 'USD',
-      rating: 4.8,
-      reviewCount: 142,
-      imageUrl: 'https://images.unsplash.com/photo-1576675066965-5a3326f2be62?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-      featured: false,
-      tags: ['Tea', 'Cultural', 'Scenic'],
-      activityLevel: 'moderate',
-      seasonality: ['Year-round']
-    },
-    {
-      id: 7,
-      title: 'Whale Watching Expedition',
-      category: 'adventure',
-      description: 'Set sail on a thrilling ocean adventure to spot blue whales, sperm whales, and dolphins in their natural habitat. Sri Lanka\'s waters are among the best in the world for cetacean sightings. Expert marine biologists accompany each trip, providing fascinating insights about these magnificent creatures. The expedition includes breakfast, refreshments, and safety equipment.',
-      shortDescription: 'Witness majestic blue whales and dolphins in their natural habitat.',
-      duration: 'Half Day',
-      location: 'Mirissa',
-      price: 95,
-      currency: 'USD',
-      rating: 4.7,
-      reviewCount: 183,
-      imageUrl: 'https://images.unsplash.com/photo-1516407757093-2f48584fb989?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-      featured: true,
-      tags: ['Wildlife', 'Ocean', 'Photography'],
-      activityLevel: 'moderate',
-      seasonality: ['Nov-Apr']
-    },
-    {
-      id: 8,
-      title: 'Village Life Experience',
-      category: 'family',
-      description: 'Immerse your family in authentic rural Sri Lankan life with this interactive village experience. Ride in a traditional bullock cart, cross a lake by catamaran, and try your hand at activities like pottery, weaving, and traditional cooking. Children can participate in games with local kids while learning about sustainable village life. The day concludes with a traditional lunch served on banana leaves.',
-      shortDescription: 'Experience rural Sri Lankan life with interactive family activities.',
-      duration: 'Full Day',
-      location: 'Habarana',
-      price: 140,
-      currency: 'USD',
-      rating: 4.9,
-      reviewCount: 112,
-      imageUrl: 'https://images.unsplash.com/photo-1625456381035-d7e0ea18eaa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
-      featured: false,
-      tags: ['Family', 'Cultural', 'Interactive'],
-      activityLevel: 'easy',
-      seasonality: ['Year-round']
-    }
-  ];
+    };
+  };
+  
+  // Process experiences for UI display
+  const processedExperiences = (experiencesData as Experience[]).map(adaptExperienceForUI);
   
   // Filter experiences based on search and category
-  const filteredExperiences = experiencesData.filter(experience => {
-    const matchesSearch = experience.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          experience.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          experience.location.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredExperiences = processedExperiences.filter(experience => {
+    const matchesSearch = (experience.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          experience.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          experience.location?.toLowerCase().includes(searchQuery.toLowerCase())) ?? false;
     
     const matchesCategory = selectedCategory === null || experience.category === selectedCategory;
     
     return matchesSearch && matchesCategory;
   });
   
-  // Get featured experiences
-  const featuredExperiences = experiencesData.filter(exp => exp.featured);
+  // Get featured experiences (in this case all from API for now)
+  const featuredExperiences = processedExperiences.filter(exp => exp.featured);
   
   // Effect to scroll to results when category is selected
   useEffect(() => {
