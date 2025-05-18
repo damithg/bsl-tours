@@ -143,9 +143,8 @@ const ExperienceDetail = () => {
         description={experience.card?.body || experience.description}
         backgroundImage={imageUrl}
         breadcrumbItems={[
-          { label: 'Home', path: '/' },
           { label: 'Experiences', path: '/experiences' },
-          { label: experience.title, path: `/experiences/${experience.slug}`, current: true }
+          { label: experience.title }
         ]}
         customOverlay="bg-gradient-to-t from-black/70 to-black/40"
         imageTransform="scale-105"
