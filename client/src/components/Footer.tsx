@@ -6,24 +6,26 @@ import { COLORS, TAILWIND_CLASSES } from '@/utils/colors';
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | null>(null);
   const { toast } = useToast();
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Reset any previous messages
+    setMessage('');
+    setMessageType(null);
+    
     if (!email || !email.includes('@')) {
-      toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address.",
-        variant: "destructive"
-      });
+      setMessage('Please enter a valid email address.');
+      setMessageType('error');
       return;
     }
 
     try {
       setIsSubmitting(true);
-      // Use a direct fetch to the local Express endpoint rather than apiRequest
-      // This bypasses the API_BASE_URL in queryClient which points to the production API
+      // Use a direct fetch to the local Express endpoint
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -36,18 +38,12 @@ const Footer = () => {
       
       const data = await response.json();
       
-      toast({
-        title: "Success!",
-        description: data.message || "Subscribed to newsletter successfully.",
-      });
-      
+      setMessage(data.message || "Thank you for subscribing to our newsletter!");
+      setMessageType('success');
       setEmail('');
     } catch (error) {
-      toast({
-        title: "Subscription Failed",
-        description: error instanceof Error ? error.message : "Failed to subscribe to newsletter",
-        variant: "destructive"
-      });
+      setMessage(error instanceof Error ? error.message : "Failed to subscribe to newsletter");
+      setMessageType('error');
     } finally {
       setIsSubmitting(false);
     }
@@ -133,6 +129,17 @@ const Footer = () => {
                 </button>
               </div>
             </form>
+            {message && (
+              <div 
+                className={`font-['Raleway'] text-base mt-2 mb-3 ${
+                  messageType === 'success' 
+                    ? 'text-green-300' 
+                    : 'text-red-300'
+                }`}
+              >
+                {message}
+              </div>
+            )}
             <p style={{ color: 'rgba(255,255,255,0.6)' }} className="font-['Raleway'] text-sm">We respect your privacy. Unsubscribe at any time.</p>
           </div>
         </div>
