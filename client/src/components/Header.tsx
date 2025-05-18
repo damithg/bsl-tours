@@ -52,7 +52,7 @@ const Header = () => {
             {/* Desktop Navigation */}
             <nav className="flex space-x-6">
               <Link href="/tours" className={`font-['Raleway'] font-medium ${location === '/tours' || location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
-                Tour Packages
+                Tours
               </Link>
               <Link href="/destinations" className={`font-['Raleway'] font-medium ${location === '/destinations' || location === '/destination-map' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary transition`} onClick={handleNavClick}>
                 Destinations
@@ -96,7 +96,7 @@ const Header = () => {
         {/* Mobile Navigation Menu */}
         <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white pt-2 pb-4 px-4`}>
           <Link href="/tours" className={`block py-2 font-medium ${location === '/tours' || location === '/packages' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
-            Tour Packages
+            Tours
           </Link>
           <Link href="/destinations" className={`block py-2 font-medium ${location === '/destinations' ? 'text-primary' : 'text-[#0F4C81]'} hover:text-primary`} onClick={handleNavClick}>
             Destinations
