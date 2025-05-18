@@ -162,7 +162,7 @@ const Experiences = () => {
     // Map API data to the format expected by the UI
     return {
       id: apiExperience.id,
-      title: apiExperience.title,
+      title: apiExperience.card?.header || apiExperience.title,
       slug: apiExperience.slug,
       description: apiExperience.description,
       highlights: apiExperience.highlights,
