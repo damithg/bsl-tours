@@ -27,7 +27,7 @@ const HeroSection = ({
   showDivider = false,
 }: HeroSectionProps) => {
   return (
-    <section className={`relative pt-28 pb-20 ${overlayColor} overflow-hidden`}>
+    <section className={`relative pt-24 pb-20 ${overlayColor} overflow-hidden`}>
       {/* Background image with opacity - positioned below header */}
       {customOverlay ? (
         <>
@@ -57,12 +57,15 @@ const HeroSection = ({
       <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-secondary/20 rounded-full blur-3xl opacity-30"></div>
       <div className="absolute top-10 -left-10 w-40 h-40 bg-secondary/30 rounded-full blur-3xl opacity-20"></div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-12">
-        {/* Breadcrumb Navigation */}
+      {/* Breadcrumb Navigation - moved up */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-1">
         <Breadcrumb 
           items={breadcrumbItems} 
-          className="mb-6" 
+          className="mb-5" 
         />
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-6">
         
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-none drop-shadow-lg whitespace-nowrap">
