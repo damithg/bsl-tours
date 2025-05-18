@@ -354,7 +354,12 @@ const Experiences = () => {
                           <span className="text-sm text-gray-500">From</span>
                           <div className="flex items-baseline">
                             <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
-                              {formatPrice(experience.price)}
+                              {new Intl.NumberFormat('en-US', {
+                                style: 'currency',
+                                currency: 'USD',
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                              }).format(experience.price)}
                             </span>
                             <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
                           </div>
