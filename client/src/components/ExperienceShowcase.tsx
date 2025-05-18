@@ -1,9 +1,10 @@
-import { ChevronRight, LucideChevronLeft, LucideChevronRight } from "lucide-react";
+import { ChevronRight, LucideChevronLeft, LucideChevronRight, Loader } from "lucide-react";
 import { Link } from "wouter";
 import { useState, useRef, useEffect } from "react";
 import { Tag } from "@/components/ui/tag";
 import { COLORS } from "@/utils/colors";
 import { useCurrency } from "../contexts/CurrencyContext";
+import { useQuery } from "@tanstack/react-query";
 
 const ExperienceShowcase = () => {
   // Use currency context for formatting prices
