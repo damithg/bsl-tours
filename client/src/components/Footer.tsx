@@ -69,7 +69,7 @@ const Footer = () => {
           <div className="col-span-1 sm:col-span-1 lg:col-span-2 order-3">
             <h3 style={{ color: COLORS.secondary }} className="font-['Playfair_Display'] text-xl font-bold mb-4">Popular Destinations</h3>
             <ul className="space-y-2">
-              <li><Link href="/destination/sigiriya" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Sigiriya</Link></li>
+              <li><Link href="/destination/sigiriya-rock-fortress" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Sigiriya</Link></li>
               <li><Link href="/destination/galle" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Galle</Link></li>
               <li><Link href="/destination/kandy" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Kandy</Link></li>
               <li><Link href="/destination/ella" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Ella</Link></li>
@@ -94,9 +94,6 @@ const Footer = () => {
               </a>
               <a href="#" style={{ backgroundColor: `${COLORS.primary}50` }} className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-primary transition">
                 <i className="fab fa-instagram"></i>
-              </a>
-              <a href="#" style={{ backgroundColor: `${COLORS.primary}50` }} className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-primary transition">
-                <i className="fab fa-twitter"></i>
               </a>
             </div>
             
