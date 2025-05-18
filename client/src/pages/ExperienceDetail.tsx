@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRoute, Link } from 'wouter';
 import { ChevronRight, Star, Check, Clock, MapPin, Calendar, Users, Wifi, Coffee, Compass, Luggage, Info, AlertCircle } from 'lucide-react';
+import HeroSection from '@/components/HeroSection';
 
 // Types for Experience API Response
 interface ExperienceImage {
@@ -136,59 +137,31 @@ const ExperienceDetail = () => {
   
   return (
     <main className="min-h-screen bg-[#FAF9F6]">
-      {/* Hero Section */}
-      <section className="relative h-[40vh] md:h-[50vh] bg-cover bg-center" style={{ backgroundImage: `url('${imageUrl}')` }}>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative h-full flex flex-col justify-center">
-          {/* Breadcrumb Navigation */}
-          <nav className="flex text-white/90 mb-6 absolute top-28 left-4 sm:left-6 lg:left-8" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
-                  <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                  <Link href="/experiences" className="text-sm font-medium hover:text-white">
-                    Experiences
-                  </Link>
-                </div>
-              </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                  <span className="text-sm font-medium text-white/80 line-clamp-1 max-w-[150px] md:max-w-xs">
-                    {experience.title}
-                  </span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-          
-          <div className="max-w-4xl mx-auto text-center mt-12">
-            <div className="flex justify-center mb-2">
-              <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/80 text-[#0077B6]">
-                {experience.card?.tags?.[0] || 'Experience'}
-              </div>
-            </div>
-            <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 drop-shadow-sm">
-              {experience.title}
-            </h1>
-            <div className="flex items-center justify-center mb-4">
-              <div className="flex mr-2">
-                {renderStars()}
-              </div>
-              <span className="text-white/90 text-sm">4.8 (100+ reviews)</span>
-            </div>
-            <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto">
-              {experience.card?.body || experience.description}
-            </p>
+      {/* Hero Section using shared component */}
+      <HeroSection
+        title={experience.title}
+        description={experience.card?.body || experience.description}
+        backgroundImage={imageUrl}
+        breadcrumbItems={[
+          { label: 'Home', path: '/' },
+          { label: 'Experiences', path: '/experiences' },
+          { label: experience.title, path: `/experiences/${experience.slug}`, current: true }
+        ]}
+        customOverlay="bg-gradient-to-t from-black/70 to-black/40"
+        imageTransform="scale-105"
+      >
+        <div className="flex justify-center mb-4">
+          <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/80 text-[#0077B6]">
+            {experience.card?.tags?.[0] || 'Experience'}
           </div>
         </div>
-      </section>
+        <div className="flex items-center justify-center mb-4">
+          <div className="flex mr-2">
+            {renderStars()}
+          </div>
+          <span className="text-white/90 text-sm">4.8 (100+ reviews)</span>
+        </div>
+      </HeroSection>
       
       {/* Content Section */}
       <section className="py-16">
