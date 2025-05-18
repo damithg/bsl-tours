@@ -51,7 +51,6 @@ const Footer = () => {
             <h3 style={{ color: COLORS.secondary }} className="font-['Playfair_Display'] text-xl font-bold mb-4">Support</h3>
             <ul className="space-y-2">
               <li><Link href="/contact" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Contact Us</Link></li>
-              <li><Link href="/support-center" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Support Center</Link></li>
               <li><Link href="/pre-departure-info" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Pre-Departure Info</Link></li>
               <li><Link href="/travel-resources" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Travel Resources</Link></li>
               <li><Link href="/safety-updates" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Safety Updates</Link></li>
@@ -63,8 +62,6 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link href="/blog" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Blog</Link></li>
               <li><Link href="/newsletter" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Newsletter</Link></li>
-              <li><Link href="/bsl-club" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">BSL Club</Link></li>
-              <li><Link href="/affiliates" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Affiliates</Link></li>
               <li><Link href="/brochures" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Brochures</Link></li>
             </ul>
           </div>
