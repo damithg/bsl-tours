@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronRight, Search, Star, Clock, MapPin, Tag, Calendar, Users, AlertCircle, CheckCircle } from 'lucide-react';
+import { ChevronRight, Search, Star, Clock, MapPin, Tag, Calendar, Users, AlertCircle } from 'lucide-react';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 
@@ -56,7 +56,11 @@ interface APIExperience {
 }
 
 // Define UI Experience type (combined API data + UI display properties)
-interface Experience extends APIExperience {
+interface Experience {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
   // UI display fields
   category: string;
   shortDescription: string;
@@ -71,6 +75,9 @@ interface Experience extends APIExperience {
   tags: string[];
   activityLevel: 'easy' | 'moderate' | 'challenging';
   seasonality: string[];
+  highlights?: ExperienceHighlight[];
+  inclusions?: ExperienceInclusion[];
+  whatToBring?: ExperienceWhatToBring[];
 }
 
 // Define categories
@@ -144,7 +151,7 @@ const Experiences = () => {
   ];
   
   // Fetch experiences from API
-  const { data: experiencesData = [], isLoading, error } = useQuery({
+  const { data: apiExperiences = [], isLoading, error } = useQuery({
     queryKey: ['/api/experiences'],
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
@@ -153,7 +160,13 @@ const Experiences = () => {
   const adaptExperienceForUI = (apiExperience: APIExperience): Experience => {
     // Map API data to the format expected by the UI
     return {
-      ...apiExperience,
+      id: apiExperience.id,
+      title: apiExperience.title,
+      slug: apiExperience.slug,
+      description: apiExperience.description,
+      highlights: apiExperience.highlights,
+      inclusions: apiExperience.inclusions,
+      whatToBring: apiExperience.whatToBring,
       imageUrl: apiExperience.card?.image?.medium || apiExperience.card?.image?.baseUrl || 'https://images.unsplash.com/photo-1576675066965-5a3326f2be62?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80',
       shortDescription: apiExperience.card?.body || apiExperience.description,
       category: apiExperience.card?.tags?.[0] || 'cultural',
@@ -172,8 +185,8 @@ const Experiences = () => {
   };
   
   // Process experiences for UI display
-  const processedExperiences: Experience[] = Array.isArray(experiencesData) 
-    ? (experiencesData as APIExperience[]).map(adaptExperienceForUI)
+  const processedExperiences: Experience[] = Array.isArray(apiExperiences) 
+    ? (apiExperiences as APIExperience[]).map(adaptExperienceForUI)
     : [];
   
   // Filter experiences based on search and category
@@ -293,79 +306,77 @@ const Experiences = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredExperiences.length > 0 ? (
                 filteredExperiences.map((experience) => (
-              <div key={experience.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={experience.imageUrl} 
-                    alt={experience.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
-                  />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-sm font-medium text-[#0077B6]">
-                    {experience.category.charAt(0).toUpperCase() + experience.category.slice(1)}
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-800 mb-2 line-clamp-1">{experience.title}</h3>
-                  <div className="flex items-center mb-3">
-                    <div className="flex mr-2">
-                      {renderStars(experience.rating)}
-                    </div>
-                    <span className="text-gray-600 text-xs">
-                      {experience.rating.toFixed(1)} ({experience.reviewCount})
-                    </span>
-                  </div>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{experience.shortDescription}</p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <Clock className="w-3 h-3 mr-1" />
-                      <span>{experience.duration}</span>
-                    </div>
-                    <div className="flex items-center text-xs text-gray-500">
-                      <MapPin className="w-3 h-3 mr-1" />
-                      <span>{experience.location}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <p className="text-xs text-gray-500">From</p>
-                      <div className="flex items-baseline">
-                        <span className="text-[#0077B6] text-lg font-semibold">
-                          {formatPrice(experience.price, experience.currency)}
-                        </span>
-                        <span className="text-gray-500 text-xs ml-1">/ person</span>
+                  <div key={experience.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={experience.imageUrl} 
+                        alt={experience.title} 
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-sm font-medium text-[#0077B6]">
+                        {experience.category.charAt(0).toUpperCase() + experience.category.slice(1)}
                       </div>
                     </div>
-                    <Link href={`/experiences/${experience.id}`} className="inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white text-sm py-1.5 px-3 rounded-full transition group">
-                      Details <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-                    </Link>
+                    <div className="p-6">
+                      <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-800 mb-2 line-clamp-1">{experience.title}</h3>
+                      <div className="flex items-center mb-3">
+                        <div className="flex mr-2">
+                          {renderStars(experience.rating)}
+                        </div>
+                        <span className="text-gray-600 text-xs">
+                          {experience.rating.toFixed(1)} ({experience.reviewCount})
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{experience.shortDescription}</p>
+                      
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <div className="flex items-center text-xs text-gray-500">
+                          <Clock className="w-3 h-3 mr-1" />
+                          {experience.duration}
+                        </div>
+                        <div className="flex items-center text-xs text-gray-500">
+                          <MapPin className="w-3 h-3 mr-1" />
+                          {experience.location}
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <div className="text-[#0077B6] font-semibold">
+                          {formatPrice(experience.price, experience.currency)}
+                        </div>
+                        <Link 
+                          href={`/experiences/${experience.slug}`}
+                          className="inline-flex items-center text-sm font-medium text-[#0077B6]"
+                        >
+                          View Details <ChevronRight className="w-4 h-4 ml-1" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
+                ))
+              ) : (
+                <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-16 bg-white rounded-xl shadow-sm">
+                  <div className="w-20 h-20 rounded-full bg-[#F8F5F0] flex items-center justify-center mx-auto mb-4">
+                    <Search className="w-10 h-10 text-[#0077B6]/50" />
+                  </div>
+                  <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-800 mb-2">
+                    No Experiences Found
+                  </h3>
+                  <p className="text-gray-600 max-w-md mx-auto">
+                    We couldn't find any experiences matching your criteria. Try adjusting your filters or search terms.
+                  </p>
+                  <button 
+                    className="mt-6 inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white py-2.5 px-5 rounded-full transition shadow-md"
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedCategory(null);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                  >
+                    Clear All Filters
+                  </button>
                 </div>
-              </div>
-            ))}
-          </div>
-          
-          {filteredExperiences.length === 0 && (
-            <div className="text-center py-16 bg-white rounded-xl shadow-sm">
-              <div className="w-20 h-20 rounded-full bg-[#F8F5F0] flex items-center justify-center mx-auto mb-4">
-                <Search className="w-10 h-10 text-[#0077B6]/50" />
-              </div>
-              <h3 className="font-['Playfair_Display'] text-xl font-semibold text-gray-800 mb-2">No Experiences Found</h3>
-              <p className="text-gray-600 max-w-md mx-auto">
-                We couldn't find any experiences matching your criteria. Try adjusting your filters or search terms.
-              </p>
-              <button 
-                className="mt-6 inline-flex items-center bg-[#0077B6] hover:bg-[#005f92] text-white py-2.5 px-5 rounded-full transition shadow-md"
-                onClick={() => {
-                  setSearchQuery('');
-                  setSelectedCategory(null);
-                  // Scroll back to the top of the results
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-              >
-                Clear All Filters
-              </button>
+              )}
             </div>
           )}
         </div>
@@ -444,63 +455,11 @@ const Experiences = () => {
                     className="inline-flex items-center bg-[#F6E27F] hover:bg-[#f7e9a1] text-[#004E64] font-medium py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
                   >
                     Begin Your Custom Journey
-                    <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Featured Experiences Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-[#F8F5F0]/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#0077B6] mb-4">Featured Experiences</h2>
-            <p className="text-lg text-[#333333]/80">Our most popular and unique luxury experiences</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredExperiences.map((experience) => (
-              <div key={experience.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all flex flex-col h-full">
-                <div className="relative h-40 overflow-hidden">
-                  <img 
-                    src={experience.imageUrl} 
-                    alt={experience.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute top-3 right-3 bg-[#F26B6B] text-white text-xs py-1 px-2 rounded-full tracking-wide uppercase">
-                    Featured
-                  </div>
-                </div>
-                <div className="p-5 flex flex-col flex-grow">
-                  <h3 className="font-['Playfair_Display'] text-lg font-bold text-gray-800 mb-2 line-clamp-1">{experience.title}</h3>
-                  <div className="flex items-center mb-2">
-                    <div className="flex mr-2">
-                      {renderStars(experience.rating)}
-                    </div>
-                    <span className="text-gray-600 text-xs">
-                      {experience.rating.toFixed(1)}
-                    </span>
-                  </div>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">{experience.shortDescription}</p>
-                  
-                  <div className="mt-auto">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Tag className="w-4 h-4 mr-1" />
-                        <span>{experience.tags[0]}</span>
-                      </div>
-                      <div className="text-[#0077B6] font-semibold">
-                        {formatPrice(experience.price, experience.currency)}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
