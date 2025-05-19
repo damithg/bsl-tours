@@ -39,7 +39,7 @@ const Footer = () => {
       const result = await submitContactForm(formData);
       
       if (result.success) {
-        setMessage(result.message || "Thank you for subscribing to our newsletter!");
+        setMessage("You're on the list! Get ready for Sri Lankan paradise in your inbox.");
         setMessageType('success');
         setEmail('');
       } else {
