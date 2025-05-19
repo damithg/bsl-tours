@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 import { COLORS, TAILWIND_CLASSES } from '@/utils/colors';
+import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -25,22 +26,25 @@ const Footer = () => {
 
     try {
       setIsSubmitting(true);
-      // Use a direct fetch to the local Express endpoint
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
       
-      if (!response.ok) {
-        throw new Error(`Subscription failed: ${response.statusText}`);
+      // Create a properly formatted contact form data object
+      const formData = createContactFormData(
+        FormType.NEWSLETTER_SIGNUP,
+        'Newsletter Subscriber', // Default name for subscribers
+        email,
+        {} // No additional fields required for newsletter signup
+      );
+      
+      // Submit the form using the contact form service
+      const result = await submitContactForm(formData);
+      
+      if (result.success) {
+        setMessage(result.message || "Thank you for subscribing to our newsletter!");
+        setMessageType('success');
+        setEmail('');
+      } else {
+        throw new Error(result.message || 'Failed to subscribe to newsletter');
       }
-      
-      const data = await response.json();
-      
-      setMessage(data.message || "Thank you for subscribing to our newsletter!");
-      setMessageType('success');
-      setEmail('');
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Failed to subscribe to newsletter");
       setMessageType('error');
