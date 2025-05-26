@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
 import { Tag, BookOpen, Sun, Bell, Calendar, FileText, Send, CheckCircle, Mail, Users, Gift, Globe, ArrowRight, Star } from 'lucide-react';
-import { HeroSection } from '@/components/HeroSection';
+import HeroSection from '@/components/HeroSection';
 import { COLORS } from '@/utils/colors';
 import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
 
@@ -284,7 +284,6 @@ const NewsletterModern = () => {
                         id="name"
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent transition-all"
-                        style={{ focusRingColor: COLORS.primary }}
                         placeholder="Your full name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -300,7 +299,6 @@ const NewsletterModern = () => {
                         id="email"
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent transition-all"
-                        style={{ focusRingColor: COLORS.primary }}
                         placeholder="your.email@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
