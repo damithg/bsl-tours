@@ -136,7 +136,7 @@ function App() {
           <ScrollToTop />
           <Router />
           <CookieConsent />
-          <ThemeSwitcher />
+          {/* <ThemeSwitcher /> */}
           <Toaster />
         </ColorPaletteProvider>
       </CurrencyProvider>

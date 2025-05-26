@@ -2,10 +2,10 @@ import { createContext, useContext, useState, ReactNode, useEffect, useCallback 
 import { Color, ColorPalette } from '@/components/ColorPaletteGenerator';
 import { applyPaletteToTheme } from '@/utils/colorPalette';
 
-// Beach + Ocean Inspired Luxury theme
+// Royal Blue Gold theme as default
 const defaultPalette: ColorPalette = {
-  primary: { hex: '#0077B6', rgb: 'rgb(0, 119, 182)', name: 'Ocean Blue', isLight: false },
-  secondary: { hex: '#F6E27F', rgb: 'rgb(246, 226, 127)', name: 'Golden Sand', isLight: true },
+  primary: { hex: '#1E40AF', rgb: 'rgb(30, 64, 175)', name: 'Royal Blue', isLight: false },
+  secondary: { hex: '#E5B45A', rgb: 'rgb(229, 180, 90)', name: 'Gold', isLight: true },
   accent: { hex: '#F26B6B', rgb: 'rgb(242, 107, 107)', name: 'Warm Coral', isLight: true },
   background: { hex: '#FAF9F6', rgb: 'rgb(250, 249, 246)', name: 'Soft Ivory', isLight: true },
   text: { hex: '#004E64', rgb: 'rgb(0, 78, 100)', name: 'Deep Teal', isLight: false },
@@ -13,7 +13,7 @@ const defaultPalette: ColorPalette = {
   border: { hex: '#88B04B', rgb: 'rgb(136, 176, 75)', name: 'Palm Green', isLight: true },
   destructive: { hex: '#F26B6B', rgb: 'rgb(242, 107, 107)', name: 'Warm Coral', isLight: false },
   success: { hex: '#88B04B', rgb: 'rgb(136, 176, 75)', name: 'Palm Green', isLight: false },
-  warning: { hex: '#F6E27F', rgb: 'rgb(246, 226, 127)', name: 'Golden Sand', isLight: true },
+  warning: { hex: '#E5B45A', rgb: 'rgb(229, 180, 90)', name: 'Gold', isLight: true },
   info: { hex: '#F8C8DC', rgb: 'rgb(248, 200, 220)', name: 'Sunset Peach', isLight: true },
 };
 

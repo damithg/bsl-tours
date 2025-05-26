@@ -45,7 +45,7 @@ const NewsletterElegant = () => {
       <HeroSection
         title="Sri Lanka Travel Insights"
         description="Discover the island's most captivating destinations and experiences through our curated travel insights"
-        backgroundImage="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743772333/destinations/hambantota-hero.jpg"
         breadcrumbItems={[
           { label: 'Newsletter' }
         ]}
@@ -261,7 +261,7 @@ const NewsletterElegant = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="relative group overflow-hidden rounded-xl">
               <img 
-                src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743979276/tours/cultural-triangle-luxury-tour-sigiriya.jpg"
                 alt="Sigiriya Rock Fortress"
                 className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
               />
@@ -274,7 +274,7 @@ const NewsletterElegant = () => {
 
             <div className="relative group overflow-hidden rounded-xl">
               <img 
-                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/kandy-viewpoint.jpg"
                 alt="Temple of the Tooth"
                 className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
               />
@@ -287,7 +287,7 @@ const NewsletterElegant = () => {
 
             <div className="relative group overflow-hidden rounded-xl">
               <img 
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744108133/tours/epic-sri-lanka-train-hero.jpg"
                 alt="Tea Plantations"
                 className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
               />
