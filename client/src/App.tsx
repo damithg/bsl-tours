@@ -116,9 +116,9 @@ function Router() {
         <Route path="/safety-updates" component={SafetyUpdates} />
         <Route path="/affiliates" component={Affiliates} />
         <Route path="/bsl-club" component={BSLClub} />
-        <Route path="/newsletter" component={Newsletter} />
+        <Route path="/newsletter" component={NewsletterElegant} />
         <Route path="/newsletter-modern" component={NewsletterModern} />
-        <Route path="/newsletter-elegant" component={NewsletterElegant} />
+        <Route path="/newsletter-original" component={Newsletter} />
         <Route path="/brochures" component={Brochures} />
         
         <Route component={NotFound} />
