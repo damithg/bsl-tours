@@ -104,8 +104,7 @@ const NewsletterModern = () => {
         description="Join 15,000+ travelers discovering Sri Lanka's hidden treasures through our monthly insider's guide"
         backgroundImage="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
         breadcrumbItems={[
-          { text: 'Home', href: '/' },
-          { text: 'Newsletter', href: '/newsletter-modern' }
+          { label: 'Newsletter' }
         ]}
         overlayOpacity={30}
       />
