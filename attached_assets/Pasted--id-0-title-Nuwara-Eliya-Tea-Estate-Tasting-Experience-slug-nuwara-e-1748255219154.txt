@@ -1,0 +1,148 @@
+{
+    "id": 0,
+    "title": "Nuwara Eliya Tea Estate & Tasting Experience",
+    "slug": "nuwara-eliya-tea-estate-and-tasting-experience",
+    "shortSummary": "Stroll through misty tea plantations, pluck your own leaves, and savour freshly brewed Ceylon tea on the hills.",
+    "duration": "1 day",
+    "price": 142,
+    "difficulty": "Easy",
+    "description": "Step into Sri Lanka’s tea country and explore lush plantations where world-famous Ceylon tea is grown. Join a local guide to pluck tea leaves, tour a historic tea factory, and enjoy a scenic tasting session in the misty highlands.",
+    "featured": true,
+    "createdAt": "0001-01-01T00:00:00",
+    "updatedAt": "0001-01-01T00:00:00",
+    "location": {
+        "name": "Ella",
+        "slug": "ella",
+        "region": "Uva Province",
+        "address": "Ella, Sri Lanka",
+        "latitude": "6.8667",
+        "longitude": "81.0467",
+        "recommendedDuration": "2–3 days"
+    },
+    "highlights": [
+        "Tour a working tea estate and learn about the production process",
+        "Hands-on tea plucking experience",
+        "Guided tea tasting with panoramic views",
+        "Visit Nuwara Eliya’s colonial hill charm"
+    ],
+    "inclusions": [
+        "Guided estate & factory tour",
+        "Tea tasting session",
+        "Light refreshments",
+        "Transport from Nuwara Eliya hotels"
+    ],
+    "whatToBring": [
+        "Comfortable walking shoes, light jacket, water, camera"
+    ],
+    "seo": {
+        "metaTitle": "er ere rer",
+        "metaDescription": "ere r  ere",
+        "keywords": "erer"
+    },
+    "card": {
+        "image": {
+            "publicId": "destinations/nuwara-eliya-tea-plantation",
+            "alt": "Tea estate in Nuwara Eliya",
+            "caption": "Discover the wonder of Ceylon Tea",
+            "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/destinations/nuwara-eliya-tea-plantation.jpg",
+            "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/destinations/nuwara-eliya-tea-plantation.jpg",
+            "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/destinations/nuwara-eliya-tea-plantation.jpg",
+            "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/destinations/nuwara-eliya-tea-plantation.jpg"
+        },
+        "header": "Nuwara Eliya Tea Estate & Tasting Experience",
+        "body": "Stroll through misty tea plantations, pluck your own leaves, and savour freshly brewed Ceylon tea on the hills.",
+        "tags": [
+            "tea",
+            "nuwara eliya",
+            "estate"
+        ]
+    },
+    "galleryImages": [],
+    "relatedExperiences": [
+        {
+            "id": 0,
+            "title": "Lagoon Kayaking & Mangrove Safari in Bentota",
+            "slug": "lagoon-kayaking-mangrove-safari",
+            "shortSummary": "Glide through calm waters on a Lagoon Kayaking & Mangrove Safari in Bentota.",
+            "duration": "2–3 Hours",
+            "price": 35,
+            "difficulty": "Easy",
+            "description": "Paddle your way through hidden mangrove forests, quiet backwaters, and rich birdlife in this serene eco-experience. Perfect for birdwatchers and nature lovers.",
+            "card": {
+                "image": {
+                    "publicId": "experiences/bentota-card",
+                    "alt": "Sunset in Bentota",
+                    "caption": "Evening comes to Bentota",
+                    "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/experiences/bentota-card.jpg",
+                    "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/experiences/bentota-card.jpg",
+                    "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/experiences/bentota-card.jpg",
+                    "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/experiences/bentota-card.jpg"
+                },
+                "header": "Lagoon Kayaking & Mangrove Safari in Bentota",
+                "body": "Kayak through the calm lagoon or explore the mangrove forsts of Bentota.",
+                "tags": [
+                    "Photography",
+                    "eco"
+                ]
+            },
+            "galleryImages": []
+        },
+        {
+            "id": 0,
+            "title": "Galle Fort Heritage Walk with Local Historian",
+            "slug": "galle-fort-heritage-walk",
+            "shortSummary": "Step into centuries of charm on a Galle Fort heritage walk.",
+            "duration": "3–4 Hours",
+            "price": 40,
+            "difficulty": "Easy",
+            "description": "Wander through centuries of colonial history with a local guide inside the Dutch-built Galle Fort. Discover Portuguese churches, spice markets, ancient ramparts, and vibrant street life.",
+            "card": {
+                "image": {
+                    "publicId": "activities/galle-ramparts-sunset",
+                    "alt": "Galle Fort at sunset",
+                    "caption": "The sunset over the Galle Fort Lighthouse",
+                    "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/activities/galle-ramparts-sunset.jpg",
+                    "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/activities/galle-ramparts-sunset.jpg",
+                    "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/activities/galle-ramparts-sunset.jpg",
+                    "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/activities/galle-ramparts-sunset.jpg"
+                },
+                "header": "Galle Fort Heritage Walk with Local Historian",
+                "body": "Walk through the historic streets of Galle Fort and discover its continuing legacy",
+                "tags": [
+                    "Cultural",
+                    "Beach"
+                ]
+            },
+            "galleryImages": []
+        },
+        {
+            "id": 0,
+            "title": "Whale Watching Cruise in Mirissa",
+            "slug": "whale-watching-cruise-mirissa",
+            "shortSummary": "Experience the thrill of a whale watching cruise in Mirissa — one of Sri Lanka’s top marine adventures. Set off from the southern coast just after sunrise.",
+            "duration": "Half-Day",
+            "price": 60,
+            "difficulty": "Easy",
+            "description": "Head out on the Indian Ocean to spot the largest mammals on Earth. Enjoy the thrill of watching blue whales and spinner dolphins in their natural habitat on a responsible whale-watching cruise.",
+            "card": {
+                "image": {
+                    "publicId": "experiences/whale-watching-card",
+                    "alt": "Whale watching in Mirissa",
+                    "caption": "Witness the playful antics of marine wildlife",
+                    "orientation": "landscape",
+                    "baseUrl": "https://res.cloudinary.com/drsjp6bqz/image/upload/experiences/whale-watching-card.jpg",
+                    "small": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/experiences/whale-watching-card.jpg",
+                    "medium": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_800,h_600,c_fill/experiences/whale-watching-card.jpg",
+                    "large": "https://res.cloudinary.com/drsjp6bqz/image/upload/w_1600,h_900,c_fill/experiences/whale-watching-card.jpg"
+                },
+                "header": "Whale Watching Cruise in Mirissa",
+                "body": "Board a ship and take an early morning cruise to witness the wonder of the sea.",
+                "tags": [
+                    "Wildlife",
+                    "Beach"
+                ]
+            },
+            "galleryImages": []
+        }
+    ]
+}

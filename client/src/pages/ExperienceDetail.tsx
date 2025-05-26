@@ -44,6 +44,18 @@ interface ExperienceCard {
   tags?: string[];
 }
 
+interface RelatedExperience {
+  id: number;
+  title: string;
+  slug: string;
+  shortSummary: string;
+  duration: string;
+  price: number;
+  difficulty: string;
+  description: string;
+  card?: ExperienceCard;
+}
+
 interface Experience {
   id: number;
   title: string;
@@ -54,6 +66,7 @@ interface Experience {
   whatToBring?: ExperienceWhatToBring[];
   seo?: ExperienceSEO;
   card?: ExperienceCard;
+  relatedExperiences?: RelatedExperience[];
 }
 
 const ExperienceDetail = () => {
@@ -303,76 +316,73 @@ const ExperienceDetail = () => {
       </section>
       
       {/* Related Experiences Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#004E64] mb-8 text-center">
-            Similar Experiences
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* This would be populated with actual related experiences from the API */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1564671165093-20688ff1fffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                  alt="Sri Lankan Cooking Class" 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-800 mb-2">Sri Lankan Cooking Class</h3>
-                <p className="text-gray-600 mb-4 line-clamp-2">Master authentic Sri Lankan cuisine with local chefs in a hands-on cooking class.</p>
-                <Link 
-                  href="/experiences/sri-lankan-cooking-class"
-                  className="inline-flex items-center text-sm font-medium text-[#0077B6]"
-                >
-                  View Details <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
-              </div>
-            </div>
+      {experience.relatedExperiences && experience.relatedExperiences.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-['Playfair_Display'] text-3xl font-bold text-[#004E64] mb-8 text-center">
+              Similar Experiences
+            </h2>
             
-            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                  alt="Yala Safari Experience" 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-800 mb-2">Yala Safari Experience</h3>
-                <p className="text-gray-600 mb-4 line-clamp-2">Track leopards and wildlife in Sri Lanka's premier national park on a guided jeep safari.</p>
-                <Link 
-                  href="/experiences/yala-safari-experience"
-                  className="inline-flex items-center text-sm font-medium text-[#0077B6]"
-                >
-                  View Details <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                  alt="Ancient Temples of Anuradhapura" 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-800 mb-2">Ancient Temples of Anuradhapura</h3>
-                <p className="text-gray-600 mb-4 line-clamp-2">Tour the sacred ruins of Sri Lanka's ancient capital with expert historical guides.</p>
-                <Link 
-                  href="/experiences/ancient-temples-of-anuradhapura"
-                  className="inline-flex items-center text-sm font-medium text-[#0077B6]"
-                >
-                  View Details <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {experience.relatedExperiences.map((relatedExp) => (
+                <div key={relatedExp.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={
+                        relatedExp.card?.image?.medium || 
+                        relatedExp.card?.image?.large || 
+                        relatedExp.card?.image?.baseUrl || 
+                        'https://images.unsplash.com/photo-1576675066965-5a3326f2be62?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80'
+                      }
+                      alt={relatedExp.card?.image?.alt || relatedExp.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
+                    />
+                    {/* Tags overlay */}
+                    {relatedExp.card?.tags && relatedExp.card.tags.length > 0 && (
+                      <div className="absolute top-3 left-3 flex flex-wrap gap-1">
+                        {relatedExp.card.tags.slice(0, 2).map((tag, index) => (
+                          <span 
+                            key={index}
+                            className="inline-block px-2 py-1 text-xs font-medium bg-white/80 text-[#0077B6] rounded-full backdrop-blur-sm"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {/* Duration badge */}
+                    <div className="absolute top-3 right-3">
+                      <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-[#004E64]/80 text-white rounded-full backdrop-blur-sm">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {relatedExp.duration}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-800 mb-2">
+                      {relatedExp.card?.header || relatedExp.title}
+                    </h3>
+                    <p className="text-gray-600 mb-4 line-clamp-2">
+                      {relatedExp.card?.body || relatedExp.shortSummary}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="text-lg font-bold text-[#0077B6]">
+                        ${relatedExp.price}
+                      </div>
+                      <Link 
+                        href={`/experiences/${relatedExp.slug}`}
+                        className="inline-flex items-center text-sm font-medium text-[#0077B6] hover:text-[#004E64] transition-colors"
+                      >
+                        View Details <ChevronRight className="w-4 h-4 ml-1" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
   );
 };
