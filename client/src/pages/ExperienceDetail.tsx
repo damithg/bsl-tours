@@ -379,7 +379,7 @@ const ExperienceDetail = () => {
               {/* Mobile: Horizontal scroll, Desktop: Grid */}
               <div 
                 ref={scrollContainerRef}
-                className="md:grid md:grid-cols-3 md:gap-8 flex md:flex-none overflow-x-auto gap-4 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
+                className="md:grid md:grid-cols-3 md:gap-8 flex md:flex-none overflow-x-auto gap-4 pb-6 md:pb-0 px-2 md:px-0 scrollbar-hide"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {experience.relatedExperiences.map((relatedExp: RelatedExperience, index: number) => (
