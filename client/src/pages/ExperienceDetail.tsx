@@ -16,20 +16,7 @@ interface ExperienceImage {
   banner?: string;
 }
 
-interface ExperienceHighlight {
-  id: number;
-  text: string;
-}
-
-interface ExperienceInclusion {
-  id: number;
-  text: string;
-}
-
-interface ExperienceWhatToBring {
-  id: number;
-  text: string;
-}
+// The API returns simple string arrays, not objects with id/text
 
 interface ExperienceSEO {
   metaTitle?: string;
@@ -61,9 +48,14 @@ interface Experience {
   title: string;
   slug: string;
   description: string;
-  highlights?: ExperienceHighlight[];
-  inclusions?: ExperienceInclusion[];
-  whatToBring?: ExperienceWhatToBring[];
+  shortSummary?: string;
+  duration?: string;
+  price?: number;
+  difficulty?: string;
+  featured?: boolean;
+  highlights?: string[];  // API returns string arrays
+  inclusions?: string[];  // API returns string arrays
+  whatToBring?: string[]; // API returns string arrays
   seo?: ExperienceSEO;
   card?: ExperienceCard;
   relatedExperiences?: RelatedExperience[];
@@ -74,7 +66,7 @@ const ExperienceDetail = () => {
   const slug = params?.slug;
   
   // Fetch specific experience data from API using slug
-  const { data: experience, isLoading, error } = useQuery({
+  const { data: experience, isLoading, error } = useQuery<Experience>({
     queryKey: ['/api/experiences', slug],
     enabled: !!slug, // Only run query if slug exists
     staleTime: 5 * 60 * 1000, // 5 minutes
@@ -194,10 +186,10 @@ const ExperienceDetail = () => {
                     Experience Highlights
                   </h2>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {experience.highlights.map(highlight => (
-                      <li key={highlight.id} className="flex items-start">
+                    {experience.highlights.map((highlight: string, index: number) => (
+                      <li key={index} className="flex items-start">
                         <Check className="w-5 h-5 text-[#0077B6] mt-0.5 mr-2 flex-shrink-0" />
-                        <span className="text-gray-700">{highlight.text}</span>
+                        <span className="text-gray-700">{highlight}</span>
                       </li>
                     ))}
                   </ul>
@@ -211,10 +203,10 @@ const ExperienceDetail = () => {
                     What's Included
                   </h2>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {experience.inclusions.map(inclusion => (
-                      <li key={inclusion.id} className="flex items-start">
+                    {experience.inclusions.map((inclusion: string, index: number) => (
+                      <li key={index} className="flex items-start">
                         <Check className="w-5 h-5 text-[#88B04B] mt-0.5 mr-2 flex-shrink-0" />
-                        <span className="text-gray-700">{inclusion.text}</span>
+                        <span className="text-gray-700">{inclusion}</span>
                       </li>
                     ))}
                   </ul>
@@ -229,10 +221,10 @@ const ExperienceDetail = () => {
                   </h2>
                   <div className="bg-[#F8F5F0] p-6 rounded-lg">
                     <ul className="space-y-3">
-                      {experience.whatToBring.map(item => (
-                        <li key={item.id} className="flex items-start">
+                      {experience.whatToBring.map((item: string, index: number) => (
+                        <li key={index} className="flex items-start">
                           <Info className="w-5 h-5 text-[#F26B6B] mt-0.5 mr-2 flex-shrink-0" />
-                          <span className="text-gray-700">{item.text}</span>
+                          <span className="text-gray-700">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -320,8 +312,8 @@ const ExperienceDetail = () => {
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {experience.relatedExperiences.map((relatedExp) => (
-                <div key={relatedExp.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
+              {experience.relatedExperiences.map((relatedExp: RelatedExperience, index: number) => (
+                <div key={`${relatedExp.slug}-${index}`} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
                   <div className="relative h-48 overflow-hidden">
                     <img 
                       src={
