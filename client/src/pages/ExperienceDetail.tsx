@@ -73,16 +73,12 @@ const ExperienceDetail = () => {
   const [, params] = useRoute('/experiences/:slug');
   const slug = params?.slug;
   
-  // Fetch experience data from API
-  const { data: experiences, isLoading, error } = useQuery({
-    queryKey: ['/api/experiences'],
+  // Fetch specific experience data from API using slug
+  const { data: experience, isLoading, error } = useQuery({
+    queryKey: ['/api/experiences', slug],
+    enabled: !!slug, // Only run query if slug exists
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
-  
-  // Find specific experience by slug
-  const experience = Array.isArray(experiences) 
-    ? experiences.find((exp: Experience) => exp.slug === slug) 
-    : null;
   
   // Derived state
   const [imageUrl, setImageUrl] = useState<string>('');
