@@ -121,12 +121,12 @@ const NewsletterElegant = () => {
               {/* Testimonial */}
               <div className="bg-white rounded-lg p-6 shadow-sm border-l-4" style={{ borderLeftColor: COLORS.secondary }}>
                 <p className="text-gray-700 italic mb-4">
-                  "Best Sri Lanka Tours provides exceptional insider knowledge that transforms every journey into an authentic adventure. 
-                  Their expertise in luxury travel planning is unmatched."
+                  "The monthly insights helped us discover places in Sri Lanka we never would have found on our own. 
+                  Each newsletter feels like getting advice from a knowledgeable local friend."
                 </p>
                 <div className="pt-3">
-                  <p className="font-semibold text-gray-800">— Verified Guest Review</p>
-                  <p className="text-sm text-gray-600">Luxury Travel Experience</p>
+                  <p className="font-semibold text-gray-800">Sarah Thompson</p>
+                  <p className="text-sm text-gray-600">Travel Photographer, London</p>
                 </div>
               </div>
             </div>
