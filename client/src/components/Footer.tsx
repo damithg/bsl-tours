@@ -72,7 +72,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {/* <li><Link href="/blog" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Blog</Link></li> */}
               <li><Link href="/newsletter" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Newsletter</Link></li>
-              <li><Link href="/brochures" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Brochures</Link></li>
+              {/* <li><Link href="/brochures" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Brochures</Link></li> */}
             </ul>
           </div>
           
