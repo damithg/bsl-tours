@@ -384,6 +384,11 @@ app.post('/api/subscribe', async (req, res) => {
     }
   });
 
+  // Catch-all handler: send back React's index.html file for client-side routing
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  });
+
   const port = parseInt(process.env.PORT || "5000", 10);
   server.listen(port, "0.0.0.0", () => {
     log(`serving frontend on port ${port}`);
