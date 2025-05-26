@@ -311,9 +311,10 @@ const ExperienceDetail = () => {
               Similar Experiences
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Mobile: Horizontal scroll, Desktop: Grid */}
+            <div className="md:grid md:grid-cols-3 md:gap-8 flex md:flex-none overflow-x-auto gap-4 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
               {experience.relatedExperiences.map((relatedExp: RelatedExperience, index: number) => (
-                <div key={`${relatedExp.slug}-${index}`} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
+                <div key={`${relatedExp.slug}-${index}`} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all flex-shrink-0 w-72 md:w-auto">
                   <div className="relative h-48 overflow-hidden">
                     <img 
                       src={
