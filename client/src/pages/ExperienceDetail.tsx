@@ -5,6 +5,7 @@ import { ChevronRight, Star, Check, Clock, MapPin, Calendar, Users, Wifi, Coffee
 import HeroSection from '@/components/HeroSection';
 import { Tag } from '@/components/ui/tag';
 import { COLORS } from '@/utils/colors';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 // Types for Experience API Response
 interface ExperienceImage {
@@ -66,6 +67,9 @@ interface Experience {
 const ExperienceDetail = () => {
   const [, params] = useRoute('/experiences/:slug');
   const slug = params?.slug;
+  
+  // Get the formatPrice function from the CurrencyContext
+  const { formatPrice } = useCurrency();
   
   // Fetch specific experience data from API using slug
   const { data: experience, isLoading, error } = useQuery<Experience>({
@@ -436,7 +440,7 @@ const ExperienceDetail = () => {
                           <span className="text-sm text-gray-500">Starting from</span>
                           <div className="flex items-baseline">
                             <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
-                              ${relatedExp.price}
+                              {formatPrice(relatedExp.price || 0, { currency: 'USD' })}
                             </span>
                             <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
                           </div>
