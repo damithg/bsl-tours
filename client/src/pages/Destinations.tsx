@@ -107,9 +107,8 @@ const Destinations = () => {
         description="Discover Sri Lanka through our carefully curated experiences that combine luxury, authenticity, and exclusivity."
         backgroundImage="https://res.cloudinary.com/drsjp6bqz/image/upload/v1748296611/srilanka-destination-rail.png"
         overlayColor="bg-[#0077B6]"
-        overlayOpacity={20}
-        breadcrumbItems={[
-          { label: "Home", path: "/" },
+        overlayOpacity={50}
+        breadcrumbItems={[          
           { label: "Destinations" }
         ]}
       />
