@@ -50,9 +50,8 @@ const HeroSection = ({
         </div>
       )}
       
-      {/* Enhanced dark overlay for better text readability */}
+      {/* Dark overlay to ensure text remains readable */}
       <div className={`absolute inset-0 z-0 ${overlayColor}/[.${overlayOpacity}]`}></div>
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-black/60 via-black/30 to-black/20"></div>
       
       {/* Optional decorative elements */}
       <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-secondary/20 rounded-full blur-3xl opacity-30"></div>
@@ -69,12 +68,12 @@ const HeroSection = ({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-8">
         
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-none drop-shadow-2xl text-shadow-lg md:whitespace-nowrap bg-black/20 backdrop-blur-sm rounded-lg px-6 py-4 border border-white/10">
+          <h1 className="font-['Playfair_Display'] text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-none md:whitespace-nowrap" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0px 0px 8px rgba(0,0,0,0.5)' }}>
             {title}
           </h1>
           {showDivider && <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>}
           {description && (
-            <p className={`text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto font-['Raleway'] ${!showDivider && description ? 'mt-4' : ''} mb-4 drop-shadow-2xl text-shadow bg-black/15 backdrop-blur-sm rounded-lg px-6 py-3 border border-white/10`}>
+            <p className={`text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto font-['Raleway'] ${!showDivider && description ? 'mt-4' : ''} mb-4`} style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8), 0px 0px 6px rgba(0,0,0,0.4)' }}>
               {description}
             </p>
           )}
