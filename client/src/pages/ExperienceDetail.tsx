@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRoute, Link } from 'wouter';
-import { ChevronRight, Star, Check, Clock, MapPin, Calendar, Users, Wifi, Coffee, Compass, Luggage, Info, AlertCircle } from 'lucide-react';
+import { ChevronRight, Star, Check, Clock, MapPin, Calendar, Users, Wifi, Coffee, Compass, Luggage, Info, AlertCircle, ChevronLeft } from 'lucide-react';
 import HeroSection from '@/components/HeroSection';
 
 // Types for Experience API Response
@@ -74,6 +74,47 @@ const ExperienceDetail = () => {
   
   // Derived state
   const [imageUrl, setImageUrl] = useState<string>('');
+  
+  // Related experiences scroll functionality
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(false);
+
+  const checkScrollPosition = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      setShowLeftArrow(container.scrollLeft > 10);
+      setShowRightArrow(container.scrollLeft < container.scrollWidth - container.clientWidth - 10);
+    }
+  };
+
+  const scrollLeft = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      checkScrollPosition();
+      container.addEventListener('scroll', checkScrollPosition);
+      window.addEventListener('resize', checkScrollPosition);
+      
+      return () => {
+        container.removeEventListener('scroll', checkScrollPosition);
+        window.removeEventListener('resize', checkScrollPosition);
+      };
+    }
+  }, [experience?.relatedExperiences]);
   
   // Set image when experience is loaded
   useEffect(() => {
@@ -311,11 +352,39 @@ const ExperienceDetail = () => {
               Similar Experiences
             </h2>
             
-            {/* Mobile: Horizontal scroll, Desktop: Grid */}
-            <div className="md:grid md:grid-cols-3 md:gap-8 flex md:flex-none overflow-x-auto gap-4 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
-              {experience.relatedExperiences.map((relatedExp: RelatedExperience, index: number) => (
-                <div key={`${relatedExp.slug}-${index}`} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all flex-shrink-0 w-72 md:w-auto">
-                  <div className="relative h-48 overflow-hidden">
+            {/* Scrollable container with arrow controls */}
+            <div className="relative">
+              {/* Left Arrow */}
+              {showLeftArrow && (
+                <button
+                  onClick={scrollLeft}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-[#0077B6] rounded-full p-2 shadow-lg transition-all md:hidden"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+              )}
+              
+              {/* Right Arrow */}
+              {showRightArrow && (
+                <button
+                  onClick={scrollRight}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-[#0077B6] rounded-full p-2 shadow-lg transition-all md:hidden"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              )}
+              
+              {/* Mobile: Horizontal scroll, Desktop: Grid */}
+              <div 
+                ref={scrollContainerRef}
+                className="md:grid md:grid-cols-3 md:gap-8 flex md:flex-none overflow-x-auto gap-4 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {experience.relatedExperiences.map((relatedExp: RelatedExperience, index: number) => (
+                  <div key={`${relatedExp.slug}-${index}`} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all flex-shrink-0 w-72 md:w-auto">
+                    <div className="relative h-48 overflow-hidden">
                     <img 
                       src={
                         relatedExp.card?.image?.medium || 
@@ -368,6 +437,7 @@ const ExperienceDetail = () => {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </section>
