@@ -101,16 +101,11 @@ const NewsletterModern = () => {
       {/* Hero Section */}
       <HeroSection
         title="Sri Lanka Travel Newsletter"
-        subtitle="Join 15,000+ travelers discovering Sri Lanka's hidden treasures through our monthly insider's guide"
+        description="Join 15,000+ travelers discovering Sri Lanka's hidden treasures through our monthly insider's guide"
         imageUrl="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
         imageAlt="Sri Lankan temple and landscape"
         overlayOpacity={30}
         height="h-[70vh]"
-        showBreadcrumbs={true}
-        breadcrumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Newsletter', href: '/newsletter' }
-        ]}
       />
 
       {/* Stats Section */}
