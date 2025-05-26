@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Destination } from "@shared/schema";
 import { Link } from "wouter";
-import { Home, ChevronRight } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { Tag } from "@/components/ui/tag";
+import HeroSection from "@/components/HeroSection";
 
 const Destinations = () => {
   const { data: destinations, isLoading, error } = useQuery<Destination[]>({
@@ -88,47 +88,16 @@ const Destinations = () => {
 
   return (
     <main>
-      {/* Hero Section with Breadcrumbs */}
-      <section className="relative pt-28 pb-20 bg-[#0077B6]">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img 
-            src={featuredDestinationContent.image} 
-            alt="Sri Lanka destinations" 
-            className="w-full h-full object-cover" 
-          />
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb Navigation */}
-          <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
-                  <Home className="w-4 h-4 mr-2" />
-                  Home
-                </Link>
-              </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <ChevronRight className="w-5 h-5 text-white/60" />
-                  <span className="ml-1 text-sm font-medium text-white/80">
-                    Destinations
-                  </span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-          
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="font-['Playfair_Display'] text-4xl md:text-5xl font-bold text-white mb-6">
-              {featuredDestinationContent.title}
-            </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              {featuredDestinationContent.description}
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section */}
+      <HeroSection 
+        title="Explore the Wonder of Sri Lanka"
+        description="From ancient cities to pristine beaches, misty mountains to wildlife sanctuaries, discover the diverse landscapes and cultural treasures of this island paradise."
+        backgroundImage="https://images.unsplash.com/photo-1586861642026-fc21a5ae85b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+        breadcrumbItems={[
+          { label: "Home", href: "/" },
+          { label: "Destinations", href: "/destinations" }
+        ]}
+      />
 
       {/* Key Experiences */}
       <section className="py-16 bg-white">
@@ -306,7 +275,7 @@ const Destinations = () => {
               <div className="relative">
                 <Link href="/destination/sigiriya-rock-fortress">
                   <img 
-                    src="https://images.unsplash.com/photo-1583087253076-5d1315860eb8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                    src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743458277/destinations/sigiriya-rock-panoramic-views.jpg" 
                     alt="Sigiriya Rock Fortress" 
                     className="rounded-lg shadow-xl hover:opacity-95 transition-opacity" 
                   />
@@ -334,8 +303,8 @@ const Destinations = () => {
           
           <div className="bg-white p-8 rounded-lg shadow-lg relative">
             <img 
-              src="https://images.unsplash.com/photo-1604998103924-89e012e5265a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
-              alt="Map of Sri Lanka" 
+              src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743664436/destinations/kalpitiya-lagoon.jpg" 
+              alt="Kalpitiya Lagoon" 
               className="w-full h-auto rounded-lg"
             />
             {/* Map would normally have interactive elements - simplified for this demo */}
