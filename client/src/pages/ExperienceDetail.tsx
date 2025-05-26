@@ -325,7 +325,9 @@ const ExperienceDetail = () => {
                   <div className="border-t border-gray-200 pt-6 pb-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-700 font-medium">Price</span>
-                      <span className="text-xl font-bold text-[#0077B6]">$150</span>
+                      <span className="text-xl font-bold text-[#0077B6]">
+                        {formatPrice(experience?.price || 150, { currency: 'USD' })}
+                      </span>
                     </div>
                     <p className="text-gray-500 text-sm mb-6">per person</p>
                     
