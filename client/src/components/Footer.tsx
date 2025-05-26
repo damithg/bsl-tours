@@ -62,7 +62,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link href="/contact" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Contact Us</Link></li>
               <li><Link href="/pre-departure-info" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Pre-Departure Info</Link></li>
-              <li><Link href="/travel-resources" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Travel Resources</Link></li>
+              {/* <li><Link href="/travel-resources" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Travel Resources</Link></li> */}
               <li><Link href="/safety-updates" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Safety Updates</Link></li>
             </ul>
           </div>
@@ -70,7 +70,7 @@ const Footer = () => {
           <div className="col-span-1 sm:col-span-1 lg:col-span-2 order-2">
             <h3 style={{ color: COLORS.secondary }} className="font-['Playfair_Display'] text-xl font-bold mb-4">Community</h3>
             <ul className="space-y-2">
-              <li><Link href="/blog" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Blog</Link></li>
+              {/* <li><Link href="/blog" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Blog</Link></li> */}
               <li><Link href="/newsletter" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Newsletter</Link></li>
               <li><Link href="/brochures" style={{ color: 'rgba(255,255,255,0.8)' }} className="font-['Raleway'] text-base hover:text-secondary transition">Brochures</Link></li>
             </ul>

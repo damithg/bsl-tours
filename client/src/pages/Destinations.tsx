@@ -352,7 +352,7 @@ const Destinations = () => {
       <section className="py-16 bg-[#0077B6] relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
-            src="https://images.unsplash.com/photo-1551357141-b1311e102261?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
+            src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1747725969/experiences/sigiriya-and-pidurangala.jpg" 
             alt="Sri Lanka landscape" 
             className="w-full h-full object-cover" 
           />

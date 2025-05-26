@@ -83,7 +83,7 @@ const TravelResources: React.FC = () => {
         {
           title: 'Packing Checklist',
           description: 'A comprehensive packing list tailored for Sri Lanka\'s climate and activities.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/practical/packing.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747637805/resources/packing-checklist.jpg',
           link: '/pre-departure-info'
         }
       ]
@@ -129,19 +129,19 @@ const TravelResources: React.FC = () => {
         {
           title: 'Best Time to Visit Sri Lanka',
           description: 'Detailed breakdown of climate patterns, festivals, and regional variations throughout the year.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/seasonal/best-time.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747670178/resources/best-time-visiting.jpg',
           link: '/resources/best-time-to-visit'
         },
         {
           title: 'Monsoon Season Travel Guide',
           description: 'Tips for traveling during monsoon seasons, including which regions to visit and what to expect.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/seasonal/monsoon.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747671045/resources/mosoon-season.jpg',
           link: '/resources/monsoon-travel'
         },
         {
           title: 'Festival Calendar',
           description: 'Annual calendar of Sri Lankan festivals, celebrations, and cultural events.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/seasonal/festivals.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747697562/resources/sri-lanka-festivals.jpg',
           link: '/resources/festival-calendar'
         },
         {
@@ -167,7 +167,7 @@ const TravelResources: React.FC = () => {
         {
           title: 'Best Sunset & Sunrise Locations',
           description: 'Top spots across Sri Lanka for capturing magical golden hour moments.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/photography/sunset.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747697837/resources/sunset-sunrise-locations.jpg',
           link: '/resources/sunset-locations'
         },
         {
@@ -225,25 +225,25 @@ const TravelResources: React.FC = () => {
         {
           title: 'Sri Lankan Cuisine Guide',
           description: 'Introduction to Sri Lankan food, key ingredients, and traditional cooking methods.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/food/cuisine.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747699475/resources/sri-lanka-cuisine.jpg',
           link: '/resources/cuisine-guide'
         },
         {
           title: 'Regional Food Specialties',
           description: 'Discover unique dishes from different regions of Sri Lanka.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/food/regional.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747699564/resources/regional-food.jpg',
           link: '/resources/regional-food'
         },
         {
           title: 'Street Food Guide',
           description: 'Must-try street foods, where to find them, and how to eat like a local.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/food/street.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747699617/resources/street-food.jpg',
           link: '/resources/street-food'
         },
         {
           title: 'Ceylon Tea Experience',
           description: 'All about Sri Lankan tea, tea estates, and how to properly taste and appreciate Ceylon tea.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/food/tea.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747699679/resources/ceylon-tea.jpg',
           link: '/resources/ceylon-tea'
         }
       ]
@@ -263,19 +263,19 @@ const TravelResources: React.FC = () => {
         {
           title: 'Religious Traditions',
           description: 'Guide to Buddhism, Hinduism, Islam, and Christianity in Sri Lanka and their cultural significance.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/cultural/religion.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747699950/resources/religious-traditions.jpg',
           link: '/resources/religious-traditions'
         },
         {
           title: 'Sri Lankan Art & Crafts',
           description: 'Traditional artforms, handicrafts, and where to see and purchase authentic souvenirs.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/cultural/crafts.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747700007/resources/arts-and-crafts.jpg',
           link: '/resources/art-crafts'
         },
         {
           title: 'Brief History of Sri Lanka',
           description: 'Concise historical overview from ancient kingdoms to modern Sri Lanka.',
-          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/w_400,h_300,c_fill/v1634567890/cultural/history.jpg',
+          imageSrc: 'https://res.cloudinary.com/drsjp6bqz/image/upload/v1747700138/resources/sri-lanka-history.jpg',
           link: '/resources/history'
         }
       ]
