@@ -132,6 +132,16 @@ const FeaturedPackages = () => {
   // Debug code to verify data from Azure API
   console.log("Featured tours data:", strapiResponse);
   
+  // Debug individual tour prices
+  if (tours && tours.length > 0) {
+    console.log("First tour pricing data:", {
+      name: tours[0].name,
+      startingFrom: tours[0].startingFrom,
+      currency: tours[0].currency,
+      type: typeof tours[0].startingFrom
+    });
+  }
+  
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -379,7 +389,7 @@ const FeaturedPackages = () => {
                           <span className="text-sm text-gray-500">Starting from</span>
                           <div className="flex items-baseline">
                             <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
-                              {formatPrice(tour.startingFrom || 0, { currency: tour.currency || 'USD' })}
+                              {formatPrice(Number(tour.startingFrom) || 0, { currency: tour.currency || 'USD' })}
                             </span>
                             <span className="text-gray-500 text-sm ml-1.5">/ per person</span>
                           </div>
