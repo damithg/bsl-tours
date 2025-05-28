@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import React, { useState, useEffect, useRef } from "react";
 import { Tag } from "@/components/ui/tag";
 import HeroSection from "@/components/HeroSection";
+import { ChevronRight } from "lucide-react";
 
 const Destinations = () => {
   const {
@@ -189,7 +190,7 @@ const Destinations = () => {
                 {visibleDestinations?.map((destination) => (
                   <div
                     key={destination.id}
-                    className="bg-white rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl"
+                    className="bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl"
                   >
                     <div className="relative h-64 overflow-hidden">
                       <img
@@ -233,7 +234,7 @@ const Destinations = () => {
                           (destination as any).card?.title ||
                           destination.name}
                       </h3>
-                      <p className="text-[#333333]/70 mb-6">
+                      <p className="text-gray-700/70 mb-6">
                         {(destination as any).card?.body ||
                           (destination as any).card?.subtitle ||
                           destination.excerpt ||
@@ -243,24 +244,9 @@ const Destinations = () => {
 
                       <Link
                         href={`/destination/${destination.slug || destination.id}`}
-                        className="inline-flex items-center bg-[#0077B6]/10 hover:bg-[#0077B6]/20 
-                                 text-[#0077B6] font-medium py-2 px-5 rounded-full transition group border border-[#0077B6]/10 shadow-sm"
+                        className="inline-flex items-center bg-[#0077B6] hover:bg-[#0077B6]/90 text-white font-medium py-2 px-5 rounded-full transition group shadow-md"
                       >
-                        Explore Experiences
-                        <svg
-                          className="w-5 h-5 ml-1.5 transition-transform group-hover:translate-x-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                          ></path>
-                        </svg>
+                        Explore <ChevronRight className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
                       </Link>
                     </div>
                   </div>
