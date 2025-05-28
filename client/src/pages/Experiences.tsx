@@ -388,10 +388,9 @@ const Experiences = () => {
       {/* Custom Experience Section */}
       <section className="py-20 bg-[#F8F5F0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-[#004E64] via-[#0077B6] to-[#005f92] rounded-2xl overflow-hidden shadow-2xl relative">
-            {/* Decorative elements */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#F6E27F]/10 rounded-full blur-2xl"></div>
+          <div className="bg-white rounded-2xl overflow-hidden shadow-xl relative border border-gray-100">
+            {/* Subtle decorative element */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -translate-y-16 translate-x-16"></div>
             
             <div className="flex flex-col md:flex-row">
               {/* Image Side */}
@@ -399,25 +398,25 @@ const Experiences = () => {
                 <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ 
                   backgroundImage: "url('/attached_assets/mirissa (7).jpg')",
                 }}>
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+                  <div className="absolute inset-0 bg-black/20"></div>
                 </div>
-                <div className="relative h-full flex flex-col justify-center items-start p-8 md:p-10">
-                  <div className="bg-white/15 backdrop-blur-md p-6 rounded-2xl border border-white/30 shadow-2xl max-w-sm">
+                <div className="relative h-full flex flex-col justify-end p-8 md:p-10">
+                  <div className="bg-white/95 backdrop-blur-sm p-6 rounded-xl shadow-lg max-w-sm">
                     <div className="flex items-center mb-3">
-                      <div className="w-3 h-3 bg-[#F6E27F] rounded-full mr-2"></div>
-                      <span className="text-white/90 text-sm font-medium">Client Testimonial</span>
+                      <div className="w-2 h-2 bg-[#0077B6] rounded-full mr-2"></div>
+                      <span className="text-gray-600 text-sm font-medium">Client Review</span>
                     </div>
-                    <h3 className="font-['Playfair_Display'] text-white text-xl font-bold mb-3">Perfectly Tailored</h3>
-                    <p className="text-white/90 text-sm leading-relaxed mb-4">
+                    <h3 className="font-['Playfair_Display'] text-gray-800 text-lg font-semibold mb-3">Perfectly Tailored</h3>
+                    <p className="text-gray-700 text-sm leading-relaxed mb-4">
                       "Every moment was crafted to our interests. From sunrise at Adam's Peak to private cooking classes in Kandy - pure magic."
                     </p>
                     <div className="flex items-center justify-between">
                       <div className="flex">
                         {[1, 2, 3, 4, 5].map((star) => (
-                          <Star key={star} className="w-4 h-4 text-[#F6E27F] fill-[#F6E27F]" />
+                          <Star key={star} className="w-4 h-4 text-[#0077B6] fill-[#0077B6]" />
                         ))}
                       </div>
-                      <span className="text-white/80 text-xs font-medium">– Emma & James</span>
+                      <span className="text-gray-600 text-xs font-medium">– Emma & James</span>
                     </div>
                   </div>
                 </div>
@@ -426,41 +425,41 @@ const Experiences = () => {
               {/* Content Side */}
               <div className="md:w-3/5 p-8 md:p-12 lg:p-16 relative">
                 <div className="max-w-2xl">
-                  <div className="mb-6">
-                    <div className="inline-flex items-center bg-[#F6E27F]/20 text-[#F6E27F] px-4 py-2 rounded-full text-sm font-medium mb-4">
-                      ✨ Bespoke Travel Design
+                  <div className="mb-8">
+                    <div className="inline-flex items-center bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                      Bespoke Travel Design
                     </div>
-                    <h2 className="font-['Playfair_Display'] text-4xl font-bold text-white mb-4 leading-tight">
+                    <h2 className="font-['Playfair_Display'] text-4xl font-bold text-gray-800 mb-4 leading-tight">
                       Create Your Perfect Sri Lankan Story
                     </h2>
-                    <p className="text-white/90 text-lg leading-relaxed mb-8">
+                    <p className="text-gray-600 text-lg leading-relaxed mb-8">
                       Our expert travel designers craft completely personalized journeys that reflect your unique interests, travel style, and dreams. Every detail is thoughtfully curated just for you.
                     </p>
                   </div>
                   
-                  <div className="grid grid-cols-1 gap-4 mb-10">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-colors">
+                  <div className="grid grid-cols-1 gap-6 mb-10">
+                    <div className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 rounded-xl bg-[#F6E27F]/20 flex items-center justify-center flex-shrink-0">
-                          <Calendar className="w-6 h-6 text-[#F6E27F]" />
+                        <div className="w-12 h-12 rounded-xl bg-[#0077B6]/10 flex items-center justify-center flex-shrink-0">
+                          <Calendar className="w-6 h-6 text-[#0077B6]" />
                         </div>
                         <div>
-                          <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-white">Perfectly Timed Moments</h3>
-                          <p className="text-white/80 text-sm leading-relaxed">
+                          <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-gray-800">Perfectly Timed Moments</h3>
+                          <p className="text-gray-600 text-sm leading-relaxed">
                             Experience Sri Lanka at its most magical - sunrise at Sigiriya Rock, golden hour at Galle Fort, or tea estate visits during harvest season.
                           </p>
                         </div>
                       </div>
                     </div>
                     
-                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-colors">
+                    <div className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 rounded-xl bg-[#F6E27F]/20 flex items-center justify-center flex-shrink-0">
-                          <Users className="w-6 h-6 text-[#F6E27F]" />
+                        <div className="w-12 h-12 rounded-xl bg-[#0077B6]/10 flex items-center justify-center flex-shrink-0">
+                          <Users className="w-6 h-6 text-[#0077B6]" />
                         </div>
                         <div>
-                          <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-white">Exclusively Yours</h3>
-                          <p className="text-white/80 text-sm leading-relaxed">
+                          <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-gray-800">Exclusively Yours</h3>
+                          <p className="text-gray-600 text-sm leading-relaxed">
                             Private expert guides, luxury vehicles, and VIP access to experiences unavailable to regular tourists. Your journey, your pace.
                           </p>
                         </div>
@@ -471,12 +470,12 @@ const Experiences = () => {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Link 
                       href="/contact" 
-                      className="inline-flex items-center justify-center bg-[#F6E27F] hover:bg-[#f7e9a1] text-[#004E64] font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+                      className="inline-flex items-center justify-center bg-[#0077B6] hover:bg-[#0077B6]/90 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
                     >
                       Start Planning Your Journey
                       <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>
-                    <button className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-medium py-4 px-8 rounded-full border border-white/30 transition-all duration-300">
+                    <button className="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-4 px-8 rounded-full border border-gray-200 transition-all duration-300">
                       View Sample Itineraries
                     </button>
                   </div>
