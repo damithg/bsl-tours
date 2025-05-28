@@ -302,54 +302,43 @@ const Experiences = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredExperiences.length > 0 ? (
                 filteredExperiences.map((experience) => (
-                  <div key={experience.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
-                    <div className="relative h-48 overflow-hidden">
+                  <div key={experience.id} className="bg-[#F8F5F0] rounded-lg overflow-hidden shadow-lg transition transform hover:scale-[1.02] hover:shadow-xl">
+                    <div className="relative h-64 flex items-center justify-center overflow-hidden">
                       <img 
                         src={experience.imageUrl} 
                         alt={experience.title} 
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
                       />
                       <div className="absolute top-4 right-4">
-                        <div className="bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium uppercase tracking-wider text-primary">
+                        <Tag variant="duration">
                           {experience.duration}
-                        </div>
+                        </Tag>
                       </div>
                       {experience.tags && experience.tags.length > 0 && (
-                        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                        <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
                           {experience.tags.slice(0, 2).map((tag, i) => (
-                            <div key={i} className="bg-white/90 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium uppercase tracking-wider text-primary">
+                            <Tag key={i} variant="scenic">
                               {tag}
-                            </div>
+                            </Tag>
                           ))}
                         </div>
                       )}
                     </div>
                     <div className="p-6">
-                      <h3 className="font-['Playfair_Display'] text-xl font-bold text-gray-800 mb-2 line-clamp-1">{experience.title}</h3>
-                      <div className="flex items-center mb-3">
+                      <h3 className="font-['Playfair_Display'] text-xl font-semibold mb-2">{experience.title}</h3>
+                      <div className="flex items-center mb-4">
                         <div className="flex mr-2">
                           {renderStars(experience.rating)}
                         </div>
-                        <span className="text-gray-600 text-xs">
-                          {experience.rating.toFixed(1)} ({experience.reviewCount})
+                        <span className="text-sm text-gray-500 ml-2">
+                          {experience.rating.toFixed(1)} ({experience.reviewCount} {experience.reviewCount === 1 ? 'review' : 'reviews'})
                         </span>
                       </div>
-                      <p className="text-gray-700/70 mb-4 line-clamp-2">{experience.shortDescription}</p>
-                      
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        <div className="flex items-center text-xs text-gray-500">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {experience.duration}
-                        </div>
-                        <div className="flex items-center text-xs text-gray-500">
-                          <MapPin className="w-3 h-3 mr-1" />
-                          {experience.location}
-                        </div>
-                      </div>
+                      <p className="text-gray-700/70 mb-4">{experience.shortDescription}</p>
                       
                       <div className="flex justify-between items-center">
                         <div className="flex flex-col">
-                          <span className="text-sm text-gray-500">From</span>
+                          <span className="text-sm text-gray-500">Starting from</span>
                           <div className="flex items-baseline">
                             <span style={{ color: COLORS.primary }} className="text-xl font-semibold">
                               {formatPrice(experience.price)}
