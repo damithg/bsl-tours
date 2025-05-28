@@ -385,81 +385,101 @@ const Experiences = () => {
         </div>
       </section>
       
-      {/* Custom Experience Section - Redesigned */}
-      <section className="py-20 bg-white">
+      {/* Custom Experience Section */}
+      <section className="py-20 bg-[#F8F5F0]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#004E64] to-[#0077B6] rounded-2xl overflow-hidden shadow-xl relative">
-            <div className="absolute top-0 right-0 w-96 h-96 opacity-10">
-              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#FFFFFF" d="M46.5,-58.5C59.6,-47.8,69.3,-32.8,73.2,-16.2C77.1,0.5,75.1,18.8,66.3,31.5C57.5,44.2,41.9,51.3,26.2,57.4C10.5,63.5,-5.3,68.7,-19,65.4C-32.8,62.1,-44.5,50.2,-54.5,36.8C-64.6,23.3,-73,8.2,-73.1,-7.2C-73.3,-22.5,-65.2,-38.2,-52.8,-49C-40.4,-59.8,-23.7,-65.8,-4.9,-61.1C13.9,-56.5,33.3,-69.2,46.5,-58.5Z" transform="translate(100 100)" />
-              </svg>
-            </div>
+          <div className="bg-gradient-to-br from-[#004E64] via-[#0077B6] to-[#005f92] rounded-2xl overflow-hidden shadow-2xl relative">
+            {/* Decorative elements */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#F6E27F]/10 rounded-full blur-2xl"></div>
             
             <div className="flex flex-col md:flex-row">
               {/* Image Side */}
-              <div className="md:w-2/5 relative">
-                <div className="absolute inset-0 bg-cover bg-center" style={{ 
-                  backgroundImage: "url('https://images.unsplash.com/photo-1560179406-1c6c60e0dc76?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80')",
+              <div className="md:w-2/5 relative min-h-[400px] md:min-h-[500px]">
+                <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ 
+                  backgroundImage: "url('/attached_assets/mirissa (7).jpg')",
                 }}>
-                  <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
                 </div>
-                <div className="py-10 px-8 md:p-0 relative md:absolute inset-0 flex flex-col justify-center items-center text-center md:text-left">
-                  <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 shadow-lg max-w-xs">
-                    <h3 className="font-['Playfair_Display'] text-white text-xl font-bold mb-2">Crafted For You</h3>
-                    <p className="text-white/90 text-sm">
-                      "The custom tour arranged for us was the highlight of our Sri Lanka visit. Every detail was perfectly tailored to our interests."
+                <div className="relative h-full flex flex-col justify-center items-start p-8 md:p-10">
+                  <div className="bg-white/15 backdrop-blur-md p-6 rounded-2xl border border-white/30 shadow-2xl max-w-sm">
+                    <div className="flex items-center mb-3">
+                      <div className="w-3 h-3 bg-[#F6E27F] rounded-full mr-2"></div>
+                      <span className="text-white/90 text-sm font-medium">Client Testimonial</span>
+                    </div>
+                    <h3 className="font-['Playfair_Display'] text-white text-xl font-bold mb-3">Perfectly Tailored</h3>
+                    <p className="text-white/90 text-sm leading-relaxed mb-4">
+                      "Every moment was crafted to our interests. From sunrise at Adam's Peak to private cooking classes in Kandy - pure magic."
                     </p>
-                    <div className="mt-3 flex items-center justify-center">
+                    <div className="flex items-center justify-between">
                       <div className="flex">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Star key={star} className="w-4 h-4 text-[#F6E27F] fill-[#F6E27F]" />
                         ))}
                       </div>
-                      <span className="ml-2 text-white text-xs">– Sarah & David</span>
+                      <span className="text-white/80 text-xs font-medium">– Emma & James</span>
                     </div>
                   </div>
                 </div>
               </div>
               
               {/* Content Side */}
-              <div className="md:w-3/5 p-8 md:p-12 relative">
+              <div className="md:w-3/5 p-8 md:p-12 lg:p-16 relative">
                 <div className="max-w-2xl">
-                  <h2 className="font-['Playfair_Display'] text-3xl font-bold text-white mb-4">
-                    Create Your Custom Experience
-                  </h2>
-                  <p className="text-white/90 mb-8">
-                    Our travel designers will craft a bespoke experience that reflects your interests, preferences, and travel style. From cultural immersions to adventure activities, your custom journey will be uniquely yours.
-                  </p>
+                  <div className="mb-6">
+                    <div className="inline-flex items-center bg-[#F6E27F]/20 text-[#F6E27F] px-4 py-2 rounded-full text-sm font-medium mb-4">
+                      ✨ Bespoke Travel Design
+                    </div>
+                    <h2 className="font-['Playfair_Display'] text-4xl font-bold text-white mb-4 leading-tight">
+                      Create Your Perfect Sri Lankan Story
+                    </h2>
+                    <p className="text-white/90 text-lg leading-relaxed mb-8">
+                      Our expert travel designers craft completely personalized journeys that reflect your unique interests, travel style, and dreams. Every detail is thoughtfully curated just for you.
+                    </p>
+                  </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-                      <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-4">
-                        <Calendar className="w-6 h-6 text-[#F6E27F]" />
+                  <div className="grid grid-cols-1 gap-4 mb-10">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-colors">
+                      <div className="flex items-start space-x-4">
+                        <div className="w-12 h-12 rounded-xl bg-[#F6E27F]/20 flex items-center justify-center flex-shrink-0">
+                          <Calendar className="w-6 h-6 text-[#F6E27F]" />
+                        </div>
+                        <div>
+                          <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-white">Perfectly Timed Moments</h3>
+                          <p className="text-white/80 text-sm leading-relaxed">
+                            Experience Sri Lanka at its most magical - sunrise at Sigiriya Rock, golden hour at Galle Fort, or tea estate visits during harvest season.
+                          </p>
+                        </div>
                       </div>
-                      <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-white">Your Perfect Timing</h3>
-                      <p className="text-white/80 text-sm">
-                        Choose your ideal dates and pace, with experiences timed for magical moments like sunrise at Sigiriya or sunset at Galle Fort.
-                      </p>
                     </div>
                     
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
-                      <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-4">
-                        <Users className="w-6 h-6 text-[#F6E27F]" />
+                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-colors">
+                      <div className="flex items-start space-x-4">
+                        <div className="w-12 h-12 rounded-xl bg-[#F6E27F]/20 flex items-center justify-center flex-shrink-0">
+                          <Users className="w-6 h-6 text-[#F6E27F]" />
+                        </div>
+                        <div>
+                          <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-white">Exclusively Yours</h3>
+                          <p className="text-white/80 text-sm leading-relaxed">
+                            Private expert guides, luxury vehicles, and VIP access to experiences unavailable to regular tourists. Your journey, your pace.
+                          </p>
+                        </div>
                       </div>
-                      <h3 className="font-['Playfair_Display'] text-lg font-semibold mb-2 text-white">Private Journey</h3>
-                      <p className="text-white/80 text-sm">
-                        Enjoy the exclusivity of private guides, luxury transportation, and personalized attention throughout your Sri Lankan adventure.
-                      </p>
                     </div>
                   </div>
                   
-                  <Link 
-                    href="/contact" 
-                    className="inline-flex items-center bg-[#F6E27F] hover:bg-[#f7e9a1] text-[#004E64] font-medium py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
-                  >
-                    Begin Your Custom Journey
-                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                  </Link>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Link 
+                      href="/contact" 
+                      className="inline-flex items-center justify-center bg-[#F6E27F] hover:bg-[#f7e9a1] text-[#004E64] font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+                    >
+                      Start Planning Your Journey
+                      <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                    <button className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-medium py-4 px-8 rounded-full border border-white/30 transition-all duration-300">
+                      View Sample Itineraries
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
