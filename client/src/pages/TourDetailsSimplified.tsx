@@ -282,14 +282,38 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         overlayOpacity={0}
       />
       
-      {/* Breadcrumb Navigation - positioned above the image */}
-      <div className="absolute top-20 left-0 right-0 z-30 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center">
-          <a href="/" className="text-white/90 hover:text-white mr-2 text-sm font-medium drop-shadow-md">Home</a>
-          <span className="text-white/70 mx-1 drop-shadow-md">/</span>
-          <a href="/tours" className="text-white/90 hover:text-white mr-2 text-sm font-medium drop-shadow-md">Tours</a>
-          <span className="text-white/70 mx-1 drop-shadow-md">/</span>
-          <span className="text-white font-medium text-sm drop-shadow-md">{tourData.name}</span>
+      {/* Breadcrumb Navigation - positioned to match tours page */}
+      <div className="absolute top-0 left-0 right-0 z-30 pt-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-1">
+          <nav className="flex text-white/90 mb-8" aria-label="Breadcrumb">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <a href="/" className="inline-flex items-center text-sm font-medium hover:text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                  Home
+                </a>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                  <a href="/tours" className="ml-1 text-sm font-medium text-white/90 hover:text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                    Tours
+                  </a>
+                </div>
+              </li>
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                  <span className="ml-1 text-sm font-medium text-white/80" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                    {tourData.name}
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
         </div>
       </div>
       
