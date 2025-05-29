@@ -25,6 +25,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { BackToTopButton } from "@/components/BackToTopButton";
 import { Button } from "@/components/ui/button";
 import { TourData, TourImage, ItineraryDay } from "@/types/tour";
+import DetailPageHeader from "@/components/DetailPageHeader";
 
 interface TourDetailsProps {
   params?: {
@@ -269,44 +270,28 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
       <BackToTopButton />
       
       {/* Hero Section */}
-      <section className="relative pt-[65px] md:pt-0">
-        <div className="aspect-[21/9] lg:aspect-[3/1] w-full overflow-hidden relative">
-          {tourData.heroImage ? (
-            <img 
-              src={tourData.heroImage.large || tourData.heroImage.medium || tourData.heroImage.small || tourData.heroImage.baseUrl}
-              alt={tourData.heroImage.alt || tourData.name}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-r from-blue-400 to-blue-600"></div>
-          )}
-          
-          {/* Text Overlay */}
-          <div className="absolute inset-0 flex flex-col justify-end items-start text-white z-20 container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-            <div className="max-w-3xl">
-              <div className="flex items-center mb-4">
-                <a href="/" className="text-white/90 hover:text-white mr-2">Home</a>
-                <span className="text-white/70 mx-1">/</span>
-                <a href="/tours" className="text-white/90 hover:text-white mr-2">Tours</a>
-                <span className="text-white/70 mx-1">/</span>
-                <span className="text-white font-medium">{tourData.name}</span>
-              </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-md text-white">
-                {tourData.name}
-              </h1>
-              {tourData.heroImage && tourData.heroImage.caption && (
-                <p className="text-white/90 text-lg max-w-2xl drop-shadow-sm mb-4 hidden md:block">
-                  {tourData.heroImage.caption}
-                </p>
-              )}
-              <div className="flex items-center py-1.5 pl-0">
-                <StarRating rating={4.8} size="md" />
-                <span className="ml-2 text-white font-medium drop-shadow-sm">4.8 (48 reviews)</span>
-              </div>
-            </div>
-          </div>
+      <DetailPageHeader
+        imageUrl={tourData.heroImage?.large || tourData.heroImage?.medium || tourData.heroImage?.small || tourData.heroImage?.baseUrl}
+        imageAlt={tourData.heroImage?.alt || tourData.name}
+        title={tourData.name}
+        subtitle={tourData.heroImage?.caption}
+        rating={4.8}
+        reviewCount={48}
+        duration={tourData.duration}
+        aspectRatio="wide"
+        overlayOpacity={0}
+      />
+      
+      {/* Breadcrumb Navigation - positioned above the image */}
+      <div className="absolute top-20 left-0 right-0 z-30 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center">
+          <a href="/" className="text-white/90 hover:text-white mr-2 text-sm font-medium drop-shadow-md">Home</a>
+          <span className="text-white/70 mx-1 drop-shadow-md">/</span>
+          <a href="/tours" className="text-white/90 hover:text-white mr-2 text-sm font-medium drop-shadow-md">Tours</a>
+          <span className="text-white/70 mx-1 drop-shadow-md">/</span>
+          <span className="text-white font-medium text-sm drop-shadow-md">{tourData.name}</span>
         </div>
-      </section>
+      </div>
       
 
       
