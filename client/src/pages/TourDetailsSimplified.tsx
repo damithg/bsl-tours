@@ -271,7 +271,6 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
       {/* Hero Section */}
       <section className="relative pt-[65px] md:pt-0">
         <div className="aspect-[21/9] lg:aspect-[3/1] w-full overflow-hidden relative">
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
           {tourData.heroImage ? (
             <img 
               src={tourData.heroImage.large || tourData.heroImage.medium || tourData.heroImage.small || tourData.heroImage.baseUrl}
