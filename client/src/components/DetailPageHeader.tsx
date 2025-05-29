@@ -1,5 +1,12 @@
 import React from 'react';
 import { StarRating } from './StarRating';
+import { Home } from 'lucide-react';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  isCurrentPage?: boolean;
+}
 
 interface DetailPageHeaderProps {
   // Image properties
@@ -10,6 +17,9 @@ interface DetailPageHeaderProps {
   title: string;
   subtitle?: string;
   description?: string;
+  
+  // Breadcrumb properties
+  breadcrumbItems?: BreadcrumbItem[];
   
   // Rating properties (optional)
   rating?: number;
@@ -35,6 +45,7 @@ export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
   title,
   subtitle,
   description,
+  breadcrumbItems = [],
   rating,
   reviewCount,
   badges = [],
@@ -55,107 +66,145 @@ export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
   };
 
   return (
-    <section className="relative pt-[65px] md:pt-0">
-      <div className={`${aspectClass} w-full overflow-hidden relative`}>
-        {overlayOpacity > 0 && (
-          <div className={`absolute inset-0 ${overlayClass}`}></div>
-        )}
-        
-        {imageUrl ? (
-          <img 
-            src={imageUrl}
-            alt={imageAlt || title}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-500 text-lg">No image available</span>
-          </div>
-        )}
-
-        {/* Content Overlay - only show if we have overlay or text positioning */}
-        {(overlayOpacity > 0 || textPosition !== 'bottom-left') && (
-          <div className={`absolute inset-0 flex ${positionClasses[textPosition]} p-8 md:p-12 lg:p-16 z-20`}>
-            <div className="max-w-4xl">
-              {/* Badges */}
-              {badges.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {badges.map((badge, index) => (
-                    <span 
-                      key={index}
-                      className="bg-white/90 backdrop-blur-sm py-1.5 px-3 rounded-full text-xs font-medium uppercase tracking-wider text-gray-700"
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Title and Subtitle */}
-              <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-md ${
-                overlayOpacity > 0 ? 'text-white' : 'text-gray-800'
-              }`}>
-                {title}
-              </h1>
-              
-              {subtitle && (
-                <p className={`text-lg md:text-xl max-w-2xl drop-shadow-sm mb-4 ${
-                  overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
-                }`}>
-                  {subtitle}
-                </p>
-              )}
-
-              {/* Description */}
-              {description && (
-                <p className={`text-base max-w-2xl drop-shadow-sm mb-6 ${
-                  overlayOpacity > 0 ? 'text-white/80' : 'text-gray-600'
-                }`}>
-                  {description}
-                </p>
-              )}
-
-              {/* Rating */}
-              {rating && (
-                <div className="flex items-center mb-4">
-                  <StarRating rating={rating} size="md" />
-                  {reviewCount && (
-                    <span className={`ml-2 font-medium drop-shadow-sm ${
-                      overlayOpacity > 0 ? 'text-white' : 'text-gray-700'
-                    }`}>
-                      {rating.toFixed(1)} ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
-                    </span>
-                  )}
-                </div>
-              )}
-
-              {/* Duration and Location */}
-              {(duration || location) && (
-                <div className="flex flex-wrap gap-4">
-                  {duration && (
-                    <span className={`text-sm font-medium ${
-                      overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
-                    }`}>
-                      Duration: {duration}
-                    </span>
-                  )}
-                  {location && (
-                    <span className={`text-sm font-medium ${
-                      overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
-                    }`}>
-                      Location: {location}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              {/* Custom children content */}
-              {children}
+    <>
+      <section className="relative pt-[65px] md:pt-0">
+        <div className={`${aspectClass} w-full overflow-hidden relative`}>
+          {overlayOpacity > 0 && (
+            <div className={`absolute inset-0 ${overlayClass}`}></div>
+          )}
+          
+          {imageUrl ? (
+            <img 
+              src={imageUrl}
+              alt={imageAlt || title}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-500 text-lg">No image available</span>
             </div>
+          )}
+
+          {/* Content Overlay - only show if we have overlay or text positioning */}
+          {(overlayOpacity > 0 || textPosition !== 'bottom-left') && (
+            <div className={`absolute inset-0 flex ${positionClasses[textPosition]} p-8 md:p-12 lg:p-16 z-20`}>
+              <div className="max-w-4xl">
+                {/* Badges */}
+                {badges.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {badges.map((badge, index) => (
+                      <span 
+                        key={index}
+                        className="bg-white/90 backdrop-blur-sm py-1.5 px-3 rounded-full text-xs font-medium uppercase tracking-wider text-gray-700"
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Title and Subtitle */}
+                <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-md ${
+                  overlayOpacity > 0 ? 'text-white' : 'text-gray-800'
+                }`}>
+                  {title}
+                </h1>
+                
+                {subtitle && (
+                  <p className={`text-lg md:text-xl max-w-2xl drop-shadow-sm mb-4 ${
+                    overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
+                  }`}>
+                    {subtitle}
+                  </p>
+                )}
+
+                {/* Description */}
+                {description && (
+                  <p className={`text-base max-w-2xl drop-shadow-sm mb-6 ${
+                    overlayOpacity > 0 ? 'text-white/80' : 'text-gray-600'
+                  }`}>
+                    {description}
+                  </p>
+                )}
+
+                {/* Rating */}
+                {rating && (
+                  <div className="flex items-center mb-4">
+                    <StarRating rating={rating} size="md" />
+                    {reviewCount && (
+                      <span className={`ml-2 font-medium drop-shadow-sm ${
+                        overlayOpacity > 0 ? 'text-white' : 'text-gray-700'
+                      }`}>
+                        {rating.toFixed(1)} ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* Duration and Location */}
+                {(duration || location) && (
+                  <div className="flex flex-wrap gap-4">
+                    {duration && (
+                      <span className={`text-sm font-medium ${
+                        overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
+                      }`}>
+                        Duration: {duration}
+                      </span>
+                    )}
+                    {location && (
+                      <span className={`text-sm font-medium ${
+                        overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
+                      }`}>
+                        Location: {location}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* Custom children content */}
+                {children}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Breadcrumb Navigation - positioned above the image when no overlay */}
+      {breadcrumbItems.length > 0 && overlayOpacity === 0 && (
+        <div className="absolute top-0 left-0 right-0 z-30 pt-24">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-1">
+            <nav className="flex text-white/90 mb-8" aria-label="Breadcrumb">
+              <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                <li className="inline-flex items-center">
+                  <a href="/" className="inline-flex items-center text-sm font-medium hover:text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                    <Home className="w-4 h-4 mr-2" />
+                    Home
+                  </a>
+                </li>
+                {breadcrumbItems.map((item, index) => (
+                  <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
+                    <div className="flex items-center">
+                      <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                      {item.href && !item.isCurrentPage ? (
+                        <a href={item.href} className="ml-1 text-sm font-medium text-white/90 hover:text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span className="ml-1 text-sm font-medium text-white/80" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                          {item.label}
+                        </span>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </nav>
           </div>
-        )}
-      </div>
-    </section>
+        </div>
+      )}
+    </>
   );
 };
 
