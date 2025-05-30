@@ -190,7 +190,6 @@ const ExperienceDetail = () => {
         imageUrl={imageUrl}
         imageAlt={experience.card?.image?.alt || experience.title}
         title={experience.title}
-        subtitle={experience.card?.body || experience.description}
         breadcrumbItems={[
           { label: 'Experiences', href: '/experiences' },
           { label: experience.title || 'Experience Details', isCurrentPage: true }
