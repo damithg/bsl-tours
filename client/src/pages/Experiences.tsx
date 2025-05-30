@@ -396,7 +396,7 @@ const Experiences = () => {
               {/* Image Side */}
               <div className="md:w-2/5 relative min-h-[400px] md:min-h-[500px]">
                 <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ 
-                  backgroundImage: "url('/attached_assets/mirissa (7).jpg')",
+                  backgroundImage: "url('https://res.cloudinary.com/drsjp6bqz/image/upload/v1743775033/activities/arugam-bay-fishing.jpg')",
                 }}>
                   <div className="absolute inset-0 bg-black/20"></div>
                 </div>
@@ -475,9 +475,9 @@ const Experiences = () => {
                       Start Planning Your Journey
                       <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>
-                    <button className="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-4 px-8 rounded-full border border-gray-200 transition-all duration-300">
-                      View Sample Itineraries
-                    </button>
+                    <Link href="/tours" className="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-4 px-8 rounded-full border border-gray-200 transition-all duration-300">
+                      View Tours
+                    </Link>
                   </div>
                 </div>
               </div>
