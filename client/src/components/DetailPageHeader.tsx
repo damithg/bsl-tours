@@ -1,45 +1,32 @@
 import React from 'react';
+import { Home, Clock, MapPin } from 'lucide-react';
 import { StarRating } from './StarRating';
-import { Home } from 'lucide-react';
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   label: string;
   href?: string;
   isCurrentPage?: boolean;
 }
 
 interface DetailPageHeaderProps {
-  // Image properties
   imageUrl?: string;
   imageAlt?: string;
-  
-  // Content properties
   title: string;
   subtitle?: string;
   description?: string;
-  
-  // Breadcrumb properties
   breadcrumbItems?: BreadcrumbItem[];
-  
-  // Rating properties (optional)
   rating?: number;
   reviewCount?: number;
-  
-  // Additional content (optional)
   badges?: string[];
   duration?: string;
   location?: string;
-  
-  // Styling options
-  aspectRatio?: 'wide' | 'standard'; // wide: 21/9, standard: 3/1
-  overlayOpacity?: number; // 0-100, 0 = no overlay
+  aspectRatio?: 'wide' | 'square';
+  overlayOpacity?: number;
   textPosition?: 'bottom-left' | 'bottom-center' | 'center';
-  
-  // Custom content slot
   children?: React.ReactNode;
 }
 
-export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
+const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
   imageUrl,
   imageAlt,
   title,
@@ -52,154 +39,138 @@ export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
   duration,
   location,
   aspectRatio = 'wide',
-  overlayOpacity = 0,
-  textPosition = 'bottom-left',
+  overlayOpacity = 20,
   children
 }) => {
   const aspectClass = aspectRatio === 'wide' ? 'aspect-[21/9] lg:aspect-[3/1]' : 'aspect-[3/1]';
-  const overlayClass = overlayOpacity > 0 ? `bg-black/${overlayOpacity} z-10` : '';
-  
-  const positionClasses = {
-    'bottom-left': 'justify-end items-start text-left',
-    'bottom-center': 'justify-end items-center text-center',
-    'center': 'justify-center items-center text-center'
-  };
 
   return (
-    <>
-      <section className="relative pt-[65px] md:pt-0">
-        <div className={`${aspectClass} w-full overflow-hidden relative`}>
-          {overlayOpacity > 0 && (
-            <div className={`absolute inset-0 ${overlayClass}`}></div>
-          )}
-          
-          {imageUrl ? (
-            <img 
-              src={imageUrl}
-              alt={imageAlt || title}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-              <span className="text-gray-500 text-lg">No image available</span>
-            </div>
-          )}
+    <section className="relative">
+      <div className={`${aspectClass} w-full overflow-hidden relative`}>
+        {/* Background Image */}
+        {imageUrl ? (
+          <img 
+            src={imageUrl}
+            alt={imageAlt || title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+            <span className="text-gray-500 text-lg">No image available</span>
+          </div>
+        )}
 
-          {/* Content Overlay - always show when we have content */}
-          <div className={`absolute inset-0 flex ${positionClasses[textPosition]} p-8 md:p-12 lg:p-16 z-20`}>
-            <div className="max-w-4xl w-full">
-              {/* Breadcrumb Navigation */}
-              {breadcrumbItems.length > 0 && (
-                <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
-                  <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                    <li className="inline-flex items-center">
-                      <a href="/" className="inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
-                        <Home className="w-4 h-4 mr-2" />
-                        Home
-                      </a>
+        {/* Overlay */}
+        {overlayOpacity > 0 && (
+          <div className={`absolute inset-0 bg-black/${overlayOpacity} z-10`}></div>
+        )}
+        
+        {/* Content Container */}
+        <div className="absolute inset-0 flex flex-col justify-end z-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            {/* Breadcrumb Navigation */}
+            {breadcrumbItems.length > 0 && (
+              <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
+                <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                  <li className="inline-flex items-center">
+                    <a href="/" className="inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
+                      <Home className="w-4 h-4 mr-2" />
+                      Home
+                    </a>
+                  </li>
+                  {breadcrumbItems.map((item, index) => (
+                    <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
+                      <div className="flex items-center">
+                        <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                        {item.href && !item.isCurrentPage ? (
+                          <a href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
+                            {item.label}
+                          </a>
+                        ) : (
+                          <span className="text-sm font-medium text-white/80">
+                            {item.label}
+                          </span>
+                        )}
+                      </div>
                     </li>
-                    {breadcrumbItems.map((item, index) => (
-                      <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
-                        <div className="flex items-center">
-                          <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                          </svg>
-                          {item.href && !item.isCurrentPage ? (
-                            <a href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
-                              {item.label}
-                            </a>
-                          ) : (
-                            <span className="text-sm font-medium text-white/80">
-                              {item.label}
-                            </span>
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ol>
-                </nav>
+                  ))}
+                </ol>
+              </nav>
+            )}
+
+            <div className="max-w-4xl">
+              {/* Badges */}
+              {badges.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {badges.map((badge, index) => (
+                    <span 
+                      key={index}
+                      className="bg-white/90 backdrop-blur-sm py-1.5 px-3 rounded-full text-xs font-medium uppercase tracking-wider text-gray-700"
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </div>
               )}
-                {/* Badges */}
-                {badges.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {badges.map((badge, index) => (
-                      <span 
-                        key={index}
-                        className="bg-white/90 backdrop-blur-sm py-1.5 px-3 rounded-full text-xs font-medium uppercase tracking-wider text-gray-700"
-                      >
-                        {badge}
-                      </span>
-                    ))}
-                  </div>
-                )}
 
-                {/* Title and Subtitle */}
-                <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-md ${
-                  overlayOpacity > 0 ? 'text-white' : 'text-gray-800'
-                }`}>
-                  {title}
-                </h1>
-                
-                {subtitle && (
-                  <p className={`text-lg md:text-xl max-w-2xl drop-shadow-sm mb-4 ${
-                    overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
-                  }`}>
-                    {subtitle}
-                  </p>
-                )}
+              {/* Title */}
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 drop-shadow-md">
+                {title}
+              </h1>
+              
+              {/* Subtitle */}
+              {subtitle && (
+                <p className="text-lg md:text-xl max-w-2xl text-white/90 drop-shadow-sm mb-4">
+                  {subtitle}
+                </p>
+              )}
 
-                {/* Description */}
-                {description && (
-                  <p className={`text-base max-w-2xl drop-shadow-sm mb-6 ${
-                    overlayOpacity > 0 ? 'text-white/80' : 'text-gray-600'
-                  }`}>
-                    {description}
-                  </p>
-                )}
+              {/* Description */}
+              {description && (
+                <p className="text-base max-w-2xl text-white/80 drop-shadow-sm mb-6">
+                  {description}
+                </p>
+              )}
 
-                {/* Rating */}
-                {rating && (
-                  <div className="flex items-center mb-4">
-                    <StarRating rating={rating} size="md" />
-                    {reviewCount && (
-                      <span className={`ml-2 font-medium drop-shadow-sm ${
-                        overlayOpacity > 0 ? 'text-white' : 'text-gray-700'
-                      }`}>
-                        {rating.toFixed(1)} ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
-                      </span>
-                    )}
-                  </div>
-                )}
+              {/* Rating */}
+              {rating && (
+                <div className="flex items-center mb-4">
+                  <StarRating rating={rating} size="md" />
+                  {reviewCount && (
+                    <span className="ml-2 font-medium text-white drop-shadow-sm">
+                      {rating.toFixed(1)} ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
+                    </span>
+                  )}
+                </div>
+              )}
 
-                {/* Duration and Location */}
-                {(duration || location) && (
-                  <div className="flex flex-wrap gap-4">
-                    {duration && (
-                      <span className={`text-sm font-medium ${
-                        overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
-                      }`}>
-                        Duration: {duration}
-                      </span>
-                    )}
-                    {location && (
-                      <span className={`text-sm font-medium ${
-                        overlayOpacity > 0 ? 'text-white/90' : 'text-gray-600'
-                      }`}>
-                        Location: {location}
-                      </span>
-                    )}
-                  </div>
-                )}
+              {/* Duration and Location */}
+              {(duration || location) && (
+                <div className="flex flex-wrap gap-4">
+                  {duration && (
+                    <span className="text-sm font-medium text-white/90">
+                      <Clock className="w-4 h-4 inline mr-1" />
+                      {duration}
+                    </span>
+                  )}
+                  {location && (
+                    <span className="text-sm font-medium text-white/90">
+                      <MapPin className="w-4 h-4 inline mr-1" />
+                      {location}
+                    </span>
+                  )}
+                </div>
+              )}
 
-                {/* Custom children content */}
-                {children}
-              </div>
+              {/* Custom children content */}
+              {children}
+            </div>
           </div>
         </div>
-      </section>
-
-
-    </>
+      </div>
+    </section>
   );
 };
 
