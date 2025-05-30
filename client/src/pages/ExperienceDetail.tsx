@@ -195,7 +195,7 @@ const ExperienceDetail = () => {
           { label: experience.title || 'Experience Details', isCurrentPage: true }
         ]}
         aspectRatio="wide"
-        overlayOpacity={20}
+        overlayOpacity={0}
       />
       
       {/* Content Section */}
