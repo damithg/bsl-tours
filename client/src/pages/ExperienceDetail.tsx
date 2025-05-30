@@ -195,9 +195,6 @@ const ExperienceDetail = () => {
           { label: 'Experiences', href: '/experiences' },
           { label: experience.title, isCurrentPage: true }
         ]}
-        rating={4.8}
-        reviewCount={100}
-        badges={experience.card?.tags || ['Experience']}
         aspectRatio="wide"
         overlayOpacity={20}
       />
