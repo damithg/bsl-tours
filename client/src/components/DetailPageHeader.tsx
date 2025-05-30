@@ -71,29 +71,27 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
             {/* Breadcrumb Navigation */}
             {breadcrumbItems.filter(item => item.label && item.label.trim()).length > 0 && (
               <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
-                <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                <ol className="inline-flex items-center space-x-1 md:space-x-3 flex-wrap">
                   <li className="inline-flex items-center">
                     <a href="/" className="inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
                       <Home className="w-4 h-4 mr-2" />
-                      Home
+                      <span className="hidden sm:inline">Home</span>
                     </a>
                   </li>
                   {breadcrumbItems.filter(item => item.label && item.label.trim()).map((item, index) => (
-                    <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
-                      <div className="flex items-center">
-                        <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                        {item.href && !item.isCurrentPage ? (
-                          <a href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
-                            {item.label}
-                          </a>
-                        ) : (
-                          <span className="text-sm font-medium text-white/80">
-                            {item.label}
-                          </span>
-                        )}
-                      </div>
+                    <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})} className="flex items-center">
+                      <svg className="w-4 h-4 md:w-5 md:h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                      {item.href && !item.isCurrentPage ? (
+                        <a href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span className="text-sm font-medium text-white/80 truncate max-w-[120px] sm:max-w-[200px] md:max-w-none" title={item.label}>
+                          {item.label}
+                        </span>
+                      )}
                     </li>
                   ))}
                 </ol>
