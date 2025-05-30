@@ -71,7 +71,7 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
             {/* Breadcrumb Navigation */}
             {breadcrumbItems.filter(item => item.label && item.label.trim()).length > 0 && (
               <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
-                <ol className="inline-flex items-center space-x-1 md:space-x-3 flex-wrap">
+                <ol className="inline-flex items-center space-x-1 flex-wrap">
                   <li className="inline-flex items-center">
                     <a href="/" className="inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
                       <Home className="w-4 h-4 mr-2" />
