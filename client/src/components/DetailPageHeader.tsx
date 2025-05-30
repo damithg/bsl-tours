@@ -169,41 +169,38 @@ export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
         </div>
       </section>
 
-      {/* Breadcrumb Navigation with enhanced visibility */}
+      {/* Breadcrumb Navigation - positioned above the image when no overlay */}
       {breadcrumbItems.length > 0 && overlayOpacity === 0 && (
         <div className="absolute top-0 left-0 right-0 z-30 pt-24">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-1">
-            {/* Background bar for better contrast */}
-            <div className="bg-black/30 backdrop-blur-sm rounded-lg px-4 py-3 inline-block">
-              <nav className="flex text-white mb-0" aria-label="Breadcrumb">
-                <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                  <li className="inline-flex items-center">
-                    <a href="/" className="inline-flex items-center text-sm font-medium hover:text-white transition-colors" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.9)' }}>
-                      <Home className="w-4 h-4 mr-2 drop-shadow-lg" />
-                      Home
-                    </a>
+            <nav className="flex text-white/90 mb-8" aria-label="Breadcrumb">
+              <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                <li className="inline-flex items-center">
+                  <a href="/" className="inline-flex items-center text-sm font-medium hover:text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                    <Home className="w-4 h-4 mr-2" />
+                    Home
+                  </a>
+                </li>
+                {breadcrumbItems.map((item, index) => (
+                  <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
+                    <div className="flex items-center">
+                      <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                      {item.href && !item.isCurrentPage ? (
+                        <a href={item.href} className="ml-1 text-sm font-medium text-white/90 hover:text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span className="ml-1 text-sm font-medium text-white/80" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                          {item.label}
+                        </span>
+                      )}
+                    </div>
                   </li>
-                  {breadcrumbItems.map((item, index) => (
-                    <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
-                      <div className="flex items-center">
-                        <svg className="w-4 h-4 text-white/70 mx-1 drop-shadow-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                        {item.href && !item.isCurrentPage ? (
-                          <a href={item.href} className="ml-1 text-sm font-medium text-white hover:text-white/80 transition-colors" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.9)' }}>
-                            {item.label}
-                          </a>
-                        ) : (
-                          <span className="ml-1 text-sm font-medium text-white/90" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.9)' }}>
-                            {item.label}
-                          </span>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            </div>
+                ))}
+              </ol>
+            </nav>
           </div>
         </div>
       )}
