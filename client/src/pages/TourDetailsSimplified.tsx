@@ -284,7 +284,7 @@ const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
         reviewCount={48}
         duration={tourData.duration}
         aspectRatio="wide"
-        overlayOpacity={0}
+        overlayOpacity={20}
       />
       
 
