@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { insertInquirySchema } from '@shared/schema';
 import { apiRequest } from '@/lib/queryClient';
 import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
-import { AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
+import { AlertCircle, CheckCircle } from 'lucide-react';
 
 // Extend the inquiry schema with additional validation
 const contactFormSchema = insertInquirySchema.extend({
@@ -13,7 +13,6 @@ const contactFormSchema = insertInquirySchema.extend({
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().min(1, "Email is required").email("Invalid email address"),
   message: z.string().min(10, "Message must be at least 10 characters"),
-  captchaAnswer: z.string().min(1, "Please solve the math problem"),
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -30,19 +29,44 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
     message: string;
   }>({ type: null, message: '' });
   
-  // CAPTCHA state
-  const [captcha, setCaptcha] = useState({ num1: 0, num2: 0, answer: 0 });
+  // Turnstile state
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<HTMLDivElement>(null);
   
-  // Generate new CAPTCHA
-  const generateCaptcha = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
-    setCaptcha({ num1, num2, answer: num1 + num2 });
-  };
-  
-  // Initialize CAPTCHA on component mount
+  // Load Cloudflare Turnstile script and set up callbacks
   useEffect(() => {
-    generateCaptcha();
+    // Set up global callback functions
+    (window as any).onTurnstileSuccess = (token: string) => {
+      setTurnstileToken(token);
+    };
+    
+    (window as any).onTurnstileExpired = () => {
+      setTurnstileToken(null);
+    };
+    
+    (window as any).onTurnstileError = () => {
+      setTurnstileToken(null);
+      setSubmitStatus({
+        type: 'error',
+        message: 'Security verification failed. Please try again.'
+      });
+    };
+    
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+    
+    return () => {
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+      // Clean up global callbacks
+      delete (window as any).onTurnstileSuccess;
+      delete (window as any).onTurnstileExpired;
+      delete (window as any).onTurnstileError;
+    };
   }, []);
   
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>({
@@ -56,7 +80,6 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
       packageInterest: tourName || '',
       message: prefilledMessage || '',
       subscribed: false,
-      captchaAnswer: '',
     }
   });
 
@@ -65,11 +88,11 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
       setIsSubmitting(true);
       setSubmitStatus({ type: null, message: '' });
       
-      // Validate CAPTCHA
-      if (parseInt(data.captchaAnswer) !== captcha.answer) {
+      // Validate Turnstile
+      if (!turnstileToken) {
         setSubmitStatus({
           type: 'error',
-          message: 'Incorrect answer to the math problem. Please try again.'
+          message: 'Please complete the security verification.'
         });
         setIsSubmitting(false);
         return;
@@ -100,7 +123,7 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         
         console.log('Contact form submitted successfully via API endpoint');
         reset();
-        generateCaptcha(); // Generate new CAPTCHA after successful submission
+        setTurnstileToken(null); // Reset Turnstile after successful submission
         
         // Clear success message after 5 seconds
         setTimeout(() => {
@@ -226,37 +249,22 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
           </label>
         </div>
         
-        {/* CAPTCHA Section */}
+        {/* Cloudflare Turnstile Section */}
         <div className="mb-8">
-          <label htmlFor="captchaAnswer" className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">
-            Security Check *
+          <label className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">
+            Security Verification *
           </label>
-          <div className="flex items-center space-x-4">
-            <div className="bg-gray-100 px-4 py-3 rounded-md border">
-              <span className="text-lg font-medium text-gray-800">
-                {captcha.num1} + {captcha.num2} = ?
-              </span>
-            </div>
-            <input 
-              type="number" 
-              id="captchaAnswer" 
-              {...register('captchaAnswer')}
-              placeholder="Answer"
-              className={`w-24 border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-[#0F4C81] focus:border-[#0F4C81] bg-gray-50 ${errors.captchaAnswer ? 'border-red-500' : ''}`}
-            />
-            <button
-              type="button"
-              onClick={generateCaptcha}
-              className="flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors"
-              title="Generate new math problem"
-            >
-              <RefreshCw className="w-4 h-4 text-gray-600" />
-            </button>
-          </div>
-          {errors.captchaAnswer && (
-            <p className="mt-1 text-base font-['Raleway'] text-red-600">{errors.captchaAnswer.message}</p>
+          <div 
+            ref={turnstileRef}
+            className="cf-turnstile" 
+            data-sitekey="0x4AAAAAABfWL_H_a0x_xqoE"
+            data-callback="onTurnstileSuccess"
+            data-expired-callback="onTurnstileExpired"
+            data-error-callback="onTurnstileError"
+          ></div>
+          {!turnstileToken && (
+            <p className="mt-1 text-sm text-gray-500">Please complete the security verification above</p>
           )}
-          <p className="mt-1 text-sm text-gray-500">Please solve the simple math problem above to verify you're human</p>
         </div>
         
         <button 
