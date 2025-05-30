@@ -176,7 +176,7 @@ export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
             <nav className="flex text-white/90 mb-8" aria-label="Breadcrumb">
               <ol className="inline-flex items-center space-x-1 md:space-x-3">
                 <li className="inline-flex items-center">
-                  <a href="/" className="inline-flex items-center text-sm font-medium hover:text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                  <a href="/" className="inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
                     <Home className="w-4 h-4 mr-2" />
                     Home
                   </a>
@@ -188,11 +188,11 @@ export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
                         <polyline points="9 18 15 12 9 6"></polyline>
                       </svg>
                       {item.href && !item.isCurrentPage ? (
-                        <a href={item.href} className="ml-1 text-sm font-medium text-white/90 hover:text-white" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                        <a href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
                           {item.label}
                         </a>
                       ) : (
-                        <span className="ml-1 text-sm font-medium text-white/80" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
+                        <span className="text-sm font-medium text-white/80">
                           {item.label}
                         </span>
                       )}
