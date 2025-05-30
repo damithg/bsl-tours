@@ -119,7 +119,7 @@ const TourPackages = () => {
       <section className="relative pt-28 pb-20 bg-[#0077B6]">
         <div className="absolute inset-0 z-0 opacity-20">
           <img 
-            src="https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+            src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1743763343/features/hikkaduwa-marine-park.jpg" 
             alt="Sri Lanka Tea Plantations" 
             className="w-full h-full object-cover" 
           />
