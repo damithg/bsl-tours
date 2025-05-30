@@ -42,7 +42,7 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
   overlayOpacity = 20,
   children
 }) => {
-  const aspectClass = aspectRatio === 'wide' ? 'aspect-[21/9] lg:aspect-[3/1]' : 'aspect-[3/1]';
+  const aspectClass = aspectRatio === 'wide' ? 'aspect-[4/3] sm:aspect-[16/9] lg:aspect-[3/1]' : 'aspect-[3/1]';
 
   return (
     <section className="relative">
@@ -67,7 +67,7 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
         
         {/* Content Container */}
         <div className="absolute inset-0 flex flex-col justify-end z-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 lg:pb-16">
             {/* Breadcrumb Navigation */}
             {breadcrumbItems.length > 0 && (
               <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
@@ -116,13 +116,13 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
               )}
 
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 drop-shadow-md">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 drop-shadow-md">
                 {title}
               </h1>
               
               {/* Subtitle */}
               {subtitle && (
-                <p className="text-lg md:text-xl max-w-2xl text-white/90 drop-shadow-sm mb-4">
+                <p className="text-base sm:text-lg md:text-xl max-w-2xl text-white/90 drop-shadow-sm mb-3 sm:mb-4">
                   {subtitle}
                 </p>
               )}
