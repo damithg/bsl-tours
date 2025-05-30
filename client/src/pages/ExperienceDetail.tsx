@@ -193,7 +193,7 @@ const ExperienceDetail = () => {
         subtitle={experience.card?.body || experience.description}
         breadcrumbItems={[
           { label: 'Experiences', href: '/experiences' },
-          { label: experience.title, isCurrentPage: true }
+          { label: experience.title || 'Experience Details', isCurrentPage: true }
         ]}
         aspectRatio="wide"
         overlayOpacity={20}

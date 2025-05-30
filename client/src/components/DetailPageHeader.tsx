@@ -69,7 +69,7 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
         <div className="absolute inset-0 flex flex-col justify-end z-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 lg:pb-16">
             {/* Breadcrumb Navigation */}
-            {breadcrumbItems.length > 0 && (
+            {breadcrumbItems.filter(item => item.label && item.label.trim()).length > 0 && (
               <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-3">
                   <li className="inline-flex items-center">
@@ -78,7 +78,7 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
                       Home
                     </a>
                   </li>
-                  {breadcrumbItems.map((item, index) => (
+                  {breadcrumbItems.filter(item => item.label && item.label.trim()).map((item, index) => (
                     <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
                       <div className="flex items-center">
                         <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
