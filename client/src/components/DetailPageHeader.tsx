@@ -45,7 +45,7 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
   const aspectClass = aspectRatio === 'wide' ? 'aspect-[4/3] sm:aspect-[16/9] lg:aspect-[3/1]' : 'aspect-[3/1]';
 
   return (
-    <section className="relative">
+    <section className="relative pt-16 md:pt-20">
       <div className={`${aspectClass} w-full overflow-hidden relative`}>
         {/* Background Image */}
         {imageUrl ? (
