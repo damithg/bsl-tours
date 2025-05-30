@@ -180,9 +180,13 @@ app.post('/api/contact', async (req, res) => {
     const { sendContactFormEmail } = await import('./emailService');
     
     // Send the email notification
-    await sendContactFormEmail(name, email, phone || '', message);
+    const emailSent = await sendContactFormEmail(name, email, phone || '', message);
     
-    res.status(200).json({ success: true, message: 'Your message has been sent successfully!' });
+    if (emailSent) {
+      res.status(200).json({ success: true, message: 'Your message has been sent successfully!' });
+    } else {
+      res.status(500).json({ error: 'Failed to send email. Please try again or contact us directly.' });
+    }
   } catch (error) {
     console.error('Error sending contact form email:', error);
     
