@@ -132,6 +132,11 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         setSubmitStatus({ type: null, message: '' });
       }, 5000);
       
+      // Reset Turnstile widget for next submission
+      if ((window as any).turnstile) {
+        (window as any).turnstile.reset();
+      }
+      
     } catch (error) {
       console.error('Contact form submission failed:', error);
       setSubmitStatus({
