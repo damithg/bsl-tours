@@ -72,7 +72,7 @@ interface TourDetailsProps {
   };
 }
 
-const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
+const TourDetails: React.FC<TourDetailsProps> = ({ params }) => {
   const [activeDay, setActiveDay] = useState(1);
   const [activeSection, setActiveSection] = useState('overview');
   const { formatPrice } = useCurrency();
@@ -780,4 +780,4 @@ const TourDetailsNew: React.FC<TourDetailsProps> = ({ params }) => {
   );
 };
 
-export default TourDetailsNew;
+export default TourDetails;
