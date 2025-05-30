@@ -476,7 +476,7 @@ const Experiences = () => {
                       <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>
                     <Link href="/tours" className="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-4 px-8 rounded-full border border-gray-200 transition-all duration-300">
-                      View Tours
+                      Explore Our Tours
                     </Link>
                   </div>
                 </div>
