@@ -98,46 +98,48 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         return;
       }
       
-      // Prepare data for the contact form API endpoint
-      const contactFormData = createContactFormData(
-        FormType.GENERAL_CONTACT,
-        `${data.firstName} ${data.lastName}`,
-        data.email,
-        {
+      // Submit directly to the local API endpoint with Turnstile token
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: `${data.firstName} ${data.lastName}`,
+          email: data.email,
           phone: data.phone || '',
-          travelDates: data.travelDates || '',
-          packageInterest: data.packageInterest || '',
-          message: data.message,
-          subscribed: data.subscribed ? 'yes' : 'no'
-        }
-      );
-      
-      // Submit to the contact API endpoint
-      try {
-        await submitContactForm(contactFormData);
-        
-        setSubmitStatus({
-          type: 'success',
-          message: "Thank you for your inquiry. We'll get back to you within 24 hours."
-        });
-        
-        console.log('Contact form submitted successfully via API endpoint');
-        reset();
-        setTurnstileToken(null); // Reset Turnstile after successful submission
-        
-        // Clear success message after 5 seconds
-        setTimeout(() => {
-          setSubmitStatus({ type: null, message: '' });
-        }, 5000);
-      } catch (apiError) {
-        console.error('API submission failed:', apiError);
-        setSubmitStatus({
-          type: 'error',
-          message: apiError instanceof Error 
-            ? apiError.message 
-            : "Failed to submit your inquiry. Please try again or contact us directly."
-        });
+          message: `Travel Dates: ${data.travelDates || 'Not specified'}\nPackage Interest: ${data.packageInterest || 'Not specified'}\n\nMessage: ${data.message}`,
+          turnstileToken: turnstileToken
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit form');
       }
+        
+      setSubmitStatus({
+        type: 'success',
+        message: "Thank you for your inquiry. We'll get back to you within 24 hours."
+      });
+      
+      console.log('Contact form submitted successfully via local API endpoint');
+      reset();
+      setTurnstileToken(null); // Reset Turnstile after successful submission
+        
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus({ type: null, message: '' });
+      }, 5000);
+      
+    } catch (error) {
+      console.error('Contact form submission failed:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: error instanceof Error 
+          ? error.message 
+          : "Failed to submit your inquiry. Please try again or contact us directly."
+      });
     } finally {
       setIsSubmitting(false);
     }

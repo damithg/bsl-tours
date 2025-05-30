@@ -136,7 +136,7 @@ app.get('/api/tour-packages/:id', async (req, res) => {
 // Handle contact form submissions
 app.post('/api/contact', async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, message, turnstileToken } = req.body;
     
     if (!name || !email || !message) {
       return res.status(400).json({ 
@@ -147,6 +147,33 @@ app.post('/api/contact', async (req, res) => {
           message: !message ? 'Message is required' : null
         }
       });
+    }
+
+    // Verify Cloudflare Turnstile token
+    if (!turnstileToken) {
+      return res.status(400).json({ error: 'Security verification required' });
+    }
+
+    try {
+      const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          secret: '0x4AAAAAABfWL_s97fugmRSezjaYRXXaW3k',
+          response: turnstileToken,
+        }),
+      });
+
+      const turnstileResult = await turnstileResponse.json();
+      
+      if (!turnstileResult.success) {
+        return res.status(400).json({ error: 'Security verification failed' });
+      }
+    } catch (turnstileError) {
+      console.error('Turnstile verification error:', turnstileError);
+      return res.status(500).json({ error: 'Security verification failed' });
     }
     
     // Import sendContactFormEmail avoiding circular dependencies
