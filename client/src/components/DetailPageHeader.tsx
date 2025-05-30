@@ -85,10 +85,40 @@ export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
             </div>
           )}
 
-          {/* Content Overlay - only show if we have overlay or text positioning */}
-          {(overlayOpacity > 0 || textPosition !== 'bottom-left') && (
-            <div className={`absolute inset-0 flex ${positionClasses[textPosition]} p-8 md:p-12 lg:p-16 z-20`}>
-              <div className="max-w-4xl">
+          {/* Content Overlay - always show when we have content */}
+          <div className={`absolute inset-0 flex ${positionClasses[textPosition]} p-8 md:p-12 lg:p-16 z-20`}>
+            <div className="max-w-4xl w-full">
+              {/* Breadcrumb Navigation */}
+              {breadcrumbItems.length > 0 && (
+                <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
+                  <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                    <li className="inline-flex items-center">
+                      <a href="/" className="inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
+                        <Home className="w-4 h-4 mr-2" />
+                        Home
+                      </a>
+                    </li>
+                    {breadcrumbItems.map((item, index) => (
+                      <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
+                        <div className="flex items-center">
+                          <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                          </svg>
+                          {item.href && !item.isCurrentPage ? (
+                            <a href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
+                              {item.label}
+                            </a>
+                          ) : (
+                            <span className="text-sm font-medium text-white/80">
+                              {item.label}
+                            </span>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </nav>
+              )}
                 {/* Badges */}
                 {badges.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -164,46 +194,11 @@ export const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
                 {/* Custom children content */}
                 {children}
               </div>
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
-      {/* Breadcrumb Navigation - positioned above the image when no overlay */}
-      {breadcrumbItems.length > 0 && overlayOpacity === 0 && (
-        <div className="absolute top-0 left-0 right-0 z-30 pt-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-1">
-            <nav className="flex text-white/90 mb-8" aria-label="Breadcrumb">
-              <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                <li className="inline-flex items-center">
-                  <a href="/" className="inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
-                    <Home className="w-4 h-4 mr-2" />
-                    Home
-                  </a>
-                </li>
-                {breadcrumbItems.map((item, index) => (
-                  <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})}>
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg>
-                      {item.href && !item.isCurrentPage ? (
-                        <a href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
-                          {item.label}
-                        </a>
-                      ) : (
-                        <span className="text-sm font-medium text-white/80">
-                          {item.label}
-                        </span>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          </div>
-        </div>
-      )}
+
     </>
   );
 };
