@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRoute, Link } from 'wouter';
 import { ChevronRight, Star, Check, Clock, MapPin, Calendar, Users, Wifi, Coffee, Compass, Luggage, Info, AlertCircle, ChevronLeft } from 'lucide-react';
-import HeroSection from '@/components/HeroSection';
+import DetailPageHeader from '@/components/DetailPageHeader';
 import { Tag } from '@/components/ui/tag';
 import { COLORS } from '@/utils/colors';
 import { useCurrency } from '@/contexts/CurrencyContext';
@@ -185,30 +185,22 @@ const ExperienceDetail = () => {
   
   return (
     <main className="min-h-screen bg-[#FAF9F6]">
-      {/* Hero Section using shared component */}
-      <HeroSection
-        title=""
-        description={experience.card?.body || experience.description}
-        backgroundImage={imageUrl}
+      {/* Hero Section */}
+      <DetailPageHeader
+        imageUrl={imageUrl}
+        imageAlt={experience.card?.image?.alt || experience.title}
+        title={experience.title}
+        subtitle={experience.card?.body || experience.description}
         breadcrumbItems={[
-          { label: 'Experiences', path: '/experiences' },
-          { label: experience.title }
+          { label: 'Experiences', href: '/experiences' },
+          { label: experience.title, isCurrentPage: true }
         ]}
-        customOverlay="bg-gradient-to-t from-black/70 to-black/40"
-        imageTransform="scale-105"
-      >
-        <div className="flex justify-center mb-4">
-          <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/80 text-[#0077B6]">
-            {experience.card?.tags?.[0] || 'Experience'}
-          </div>
-        </div>
-        <div className="flex items-center justify-center mb-4">
-          <div className="flex mr-2">
-            {renderStars()}
-          </div>
-          <span className="text-white/90 text-sm">4.8 (100+ reviews)</span>
-        </div>
-      </HeroSection>
+        rating={4.8}
+        reviewCount={100}
+        badges={experience.card?.tags || ['Experience']}
+        aspectRatio="wide"
+        overlayOpacity={20}
+      />
       
       {/* Content Section */}
       <section className="py-16">
