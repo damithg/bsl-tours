@@ -71,16 +71,16 @@ const DetailPageHeader: React.FC<DetailPageHeaderProps> = ({
             {/* Breadcrumb Navigation */}
             {breadcrumbItems.filter(item => item.label && item.label.trim()).length > 0 && (
               <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
-                <ol className="inline-flex items-center space-x-1 flex-wrap">
+                <ol className="inline-flex items-center space-x-0.5 flex-wrap">
                   <li className="inline-flex items-center">
                     <a href="/" className="inline-flex items-center text-sm font-medium text-white/90 hover:text-white">
-                      <Home className="w-4 h-4 mr-2" />
+                      <Home className="w-4 h-4 mr-1.5" />
                       <span className="hidden sm:inline">Home</span>
                     </a>
                   </li>
                   {breadcrumbItems.filter(item => item.label && item.label.trim()).map((item, index) => (
                     <li key={index} {...(item.isCurrentPage ? { 'aria-current': 'page' } : {})} className="flex items-center">
-                      <svg className="w-4 h-4 md:w-5 md:h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-white/60 mx-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="9 18 15 12 9 6"></polyline>
                       </svg>
                       {item.href && !item.isCurrentPage ? (
