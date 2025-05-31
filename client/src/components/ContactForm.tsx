@@ -98,25 +98,23 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         return;
       }
       
-      // Submit directly to the local API endpoint with Turnstile token
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: `${data.firstName} ${data.lastName}`,
-          email: data.email,
+      // Prepare data for the contact form API endpoint (restore original working method)
+      const contactFormData = createContactFormData(
+        FormType.GENERAL_CONTACT,
+        `${data.firstName} ${data.lastName}`,
+        data.email,
+        {
           phone: data.phone || '',
-          message: `Travel Dates: ${data.travelDates || 'Not specified'}\nPackage Interest: ${data.packageInterest || 'Not specified'}\n\nMessage: ${data.message}`,
-          turnstileToken: turnstileToken
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to submit form');
-      }
+          travelDates: data.travelDates || '',
+          packageInterest: data.packageInterest || '',
+          message: data.message,
+          subscribed: data.subscribed ? 'yes' : 'no',
+          turnstileToken: turnstileToken // Add Turnstile token to the data
+        }
+      );
+      
+      // Submit to the original working API endpoint
+      await submitContactForm(contactFormData);
         
       setSubmitStatus({
         type: 'success',
