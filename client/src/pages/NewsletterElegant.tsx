@@ -4,17 +4,37 @@ import { Mail, Check, ArrowRight, MapPin, Users, Globe, Calendar } from 'lucide-
 import HeroSection from '@/components/HeroSection';
 import { COLORS } from '@/utils/colors';
 import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
+import TurnstileWidget from '@/components/TurnstileWidget';
 
 const NewsletterElegant = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  const handleTurnstileSuccess = (token: string) => {
+    setTurnstileToken(token);
+  };
+  
+  const handleTurnstileExpired = () => {
+    setTurnstileToken(null);
+  };
+  
+  const handleTurnstileError = () => {
+    setTurnstileToken(null);
+    setSubmitStatus('error');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email || !name) return;
+    
+    if (!turnstileToken) {
+      setSubmitStatus('error');
+      return;
+    }
 
     try {
       setSubmitStatus('loading');
@@ -23,7 +43,10 @@ const NewsletterElegant = () => {
         FormType.NEWSLETTER_SIGNUP,
         name,
         email,
-        { source: 'newsletter_elegant_page' }
+        { 
+          source: 'newsletter_elegant_page',
+          turnstileToken: turnstileToken
+        }
       );
       
       const result = await submitContactForm(formData);
@@ -200,6 +223,14 @@ const NewsletterElegant = () => {
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
+
+                    {/* Security Verification */}
+                    <TurnstileWidget
+                      onSuccess={handleTurnstileSuccess}
+                      onExpired={handleTurnstileExpired}
+                      onError={handleTurnstileError}
+                      className="mb-4"
+                    />
 
                     <button
                       type="submit"
