@@ -4,6 +4,7 @@ import { Tag, BookOpen, Sun, Bell, Calendar, FileText, Send, CheckCircle, Mail, 
 import HeroSection from '@/components/HeroSection';
 import { COLORS } from '@/utils/colors';
 import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
+import TurnstileWidget from '@/components/TurnstileWidget';
 
 const NewsletterModern = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ const NewsletterModern = () => {
   const [interests, setInterests] = useState<string[]>([]);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const newsletterBenefits = [
     {
@@ -65,10 +67,28 @@ const NewsletterModern = () => {
     );
   };
 
+  const handleTurnstileSuccess = (token: string) => {
+    setTurnstileToken(token);
+  };
+  
+  const handleTurnstileExpired = () => {
+    setTurnstileToken(null);
+  };
+  
+  const handleTurnstileError = () => {
+    setTurnstileToken(null);
+    setSubmitStatus('error');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email || !name) return;
+    
+    if (!turnstileToken) {
+      setSubmitStatus('error');
+      return;
+    }
 
     try {
       setSubmitStatus('loading');
@@ -79,7 +99,8 @@ const NewsletterModern = () => {
         email,
         { 
           interests: interests.join(', '),
-          source: 'newsletter_page'
+          source: 'newsletter_page',
+          turnstileToken: turnstileToken
         }
       );
       
@@ -328,6 +349,14 @@ const NewsletterModern = () => {
                       ))}
                     </div>
                   </div>
+
+                  {/* Security Verification */}
+                  <TurnstileWidget
+                    onSuccess={handleTurnstileSuccess}
+                    onExpired={handleTurnstileExpired}
+                    onError={handleTurnstileError}
+                    className="mb-6"
+                  />
 
                   <div className="text-center">
                     <button
