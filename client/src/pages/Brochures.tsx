@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import HeroSection from '@/components/HeroSection';
 import { BreadcrumbItem } from '@/components/Breadcrumb';
 import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
+import TurnstileWidget from '@/components/TurnstileWidget';
 import { 
   FileText, 
   Download, 
@@ -23,6 +24,7 @@ const Brochures: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [selectedBrochures, setSelectedBrochures] = useState<string[]>([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   
   const brochures = [
     {
@@ -112,10 +114,6 @@ const Brochures: React.FC = () => {
   };
   
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: 'success' | 'error' | null;
-    message: string;
-  }>({ type: null, message: '' });
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
