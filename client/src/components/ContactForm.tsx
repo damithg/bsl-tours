@@ -6,6 +6,7 @@ import { insertInquirySchema } from '@shared/schema';
 import { apiRequest } from '@/lib/queryClient';
 import { submitContactForm, createContactFormData, FormType } from '@/utils/contactFormService';
 import { AlertCircle, CheckCircle } from 'lucide-react';
+import TurnstileWidget from './TurnstileWidget';
 
 // Extend the inquiry schema with additional validation
 const contactFormSchema = insertInquirySchema.extend({
@@ -31,43 +32,22 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
   
   // Turnstile state
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const turnstileRef = useRef<HTMLDivElement>(null);
   
-  // Load Cloudflare Turnstile script and set up callbacks
-  useEffect(() => {
-    // Set up global callback functions
-    (window as any).onTurnstileSuccess = (token: string) => {
-      setTurnstileToken(token);
-    };
-    
-    (window as any).onTurnstileExpired = () => {
-      setTurnstileToken(null);
-    };
-    
-    (window as any).onTurnstileError = () => {
-      setTurnstileToken(null);
-      setSubmitStatus({
-        type: 'error',
-        message: 'Security verification failed. Please try again.'
-      });
-    };
-    
-    const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-    
-    return () => {
-      if (document.head.contains(script)) {
-        document.head.removeChild(script);
-      }
-      // Clean up global callbacks
-      delete (window as any).onTurnstileSuccess;
-      delete (window as any).onTurnstileExpired;
-      delete (window as any).onTurnstileError;
-    };
-  }, []);
+  const handleTurnstileSuccess = (token: string) => {
+    setTurnstileToken(token);
+  };
+  
+  const handleTurnstileExpired = () => {
+    setTurnstileToken(null);
+  };
+  
+  const handleTurnstileError = () => {
+    setTurnstileToken(null);
+    setSubmitStatus({
+      type: 'error',
+      message: 'Security verification failed. Please try again.'
+    });
+  };
   
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -130,10 +110,8 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
         setSubmitStatus({ type: null, message: '' });
       }, 5000);
       
-      // Reset Turnstile widget for next submission
-      if ((window as any).turnstile) {
-        (window as any).turnstile.reset();
-      }
+      // Reset Turnstile widget for next submission  
+      setTurnstileToken(null);
       
     } catch (error) {
       console.error('Contact form submission failed:', error);
@@ -254,23 +232,13 @@ const ContactForm = ({ tourName, prefilledMessage }: ContactFormProps) => {
           </label>
         </div>
         
-        {/* Cloudflare Turnstile Section */}
-        <div className="mb-8">
-          <label className="block text-base font-medium font-['Raleway'] text-gray-700 mb-2">
-            Security Verification *
-          </label>
-          <div 
-            ref={turnstileRef}
-            className="cf-turnstile" 
-            data-sitekey="0x4AAAAAABfWL_H_a0x_xqoE"
-            data-callback="onTurnstileSuccess"
-            data-expired-callback="onTurnstileExpired"
-            data-error-callback="onTurnstileError"
-          ></div>
-          {!turnstileToken && (
-            <p className="mt-1 text-sm text-gray-500">Please complete the security verification above</p>
-          )}
-        </div>
+        {/* Security Verification */}
+        <TurnstileWidget
+          onSuccess={handleTurnstileSuccess}
+          onExpired={handleTurnstileExpired}
+          onError={handleTurnstileError}
+          className="mb-8"
+        />
         
         <button 
           type="submit" 
