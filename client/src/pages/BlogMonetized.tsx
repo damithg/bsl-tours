@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'wouter';
-import { Calendar, User, Clock, Tag, ArrowRight, Search, Share2, BookOpen, ChevronDown } from 'lucide-react';
+import { Calendar, Clock, Search, BookOpen, ChevronDown, ArrowRight } from 'lucide-react';
 import { COLORS } from '@/utils/colors';
 
-// Using the same blog data structure
 interface BlogPost {
   id: number;
   title: string;
   slug: string;
   excerpt: string;
-  content: string;
   featuredImage: string;
   author: {
     name: string;
@@ -21,14 +19,32 @@ interface BlogPost {
   tags: string[];
 }
 
-// Extended blog data for demonstration with 15 posts
+// Ad Component for monetization
+const AffiliateAd = ({ placement, size = "medium" }: { placement: string; size?: "small" | "medium" | "large" }) => {
+  const adSizes = {
+    small: "h-24",
+    medium: "h-32",
+    large: "h-48"
+  };
+
+  return (
+    <div className={`w-full ${adSizes[size]} bg-gradient-to-r from-blue-50 to-teal-50 border border-gray-200 rounded-lg flex items-center justify-center my-6`}>
+      <div className="text-center">
+        <p className="text-sm text-gray-500 mb-2">Advertisement</p>
+        <p className="text-xs text-gray-400">{placement} - {size}</p>
+        <p className="text-xs text-gray-300 mt-1">Google AdSense / Affiliate Partner</p>
+      </div>
+    </div>
+  );
+};
+
+// Extended blog data - 15 posts for demonstration
 const generateBlogPosts = (): BlogPost[] => [
   {
     id: 1,
     title: "Fantastic Places to Go in the Beautiful East Coast",
     slug: "fantastic-places-to-go-in-the-beautiful-east-coast",
-    excerpt: "Discover the pristine beaches, vibrant marine life, and cultural treasures that make Sri Lanka's east coast a must-visit destination for any traveler seeking authentic experiences.",
-    content: "",
+    excerpt: "Discover the pristine beaches, vibrant marine life, and cultural treasures that make Sri Lanka's east coast a must-visit destination.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/mirissa-beach.jpg",
     author: {
       name: "Sarah Johnson",
@@ -43,8 +59,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 2,
     title: "The Ultimate Guide to Sri Lankan Cuisine",
     slug: "ultimate-guide-sri-lankan-cuisine",
-    excerpt: "From spicy curries to sweet treats, explore the rich flavors and culinary traditions that make Sri Lankan food truly exceptional and unforgettable.",
-    content: "",
+    excerpt: "From spicy curries to sweet treats, explore the rich flavors and culinary traditions that make Sri Lankan food exceptional.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/sri-lankan-food.jpg",
     author: {
       name: "David Chen",
@@ -59,8 +74,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 3,
     title: "Wildlife Photography in Yala National Park",
     slug: "wildlife-photography-yala-national-park",
-    excerpt: "Professional tips for capturing stunning wildlife photos in one of Sri Lanka's premier national parks, from leopards to elephants.",
-    content: "",
+    excerpt: "Professional tips for capturing stunning wildlife photos in one of Sri Lanka's premier national parks.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/yala-leopard.jpg",
     author: {
       name: "Emma Williams",
@@ -75,8 +89,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 4,
     title: "Ancient Temples and Sacred Sites of Sri Lanka",
     slug: "ancient-temples-sacred-sites-sri-lanka",
-    excerpt: "Journey through centuries of spiritual heritage as we explore the most significant temples and sacred sites across the island.",
-    content: "",
+    excerpt: "Journey through centuries of spiritual heritage as we explore the most significant temples and sacred sites.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/temple-of-tooth.jpg",
     author: {
       name: "Michael Rodriguez",
@@ -91,8 +104,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 5,
     title: "Tea Country Adventures in Nuwara Eliya",
     slug: "tea-country-adventures-nuwara-eliya",
-    excerpt: "Experience the misty mountains and rolling tea plantations that make Sri Lanka's hill country a paradise for nature lovers.",
-    content: "",
+    excerpt: "Experience the misty mountains and rolling tea plantations that make Sri Lanka's hill country a paradise.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/tea-plantations.jpg",
     author: {
       name: "Lisa Thompson",
@@ -107,8 +119,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 6,
     title: "Best Budget Travel Tips for Sri Lanka",
     slug: "best-budget-travel-tips-sri-lanka",
-    excerpt: "Travel Sri Lanka on a budget without compromising on experiences. Essential tips for affordable accommodation, transport, and dining.",
-    content: "",
+    excerpt: "Travel Sri Lanka on a budget without compromising on experiences. Essential tips for affordable adventures.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/budget-travel.jpg",
     author: {
       name: "Alex Rivera",
@@ -123,8 +134,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 7,
     title: "Luxury Beach Resorts in Southern Sri Lanka",
     slug: "luxury-beach-resorts-southern-sri-lanka",
-    excerpt: "Discover the most exclusive beachfront resorts along Sri Lanka's stunning southern coastline, from Galle to Tangalle.",
-    content: "",
+    excerpt: "Discover the most exclusive beachfront resorts along Sri Lanka's stunning southern coastline.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/luxury-resort.jpg",
     author: {
       name: "Sophia Martinez",
@@ -139,8 +149,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 8,
     title: "Hiking Trails in Sri Lanka's Central Highlands",
     slug: "hiking-trails-central-highlands",
-    excerpt: "Explore breathtaking mountain trails, from Adam's Peak pilgrimage to the scenic routes through Horton Plains National Park.",
-    content: "",
+    excerpt: "Explore breathtaking mountain trails, from Adam's Peak pilgrimage to scenic routes through Horton Plains.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/hiking.jpg",
     author: {
       name: "James Wilson",
@@ -155,8 +164,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 9,
     title: "Ayurveda and Wellness Retreats",
     slug: "ayurveda-wellness-retreats",
-    excerpt: "Rejuvenate your mind and body with authentic Ayurvedic treatments and wellness programs in Sri Lanka's serene locations.",
-    content: "",
+    excerpt: "Rejuvenate your mind and body with authentic Ayurvedic treatments and wellness programs in serene locations.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/ayurveda.jpg",
     author: {
       name: "Dr. Priya Sharma",
@@ -172,7 +180,6 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "Street Food Adventures in Colombo",
     slug: "street-food-adventures-colombo",
     excerpt: "Navigate Colombo's vibrant street food scene and discover the authentic flavors that locals love.",
-    content: "",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/street-food.jpg",
     author: {
       name: "Ravi Patel",
@@ -187,8 +194,7 @@ const generateBlogPosts = (): BlogPost[] => [
     id: 11,
     title: "Photography Guide to Sigiriya Rock Fortress",
     slug: "photography-guide-sigiriya",
-    excerpt: "Master the art of photographing Sri Lanka's most iconic landmark with professional techniques and timing tips.",
-    content: "",
+    excerpt: "Master the art of photographing Sri Lanka's most iconic landmark with professional techniques.",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/sigiriya.jpg",
     author: {
       name: "Marcus Chen",
@@ -204,7 +210,6 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "Monsoon Season Travel Guide",
     slug: "monsoon-season-travel-guide",
     excerpt: "Make the most of Sri Lanka's monsoon seasons with strategic planning and destination recommendations.",
-    content: "",
     featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/monsoon.jpg",
     author: {
       name: "Weather Expert Team",
@@ -214,83 +219,17 @@ const generateBlogPosts = (): BlogPost[] => [
     readTime: 7,
     category: "Travel Tips",
     tags: ["Weather", "Monsoon", "Planning"]
-  },
-  {
-    id: 13,
-    title: "Whale Watching in Mirissa and Trincomalee",
-    slug: "whale-watching-mirissa-trincomalee",
-    excerpt: "Experience the magic of blue whale encounters in two of Sri Lanka's premier whale watching destinations.",
-    content: "",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/whale-watching.jpg",
-    author: {
-      name: "Marine Biologist Sara",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
-    },
-    publishedAt: "2024-02-15",
-    readTime: 10,
-    category: "Wildlife",
-    tags: ["Whales", "Marine Life", "Mirissa"]
-  },
-  {
-    id: 14,
-    title: "Cultural Festivals and Celebrations",
-    slug: "cultural-festivals-celebrations",
-    excerpt: "Immerse yourself in Sri Lanka's vibrant cultural calendar with festivals that showcase the island's rich traditions.",
-    content: "",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/festivals.jpg",
-    author: {
-      name: "Cultural Expert Maya",
-      avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face"
-    },
-    publishedAt: "2024-02-12",
-    readTime: 8,
-    category: "Culture",
-    tags: ["Festivals", "Culture", "Traditions"]
-  },
-  {
-    id: 15,
-    title: "Sustainable Tourism in Sri Lanka",
-    slug: "sustainable-tourism-sri-lanka",
-    excerpt: "Travel responsibly and support local communities while exploring Sri Lanka's natural and cultural treasures.",
-    content: "",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/sustainable-tourism.jpg",
-    author: {
-      name: "Eco Travel Team",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-    },
-    publishedAt: "2024-02-10",
-    readTime: 11,
-    category: "Sustainable",
-    tags: ["Eco-friendly", "Sustainable", "Responsible Travel"]
   }
 ];
 
-// Ad Component for monetization
-const AffiliateAd = ({ placement, size = "medium" }: { placement: string; size?: "small" | "medium" | "large" }) => {
-  const adSizes = {
-    small: "h-24",
-    medium: "h-32",
-    large: "h-48"
-  };
-
-  return (
-    <div className={`w-full ${adSizes[size]} bg-gradient-to-r from-blue-50 to-teal-50 border border-gray-200 rounded-lg flex items-center justify-center mb-6`}>
-      <div className="text-center">
-        <p className="text-sm text-gray-500 mb-2">Advertisement</p>
-        <p className="text-xs text-gray-400">{placement} - {size}</p>
-      </div>
-    </div>
-  );
-};
-
-const BlogAlternative = () => {
+const BlogMonetized = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [displayedPosts, setDisplayedPosts] = useState(6); // Start with 6 posts
+  const [displayedPosts, setDisplayedPosts] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
 
   const sampleBlogPosts = generateBlogPosts();
-  const categories = ['All', 'Destinations', 'Culture', 'Photography', 'Travel Tips', 'Adventure', 'Luxury', 'Wellness', 'Food', 'Wildlife', 'Sustainable'];
+  const categories = ['All', 'Destinations', 'Culture', 'Photography', 'Travel Tips', 'Adventure', 'Luxury', 'Wellness', 'Food'];
 
   const filteredPosts = sampleBlogPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -309,7 +248,6 @@ const BlogAlternative = () => {
 
   const loadMorePosts = () => {
     setIsLoading(true);
-    // Simulate loading delay
     setTimeout(() => {
       setDisplayedPosts(prev => Math.min(prev + 6, filteredPosts.length));
       setIsLoading(false);
@@ -322,7 +260,7 @@ const BlogAlternative = () => {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Minimal Hero Section */}
+      {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
           <div className="text-center mb-12">
@@ -342,8 +280,7 @@ const BlogAlternative = () => {
               placeholder="Search articles..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
-              style={{ '--tw-ring-color': COLORS.primary } as React.CSSProperties}
+              className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
@@ -367,14 +304,21 @@ const BlogAlternative = () => {
         </div>
       </section>
 
-      {/* Magazine-style Layout */}
-      <section className="py-16">
+      {/* Header Ad */}
+      <section className="py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <AffiliateAd placement="Header Banner" size="large" />
+        </div>
+      </section>
+
+      {/* Featured Article & Sidebar Layout */}
+      <section className="py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           {featuredPost && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
-              {/* Featured Article - Large */}
+              {/* Featured Article */}
               <article className="lg:col-span-8">
-                <div className="relative group cursor-pointer">
+                <Link href={`/blog/${featuredPost.slug}`} className="group block">
                   <div className="relative overflow-hidden rounded-2xl">
                     <img
                       src={featuredPost.featuredImage}
@@ -413,19 +357,19 @@ const BlogAlternative = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </article>
 
-              {/* Sidebar with smaller articles */}
+              {/* Sidebar */}
               <aside className="lg:col-span-4">
                 <div className="space-y-6">
                   <h3 className="font-['Playfair_Display'] text-2xl font-bold" style={{ color: COLORS.primary }}>
-                    Recent Stories
+                    Latest Stories
                   </h3>
                   
-                  {regularPosts.slice(0, 3).map((post, index) => (
-                    <article key={post.id} className="group cursor-pointer">
-                      <div className="flex gap-4">
+                  {regularPosts.slice(0, 3).map((post) => (
+                    <article key={post.id} className="group">
+                      <Link href={`/blog/${post.slug}`} className="flex gap-4">
                         <div className="flex-shrink-0">
                           <img
                             src={post.featuredImage}
@@ -448,34 +392,38 @@ const BlogAlternative = () => {
                           </h4>
                           <p className="text-sm text-gray-600 line-clamp-2">{post.excerpt}</p>
                         </div>
-                      </div>
+                      </Link>
                     </article>
                   ))}
+
+                  {/* Sidebar Ad */}
+                  <AffiliateAd placement="Sidebar" size="medium" />
                 </div>
               </aside>
             </div>
           )}
+        </div>
+      </section>
 
-          {/* Ad Placement - After Featured Content */}
-          <AffiliateAd placement="Below Featured Content" size="large" />
-
-          {/* Grid Layout for Remaining Articles */}
-          {regularPosts.length > 0 && (
-            <div>
-              <h3 className="font-['Playfair_Display'] text-3xl font-bold mb-8 text-center" style={{ color: COLORS.primary }}>
-                More Stories
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {regularPosts.map((post: BlogPost, index: number) => (
-                  <React.Fragment key={post.id}>
-                    {/* Insert ads every 3 posts */}
-                    {index > 0 && (index + 1) % 3 === 0 && (
-                      <div className="md:col-span-2 lg:col-span-3 mb-8">
-                        <AffiliateAd placement={`Between Posts ${index - 1}-${index + 1}`} size="medium" />
-                      </div>
-                    )}
-                    <article className="group cursor-pointer">
+      {/* More Articles Grid */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <h3 className="font-['Playfair_Display'] text-3xl font-bold mb-8 text-center" style={{ color: COLORS.primary }}>
+            More Stories
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {regularPosts.slice(3).map((post, index) => (
+              <div key={post.id}>
+                {/* Insert ads every 3 posts */}
+                {index > 0 && (index + 1) % 3 === 0 && (
+                  <div className="md:col-span-2 lg:col-span-3 mb-8">
+                    <AffiliateAd placement={`Between Posts ${index + 1}`} size="medium" />
+                  </div>
+                )}
+                
+                <article className="group">
+                  <Link href={`/blog/${post.slug}`} className="block">
                     <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
                       <div className="relative overflow-hidden">
                         <img
@@ -516,14 +464,10 @@ const BlogAlternative = () => {
                         </p>
                         
                         <div className="flex items-center justify-between">
-                          <Link 
-                            href={`/blog/${post.slug}`}
-                            className="inline-flex items-center gap-2 font-medium hover:gap-3 transition-all"
-                            style={{ color: COLORS.primary }}
-                          >
+                          <div className="flex items-center gap-2 text-blue-600 font-medium group-hover:gap-3 transition-all">
                             <BookOpen className="w-4 h-4" />
-                            Read Article
-                          </Link>
+                            <span>Read Article</span>
+                          </div>
                           
                           <div className="flex items-center gap-1 text-sm text-gray-400">
                             <Clock className="w-4 h-4" />
@@ -532,11 +476,40 @@ const BlogAlternative = () => {
                         </div>
                       </div>
                     </div>
-                  </article>
-                ))}
+                  </Link>
+                </article>
               </div>
+            ))}
+          </div>
+
+          {/* Load More Button */}
+          {hasMorePosts && (
+            <div className="text-center mt-12">
+              <button
+                onClick={loadMorePosts}
+                disabled={isLoading}
+                className="inline-flex items-center gap-3 px-8 py-4 bg-white border-2 rounded-full font-medium text-lg hover:shadow-lg transition-all disabled:opacity-50"
+                style={{ borderColor: COLORS.primary, color: COLORS.primary }}
+              >
+                {isLoading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                    Loading...
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-5 h-5" />
+                    Load More Articles
+                  </>
+                )}
+              </button>
             </div>
           )}
+
+          {/* Bottom Ad */}
+          <div className="mt-16">
+            <AffiliateAd placement="Bottom of Page" size="large" />
+          </div>
         </div>
       </section>
 
@@ -572,4 +545,4 @@ const BlogAlternative = () => {
   );
 };
 
-export default BlogAlternative;
+export default BlogMonetized;
