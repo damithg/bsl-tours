@@ -354,7 +354,7 @@ const Blog = () => {
                           <img
                             src={post.featuredImage}
                             alt={post.title}
-                            className="w-20 h-20 object-cover rounded-lg group-hover:shadow-lg transition-shadow"
+                            className="w-28 h-24 object-cover rounded-lg group-hover:shadow-lg transition-shadow"
                           />
                         </div>
                         <div className="flex-1 flex flex-col justify-center">
