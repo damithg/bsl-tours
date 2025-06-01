@@ -369,19 +369,19 @@ const Blog = () => {
                   
                   {regularPosts.slice(0, 3).map((post) => (
                     <article key={post.id} className="group">
-                      <Link href={`/blog/${post.slug}`} className="flex gap-4">
+                      <Link href={`/blog/${post.slug}`} className="flex gap-4 items-start">
                         <div className="flex-shrink-0">
                           <img
                             src={post.featuredImage}
                             alt={post.title}
-                            className="w-28 h-24 object-cover rounded-lg group-hover:shadow-lg transition-shadow"
+                            className="w-32 h-28 object-cover rounded-lg group-hover:shadow-lg transition-shadow"
                           />
                         </div>
-                        <div className="flex-1 flex flex-col justify-center">
-                          <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                        <div className="flex-1 min-h-[7rem] flex flex-col">
+                          <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors leading-tight">
                             {post.title}
                           </h4>
-                          <p className="text-sm text-gray-600 line-clamp-2 mb-3">{post.excerpt}</p>
+                          <p className="text-sm text-gray-600 line-clamp-2 mb-3 flex-1">{post.excerpt}</p>
                           <div className="flex items-center gap-2 mt-auto">
                             <span 
                               className="px-2 py-1 rounded text-xs font-medium text-white"
