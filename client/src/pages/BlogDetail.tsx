@@ -224,36 +224,29 @@ const BlogDetail = () => {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative pt-28 pb-20" style={{ backgroundColor: COLORS.primary }}>
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img 
-            src={sampleBlogPost.featuredImage}
-            alt={sampleBlogPost.title}
-            className="w-full h-full object-cover" 
-          />
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="relative pt-20 pb-16 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb Navigation */}
-          <nav className="flex text-white/90 mb-6" aria-label="Breadcrumb">
+          <nav className="flex text-gray-600 mb-6 pt-8" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
-                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-white">
+                <Link href="/" className="inline-flex items-center text-sm font-medium hover:text-blue-600 transition-colors">
                   <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                   Home
                 </Link>
               </li>
               <li>
                 <div className="flex items-center">
-                  <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                  <Link href="/blog" className="text-sm font-medium hover:text-white">
+                  <svg className="w-5 h-5 text-gray-400 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <Link href="/blog" className="text-sm font-medium hover:text-blue-600 transition-colors">
                     Travel Journal
                   </Link>
                 </div>
               </li>
               <li aria-current="page">
                 <div className="flex items-center">
-                  <svg className="w-5 h-5 text-white/60 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                  <span className="text-sm font-medium text-white/80">
+                  <svg className="w-5 h-5 text-gray-400 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <span className="text-sm font-medium text-gray-900">
                     {sampleBlogPost.category}
                   </span>
                 </div>
