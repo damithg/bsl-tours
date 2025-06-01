@@ -119,8 +119,8 @@ function Router() {
         <Route path="/bsl-club" component={BSLClub} />
         <Route path="/newsletter" component={Newsletter} />
         <Route path="/brochures" component={Brochures} />
-        <Route path="/blog" component={BlogModern} />
-        <Route path="/blog-monetized" component={BlogMonetized} />
+        <Route path="/blog" component={BlogMonetized} />
+        <Route path="/blog-modern" component={BlogModern} />
         <Route path="/blog/:slug" component={BlogDetail} />
         
         <Route component={NotFound} />

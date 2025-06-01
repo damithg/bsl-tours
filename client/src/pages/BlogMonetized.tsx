@@ -19,24 +19,7 @@ interface BlogPost {
   tags: string[];
 }
 
-// Ad Component for monetization
-const AffiliateAd = ({ placement, size = "medium" }: { placement: string; size?: "small" | "medium" | "large" }) => {
-  const adSizes = {
-    small: "h-24",
-    medium: "h-32",
-    large: "h-48"
-  };
 
-  return (
-    <div className={`w-full ${adSizes[size]} bg-gradient-to-r from-blue-50 to-teal-50 border border-gray-200 rounded-lg flex items-center justify-center my-6`}>
-      <div className="text-center">
-        <p className="text-sm text-gray-500 mb-2">Advertisement</p>
-        <p className="text-xs text-gray-400">{placement} - {size}</p>
-        <p className="text-xs text-gray-300 mt-1">Google AdSense / Affiliate Partner</p>
-      </div>
-    </div>
-  );
-};
 
 // Extended blog data - 15 posts for demonstration
 const generateBlogPosts = (): BlogPost[] => [
@@ -304,12 +287,7 @@ const BlogMonetized = () => {
         </div>
       </section>
 
-      {/* Header Ad */}
-      <section className="py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AffiliateAd placement="Header Banner" size="large" />
-        </div>
-      </section>
+
 
       {/* Featured Article & Sidebar Layout */}
       <section className="py-8">
@@ -396,8 +374,7 @@ const BlogMonetized = () => {
                     </article>
                   ))}
 
-                  {/* Sidebar Ad */}
-                  <AffiliateAd placement="Sidebar" size="medium" />
+
                 </div>
               </aside>
             </div>
@@ -415,12 +392,7 @@ const BlogMonetized = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {regularPosts.slice(3).map((post, index) => (
               <div key={post.id}>
-                {/* Insert ads every 3 posts */}
-                {index > 0 && (index + 1) % 3 === 0 && (
-                  <div className="md:col-span-2 lg:col-span-3 mb-8">
-                    <AffiliateAd placement={`Between Posts ${index + 1}`} size="medium" />
-                  </div>
-                )}
+
                 
                 <article className="group">
                   <Link href={`/blog/${post.slug}`} className="block">
@@ -506,10 +478,7 @@ const BlogMonetized = () => {
             </div>
           )}
 
-          {/* Bottom Ad */}
-          <div className="mt-16">
-            <AffiliateAd placement="Bottom of Page" size="large" />
-          </div>
+
         </div>
       </section>
 
