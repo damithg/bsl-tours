@@ -324,7 +324,7 @@ const Blog = () => {
               {/* Featured Article */}
               <article className="lg:col-span-8">
                 <Link href={`/blog/${featuredPost.slug}`} className="group block">
-                  <div className="relative overflow-hidden rounded-2xl h-[26rem]">
+                  <div className="relative overflow-hidden rounded-2xl h-[30rem]">
                     <img
                       src={featuredPost.featuredImage}
                       alt={featuredPost.title}
