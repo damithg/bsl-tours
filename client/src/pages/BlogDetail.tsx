@@ -40,7 +40,7 @@ const AffiliateAd = ({ placement, size = "medium" }: { placement: string; size?:
   );
 };
 
-// Sample blog post data
+// Sample blog post data with enhanced content
 const sampleBlogPost: BlogPost = {
   id: 1,
   title: "Fantastic Places to Go in the Beautiful East Coast",
@@ -49,8 +49,24 @@ const sampleBlogPost: BlogPost = {
   content: `
     <p>Sri Lanka's east coast is a hidden gem that offers some of the most breathtaking coastal experiences in the Indian Ocean. From pristine beaches to vibrant marine ecosystems, this region provides an authentic glimpse into the island's natural beauty and cultural heritage.</p>
 
+    <div class="my-8">
+      <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/arugam-bay-sunrise.jpg" alt="Sunrise at Arugam Bay" class="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg" />
+      <p class="text-sm text-gray-600 text-center mt-3 italic">Golden sunrise over Arugam Bay's pristine coastline</p>
+    </div>
+
     <h2>Arugam Bay: The Surfer's Paradise</h2>
     <p>Arugam Bay stands as one of the world's premier surfing destinations. The consistent swells and perfect waves make it ideal for both beginners and experienced surfers. The bay's crescent-shaped coastline creates optimal wave conditions from April to October.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+      <div>
+        <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/surfing-arugam-bay.jpg" alt="Surfing at Arugam Bay" class="w-full h-48 object-cover rounded-lg shadow-md" />
+        <p class="text-sm text-gray-600 text-center mt-2">World-class surfing waves</p>
+      </div>
+      <div>
+        <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/arugam-bay-beach.jpg" alt="Arugam Bay Beach" class="w-full h-48 object-cover rounded-lg shadow-md" />
+        <p class="text-sm text-gray-600 text-center mt-2">Crystal clear waters and golden sand</p>
+      </div>
+    </div>
 
     <p>Beyond surfing, Arugam Bay offers:</p>
     <ul>
@@ -60,8 +76,18 @@ const sampleBlogPost: BlogPost = {
       <li>Cultural visits to ancient temples</li>
     </ul>
 
+    <div class="my-8">
+      <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/arugam-bay-sunset.jpg" alt="Sunset at Arugam Bay" class="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg" />
+      <p class="text-sm text-gray-600 text-center mt-3 italic">Spectacular sunset views that make Arugam Bay unforgettable</p>
+    </div>
+
     <h2>Trincomalee: Ancient Harbor City</h2>
     <p>Trincomalee boasts one of the world's finest natural harbors and a rich history spanning over 2,000 years. The city combines colonial architecture, ancient Hindu temples, and pristine beaches.</p>
+
+    <div class="my-8">
+      <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/koneswaram-temple.jpg" alt="Koneswaram Temple" class="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg" />
+      <p class="text-sm text-gray-600 text-center mt-3 italic">The ancient Koneswaram Temple perched dramatically on Swami Rock</p>
+    </div>
 
     <p>Must-visit attractions include:</p>
     <ul>
@@ -71,16 +97,66 @@ const sampleBlogPost: BlogPost = {
       <li>Marble Beach for snorkeling</li>
     </ul>
 
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+      <div>
+        <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/nilaveli-beach.jpg" alt="Nilaveli Beach" class="w-full h-40 object-cover rounded-lg shadow-md" />
+        <p class="text-sm text-gray-600 text-center mt-2">Nilaveli's turquoise waters</p>
+      </div>
+      <div>
+        <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/whale-watching.jpg" alt="Whale watching" class="w-full h-40 object-cover rounded-lg shadow-md" />
+        <p class="text-sm text-gray-600 text-center mt-2">Blue whale encounters</p>
+      </div>
+      <div>
+        <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/marble-beach.jpg" alt="Marble Beach" class="w-full h-40 object-cover rounded-lg shadow-md" />
+        <p class="text-sm text-gray-600 text-center mt-2">Marble Beach snorkeling</p>
+      </div>
+    </div>
+
     <h2>Batticaloa: The Land of Singing Fish</h2>
     <p>Batticaloa offers a unique cultural experience with its lagoons, bridges, and the mysterious phenomenon of "singing fish" that can be heard on quiet nights near the Kallady Bridge.</p>
+
+    <div class="my-8">
+      <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/batticaloa-lagoon.jpg" alt="Batticaloa Lagoon" class="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg" />
+      <p class="text-sm text-gray-600 text-center mt-3 italic">The serene lagoons of Batticaloa at twilight</p>
+    </div>
 
     <h2>Best Time to Visit</h2>
     <p>The east coast enjoys a different monsoon pattern than the west and south coasts. The ideal time to visit is from April to September when the weather is dry and perfect for beach activities.</p>
 
+    <div class="bg-blue-50 p-6 rounded-xl my-8 border-l-4 border-blue-500">
+      <h3 class="font-bold text-lg mb-3 text-blue-900">Pro Tip: Weather Patterns</h3>
+      <p class="text-blue-800">Unlike the west coast, the east coast is at its best during the southwest monsoon period. Plan your visit between April and September for calm seas and sunny skies.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+      <div>
+        <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/east-coast-weather.jpg" alt="Perfect weather on east coast" class="w-full h-48 object-cover rounded-lg shadow-md" />
+        <p class="text-sm text-gray-600 text-center mt-2">Perfect beach weather from April to September</p>
+      </div>
+      <div>
+        <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/east-coast-activities.jpg" alt="Beach activities" class="w-full h-48 object-cover rounded-lg shadow-md" />
+        <p class="text-sm text-gray-600 text-center mt-2">Ideal conditions for water sports and beach activities</p>
+      </div>
+    </div>
+
     <h2>Planning Your Visit</h2>
     <p>To make the most of your east coast adventure, consider staying 5-7 days to explore multiple destinations. Many visitors combine their east coast trip with visits to ancient cities like Polonnaruwa or wildlife parks like Yala.</p>
+
+    <div class="my-8">
+      <img src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/east-coast-itinerary.jpg" alt="East coast travel map" class="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg" />
+      <p class="text-sm text-gray-600 text-center mt-3 italic">A suggested route for exploring Sri Lanka's magnificent east coast</p>
+    </div>
+
+    <div class="bg-gradient-to-r from-teal-50 to-blue-50 p-6 rounded-xl my-8">
+      <h3 class="font-bold text-lg mb-3 text-teal-900">Sample 7-Day East Coast Itinerary</h3>
+      <ul class="text-teal-800 space-y-2">
+        <li><strong>Days 1-3:</strong> Trincomalee - Temples, beaches, and whale watching</li>
+        <li><strong>Days 4-5:</strong> Arugam Bay - Surfing and sunset vibes</li>
+        <li><strong>Days 6-7:</strong> Batticaloa - Cultural immersion and lagoon exploration</li>
+      </ul>
+    </div>
   `,
-  featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/mirissa-beach.jpg",
+  featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/east-coast-hero.jpg",
   author: {
     name: "Sarah Johnson",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
