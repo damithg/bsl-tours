@@ -224,12 +224,16 @@ const BlogDetail = () => {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16">
+      <section className="relative pt-20 pb-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-gray-600 mb-8">
+          <nav className="flex items-center gap-2 text-sm text-gray-600 mb-8 pt-4">
+            <Link href="/" className="hover:text-blue-600 transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-4 h-4" />
             <Link
-              href="/blog-alternative"
+              href="/blog"
               className="hover:text-blue-600 transition-colors"
             >
               Travel Journal
