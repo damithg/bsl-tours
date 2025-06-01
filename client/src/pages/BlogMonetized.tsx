@@ -397,7 +397,7 @@ const BlogMonetized = () => {
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {regularPosts.slice(3).map((post, index) => (
+            {currentPosts.slice(3).map((post, index) => (
               <div key={post.id}>
 
                 
@@ -461,26 +461,42 @@ const BlogMonetized = () => {
             ))}
           </div>
 
-          {/* Load More Button */}
-          {hasMorePosts && (
-            <div className="text-center mt-12">
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-12">
               <button
-                onClick={loadMorePosts}
-                disabled={isLoading}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-white border-2 rounded-full font-medium text-lg hover:shadow-lg transition-all disabled:opacity-50"
-                style={{ borderColor: COLORS.primary, color: COLORS.primary }}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="p-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
-                    Loading...
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown className="w-5 h-5" />
-                    Load More Articles
-                  </>
-                )}
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              
+              <div className="flex gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                      currentPage === page
+                        ? 'text-white'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                    style={{
+                      backgroundColor: currentPage === page ? COLORS.primary : 'transparent'
+                    }}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+              
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="p-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           )}
