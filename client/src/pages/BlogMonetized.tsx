@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
-import { Calendar, Clock, Search, BookOpen, ChevronDown, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, Search, BookOpen, ChevronDown, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { COLORS } from '@/utils/colors';
 
 interface BlogPost {
@@ -208,8 +208,9 @@ const generateBlogPosts = (): BlogPost[] => [
 const BlogMonetized = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [displayedPosts, setDisplayedPosts] = useState(6);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const postsPerPage = 9;
 
   const sampleBlogPosts = generateBlogPosts();
   const categories = ['All', 'Destinations', 'Culture', 'Photography', 'Travel Tips', 'Adventure', 'Luxury', 'Wellness', 'Food'];
@@ -221,6 +222,21 @@ const BlogMonetized = () => {
     return matchesSearch && matchesCategory;
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const currentPosts = filteredPosts.slice(startIndex, startIndex + postsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 400, behavior: 'smooth' });
+  };
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategory]);
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -229,17 +245,8 @@ const BlogMonetized = () => {
     });
   };
 
-  const loadMorePosts = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setDisplayedPosts(prev => Math.min(prev + 6, filteredPosts.length));
-      setIsLoading(false);
-    }, 800);
-  };
-
   const featuredPost = filteredPosts[0];
-  const regularPosts = filteredPosts.slice(1, displayedPosts);
-  const hasMorePosts = displayedPosts < filteredPosts.length;
+  const regularPosts = filteredPosts.slice(1);
 
   return (
     <main className="min-h-screen bg-white">
