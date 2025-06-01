@@ -132,7 +132,7 @@ const BlogAlternative = () => {
   return (
     <main className="min-h-screen bg-white">
       {/* Minimal Hero Section */}
-      <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="pt-24 pb-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
           <div className="text-center mb-12">
             <h1 className="font-['Playfair_Display'] text-5xl md:text-6xl font-bold mb-6" style={{ color: COLORS.primary }}>
