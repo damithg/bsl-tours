@@ -314,7 +314,7 @@ const BlogDetail = () => {
 
       {/* Article Content */}
       <section className="py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Main Content */}
             <article className="lg:col-span-8">
@@ -409,7 +409,7 @@ const BlogDetail = () => {
 
       {/* Back to Blog */}
       <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Link
             href="/blog-alternative"
             className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-300 rounded-lg hover:shadow-md transition-all"
