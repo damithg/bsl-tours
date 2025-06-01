@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useRoute } from 'wouter';
-import { Calendar, Clock, User, Share2, ArrowLeft, Tag, Facebook, Twitter, Linkedin, Copy, ChevronRight } from 'lucide-react';
+import { Calendar, Clock, User, Share2, ArrowLeft, Tag, Facebook, Twitter, Linkedin, Copy, ChevronRight, ArrowRight, Check } from 'lucide-react';
 import { COLORS } from '@/utils/colors';
 
 // Blog post interface
@@ -323,7 +323,63 @@ const BlogDetail = () => {
                 dangerouslySetInnerHTML={{ __html: sampleBlogPost.content }}
               />
 
-              {/* Ad Placement - Mid Content */}
+              {/* Tour Promotion - Mid Content */}
+              <div className="my-12 p-8 bg-gradient-to-r from-blue-50 to-teal-50 border border-blue-200 rounded-2xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <h3 className="font-['Playfair_Display'] text-2xl font-bold mb-4" style={{ color: COLORS.primary }}>
+                      Experience the East Coast with BSL Tours
+                    </h3>
+                    <p className="text-gray-700 mb-6">
+                      Ready to explore these incredible destinations? Our expert-crafted East Coast Discovery tour takes you to all the places mentioned in this article, with luxury accommodations and local guides.
+                    </p>
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.primary }}></div>
+                        <span className="text-gray-700">Private chauffeur and luxury vehicle</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.primary }}></div>
+                        <span className="text-gray-700">Hand-picked boutique accommodations</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.primary }}></div>
+                        <span className="text-gray-700">Expert local guides and authentic experiences</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Link 
+                        href="/tours"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-medium hover:shadow-lg transition-all"
+                        style={{ backgroundColor: COLORS.primary }}
+                      >
+                        View East Coast Tours
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                      <Link 
+                        href="/contact"
+                        className="inline-flex items-center gap-2 px-6 py-3 border-2 rounded-lg font-medium hover:shadow-md transition-all"
+                        style={{ borderColor: COLORS.primary, color: COLORS.primary }}
+                      >
+                        Get Custom Quote
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <img 
+                      src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/luxury-tour-vehicle.jpg" 
+                      alt="BSL Tours luxury vehicle" 
+                      className="w-full h-64 object-cover rounded-xl shadow-lg"
+                    />
+                    <div className="absolute top-4 left-4 bg-white px-3 py-2 rounded-lg shadow-md">
+                      <p className="text-sm font-semibold" style={{ color: COLORS.primary }}>From $899</p>
+                      <p className="text-xs text-gray-600">7-day package</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Ad Placement - After Tour Promotion */}
               <AffiliateAd placement="Mid Article" size="large" />
 
               {/* Tags */}
@@ -361,41 +417,158 @@ const BlogDetail = () => {
             {/* Sidebar */}
             <aside className="lg:col-span-4">
               <div className="sticky top-24 space-y-8">
-                {/* Ad Placement - Sidebar */}
-                <AffiliateAd placement="Sidebar Top" size="medium" />
-
-                {/* Related Tours CTA */}
-                <div className="bg-gradient-to-br from-blue-50 to-teal-50 p-6 rounded-xl border border-gray-200">
-                  <h3 className="font-['Playfair_Display'] text-xl font-bold mb-3" style={{ color: COLORS.primary }}>
-                    Ready to Explore?
+                {/* Featured East Coast Tours */}
+                <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                  <h3 className="font-['Playfair_Display'] text-xl font-bold mb-4" style={{ color: COLORS.primary }}>
+                    Related Tours
                   </h3>
-                  <p className="text-gray-600 mb-4">
-                    Turn this travel inspiration into your own adventure with our curated east coast tours.
-                  </p>
+                  
+                  <div className="space-y-4">
+                    <div className="border border-gray-100 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/arugam-bay-tour.jpg" 
+                        alt="East Coast Discovery Tour" 
+                        className="w-full h-32 object-cover"
+                      />
+                      <div className="p-4">
+                        <h4 className="font-semibold text-gray-900 mb-2">East Coast Discovery</h4>
+                        <p className="text-sm text-gray-600 mb-3">7 days exploring Trincomalee, Arugam Bay & Batticaloa</p>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold" style={{ color: COLORS.primary }}>From $899</span>
+                          <Link 
+                            href="/tours"
+                            className="text-sm font-medium hover:underline"
+                            style={{ color: COLORS.primary }}
+                          >
+                            View Details
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border border-gray-100 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                      <img 
+                        src="https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/cultural-triangle.jpg" 
+                        alt="Cultural & Coast Combo" 
+                        className="w-full h-32 object-cover"
+                      />
+                      <div className="p-4">
+                        <h4 className="font-semibold text-gray-900 mb-2">Cultural & Coast Combo</h4>
+                        <p className="text-sm text-gray-600 mb-3">Ancient cities + pristine east coast beaches</p>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold" style={{ color: COLORS.primary }}>From $1,299</span>
+                          <Link 
+                            href="/tours"
+                            className="text-sm font-medium hover:underline"
+                            style={{ color: COLORS.primary }}
+                          >
+                            View Details
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <Link
                     href="/tours"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium hover:shadow-lg transition-all"
+                    className="inline-flex items-center gap-2 px-4 py-3 mt-4 w-full justify-center rounded-lg text-white font-medium hover:shadow-lg transition-all"
                     style={{ backgroundColor: COLORS.primary }}
                   >
-                    View Tours
-                    <ChevronRight className="w-4 h-4" />
+                    View All East Coast Tours
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                {/* Free Travel Guide CTA */}
+                <div className="bg-gradient-to-br from-blue-50 to-teal-50 p-6 rounded-xl border border-blue-200">
+                  <h3 className="font-['Playfair_Display'] text-xl font-bold mb-3" style={{ color: COLORS.primary }}>
+                    Free Sri Lanka Travel Guide
+                  </h3>
+                  <p className="text-gray-700 mb-4">
+                    Get our comprehensive 47-page travel guide with insider tips, hidden gems, and detailed itineraries.
+                  </p>
+                  <div className="space-y-3 mb-4">
+                    <div className="flex items-center gap-2">
+                      <Check className="w-4 h-4" style={{ color: COLORS.primary }} />
+                      <span className="text-sm text-gray-700">Best time to visit each region</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="w-4 h-4" style={{ color: COLORS.primary }} />
+                      <span className="text-sm text-gray-700">Budget planning worksheets</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="w-4 h-4" style={{ color: COLORS.primary }} />
+                      <span className="text-sm text-gray-700">Local restaurant recommendations</span>
+                    </div>
+                  </div>
+                  <Link
+                    href="/brochures"
+                    className="inline-flex items-center gap-2 px-4 py-3 w-full justify-center rounded-lg text-white font-medium hover:shadow-lg transition-all"
+                    style={{ backgroundColor: COLORS.primary }}
+                  >
+                    Download Free Guide
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                {/* Why Choose BSL Tours */}
+                <div className="bg-white p-6 rounded-xl border border-gray-200">
+                  <h3 className="font-['Playfair_Display'] text-xl font-bold mb-4" style={{ color: COLORS.primary }}>
+                    Why Choose BSL Tours?
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center mt-0.5" style={{ backgroundColor: COLORS.primary }}>
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Local Expertise</p>
+                        <p className="text-sm text-gray-600">8+ years of Sri Lanka travel experience</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center mt-0.5" style={{ backgroundColor: COLORS.primary }}>
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Personalized Service</p>
+                        <p className="text-sm text-gray-600">Tailored itineraries for every traveler</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center mt-0.5" style={{ backgroundColor: COLORS.primary }}>
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">24/7 Support</p>
+                        <p className="text-sm text-gray-600">Local assistance throughout your journey</p>
+                      </div>
+                    </div>
+                  </div>
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 px-4 py-2 mt-4 border-2 rounded-lg font-medium hover:shadow-md transition-all w-full justify-center"
+                    style={{ borderColor: COLORS.primary, color: COLORS.primary }}
+                  >
+                    Learn More About Us
                   </Link>
                 </div>
 
                 {/* Newsletter Signup */}
-                <div className="bg-white p-6 rounded-xl border border-gray-200">
+                <div className="bg-gradient-to-br from-gray-50 to-blue-50 p-6 rounded-xl border border-gray-200">
                   <h3 className="font-['Playfair_Display'] text-xl font-bold mb-3" style={{ color: COLORS.primary }}>
-                    Get More Travel Tips
+                    Weekly Travel Insights
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    Subscribe for weekly insights and exclusive travel guides.
+                    Join 15,000+ travelers getting exclusive tips, hidden gems, and special offers.
                   </p>
                   <Link
                     href="/newsletter"
-                    className="inline-flex items-center gap-2 px-4 py-2 border-2 rounded-lg font-medium hover:shadow-md transition-all"
+                    className="inline-flex items-center gap-2 px-4 py-3 w-full justify-center rounded-lg font-medium hover:shadow-md transition-all border-2"
                     style={{ borderColor: COLORS.primary, color: COLORS.primary }}
                   >
                     Subscribe Now
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
 
