@@ -198,7 +198,7 @@ const BlogDetail = () => {
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative pt-24 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-gray-600 mb-8">
             <Link href="/blog-alternative" className="hover:text-blue-600 transition-colors">

@@ -262,7 +262,7 @@ const BlogMonetized = () => {
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="font-['Playfair_Display'] text-5xl md:text-6xl font-bold mb-6" style={{ color: COLORS.primary }}>
               Travel Journal
@@ -306,14 +306,14 @@ const BlogMonetized = () => {
 
       {/* Header Ad */}
       <section className="py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AffiliateAd placement="Header Banner" size="large" />
         </div>
       </section>
 
       {/* Featured Article & Sidebar Layout */}
       <section className="py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {featuredPost && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
               {/* Featured Article */}
@@ -407,7 +407,7 @@ const BlogMonetized = () => {
 
       {/* More Articles Grid */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="font-['Playfair_Display'] text-3xl font-bold mb-8 text-center" style={{ color: COLORS.primary }}>
             More Stories
           </h3>
@@ -515,7 +515,7 @@ const BlogMonetized = () => {
 
       {/* Call to Action */}
       <section className="py-16 bg-gradient-to-r from-blue-50 to-teal-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold mb-4" style={{ color: COLORS.primary }}>
             Ready for Your Sri Lankan Adventure?
           </h2>
