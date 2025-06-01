@@ -205,7 +205,7 @@ const generateBlogPosts = (): BlogPost[] => [
   }
 ];
 
-const BlogMonetized = () => {
+const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
@@ -329,11 +329,6 @@ const BlogMonetized = () => {
                       </p>
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-3">
-                          <img
-                            src={featuredPost.author.avatar}
-                            alt={featuredPost.author.name}
-                            className="w-10 h-10 rounded-full border-2 border-white"
-                          />
                           <div>
                             <p className="font-medium">{featuredPost.author.name}</p>
                             <p className="text-sm opacity-75">{featuredPost.readTime} min read</p>
@@ -423,11 +418,6 @@ const BlogMonetized = () => {
                       <div className="p-6">
                         <div className="flex items-center gap-3 text-sm text-gray-500 mb-3">
                           <div className="flex items-center gap-2">
-                            <img
-                              src={post.author.avatar}
-                              alt={post.author.name}
-                              className="w-6 h-6 rounded-full"
-                            />
                             <span>{post.author.name}</span>
                           </div>
                           <span>•</span>
@@ -537,4 +527,4 @@ const BlogMonetized = () => {
   );
 };
 
-export default BlogMonetized;
+export default Blog;

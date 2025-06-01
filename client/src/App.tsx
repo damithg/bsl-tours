@@ -38,8 +38,7 @@ import Affiliates from "@/pages/Affiliates";
 import BSLClub from "@/pages/BSLClub";
 import Newsletter from "@/pages/Newsletter";
 import Brochures from "@/pages/Brochures";
-import BlogModern from "@/pages/BlogModern";
-import BlogMonetized from "@/pages/BlogMonetized";
+import Blog from "@/pages/Blog";
 import BlogDetail from "@/pages/BlogDetail";
 
 import Header from "@/components/Header";
@@ -119,8 +118,7 @@ function Router() {
         <Route path="/bsl-club" component={BSLClub} />
         <Route path="/newsletter" component={Newsletter} />
         <Route path="/brochures" component={Brochures} />
-        <Route path="/blog" component={BlogMonetized} />
-        <Route path="/blog-modern" component={BlogModern} />
+        <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogDetail} />
         
         <Route component={NotFound} />
