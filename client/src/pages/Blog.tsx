@@ -43,7 +43,7 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "The Ultimate Guide to Sri Lankan Cuisine",
     slug: "ultimate-guide-sri-lankan-cuisine",
     excerpt: "From spicy curries to sweet treats, explore the rich flavors and culinary traditions that make Sri Lankan food exceptional.",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/sri-lankan-food.jpg",
+    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1747699564/resources/regional-food.jpg",
     author: {
       name: "David Chen",
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
@@ -73,7 +73,7 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "Ancient Temples and Sacred Sites of Sri Lanka",
     slug: "ancient-temples-sacred-sites-sri-lanka",
     excerpt: "Journey through centuries of spiritual heritage as we explore the most significant temples and sacred sites.",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/temple-of-tooth.jpg",
+    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743256026/dambulla-cave-temples_xpkz40.jpg",
     author: {
       name: "Michael Rodriguez",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
@@ -88,7 +88,7 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "Tea Country Adventures in Nuwara Eliya",
     slug: "tea-country-adventures-nuwara-eliya",
     excerpt: "Experience the misty mountains and rolling tea plantations that make Sri Lanka's hill country a paradise.",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/tea-plantations.jpg",
+    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1747709686/experiences/nuwara-eliya-tea-plucking.jpg",
     author: {
       name: "Lisa Thompson",
       avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face"
@@ -103,7 +103,7 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "Best Budget Travel Tips for Sri Lanka",
     slug: "best-budget-travel-tips-sri-lanka",
     excerpt: "Travel Sri Lanka on a budget without compromising on experiences. Essential tips for affordable adventures.",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/budget-travel.jpg",
+    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744182888/itineraries/weligama-surf.jpg",
     author: {
       name: "Alex Rivera",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
@@ -118,7 +118,7 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "Luxury Beach Resorts in Southern Sri Lanka",
     slug: "luxury-beach-resorts-southern-sri-lanka",
     excerpt: "Discover the most exclusive beachfront resorts along Sri Lanka's stunning southern coastline.",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/luxury-resort.jpg",
+    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744182732/itineraries/mirissa-day.jpg",
     author: {
       name: "Sophia Martinez",
       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
@@ -133,7 +133,7 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "Hiking Trails in Sri Lanka's Central Highlands",
     slug: "hiking-trails-central-highlands",
     excerpt: "Explore breathtaking mountain trails, from Adam's Peak pilgrimage to scenic routes through Horton Plains.",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/hiking.jpg",
+    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1743677654/features/ella-caves.jpg",
     author: {
       name: "James Wilson",
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
@@ -148,7 +148,7 @@ const generateBlogPosts = (): BlogPost[] => [
     title: "Ayurveda and Wellness Retreats",
     slug: "ayurveda-wellness-retreats",
     excerpt: "Rejuvenate your mind and body with authentic Ayurvedic treatments and wellness programs in serene locations.",
-    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744094008/activities/ayurveda.jpg",
+    featuredImage: "https://res.cloudinary.com/drsjp6bqz/image/upload/v1744182998/itineraries/weligama-yoga.jpg",
     author: {
       name: "Dr. Priya Sharma",
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
@@ -357,20 +357,20 @@ const Blog = () => {
                             className="w-20 h-20 object-cover rounded-lg group-hover:shadow-lg transition-shadow"
                           />
                         </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
+                        <div className="flex-1 flex flex-col justify-center">
+                          <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                            {post.title}
+                          </h4>
+                          <p className="text-sm text-gray-600 line-clamp-2 mb-3">{post.excerpt}</p>
+                          <div className="flex items-center gap-2 mt-auto">
                             <span 
                               className="px-2 py-1 rounded text-xs font-medium text-white"
                               style={{ backgroundColor: COLORS.primary }}
                             >
                               {post.category}
                             </span>
-                            <span className="text-xs text-gray-500">{formatDate(post.publishedAt)}</span>
+                            <span className="text-xs text-gray-500">{post.readTime} min read</span>
                           </div>
-                          <h4 className="font-semibold text-gray-900 mb-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                            {post.title}
-                          </h4>
-                          <p className="text-sm text-gray-600 line-clamp-2">{post.excerpt}</p>
                         </div>
                       </Link>
                     </article>
