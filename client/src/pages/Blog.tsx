@@ -324,11 +324,11 @@ const Blog = () => {
               {/* Featured Article */}
               <article className="lg:col-span-8">
                 <Link href={`/blog/${featuredPost.slug}`} className="group block">
-                  <div className="relative overflow-hidden rounded-2xl">
+                  <div className="relative overflow-hidden rounded-2xl h-[26rem]">
                     <img
                       src={featuredPost.featuredImage}
                       alt={featuredPost.title}
-                      className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
