@@ -38,6 +38,8 @@ import Affiliates from "@/pages/Affiliates";
 import BSLClub from "@/pages/BSLClub";
 import Newsletter from "@/pages/Newsletter";
 import Brochures from "@/pages/Brochures";
+import BlogModern from "@/pages/BlogModern";
+import BlogAlternative from "@/pages/BlogAlternative";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -116,6 +118,8 @@ function Router() {
         <Route path="/bsl-club" component={BSLClub} />
         <Route path="/newsletter" component={Newsletter} />
         <Route path="/brochures" component={Brochures} />
+        <Route path="/blog" component={BlogModern} />
+        <Route path="/blog-alternative" component={BlogAlternative} />
         
         <Route component={NotFound} />
       </Switch>
