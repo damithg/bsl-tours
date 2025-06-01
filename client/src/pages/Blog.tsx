@@ -394,11 +394,9 @@ const Blog = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {currentPosts.slice(3).map((post, index) => (
               <div key={post.id}>
-
-                
-                <article className="group">
-                  <Link href={`/blog/${post.slug}`} className="block">
-                    <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                <article className="group h-full">
+                  <Link href={`/blog/${post.slug}`} className="block h-full">
+                    <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                       <div className="relative overflow-hidden">
                         <img
                           src={post.featuredImage}
@@ -415,7 +413,7 @@ const Blog = () => {
                         </div>
                       </div>
                       
-                      <div className="p-6">
+                      <div className="p-6 flex-1 flex flex-col">
                         <div className="flex items-center gap-3 text-sm text-gray-500 mb-3">
                           <div className="flex items-center gap-2">
                             <span>{post.author.name}</span>
@@ -424,15 +422,15 @@ const Blog = () => {
                           <span>{formatDate(post.publishedAt)}</span>
                         </div>
                         
-                        <h3 className="font-['Playfair_Display'] text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                        <h3 className="font-['Playfair_Display'] text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 min-h-[3.5rem]">
                           {post.title}
                         </h3>
                         
-                        <p className="text-gray-600 mb-4 line-clamp-3">
+                        <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
                           {post.excerpt}
                         </p>
                         
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mt-auto">
                           <div className="flex items-center gap-2 text-blue-600 font-medium group-hover:gap-3 transition-all">
                             <BookOpen className="w-4 h-4" />
                             <span>Read Article</span>
